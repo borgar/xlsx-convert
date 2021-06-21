@@ -9,19 +9,23 @@ class Workbook {
   }
 
   toJSON () {
-    return {
+    const wb = {
       filename: this.filename || '',
       names: this.names,
       sheets: this.sheets,
       metadata: this.metadata
     };
+    if (!this.options.cell_styles) {
+      wb.styles = this.styles;
+    }
+    return wb;
   }
 }
 
 module.exports = dom => {
   const wb = new Workbook();
 
-  dom.getElementsByTagName('sheet')
+  dom.querySelectorAll('sheets > sheet')
     .forEach(d => {
       wb.sheets.push({
         name: attr(d, 'name'),
@@ -37,6 +41,9 @@ module.exports = dom => {
         value: d.textContent
       });
     });
+
+  const pr = dom.querySelectorAll('workbook > workbookPr')[0];
+  wb.epoch = (pr && +attr(pr, 'date1904')) ? 1904 : 1900;
 
   return wb;
 };

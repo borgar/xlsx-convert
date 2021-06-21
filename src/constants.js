@@ -48,3 +48,60 @@ exports.BUILTIN_FORMATS = {
   49: '@'
 };
 
+// Default Color Index as per 18.8.27 of ECMA Part 4
+exports.COLOR_INDEX = [
+  'FF000000', 'FFFFFFFF', 'FFFF0000', 'FF00FF00', 'FF0000FF', // 0-4
+  'FFFFFF00', 'FFFF00FF', 'FF00FFFF', 'FF000000', 'FFFFFFFF', // 5-9
+  'FFFF0000', 'FF00FF00', 'FF0000FF', 'FFFFFF00', 'FFFF00FF', // 10-14
+  'FF00FFFF', 'FF800000', 'FF008000', 'FF000080', 'FF808000', // 15-19
+  'FF800080', 'FF008080', 'FFC0C0C0', 'FF808080', 'FF9999FF', // 20-24
+  'FF993366', 'FFFFFFCC', 'FFCCFFFF', 'FF660066', 'FFFF8080', // 25-29
+  'FF0066CC', 'FFCCCCFF', 'FF000080', 'FFFF00FF', 'FFFFFF00', // 30-34
+  'FF00FFFF', 'FF800080', 'FF800000', 'FF008080', 'FF0000FF', // 35-39
+  'FF00CCFF', 'FFCCFFFF', 'FFCCFFCC', 'FFFFFF99', 'FF99CCFF', // 40-44
+  'FFFF99CC', 'FFCC99FF', 'FFFFCC99', 'FF3366FF', 'FF33CCCC', // 45-49
+  'FF99CC00', 'FFFFCC00', 'FFFF9900', 'FFFF6600', 'FF666699', // 50-54
+  'FF969696', 'FF003366', 'FF339966', 'FF003300', 'FF333300', // 55-59
+  'FF993300', 'FF993366', 'FF333399', 'FF333333', 'System Foreground', // 60-64
+  'System Background' // 65
+];
+
+// https://social.technet.microsoft.com/Forums/windows/en-US/ac76cc56-6ff2-4778-b260-8141d7170a3b/windows-7-highlight-text-color-or-selected-text-color-in-aero
+exports.NAMED_COLORS = {
+  // not sure why this is reversed?
+  'system foreground': 'FF000000',
+  'system background': 'FFFFFFFF',
+  // 'system foreground': 'FFFFFFFF',
+  // 'system background': 'FF000000',
+  'activeborder': 'FFB4B4B4',
+  'activetitle': 'FF99B4D1',
+  'appworkspace': 'FFABABAB',
+  'background': 'FF000000',
+  'buttonalternateface': 'FF000000',
+  'buttondkshadow': 'FF696969',
+  'buttonface': 'FFF0F0F0',
+  'buttonhilight': 'FFFFFFFF',
+  'buttonlight': 'FFE3E3E3',
+  'buttonshadow': 'FFA0A0A0',
+  'buttontext': 'FF000000',
+  'gradientactivetitle': 'FFB9D1EA',
+  'gradientinactivetitle': 'FFD7E4F2',
+  'graytext': 'FF6D6D6D',
+  'hilight': 'FF3399FF',
+  'hilighttext': 'FFFFFFFF',
+  'hottrackingcolor': 'FF0066CC',
+  'inactiveborder': 'FFF4F7FC',
+  'inactivetitle': 'FFBFCDDB',
+  'inactivetitletext': 'FF000000',
+  'infotext': 'FF000000',
+  'infowindow': 'FFFFFFE1',
+  'menu': 'FFF0F0F0',
+  'menubar': 'FFF0F0F0',
+  'menuhilight': 'FF3399FF',
+  'menutext': 'FF000000',
+  'scrollbar': 'FFC8C8C8',
+  'titletext': 'FF000000',
+  'window': 'FFFFFFFF',
+  'windowframe': 'FF646464',
+  'windowtext': 'FF000000'
+};

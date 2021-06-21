@@ -1,10 +1,9 @@
 /* eslint-disable require-atomic-updates */
-const fs = require('fs');
+const fs = require('fs').promises;
 const path = require('path');
 const JSZip = require('jszip');
-const promisify = require('util').promisify;
-const readFile = promisify(fs.readFile);
 const xml = require('@borgar/simple-xml');
+const convertStyles = require('./utils/convertStyles');
 
 const handlerRels = require('./rels');
 const handlerWorkbook = require('./workbook');
@@ -18,11 +17,19 @@ const handlerMetadata = require('./metadata');
 const handlerComments = require('./comments');
 const handlerSheet = require('./worksheet');
 
-const DEFAULT_OPTIONS = { styles: true };
+const DEFAULT_OPTIONS = {
+  // skip cells that are a part of merges
+  skip_merged: true,
+  // styles are attached to cells rather than being included separately
+  cell_styles: false,
+  // number format is set as z on cells (in addition to existing as 'number-format' in styles)
+  // [always true when cell_styles=true]
+  cell_z: false
+};
 
-exports.load = async function load (fn, options = DEFAULT_OPTIONS) {
+module.exports = async function convert (fn, options = DEFAULT_OPTIONS) {
   const zip = new JSZip();
-  const fdesc = await zip.loadAsync(await readFile(fn));
+  const fdesc = await zip.loadAsync(await fs.readFile(fn));
 
   const getFile = async f => {
     const fd = fdesc.file(f);
@@ -65,7 +72,8 @@ exports.load = async function load (fn, options = DEFAULT_OPTIONS) {
 
   // theme / styles
   wb.theme = await maybeRead(wb, 'theme', handlerTheme);
-  wb.styles = await maybeRead(wb, 'styles', handlerStyles);
+  wb.styleDefs = await maybeRead(wb, 'styles', handlerStyles);
+  wb.styles = convertStyles(wb.styleDefs);
 
   // richData (needed for Excel 2020 compatibility)
   wb.richStuct = await maybeRead(wb, 'rdRichValueStructure', handlerRDStuct);
@@ -93,6 +101,13 @@ exports.load = async function load (fn, options = DEFAULT_OPTIONS) {
       throw new Error('No rel found for sheet ' + sheet.$rId);
     }
   }));
+
+  if (options.cell_styles) {
+    wb.styles.forEach(() => {
+
+    });
+    wb.styles = [];
+  }
 
   return wb;
 };

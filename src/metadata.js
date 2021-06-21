@@ -32,8 +32,8 @@ module.exports = (dom, wb) => {
     const rc = bk.getElementsByTagName('rc')[0];
     const t = +attr(rc, 't', 0);
     const v = +attr(rc, 'v', 0);
-    // BT: not actually sure t refers to tables like this.
-    //     it seems to make sense, but will need more data or docs
+    // BÞ: not actually sure t refers to tables like this.
+    //     it seems to make sense, but will need more data or documentation
     if (t === 1) {
       return tables.XLDAPR[v];
     }

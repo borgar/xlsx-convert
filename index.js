@@ -1,6 +1,6 @@
-const { load } = require('./src/transpile');
+const convert = require('./src');
 
-const arg = process.argv.filter(d => /\.xlsx$/.test(d))
+const arg = process.argv.filter(d => /\.xlsx$/.test(d));
 
 if (arg.length > 1) {
   console.error('One file at time plz!');
@@ -8,8 +8,9 @@ if (arg.length > 1) {
 }
 
 async function convertFile (fn) {
-  const wb = await load(fn);
+  const wb = await convert(fn);
   const output = JSON.stringify(wb, null, 2);
+  /* eslint-disable-next-line */
   console.log(output);
 }
 

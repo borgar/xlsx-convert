@@ -40,7 +40,7 @@ module.exports = dom => {
       if (index == null) {
         index = theme.scheme.length;
       }
-      d.childNodes.forEach(c => {
+      d.children.forEach(c => {
         // one of: [ srgbClr, sysClr ]
         // other variants in VML: [ scrgbClr, srgbClr, hslClr, sysClr, schemeClr, prstClr ]
         // TODO: determine if alternate colors are able to turn up in clrScheme.

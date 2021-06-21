@@ -28,13 +28,13 @@ const readXf = (d, styles) => {
     xf.fill = styles.fill[+fillId];
   }
 
-  const fontId = +attr(d, 'applyFont', 0) ? attr(d, 'fontId') : null;
-  if (fontId) {
+  const fontId = attr(d, 'fontId');
+  if (fontId != null) {
     xf.fontId = +fontId;
     xf.font = styles.font[+fontId];
   }
 
-  const borderId = +attr(d, 'applyBorder', 0) ? attr(d, 'borderId') : null;
+  const borderId = attr(d, 'borderId');
   if (borderId) {
     xf.borderId = +borderId;
     xf.border = styles.border[+borderId];
@@ -58,7 +58,7 @@ const readXf = (d, styles) => {
 const readBorder = (node, side, theme) => {
   const b = node.querySelectorAll(side)[0];
   if (b) {
-    const color = readColor(node.querySelectorAll('color')[0], theme);
+    const color = readColor(b.querySelectorAll('color')[0], theme);
     const style = attr(b, 'style');
     if (color || style) {
       return { style: style, color: color };
@@ -116,12 +116,13 @@ module.exports = (dom, wb) => {
 
   dom.querySelectorAll('borders > border')
     .forEach(d => {
-      styles.border.push({
+      const borderDefs = {
         left: readBorder(d, 'left', wb.theme),
         right: readBorder(d, 'right', wb.theme),
         top: readBorder(d, 'top', wb.theme),
         bottom: readBorder(d, 'bottom', wb.theme)
-      });
+      };
+      styles.border.push(borderDefs);
     });
 
   // level 1 (named cell styles)
@@ -138,41 +139,6 @@ module.exports = (dom, wb) => {
         }
       }
       styles.cellXf.push(xf);
-    });
-
-  dom.querySelectorAll('cellStyles > cellStyle')
-    .forEach(d => {
-      /*
-      <cellStyles count="1">
-        <cellStyle builtinId="0" name="Normal" xfId="0" />
-      </cellStyles>
-      */
-    });
-
-  dom.querySelectorAll('dxfs > dxf')
-    .forEach(d => {
-      /*
-      <dxf>
-        <font>
-          <color rgb="FF9C5700" />
-        </font>
-        <fill>
-          <patternFill>
-            <bgColor rgb="FFFFEB9C" />
-          </patternFill>
-        </fill>
-      </dxf>
-      */
-    });
-
-  // tableStyles
-  dom.querySelectorAll('extLst > ext')
-    .forEach(d => {
-      /*
-      <ext uri="{EB79DEF2-80B8-43e5-95BD-54CBDDF9020C}" xmlns:x14="http://schemas.microsoft.com/office/spreadsheetml/2009/9/main">
-        <x14:slicerStyles defaultSlicerStyle="SlicerStyleLight1" />
-      </ext>
-      */
     });
 
   return styles;

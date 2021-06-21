@@ -21,7 +21,7 @@ module.exports = (dom, wb) => {
       });
     });
 
-  // FIXME: while we do discard the threads, we should still order the comments
+  // FIXME: while threads are discarded, comments should still be ordered
 
   return comments;
 };
