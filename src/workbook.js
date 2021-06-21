@@ -6,14 +6,14 @@ class Workbook {
     this.sheets = [];
     this.metadata = {};
     this.filename = '';
+    this.epoch = 1900;
   }
 
   toJSON () {
     const wb = {
       filename: this.filename || '',
-      names: this.names,
       sheets: this.sheets,
-      metadata: this.metadata
+      names: this.names
     };
     if (!this.options.cell_styles) {
       wb.styles = this.styles;
