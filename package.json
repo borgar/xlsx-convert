@@ -1,8 +1,8 @@
 {
-  "name": "xlsx-reader",
+  "name": "@borgar/xlsx-convert",
   "version": "1.0.0",
-  "description": "",
-  "main": "readraw.js",
+  "description": "Utility to convert Excel XLSX files to JSON",
+  "main": "src/index.js",
   "directories": {
     "test": "tests"
   },
@@ -10,6 +10,22 @@
     "lint": "eslint *.js src/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/borgar/xlsx-reader.git"
+  },
+  "bugs": {
+    "url": "https://github.com/borgar/xlsx-reader/issues"
+  },
+  "keywords": [
+    "excel",
+    "json",
+    "xlsx",
+    "csf",
+    "office",
+    "spreadsheet",
+    "workbook"
+  ],
   "author": "Borgar Þorsteinsson <borgar@borgar.net> (http://borgar.net/)",
   "license": "MIT",
   "dependencies": {
