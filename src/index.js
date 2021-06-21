@@ -29,7 +29,8 @@ const DEFAULT_OPTIONS = {
 
 module.exports = async function convert (fn, options = DEFAULT_OPTIONS) {
   const zip = new JSZip();
-  const fdesc = await zip.loadAsync(await fs.readFile(fn));
+  const raw = fn instanceof Buffer ? fn : await fs.readFile(fn);
+  const fdesc = await zip.loadAsync(raw);
 
   const getFile = async f => {
     const fd = fdesc.file(f);
