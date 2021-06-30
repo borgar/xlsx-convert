@@ -49,8 +49,10 @@ module.exports = (node, wb) => {
     }
     else {
       cell.si = styleIndex;
-      const z = wb.styles[styleIndex]['number-format'];
-      if (z) { cell.z = z; }
+      if (cell_z) {
+        const z = wb.styles[styleIndex]['number-format'];
+        if (z) { cell.z = z; }
+      }
     }
   }
 

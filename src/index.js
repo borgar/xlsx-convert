@@ -97,6 +97,8 @@ module.exports = async function convert (fn, options = DEFAULT_OPTIONS) {
       const sh = handlerSheet(await getFile(sheetRel.target), wb);
       sh.name = sheet.name || `Sheet${sheetIndex + 1}`;
       wb.sheets[sheetIndex] = sh;
+
+      delete wb.comments;
     }
     else {
       throw new Error('No rel found for sheet ' + sheet.$rId);
@@ -104,12 +106,8 @@ module.exports = async function convert (fn, options = DEFAULT_OPTIONS) {
   }));
 
   if (options.cell_styles) {
-    wb.styles.forEach(() => {
-
-    });
     wb.styles = [];
   }
 
   return wb;
 };
-

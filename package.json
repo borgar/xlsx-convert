@@ -2,7 +2,7 @@
   "name": "@borgar/xlsx-convert",
   "version": "1.0.0",
   "description": "Utility to convert Excel XLSX files to JSON",
-  "main": "src/index.js",
+  "main": "index.js",
   "directories": {
     "test": "tests"
   },
@@ -32,7 +32,7 @@
     "@borgar/simple-xml": "~1.0.2",
     "d3-color": "~1.4.0",
     "jszip": "~3.6.0",
-    "numfmt": "~1.0.0"
+    "numfmt": "~2.0.0"
   },
   "devDependencies": {
     "@borgar/eslint-config": "~2.2.1",

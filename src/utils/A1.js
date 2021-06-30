@@ -52,7 +52,7 @@ function toRect (a1) {
   return [ parseA1(b[0]), parseA1(b[1] || b[0]) ];
 }
 
-function isInside (rect, coord) {
+function contains (rect, coord) {
   const [ tl, br ] = rect;
   return (
     coord[0] >= tl[0] && coord[0] <= br[0] &&
@@ -65,18 +65,4 @@ exports.renderA1 = renderA1;
 exports.toRect = toRect;
 exports.toCol = toCol;
 exports.fromCol = fromCol;
-exports.isInside = isInside;
-
-/*
-console.log(fromCol('A'), toCol(fromCol('A')));
-
-const r = toRect('F2:F19');
-console.log( isInside(r, parseA1('F2')), true );
-console.log( isInside(r, parseA1('F9')), true );
-console.log( isInside(r, parseA1('F19')), true );
-console.log( isInside(r, parseA1('F1')), false );
-console.log( isInside(r, parseA1('F20')), false );
-console.log( isInside(r, parseA1('E7')), false );
-console.log( isInside(r, parseA1('G7')), false );
-*/
-
+exports.contains = contains;

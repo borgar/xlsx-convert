@@ -1,17 +1,13 @@
 const convert = require('./src');
+const { parseA1, renderA1, toRect, toCol, fromCol, contains } = require('./src/utils/A1');
 
-const arg = process.argv.filter(d => /\.xlsx$/.test(d));
+convert.A1 = {
+  parse: parseA1,
+  render: renderA1,
+  parseRect: toRect,
+  toCol: toCol,
+  fromCol: fromCol,
+  contains: contains
+};
 
-if (arg.length > 1) {
-  console.error('One file at time plz!');
-  process.exit(1);
-}
-
-async function convertFile (fn) {
-  const wb = await convert(fn);
-  const output = JSON.stringify(wb, null, 2);
-  /* eslint-disable-next-line */
-  console.log(output);
-}
-
-convertFile(arg[0]);
+module.exports = convert;

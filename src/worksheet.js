@@ -98,5 +98,10 @@ module.exports = (dom, wb) => {
       return map;
     });
 
+  delete wb._shared;
+  delete wb._arrayFormula;
+  delete wb._merged;
+  delete wb.currentSheet;
+
   return sheet;
 };
