@@ -152,6 +152,13 @@ module.exports = (node, wb) => {
       // FIXME: ensure error is a known error!
       cell.v = v;
     }
+    else if (type === 'd') {
+      if (!/[T ]/i.test(v) && v.includes(':')) {
+        // this is time only so prefix with Excel epoch date
+        v = '1899-12-31T' + v;
+      }
+      cell.v = numfmt.dateToSerial(new Date(Date.parse(v)));
+    }
     else if (type === 'n') {
       let val = toNum(v);
       // adjust dates if the workbook uses 1904 data system

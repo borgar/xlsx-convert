@@ -117,8 +117,8 @@ module.exports = (dom, wb) => {
   dom.querySelectorAll('borders > border')
     .forEach(d => {
       const borderDefs = {
-        left: readBorder(d, 'left', wb.theme),
-        right: readBorder(d, 'right', wb.theme),
+        left: readBorder(d, 'left', wb.theme) || readBorder(d, 'start', wb.theme),
+        right: readBorder(d, 'right', wb.theme) || readBorder(d, 'end', wb.theme),
         top: readBorder(d, 'top', wb.theme),
         bottom: readBorder(d, 'bottom', wb.theme)
       };
