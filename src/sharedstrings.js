@@ -1,6 +1,6 @@
-const attr = require('./utils/attr');
+import attr from './utils/attr.js';
 
-module.exports = dom => {
+export default function (dom) {
   const sst = dom.querySelectorAll('sst')[0];
 
   const stringTable = sst.querySelectorAll('si').map(d => {
@@ -14,4 +14,4 @@ module.exports = dom => {
   }
 
   return stringTable;
-};
+}

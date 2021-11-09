@@ -1,6 +1,6 @@
-const d3 = require('d3-color');
-const attr = require('./utils/attr');
-const { COLOR_INDEX, NAMED_COLORS } = require('./constants');
+import d3 from 'd3-color';
+import attr from './utils/attr.js';
+import { COLOR_INDEX, NAMED_COLORS } from './constants.js';
 
 function bound (c) {
   if (c < 0) { return 0; }
@@ -57,7 +57,7 @@ class Color {
   }
 }
 
-module.exports = (node, theme) => {
+export default function (node, theme) {
   if (!node) { return null; }
 
   const color = new Color();
@@ -119,4 +119,4 @@ module.exports = (node, theme) => {
   }
 
   return color.type ? color : null;
-};
+}

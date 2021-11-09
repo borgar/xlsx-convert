@@ -1,6 +1,6 @@
-const attr = require('./utils/attr');
+import attr from './utils/attr.js';
 
-module.exports = (dom, wb) => {
+export default function (dom, wb) {
   const persons = wb.persons || {};
   const comments = {};
 
@@ -24,4 +24,4 @@ module.exports = (dom, wb) => {
   // FIXME: while threads are discarded, comments should still be ordered
 
   return comments;
-};
+}

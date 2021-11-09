@@ -57,10 +57,10 @@ function convertStyle (styleDefs, styleIndex) {
   return s;
 }
 
-module.exports = function (styleDefs) {
+export default function (styleDefs) {
   const styles = [];
   for (let i = 0; i < styleDefs.cellXf.length; i++) {
     styles[i] = convertStyle(styleDefs, i);
   }
   return styles;
-};
+}

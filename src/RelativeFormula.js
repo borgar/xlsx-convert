@@ -1,4 +1,4 @@
-const { parseA1, renderA1 } = require('./utils/A1');
+import { parseA1, renderA1 } from './utils/A1.js';
 
 const tokenHandlers = [
   [ 'operator',    /^(<=|>=|<>|[-+/*^%&<>=]|[{},;]|[()]|@|:|!)/ ],
@@ -45,7 +45,7 @@ function tokenize (fx) {
   return tokens;
 }
 
-module.exports = class RelativeFormula {
+export default class RelativeFormula {
   constructor (formula, anchorCell) {
     this.fx = formula;
     this.anchorA1 = anchorCell;
@@ -74,4 +74,4 @@ module.exports = class RelativeFormula {
       }
     }).join('');
   }
-};
+}

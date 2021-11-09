@@ -1,6 +1,6 @@
-const readColor = require('./color');
-const attr = require('./utils/attr');
-const { BUILTIN_FORMATS } = require('./constants');
+import readColor from './color.js';
+import attr from './utils/attr.js';
+import { BUILTIN_FORMATS } from './constants.js';
 
 const valOfNode = (node, subNodeName, fallback = null) => {
   const subNode = node.querySelectorAll(subNodeName)[0];
@@ -84,7 +84,7 @@ const readFont = (node, theme) => {
   };
 };
 
-module.exports = (dom, wb) => {
+export default function (dom, wb) {
   const styles = {
     cellStyleXfs: [],
     cellXf: [],
@@ -142,4 +142,4 @@ module.exports = (dom, wb) => {
     });
 
   return styles;
-};
+}

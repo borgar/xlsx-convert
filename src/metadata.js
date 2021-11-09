@@ -1,6 +1,6 @@
-const attr = require('./utils/attr');
+import attr from './utils/attr.js';
 
-module.exports = (dom, wb) => {
+export default function (dom, wb) {
   const tables = {};
 
   dom.getElementsByTagName('futureMetadata')
@@ -59,4 +59,4 @@ module.exports = (dom, wb) => {
     values: values,
     cells: cells
   };
-};
+}
