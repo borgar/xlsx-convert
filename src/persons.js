@@ -1,6 +1,6 @@
-const attr = require('./utils/attr');
+import attr from './utils/attr.js';
 
-module.exports = dom => {
+export default function (dom) {
   const persons = {};
 
   dom.querySelectorAll('personlist > person')
@@ -9,4 +9,4 @@ module.exports = dom => {
     });
 
   return persons;
-};
+}

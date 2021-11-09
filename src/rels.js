@@ -1,8 +1,8 @@
-const path = require('path');
-const attr = require('./utils/attr');
-const { REL_PREFIXES } = require('./constants');
+import path from 'path';
+import attr from './utils/attr.js';
+import { REL_PREFIXES } from './constants.js';
 
-module.exports = (dom, basepath = 'xl/workbook.xml') => {
+export default function (dom, basepath = 'xl/workbook.xml') {
   basepath = path.dirname(basepath);
   const rels = [];
   if (dom) {
@@ -23,4 +23,4 @@ module.exports = (dom, basepath = 'xl/workbook.xml') => {
       });
   }
   return rels;
-};
+}

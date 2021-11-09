@@ -1,8 +1,8 @@
-const attr = require('./utils/attr');
-const { toCol, toRect, renderA1 } = require('./utils/A1');
-const handlerCell = require('./cell');
+import attr from './utils/attr.js';
+import { toCol, toRect, renderA1 } from './utils/A1.js';
+import handlerCell from './cell.js';
 
-module.exports = (dom, wb) => {
+export default function (dom, wb) {
   const sheet = {
     cells: {},
     col_widths: {},
@@ -104,4 +104,4 @@ module.exports = (dom, wb) => {
   delete wb.currentSheet;
 
   return sheet;
-};
+}

@@ -1,4 +1,4 @@
-const attr = require('./utils/attr');
+import attr from './utils/attr.js';
 
 const colorIndexes = {
   lt1:       0, // Light 1
@@ -15,7 +15,7 @@ const colorIndexes = {
   folHlink: 11  // Followed Hyperlink
 };
 
-module.exports = dom => {
+export default function (dom) {
   const theme = {
     // FIXME: what is the default windows Excel color scheme? (clue: not this)
     scheme: [
@@ -56,4 +56,4 @@ module.exports = dom => {
     });
 
   return theme;
-};
+}

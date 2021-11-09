@@ -1,8 +1,8 @@
-const numfmt = require('numfmt');
-const { toInt, toNum } = require('./utils/typecast');
-const attr = require('./utils/attr');
-const unescape = require('./utils/unescape');
-const RelativeFormula = require('./RelativeFormula');
+import numfmt from 'numfmt';
+import { toInt, toNum } from './utils/typecast.js';
+import attr from './utils/attr.js';
+import unescape from './utils/unescape.js';
+import RelativeFormula from './RelativeFormula.js';
 
 const fixNameSpace = fx => {
   return fx.replace(/\b(_xlfn|_xlws)\.\b/g, '');
@@ -20,7 +20,7 @@ const relevantStyle = obj => {
 };
 
 // ECMA - 18.3.1.4 (Cell)
-module.exports = (node, wb) => {
+export default function (node, wb) {
   const cell = {};
   const { cell_styles, cell_z } = wb.options;
 
@@ -190,4 +190,4 @@ module.exports = (node, wb) => {
   }
 
   return cell;
-};
+}

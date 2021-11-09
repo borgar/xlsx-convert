@@ -1,4 +1,4 @@
-const attr = require('./utils/attr');
+import attr from './utils/attr.js';
 
 class Workbook {
   constructor () {
@@ -22,7 +22,7 @@ class Workbook {
   }
 }
 
-module.exports = dom => {
+export default function (dom) {
   const wb = new Workbook();
 
   dom.querySelectorAll('sheets > sheet')
@@ -46,4 +46,4 @@ module.exports = dom => {
   wb.epoch = (pr && +attr(pr, 'date1904')) ? 1904 : 1900;
 
   return wb;
-};
+}

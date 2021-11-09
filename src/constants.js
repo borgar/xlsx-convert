@@ -1,4 +1,4 @@
-exports.REL_PREFIXES = [
+export const REL_PREFIXES = [
   // standard
   'http://schemas.microsoft.com/office/2017/10/relationships/',
   'http://schemas.microsoft.com/office/2017/06/relationships/',
@@ -8,7 +8,7 @@ exports.REL_PREFIXES = [
   'http://purl.oclc.org/ooxml/officeDocument/relationships/'
 ];
 
-exports.BUILTIN_FORMATS = {
+export const BUILTIN_FORMATS = {
   0: 'General',
   1: '0',
   2: '0.00',
@@ -52,7 +52,7 @@ exports.BUILTIN_FORMATS = {
 };
 
 // Default Color Index as per 18.8.27 of ECMA Part 4
-exports.COLOR_INDEX = [
+export const COLOR_INDEX = [
   'FF000000', 'FFFFFFFF', 'FFFF0000', 'FF00FF00', 'FF0000FF', // 0-4
   'FFFFFF00', 'FFFF00FF', 'FF00FFFF', 'FF000000', 'FFFFFFFF', // 5-9
   'FFFF0000', 'FF00FF00', 'FF0000FF', 'FFFFFF00', 'FFFF00FF', // 10-14
@@ -70,7 +70,7 @@ exports.COLOR_INDEX = [
 ];
 
 // https://social.technet.microsoft.com/Forums/windows/en-US/ac76cc56-6ff2-4778-b260-8141d7170a3b/windows-7-highlight-text-color-or-selected-text-color-in-aero
-exports.NAMED_COLORS = {
+export const NAMED_COLORS = {
   // not sure why this is reversed?
   'system foreground': 'FF000000',
   'system background': 'FFFFFFFF',

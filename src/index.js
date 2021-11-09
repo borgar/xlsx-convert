@@ -1,21 +1,22 @@
 /* eslint-disable require-atomic-updates */
-const fs = require('fs').promises;
-const path = require('path');
-const JSZip = require('jszip');
-const xml = require('@borgar/simple-xml');
-const convertStyles = require('./utils/convertStyles');
+import fs_ from 'fs';
+const fs = fs_.promises;
+import path from 'path';
+import JSZip from 'jszip';
+import xml from '@borgar/simple-xml';
+import convertStyles from './utils/convertStyles.js';
 
-const handlerRels = require('./rels');
-const handlerWorkbook = require('./workbook');
-const handlerStrings = require('./sharedstrings');
-const handlerPersons = require('./persons');
-const handlerTheme = require('./theme');
-const handlerStyles = require('./styles');
-const handlerRDStuct = require('./rdstuct');
-const handlerRDValue = require('./rdvalue');
-const handlerMetadata = require('./metadata');
-const handlerComments = require('./comments');
-const handlerSheet = require('./worksheet');
+import handlerRels from './rels.js';
+import handlerWorkbook from './workbook.js';
+import handlerStrings from './sharedstrings.js';
+import handlerPersons from './persons.js';
+import handlerTheme from './theme.js';
+import handlerStyles from './styles.js';
+import handlerRDStuct from './rdstuct.js';
+import handlerRDValue from './rdvalue.js';
+import handlerMetadata from './metadata.js';
+import handlerComments from './comments.js';
+import handlerSheet from './worksheet.js';
 
 const DEFAULT_OPTIONS = {
   // skip cells that are a part of merges
@@ -27,7 +28,7 @@ const DEFAULT_OPTIONS = {
   cell_z: false
 };
 
-module.exports = async function convert (fn, options = DEFAULT_OPTIONS) {
+export default async function convert (fn, options = DEFAULT_OPTIONS) {
   const zip = new JSZip();
   const raw = fn instanceof Buffer ? fn : await fs.readFile(fn);
   const fdesc = await zip.loadAsync(raw);
@@ -110,4 +111,4 @@ module.exports = async function convert (fn, options = DEFAULT_OPTIONS) {
   }
 
   return wb;
-};
+}

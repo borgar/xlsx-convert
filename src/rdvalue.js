@@ -1,6 +1,6 @@
-const attr = require('./utils/attr');
+import attr from './utils/attr.js';
 
-module.exports = (dom, wb) => {
+export default function (dom, wb) {
   const values = [];
   const structures = wb.richStuct || [];
 
@@ -25,4 +25,4 @@ module.exports = (dom, wb) => {
     });
 
   return values;
-};
+}

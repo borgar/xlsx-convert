@@ -1,7 +1,7 @@
 const _A = 65;
 const _Z = 90;
 
-function toCol (col) {
+export function toCol (col) {
   let n = col;
   let c = '';
   while (n >= 0) {
@@ -11,7 +11,7 @@ function toCol (col) {
   return c;
 }
 
-function fromCol (colstr) {
+export function fromCol (colstr) {
   const c = colstr.toUpperCase();
   let d = 0;
   let i = 0;
@@ -24,7 +24,7 @@ function fromCol (colstr) {
   return d - 1;
 }
 
-function renderA1 (coord) {
+export function renderA1 (coord) {
   return (
     (coord.$C ? '$' : '') +
     toCol(coord[0]) +
@@ -33,7 +33,7 @@ function renderA1 (coord) {
   );
 }
 
-function parseA1 (a1) {
+export function parseA1 (a1) {
   const m = /^(\$)?([a-z]+)(\$)?(\d+)$/i.exec(a1);
   if (m) {
     const point = [
@@ -47,22 +47,15 @@ function parseA1 (a1) {
   throw new Error('Invalid A1 ref: ' + a1);
 }
 
-function toRect (a1) {
+export function toRect (a1) {
   const b = a1.split(':');
   return [ parseA1(b[0]), parseA1(b[1] || b[0]) ];
 }
 
-function contains (rect, coord) {
+export function contains (rect, coord) {
   const [ tl, br ] = rect;
   return (
     coord[0] >= tl[0] && coord[0] <= br[0] &&
     coord[1] >= tl[1] && coord[1] <= br[1]
   );
 }
-
-exports.parseA1 = parseA1;
-exports.renderA1 = renderA1;
-exports.toRect = toRect;
-exports.toCol = toCol;
-exports.fromCol = fromCol;
-exports.contains = contains;

@@ -1,6 +1,6 @@
-const attr = require('./utils/attr');
+import attr from './utils/attr.js';
 
-module.exports = dom => {
+export default function (dom) {
   const structures = [];
 
   dom.getElementsByTagName('rvStructures > s')
@@ -21,4 +21,4 @@ module.exports = dom => {
     });
 
   return structures;
-};
+}
