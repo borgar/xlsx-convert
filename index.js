@@ -1,7 +1,7 @@
-const convert = require('./src');
-const { parseA1, renderA1, toRect, toCol, fromCol, contains } = require('./src/utils/A1');
+import convert from './src/index.js';
+import { parseA1, renderA1, toRect, toCol, fromCol, contains } from './src/utils/A1.js';
 
-convert.A1 = {
+const _A1 = {
   parse: parseA1,
   render: renderA1,
   parseRect: toRect,
@@ -10,4 +10,5 @@ convert.A1 = {
   contains: contains
 };
 
-module.exports = convert;
+export const A1 = _A1;
+export default convert;

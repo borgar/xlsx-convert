@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "description": "Utility to convert Excel XLSX files to JSON",
   "type": "module",
-  "main": "index.js",
+  "main": "index.mjs",
   "directories": {
     "test": "tests"
   },
@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@borgar/eslint-config": "~2.2.1",
-    "eslint": "~7.32.0"
+    "eslint": "~7.32.0",
+    "nodemon": "~2.0.16"
   }
 }

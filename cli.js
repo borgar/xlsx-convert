@@ -1,9 +1,14 @@
-const convert = require('./src');
+import convert from './src/index.js';
 
 const arg = process.argv.filter(d => /\.xlsx$/.test(d));
 
 if (arg.length > 1) {
   console.error('One file at time plz!');
+  process.exit(1);
+}
+
+if (arg.length < 1) {
+  console.error('Supply at least one file!');
   process.exit(1);
 }
 

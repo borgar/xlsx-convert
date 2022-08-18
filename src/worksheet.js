@@ -1,13 +1,16 @@
 import attr from './utils/attr.js';
 import { toCol, toRect, renderA1 } from './utils/A1.js';
 import handlerCell from './cell.js';
+import conditionalFormatting from './conditionalFormatting.js';
 
 export default function (dom, wb) {
   const sheet = {
+    name: '',
     cells: {},
     col_widths: {},
     merged_cells: [],
     row_heights: {},
+    dynamic_formatting: [],
     hidden: false
   };
 
@@ -21,6 +24,9 @@ export default function (dom, wb) {
       sheet.col_widths[toCol(i - 1)] = width;
     }
   });
+
+  // read conditional formats
+  sheet.dynamic_formatting = conditionalFormatting(dom, wb);
 
   wb._shared = {};
   wb._arrayFormula = [];

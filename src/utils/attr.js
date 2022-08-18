@@ -4,3 +4,14 @@ export default function attr (node, name, fallBack = null) {
   }
   return fallBack;
 }
+
+export const numAttr = (node, name) => {
+  const v = attr(node, name, null);
+  return v == null ? v : +v;
+};
+
+export const boolAttr = (node, name) => {
+  const v = attr(node, name, null);
+  return v == null ? v : !!+v;
+};
+
