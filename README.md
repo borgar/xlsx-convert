@@ -1,8 +1,8 @@
 # XLSX-convert
 
-This is a Node.js utility to convert Excel XLSX files to JSON format. It support only XLSX files and outputs a flavor of CSF ([see below](#output)).
+This is a Node.js utility to convert Excel XLSX files to JSON format. It supports only XLSX files and outputs a flavor of CSF ([see below](#output)).
 
-This utility is developed as tooling for [GRID – The new face of spreadsheets](https://grid.is/), to which it owes a debt of gratitude.
+This utility was developed as tooling for [GRID – The new face of spreadsheets](https://grid.is/), to which it owes a debt of gratitude.
 
 
 ## Installing
