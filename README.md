@@ -74,7 +74,6 @@ Only cells that have "relevant data" are emitted, which in praxis means cells th
 
 ## API
 
-
 <a name="xlsx-convert" href="#xlsx-convert">#</a> async **xlsxConvert**( _target [, options]_ )
 
 Reads an Excel XLSX file into a consumable structure. The return value contains most of the data from the original file, although some details may be lost in the conversion process (and further will not be emitted when converting this structure to JSON).

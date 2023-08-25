@@ -1,6 +1,6 @@
-import d3 from 'd3-color';
+import { rgb, hsl } from 'd3-color';
 import attr from './utils/attr.js';
-import { COLOR_INDEX, NAMED_COLORS } from './constants.js';
+import { NAMED_COLORS } from './constants.js';
 
 function bound (c) {
   if (c < 0) { return 0; }
@@ -18,11 +18,11 @@ class Color {
   }
 
   rgb () {
-    return d3.rgb(this.r, this.g, this.b);
+    return rgb(this.r, this.g, this.b);
   }
 
   hsl () {
-    return d3.hsl(this.rgb());
+    return hsl(this.rgb());
   }
 
   toJSON () {
@@ -72,11 +72,12 @@ export default function (node, theme) {
   if (indexed) {
     color.type = 'index';
     color.src = indexed;
-    argb = COLOR_INDEX[+indexed];
+    argb = theme.indexedColors[+indexed];
   }
 
-  // theme: A zero-based index into the <clrScheme> collection (§20.1.6.2), referencing
-  //        a particular <sysClr> or <srgbClr> value expressed in the Theme part.
+  // theme: A zero-based index into the <clrScheme> collection (§20.1.6.2),
+  //        referencing a particular <sysClr> or <srgbClr> value expressed
+  //        in the Theme part.
   const _theme = attr(node, 'theme');
   if (_theme && theme) {
     color.type = 'theme';
@@ -98,9 +99,12 @@ export default function (node, theme) {
   }
 
   const tint = +attr(node, 'tint', 0);
-  // tint: If tint is supplied, then it is applied to the RGB value of the color to determine the final color applied.
-  // The tint value is stored as a double from -1.0 ... 1.0, where -1.0 means 100% darken and 1.0 means 100% lighten.
-  // In loading the RGB value, it is converted to HLS where HLS values are (0..HLSMAX), where HLSMAX is currently 255.
+  // tint: If tint is supplied, then it is applied to the RGB value of the color
+  //       to determine the final color applied.
+  // The tint value is stored as a double from -1.0 ... 1.0, where -1.0 means
+  // 100% darken and 1.0 means 100% lighten. In loading the RGB value, it is
+  // converted to HLS where HLS values are (0..HLSMAX), where HLSMAX is
+  // currently 255.
   if (tint) {
     color.tint = tint;
     const h = color.hsl();
@@ -110,7 +114,7 @@ export default function (node, theme) {
     }
     else { // lighten
       const Ɛ = 1 - tint;
-      h.l = Ɛ * h.l + (1 - Ɛ);
+      h.l = (Ɛ * h.l) + (1 - Ɛ);
     }
     const rgb = h.rgb();
     color.r = rgb.r;

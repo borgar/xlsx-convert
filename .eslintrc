@@ -1,18 +1,17 @@
 {
-  extends: ['@borgar/eslint-config'],
-  "env": { 
+  "parser": "@babel/eslint-parser",
+  "extends": [ "@borgar/eslint-config" ],
+  "env": {
     "es6": true,
-    "node": true 
+    "node": true
   },
   "rules": {
-    "newline-per-chained-call": "off"
+    "newline-per-chained-call": "off",
+    "array-element-newline": "off",
   },
   "parserOptions": {
+    "ecmaVersion": 2021,
     "sourceType": "module",
-    "ecmaVersion": 8,
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
-    }
-  },
-  globals: { Set: true }
+    "requireConfigFile": false
+  }
 }

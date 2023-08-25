@@ -9,16 +9,22 @@ export default function (dom, basepath = 'xl/workbook.xml') {
     dom
       .querySelectorAll('Relationship')
       .forEach(d => {
+        const mode = attr(d, 'TargetMode');
         let type = attr(d, 'Type');
-        REL_PREFIXES.forEach(p => {
+        let target = attr(d, 'Target');
+        for (const p of REL_PREFIXES) {
           if (type.startsWith(p)) {
             type = type.slice(p.length);
+            if (mode !== 'External') {
+              target = path.join(basepath, target);
+            }
+            break;
           }
-        });
+        }
         rels.push({
           id: attr(d, 'Id'),
           type: type,
-          target: path.join(basepath, attr(d, 'Target'))
+          target: target
         });
       });
   }

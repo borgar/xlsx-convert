@@ -94,6 +94,12 @@ export default function (dom, wb) {
     border: []
   };
 
+  // update indexed colors on the theme
+  dom.querySelectorAll('colors > indexedColors > rgbColor')
+    .forEach((node, i) => {
+      wb.theme.indexedColors[i] = attr(node, 'rgb');
+    });
+
   dom.querySelectorAll('numFmts > numFmt')
     .forEach(node => {
       styles.numFmts[attr(node, 'numFmtId')] = attr(node, 'formatCode');
@@ -107,10 +113,11 @@ export default function (dom, wb) {
   dom.querySelectorAll('fills > fill > patternFill')
     .forEach(fp => {
       const type = fp && attr(fp, 'patternType');
+      const isSolid = type === 'solid';
       styles.fill.push({
         type: type,
-        fg: type === 'solid' ? readColor(fp.querySelectorAll('fgColor')[0], wb.theme) : null
-        // bg: type === 'solid' ? readColor(child(fp, 'bgColor'), wb.theme) : null,
+        fg: isSolid ? readColor(fp.querySelectorAll('fgColor')[0], wb.theme) : null
+        // bg: isSolid' ? readColor(child(fp, 'bgColor'), wb.theme) : null,
       });
     });
 

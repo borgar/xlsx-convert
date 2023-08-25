@@ -49,7 +49,8 @@ export default function (dom, wb) {
     .forEach(bk => cells.push(parseBk(bk)));
 
   // Value metadata is information about the value of a particular cell.
-  // Value metadata properties can be propagated along with the value as it is referenced in formulas.
+  // Value metadata properties can be propagated along with the value as
+  // it is referenced in formulas.
   const values = [];
   dom.querySelectorAll('valueMetadata > bk')
     .forEach(bk => values.push(parseBk(bk)));

@@ -1,13 +1,15 @@
-/* eslint-disable require-atomic-updates */
+/* eslint-disable require-atomic-updates, no-await-in-loop */
 import fs_ from 'fs';
 const fs = fs_.promises;
 import path from 'path';
 import JSZip from 'jszip';
-import xml from '@borgar/simple-xml';
+import { parseXML } from '@borgar/simple-xml';
 import convertStyles from './utils/convertStyles.js';
 
+import Workbook from './Workbook.js';
+
 import handlerRels from './rels.js';
-import handlerWorkbook from './workbook.js';
+import handlerWorkbook from './workbookHandler.js';
 import handlerStrings from './sharedstrings.js';
 import handlerPersons from './persons.js';
 import handlerTheme from './theme.js';
@@ -17,14 +19,16 @@ import handlerRDValue from './rdvalue.js';
 import handlerMetadata from './metadata.js';
 import handlerComments from './comments.js';
 import handlerSheet from './worksheet.js';
+import handlerExternal from './handlerExternal.js';
+import handlerTable from './table.js';
 
 const DEFAULT_OPTIONS = {
   // skip cells that are a part of merges
   skip_merged: true,
   // styles are attached to cells rather than being included separately
   cell_styles: false,
-  // number format is set as z on cells (in addition to existing as 'number-format' in styles)
-  // [always true when cell_styles=true]
+  // number format is set as z on cells (in addition to existing as
+  // 'number-format' in styles) [always true when cell_styles=true]
   cell_z: false
 };
 
@@ -35,10 +39,9 @@ export default async function convert (fn, options = DEFAULT_OPTIONS) {
 
   const getFile = async f => {
     const fd = fdesc.file(f);
-    if (fd) {
-      return xml.parse(await fd.async('string'));
-    }
-    return null;
+    return fd
+      ? parseXML(await fd.async('string'))
+      : null;
   };
 
   const getRels = async (f = '') => {
@@ -60,11 +63,23 @@ export default async function convert (fn, options = DEFAULT_OPTIONS) {
   const baseRels = await getRels();
   const wbRel = baseRels.find(d => d.type === 'officeDocument');
 
-  // workbook
-  const wb = handlerWorkbook(await getFile(wbRel.target));
+  const wb = new Workbook();
   wb.filename = path.basename(fn);
   wb.rels = await getRels(wbRel.target);
   wb.options = Object.assign({}, DEFAULT_OPTIONS, options);
+
+  // external links
+  for (const rel of wb.rels) {
+    if (rel.type === 'externalLink') {
+      const extRels = await getRels(rel.target);
+      const fileName = extRels.find(d => d.id === 'rId1').target;
+      const exlink = handlerExternal(await getFile(rel.target), fileName);
+      wb.externalLinks.push(exlink);
+    }
+  }
+
+  // workbook
+  handlerWorkbook(await getFile(wbRel.target), wb);
 
   // strings
   wb.sst = await maybeRead(wb, 'sharedStrings', handlerStrings, []);
@@ -88,6 +103,7 @@ export default async function convert (fn, options = DEFAULT_OPTIONS) {
   await Promise.all(wb.sheets.map(async (sheet, sheetIndex) => {
     const sheetRel = wb.rels.find(d => d.id === sheet.$rId);
     if (sheetRel) {
+      const sheetName = sheet.name || `Sheet${sheetIndex + 1}`;
       const sheetRels = await getRels(sheetRel.target);
 
       // Note: This supports only threaded comments, not old-style comments
@@ -95,8 +111,22 @@ export default async function convert (fn, options = DEFAULT_OPTIONS) {
         wb, 'threadedComment', handlerComments, null, sheetRels
       );
 
-      const sh = handlerSheet(await getFile(sheetRel.target), wb);
-      sh.name = sheet.name || `Sheet${sheetIndex + 1}`;
+      // tables are accessed when external refs are normalized, so they have
+      // to be read them before that happens
+      const tableRels = sheetRels.filter(rel => rel.type === 'table');
+      for (const tableRel of tableRels) {
+        // eslint-disable-next-line no-await-in-loop
+        const tableDom = await getFile(tableRel.target);
+        const table = handlerTable(tableDom, wb);
+        if (table) {
+          table.sheet = sheetName;
+          wb.tables.push(table);
+        }
+      }
+
+      // convert the sheet
+      const sh = handlerSheet(await getFile(sheetRel.target), wb, sheetRels);
+      sh.name = sheetName;
       wb.sheets[sheetIndex] = sh;
 
       delete wb.comments;

@@ -3,10 +3,7 @@ import { toInt, toNum } from './utils/typecast.js';
 import attr from './utils/attr.js';
 import unescape from './utils/unescape.js';
 import RelativeFormula from './RelativeFormula.js';
-
-const fixNameSpace = fx => {
-  return fx.replace(/\b(_xlfn|_xlws)\.\b/g, '');
-};
+import { normalizeFormula } from './utils/normalizeFormula.js';
 
 const relevantStyle = obj => {
   return !!(
@@ -24,17 +21,20 @@ export default function (node, wb) {
   const cell = {};
   const { cell_styles, cell_z } = wb.options;
 
-  // FIXME: these props are scoped by the sheet but exist on the WB object during processing and are wiped per-sheet
+  // FIXME: these props are scoped by the sheet but exist on the WB object
+  //        during processing and are wiped per-sheet
   const sharedF = wb._shared || {};
   const comments = wb.comments || {};
   const arrayFormula = wb._arrayFormula || [];
 
   // .r = reference (cell address)
   const address = attr(node, 'r');
-  // .t = data type: The possible values for this attribute are defined by the ST_CellType simple type (§18.18.11).
+  // .t = data type: The possible values for this attribute are defined by the
+  //                 ST_CellType simple type (§18.18.11).
   let type = attr(node, 't', 'n');
 
-  // .s = style index: The index of this cell's style. Style records are stored in the Styles Part.
+  // .s = style index: The index of this cell's style.
+  //                   Style records are stored in the Styles Part.
   const styleIndex = toInt(attr(node, 's', 0));
   if (styleIndex) {
     if (cell_styles) {
@@ -59,7 +59,8 @@ export default function (node, wb) {
   const vNode = node.querySelectorAll('> v')[0];
   let v = vNode ? vNode.textContent : null;
 
-  // .vm = value metadata index: The zero-based index of the value metadata record associated with this cell's value
+  // .vm = value metadata index: The zero-based index of the value metadata
+  //                             record associated with this cell's value
   const vm = attr(node, 'vm');
   if (vm && wb.metadata) {
     const meta = wb.metadata.values[vm - 1];
@@ -85,54 +86,6 @@ export default function (node, wb) {
     cell.c = comments[address];
   }
 
-  // ECMA - 18.3.1.40 f (Formula)
-  const fNode = node.querySelectorAll('> f')[0];
-  if (fNode) {
-    // .t (Formula Type): [ array | dataTable | normal | shared ]
-    const formulaType = attr(fNode, 't', 'normal');
-    let f = null;
-    // array for array-formula
-    if (formulaType === 'array') {
-      // .ref (Range of Cells): Range of cells which the formula applies to.
-      //   Only required for shared formula, array formula or data table.
-      //   Only written on the master formula, not subsequent formulas belonging
-      //   to the same shared group, array, or data table.
-      //   The possible values for this attribute are defined by the ST_Ref simple type (§18.18.62).
-      const cellsRange = attr(fNode, 'ref');
-      if (cellsRange && cellsRange !== address) {
-        cell.F = cellsRange;
-        arrayFormula.push(cellsRange);
-      }
-      f = fNode.textContent;
-    }
-    // shared for shared formula
-    else if (formulaType === 'shared') {
-      // .si (Shared Group Index) - Optional attribute to optimize load performance by sharing formulas.
-      //       the si attribute is used to refer to the cell containing the formula.
-      //       Two formulas are considered to be the same when their respective
-      //       representations in R1C1-reference notation, are the same.
-      const shareGroupIndex = attr(fNode, 'si');
-      if (!sharedF[shareGroupIndex]) {
-        sharedF[shareGroupIndex] = new RelativeFormula(fixNameSpace(fNode.textContent), address);
-      }
-      f = sharedF[shareGroupIndex].translate(address);
-    }
-    // dataTable for data table formula
-    else if (formulaType.toLowerCase() === 'datatable') {
-      // .dt2D (Data Table 2- D)
-      // .dtr (Data Table Row)
-      // .dtr (Data Table Row)
-      // .r2 (Input Cell 2)
-      // FIXME: support dataTable formula
-    }
-    else {
-      f = fNode.textContent;
-    }
-    if (f) {
-      cell.f = fixNameSpace(f);
-    }
-  }
-
   if (type === 'inlineStr') {
     type = 'str';
     v = node.querySelectorAll('is t').map(d => d.textContent).join('');
@@ -151,6 +104,7 @@ export default function (node, wb) {
     else if (type === 'e') {
       // FIXME: ensure error is a known error!
       cell.v = v;
+      cell.t = 'e';
     }
     else if (type === 'd') {
       if (!/[T ]/i.test(v) && v.includes(':')) {
@@ -175,7 +129,60 @@ export default function (node, wb) {
     }
   }
 
-  // unescape the strange OOXML character escaping (seems only used for <32 ASCII codes?)
+  // ECMA - 18.3.1.40 f (Formula)
+  const fNode = node.querySelectorAll('> f')[0];
+  if (fNode) {
+    // .t (Formula Type): [ array | dataTable | normal | shared ]
+    const formulaType = attr(fNode, 't', 'normal');
+    let f = null;
+    // array for array-formula
+    if (formulaType === 'array') {
+      // .ref (Range of Cells): Range of cells which the formula applies to.
+      //   Only required for shared formula, array formula or data table.
+      //   Only written on the master formula, not subsequent formulas belonging
+      //   to the same shared group, array, or data table.
+      //   The possible values for this attribute are defined by the
+      //   ST_Ref simple type (§18.18.62).
+      const cellsRange = attr(fNode, 'ref');
+      if (cellsRange && cellsRange !== address) {
+        cell.F = cellsRange;
+        arrayFormula.push(cellsRange);
+      }
+      f = fNode.textContent;
+    }
+    // shared for shared formula
+    else if (formulaType === 'shared') {
+      // .si (Shared Group Index) - Optional attribute to optimize load
+      //       performance by sharing formulas. the si attribute is used to
+      //       refer to the cell containing the formula. Two formulas are
+      //       considered to be the same when their respective representations
+      //       in R1C1-reference notation, are the same.
+      const shareGroupIndex = attr(fNode, 'si');
+      if (!sharedF[shareGroupIndex]) {
+        sharedF[shareGroupIndex] = new RelativeFormula(fNode.textContent, address);
+      }
+      f = sharedF[shareGroupIndex].translate(address);
+    }
+    // dataTable for data table formula
+    else if (formulaType.toLowerCase() === 'datatable') {
+      // .dt2D (Data Table 2- D)
+      // .dtr (Data Table Row)
+      // .dtr (Data Table Row)
+      // .r2 (Input Cell 2)
+      // FIXME: support dataTable formula
+      // console.log('dataTable formula');
+    }
+    else {
+      f = fNode.textContent;
+    }
+
+    if (f) {
+      cell.f = normalizeFormula(f, wb);
+    }
+  }
+
+  // unescape the strange OOXML character escaping
+  // (seems only used for <32 ASCII codes?)
   if (typeof cell.v === 'string') {
     cell.v = unescape(cell.v);
   }

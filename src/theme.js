@@ -1,4 +1,5 @@
 import attr from './utils/attr.js';
+import { COLOR_INDEX } from './constants.js';
 
 const colorIndexes = {
   lt1:       0, // Light 1
@@ -31,7 +32,8 @@ export default function (dom) {
       'FF000000',
       'FF000000',
       'FF000000'
-    ]
+    ],
+    indexedColors: [ ...COLOR_INDEX ]
   };
 
   dom.querySelectorAll('theme > themeElements > clrScheme > *')
@@ -41,8 +43,9 @@ export default function (dom) {
         index = theme.scheme.length;
       }
       d.children.forEach(c => {
-        // one of: [ srgbClr, sysClr ]
-        // other variants in VML: [ scrgbClr, srgbClr, hslClr, sysClr, schemeClr, prstClr ]
+        // One of: [ srgbClr, sysClr ]
+        // Other variants in VML:
+        //   [ scrgbClr, srgbClr, hslClr, sysClr, schemeClr, prstClr ]
         // TODO: determine if alternate colors are able to turn up in clrScheme.
         const val = attr(c, 'val');
         if (c.tagName === 'sysClr') {
