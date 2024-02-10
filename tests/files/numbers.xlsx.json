@@ -1,0 +1,37 @@
+{
+  "filename": "numbers.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": 0 },
+        "A2": { "v": 1 },
+        "A3": { "v": 2 },
+        "A4": { "v": 10000000 },
+        "A5": { "v": 1e-9 },
+        "A6": { "si": 1, "v": 1e-90 },
+        "A7": { "v": 1234.567879 },
+        "A8": { "si": 2, "v": 0.123 }
+      },
+      "columns": [
+        { "begin": 1, "end": 1, "size": 12.1640625 }
+      ],
+      "rows": [],
+      "merged_cells": [],
+      "defaults": { "col_width": 10, "row_height": 16 },
+      "hidden": false
+    }
+  ],
+  "names": [],
+  "tables": [],
+  "calculation_properties": {
+    "iterate": false,
+    "iterate_count": 100,
+    "iterate_delta": 0.001
+  },
+  "styles": [
+    { "font-size": 12 },
+    { "number-format": "0.00E+00", "font-size": 12 },
+    { "number-format": "0.0%", "font-size": 12 }
+  ]
+}

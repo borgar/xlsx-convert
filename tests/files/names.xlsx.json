@@ -1,0 +1,39 @@
+{
+  "filename": "names.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": 12 },
+        "A2": { "v": "value" },
+        "A3": { "v": 123 }
+      },
+      "columns": [],
+      "rows": [],
+      "merged_cells": [],
+      "defaults": { "col_width": 10, "row_height": 16 },
+      "hidden": false
+    }
+  ],
+  "names": [
+    {
+      "name": "formula",
+      "value": "Sheet1!A1048576*100"
+    },
+    {
+      "name": "scoped",
+      "value": "Sheet1!$A$2",
+      "scope": "Sheet1"
+    },
+    { "name": "unscoped", "value": "Sheet1!$A$2" }
+  ],
+  "tables": [],
+  "calculation_properties": {
+    "iterate": false,
+    "iterate_count": 100,
+    "iterate_delta": 0.001
+  },
+  "styles": [
+    { "font-size": 12 }
+  ]
+}

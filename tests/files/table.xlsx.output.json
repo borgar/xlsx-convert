@@ -1,0 +1,2939 @@
+{
+  "filename": "table.xlsx",
+  "sheets": [
+    {
+      "name": "Pokémon",
+      "cells": {
+        "A1": { "v": "Index #" },
+        "B1": { "v": "Pokémon" },
+        "C1": { "v": "Species" },
+        "D1": { "v": "Pri. Type" },
+        "E1": { "v": "Sec. Type" },
+        "F1": { "v": "Hp" },
+        "G1": { "v": "Catch rate" },
+        "H1": { "v": "Speed" },
+        "I1": { "v": "Weight (k)" },
+        "J1": { "v": "Height (cm)" },
+        "K1": { "v": "BMI" },
+        "L1": { "v": "BMI class" },
+        "A2": { "v": 1 },
+        "B2": { "v": "Bulbasaur" },
+        "C2": { "v": "Bulbasaur" },
+        "D2": { "v": "Grass" },
+        "E2": { "v": "Poison" },
+        "F2": { "v": 45 },
+        "G2": { "v": 45 },
+        "H2": { "v": 45 },
+        "I2": { "v": 6.9 },
+        "J2": { "v": 71.12 },
+        "K2": {
+          "si": 2,
+          "v": 13.641608915870892,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L2": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A3": { "v": 2 },
+        "B3": { "v": "Ivysaur" },
+        "C3": { "v": "Bulbasaur" },
+        "D3": { "v": "Grass" },
+        "E3": { "v": "Poison" },
+        "F3": { "v": 60 },
+        "G3": { "v": 45 },
+        "H3": { "v": 60 },
+        "I3": { "v": 13 },
+        "J3": { "v": 99.06 },
+        "K3": {
+          "si": 2,
+          "v": 13.247889743642734,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L3": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A4": { "v": 3 },
+        "B4": { "v": "Venusaur" },
+        "C4": { "v": "Bulbasaur" },
+        "D4": { "v": "Grass" },
+        "E4": { "v": "Poison" },
+        "F4": { "v": 80 },
+        "G4": { "v": 45 },
+        "H4": { "v": 80 },
+        "I4": { "v": 100 },
+        "J4": { "v": 200.66 },
+        "K4": {
+          "si": 2,
+          "v": 24.83581317106553,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L4": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A5": { "v": 4 },
+        "B5": { "v": "Charmander" },
+        "C5": { "v": "Charmander" },
+        "D5": { "v": "Fire" },
+        "F5": { "v": 39 },
+        "G5": { "v": 45 },
+        "H5": { "v": 65 },
+        "I5": { "v": 8.5 },
+        "J5": { "v": 60.96 },
+        "K5": {
+          "si": 2,
+          "v": 22.873309635508157,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L5": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A6": { "v": 5 },
+        "B6": { "v": "Charmeleon" },
+        "C6": { "v": "Charmander" },
+        "D6": { "v": "Fire" },
+        "F6": { "v": 58 },
+        "G6": { "v": 45 },
+        "H6": { "v": 80 },
+        "I6": { "v": 19 },
+        "J6": { "v": 109.22 },
+        "K6": {
+          "si": 2,
+          "v": 15.927560248846834,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L6": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A7": { "v": 6 },
+        "B7": { "v": "Charizard" },
+        "C7": { "v": "Charmander" },
+        "D7": { "v": "Fire" },
+        "E7": { "v": "Flying" },
+        "F7": { "v": 78 },
+        "G7": { "v": 45 },
+        "H7": { "v": 100 },
+        "I7": { "v": 90.5 },
+        "J7": { "v": 170.18 },
+        "K7": {
+          "si": 2,
+          "v": 31.248670205070415,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L7": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A8": { "v": 7 },
+        "B8": { "v": "Squirtle" },
+        "C8": { "v": "Squirtle" },
+        "D8": { "v": "Water" },
+        "F8": { "v": 44 },
+        "G8": { "v": 45 },
+        "H8": { "v": 43 },
+        "I8": { "v": 9 },
+        "J8": { "v": 50.8 },
+        "K8": {
+          "si": 2,
+          "v": 34.875069750139495,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L8": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A9": { "v": 8 },
+        "B9": { "v": "Wartortle" },
+        "C9": { "v": "Squirtle" },
+        "D9": { "v": "Water" },
+        "F9": { "v": 59 },
+        "G9": { "v": 45 },
+        "H9": { "v": 58 },
+        "I9": { "v": 22.5 },
+        "J9": { "v": 99.06 },
+        "K9": {
+          "si": 2,
+          "v": 22.929039940920116,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L9": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A10": { "v": 9 },
+        "B10": { "v": "Blastoise" },
+        "C10": { "v": "Squirtle" },
+        "D10": { "v": "Water" },
+        "F10": { "v": 79 },
+        "G10": { "v": 45 },
+        "H10": { "v": 78 },
+        "I10": { "v": 85.5 },
+        "J10": { "v": 160.02 },
+        "K10": {
+          "si": 2,
+          "v": 33.39008945591587,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L10": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A11": { "v": 10 },
+        "B11": { "v": "Caterpie" },
+        "C11": { "v": "Caterpie" },
+        "D11": { "v": "Bug" },
+        "F11": { "v": 45 },
+        "G11": { "v": 255 },
+        "H11": { "v": 45 },
+        "I11": { "v": 2.9 },
+        "J11": { "v": 30.48 },
+        "K11": {
+          "si": 2,
+          "v": 31.21534020845819,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L11": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A12": { "v": 11 },
+        "B12": { "v": "Metapod" },
+        "C12": { "v": "Caterpie" },
+        "D12": { "v": "Bug" },
+        "F12": { "v": 50 },
+        "G12": { "v": 120 },
+        "H12": { "v": 30 },
+        "I12": { "v": 9.9 },
+        "J12": { "v": 71.12 },
+        "K12": {
+          "si": 2,
+          "v": 19.572743227119105,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L12": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A13": { "v": 12 },
+        "B13": { "v": "Butterfree" },
+        "C13": { "v": "Caterpie" },
+        "D13": { "v": "Bug" },
+        "E13": { "v": "Flying" },
+        "F13": { "v": 60 },
+        "G13": { "v": 45 },
+        "H13": { "v": 70 },
+        "I13": { "v": 32 },
+        "J13": { "v": 109.22 },
+        "K13": {
+          "si": 2,
+          "v": 26.825364629636777,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L13": {
+          "v": "Overweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A14": { "v": 13 },
+        "B14": { "v": "Weedle" },
+        "C14": { "v": "Weedle" },
+        "D14": { "v": "Bug" },
+        "E14": { "v": "Poison" },
+        "F14": { "v": 40 },
+        "G14": { "v": 255 },
+        "H14": { "v": 50 },
+        "I14": { "v": 3.2 },
+        "J14": { "v": 30.48 },
+        "K14": {
+          "si": 2,
+          "v": 34.444513333471114,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L14": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A15": { "v": 14 },
+        "B15": { "v": "Kakuna" },
+        "C15": { "v": "Weedle" },
+        "D15": { "v": "Bug" },
+        "E15": { "v": "Poison" },
+        "F15": { "v": 45 },
+        "G15": { "v": 120 },
+        "H15": { "v": 35 },
+        "I15": { "v": 10 },
+        "J15": { "v": 60.96 },
+        "K15": {
+          "si": 2,
+          "v": 26.909776041774304,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L15": {
+          "v": "Overweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A16": { "v": 15 },
+        "B16": { "v": "Beedrill" },
+        "C16": { "v": "Weedle" },
+        "D16": { "v": "Bug" },
+        "E16": { "v": "Poison" },
+        "F16": { "v": 65 },
+        "G16": { "v": 45 },
+        "H16": { "v": 75 },
+        "I16": { "v": 29.5 },
+        "J16": { "v": 99.06 },
+        "K16": {
+          "si": 2,
+          "v": 30.06251903365082,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L16": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A17": { "v": 16 },
+        "B17": { "v": "Pidgey" },
+        "C17": { "v": "Pidgey" },
+        "D17": { "v": "Normal" },
+        "E17": { "v": "Flying" },
+        "F17": { "v": 40 },
+        "G17": { "v": 255 },
+        "H17": { "v": 56 },
+        "I17": { "v": 1.8 },
+        "J17": { "v": 30.48 },
+        "K17": {
+          "si": 2,
+          "v": 19.3750387500775,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L17": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A18": { "v": 17 },
+        "B18": { "v": "Pidgeotto" },
+        "C18": { "v": "Pidgey" },
+        "D18": { "v": "Normal" },
+        "E18": { "v": "Flying" },
+        "F18": { "v": 63 },
+        "G18": { "v": 120 },
+        "H18": { "v": 71 },
+        "I18": { "v": 30 },
+        "J18": { "v": 109.22 },
+        "K18": {
+          "si": 2,
+          "v": 25.148779340284477,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L18": {
+          "v": "Overweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A19": { "v": 18 },
+        "B19": { "v": "Pidgeot" },
+        "C19": { "v": "Pidgey" },
+        "D19": { "v": "Normal" },
+        "E19": { "v": "Flying" },
+        "F19": { "v": 83 },
+        "G19": { "v": 45 },
+        "H19": { "v": 101 },
+        "I19": { "v": 39.5 },
+        "J19": { "v": 149.86 },
+        "K19": {
+          "si": 2,
+          "v": 17.58837186160439,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L19": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A20": { "v": 19 },
+        "B20": { "v": "Rattata" },
+        "C20": { "v": "Rattata" },
+        "D20": { "v": "Normal" },
+        "F20": { "v": 30 },
+        "G20": { "v": 255 },
+        "H20": { "v": 72 },
+        "I20": { "v": 3.5 },
+        "J20": { "v": 30.48 },
+        "K20": {
+          "si": 2,
+          "v": 37.67368645848403,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L20": {
+          "v": "Obesity class 2",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A21": { "v": 20 },
+        "B21": { "v": "Raticate" },
+        "C21": { "v": "Raticate" },
+        "D21": { "v": "Normal" },
+        "F21": { "v": 55 },
+        "G21": { "v": 127 },
+        "H21": { "v": 97 },
+        "I21": { "v": 18.5 },
+        "J21": { "v": 71.12 },
+        "K21": {
+          "si": 2,
+          "v": 36.57532825269732,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L21": {
+          "v": "Obesity class 2",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A22": { "v": 21 },
+        "B22": { "v": "Spearow" },
+        "C22": { "v": "Spearow" },
+        "D22": { "v": "Normal" },
+        "E22": { "v": "Flying" },
+        "F22": { "v": 40 },
+        "G22": { "v": 255 },
+        "H22": { "v": 70 },
+        "I22": { "v": 2 },
+        "J22": { "v": 30.48 },
+        "K22": {
+          "si": 2,
+          "v": 21.527820833419444,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L22": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A23": { "v": 22 },
+        "B23": { "v": "Fearow" },
+        "C23": { "v": "Spearow" },
+        "D23": { "v": "Normal" },
+        "E23": { "v": "Flying" },
+        "F23": { "v": 65 },
+        "G23": { "v": 90 },
+        "H23": { "v": 100 },
+        "I23": { "v": 38 },
+        "J23": { "v": 119.38 },
+        "K23": {
+          "si": 2,
+          "v": 26.663702037227527,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L23": {
+          "v": "Overweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A24": { "v": 23 },
+        "B24": { "v": "Ekans" },
+        "C24": { "v": "Ekans" },
+        "D24": { "v": "Poison" },
+        "F24": { "v": 35 },
+        "G24": { "v": 255 },
+        "H24": { "v": 55 },
+        "I24": { "v": 6.9 },
+        "J24": { "v": 200.66 },
+        "K24": {
+          "si": 2,
+          "v": 1.7136711088035217,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L24": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A25": { "v": 24 },
+        "B25": { "v": "Arbok" },
+        "C25": { "v": "Ekans" },
+        "D25": { "v": "Poison" },
+        "F25": { "v": 60 },
+        "G25": { "v": 90 },
+        "H25": { "v": 80 },
+        "I25": { "v": 65 },
+        "J25": { "v": 350.52 },
+        "K25": {
+          "si": 2,
+          "v": 5.290390753014231,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L25": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A26": { "v": 25 },
+        "B26": { "v": "Pikachu" },
+        "C26": { "v": "Pikachu" },
+        "D26": { "v": "Electric" },
+        "F26": { "v": 35 },
+        "G26": { "v": 190 },
+        "H26": { "v": 90 },
+        "I26": { "v": 6 },
+        "J26": { "v": 40.64 },
+        "K26": {
+          "si": 2,
+          "v": 36.32819765639531,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L26": {
+          "v": "Obesity class 2",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A27": { "v": 26 },
+        "B27": { "v": "Raichu" },
+        "C27": { "v": "Pikachu" },
+        "D27": { "v": "Electric" },
+        "F27": { "v": 60 },
+        "G27": { "v": 75 },
+        "H27": { "v": 110 },
+        "I27": { "v": 30 },
+        "J27": { "v": 78.74 },
+        "K27": {
+          "si": 2,
+          "v": 48.38719354858065,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L27": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A28": { "v": 27 },
+        "B28": { "v": "Sandshrew" },
+        "C28": { "v": "Sandshrew" },
+        "D28": { "v": "Ground" },
+        "F28": { "v": 50 },
+        "G28": { "v": 255 },
+        "H28": { "v": 40 },
+        "I28": { "v": 12 },
+        "J28": { "v": 60.96 },
+        "K28": {
+          "si": 2,
+          "v": 32.29173125012917,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L28": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A29": { "v": 28 },
+        "B29": { "v": "Sandslash" },
+        "C29": { "v": "Sandslash" },
+        "D29": { "v": "Ground" },
+        "F29": { "v": 75 },
+        "G29": { "v": 90 },
+        "H29": { "v": 65 },
+        "I29": { "v": 29.5 },
+        "J29": { "v": 99.06 },
+        "K29": {
+          "si": 2,
+          "v": 30.06251903365082,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L29": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A30": { "v": 29 },
+        "B30": { "v": "Nidoran♀" },
+        "C30": { "v": "Nidoran♀" },
+        "D30": { "v": "Poison" },
+        "F30": { "v": 55 },
+        "G30": { "v": 235 },
+        "H30": { "v": 41 },
+        "I30": { "v": 7 },
+        "J30": { "v": 40.64 },
+        "K30": {
+          "si": 2,
+          "v": 42.38289726579453,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L30": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A31": { "v": 30 },
+        "B31": { "v": "Nidorina" },
+        "C31": { "v": "Nidoran♀" },
+        "D31": { "v": "Poison" },
+        "F31": { "v": 70 },
+        "G31": { "v": 120 },
+        "H31": { "v": 56 },
+        "I31": { "v": 20 },
+        "J31": { "v": 78.74 },
+        "K31": {
+          "si": 2,
+          "v": 32.258129032387096,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L31": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A32": { "v": 31 },
+        "B32": { "v": "Nidoqueen" },
+        "C32": { "v": "Nidoran♀" },
+        "D32": { "v": "Poison" },
+        "E32": { "v": "Ground" },
+        "F32": { "v": 90 },
+        "G32": { "v": 45 },
+        "H32": { "v": 76 },
+        "I32": { "v": 60 },
+        "J32": { "v": 129.54 },
+        "K32": {
+          "si": 2,
+          "v": 35.75555017315341,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L32": {
+          "v": "Obesity class 2",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A33": { "v": 32 },
+        "B33": { "v": "Nidoran♂" },
+        "C33": { "v": "Nidoran♂" },
+        "D33": { "v": "Poison" },
+        "F33": { "v": 46 },
+        "G33": { "v": 235 },
+        "H33": { "v": 50 },
+        "I33": { "v": 9 },
+        "J33": { "v": 50.8 },
+        "K33": {
+          "si": 2,
+          "v": 34.875069750139495,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L33": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A34": { "v": 33 },
+        "B34": { "v": "Nidorino" },
+        "C34": { "v": "Nidoran♂" },
+        "D34": { "v": "Poison" },
+        "F34": { "v": 61 },
+        "G34": { "v": 120 },
+        "H34": { "v": 65 },
+        "I34": { "v": 19.5 },
+        "J34": { "v": 88.9 },
+        "K34": {
+          "si": 2,
+          "v": 24.67351873479257,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L34": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A35": { "v": 34 },
+        "B35": { "v": "Nidoking" },
+        "C35": { "v": "Nidoran♂" },
+        "D35": { "v": "Poison" },
+        "E35": { "v": "Ground" },
+        "F35": { "v": 81 },
+        "G35": { "v": 45 },
+        "H35": { "v": 85 },
+        "I35": { "v": 62 },
+        "J35": { "v": 139.7 },
+        "K35": {
+          "si": 2,
+          "v": 31.76865857863948,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L35": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A36": { "v": 35 },
+        "B36": { "v": "Clefairy" },
+        "C36": { "v": "Clefairy" },
+        "D36": { "v": "Fairy" },
+        "F36": { "v": 70 },
+        "G36": { "v": 150 },
+        "H36": { "v": 35 },
+        "I36": { "v": 7.5 },
+        "J36": { "v": 60.96 },
+        "K36": {
+          "si": 2,
+          "v": 20.182332031330727,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L36": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A37": { "v": 36 },
+        "B37": { "v": "Clefable" },
+        "C37": { "v": "Clefairy" },
+        "D37": { "v": "Fairy" },
+        "F37": { "v": 95 },
+        "G37": { "v": 25 },
+        "H37": { "v": 60 },
+        "I37": { "v": 40 },
+        "J37": { "v": 129.54 },
+        "K37": {
+          "si": 2,
+          "v": 23.83703344876894,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L37": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A38": { "v": 37 },
+        "B38": { "v": "Vulpix" },
+        "C38": { "v": "Vulpix" },
+        "D38": { "v": "Fire" },
+        "F38": { "v": 38 },
+        "G38": { "v": 190 },
+        "H38": { "v": 65 },
+        "I38": { "v": 9.9 },
+        "J38": { "v": 60.96 },
+        "K38": {
+          "si": 2,
+          "v": 26.64067828135656,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L38": {
+          "v": "Overweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A39": { "v": 38 },
+        "B39": { "v": "Ninetales" },
+        "C39": { "v": "Vulpix" },
+        "D39": { "v": "Fire" },
+        "F39": { "v": 73 },
+        "G39": { "v": 75 },
+        "H39": { "v": 100 },
+        "I39": { "v": 19.9 },
+        "J39": { "v": 109.22 },
+        "K39": {
+          "si": 2,
+          "v": 16.68202362905537,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L39": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A40": { "v": 39 },
+        "B40": { "v": "Jigglypuff" },
+        "C40": { "v": "Jigglypuff" },
+        "D40": { "v": "Normal" },
+        "E40": { "v": "Fairy" },
+        "F40": { "v": 115 },
+        "G40": { "v": 170 },
+        "H40": { "v": 20 },
+        "I40": { "v": 5.5 },
+        "J40": { "v": 50.8 },
+        "K40": {
+          "si": 2,
+          "v": 21.31254262508525,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L40": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A41": { "v": 40 },
+        "B41": { "v": "Wigglytuff" },
+        "C41": { "v": "Jigglypuff" },
+        "D41": { "v": "Normal" },
+        "E41": { "v": "Fairy" },
+        "F41": { "v": 140 },
+        "G41": { "v": 50 },
+        "H41": { "v": 45 },
+        "I41": { "v": 12 },
+        "J41": { "v": 99.06 },
+        "K41": {
+          "si": 2,
+          "v": 12.228821301824063,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L41": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A42": { "v": 41 },
+        "B42": { "v": "Zubat" },
+        "C42": { "v": "Zubat" },
+        "D42": { "v": "Poison" },
+        "E42": { "v": "Flying" },
+        "F42": { "v": 40 },
+        "G42": { "v": 255 },
+        "H42": { "v": 55 },
+        "I42": { "v": 7.5 },
+        "J42": { "v": 78.74 },
+        "K42": {
+          "si": 2,
+          "v": 12.096798387145162,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L42": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A43": { "v": 42 },
+        "B43": { "v": "Golbat" },
+        "C43": { "v": "Zubat" },
+        "D43": { "v": "Poison" },
+        "E43": { "v": "Flying" },
+        "F43": { "v": 75 },
+        "G43": { "v": 90 },
+        "H43": { "v": 90 },
+        "I43": { "v": 55 },
+        "J43": { "v": 160.02 },
+        "K43": {
+          "si": 2,
+          "v": 21.479004913162257,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L43": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A44": { "v": 43 },
+        "B44": { "v": "Oddish" },
+        "C44": { "v": "Oddish" },
+        "D44": { "v": "Grass" },
+        "E44": { "v": "Poison" },
+        "F44": { "v": 45 },
+        "G44": { "v": 255 },
+        "H44": { "v": 30 },
+        "I44": { "v": 5.4 },
+        "J44": { "v": 50.8 },
+        "K44": {
+          "si": 2,
+          "v": 20.9250418500837,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L44": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A45": { "v": 44 },
+        "B45": { "v": "Gloom" },
+        "C45": { "v": "Oddish" },
+        "D45": { "v": "Grass" },
+        "E45": { "v": "Poison" },
+        "F45": { "v": 60 },
+        "G45": { "v": 120 },
+        "H45": { "v": 40 },
+        "I45": { "v": 8.6 },
+        "J45": { "v": 78.74 },
+        "K45": {
+          "si": 2,
+          "v": 13.870995483926452,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L45": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A46": { "v": 45 },
+        "B46": { "v": "Vileplume" },
+        "C46": { "v": "Oddish" },
+        "D46": { "v": "Grass" },
+        "E46": { "v": "Poison" },
+        "F46": { "v": 75 },
+        "G46": { "v": 45 },
+        "H46": { "v": 50 },
+        "I46": { "v": 18.6 },
+        "J46": { "v": 119.38 },
+        "K46": {
+          "si": 2,
+          "v": 13.051180470853474,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L46": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A47": { "v": 46 },
+        "B47": { "v": "Paras" },
+        "C47": { "v": "Paras" },
+        "D47": { "v": "Bug" },
+        "E47": { "v": "Grass" },
+        "F47": { "v": 35 },
+        "G47": { "v": 190 },
+        "H47": { "v": 25 },
+        "I47": { "v": 5.4 },
+        "J47": { "v": 30.48 },
+        "K47": {
+          "si": 2,
+          "v": 58.1251162502325,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L47": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A48": { "v": 47 },
+        "B48": { "v": "Parasect" },
+        "C48": { "v": "Paras" },
+        "D48": { "v": "Bug" },
+        "E48": { "v": "Grass" },
+        "F48": { "v": 60 },
+        "G48": { "v": 75 },
+        "H48": { "v": 30 },
+        "I48": { "v": 29.5 },
+        "J48": { "v": 99.06 },
+        "K48": {
+          "si": 2,
+          "v": 30.06251903365082,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L48": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A49": { "v": 48 },
+        "B49": { "v": "Venonat" },
+        "C49": { "v": "Venonat" },
+        "D49": { "v": "Bug" },
+        "E49": { "v": "Poison" },
+        "F49": { "v": 60 },
+        "G49": { "v": 190 },
+        "H49": { "v": 45 },
+        "I49": { "v": 30 },
+        "J49": { "v": 99.06 },
+        "K49": {
+          "si": 2,
+          "v": 30.572053254560156,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L49": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A50": { "v": 49 },
+        "B50": { "v": "Venomoth" },
+        "C50": { "v": "Venonat" },
+        "D50": { "v": "Bug" },
+        "E50": { "v": "Poison" },
+        "F50": { "v": 70 },
+        "G50": { "v": 75 },
+        "H50": { "v": 90 },
+        "I50": { "v": 12.5 },
+        "J50": { "v": 149.86 },
+        "K50": {
+          "si": 2,
+          "v": 5.565940462533035,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L50": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A51": { "v": 50 },
+        "B51": { "v": "Diglett" },
+        "C51": { "v": "Diglett" },
+        "D51": { "v": "Ground" },
+        "F51": { "v": 10 },
+        "G51": { "v": 255 },
+        "H51": { "v": 95 },
+        "I51": { "v": 0.8 },
+        "J51": { "v": 20.32 },
+        "K51": {
+          "si": 2,
+          "v": 19.3750387500775,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L51": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A52": { "v": 51 },
+        "B52": { "v": "Dugtrio" },
+        "C52": { "v": "Dugtrio" },
+        "D52": { "v": "Ground" },
+        "F52": { "v": 35 },
+        "G52": { "v": 50 },
+        "H52": { "v": 120 },
+        "I52": { "v": 33.3 },
+        "J52": { "v": 71.12 },
+        "K52": {
+          "si": 2,
+          "v": 65.83559085485517,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L52": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A53": { "v": 52 },
+        "B53": { "v": "Meowth" },
+        "C53": { "v": "Meowth" },
+        "D53": { "v": "Normal" },
+        "F53": { "v": 40 },
+        "G53": { "v": 255 },
+        "H53": { "v": 90 },
+        "I53": { "v": 4.2 },
+        "J53": { "v": 40.64 },
+        "K53": {
+          "si": 2,
+          "v": 25.42973835947672,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L53": {
+          "v": "Overweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A54": { "v": 53 },
+        "B54": { "v": "Persian" },
+        "C54": { "v": "Persian" },
+        "D54": { "v": "Normal" },
+        "F54": { "v": 65 },
+        "G54": { "v": 90 },
+        "H54": { "v": 115 },
+        "I54": { "v": 32 },
+        "J54": { "v": 99.06 },
+        "K54": {
+          "si": 2,
+          "v": 32.6101901381975,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L54": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A55": { "v": 54 },
+        "B55": { "v": "Psyduck" },
+        "C55": { "v": "Psyduck" },
+        "D55": { "v": "Water" },
+        "F55": { "v": 50 },
+        "G55": { "v": 190 },
+        "H55": { "v": 55 },
+        "I55": { "v": 19.6 },
+        "J55": { "v": 78.74 },
+        "K55": {
+          "si": 2,
+          "v": 31.612966451739357,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L55": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A56": { "v": 55 },
+        "B56": { "v": "Golduck" },
+        "C56": { "v": "Golduck" },
+        "D56": { "v": "Water" },
+        "F56": { "v": 80 },
+        "G56": { "v": 75 },
+        "H56": { "v": 85 },
+        "I56": { "v": 76.6 },
+        "J56": { "v": 170.18 },
+        "K56": {
+          "si": 2,
+          "v": 26.44915069291043,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L56": {
+          "v": "Overweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A57": { "v": 56 },
+        "B57": { "v": "Mankey" },
+        "C57": { "v": "Mankey" },
+        "D57": { "v": "Fighting" },
+        "F57": { "v": 40 },
+        "G57": { "v": 190 },
+        "H57": { "v": 70 },
+        "I57": { "v": 28 },
+        "J57": { "v": 50.8 },
+        "K57": {
+          "si": 2,
+          "v": 108.50021700043399,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L57": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A58": { "v": 57 },
+        "B58": { "v": "Primeape" },
+        "C58": { "v": "Mankey" },
+        "D58": { "v": "Fighting" },
+        "F58": { "v": 65 },
+        "G58": { "v": 75 },
+        "H58": { "v": 95 },
+        "I58": { "v": 32 },
+        "J58": { "v": 99.06 },
+        "K58": {
+          "si": 2,
+          "v": 32.6101901381975,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L58": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A59": { "v": 58 },
+        "B59": { "v": "Growlithe" },
+        "C59": { "v": "Growlithe" },
+        "D59": { "v": "Fire" },
+        "F59": { "v": 55 },
+        "G59": { "v": 190 },
+        "H59": { "v": 60 },
+        "I59": { "v": 19 },
+        "J59": { "v": 71.12 },
+        "K59": {
+          "si": 2,
+          "v": 37.563850637905354,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L59": {
+          "v": "Obesity class 2",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A60": { "v": 59 },
+        "B60": { "v": "Arcanine" },
+        "C60": { "v": "Growlithe" },
+        "D60": { "v": "Fire" },
+        "F60": { "v": 90 },
+        "G60": { "v": 75 },
+        "H60": { "v": 95 },
+        "I60": { "v": 155 },
+        "J60": { "v": 190.5 },
+        "K60": {
+          "si": 2,
+          "v": 42.71119653350418,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L60": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A61": { "v": 60 },
+        "B61": { "v": "Poliwag" },
+        "C61": { "v": "Poliwag" },
+        "D61": { "v": "Water" },
+        "F61": { "v": 40 },
+        "G61": { "v": 255 },
+        "H61": { "v": 90 },
+        "I61": { "v": 12.4 },
+        "J61": { "v": 60.96 },
+        "K61": {
+          "si": 2,
+          "v": 33.36812229180014,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L61": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A62": { "v": 61 },
+        "B62": { "v": "Poliwhirl" },
+        "C62": { "v": "Poliwag" },
+        "D62": { "v": "Water" },
+        "F62": { "v": 65 },
+        "G62": { "v": 120 },
+        "H62": { "v": 90 },
+        "I62": { "v": 20 },
+        "J62": { "v": 99.06 },
+        "K62": {
+          "si": 2,
+          "v": 20.381368836373436,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L62": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A63": { "v": 62 },
+        "B63": { "v": "Poliwrath" },
+        "C63": { "v": "Poliwag" },
+        "D63": { "v": "Water" },
+        "E63": { "v": "Fighting" },
+        "F63": { "v": 90 },
+        "G63": { "v": 45 },
+        "H63": { "v": 70 },
+        "I63": { "v": 54 },
+        "J63": { "v": 129.54 },
+        "K63": {
+          "si": 2,
+          "v": 32.17999515583807,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L63": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A64": { "v": 63 },
+        "B64": { "v": "Abra" },
+        "C64": { "v": "Abra" },
+        "D64": { "v": "Psychic" },
+        "F64": { "v": 25 },
+        "G64": { "v": 200 },
+        "H64": { "v": 90 },
+        "I64": { "v": 19.5 },
+        "J64": { "v": 88.9 },
+        "K64": {
+          "si": 2,
+          "v": 24.67351873479257,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L64": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A65": { "v": 64 },
+        "B65": { "v": "Kadabra" },
+        "C65": { "v": "Abra" },
+        "D65": { "v": "Psychic" },
+        "F65": { "v": 40 },
+        "G65": { "v": 100 },
+        "H65": { "v": 105 },
+        "I65": { "v": 56.5 },
+        "J65": { "v": 129.54 },
+        "K65": {
+          "si": 2,
+          "v": 33.66980974638613,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L65": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A66": { "v": 65 },
+        "B66": { "v": "Alakazam" },
+        "C66": { "v": "Abra" },
+        "D66": { "v": "Psychic" },
+        "F66": { "v": 55 },
+        "G66": { "v": 50 },
+        "H66": { "v": 120 },
+        "I66": { "v": 48 },
+        "J66": { "v": 149.86 },
+        "K66": {
+          "si": 2,
+          "v": 21.373211376126854,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L66": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A67": { "v": 66 },
+        "B67": { "v": "Machop" },
+        "C67": { "v": "Machop" },
+        "D67": { "v": "Fighting" },
+        "F67": { "v": 70 },
+        "G67": { "v": 180 },
+        "H67": { "v": 35 },
+        "I67": { "v": 19.5 },
+        "J67": { "v": 78.74 },
+        "K67": {
+          "si": 2,
+          "v": 31.45167580657742,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L67": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A68": { "v": 67 },
+        "B68": { "v": "Machoke" },
+        "C68": { "v": "Machop" },
+        "D68": { "v": "Fighting" },
+        "F68": { "v": 80 },
+        "G68": { "v": 90 },
+        "H68": { "v": 45 },
+        "I68": { "v": 70.5 },
+        "J68": { "v": 149.86 },
+        "K68": {
+          "si": 2,
+          "v": 31.39190420868632,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L68": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A69": { "v": 68 },
+        "B69": { "v": "Machamp" },
+        "C69": { "v": "Machop" },
+        "D69": { "v": "Fighting" },
+        "F69": { "v": 90 },
+        "G69": { "v": 45 },
+        "H69": { "v": 55 },
+        "I69": { "v": 130 },
+        "J69": { "v": 160.02 },
+        "K69": {
+          "si": 2,
+          "v": 50.768557067474426,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L69": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A70": { "v": 69 },
+        "B70": { "v": "Bellsprout" },
+        "C70": { "v": "Bellsprout" },
+        "D70": { "v": "Grass" },
+        "E70": { "v": "Poison" },
+        "F70": { "v": 50 },
+        "G70": { "v": 255 },
+        "H70": { "v": 40 },
+        "I70": { "v": 4 },
+        "J70": { "v": 71.12 },
+        "K70": {
+          "si": 2,
+          "v": 7.908179081664285,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L70": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A71": { "v": 70 },
+        "B71": { "v": "Weepinbell" },
+        "C71": { "v": "Bellsprout" },
+        "D71": { "v": "Grass" },
+        "E71": { "v": "Poison" },
+        "F71": { "v": 65 },
+        "G71": { "v": 120 },
+        "H71": { "v": 55 },
+        "I71": { "v": 6.4 },
+        "J71": { "v": 99.06 },
+        "K71": {
+          "si": 2,
+          "v": 6.5220380276395,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L71": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A72": { "v": 71 },
+        "B72": { "v": "Victreebel" },
+        "C72": { "v": "Bellsprout" },
+        "D72": { "v": "Grass" },
+        "E72": { "v": "Poison" },
+        "F72": { "v": 80 },
+        "G72": { "v": 45 },
+        "H72": { "v": 70 },
+        "I72": { "v": 15.5 },
+        "J72": { "v": 170.18 },
+        "K72": {
+          "si": 2,
+          "v": 5.35198218981869,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L72": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A73": { "v": 72 },
+        "B73": { "v": "Tentacool" },
+        "C73": { "v": "Tentacool" },
+        "D73": { "v": "Water" },
+        "E73": { "v": "Poison" },
+        "F73": { "v": 40 },
+        "G73": { "v": 190 },
+        "H73": { "v": 70 },
+        "I73": { "v": 45.5 },
+        "J73": { "v": 88.9 },
+        "K73": {
+          "si": 2,
+          "v": 57.571543714516,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L73": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A74": { "v": 73 },
+        "B74": { "v": "Tentacruel" },
+        "C74": { "v": "Tentacool" },
+        "D74": { "v": "Water" },
+        "E74": { "v": "Poison" },
+        "F74": { "v": 80 },
+        "G74": { "v": 60 },
+        "H74": { "v": 100 },
+        "I74": { "v": 55 },
+        "J74": { "v": 160.02 },
+        "K74": {
+          "si": 2,
+          "v": 21.479004913162257,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L74": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A75": { "v": 74 },
+        "B75": { "v": "Geodude" },
+        "C75": { "v": "Geodude" },
+        "D75": { "v": "Rock" },
+        "E75": { "v": "Ground" },
+        "F75": { "v": 40 },
+        "G75": { "v": 255 },
+        "H75": { "v": 20 },
+        "I75": { "v": 20 },
+        "J75": { "v": 40.64 },
+        "K75": {
+          "si": 2,
+          "v": 121.09399218798438,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L75": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A76": { "v": 75 },
+        "B76": { "v": "Graveler" },
+        "C76": { "v": "Graveler" },
+        "D76": { "v": "Rock" },
+        "E76": { "v": "Ground" },
+        "F76": { "v": 55 },
+        "G76": { "v": 120 },
+        "H76": { "v": 35 },
+        "I76": { "v": 105 },
+        "J76": { "v": 99.06 },
+        "K76": {
+          "si": 2,
+          "v": 107.00218639096055,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L76": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A77": { "v": 76 },
+        "B77": { "v": "Golem" },
+        "C77": { "v": "Golem" },
+        "D77": { "v": "Rock" },
+        "E77": { "v": "Ground" },
+        "F77": { "v": 80 },
+        "G77": { "v": 45 },
+        "H77": { "v": 45 },
+        "I77": { "v": 300 },
+        "J77": { "v": 139.7 },
+        "K77": {
+          "si": 2,
+          "v": 153.71931570309425,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L77": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A78": { "v": 77 },
+        "B78": { "v": "Ponyta" },
+        "C78": { "v": "Ponyta" },
+        "D78": { "v": "Fire" },
+        "F78": { "v": 50 },
+        "G78": { "v": 190 },
+        "H78": { "v": 90 },
+        "I78": { "v": 30 },
+        "J78": { "v": 99.06 },
+        "K78": {
+          "si": 2,
+          "v": 30.572053254560156,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L78": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A79": { "v": 78 },
+        "B79": { "v": "Rapidash" },
+        "C79": { "v": "Rapidash" },
+        "D79": { "v": "Fire" },
+        "F79": { "v": 65 },
+        "G79": { "v": 60 },
+        "H79": { "v": 105 },
+        "I79": { "v": 95 },
+        "J79": { "v": 170.18 },
+        "K79": {
+          "si": 2,
+          "v": 32.80247148598552,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L79": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A80": { "v": 79 },
+        "B80": { "v": "Slowpoke" },
+        "C80": { "v": "Slowpoke" },
+        "D80": { "v": "Water" },
+        "E80": { "v": "Psychic" },
+        "F80": { "v": 90 },
+        "G80": { "v": 190 },
+        "H80": { "v": 15 },
+        "I80": { "v": 36 },
+        "J80": { "v": 119.38 },
+        "K80": {
+          "si": 2,
+          "v": 25.26034929842608,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L80": {
+          "v": "Overweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A81": { "v": 80 },
+        "B81": { "v": "Slowbro" },
+        "C81": { "v": "Slowpoke" },
+        "D81": { "v": "Water" },
+        "E81": { "v": "Psychic" },
+        "F81": { "v": 95 },
+        "G81": { "v": 75 },
+        "H81": { "v": 30 },
+        "I81": { "v": 78.5 },
+        "J81": { "v": 160.02 },
+        "K81": {
+          "si": 2,
+          "v": 30.656397921513403,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L81": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A82": { "v": 81 },
+        "B82": { "v": "Magnemite" },
+        "C82": { "v": "Magnemite" },
+        "D82": { "v": "Electric" },
+        "E82": { "v": "Steel" },
+        "F82": { "v": 25 },
+        "G82": { "v": 190 },
+        "H82": { "v": 45 },
+        "I82": { "v": 6 },
+        "J82": { "v": 30.48 },
+        "K82": {
+          "si": 2,
+          "v": 64.58346250025834,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L82": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A83": { "v": 82 },
+        "B83": { "v": "Magneton" },
+        "C83": { "v": "Magnemite" },
+        "D83": { "v": "Electric" },
+        "E83": { "v": "Steel" },
+        "F83": { "v": 50 },
+        "G83": { "v": 60 },
+        "H83": { "v": 70 },
+        "I83": { "v": 60 },
+        "J83": { "v": 99.06 },
+        "K83": {
+          "si": 2,
+          "v": 61.14410650912031,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L83": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A84": { "v": 83 },
+        "B84": { "v": "Farfetch'd" },
+        "C84": { "v": "Farfetch'd" },
+        "D84": { "v": "Normal" },
+        "E84": { "v": "Flying" },
+        "F84": { "v": 52 },
+        "G84": { "v": 45 },
+        "H84": { "v": 60 },
+        "I84": { "v": 15 },
+        "J84": { "v": 78.74 },
+        "K84": {
+          "si": 2,
+          "v": 24.193596774290324,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L84": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A85": { "v": 84 },
+        "B85": { "v": "Doduo" },
+        "C85": { "v": "Doduo" },
+        "D85": { "v": "Normal" },
+        "E85": { "v": "Flying" },
+        "F85": { "v": 35 },
+        "G85": { "v": 190 },
+        "H85": { "v": 75 },
+        "I85": { "v": 39.2 },
+        "J85": { "v": 139.7 },
+        "K85": {
+          "si": 2,
+          "v": 20.085990585204318,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L85": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A86": { "v": 85 },
+        "B86": { "v": "Dodrio" },
+        "C86": { "v": "Dodrio" },
+        "D86": { "v": "Normal" },
+        "E86": { "v": "Flying" },
+        "F86": { "v": 60 },
+        "G86": { "v": 45 },
+        "H86": { "v": 110 },
+        "I86": { "v": 85.2 },
+        "J86": { "v": 180.34 },
+        "K86": {
+          "si": 2,
+          "v": 26.197235493062532,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L86": {
+          "v": "Overweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A87": { "v": 86 },
+        "B87": { "v": "Seel" },
+        "C87": { "v": "Seel" },
+        "D87": { "v": "Water" },
+        "F87": { "v": 65 },
+        "G87": { "v": 190 },
+        "H87": { "v": 45 },
+        "I87": { "v": 90 },
+        "J87": { "v": 109.22 },
+        "K87": {
+          "si": 2,
+          "v": 75.44633802085343,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L87": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A88": { "v": 87 },
+        "B88": { "v": "Dewgong" },
+        "C88": { "v": "Seel" },
+        "D88": { "v": "Water" },
+        "E88": { "v": "Ice" },
+        "F88": { "v": 90 },
+        "G88": { "v": 75 },
+        "H88": { "v": 70 },
+        "I88": { "v": 120 },
+        "J88": { "v": 170.18 },
+        "K88": {
+          "si": 2,
+          "v": 41.43470082440276,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L88": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A89": { "v": 88 },
+        "B89": { "v": "Grimer" },
+        "C89": { "v": "Grimer" },
+        "D89": { "v": "Poison" },
+        "F89": { "v": 80 },
+        "G89": { "v": 190 },
+        "H89": { "v": 25 },
+        "I89": { "v": 30 },
+        "J89": { "v": 88.9 },
+        "K89": {
+          "si": 2,
+          "v": 37.95925959198857,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L89": {
+          "v": "Obesity class 2",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A90": { "v": 89 },
+        "B90": { "v": "Muk" },
+        "C90": { "v": "Muk" },
+        "D90": { "v": "Poison" },
+        "F90": { "v": 105 },
+        "G90": { "v": 75 },
+        "H90": { "v": 50 },
+        "I90": { "v": 30 },
+        "J90": { "v": 119.38 },
+        "K90": {
+          "si": 2,
+          "v": 21.05029108202173,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L90": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A91": { "v": 90 },
+        "B91": { "v": "Shellder" },
+        "C91": { "v": "Shellder" },
+        "D91": { "v": "Water" },
+        "F91": { "v": 30 },
+        "G91": { "v": 190 },
+        "H91": { "v": 40 },
+        "I91": { "v": 4 },
+        "J91": { "v": 30.48 },
+        "K91": {
+          "si": 2,
+          "v": 43.05564166683889,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L91": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A92": { "v": 91 },
+        "B92": { "v": "Cloyster" },
+        "C92": { "v": "Shellder" },
+        "D92": { "v": "Water" },
+        "E92": { "v": "Ice" },
+        "F92": { "v": 50 },
+        "G92": { "v": 60 },
+        "H92": { "v": 70 },
+        "I92": { "v": 132.5 },
+        "J92": { "v": 149.86 },
+        "K92": {
+          "si": 2,
+          "v": 58.99896890285017,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L92": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A93": { "v": 92 },
+        "B93": { "v": "Gastly" },
+        "C93": { "v": "Gastly" },
+        "D93": { "v": "Ghost" },
+        "E93": { "v": "Poison" },
+        "F93": { "v": 30 },
+        "G93": { "v": 190 },
+        "H93": { "v": 80 },
+        "I93": { "v": 0.1 },
+        "J93": { "v": 129.54 },
+        "K93": {
+          "si": 2,
+          "v": 0.05959258362192235,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L93": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A94": { "v": 93 },
+        "B94": { "v": "Haunter" },
+        "C94": { "v": "Gastly" },
+        "D94": { "v": "Ghost" },
+        "E94": { "v": "Poison" },
+        "F94": { "v": 45 },
+        "G94": { "v": 90 },
+        "H94": { "v": 95 },
+        "I94": { "v": 0.1 },
+        "J94": { "v": 160.02 },
+        "K94": {
+          "si": 2,
+          "v": 0.03905273620574956,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L94": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A95": { "v": 94 },
+        "B95": { "v": "Gengar" },
+        "C95": { "v": "Gastly" },
+        "D95": { "v": "Ghost" },
+        "E95": { "v": "Poison" },
+        "F95": { "v": 60 },
+        "G95": { "v": 45 },
+        "H95": { "v": 110 },
+        "I95": { "v": 40.5 },
+        "J95": { "v": 149.86 },
+        "K95": {
+          "si": 2,
+          "v": 18.033647098607034,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L95": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A96": { "v": 95 },
+        "B96": { "v": "Onix" },
+        "C96": { "v": "Onix" },
+        "D96": { "v": "Rock" },
+        "E96": { "v": "Ground" },
+        "F96": { "v": 35 },
+        "G96": { "v": 45 },
+        "H96": { "v": 70 },
+        "I96": { "v": 210 },
+        "J96": { "v": 878.84 },
+        "K96": {
+          "si": 2,
+          "v": 2.7189402502698212,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L96": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A97": { "v": 96 },
+        "B97": { "v": "Drowzee" },
+        "C97": { "v": "Drowzee" },
+        "D97": { "v": "Psychic" },
+        "F97": { "v": 60 },
+        "G97": { "v": 190 },
+        "H97": { "v": 42 },
+        "I97": { "v": 32.4 },
+        "J97": { "v": 99.06 },
+        "K97": {
+          "si": 2,
+          "v": 33.017817514924964,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L97": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A98": { "v": 97 },
+        "B98": { "v": "Hypno" },
+        "C98": { "v": "Drowzee" },
+        "D98": { "v": "Psychic" },
+        "F98": { "v": 85 },
+        "G98": { "v": 75 },
+        "H98": { "v": 67 },
+        "I98": { "v": 75.6 },
+        "J98": { "v": 160.02 },
+        "K98": {
+          "si": 2,
+          "v": 29.523868571546664,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L98": {
+          "v": "Overweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A99": { "v": 98 },
+        "B99": { "v": "Krabby" },
+        "C99": { "v": "Krabby" },
+        "D99": { "v": "Water" },
+        "F99": { "v": 30 },
+        "G99": { "v": 225 },
+        "H99": { "v": 50 },
+        "I99": { "v": 6.5 },
+        "J99": { "v": 40.64 },
+        "K99": {
+          "si": 2,
+          "v": 39.35554746109492,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L99": {
+          "v": "Obesity class 2",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A100": { "v": 99 },
+        "B100": { "v": "Kingler" },
+        "C100": { "v": "Krabby" },
+        "D100": { "v": "Water" },
+        "F100": { "v": 55 },
+        "G100": { "v": 60 },
+        "H100": { "v": 75 },
+        "I100": { "v": 60 },
+        "J100": { "v": 129.54 },
+        "K100": {
+          "si": 2,
+          "v": 35.75555017315341,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L100": {
+          "v": "Obesity class 2",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A101": { "v": 100 },
+        "B101": { "v": "Voltorb" },
+        "C101": { "v": "Voltorb" },
+        "D101": { "v": "Electric" },
+        "F101": { "v": 40 },
+        "G101": { "v": 190 },
+        "H101": { "v": 100 },
+        "I101": { "v": 10.4 },
+        "J101": { "v": 50.8 },
+        "K101": {
+          "si": 2,
+          "v": 40.3000806001612,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L101": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A102": { "v": 101 },
+        "B102": { "v": "Electrode" },
+        "C102": { "v": "Voltorb" },
+        "D102": { "v": "Electric" },
+        "F102": { "v": 60 },
+        "G102": { "v": 60 },
+        "H102": { "v": 150 },
+        "I102": { "v": 66.6 },
+        "J102": { "v": 119.38 },
+        "K102": {
+          "si": 2,
+          "v": 46.731646202088235,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L102": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A103": { "v": 102 },
+        "B103": { "v": "Exeggcute" },
+        "C103": { "v": "Exeggcute" },
+        "D103": { "v": "Grass" },
+        "E103": { "v": "Psychic" },
+        "F103": { "v": 60 },
+        "G103": { "v": 90 },
+        "H103": { "v": 40 },
+        "I103": { "v": 2.5 },
+        "J103": { "v": 40.64 },
+        "K103": {
+          "si": 2,
+          "v": 15.136749023498048,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L103": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A104": { "v": 103 },
+        "B104": { "v": "Exeggutor" },
+        "C104": { "v": "Exeggcute" },
+        "D104": { "v": "Grass" },
+        "E104": { "v": "Psychic" },
+        "F104": { "v": 95 },
+        "G104": { "v": 45 },
+        "H104": { "v": 55 },
+        "I104": { "v": 120 },
+        "J104": { "v": 200.66 },
+        "K104": {
+          "si": 2,
+          "v": 29.80297580527864,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L104": {
+          "v": "Overweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A105": { "v": 104 },
+        "B105": { "v": "Cubone" },
+        "C105": { "v": "Cubone" },
+        "D105": { "v": "Ground" },
+        "F105": { "v": 50 },
+        "G105": { "v": 190 },
+        "H105": { "v": 35 },
+        "I105": { "v": 6.5 },
+        "J105": { "v": 40.64 },
+        "K105": {
+          "si": 2,
+          "v": 39.35554746109492,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L105": {
+          "v": "Obesity class 2",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A106": { "v": 105 },
+        "B106": { "v": "Marowak" },
+        "C106": { "v": "Cubone" },
+        "D106": { "v": "Ground" },
+        "F106": { "v": 60 },
+        "G106": { "v": 75 },
+        "H106": { "v": 45 },
+        "I106": { "v": 45 },
+        "J106": { "v": 99.06 },
+        "K106": {
+          "si": 2,
+          "v": 45.85807988184023,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L106": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A107": { "v": 106 },
+        "B107": { "v": "Hitmonlee" },
+        "C107": { "v": "Hitmonlee" },
+        "D107": { "v": "Fighting" },
+        "F107": { "v": 50 },
+        "G107": { "v": 45 },
+        "H107": { "v": 87 },
+        "I107": { "v": 49.8 },
+        "J107": { "v": 149.86 },
+        "K107": {
+          "si": 2,
+          "v": 22.17470680273161,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L107": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A108": { "v": 107 },
+        "B108": { "v": "Hitmonchan" },
+        "C108": { "v": "Hitmonchan" },
+        "D108": { "v": "Fighting" },
+        "F108": { "v": 50 },
+        "G108": { "v": 45 },
+        "H108": { "v": 76 },
+        "I108": { "v": 50.2 },
+        "J108": { "v": 139.7 },
+        "K108": {
+          "si": 2,
+          "v": 25.722365494317774,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L108": {
+          "v": "Overweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A109": { "v": 108 },
+        "B109": { "v": "Lickitung" },
+        "C109": { "v": "Lickitung" },
+        "D109": { "v": "Normal" },
+        "F109": { "v": 90 },
+        "G109": { "v": 45 },
+        "H109": { "v": 30 },
+        "I109": { "v": 65.5 },
+        "J109": { "v": 119.38 },
+        "K109": {
+          "si": 2,
+          "v": 45.95980219574744,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L109": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A110": { "v": 109 },
+        "B110": { "v": "Koffing" },
+        "C110": { "v": "Koffing" },
+        "D110": { "v": "Poison" },
+        "F110": { "v": 40 },
+        "G110": { "v": 190 },
+        "H110": { "v": 35 },
+        "I110": { "v": 1 },
+        "J110": { "v": 60.96 },
+        "K110": {
+          "si": 2,
+          "v": 2.6909776041774305,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L110": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A111": { "v": 110 },
+        "B111": { "v": "Weezing" },
+        "C111": { "v": "Koffing" },
+        "D111": { "v": "Poison" },
+        "F111": { "v": 65 },
+        "G111": { "v": 60 },
+        "H111": { "v": 60 },
+        "I111": { "v": 9.5 },
+        "J111": { "v": 119.38 },
+        "K111": {
+          "si": 2,
+          "v": 6.665925509306882,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L111": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A112": { "v": 111 },
+        "B112": { "v": "Rhyhorn" },
+        "C112": { "v": "Rhyhorn" },
+        "D112": { "v": "Ground" },
+        "E112": { "v": "Rock" },
+        "F112": { "v": 80 },
+        "G112": { "v": 120 },
+        "H112": { "v": 25 },
+        "I112": { "v": 115 },
+        "J112": { "v": 99.06 },
+        "K112": {
+          "si": 2,
+          "v": 117.19287080914727,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L112": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A113": { "v": 112 },
+        "B113": { "v": "Rhydon" },
+        "C113": { "v": "Rhyhorn" },
+        "D113": { "v": "Ground" },
+        "E113": { "v": "Rock" },
+        "F113": { "v": 105 },
+        "G113": { "v": 60 },
+        "H113": { "v": 40 },
+        "I113": { "v": 120 },
+        "J113": { "v": 190.5 },
+        "K113": {
+          "si": 2,
+          "v": 33.066732800132264,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L113": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A114": { "v": 113 },
+        "B114": { "v": "Chansey" },
+        "C114": { "v": "Chansey" },
+        "D114": { "v": "Normal" },
+        "F114": { "v": 250 },
+        "G114": { "v": 30 },
+        "H114": { "v": 50 },
+        "I114": { "v": 34.6 },
+        "J114": { "v": 109.22 },
+        "K114": {
+          "si": 2,
+          "v": 29.004925505794766,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L114": {
+          "v": "Overweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A115": { "v": 114 },
+        "B115": { "v": "Tangela" },
+        "C115": { "v": "Tangela" },
+        "D115": { "v": "Grass" },
+        "F115": { "v": 65 },
+        "G115": { "v": 45 },
+        "H115": { "v": 60 },
+        "I115": { "v": 35 },
+        "J115": { "v": 99.06 },
+        "K115": {
+          "si": 2,
+          "v": 35.66739546365351,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L115": {
+          "v": "Obesity class 2",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A116": { "v": 115 },
+        "B116": { "v": "Kangaskhan" },
+        "C116": { "v": "Kangaskhan" },
+        "D116": { "v": "Normal" },
+        "F116": { "v": 105 },
+        "G116": { "v": 45 },
+        "H116": { "v": 90 },
+        "I116": { "v": 80 },
+        "J116": { "v": 220.98 },
+        "K116": {
+          "si": 2,
+          "v": 16.382646056347735,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L116": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A117": { "v": 116 },
+        "B117": { "v": "Horsea" },
+        "C117": { "v": "Horsea" },
+        "D117": { "v": "Water" },
+        "F117": { "v": 30 },
+        "G117": { "v": 225 },
+        "H117": { "v": 60 },
+        "I117": { "v": 8 },
+        "J117": { "v": 40.64 },
+        "K117": {
+          "si": 2,
+          "v": 48.437596875193755,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L117": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A118": { "v": 117 },
+        "B118": { "v": "Seadra" },
+        "C118": { "v": "Horsea" },
+        "D118": { "v": "Water" },
+        "F118": { "v": 55 },
+        "G118": { "v": 75 },
+        "H118": { "v": 85 },
+        "I118": { "v": 25 },
+        "J118": { "v": 119.38 },
+        "K118": {
+          "si": 2,
+          "v": 17.54190923501811,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L118": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A119": { "v": 118 },
+        "B119": { "v": "Goldeen" },
+        "C119": { "v": "Goldeen" },
+        "D119": { "v": "Water" },
+        "F119": { "v": 45 },
+        "G119": { "v": 225 },
+        "H119": { "v": 63 },
+        "I119": { "v": 15 },
+        "J119": { "v": 60.96 },
+        "K119": {
+          "si": 2,
+          "v": 40.364664062661454,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L119": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A120": { "v": 119 },
+        "B120": { "v": "Seaking" },
+        "C120": { "v": "Goldeen" },
+        "D120": { "v": "Water" },
+        "F120": { "v": 80 },
+        "G120": { "v": 60 },
+        "H120": { "v": 68 },
+        "I120": { "v": 39 },
+        "J120": { "v": 129.54 },
+        "K120": {
+          "si": 2,
+          "v": 23.241107612549715,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L120": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A121": { "v": 120 },
+        "B121": { "v": "Staryu" },
+        "C121": { "v": "Staryu" },
+        "D121": { "v": "Water" },
+        "F121": { "v": 30 },
+        "G121": { "v": 225 },
+        "H121": { "v": 85 },
+        "I121": { "v": 34.5 },
+        "J121": { "v": 78.74 },
+        "K121": {
+          "si": 2,
+          "v": 55.64527258086775,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L121": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A122": { "v": 121 },
+        "B122": { "v": "Starmie" },
+        "C122": { "v": "Staryu" },
+        "D122": { "v": "Water" },
+        "E122": { "v": "Psychic" },
+        "F122": { "v": 60 },
+        "G122": { "v": 60 },
+        "H122": { "v": 115 },
+        "I122": { "v": 80 },
+        "J122": { "v": 109.22 },
+        "K122": {
+          "si": 2,
+          "v": 67.06341157409194,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L122": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A123": { "v": 122 },
+        "B123": { "v": "Mr. Mime" },
+        "C123": { "v": "Mr. Mime" },
+        "D123": { "v": "Psychic" },
+        "E123": { "v": "Fairy" },
+        "F123": { "v": 40 },
+        "G123": { "v": 45 },
+        "H123": { "v": 90 },
+        "I123": { "v": 54.5 },
+        "J123": { "v": 129.54 },
+        "K123": {
+          "si": 2,
+          "v": 32.47795807394768,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L123": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A124": { "v": 123 },
+        "B124": { "v": "Scyther" },
+        "C124": { "v": "Scyther" },
+        "D124": { "v": "Bug" },
+        "E124": { "v": "Flying" },
+        "F124": { "v": 70 },
+        "G124": { "v": 45 },
+        "H124": { "v": 105 },
+        "I124": { "v": 56 },
+        "J124": { "v": 149.86 },
+        "K124": {
+          "si": 2,
+          "v": 24.935413272147997,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L124": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A125": { "v": 124 },
+        "B125": { "v": "Jynx" },
+        "C125": { "v": "Jynx" },
+        "D125": { "v": "Ice" },
+        "E125": { "v": "Psychic" },
+        "F125": { "v": 65 },
+        "G125": { "v": 45 },
+        "H125": { "v": 95 },
+        "I125": { "v": 40.6 },
+        "J125": { "v": 139.7 },
+        "K125": {
+          "si": 2,
+          "v": 20.803347391818757,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L125": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A126": { "v": 125 },
+        "B126": { "v": "Electabuzz" },
+        "C126": { "v": "Electabuzz" },
+        "D126": { "v": "Electric" },
+        "F126": { "v": 65 },
+        "G126": { "v": 45 },
+        "H126": { "v": 105 },
+        "I126": { "v": 30 },
+        "J126": { "v": 109.22 },
+        "K126": {
+          "si": 2,
+          "v": 25.148779340284477,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L126": {
+          "v": "Overweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A127": { "v": 126 },
+        "B127": { "v": "Magmar" },
+        "C127": { "v": "Magmar" },
+        "D127": { "v": "Fire" },
+        "F127": { "v": 65 },
+        "G127": { "v": 45 },
+        "H127": { "v": 93 },
+        "I127": { "v": 44.5 },
+        "J127": { "v": 129.54 },
+        "K127": {
+          "si": 2,
+          "v": 26.518699711755445,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L127": {
+          "v": "Overweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A128": { "v": 127 },
+        "B128": { "v": "Pinsir" },
+        "C128": { "v": "Pinsir" },
+        "D128": { "v": "Bug" },
+        "F128": { "v": 65 },
+        "G128": { "v": 45 },
+        "H128": { "v": 85 },
+        "I128": { "v": 55 },
+        "J128": { "v": 149.86 },
+        "K128": {
+          "si": 2,
+          "v": 24.490138035145353,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L128": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A129": { "v": 128 },
+        "B129": { "v": "Tauros" },
+        "C129": { "v": "Tauros" },
+        "D129": { "v": "Normal" },
+        "F129": { "v": 75 },
+        "G129": { "v": 45 },
+        "H129": { "v": 110 },
+        "I129": { "v": 88.4 },
+        "J129": { "v": 139.7 },
+        "K129": {
+          "si": 2,
+          "v": 45.295958360511776,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L129": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A130": { "v": 129 },
+        "B130": { "v": "Magikarp" },
+        "C130": { "v": "Magikarp" },
+        "D130": { "v": "Water" },
+        "F130": { "v": 20 },
+        "G130": { "v": 255 },
+        "H130": { "v": 80 },
+        "I130": { "v": 10 },
+        "J130": { "v": 88.9 },
+        "K130": {
+          "si": 2,
+          "v": 12.653086530662856,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L130": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A131": { "v": 130 },
+        "B131": { "v": "Gyarados" },
+        "C131": { "v": "Magikarp" },
+        "D131": { "v": "Water" },
+        "E131": { "v": "Flying" },
+        "F131": { "v": 95 },
+        "G131": { "v": 45 },
+        "H131": { "v": 81 },
+        "I131": { "v": 235 },
+        "J131": { "v": 650.24 },
+        "K131": {
+          "si": 2,
+          "v": 5.558025032065689,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L131": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A132": { "v": 131 },
+        "B132": { "v": "Lapras" },
+        "C132": { "v": "Lapras" },
+        "D132": { "v": "Water" },
+        "E132": { "v": "Ice" },
+        "F132": { "v": 130 },
+        "G132": { "v": 45 },
+        "H132": { "v": 60 },
+        "I132": { "v": 220 },
+        "J132": { "v": 248.92000000000002 },
+        "K132": {
+          "si": 2,
+          "v": 35.50611016257434,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L132": {
+          "v": "Obesity class 2",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A133": { "v": 132 },
+        "B133": { "v": "Ditto" },
+        "C133": { "v": "Ditto" },
+        "D133": { "v": "Normal" },
+        "F133": { "v": 48 },
+        "G133": { "v": 35 },
+        "H133": { "v": 48 },
+        "I133": { "v": 4 },
+        "J133": { "v": 30.48 },
+        "K133": {
+          "si": 2,
+          "v": 43.05564166683889,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L133": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A134": { "v": 133 },
+        "B134": { "v": "Eevee" },
+        "C134": { "v": "Eevee" },
+        "D134": { "v": "Normal" },
+        "F134": { "v": 55 },
+        "G134": { "v": 45 },
+        "H134": { "v": 55 },
+        "I134": { "v": 6.5 },
+        "J134": { "v": 30.48 },
+        "K134": {
+          "si": 2,
+          "v": 69.96541770861319,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L134": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A135": { "v": 134 },
+        "B135": { "v": "Vaporeon" },
+        "C135": { "v": "Eevee" },
+        "D135": { "v": "Water" },
+        "F135": { "v": 130 },
+        "G135": { "v": 45 },
+        "H135": { "v": 65 },
+        "I135": { "v": 29 },
+        "J135": { "v": 99.06 },
+        "K135": {
+          "si": 2,
+          "v": 29.552984812741485,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L135": {
+          "v": "Overweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A136": { "v": 135 },
+        "B136": { "v": "Jolteon" },
+        "C136": { "v": "Eevee" },
+        "D136": { "v": "Electric" },
+        "F136": { "v": 65 },
+        "G136": { "v": 45 },
+        "H136": { "v": 130 },
+        "I136": { "v": 24.5 },
+        "J136": { "v": 78.74 },
+        "K136": {
+          "si": 2,
+          "v": 39.516208064674196,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L136": {
+          "v": "Obesity class 2",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A137": { "v": 136 },
+        "B137": { "v": "Flareon" },
+        "C137": { "v": "Eevee" },
+        "D137": { "v": "Fire" },
+        "F137": { "v": 65 },
+        "G137": { "v": 45 },
+        "H137": { "v": 65 },
+        "I137": { "v": 25 },
+        "J137": { "v": 88.9 },
+        "K137": {
+          "si": 2,
+          "v": 31.632716326657143,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L137": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A138": { "v": 137 },
+        "B138": { "v": "Porygon" },
+        "C138": { "v": "Porygon" },
+        "D138": { "v": "Normal" },
+        "F138": { "v": 65 },
+        "G138": { "v": 45 },
+        "H138": { "v": 40 },
+        "I138": { "v": 36.5 },
+        "J138": { "v": 78.74 },
+        "K138": {
+          "si": 2,
+          "v": 58.87108548410645,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L138": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A139": { "v": 138 },
+        "B139": { "v": "Omanyte" },
+        "C139": { "v": "Omanyte" },
+        "D139": { "v": "Rock" },
+        "E139": { "v": "Water" },
+        "F139": { "v": 35 },
+        "G139": { "v": 45 },
+        "H139": { "v": 35 },
+        "I139": { "v": 7.5 },
+        "J139": { "v": 40.64 },
+        "K139": {
+          "si": 2,
+          "v": 45.410247070494144,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L139": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A140": { "v": 139 },
+        "B140": { "v": "Omastar" },
+        "C140": { "v": "Omanyte" },
+        "D140": { "v": "Rock" },
+        "E140": { "v": "Water" },
+        "F140": { "v": 70 },
+        "G140": { "v": 45 },
+        "H140": { "v": 55 },
+        "I140": { "v": 35 },
+        "J140": { "v": 99.06 },
+        "K140": {
+          "si": 2,
+          "v": 35.66739546365351,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L140": {
+          "v": "Obesity class 2",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A141": { "v": 140 },
+        "B141": { "v": "Kabuto" },
+        "C141": { "v": "Kabuto" },
+        "D141": { "v": "Rock" },
+        "E141": { "v": "Water" },
+        "F141": { "v": 30 },
+        "G141": { "v": 45 },
+        "H141": { "v": 55 },
+        "I141": { "v": 11.5 },
+        "J141": { "v": 50.8 },
+        "K141": {
+          "si": 2,
+          "v": 44.56258912517825,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L141": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A142": { "v": 141 },
+        "B142": { "v": "Kabutops" },
+        "C142": { "v": "Kabuto" },
+        "D142": { "v": "Rock" },
+        "E142": { "v": "Water" },
+        "F142": { "v": 60 },
+        "G142": { "v": 45 },
+        "H142": { "v": 80 },
+        "I142": { "v": 40.5 },
+        "J142": { "v": 129.54 },
+        "K142": {
+          "si": 2,
+          "v": 24.13499636687855,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L142": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A143": { "v": 142 },
+        "B143": { "v": "Aerodactyl" },
+        "C143": { "v": "Aerodactyl" },
+        "D143": { "v": "Rock" },
+        "E143": { "v": "Flying" },
+        "F143": { "v": 80 },
+        "G143": { "v": 45 },
+        "H143": { "v": 130 },
+        "I143": { "v": 59 },
+        "J143": { "v": 180.34 },
+        "K143": {
+          "si": 2,
+          "v": 18.141278099655977,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L143": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A144": { "v": 143 },
+        "B144": { "v": "Snorlax" },
+        "C144": { "v": "Snorlax" },
+        "D144": { "v": "Normal" },
+        "F144": { "v": 160 },
+        "G144": { "v": 25 },
+        "H144": { "v": 30 },
+        "I144": { "v": 460 },
+        "J144": { "v": 210.82 },
+        "K144": {
+          "si": 2,
+          "v": 103.49853766916127,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L144": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A145": { "v": 144 },
+        "B145": { "v": "Articuno" },
+        "C145": { "v": "Articuno" },
+        "D145": { "v": "Ice" },
+        "E145": { "v": "Flying" },
+        "F145": { "v": 90 },
+        "G145": { "v": 3 },
+        "H145": { "v": 85 },
+        "I145": { "v": 55.4 },
+        "J145": { "v": 170.18 },
+        "K145": {
+          "si": 2,
+          "v": 19.12902021393261,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L145": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A146": { "v": 145 },
+        "B146": { "v": "Zapdos" },
+        "C146": { "v": "Zapdos" },
+        "D146": { "v": "Electric" },
+        "E146": { "v": "Flying" },
+        "F146": { "v": 90 },
+        "G146": { "v": 3 },
+        "H146": { "v": 100 },
+        "I146": { "v": 52.6 },
+        "J146": { "v": 160.02 },
+        "K146": {
+          "si": 2,
+          "v": 20.541739244224267,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L146": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A147": { "v": 146 },
+        "B147": { "v": "Moltres" },
+        "C147": { "v": "Moltres" },
+        "D147": { "v": "Fire" },
+        "E147": { "v": "Flying" },
+        "F147": { "v": 90 },
+        "G147": { "v": 3 },
+        "H147": { "v": 90 },
+        "I147": { "v": 60 },
+        "J147": { "v": 200.66 },
+        "K147": {
+          "si": 2,
+          "v": 14.90148790263932,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L147": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A148": { "v": 147 },
+        "B148": { "v": "Dratini" },
+        "C148": { "v": "Dratini" },
+        "D148": { "v": "Dragon" },
+        "F148": { "v": 41 },
+        "G148": { "v": 45 },
+        "H148": { "v": 50 },
+        "I148": { "v": 3.3 },
+        "J148": { "v": 180.34 },
+        "K148": {
+          "si": 2,
+          "v": 1.014681656421436,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L148": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A149": { "v": 148 },
+        "B149": { "v": "Dragonair" },
+        "C149": { "v": "Dratini" },
+        "D149": { "v": "Dragon" },
+        "F149": { "v": 61 },
+        "G149": { "v": 45 },
+        "H149": { "v": 70 },
+        "I149": { "v": 16.5 },
+        "J149": { "v": 398.78000000000003 },
+        "K149": {
+          "si": 2,
+          "v": 1.0375695220942958,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L149": {
+          "v": "Underweight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A150": { "v": 149 },
+        "B150": { "v": "Dragonite" },
+        "C150": { "v": "Dratini" },
+        "D150": { "v": "Dragon" },
+        "E150": { "v": "Flying" },
+        "F150": { "v": 91 },
+        "G150": { "v": 45 },
+        "H150": { "v": 80 },
+        "I150": { "v": 210 },
+        "J150": { "v": 220.98 },
+        "K150": {
+          "si": 2,
+          "v": 43.0044458979128,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L150": {
+          "v": "Obesity class 3",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A151": { "v": 150 },
+        "B151": { "v": "Mewtwo" },
+        "C151": { "v": "Mewtwo" },
+        "D151": { "v": "Psychic" },
+        "F151": { "v": 106 },
+        "G151": { "v": 3 },
+        "H151": { "v": 130 },
+        "I151": { "v": 122 },
+        "J151": { "v": 200.66 },
+        "K151": {
+          "si": 2,
+          "v": 30.299692068699947,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L151": {
+          "v": "Obesity class 1",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A152": { "v": 151 },
+        "B152": { "v": "Mew" },
+        "C152": { "v": "Mew" },
+        "D152": { "v": "Psychic" },
+        "F152": { "v": 100 },
+        "G152": { "v": 45 },
+        "H152": { "v": 100 },
+        "I152": { "v": 4 },
+        "J152": { "v": 40.64 },
+        "K152": {
+          "si": 2,
+          "v": 24.218798437596877,
+          "f": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        "L152": {
+          "v": "Normal weight",
+          "f": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        },
+        "A153": { "v": "Total" },
+        "D153": {
+          "v": 15,
+          "f": "COUNTA(UNIQUE(Table1[Pri. Type]))"
+        },
+        "E153": {
+          "v": 12,
+          "f": "COUNTA(UNIQUE(Table1[Sec. Type]))"
+        },
+        "F153": {
+          "si": 1,
+          "v": 64.21192052980132,
+          "f": "SUBTOTAL(101,Table1[Hp])"
+        },
+        "G153": {
+          "si": 1,
+          "v": 106.18543046357615,
+          "f": "SUBTOTAL(101,Table1[Catch rate])"
+        },
+        "H153": {
+          "si": 1,
+          "v": 151,
+          "f": "SUBTOTAL(103,Table1[Speed])"
+        },
+        "I153": {
+          "si": 1,
+          "v": 45.95165562913907,
+          "f": "SUBTOTAL(101,Table1[Weight (k)])"
+        },
+        "J153": {
+          "si": 1,
+          "v": 119.34635761589401,
+          "f": "SUBTOTAL(101,Table1[Height (cm)])"
+        }
+      },
+      "columns": [
+        { "begin": 1, "end": 1, "size": 13.33203125 },
+        { "begin": 2, "end": 2, "size": 11.1640625 },
+        { "begin": 5, "end": 5, "size": 11.33203125 },
+        { "begin": 6, "end": 6, "size": 11.6640625 },
+        { "begin": 7, "end": 7, "size": 11.83203125 },
+        { "begin": 8, "end": 8, "size": 12.6640625 },
+        { "begin": 9, "end": 9, "size": 11.6640625 },
+        { "begin": 10, "end": 10, "size": 12.6640625 },
+        { "begin": 12, "end": 12, "size": 16.83203125 }
+      ],
+      "rows": [],
+      "merged_cells": [],
+      "defaults": { "col_width": 10, "row_height": 16 },
+      "hidden": false
+    },
+    {
+      "name": "BMI",
+      "cells": {
+        "A1": { "v": "Min" },
+        "B1": { "v": "Max" },
+        "C1": { "v": "Status" },
+        "A2": { "v": 0 },
+        "B2": { "v": 18.5 },
+        "C2": { "v": "Underweight" },
+        "A3": { "v": 18.5 },
+        "B3": { "v": 25 },
+        "C3": { "v": "Normal weight" },
+        "A4": { "v": 25 },
+        "B4": { "v": 30 },
+        "C4": { "v": "Overweight" },
+        "A5": { "v": 30 },
+        "B5": { "v": 35 },
+        "C5": { "v": "Obesity class 1" },
+        "A6": { "v": 35 },
+        "B6": { "v": 40 },
+        "C6": { "v": "Obesity class 2" },
+        "A7": { "v": 40 },
+        "B7": { "v": 10000 },
+        "C7": { "v": "Obesity class 3" }
+      },
+      "columns": [
+        { "begin": 3, "end": 3, "size": 16 }
+      ],
+      "rows": [],
+      "merged_cells": [],
+      "defaults": { "col_width": 10, "row_height": 16 },
+      "hidden": false
+    }
+  ],
+  "names": [],
+  "tables": [
+    {
+      "name": "Table1",
+      "sheet": "Pokémon",
+      "ref": "A1:L153",
+      "totals_row_count": 1,
+      "columns": [
+        { "name": "Index #" },
+        { "name": "Pokémon" },
+        { "name": "Species" },
+        { "name": "Pri. Type" },
+        { "name": "Sec. Type" },
+        { "name": "Hp" },
+        { "name": "Catch rate" },
+        { "name": "Speed" },
+        { "name": "Weight (k)" },
+        { "name": "Height (cm)" },
+        {
+          "name": "BMI",
+          "formula": "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)"
+        },
+        {
+          "name": "BMI class",
+          "formula": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
+        }
+      ]
+    },
+    {
+      "name": "BMI",
+      "sheet": "BMI",
+      "ref": "A1:C7",
+      "totals_row_count": 0,
+      "columns": [
+        { "name": "Min" },
+        { "name": "Max" },
+        { "name": "Status" }
+      ]
+    }
+  ],
+  "calculation_properties": {
+    "iterate": false,
+    "iterate_count": 100,
+    "iterate_delta": 0.001
+  },
+  "styles": [
+    { "font-size": 12 },
+    { "number-format": "0.00", "font-size": 12 },
+    { "number-format": "0.0", "font-size": 12 }
+  ]
+}

@@ -1,0 +1,675 @@
+{
+  "filename": "merged-cells.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "B1": { "si": 1 },
+        "C1": { "si": 1 },
+        "D1": { "si": 1 },
+        "E1": { "si": 1 },
+        "F1": { "si": 1 },
+        "G1": { "si": 1 },
+        "H1": { "si": 1 },
+        "I1": { "si": 1 },
+        "J1": { "si": 1 },
+        "K1": { "si": 1 },
+        "A2": { "si": 2 },
+        "B2": { "si": 3 },
+        "C2": { "si": 16 },
+        "D2": { "si": 17 },
+        "E2": { "si": 18 },
+        "F2": { "si": 8 },
+        "G2": { "si": 14 },
+        "H2": { "si": 9 },
+        "I2": { "si": 8 },
+        "J2": { "si": 9 },
+        "K2": { "si": 3 },
+        "A3": { "si": 2 },
+        "B3": { "si": 13 },
+        "C3": { "si": 19 },
+        "D3": { "si": 20 },
+        "E3": { "si": 21 },
+        "F3": { "si": 11 },
+        "G3": { "si": 15 },
+        "H3": { "si": 12 },
+        "I3": { "si": 11 },
+        "J3": { "si": 12 },
+        "K3": { "si": 13 },
+        "A4": { "si": 2 },
+        "B4": { "si": 13 },
+        "C4": { "si": 8 },
+        "D4": { "si": 43 },
+        "E4": { "si": 46 },
+        "F4": { "si": 5 },
+        "G4": { "si": 49 },
+        "H4": { "si": 50 },
+        "I4": { "si": 50 },
+        "J4": { "si": 51 },
+        "K4": { "si": 4 },
+        "A5": { "si": 2 },
+        "B5": { "si": 13 },
+        "C5": { "si": 10 },
+        "D5": { "si": 44 },
+        "E5": { "si": 47 },
+        "F5": { "si": 6 },
+        "G5": { "si": 52 },
+        "H5": { "si": 53 },
+        "I5": { "si": 53 },
+        "J5": { "si": 54 },
+        "K5": { "si": 3 },
+        "A6": { "si": 2 },
+        "B6": { "si": 4 },
+        "C6": { "si": 11 },
+        "D6": { "si": 45 },
+        "E6": { "si": 48 },
+        "F6": { "si": 7 },
+        "G6": { "si": 52 },
+        "H6": { "si": 53 },
+        "I6": { "si": 53 },
+        "J6": { "si": 54 },
+        "K6": { "si": 13 },
+        "B7": { "si": 58 },
+        "C7": { "si": 59 },
+        "D7": { "si": 28 },
+        "E7": { "si": 3 },
+        "F7": { "si": 3 },
+        "G7": { "si": 52 },
+        "H7": { "si": 53 },
+        "I7": { "si": 53 },
+        "J7": { "si": 54 },
+        "K7": { "si": 13 },
+        "B8": { "si": 41 },
+        "C8": { "si": 42 },
+        "D8": { "si": 29 },
+        "E8": { "si": 4 },
+        "F8": { "si": 4 },
+        "G8": { "si": 55 },
+        "H8": { "si": 56 },
+        "I8": { "si": 56 },
+        "J8": { "si": 57 },
+        "K8": { "si": 4 },
+        "B9": { "si": 35 },
+        "C9": { "si": 36 },
+        "D9": { "si": 22 },
+        "E9": { "si": 23 },
+        "F9": { "si": 3 },
+        "G9": { "si": 8 },
+        "H9": { "si": 9 },
+        "I9": { "si": 16 },
+        "J9": { "si": 18 },
+        "K9": { "si": 32 },
+        "B10": { "si": 37 },
+        "C10": { "si": 38 },
+        "D10": { "si": 24 },
+        "E10": { "si": 25 },
+        "F10": { "si": 13 },
+        "G10": { "si": 11 },
+        "H10": { "si": 12 },
+        "I10": { "si": 30 },
+        "J10": { "si": 31 },
+        "K10": { "si": 33 },
+        "B11": { "si": 37 },
+        "C11": { "si": 38 },
+        "D11": { "si": 24 },
+        "E11": { "si": 25 },
+        "F11": { "si": 13 },
+        "G11": { "si": 8 },
+        "H11": { "si": 9 },
+        "I11": { "si": 30 },
+        "J11": { "si": 31 },
+        "K11": { "si": 33 },
+        "B12": { "si": 39 },
+        "C12": { "si": 40 },
+        "D12": { "si": 26 },
+        "E12": { "si": 27 },
+        "F12": { "si": 4 },
+        "G12": { "si": 11 },
+        "H12": { "si": 12 },
+        "I12": { "si": 19 },
+        "J12": { "si": 21 },
+        "K12": { "si": 34 },
+        "B13": { "si": 32 },
+        "C13": { "si": 16 },
+        "D13": { "si": 18 },
+        "E13": { "si": 8 },
+        "F13": { "si": 9 },
+        "G13": { "si": 3 },
+        "H13": { "si": 35 },
+        "I13": { "si": 36 },
+        "J13": { "si": 22 },
+        "K13": { "si": 23 },
+        "B14": { "si": 33 },
+        "C14": { "si": 30 },
+        "D14": { "si": 31 },
+        "E14": { "si": 11 },
+        "F14": { "si": 12 },
+        "G14": { "si": 13 },
+        "H14": { "si": 37 },
+        "I14": { "si": 38 },
+        "J14": { "si": 24 },
+        "K14": { "si": 25 },
+        "B15": { "si": 33 },
+        "C15": { "si": 30 },
+        "D15": { "si": 31 },
+        "E15": { "si": 8 },
+        "F15": { "si": 9 },
+        "G15": { "si": 13 },
+        "H15": { "si": 37 },
+        "I15": { "si": 38 },
+        "J15": { "si": 24 },
+        "K15": { "si": 25 },
+        "B16": { "si": 34 },
+        "C16": { "si": 19 },
+        "D16": { "si": 21 },
+        "E16": { "si": 11 },
+        "F16": { "si": 12 },
+        "G16": { "si": 4 },
+        "H16": { "si": 39 },
+        "I16": { "si": 40 },
+        "J16": { "si": 26 },
+        "K16": { "si": 27 }
+      },
+      "columns": [],
+      "rows": [
+        { "begin": 1, "end": 1, "size": 17 },
+        { "begin": 3, "end": 4, "size": 17 },
+        { "begin": 6, "end": 8, "size": 17 },
+        { "begin": 10, "end": 10, "size": 17 },
+        { "begin": 12, "end": 12, "size": 17 },
+        { "begin": 14, "end": 14, "size": 17 },
+        { "begin": 16, "end": 16, "size": 17 }
+      ],
+      "merged_cells": [
+        "B2:B6",
+        "C2:E3",
+        "F2:H3",
+        "I2:J3",
+        "K2:K4",
+        "C4:D6",
+        "E4:F6",
+        "G4:J8",
+        "K5:K8",
+        "B7:C7",
+        "D7:D8",
+        "E7:E8",
+        "F7:F8",
+        "B8:C8",
+        "B9:C12",
+        "D9:E12",
+        "F9:F12",
+        "G9:H10",
+        "I9:J12",
+        "K9:K12",
+        "G11:H12",
+        "B13:B16",
+        "C13:D16",
+        "E13:F14",
+        "G13:G16",
+        "H13:I16",
+        "J13:K16",
+        "E15:F16"
+      ],
+      "defaults": { "col_width": 10, "row_height": 16 },
+      "hidden": false
+    }
+  ],
+  "names": [],
+  "tables": [],
+  "calculation_properties": {
+    "iterate": false,
+    "iterate_count": 100,
+    "iterate_delta": 0.001
+  },
+  "styles": [
+    { "font-size": 12 },
+    {
+      "font-size": 12,
+      "border-bottom-style": "medium"
+    },
+    {
+      "font-size": 12,
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "border-top-style": "medium",
+      "border-left-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "border-bottom-style": "medium",
+      "border-left-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "font-color": "#FFF",
+      "fill-color": "#000",
+      "border-top-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "font-color": "#FFF",
+      "fill-color": "#000",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "font-color": "#FFF",
+      "fill-color": "#000",
+      "border-bottom-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "border-top-style": "medium",
+      "border-left-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "border-top-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "border-left-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "border-bottom-style": "medium",
+      "border-left-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "border-bottom-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "border-left-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "border-top-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "border-bottom-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#FF0",
+      "border-top-style": "medium",
+      "border-left-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#FF0",
+      "border-top-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#FF0",
+      "border-top-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#FF0",
+      "border-bottom-style": "medium",
+      "border-left-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#FF0",
+      "border-bottom-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#FF0",
+      "border-bottom-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#0070C0",
+      "border-top-style": "medium",
+      "border-left-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#0070C0",
+      "border-top-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#0070C0",
+      "border-left-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#0070C0",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#0070C0",
+      "border-bottom-style": "medium",
+      "border-left-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#0070C0",
+      "border-bottom-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "font-color": "#FFF",
+      "fill-color": "#000",
+      "border-top-style": "medium",
+      "border-left-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "font-color": "#FFF",
+      "fill-color": "#000",
+      "border-bottom-style": "medium",
+      "border-left-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#FF0",
+      "border-left-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#FF0",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#FF0",
+      "border-top-style": "medium",
+      "border-left-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#FF0",
+      "border-left-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#FF0",
+      "border-bottom-style": "medium",
+      "border-left-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#F00",
+      "border-top-style": "medium",
+      "border-left-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#F00",
+      "border-top-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#F00",
+      "border-left-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#F00",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#F00",
+      "border-bottom-style": "medium",
+      "border-left-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#F00",
+      "border-bottom-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "border-top-style": "medium",
+      "border-bottom-style": "medium",
+      "border-left-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "border-top-style": "medium",
+      "border-bottom-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "border-top-style": "medium",
+      "border-right-style": "thin"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "border-right-style": "thin"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "border-bottom-style": "medium",
+      "border-right-style": "thin"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "font-color": "#FFF",
+      "fill-color": "#000",
+      "border-top-style": "medium",
+      "border-left-style": "thin"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "font-color": "#FFF",
+      "fill-color": "#000",
+      "border-left-style": "thin"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "font-color": "#FFF",
+      "fill-color": "#000",
+      "border-bottom-style": "medium",
+      "border-left-style": "thin"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#F00",
+      "border-top-style": "medium",
+      "border-left-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#F00",
+      "border-top-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#F00",
+      "border-top-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#F00",
+      "border-left-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#F00"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#F00",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#F00",
+      "border-bottom-style": "medium",
+      "border-left-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#F00",
+      "border-bottom-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#F00",
+      "border-bottom-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#FF0",
+      "border-top-style": "medium",
+      "border-bottom-style": "medium",
+      "border-left-style": "medium"
+    },
+    {
+      "horizontal-alignment": "center",
+      "vertical-alignment": "center",
+      "font-size": 12,
+      "fill-color": "#FF0",
+      "border-top-style": "medium",
+      "border-bottom-style": "medium",
+      "border-right-style": "medium"
+    },
+    { "font-size": 12 }
+  ]
+}

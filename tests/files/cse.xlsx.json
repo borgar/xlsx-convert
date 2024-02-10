@@ -1,0 +1,38 @@
+{
+  "filename": "cse.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": 1 },
+        "B1": { "v": 0 },
+        "C1": { "v": 0 },
+        "D1": { "v": 1 },
+        "A3": { "v": true, "F": "A3:D3", "f": "A1:D1=1" },
+        "B3": { "v": false, "F": "A3:D3" },
+        "C3": { "v": false, "F": "A3:D3" },
+        "D3": { "v": true, "F": "A3:D3" },
+        "A4": { "v": true, "F": "A4:D4", "f": "A1:D1=1" },
+        "B4": { "v": false, "F": "A4:D4" },
+        "C4": { "v": false, "F": "A4:D4" },
+        "D4": { "v": true, "F": "A4:D4" }
+      },
+      "columns": [],
+      "rows": [],
+      "merged_cells": [],
+      "defaults": { "col_width": 10, "row_height": 16 },
+      "hidden": false
+    }
+  ],
+  "names": [],
+  "tables": [],
+  "calculation_properties": {
+    "iterate": false,
+    "iterate_count": 100,
+    "iterate_delta": 0.001
+  },
+  "styles": [
+    { "font-size": 12 },
+    { "font-size": 12 }
+  ]
+}

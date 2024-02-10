@@ -1,0 +1,127 @@
+{
+  "filename": "external-refs.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": 12, "f": "[literals.xlsx]Sheet1!$A$1" },
+        "C1": { "v": "a" },
+        "D1": { "v": "b" },
+        "A2": {
+          "v": "value",
+          "f": "[literals.xlsx]Sheet1!scoped"
+        },
+        "C2": { "v": 1 },
+        "D2": {
+          "v": 12,
+          "f": "Table1[@a]*[literals.xlsx]Sheet1!$A$1"
+        },
+        "A3": { "v": "value", "f": "literals.xlsx!unscoped" },
+        "C3": { "v": 2 },
+        "D3": {
+          "v": 24,
+          "f": "Table1[@a]*[literals.xlsx]Sheet1!$A$1"
+        },
+        "A4": { "v": 12300, "f": "literals.xlsx!formula" },
+        "C4": { "v": 3 },
+        "D4": {
+          "v": 36,
+          "f": "Table1[@a]*[literals.xlsx]Sheet1!$A$1"
+        },
+        "A5": {
+          "v": "value",
+          "f": "[literals.xlsx]Sheet1!scoped"
+        },
+        "A6": { "v": 12, "f": "name2cell" },
+        "A7": { "v": "value", "f": "name2name" },
+        "A8": { "v": "value", "f": "name2scopedname" },
+        "A9": {
+          "v": "lorem ipsum dolor set amet",
+          "f": "'[names.xlsx]some values'!$E$2"
+        }
+      },
+      "columns": [],
+      "rows": [],
+      "merged_cells": [],
+      "defaults": { "col_width": 10, "row_height": 16 },
+      "hidden": false
+    }
+  ],
+  "names": [
+    {
+      "name": "name2cell",
+      "value": "[literals.xlsx]Sheet1!$A$1"
+    },
+    {
+      "name": "name2name",
+      "value": "literals.xlsx!unscoped"
+    },
+    {
+      "name": "name2scopedname",
+      "value": "[literals.xlsx]Sheet1!scoped"
+    }
+  ],
+  "tables": [
+    {
+      "name": "Table1",
+      "sheet": "Sheet1",
+      "ref": "C1:D4",
+      "totals_row_count": 0,
+      "columns": [
+        { "name": "a" },
+        {
+          "name": "b",
+          "formula": "Table1[@a]*[literals.xlsx]Sheet1!$A$1"
+        }
+      ]
+    }
+  ],
+  "externals": [
+    {
+      "filename": "literals.xlsx",
+      "sheets": [
+        {
+          "name": "some values",
+          "cells": {
+            "E2": { "v": "lorem ipsum dolor set amet" }
+          }
+        }
+      ],
+      "names": []
+    },
+    {
+      "filename": "names.xlsx",
+      "sheets": [
+        {
+          "name": "Sheet1",
+          "cells": {
+            "A1": { "v": 12 },
+            "A2": { "v":"value" }
+          }
+        }
+      ],
+      "names": [
+        {
+          "name": "formula",
+          "value":"#REF!"
+        },
+        {
+          "name": "scoped",
+          "value": "='Sheet1'!$A$2"
+        },
+        {
+          "name": "unscoped",
+          "value": "='Sheet1'!$A$2"
+        }
+      ]
+    }
+  ],
+  "calculation_properties": {
+    "iterate": false,
+    "iterate_count": 100,
+    "iterate_delta": 0.001
+  },
+  "styles": [
+    { "font-size": 12 }
+  ]
+}

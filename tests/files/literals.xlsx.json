@@ -1,0 +1,40 @@
+{
+  "filename": "literals.xlsx",
+  "sheets": [
+    {
+      "name": "some values",
+      "cells": {
+        "A1": { "v": 0 },
+        "B1": { "v": 1 },
+        "C1": { "v": 2 },
+        "D1": { "v": 3 },
+        "A2": { "v": "aa" },
+        "B2": { "si": 1, "v": "" },
+        "C2": { "si": 1, "v": "true" },
+        "D2": { "si": 1, "v": "#VALUE!" },
+        "E2": { "v": "lorem ipsum dolor set amet" },
+        "A3": { "v": true },
+        "B3": { "v": false },
+        "A4": { "si": 1, "v": "#VALUE!", "t": "e" },
+        "B4": { "si": 1, "v": "#NUM!", "t": "e" },
+        "C4": { "v": "#DIV/0!", "t": "e" }
+      },
+      "columns": [],
+      "rows": [],
+      "merged_cells": [],
+      "defaults": { "col_width": 10, "row_height": 16 },
+      "hidden": false
+    }
+  ],
+  "names": [],
+  "tables": [],
+  "calculation_properties": {
+    "iterate": false,
+    "iterate_count": 100,
+    "iterate_delta": 0.001
+  },
+  "styles": [
+    { "font-size": 12 },
+    { "font-size": 12 }
+  ]
+}

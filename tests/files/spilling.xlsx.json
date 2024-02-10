@@ -1,0 +1,61 @@
+{
+  "filename": "spilling.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "Data" },
+        "B1": { "v": "Spill copy" },
+        "C1": { "v": "Spill fx" },
+        "D1": { "v": "# ref" },
+        "A2": { "v": "X" },
+        "B2": { "v": "X", "F": "B2:B10", "f": "A2:A10" },
+        "C2": {
+          "v": "Z",
+          "F": "C2:C4",
+          "f": "FILTER(A2:A10,A2:A10=\"Z\")"
+        },
+        "D2": {
+          "v": "Z",
+          "F": "D2:D4",
+          "f": "ANCHORARRAY(C2)"
+        },
+        "A3": { "v": "Y" },
+        "B3": { "v": "Y", "F": "B2:B10" },
+        "C3": { "v": "Z", "F": "C2:C4" },
+        "D3": { "v": "Z", "F": "D2:D4" },
+        "A4": { "v": "Z" },
+        "B4": { "v": "Z", "F": "B2:B10" },
+        "C4": { "v": "Z", "F": "C2:C4" },
+        "D4": { "v": "Z", "F": "D2:D4" },
+        "A5": { "v": "X" },
+        "B5": { "v": "X", "F": "B2:B10" },
+        "A6": { "v": "Y" },
+        "B6": { "v": "Y", "F": "B2:B10" },
+        "A7": { "v": "Z" },
+        "B7": { "v": "Z", "F": "B2:B10" },
+        "A8": { "v": "X" },
+        "B8": { "v": "X", "F": "B2:B10" },
+        "A9": { "v": "Y" },
+        "B9": { "v": "Y", "F": "B2:B10" },
+        "A10": { "v": "Z" },
+        "B10": { "v": "Z", "F": "B2:B10" }
+      },
+      "columns": [],
+      "rows": [],
+      "merged_cells": [],
+      "defaults": { "col_width": 10, "row_height": 16 },
+      "hidden": false
+    }
+  ],
+  "names": [],
+  "tables": [],
+  "calculation_properties": {
+    "iterate": false,
+    "iterate_count": 100,
+    "iterate_delta": 0.001
+  },
+  "styles": [
+    { "font-size": 12 }
+  ]
+}

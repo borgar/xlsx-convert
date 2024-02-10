@@ -1,0 +1,70 @@
+{
+  "filename": "multiple-sheets.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "sheet #1" }
+      },
+      "columns": [],
+      "rows": [],
+      "merged_cells": [],
+      "defaults": { "col_width": 10, "row_height": 16 },
+      "hidden": false
+    },
+    {
+      "name": "Sheet2",
+      "cells": {
+        "A1": { "v": "sheet #2" }
+      },
+      "columns": [],
+      "rows": [],
+      "merged_cells": [],
+      "defaults": { "col_width": 10, "row_height": 16 },
+      "hidden": false
+    },
+    {
+      "name": "Sheet3",
+      "cells": {
+        "A1": { "v": "sheet #3" }
+      },
+      "columns": [],
+      "rows": [],
+      "merged_cells": [],
+      "defaults": { "col_width": 10, "row_height": 16 },
+      "hidden": false
+    },
+    {
+      "name": "Sheet4",
+      "cells": {
+        "A1": { "v": "sheet #4" }
+      },
+      "columns": [],
+      "rows": [],
+      "merged_cells": [],
+      "defaults": { "col_width": 10, "row_height": 16 },
+      "hidden": false
+    },
+    {
+      "name": "Sheet5",
+      "cells": {
+        "A1": { "v": "hidden sheet" }
+      },
+      "columns": [],
+      "rows": [],
+      "merged_cells": [],
+      "defaults": { "col_width": 10, "row_height": 16 },
+      "hidden": false
+    }
+  ],
+  "names": [],
+  "tables": [],
+  "calculation_properties": {
+    "iterate": false,
+    "iterate_count": 100,
+    "iterate_delta": 0.001
+  },
+  "styles": [
+    { "font-size": 12 }
+  ]
+}

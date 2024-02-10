@@ -1,0 +1,38 @@
+{
+  "filename": "strings.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "ab" },
+        "A2": { "v": "ab" },
+        "A3": { "v": "abb" },
+        "A4": { "v": "abb" },
+        "A5": { "v": "ab" },
+        "A6": { "v": "ab" },
+        "A7": { "v": "abb" },
+        "A8": { "v": "ab" },
+        "A9": { "v": "ab" },
+        "A10": { "v": "abbb" },
+        "A11": { "v": "abbb" },
+        "A12": { "v": "ab" },
+        "A13": { "v": "abb" }
+      },
+      "columns": [],
+      "rows": [],
+      "merged_cells": [],
+      "defaults": { "col_width": 10, "row_height": 16 },
+      "hidden": false
+    }
+  ],
+  "names": [],
+  "tables": [],
+  "calculation_properties": {
+    "iterate": false,
+    "iterate_count": 100,
+    "iterate_delta": 0.001
+  },
+  "styles": [
+    { "font-size": 12 }
+  ]
+}

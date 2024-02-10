@@ -1,0 +1,57 @@
+{
+  "filename": "date-time.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "si": 2, "v": 32100 },
+        "C1": { "v": 0.123 },
+        "A2": { "si": 1, "v": 32100 },
+        "C2": { "si": 4, "v": 0.123 },
+        "A3": { "si": 3, "v": 32100 },
+        "A4": { "si": 5, "v": 32100 },
+        "A5": { "si": 6, "v": 32100 },
+        "A6": { "si": 7, "v": 32100 }
+      },
+      "columns": [
+        { "begin": 1, "end": 1, "size": 27.1640625 }
+      ],
+      "rows": [],
+      "merged_cells": [],
+      "defaults": { "col_width": 10, "row_height": 16 },
+      "hidden": false
+    }
+  ],
+  "names": [],
+  "tables": [],
+  "calculation_properties": {
+    "iterate": false,
+    "iterate_count": 100,
+    "iterate_delta": 0.001
+  },
+  "styles": [
+    { "font-size": 12 },
+    { "number-format": "m/d/yy", "font-size": 12 },
+    { "font-size": 12 },
+    {
+      "number-format": "[$-F800]dddd\\,\\ mmmm\\ dd\\,\\ yyyy",
+      "font-size": 12
+    },
+    {
+      "number-format": "[$-F400]h:mm:ss\\ AM/PM",
+      "font-size": 12
+    },
+    {
+      "number-format": "yyyy\\-mm\\-dd;@",
+      "font-size": 12
+    },
+    {
+      "number-format": "[$]d/m/yyyy;@",
+      "font-size": 12
+    },
+    {
+      "number-format": "[$]dddd\\,\\ mmmm\\ d\\,\\ yyyy;@",
+      "font-size": 12
+    }
+  ]
+}

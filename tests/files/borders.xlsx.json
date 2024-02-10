@@ -1,0 +1,238 @@
+{
+  "filename": "borders.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "E2": { "si": 3 },
+        "F2": { "si": 3 },
+        "H2": { "si": 4 },
+        "L2": { "si": 5 },
+        "B3": { "si": 2 },
+        "C3": { "si": 2 },
+        "H3": { "si": 4 },
+        "L3": { "si": 5 },
+        "E5": { "si": 6 },
+        "F5": { "si": 6 },
+        "H5": { "si": 7 },
+        "I5": { "si": 8 },
+        "K5": { "si": 11 },
+        "L5": { "si": 12 },
+        "E6": { "si": 6 },
+        "F6": { "si": 6 },
+        "H6": { "si": 9 },
+        "I6": { "si": 10 },
+        "K6": { "si": 13 },
+        "L6": { "si": 14 },
+        "H8": { "si": 3 },
+        "I8": { "si": 3 },
+        "K8": { "si": 3 },
+        "L8": { "si": 3 },
+        "B9": { "si": 15 },
+        "C9": { "si": 15 },
+        "E9": { "si": 16 },
+        "F9": { "si": 16 },
+        "H9": { "si": 16 },
+        "I9": { "si": 16 },
+        "K9": { "si": 15 },
+        "L9": { "si": 15 },
+        "B11": { "si": 17 },
+        "C11": { "si": 17 },
+        "H11": { "si": 21 },
+        "I11": { "si": 22 },
+        "J11": { "si": 23 },
+        "K11": { "si": 26 },
+        "L11": { "si": 27 },
+        "B12": { "si": 17 },
+        "C12": { "si": 17 },
+        "H12": { "si": 20 },
+        "I12": { "si": 19 },
+        "J12": { "si": 23 },
+        "K12": { "si": 25 },
+        "L12": { "si": 24 }
+      },
+      "columns": [
+        { "begin": 2, "end": 3, "size": 3.33203125 },
+        { "begin": 4, "end": 4, "size": 6.6640625 },
+        { "begin": 5, "end": 6, "size": 3.33203125 },
+        { "begin": 7, "end": 7, "size": 6.6640625 },
+        { "begin": 8, "end": 9, "size": 3.33203125 },
+        { "begin": 10, "end": 10, "size": 6.6640625 },
+        { "begin": 11, "end": 12, "size": 3.33203125 },
+        { "begin": 13, "end": 14, "size": 10.83203125 }
+      ],
+      "rows": [
+        { "begin": 2, "end": 3, "size": 20 },
+        { "begin": 4, "end": 4, "size": 40 },
+        { "begin": 5, "end": 6, "size": 20 },
+        { "begin": 7, "end": 7, "size": 40 },
+        { "begin": 8, "end": 9, "size": 20 },
+        { "begin": 10, "end": 10, "size": 40 },
+        { "begin": 11, "end": 20, "size": 20 }
+      ],
+      "merged_cells": [],
+      "defaults": { "col_width": 10, "row_height": 16 },
+      "hidden": false
+    }
+  ],
+  "names": [],
+  "tables": [],
+  "calculation_properties": {
+    "iterate": false,
+    "iterate_count": 100,
+    "iterate_delta": 0.001
+  },
+  "styles": [
+    { "font-size": 12 },
+    { "font-size": 12 },
+    {
+      "font-size": 12,
+      "border-bottom-style": "thin"
+    },
+    { "font-size": 12, "border-top-style": "thin" },
+    { "font-size": 12, "border-left-style": "thin" },
+    { "font-size": 12, "border-right-style": "thin" },
+    {
+      "font-size": 12,
+      "border-top-style": "thin",
+      "border-bottom-style": "thin",
+      "border-left-style": "thin",
+      "border-right-style": "thin"
+    },
+    {
+      "font-size": 12,
+      "border-top-style": "thin",
+      "border-left-style": "thin"
+    },
+    {
+      "font-size": 12,
+      "border-top-style": "thin",
+      "border-right-style": "thin"
+    },
+    {
+      "font-size": 12,
+      "border-bottom-style": "thin",
+      "border-left-style": "thin"
+    },
+    {
+      "font-size": 12,
+      "border-bottom-style": "thin",
+      "border-right-style": "thin"
+    },
+    {
+      "font-size": 12,
+      "border-top-style": "medium",
+      "border-left-style": "medium"
+    },
+    {
+      "font-size": 12,
+      "border-top-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "font-size": 12,
+      "border-bottom-style": "medium",
+      "border-left-style": "medium"
+    },
+    {
+      "font-size": 12,
+      "border-bottom-style": "medium",
+      "border-right-style": "medium"
+    },
+    {
+      "font-size": 12,
+      "border-bottom-style": "double"
+    },
+    {
+      "font-size": 12,
+      "border-bottom-style": "medium"
+    },
+    {
+      "font-size": 12,
+      "border-top-style": "dotted",
+      "border-bottom-style": "dotted",
+      "border-left-style": "dotted",
+      "border-right-style": "dotted"
+    },
+    { "font-size": 12 },
+    {
+      "font-size": 12,
+      "border-bottom-style": "dashDot",
+      "border-bottom-color": "#4472C4",
+      "border-right-style": "dashDot",
+      "border-right-color": "#4472C4"
+    },
+    {
+      "font-size": 12,
+      "border-bottom-style": "dashDot",
+      "border-bottom-color": "#4472C4",
+      "border-left-style": "dashDot",
+      "border-left-color": "#4472C4",
+      "border-right-style": "dashDot",
+      "border-right-color": "#4472C4"
+    },
+    {
+      "font-size": 12,
+      "border-top-style": "dashDot",
+      "border-top-color": "#4472C4",
+      "border-bottom-style": "dashDot",
+      "border-bottom-color": "#4472C4",
+      "border-left-style": "dashDot",
+      "border-left-color": "#4472C4",
+      "border-right-style": "dashDot",
+      "border-right-color": "#4472C4"
+    },
+    {
+      "font-size": 12,
+      "border-top-style": "dashDot",
+      "border-top-color": "#4472C4",
+      "border-bottom-style": "dashDot",
+      "border-bottom-color": "#4472C4",
+      "border-right-style": "dashDot",
+      "border-right-color": "#4472C4"
+    },
+    {
+      "font-size": 12,
+      "border-left-style": "dashDot",
+      "border-left-color": "#4472C4",
+      "border-right-style": "mediumDashed",
+      "border-right-color": "#00B050"
+    },
+    {
+      "font-size": 12,
+      "border-bottom-style": "mediumDashed",
+      "border-bottom-color": "#00B050",
+      "border-right-style": "mediumDashed",
+      "border-right-color": "#00B050"
+    },
+    {
+      "font-size": 12,
+      "border-bottom-style": "mediumDashed",
+      "border-bottom-color": "#00B050",
+      "border-left-style": "mediumDashed",
+      "border-left-color": "#00B050",
+      "border-right-style": "mediumDashed",
+      "border-right-color": "#00B050"
+    },
+    {
+      "font-size": 12,
+      "border-top-style": "mediumDashed",
+      "border-top-color": "#00B050",
+      "border-bottom-style": "mediumDashed",
+      "border-bottom-color": "#00B050",
+      "border-left-style": "mediumDashed",
+      "border-left-color": "#00B050",
+      "border-right-style": "mediumDashed",
+      "border-right-color": "#00B050"
+    },
+    {
+      "font-size": 12,
+      "border-top-style": "mediumDashed",
+      "border-top-color": "#00B050",
+      "border-bottom-style": "mediumDashed",
+      "border-bottom-color": "#00B050",
+      "border-right-style": "mediumDashed",
+      "border-right-color": "#00B050"
+    }
+  ]
+}

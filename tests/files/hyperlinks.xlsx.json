@@ -1,0 +1,50 @@
+{
+  "filename": "hyperlinks.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": {
+          "si": 1,
+          "v": "http://example.com/",
+          "href": "http://example.com/"
+        },
+        "A2": {
+          "si": 1,
+          "v": "title text",
+          "href": "http://example.com/"
+        },
+        "A3": {
+          "si": 1,
+          "v": "http://example.com/",
+          "f": "HYPERLINK(\"http://example.com/\")"
+        },
+        "A4": {
+          "si": 1,
+          "v": "title text",
+          "f": "HYPERLINK(\"http://example.com/\",\"title text\")"
+        }
+      },
+      "columns": [],
+      "rows": [],
+      "merged_cells": [],
+      "defaults": { "col_width": 10, "row_height": 16 },
+      "hidden": false
+    }
+  ],
+  "names": [],
+  "tables": [],
+  "calculation_properties": {
+    "iterate": true,
+    "iterate_count": 10,
+    "iterate_delta": 0.001
+  },
+  "styles": [
+    { "font-size": 12 },
+    {
+      "font-size": 12,
+      "font-color": "#0563C1",
+      "underline": "single"
+    }
+  ]
+}
