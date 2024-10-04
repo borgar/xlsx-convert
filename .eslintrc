@@ -1,5 +1,4 @@
 {
-  "parser": "@babel/eslint-parser",
   "extends": [ "@borgar/eslint-config" ],
   "env": {
     "es6": true,
@@ -7,7 +6,7 @@
   },
   "rules": {
     "newline-per-chained-call": "off",
-    "array-element-newline": "off",
+    "array-element-newline": "off"
   },
   "parserOptions": {
     "ecmaVersion": 2021,

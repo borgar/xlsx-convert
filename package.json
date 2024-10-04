@@ -1,6 +1,6 @@
 {
   "name": "@borgar/xlsx-convert",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Utility to convert Excel XLSX files to JSON",
   "type": "module",
   "main": "src/index.js",
@@ -8,7 +8,7 @@
     "test": "tests"
   },
   "scripts": {
-    "lint": "eslint *.js src/",
+    "lint": "eslint *.mjs src/",
     "test": "node tests/index.js"
   },
   "repository": {
@@ -30,14 +30,13 @@
   "author": "Borgar Þorsteinsson <borgar@borgar.net> (http://borgar.net/)",
   "license": "MIT",
   "dependencies": {
-    "@borgar/fx": "~4.3.1",
+    "@borgar/fx": "~4.7.1",
     "@borgar/simple-xml": "~2.0.1",
     "d3-color": "~3.1.0",
     "jszip": "~3.10.1",
     "numfmt": "~3.1.3"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "~7.22.11",
     "@borgar/eslint-config": "~3.1.0",
     "@otris/jsdoc-tsd": "~3.0.0",
     "eslint": "~8.47.0"
