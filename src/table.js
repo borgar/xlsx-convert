@@ -1,4 +1,4 @@
-import attr from './utils/attr.js';
+import attr, { numAttr } from './utils/attr.js';
 import { normalizeFormula } from './utils/normalizeFormula.js';
 
 export default function (dom, wb) {
@@ -10,7 +10,7 @@ export default function (dom, wb) {
   table.name = attr(tableElm, 'name');
   table.sheet = '';
   table.ref = attr(tableElm, 'ref');
-  table.totals_row_count = +attr(tableElm, 'totalsRowCount', 0);
+  table.totals_row_count = numAttr(tableElm, 'totalsRowCount', 0);
   table.columns = [];
 
   tableElm

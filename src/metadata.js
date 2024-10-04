@@ -1,4 +1,4 @@
-import attr from './utils/attr.js';
+import attr, { numAttr } from './utils/attr.js';
 
 export default function (dom, wb) {
   const tables = {};
@@ -23,15 +23,15 @@ export default function (dom, wb) {
           // XLRICHVALUE
           else if (uri === '{3e2802c4-a4d2-4d8b-9148-e3be6c30e623}') {
             const rvb = ext.getElementsByTagName('rvb')[0];
-            table.push(wb.richValues[+attr(rvb, 'i', 0)]);
+            table.push(wb.richValues[numAttr(rvb, 'i', 0)]);
           }
         });
     });
 
   function parseBk (bk) {
     const rc = bk.getElementsByTagName('rc')[0];
-    const t = +attr(rc, 't', 0);
-    const v = +attr(rc, 'v', 0);
+    const t = numAttr(rc, 't', 0);
+    const v = numAttr(rc, 'v', 0);
     // BÞ: not actually sure t refers to tables like this.
     //     it seems to make sense, but will need more data or documentation
     if (t === 1) {

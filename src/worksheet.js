@@ -1,7 +1,7 @@
-import attr from './utils/attr.js';
+import { parseA1Ref, stringifyA1Ref } from '@borgar/fx';
+import attr, { numAttr } from './utils/attr.js';
 import { rle } from './utils/rle.js';
 import handlerCell from './cell.js';
-import { parseA1Ref, stringifyA1Ref } from '@borgar/fx';
 
 export default function (dom, wb, rels) {
   const sheet = {
@@ -28,16 +28,16 @@ export default function (dom, wb, rels) {
   // find default col/row sizes
   const sheetFormatPr = dom.getElementsByTagName('sheetFormatPr')[0];
   if (sheetFormatPr) {
-    sheet.defaults.col_width = +attr(sheetFormatPr, 'baseColWidth', sheet.defaults.col_width);
-    sheet.defaults.row_height = +attr(sheetFormatPr, 'defaultRowHeight', sheet.defaults.row_height);
+    sheet.defaults.col_width = numAttr(sheetFormatPr, 'baseColWidth', sheet.defaults.col_width);
+    sheet.defaults.row_height = numAttr(sheetFormatPr, 'defaultRowHeight', sheet.defaults.row_height);
   }
 
   // decode column widths
   dom.getElementsByTagName('col').forEach(d => {
-    const min = +attr(d, 'min', 0);
-    const max = +attr(d, 'max', 100000); // FIXME: What is the actual max value?
-    const hidden = +attr(d, 'hidden', 0);
-    const width = hidden ? 0 : +attr(d, 'width');
+    const min = numAttr(d, 'min', 0);
+    const max = numAttr(d, 'max', 100000); // FIXME: What is the actual max value?
+    const hidden = numAttr(d, 'hidden', 0);
+    const width = hidden ? 0 : numAttr(d, 'width');
     sheet.columns.push({
       begin: min,
       end: max,
@@ -76,7 +76,7 @@ export default function (dom, wb, rels) {
 
       // .hidden = 1 if the row is hidden (.collapsed also exists)
       // .ht = Row height measured in point size
-      const isHidden = +attr(row, 'hidden');
+      const isHidden = numAttr(row, 'hidden');
       if (isHidden) {
         row_heights.push([ +r, 0 ]);
       }

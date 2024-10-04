@@ -1,5 +1,5 @@
 import readColor from './color.js';
-import attr from './utils/attr.js';
+import attr, { boolAttr } from './utils/attr.js';
 import { BUILTIN_FORMATS } from './constants.js';
 
 const valOfNode = (node, subNodeName, fallback = null) => {
@@ -22,7 +22,7 @@ const readXf = (d, styles) => {
     xf.numFmt = styles.numFmts[+numFmtId];
   }
 
-  const fillId = +attr(d, 'applyFill', 0) ? attr(d, 'fillId') : null;
+  const fillId = boolAttr(d, 'applyFill') ? attr(d, 'fillId') : null;
   if (fillId) {
     xf.fillId = +fillId;
     xf.fill = styles.fill[+fillId];

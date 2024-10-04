@@ -1,4 +1,4 @@
-import attr from './utils/attr.js';
+import attr, { numAttr } from './utils/attr.js';
 import { normalizeFormula } from './utils/normalizeFormula.js';
 import { toInt, toNum } from './utils/typecast.js';
 
@@ -26,7 +26,7 @@ export default function (dom, wb) {
     });
 
   const pr = dom.querySelectorAll('workbook > workbookPr')[0];
-  wb.epoch = (pr && +attr(pr, 'date1904')) ? 1904 : 1900;
+  wb.epoch = (pr && numAttr(pr, 'date1904')) ? 1904 : 1900;
 
   const calcPr = dom.getElementsByTagName('calcPr')[0];
   if (calcPr) {

@@ -1,4 +1,4 @@
-import numfmt from 'numfmt';
+import { dateToSerial, isDateFormat } from 'numfmt';
 import { toInt, toNum } from './utils/typecast.js';
 import attr from './utils/attr.js';
 import unescape from './utils/unescape.js';
@@ -111,14 +111,14 @@ export default function (node, wb) {
         // this is time only so prefix with Excel epoch date
         v = '1899-12-31T' + v;
       }
-      cell.v = numfmt.dateToSerial(new Date(Date.parse(v)));
+      cell.v = dateToSerial(new Date(Date.parse(v)));
     }
     else if (type === 'n') {
       let val = toNum(v);
       // adjust dates if the workbook uses 1904 data system
       if (wb.epoch === 1904 && styleIndex) {
         const z = wb.styles[styleIndex] && wb.styles[styleIndex]['number-format'];
-        if (z && numfmt.isDate(z)) {
+        if (z && isDateFormat(z)) {
           val += 1462;
         }
       }

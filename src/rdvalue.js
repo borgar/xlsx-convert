@@ -1,4 +1,4 @@
-import attr from './utils/attr.js';
+import { numAttr } from './utils/attr.js';
 
 export default function (dom, wb) {
   const values = [];
@@ -6,7 +6,7 @@ export default function (dom, wb) {
 
   dom.querySelectorAll('rvData > rv')
     .forEach(rv => {
-      const nth = +attr(rv, 's', 0);
+      const nth = numAttr(rv, 's', 0);
       const s = structures[nth];
       const val = { _type: s.type };
 

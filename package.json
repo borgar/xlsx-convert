@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "Utility to convert Excel XLSX files to JSON",
   "type": "module",
-  "main": "index.js",
+  "main": "src/index.js",
   "directories": {
     "test": "tests"
   },
@@ -31,10 +31,10 @@
   "license": "MIT",
   "dependencies": {
     "@borgar/fx": "~4.3.1",
-    "@borgar/simple-xml": "~2.0.0",
+    "@borgar/simple-xml": "~2.0.1",
     "d3-color": "~3.1.0",
     "jszip": "~3.10.1",
-    "numfmt": "^2.5.1"
+    "numfmt": "~3.1.3"
   },
   "devDependencies": {
     "@babel/eslint-parser": "~7.22.11",

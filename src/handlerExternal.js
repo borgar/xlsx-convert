@@ -1,4 +1,4 @@
-import attr from './utils/attr.js';
+import attr, { numAttr } from './utils/attr.js';
 import handlerCell from './cell.js';
 import { normalizeFormula } from './utils/normalizeFormula.js';
 
@@ -22,7 +22,7 @@ export default function (dom, fileName = '') {
   const dummyWb = { options: {}, styles: [] };
   dom.querySelectorAll('sheetDataSet > sheetData')
     .forEach(sheetData => {
-      const sheetIndex = +attr(sheetData, 'sheetId', 0);
+      const sheetIndex = numAttr(sheetData, 'sheetId', 0);
       const externalCells = external.sheets[sheetIndex].cells;
       sheetData.querySelectorAll('row > cell')
         .forEach(cell => {

@@ -1,4 +1,7 @@
-import { isFunction, isReference, parseA1Ref, parseStructRef, stringifyA1Ref, stringifyStructRef, tokenTypes, tokenize } from '@borgar/fx';
+import {
+  isFunction, isReference, parseA1Ref, parseStructRef, stringifyA1Ref,
+  stringifyStructRef, tokenTypes, tokenize
+} from '@borgar/fx';
 
 function updateContext (ref, externalLinks) {
   const context = [];

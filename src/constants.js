@@ -8,12 +8,15 @@ export const REL_PREFIXES = [
   'http://purl.oclc.org/ooxml/officeDocument/relationships/'
 ];
 
+// switching to UK english has moved all $ to kr.
 export const BUILTIN_FORMATS = {
   0: 'General',
   1: '0',
   2: '0.00',
   3: '#,##0',
   4: '#,##0.00',
+  // These next four are locale dependant. For example
+  // the Icelandic locale uses `#,##0 "kr.";-#,##0 "kr."`
   5: '"$"#,##0_);("$"#,##0)',
   6: '"$"#,##0_);[Red]("$"#,##0)',
   7: '"$"#,##0.00_);("$"#,##0.00)',
@@ -23,8 +26,10 @@ export const BUILTIN_FORMATS = {
   11: '0.00E+00',
   12: '# ?/?',
   13: '# ??/??',
-  // 14: 'mm-dd-yy',
+  // Format 14, Excel's default "Short Date" is very locale dependent:
+  // It seeme to use OS short date format: "1/2/09", "2.1.1909", "02-01-1909"
   14: 'm/d/yy',
+  // Next three have locale dependent delimiter, and possibly more:
   15: 'd-mmm-yy',
   16: 'd-mmm',
   17: 'mmm-yy',
@@ -32,24 +37,29 @@ export const BUILTIN_FORMATS = {
   19: 'h:mm:ss AM/PM',
   20: 'h:mm',
   21: 'h:mm:ss',
-  22: 'm/d/yy h:mm',
-
   37: '#,##0_);(#,##0)',
   38: '#,##0_);[Red](#,##0)',
   39: '#,##0.00_);(#,##0.00)',
   40: '#,##0.00_);[Red](#,##0.00)',
-
   41: '_(* #,##0_);_(* \\(#,##0\\);_(* "-"_);_(@_)',
   42: '_("$"* #,##0_);_("$"* \\(#,##0\\);_("$"* "-"_);_(@_)',
   43: '_(* #,##0.00_);_(* \\(#,##0.00\\);_(* "-"??_);_(@_)',
-
   44: '_("$"* #,##0.00_);_("$"* \\(#,##0.00\\);_("$"* "-"??_);_(@_)',
   45: 'mm:ss',
   46: '[h]:mm:ss',
-  47: 'mmss.0',
+  47: 'mm:ss.0',
   48: '##0.0E+0',
-  49: '@'
+  49: '@',
+  55: 'yyyy/mm/dd'
 };
+
+// formats IDs that point to other IDs
+[ [ 22, 21 ], [ 23, 21 ], [ 24, 21 ], [ 25, 21 ], [ 26, 14 ],
+  [ 27, 37 ], [ 28, 38 ], [ 29, 39 ], [ 30, 40 ], [ 31, 41 ],
+  [ 32, 42 ], [ 33, 43 ], [ 34, 44 ], [ 35, 45 ], [ 36, 46 ] ]
+  .forEach(([ to, from ]) => {
+    BUILTIN_FORMATS[to] = BUILTIN_FORMATS[from];
+  });
 
 // Default Color Index as per 18.8.27 of ECMA Part 4
 export const COLOR_INDEX = [
@@ -108,3 +118,4 @@ export const NAMED_COLORS = {
   'windowframe': 'FF646464',
   'windowtext': 'FF000000'
 };
+

@@ -1,5 +1,5 @@
 import { rgb, hsl } from 'd3-color';
-import attr from './utils/attr.js';
+import attr, { numAttr } from './utils/attr.js';
 import { NAMED_COLORS } from './constants.js';
 
 function bound (c) {
@@ -98,7 +98,7 @@ export default function (node, theme) {
     color.b = parseInt(argb.slice(6, 8), 16);
   }
 
-  const tint = +attr(node, 'tint', 0);
+  const tint = numAttr(node, 'tint', 0);
   // tint: If tint is supplied, then it is applied to the RGB value of the color
   //       to determine the final color applied.
   // The tint value is stored as a double from -1.0 ... 1.0, where -1.0 means

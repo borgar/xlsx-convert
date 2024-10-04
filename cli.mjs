@@ -1,4 +1,4 @@
-const convert = require('./src');
+import convert from './src/index.js';
 
 const arg = process.argv.filter(d => /\.xlsx$/.test(d));
 
