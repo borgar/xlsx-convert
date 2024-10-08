@@ -6,7 +6,7 @@ import JSZip from 'jszip';
 import { parseXML } from '@borgar/simple-xml';
 import convertStyles from './utils/convertStyles.js';
 
-import Workbook from './Workbook.js';
+import Workbook from './workbook.js';
 
 import handlerRels from './rels.js';
 import handlerWorkbook from './workbookHandler.js';
