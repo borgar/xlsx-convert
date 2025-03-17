@@ -80,11 +80,11 @@ Reads an Excel XLSX file into a consumable structure. The return value contains 
 
 * `target` can be either a filename which will be loaded, or a Buffer object should you wish to perform the loading externally.
 
-* `options` are set as an object of keys: `convert(filename, { option: true })`. Supported options are:
+* `options` are set as an object of keys: `xlsxConvert(filename, { option: true })`. Supported options are:
 
   | name | default | effect |
   |- | - | -
   | `skip_merged` | `true` | De-activating this will emit _all_ cells that have any "relevant" data, regardless of them being part of merges. By default only the top-left cell will be emitted. 
   | `cell_styles` | `false` | Normally, styles are emitted as an indexed list per-workbook. This will instead inline styles per cell.
-  | `cell_z` | `true` | Number formatting is emitted as a part of the cell (as cell.z) instead of as a part of styles as `number-format`
+  | `cell_z` | `false` | Number formatting is emitted as a part of the cell (as cell.z) instead of as a part of styles as `number-format`
 
