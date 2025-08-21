@@ -25,6 +25,9 @@ export function normalizeFormula (formula, wb) {
       return;
     }
     else if (isReference(t) && wb?.externalLinks) {
+      if (t.type === tokenTypes.REF_NAMED) {
+        t.value = t.value.replace(/^(?:_xlpm\.)/ig, '');
+      }
       // normalize external references
       // xlsx reference syntax is different from Excel's runtime language syntax
       // in that external references are braced indexes into a links list, using

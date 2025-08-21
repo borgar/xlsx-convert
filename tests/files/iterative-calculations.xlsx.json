@@ -102,5 +102,6 @@
       "number-format": "yyyy\\-mm\\-dd\\ hh:mm:ss;@",
       "font-size": 12
     }
-  ]
+  ],
+  "epoch": 1900
 }

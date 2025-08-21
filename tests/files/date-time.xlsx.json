@@ -53,5 +53,6 @@
       "number-format": "[$]dddd\\,\\ mmmm\\ d\\,\\ yyyy;@",
       "font-size": 12
     }
-  ]
+  ],
+  "epoch": 1900
 }

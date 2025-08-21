@@ -2875,7 +2875,53 @@
         "C6": { "v": "Obesity class 2" },
         "A7": { "v": 40 },
         "B7": { "v": 10000 },
-        "C7": { "v": "Obesity class 3" }
+        "C7": { "v": "Obesity class 3" },
+        "A8": { "v": "Total" },
+        "B8": {
+          "v": 16567870.041666666,
+          "f": "SUBTOTAL(110,BMI[Max])"
+        },
+        "C8": { "v": 6, "f": "SUBTOTAL(103,BMI[Status])" },
+        "A11": { "v": "Min" },
+        "B11": { "v": "Max" },
+        "C11": { "v": "Status" },
+        "A12": { "v": 0 },
+        "B12": { "v": 18.5 },
+        "C12": { "v": "Underweight" },
+        "A13": { "v": 18.5 },
+        "B13": { "v": 25 },
+        "C13": { "v": "Normal weight" },
+        "A14": { "v": 25 },
+        "B14": { "v": 30 },
+        "C14": { "v": "Overweight" },
+        "A15": { "v": 30 },
+        "B15": { "v": 35 },
+        "C15": { "v": "Obesity class 1" },
+        "A16": { "v": 35 },
+        "B16": { "v": 40 },
+        "C16": { "v": "Obesity class 2" },
+        "A17": { "v": 40 },
+        "B17": { "v": 10000 },
+        "C17": { "v": "Obesity class 3" },
+        "A20": { "v": "Headers are hidden" },
+        "A21": { "v": 0 },
+        "B21": { "v": 18.5 },
+        "C21": { "v": "Underweight" },
+        "A22": { "v": 18.5 },
+        "B22": { "v": 25 },
+        "C22": { "v": "Normal weight" },
+        "A23": { "v": 25 },
+        "B23": { "v": 30 },
+        "C23": { "v": "Overweight" },
+        "A24": { "v": 30 },
+        "B24": { "v": 35 },
+        "C24": { "v": "Obesity class 1" },
+        "A25": { "v": 35 },
+        "B25": { "v": 40 },
+        "C25": { "v": "Obesity class 2" },
+        "A26": { "v": 40 },
+        "B26": { "v": 10000 },
+        "C26": { "v": "Obesity class 3" }
       },
       "columns": [
         { "begin": 3, "end": 3, "size": 16 }
@@ -2892,6 +2938,7 @@
       "name": "Table1",
       "sheet": "Pokémon",
       "ref": "A1:L153",
+      "header_row_count": 1,
       "totals_row_count": 1,
       "columns": [
         { "name": "Index #" },
@@ -2915,10 +2962,35 @@
       ]
     },
     {
+      "name": "BMI_6",
+      "sheet": "BMI",
+      "ref": "A21:C26",
+      "header_row_count": 0,
+      "totals_row_count": 0,
+      "columns": [
+        { "name": "Min" },
+        { "name": "Max" },
+        { "name": "Status" }
+      ]
+    },
+    {
+      "name": "BMI_5",
+      "sheet": "BMI",
+      "ref": "A11:C17",
+      "header_row_count": 1,
+      "totals_row_count": 0,
+      "columns": [
+        { "name": "Min" },
+        { "name": "Max" },
+        { "name": "Status" }
+      ]
+    },
+    {
       "name": "BMI",
       "sheet": "BMI",
-      "ref": "A1:C7",
-      "totals_row_count": 0,
+      "ref": "A1:C8",
+      "header_row_count": 1,
+      "totals_row_count": 1,
       "columns": [
         { "name": "Min" },
         { "name": "Max" },
@@ -2926,14 +2998,15 @@
       ]
     }
   ],
+  "styles": [
+    { "font-size": 12 },
+    { "number-format": "0.00", "font-size": 12 },
+    { "number-format": "0.0", "font-size": 12 }
+  ],
   "calculation_properties": {
     "iterate": false,
     "iterate_count": 100,
     "iterate_delta": 0.001
   },
-  "styles": [
-    { "font-size": 12 },
-    { "number-format": "0.00", "font-size": 12 },
-    { "number-format": "0.0", "font-size": 12 }
-  ]
+  "epoch": 1900
 }

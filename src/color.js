@@ -1,7 +1,11 @@
 import { rgb, hsl } from 'd3-color';
-import attr, { numAttr } from './utils/attr.js';
+import { attr, numAttr } from './utils/attr.js';
 import { NAMED_COLORS } from './constants.js';
 
+/**
+ * @param {number} c
+ * @return {number}
+ */
 function bound (c) {
   if (c < 0) { return 0; }
   if (c > 255) { return 255; }
@@ -15,6 +19,9 @@ class Color {
     this.g = 0;
     this.b = 0;
     this.a = 1;
+    this.src = '';
+    this.name = '';
+    this.tint = 0;
   }
 
   rgb () {
@@ -57,6 +64,10 @@ class Color {
   }
 }
 
+/**
+ * @param {import("@borgar/simple-xml").Element} node
+ * @param {import('./handler/theme.js').Theme} theme
+ */
 export default function (node, theme) {
   if (!node) { return null; }
 

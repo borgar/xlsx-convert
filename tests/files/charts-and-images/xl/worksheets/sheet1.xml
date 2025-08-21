@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<worksheet
+  mc:Ignorable="x14ac xr xr2 xr3"
+  xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+  xmlns:x14ac="http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac"
+  xmlns:xr="http://schemas.microsoft.com/office/spreadsheetml/2014/revision"
+  xmlns:xr2="http://schemas.microsoft.com/office/spreadsheetml/2015/revision2"
+  xmlns:xr3="http://schemas.microsoft.com/office/spreadsheetml/2016/revision3"
+  xr:uid="{866A8A27-E103-1540-97F2-B161E645F6C1}"
+  >
+  <dimension ref="A1:P17"/>
+
+  <sheetViews>
+    <sheetView showGridLines="0" tabSelected="1" workbookViewId="0" zoomScale="150" zoomScaleNormal="150">
+      <selection activeCell="K16" sqref="K16"/>
+    </sheetView>
+  </sheetViews>
+
+  <sheetFormatPr baseColWidth="10" defaultRowHeight="16" x14ac:dyDescent="0.2"/>
+
+  <cols>
+    <col customWidth="1" max="1" min="1" width="5"/>
+    <col customWidth="1" max="16" min="2" width="4.85546875"/>
+  </cols>
+
+  <sheetData>
+    <row r="1" spans="1:16" x14ac:dyDescent="0.2">
+      <c r="B1" s="1">
+        <v>34700</v>
+      </c>
+      <c r="C1" s="1">
+        <v>35065</v>
+      </c>
+      <c r="D1" s="1">
+        <v>35431</v>
+      </c>
+      <c r="E1" s="1">
+        <v>35796</v>
+      </c>
+      <c r="F1" s="1">
+        <v>36161</v>
+      </c>
+      <c r="G1" s="1">
+        <v>36526</v>
+      </c>
+      <c r="H1" s="1">
+        <v>36892</v>
+      </c>
+      <c r="I1" s="1">
+        <v>37257</v>
+      </c>
+      <c r="J1" s="1">
+        <v>37622</v>
+      </c>
+      <c r="K1" s="1">
+        <v>37987</v>
+      </c>
+      <c r="L1" s="1">
+        <v>38353</v>
+      </c>
+      <c r="M1" s="1">
+        <v>38718</v>
+      </c>
+      <c r="N1" s="1">
+        <v>39083</v>
+      </c>
+      <c r="O1" s="1">
+        <v>39448</v>
+      </c>
+      <c r="P1" s="1">
+        <v>39814</v>
+      </c>
+    </row>
+
+    <row r="2" spans="1:16" x14ac:dyDescent="0.2">
+      <c r="A2" t="s">
+        <v>0</v>
+      </c>
+      <c r="B2">
+        <v>24</v>
+      </c>
+      <c r="C2">
+        <v>13</v>
+      </c>
+      <c r="D2">
+        <v>30</v>
+      </c>
+      <c r="E2">
+        <v>22</v>
+      </c>
+      <c r="F2">
+        <v>21</v>
+      </c>
+      <c r="G2">
+        <v>19</v>
+      </c>
+      <c r="H2">
+        <v>19</v>
+      </c>
+      <c r="I2">
+        <v>30</v>
+      </c>
+      <c r="J2">
+        <v>17</v>
+      </c>
+      <c r="K2">
+        <v>26</v>
+      </c>
+      <c r="L2">
+        <v>19</v>
+      </c>
+      <c r="M2">
+        <v>26</v>
+      </c>
+      <c r="N2">
+        <v>16</v>
+      </c>
+      <c r="O2">
+        <v>27</v>
+      </c>
+      <c r="P2">
+        <v>17</v>
+      </c>
+    </row>
+
+    <row r="3" spans="1:16" x14ac:dyDescent="0.2">
+      <c r="A3" t="s">
+        <v>1</v>
+      </c>
+      <c r="B3">
+        <v>21</v>
+      </c>
+      <c r="C3">
+        <v>16</v>
+      </c>
+      <c r="D3">
+        <v>26</v>
+      </c>
+      <c r="E3">
+        <v>17</v>
+      </c>
+      <c r="F3">
+        <v>16</v>
+      </c>
+      <c r="G3">
+        <v>26</v>
+      </c>
+      <c r="H3">
+        <v>15</v>
+      </c>
+      <c r="I3">
+        <v>24</v>
+      </c>
+      <c r="J3">
+        <v>27</v>
+      </c>
+      <c r="K3">
+        <v>13</v>
+      </c>
+      <c r="L3">
+        <v>13</v>
+      </c>
+      <c r="M3">
+        <v>17</v>
+      </c>
+      <c r="N3">
+        <v>30</v>
+      </c>
+      <c r="O3">
+        <v>23</v>
+      </c>
+      <c r="P3">
+        <v>20</v>
+      </c>
+    </row>
+
+    <row r="4" spans="1:16" x14ac:dyDescent="0.2">
+      <c r="A4" t="s">
+        <v>2</v>
+      </c>
+      <c r="B4">
+        <v>27</v>
+      </c>
+      <c r="C4">
+        <v>14</v>
+      </c>
+      <c r="D4">
+        <v>26</v>
+      </c>
+      <c r="E4">
+        <v>22</v>
+      </c>
+      <c r="F4">
+        <v>13</v>
+      </c>
+      <c r="G4">
+        <v>30</v>
+      </c>
+      <c r="H4">
+        <v>22</v>
+      </c>
+      <c r="I4">
+        <v>22</v>
+      </c>
+      <c r="J4">
+        <v>23</v>
+      </c>
+      <c r="K4">
+        <v>22</v>
+      </c>
+      <c r="L4">
+        <v>16</v>
+      </c>
+      <c r="M4">
+        <v>23</v>
+      </c>
+      <c r="N4">
+        <v>24</v>
+      </c>
+      <c r="O4">
+        <v>13</v>
+      </c>
+      <c r="P4">
+        <v>15</v>
+      </c>
+    </row>
+
+    <row customHeight="1" ht="35" r="17" spans="2:2" x14ac:dyDescent="0.2">
+      <c r="B17" t="e" vm="1">
+        <f>_xlfn.IMAGE(&quot;https://support.content.office.net/en-us/media/35aecc53-b3c1-4895-8a7d-554716941806.jpg&quot;,&quot;Cylender&quot;, 1)</f>
+        <v>#VALUE!</v>
+      </c>
+    </row>
+
+  </sheetData>
+
+  <pageMargins bottom="0.75" footer="0.3" header="0.3" left="0.7" right="0.7" top="0.75"/>
+
+  <pageSetup horizontalDpi="0" orientation="portrait" paperSize="9" verticalDpi="0"/>
+
+  <drawing r:id="rId1"/>
+
+  <picture r:id="rId2"/>
+</worksheet>

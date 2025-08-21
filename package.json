@@ -9,6 +9,7 @@
   },
   "scripts": {
     "lint": "eslint *.mjs src/",
+    "typecheck": "tsc --noEmit",
     "test": "node tests/index.js"
   },
   "repository": {
@@ -39,6 +40,8 @@
   "devDependencies": {
     "@borgar/eslint-config": "~3.1.0",
     "@otris/jsdoc-tsd": "~3.0.0",
-    "eslint": "~8.47.0"
+    "@types/node": "~22.7.7",
+    "eslint": "~8.47.0",
+    "typescript": "~5.6.3"
   }
 }

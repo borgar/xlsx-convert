@@ -671,5 +671,6 @@
       "border-right-style": "medium"
     },
     { "font-size": 12 }
-  ]
+  ],
+  "epoch": 1900
 }

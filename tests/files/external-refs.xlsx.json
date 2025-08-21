@@ -67,6 +67,7 @@
       "sheet": "Sheet1",
       "ref": "C1:D4",
       "totals_row_count": 0,
+      "header_row_count": 1,
       "columns": [
         { "name": "a" },
         {
@@ -123,5 +124,6 @@
   },
   "styles": [
     { "font-size": 12 }
-  ]
+  ],
+  "epoch": 1900
 }

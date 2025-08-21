@@ -6,7 +6,17 @@
   },
   "rules": {
     "newline-per-chained-call": "off",
-    "array-element-newline": "off"
+    "array-element-newline": "off",
+    "max-len": [ "error", {
+      "code": 120,
+      "comments": 80,
+      "tabWidth": 2,
+      "ignorePattern": "^\\s*\\* @\\S",
+      "ignoreUrls": true,
+      "ignoreStrings": true,
+      "ignoreTemplateLiterals": true,
+      "ignoreRegExpLiterals": true
+    } ]
   },
   "parserOptions": {
     "ecmaVersion": 2021,

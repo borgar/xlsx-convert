@@ -57,7 +57,11 @@ function convertStyle (styleDefs, styleIndex) {
   return s;
 }
 
-export default function (styleDefs) {
+/**
+ * @param {import('../handler/styles.js').StyleDefs} styleDefs
+ * @return {import('../jsf-types').JSFStyle[]}
+ */
+export function convertStyles (styleDefs) {
   const styles = [];
   for (let i = 0; i < styleDefs.cellXf.length; i++) {
     styles[i] = convertStyle(styleDefs, i);

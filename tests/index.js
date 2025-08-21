@@ -1,13 +1,16 @@
 import fs from 'fs';
 import convert from '../src/index.js';
 
-const DEBUG = true;
+// FIXME: pull this from ENV
+const DEBUG = false;
 
 const tests = [
+  'tests/files/a-single-lambda.xlsx',
   'tests/files/ascii.xlsx',
   'tests/files/background-color.xlsx',
   'tests/files/borders.xlsx',
   'tests/files/cse.xlsx',
+  'tests/files/charts-and-images.xlsx',
   'tests/files/date-time.xlsx',
   'tests/files/emojii.xlsx',
   'tests/files/external-refs.xlsx',
@@ -135,7 +138,7 @@ async function testFile (fn, testFn) {
 
   const diff = compare(resultJson, expectJson);
   if (diff && DEBUG) {
-    // save a version of the converted file for comparison (useful for debugging)
+    // save a version of the converted file for comparison (and debugging)
     fs.writeFileSync(
       testFn.replace(/(\.json)?$/, '.output.json'),
       makeNiceJson(resultJson),
