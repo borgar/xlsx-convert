@@ -1,13 +1,12 @@
-/* eslint-disable require-atomic-updates, no-await-in-loop */
 import * as fs from 'fs/promises';
 import path from 'path';
 import JSZip from 'jszip';
-import { parseXML } from '@borgar/simple-xml';
+import { Document, parseXML } from '@borgar/simple-xml';
 
 import { convertStyles } from './utils/convertStyles.js';
 import { ConversionContext } from './ConversionContext.js';
 
-import { handlerRels } from './handler/rels.js';
+import { handlerRels, type Rel } from './handler/rels.js';
 import { handlerWorkbook } from './handler/workbook.js';
 import { handlerSharedStrings } from './handler/sharedstrings.js';
 import { handlerPersons } from './handler/persons.js';
@@ -20,55 +19,59 @@ import { handlerComments } from './handler/comments.js';
 import { handlerWorksheet } from './handler/worksheet.js';
 import { handlerExternal } from './handler/external.js';
 import { handlerTable } from './handler/table.js';
+import type { JSFWorkbook } from './jsf-types.js';
 
-/**
- * Convertion pptions
- *
- * @typedef ConversionOptions
- * @prop {boolean} [skip_merged]
- * @prop {boolean} [cell_styles]
- * @prop {boolean} [cell_z]
- */
+/** Convertion options */
+type ConversionOptions = {
+  skip_merged?: boolean;
+  cell_styles?: boolean;
+  cell_z?: boolean;
+};
 
-/** @type {ConversionOptions} */
-const DEFAULT_OPTIONS = {
+const DEFAULT_OPTIONS: ConversionOptions = {
   // skip cells that are a part of merges
   skip_merged: true,
   // styles are attached to cells rather than being included separately
   cell_styles: false,
   // number format is set as z on cells (in addition to existing as
   // 'number-format' in styles) [always true when cell_styles=true]
-  cell_z: false
+  cell_z: false,
 };
 
 /**
  * Convert an XLSX file into a JSON format.
  *
- * @param {string} filename Target file to convert
- * @param {ConversionOptions} [options] Convertion options
- * @return {Promise<import('./jsf-types.js').JSFWorkbook>} A JSON spreadsheet formatted object.
+ * @param filename Target file to convert
+ * @param options Conversion options
+ * @return A JSON spreadsheet object.
  */
-export default async function convert (filename, options = DEFAULT_OPTIONS) {
+export default async function convert (
+  filename: string,
+  options: ConversionOptions = DEFAULT_OPTIONS,
+): Promise<JSFWorkbook> {
   return convertBinary(await fs.readFile(filename), filename, options);
 }
 
 /**
  * Convert an XLSX file into a JSON format.
  *
- * @param {Buffer | ArrayBuffer} buffer Buffer containing the file to convert
- * @param {string} filename Name of the file being converted
- * @param {ConversionOptions} [options] Convertion options
- * @return {Promise<import('./jsf-types.js').JSFWorkbook>} A JSON spreadsheet formatted object.
+ * @param buffer Buffer containing the file to convert
+ * @param filename Name of the file being converted
+ * @param [options] Conversion options
+ * @return A JSON spreadsheet formatted object.
  */
-export async function convertBinary (buffer, filename, options = DEFAULT_OPTIONS) {
+export async function convertBinary (
+  buffer: Buffer | ArrayBuffer,
+  filename: string,
+  options: ConversionOptions = DEFAULT_OPTIONS,
+): Promise<JSFWorkbook> {
   if (!(buffer instanceof ArrayBuffer || buffer instanceof Buffer)) {
     throw new Error('Input is not a valid binary');
   }
   const zip = new JSZip();
   const fdesc = await zip.loadAsync(buffer);
 
-  /** @param {string} f */
-  const getFile = async f => {
+  const getFile = async (f: string) => {
     const fd = fdesc.file(f);
     return fd
       ? parseXML(await fd.async('string'))
@@ -82,21 +85,20 @@ export async function convertBinary (buffer, filename, options = DEFAULT_OPTIONS
     return handlerRels(await getFile(relsPath), f);
   };
 
-  /**
-   * @param {ConversionContext} context
-   * @param {string} type
-   * @param {Function} handler
-   * @param {any} [fallback=null]
-   * @param {import('./handler/rels.js').Rel[] | null} [rels=null]
-   */
-  const maybeRead = async (context, type, handler, fallback = null, rels = null) => {
+  async function maybeRead<T extends (dom: Document, context: ConversionContext) => any> (
+    context: ConversionContext,
+    type: string,
+    handler: T,
+    fallback: any = null,
+    rels: Rel[] | null = null,
+  ): Promise<ReturnType<T>> {
     const rel = (rels || context.rels)
       .find(d => d.type === type);
     if (rel) {
       return handler(await getFile(rel.target), context);
     }
     return fallback;
-  };
+  }
 
   // manifest
   const baseRels = await getRels();
@@ -151,14 +153,13 @@ export async function convertBinary (buffer, filename, options = DEFAULT_OPTIONS
 
       // Note: This supports only threaded comments, not old-style comments
       context.comments = await maybeRead(
-        context, 'threadedComment', handlerComments, {}, sheetRels
+        context, 'threadedComment', handlerComments, {}, sheetRels,
       );
 
       // tables are accessed when external refs are normalized, so they have
       // to be read them before that happens
       const tableRels = sheetRels.filter(rel => rel.type === 'table');
       for (const tableRel of tableRels) {
-        // eslint-disable-next-line no-await-in-loop
         const tableDom = await getFile(tableRel.target);
         const table = handlerTable(tableDom, context);
         if (table) {

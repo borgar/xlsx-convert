@@ -1,50 +1,37 @@
+import { Document, Element } from '@borgar/simple-xml';
+import { ConversionContext } from '../ConversionContext.js';
 import { attr, numAttr } from '../utils/attr.js';
 
-/**
- * @typedef {Record<string, number | string>} MetaTableValue
- */
+type MetaTableValue = Record<string, number | string>;
 
-/**
- * @typedef MetaTable
- * @prop {string} name
- * @prop {MetaTableValue[]} values
- */
+type MetaTable = {
+  name: string;
+  values: MetaTableValue[];
+};
 
-/**
- * @typedef MetaData
- * @prop {MetaTableValue[]} values
- * @prop {MetaTableValue[]} cells
- */
+export type MetaData = {
+  cells: MetaTableValue[];
+  values: MetaTableValue[];
+};
 
-/**
- * @param {import('@borgar/simple-xml').Element} bk
- * @param {MetaTable[]} tables
- * @return {MetaTableValue}
- */
-function parseBk (bk, tables) {
+function parseBk (bk: Element, tables: MetaTable[]): MetaTableValue {
   const rc = bk.getElementsByTagName('rc')[0];
   const t = numAttr(rc, 't', 0);
   const v = numAttr(rc, 'v', 0);
   const r = tables[t - 1];
-  if (!r || !r.values[v]) {
+  if (!r?.values[v]) {
     throw new Error(`Can't reach meta-value ${t}/${v} in metadata.xml`);
   }
   return r.values[v];
 }
 
-/**
- * @param {import('@borgar/simple-xml').Document} dom
- * @param {import('../ConversionContext.js').ConversionContext} context
- * @return {MetaData}
- */
-export function handlerMetaData (dom, context) {
+export function handlerMetaData (dom: Document, context: ConversionContext): MetaData {
   /** @type {MetaTable[]} */
   const tables = [];
 
   dom.getElementsByTagName('futureMetadata')
     .forEach(fMD => {
-      /** @type {MetaTableValue[]} */
-      const table = [];
+      const table: MetaTableValue[] = [];
       const metaName = attr(fMD, 'name');
       tables.push({ name: metaName, values: table });
       fMD.querySelectorAll('bk ext')
@@ -54,7 +41,7 @@ export function handlerMetaData (dom, context) {
             table.push({
               _type: '_dynamicArray',
               fCollapsed: numAttr(dAP, 'fCollapsed'),
-              fDynamic: numAttr(dAP, 'fDynamic')
+              fDynamic: numAttr(dAP, 'fDynamic'),
             });
           }
           else if (metaName === 'XLRICHVALUE') {
@@ -76,6 +63,6 @@ export function handlerMetaData (dom, context) {
 
   return {
     values: values,
-    cells: cells
+    cells: cells,
   };
 }

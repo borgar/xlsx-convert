@@ -2,17 +2,14 @@ import { attr, numAttr } from '../utils/attr.js';
 import { handlerCell } from './cell.js';
 import { normalizeFormula } from '../utils/normalizeFormula.js';
 import { ConversionContext } from '../ConversionContext.js';
+import type { Document } from '@borgar/simple-xml';
+import type { JSFExternal } from '../jsf-types.js';
 
-/**
- * @param {import('@borgar/simple-xml').Document} dom
- * @param {string} [fileName]
- * @returns {import('../jsf-types.js').JSFExternal}
- */
-export function handlerExternal (dom, fileName = '') {
-  const external = {
+export function handlerExternal (dom: Document, fileName:string = ''): JSFExternal {
+  const external: JSFExternal = {
     filename: fileName,
     sheets: [],
-    names: []
+    names: [],
   };
 
   // read sheet names
@@ -20,7 +17,7 @@ export function handlerExternal (dom, fileName = '') {
     .forEach(sheetName => {
       external.sheets.push({
         name: attr(sheetName, 'val'),
-        cells: {}
+        cells: {},
       });
     });
 
@@ -45,7 +42,7 @@ export function handlerExternal (dom, fileName = '') {
     .forEach(definedName => {
       external.names.push({
         name: attr(definedName, 'name'),
-        value: normalizeFormula(attr(definedName, 'refersTo'))
+        value: normalizeFormula(attr(definedName, 'refersTo'), {}),
       });
     });
 

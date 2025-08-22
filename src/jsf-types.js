@@ -40,6 +40,15 @@
  * @prop {number} [si]
  * @prop {string} [href]
  * @prop {string} [F]
+ * @prop {'e'} [t]
+ * @prop {JSFComment[]} [c]
+ */
+
+/**
+ * @typedef JSFComment
+ * @prop {string} a
+ * @prop {string} d
+ * @prop {string} t
  */
 
 /**

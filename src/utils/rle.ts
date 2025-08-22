@@ -1,9 +1,13 @@
-export function rle (list, defaultValue) {
+import { JSFGridSize } from '../jsf-types';
+
+type IndexHeightPair = [ number, number ];
+
+export function rle (list: IndexHeightPair[], defaultValue: number): JSFGridSize[] {
   let lastItem = [];
-  let current;
+  let current: JSFGridSize;
   return list
     .sort((a, b) => a[0] - b[0])
-    .reduce((newList, item) => {
+    .reduce((newList: JSFGridSize[], item: IndexHeightPair) => {
       const nextInSeq = lastItem[0] + 1 === item[0];
       const sameSize = lastItem[1] === item[1];
       if (nextInSeq && sameSize) {
@@ -13,7 +17,7 @@ export function rle (list, defaultValue) {
         current = {
           begin: item[0],
           end: item[0],
-          size: item[1]
+          size: item[1],
         };
         newList.push(current);
       }

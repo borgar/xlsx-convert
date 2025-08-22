@@ -2,16 +2,13 @@ import { parseA1Ref, stringifyA1Ref } from '@borgar/fx';
 import { attr, numAttr } from '../utils/attr.js';
 import { rle } from '../utils/rle.js';
 import { handlerCell } from './cell.js';
+import { Document } from '@borgar/simple-xml';
+import { ConversionContext } from '../ConversionContext.js';
+import { Rel } from './rels.js';
+import { JSFWorksheet } from '../jsf-types.js';
 
-/**
- * @param {import('@borgar/simple-xml').Document} dom
- * @param {import('../ConversionContext.js').ConversionContext} context
- * @param {import('./rels').Rel[]} rels
- * @return {import('../jsf-types.js').JSFWorksheet}
- */
-export function handlerWorksheet (dom, context, rels) {
-  /** @type {import('../jsf-types.js').JSFWorksheet} */
-  const sheet = {
+export function handlerWorksheet (dom: Document, context: ConversionContext, rels: Rel[]): JSFWorksheet {
+  const sheet: JSFWorksheet = {
     name: '',
     cells: {},
     columns: [],
@@ -19,11 +16,11 @@ export function handlerWorksheet (dom, context, rels) {
     merged_cells: [],
     defaults: {
       col_width: 10,
-      row_height: 16
+      row_height: 16,
     },
     // drawings: [],
     // show_grid_lines: true,
-    hidden: false
+    hidden: false,
   };
 
   const sheetView = dom.querySelector('sheetViews > sheetView');
@@ -33,11 +30,11 @@ export function handlerWorksheet (dom, context, rels) {
   }
 
   // read hyperlinks
-  const hyperLinks = Object.create(null);
+  const hyperLinks = new Map<string, string>();
   dom.querySelectorAll('hyperlinks > hyperlink').forEach(d => {
     const relId = attr(d, 'r:id');
     const rel = rels.find(item => item.id === relId);
-    hyperLinks[attr(d, 'ref')] = rel && rel.target;
+    hyperLinks.set(attr(d, 'ref'), rel?.target);
   });
 
   // find default col/row sizes
@@ -56,7 +53,7 @@ export function handlerWorksheet (dom, context, rels) {
     sheet.columns.push({
       begin: min,
       end: max,
-      size: width
+      size: width,
     });
   });
 
@@ -79,7 +76,7 @@ export function handlerWorksheet (dom, context, rels) {
     });
 
   // keep a list of row heights
-  const row_heights = [];
+  const row_heights: [ number, number ][] = [];
 
   // parse cells
   dom.querySelectorAll('row')
@@ -117,8 +114,8 @@ export function handlerWorksheet (dom, context, rels) {
         }
         const c = handlerCell(d, context);
         if (c) {
-          if (hyperLinks[id]) {
-            c.href = hyperLinks[id];
+          if (hyperLinks.has(id)) {
+            c.href = hyperLinks.get(id);
           }
           sheet.cells[id] = c;
         }

@@ -1,10 +1,7 @@
+import { Document } from '@borgar/simple-xml';
 import { numAttr } from '../utils/attr.js';
 
-/**
- * @param {import('@borgar/simple-xml').Document} dom
- * @returns {string[]}
- */
-export function handlerSharedStrings (dom) {
+export function handlerSharedStrings (dom: Document): string[] {
   const sst = dom.querySelectorAll('sst')[0];
 
   const stringTable = sst.querySelectorAll('si').map(d => {

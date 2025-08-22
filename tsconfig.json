@@ -9,6 +9,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
+    "erasableSyntaxOnly": true,
     "allowJs": true,
     "checkJs": true,
     "declaration": true,

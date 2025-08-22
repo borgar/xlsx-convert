@@ -1,15 +1,12 @@
+import { Document } from '@borgar/simple-xml';
+import { ConversionContext } from '../ConversionContext.js';
+import { JSFNameDef, JSFWorkbook } from '../jsf-types.js';
 import { attr, numAttr } from '../utils/attr.js';
 import { normalizeFormula } from '../utils/normalizeFormula.js';
 import { toInt } from '../utils/typecast.js';
 
-/**
- * @param {import('@borgar/simple-xml').Document} dom
- * @param {import('../ConversionContext.js').ConversionContext} context
- * @return {import('../jsf-types.js').JSFWorkbook}
- */
-export function handlerWorkbook (dom, context) {
-  /** @type {import('../jsf-types.js').JSFWorkbook} */
-  const wb = {
+export function handlerWorkbook (dom: Document, context: ConversionContext): JSFWorkbook {
+  const wb: JSFWorkbook = {
     filename: context.filename,
     sheets: [],
     names: [],
@@ -19,10 +16,10 @@ export function handlerWorkbook (dom, context) {
     calculation_properties: {
       iterate: false,
       iterate_count: 100,
-      iterate_delta: 0.001
+      iterate_delta: 0.001,
     },
     // externals: [],
-    epoch: 1900
+    epoch: 1900,
   };
 
   dom.querySelectorAll('sheets > sheet')
@@ -30,15 +27,15 @@ export function handlerWorkbook (dom, context) {
       context.sheetLinks.push({
         name: attr(d, 'name'),
         index: numAttr(d, 'sheetId'),
-        rId: attr(d, 'r:id')
+        rId: attr(d, 'r:id'),
       });
     });
 
   dom.getElementsByTagName('definedName')
     .forEach(d => {
-      const name = {
+      const name: JSFNameDef = {
         name: attr(d, 'name'),
-        value: normalizeFormula(d.textContent, context)
+        value: normalizeFormula(d.textContent, context),
       };
       const localSheetId = attr(d, 'localSheetId');
       if (localSheetId) {
@@ -57,7 +54,7 @@ export function handlerWorkbook (dom, context) {
       wb.calculation_properties = {
         iterate: true,
         iterate_count: toInt(numAttr(calcPr, 'iterateCount', 100)),
-        iterate_delta: numAttr(calcPr, 'iterateDelta', 0.001)
+        iterate_delta: numAttr(calcPr, 'iterateDelta', 0.001),
       };
     }
   }

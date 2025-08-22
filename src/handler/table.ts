@@ -1,23 +1,20 @@
+import type { Document } from '@borgar/simple-xml';
+import type { ConversionContext } from '../ConversionContext.js';
 import { attr, numAttr } from '../utils/attr.js';
 import { normalizeFormula } from '../utils/normalizeFormula.js';
+import type { JSFTable, JSFTableColumn } from '../jsf-types.js';
 
-/**
- * @param {import('@borgar/simple-xml').Document} dom
- * @param {import('../ConversionContext.js').ConversionContext} context
- * @return {import('../jsf-types.js').JSFTable | void}
- */
-export function handlerTable (dom, context) {
+export function handlerTable (dom: Document, context: ConversionContext): JSFTable | void {
   const tableElm = dom.getElementsByTagName('table')[0];
   if (!tableElm) { return; }
 
-  /** @type {import('../jsf-types.js').JSFTable} */
-  const table = {
+  const table: JSFTable = {
     name: attr(tableElm, 'name'),
     sheet: '',
     ref: attr(tableElm, 'ref'),
     header_row_count: numAttr(tableElm, 'headerRowCount', 1),
     totals_row_count: numAttr(tableElm, 'totalsRowCount', 0), // totalsRowShown
-    columns: []
+    columns: [],
     // alt text: extLst>ext>table[altTextSummary]
   };
 
@@ -27,8 +24,8 @@ export function handlerTable (dom, context) {
   tableElm
     .querySelectorAll('tableColumns > tableColumn')
     .forEach(node => {
-      const column = {
-        name: attr(node, 'name')
+      const column: JSFTableColumn = {
+        name: attr(node, 'name'),
         // totalsRowLabel: attr(node, 'totalsRowLabel'),
       };
 

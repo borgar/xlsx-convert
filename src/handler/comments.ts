@@ -1,21 +1,16 @@
+import { Document } from '@borgar/simple-xml';
 import { attr } from '../utils/attr.js';
+import { ConversionContext } from '../ConversionContext.js';
 
-/**
- * @typedef Comment
- * @prop {string} a
- * @prop {string} d
- * @prop {string} t
- */
+export type Comment = {
+  a: string;
+  d: string;
+  t: string;
+};
 
-/**
- * @param {import('@borgar/simple-xml').Document} dom
- * @param {import('../ConversionContext.js').ConversionContext} [context]
- * @returns {Record<string, Comment[]>}
- */
-export function handlerComments (dom, context) {
+export function handlerComments (dom: Document, context: ConversionContext): Record<string, Comment[]> {
   const persons = context.persons;
-  /** @type {Record<string, Comment[]>} */
-  const comments = {};
+  const comments: Record<string, Comment[]> = {};
 
   dom.getElementsByTagName('threadedComment')
     .forEach(d => {
@@ -30,7 +25,7 @@ export function handlerComments (dom, context) {
         a: persons[personId] || '',
         d: new Date(Date.parse(attr(d, 'dT'))).toISOString(),
         // text
-        t: d.getElementsByTagName('text')[0].textContent
+        t: d.getElementsByTagName('text')[0].textContent,
       });
     });
 

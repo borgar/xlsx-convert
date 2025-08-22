@@ -1,18 +1,25 @@
 import { rgb, hsl } from 'd3-color';
 import { attr, numAttr } from './utils/attr.js';
 import { NAMED_COLORS } from './constants.js';
+import type { Element } from '@borgar/simple-xml';
+import type { Theme } from './handler/theme.js';
 
-/**
- * @param {number} c
- * @return {number}
- */
-function bound (c) {
+function bound (c: number): number {
   if (c < 0) { return 0; }
   if (c > 255) { return 255; }
   return ~~(c);
 }
 
-class Color {
+export class Color {
+  type: null | string;
+  r: number;
+  g: number;
+  b: number;
+  a: number;
+  src: string;
+  name: string;
+  tint: number;
+
   constuctor () {
     this.type = null;
     this.r = 0;
@@ -68,12 +75,12 @@ class Color {
  * @param {import("@borgar/simple-xml").Element} node
  * @param {import('./handler/theme.js').Theme} theme
  */
-export default function (node, theme) {
+export function readColor (node: Element, theme: Theme) {
   if (!node) { return null; }
 
   const color = new Color();
 
-  let argb = attr(node, 'rgb'); // ARGB
+  let argb: string = attr(node, 'rgb'); // ARGB
   if (argb) {
     color.type = 'rgb';
     color.src = argb;
@@ -96,7 +103,7 @@ export default function (node, theme) {
     argb = theme.scheme[_theme];
   }
 
-  argb = argb && argb.toLowerCase();
+  argb = argb?.toLowerCase();
   if (argb in NAMED_COLORS) {
     color.name = argb;
     argb = NAMED_COLORS[argb];

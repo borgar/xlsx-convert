@@ -1,15 +1,10 @@
+import { Document } from '@borgar/simple-xml';
 import { numAttr } from '../utils/attr.js';
+import { ConversionContext } from '../ConversionContext.js';
 
-/**
- * @typedef {Record<string, string | number>} RDValue
- */
+export type RDValue = Record<string, string | number>;
 
-/**
- * @param {import('@borgar/simple-xml').Document} dom
- * @param {import('../ConversionContext.js').ConversionContext} context
- * @returns {RDValue[]}
- */
-export function handlerRDValue (dom, context) {
+export function handlerRDValue (dom: Document, context: ConversionContext): RDValue[] {
   const values = [];
   const structures = context.richStruct || [];
 
@@ -17,14 +12,12 @@ export function handlerRDValue (dom, context) {
     .forEach(rv => {
       const nth = numAttr(rv, 's', 0);
       const s = structures[nth];
-      /** @type {Record<string, string | number>} */
-      const val = { _type: s.type };
+      const val: Record<string, string | number> = { _type: s.type };
 
       rv.getElementsByTagName('v')
         .forEach((k, i) => {
           const def = s.keys[i];
-          /** @type {string | number} */
-          let v = k.textContent;
+          let v: string | number = k.textContent;
           // FIXME: what other types exist? (a spec on it does not)
           if (def.type === 'i') {
             v = Math.floor(+v);

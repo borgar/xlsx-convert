@@ -1,12 +1,8 @@
+import { Document } from '@borgar/simple-xml';
 import { attr } from '../utils/attr.js';
 
-/**
- * @param {import('@borgar/simple-xml').Document} dom
- * @returns {Record<string, string>}
- */
-export function handlerPersons (dom) {
-  /** @type {Record<string, string>} */
-  const persons = {};
+export function handlerPersons (dom: Document): Record<string, string> {
+  const persons: Record<string, string> = {};
 
   dom.querySelectorAll('personlist > person')
     .forEach(person => {
