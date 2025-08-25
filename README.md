@@ -61,7 +61,7 @@ The JSF format is similar to, but not 100% compatible with the [CSF structure](h
 | Cell. | Note |
 |- |-
 | `v` | Value of the cell in its correct type.
-| `f` | Formula in A1 syntax.
+| `f` | An integer index into a list of formula expressions in R1C1-syntax, or an expression string in A1-syntax.
 | `F` | The A1-style range of enclosing array if the formula is an array formula.
 | `c` | A list of comments attached to the cell.
 | `s` (optional) | Index of style information associated with the cell.
@@ -85,5 +85,4 @@ Reads an Excel XLSX file into a consumable structure. The return value contains 
   | name | default | effect |
   |- | - | -
   | `skipMerged` | `true` | De-activating this will emit _all_ cells that have any "relevant" data, regardless of them being part of merges. By default only the top-left cell will be emitted. 
-  | `cellFormulas` | `true` | Formulas are emitted as strings attached to the cell objects. If false, the `f` property of a cell will instead be an index into a formula list.
-
+  | `cellFormulas` | `false` | If true the formulas will be set as strings attached to the cell objects. By default the `f` property of a cell is an index into a formula list.

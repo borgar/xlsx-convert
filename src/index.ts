@@ -31,7 +31,7 @@ const DEFAULT_OPTIONS: ConversionOptions = {
   // skip cells that are a part of merges
   skipMerged: true,
   // formulas are attached to cells rather than being included separately
-  cellFormulas: true,
+  cellFormulas: false,
 };
 
 /**
@@ -39,8 +39,8 @@ const DEFAULT_OPTIONS: ConversionOptions = {
  *
  * @param filename Target file to convert
  * @param options Conversion options
- * @param [options.skipMerged] De-activating this will emit _all_ cells that have any "relevant" data, regardless of them being part of merges. By default only the top-left cell will be emitted.
- * @param [options.cellFormulas] Formulas are emitted as strings attached to the cell objects. If false, the `f` property of a cell will instead be an index into a formula list.
+ * @param [options.skipMerged] Skip any cells that are a part of merges.
+ * @param [options.cellFormulas] Formulas are attached to cells rather than being included separately.
  * @return A JSON spreadsheet object.
  */
 export default async function convert (
