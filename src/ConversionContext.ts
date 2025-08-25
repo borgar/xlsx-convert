@@ -6,6 +6,7 @@ import type { Rel } from './handler/rels.ts';
 import type { Theme } from './handler/theme.ts';
 import type { RelativeFormula } from './RelativeFormula.ts';
 import type { JSFExternal, JSFWorkbook } from './jsf-types.js';
+import type { ConversionOptions } from './index.ts';
 
 type SheetLink = {
   name: string;
@@ -17,7 +18,7 @@ export class ConversionContext {
   workbook: JSFWorkbook | null;
   sst: string[];
   persons: Record<string, string>;
-  options: Record<string, boolean>;
+  options: ConversionOptions;
   rels: Rel[];
   theme: Theme;
   richStruct: RDStruct[];
@@ -27,6 +28,7 @@ export class ConversionContext {
   comments: Record<string, Comment[]>;
   externalLinks: JSFExternal[];
   filename: string;
+  _formulasR1C1: string[];
   _shared: Record<number, RelativeFormula>;
   _merged: Record<string, string>;
   _arrayFormula: string[];
@@ -45,6 +47,7 @@ export class ConversionContext {
     this.comments = {};
     this.externalLinks = [];
     this.filename = '';
+    this._formulasR1C1 = [];
     // shared formula
     this._shared = {};
     this._merged = {};

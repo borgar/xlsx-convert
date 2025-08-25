@@ -1,4 +1,5 @@
 import { dateToSerial, isDateFormat } from 'numfmt';
+import { translateToR1C1 } from '@borgar/fx';
 import { toInt, toNum } from '../utils/typecast.ts';
 import { attr, numAttr } from '../utils/attr.ts';
 import { unescape } from '../utils/unescape.ts';
@@ -164,7 +165,18 @@ export function handlerCell (node: Element, context: ConversionContext): JSFCell
     }
 
     if (f) {
-      cell.f = normalizeFormula(f, context);
+      if (context.options.cellFormulas) {
+        cell.f = normalizeFormula(f, context);
+      }
+      else {
+        const rc = normalizeFormula(translateToR1C1(f, address) as string, context);
+        let fi = context._formulasR1C1.indexOf(rc);
+        if (fi < 0) {
+          fi = context._formulasR1C1.length;
+          context._formulasR1C1.push(rc);
+        }
+        cell.f = fi;
+      }
     }
   }
 

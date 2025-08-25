@@ -27,6 +27,8 @@
  *   Definitions of charts found in the workbook.
  * @prop {JSFExternal[]} [externals]
  *   Captures of external cells referenced by the workbook.
+ * @prop {string[]} [formulas]
+ *   A list of formulas in R1C1-reference notation from the workbook.
  */
 
 /**
@@ -58,8 +60,9 @@
  * @prop {string | null | number | boolean} [v=null]
  *   The value of the cell, it is assumed to be derived from a formula if the cell has one, else it
  *   is safe to assume that it is user-entered.
- * @prop {string} [f]
- *   A formula with A1-style references.
+ * @prop {string | integer} [f]
+ *   Cell formula expression. When the value is a string it will be a formula with A1-style references.
+ *   When the value is a number is an index to a formula in the workbook formulas list
  * @prop {string} [href]
  *   A hyperlink URL address.
  * @prop {string} [F]

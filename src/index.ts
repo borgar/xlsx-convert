@@ -22,20 +22,16 @@ import { handlerTable } from './handler/table.ts';
 import type { JSFWorkbook } from './jsf-types.js';
 
 /** Convertion options */
-type ConversionOptions = {
-  skip_merged?: boolean;
-  cell_styles?: boolean;
-  cell_z?: boolean;
+export type ConversionOptions = {
+  skipMerged?: boolean;
+  cellFormulas?: boolean;
 };
 
 const DEFAULT_OPTIONS: ConversionOptions = {
   // skip cells that are a part of merges
-  skip_merged: true,
-  // styles are attached to cells rather than being included separately
-  cell_styles: false,
-  // number format is set as z on cells (in addition to existing as
-  // 'number-format' in styles) [always true when cell_styles=true]
-  cell_z: false,
+  skipMerged: true,
+  // formulas are attached to cells rather than being included separately
+  cellFormulas: true,
 };
 
 /**
@@ -43,6 +39,8 @@ const DEFAULT_OPTIONS: ConversionOptions = {
  *
  * @param filename Target file to convert
  * @param options Conversion options
+ * @param [options.skipMerged] De-activating this will emit _all_ cells that have any "relevant" data, regardless of them being part of merges. By default only the top-left cell will be emitted.
+ * @param [options.cellFormulas] Formulas are emitted as strings attached to the cell objects. If false, the `f` property of a cell will instead be an index into a formula list.
  * @return A JSON spreadsheet object.
  */
 export default async function convert (
@@ -178,8 +176,8 @@ export async function convertBinary (
     }
   }));
 
-  if (options.cell_styles) {
-    wb.styles = [];
+  if (!options.cellFormulas) {
+    wb.formulas = context._formulasR1C1;
   }
 
   return wb;
