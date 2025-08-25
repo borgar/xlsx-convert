@@ -9,17 +9,9 @@
         "C1": { "v": "Spill fx" },
         "D1": { "v": "# ref" },
         "A2": { "v": "X" },
-        "B2": { "v": "X", "F": "B2:B10", "f": "A2:A10" },
-        "C2": {
-          "v": "Z",
-          "F": "C2:C4",
-          "f": "FILTER(A2:A10,A2:A10=\"Z\")"
-        },
-        "D2": {
-          "v": "Z",
-          "F": "D2:D4",
-          "f": "ANCHORARRAY(C2)"
-        },
+        "B2": { "v": "X", "F": "B2:B10", "f": 0 },
+        "C2": { "v": "Z", "F": "C2:C4", "f": 1 },
+        "D2": { "v": "Z", "F": "D2:D4", "f": 2 },
         "A3": { "v": "Y" },
         "B3": { "v": "Y", "F": "B2:B10" },
         "C3": { "v": "Z", "F": "C2:C4" },
@@ -43,20 +35,25 @@
       },
       "columns": [],
       "rows": [],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 16 },
+      "merges": [],
+      "defaults": { "colWidth": 10, "rowHeight": 16 },
       "hidden": false
     }
   ],
   "names": [],
   "tables": [],
-  "calculation_properties": {
-    "iterate": false,
-    "iterate_count": 100,
-    "iterate_delta": 0.001
-  },
   "styles": [
-    { "font-size": 12 }
+    { "fontSize": 12 }
   ],
-  "epoch": 1900
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001
+  },
+  "epoch": 1900,
+  "formulas": [
+    "RC[-1]:R[8]C[-1]",
+    "FILTER(RC[-2]:R[8]C[-2],RC[-2]:R[8]C[-2]=\"Z\")",
+    "ANCHORARRAY(RC[-1])"
+  ]
 }

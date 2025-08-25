@@ -4,28 +4,27 @@
     {
       "name": "Sheet1",
       "cells": {
-        "A1": {
-          "v": "#CALC!",
-          "t": "e",
-          "f": "LAMBDA(a,b,a*b)"
-        }
+        "A1": { "v": "#CALC!", "t": "e", "f": 0 }
       },
       "columns": [],
       "rows": [],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 16 },
+      "merges": [],
+      "defaults": { "colWidth": 10, "rowHeight": 16 },
       "hidden": false
     }
   ],
   "names": [],
   "tables": [],
   "styles": [
-    { "font-name": "Aptos Narrow", "font-size": 12 }
+    { "fontName": "Aptos Narrow", "fontSize": 12 }
   ],
-  "calculation_properties": {
+  "calculationProperties": {
     "iterate": false,
-    "iterate_count": 100,
-    "iterate_delta": 0.001
+    "iterateCount": 100,
+    "iterateDelta": 0.001
   },
-  "epoch": 1900
+  "epoch": 1900,
+  "formulas": [
+    "LAMBDA(a,b,a*b)"
+  ]
 }

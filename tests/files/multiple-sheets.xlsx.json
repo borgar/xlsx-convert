@@ -8,8 +8,8 @@
       },
       "columns": [],
       "rows": [],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 16 },
+      "merges": [],
+      "defaults": { "colWidth": 10, "rowHeight": 16 },
       "hidden": false
     },
     {
@@ -19,8 +19,8 @@
       },
       "columns": [],
       "rows": [],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 16 },
+      "merges": [],
+      "defaults": { "colWidth": 10, "rowHeight": 16 },
       "hidden": false
     },
     {
@@ -30,8 +30,8 @@
       },
       "columns": [],
       "rows": [],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 16 },
+      "merges": [],
+      "defaults": { "colWidth": 10, "rowHeight": 16 },
       "hidden": false
     },
     {
@@ -41,8 +41,8 @@
       },
       "columns": [],
       "rows": [],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 16 },
+      "merges": [],
+      "defaults": { "colWidth": 10, "rowHeight": 16 },
       "hidden": false
     },
     {
@@ -52,20 +52,21 @@
       },
       "columns": [],
       "rows": [],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 16 },
+      "merges": [],
+      "defaults": { "colWidth": 10, "rowHeight": 16 },
       "hidden": false
     }
   ],
   "names": [],
   "tables": [],
-  "calculation_properties": {
-    "iterate": false,
-    "iterate_count": 100,
-    "iterate_delta": 0.001
-  },
   "styles": [
-    { "font-size": 12 }
+    { "fontSize": 12 }
   ],
-  "epoch": 1900
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001
+  },
+  "epoch": 1900,
+  "formulas": []
 }
