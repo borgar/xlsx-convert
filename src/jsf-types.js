@@ -64,7 +64,7 @@
  *   A hyperlink URL address.
  * @prop {string} [F]
  *   The range of enclosing array if formula is an array formula.
- * @prop {integer} [si=0]
+ * @prop {integer} [s=0]
  *   An index to a style in the workbook styles list.
  * @prop {JSFComment[]} [c]
  *   A list of comments associated with the cell.

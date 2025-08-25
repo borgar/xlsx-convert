@@ -39,7 +39,7 @@ export function handlerCell (node: Element, context: ConversionContext): JSFCell
   //                   Style records are stored in the Styles Part.
   const styleIndex = Math.trunc(numAttr(node, 's', 0));
   if (styleIndex) {
-    cell.si = styleIndex;
+    cell.s = styleIndex;
   }
 
   const vNode = node.querySelectorAll('> v')[0];
@@ -178,7 +178,7 @@ export function handlerCell (node: Element, context: ConversionContext): JSFCell
   if (
     cell.v == null &&
     cell.f == null &&
-    (!cell.si || !relevantStyle(context.workbook.styles[styleIndex]))
+    (!cell.s || !relevantStyle(context.workbook.styles[styleIndex]))
   ) {
     return null;
   }
