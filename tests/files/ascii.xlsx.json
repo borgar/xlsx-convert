@@ -5,6 +5,7 @@
       "name": "ASCII",
       "cells": {
         "A1": { "v": "Windows-1252" },
+        "A2": { "s": 2 },
         "B2": { "s": 2, "v": 0 },
         "C2": { "s": 2, "v": 1 },
         "D2": { "s": 2, "v": 2 },
@@ -284,6 +285,7 @@
         "P18": { "s": 1, "v": "þ" },
         "Q18": { "s": 1, "v": "ÿ" },
         "A20": { "v": "Mac Excel" },
+        "A21": { "s": 2 },
         "B21": { "s": 2, "v": 0 },
         "C21": { "s": 2, "v": 1 },
         "D21": { "s": 2, "v": 2 },
@@ -575,6 +577,7 @@
           "v": "UNICHAR in this program (change cell to the right to update)"
         },
         "Q39": { "s": 4, "v": "a" },
+        "A40": { "s": 2 },
         "B40": { "s": 2, "v": 0 },
         "C40": { "s": 2, "v": 1 },
         "D40": { "s": 2, "v": 2 },
@@ -866,6 +869,7 @@
           "v": "CHAR in this program (change cell to the right to update)"
         },
         "Q58": { "s": 4, "v": "a" },
+        "A59": { "s": 2 },
         "B59": { "s": 2, "v": 0 },
         "C59": { "s": 2, "v": 1 },
         "D59": { "s": 2, "v": 2 },
@@ -1164,7 +1168,11 @@
     }
   ],
   "names": [],
-  "tables": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001
+  },
   "styles": [
     { "fontSize": 12 },
     {
@@ -1187,11 +1195,7 @@
       "fontSize": 12
     }
   ],
-  "calculationProperties": {
-    "iterate": false,
-    "iterateCount": 100,
-    "iterateDelta": 0.001
-  },
+  "tables": [],
   "epoch": 1900,
   "formulas": [
     "UNICHAR(R40C+RC1*16+N(R39C17))",
