@@ -18,7 +18,7 @@
   },
   "scripts": {
     "build": "tsup",
-    "lint": "eslint *.mjs *.js src/",
+    "lint": "eslint *.js tests/ src/",
     "typecheck": "tsc --noEmit",
     "test": "node --experimental-transform-types tests/index.ts",
     "updatetests": "UPDATE_TESTS=1 node --experimental-transform-types tests/index.ts"

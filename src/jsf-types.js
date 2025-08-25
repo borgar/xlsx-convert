@@ -19,7 +19,7 @@
  *   A list of defined names.
  * @prop {JSFTable[]} tables
  *   A list of information about tables and their columns.
- * @prop {JSFCalcProps} [calculation_properties]
+ * @prop {JSFCalcProps} [calculationProperties]
  *   Directions on how a spreadsheet application should run calculations in the workbook.
  * @prop {JSFStyle[]} styles
  *   Styles for cells in the workbook.
@@ -42,13 +42,13 @@
  *   Widths and styles of the columns in the worksheet.
  * @prop {JSFGridSize[]} rows
  *   Heights and styles of the rows in the worksheet.
- * @prop {string[]} merged_cells
+ * @prop {string[]} merges
  *   A list of ranges that capture which cells have been merged.
  * @prop {JSFSheetDefaults} defaults
  *   A collection of default properties that apply to cells, rows, or columns in the worksheet.
  * @prop {boolean} hidden
  *   Whether or not the sheet should be shown to a user in a UI displaying the workbook.
- * @prop {boolean} [show_grid_lines]
+ * @prop {boolean} [showGridLines]
  *   Indicates whether a hairline-grid should be drawn when displaying the sheet.
  * @prop {JSFDrawing} [drawings]
  *   An list of drawings used by the workbook.
@@ -96,9 +96,9 @@
 /**
  * @typedef JSFSheetDefaults
  *   A collection of default properties that apply to cells, rows, or columns in the worksheet.
- * @prop {number} col_width
+ * @prop {number} colWidth
  *   Default width of the UI-grid column.
- * @prop {number} row_height
+ * @prop {number} rowHeight
  *   Default height of the UI-grid height.
  */
 
@@ -140,10 +140,10 @@
  *   An array of column objects. They shall be ordered from left to right, so that the first column
  *   corresponds to the leftmost column in the referenced range and the last column corresponds to
  *   the rightmost column.
- * @prop {integer} [totals_row_count=0]
+ * @prop {integer} [totalsRowCount=0]
  *   A non-negative integer specifying the number of Totals Rows at the bottom of the table.
  *   Default to 0 if absent.
- * @prop {integer} [header_row_count=1]
+ * @prop {integer} [headerRowCount=1]
  *   A non-negative integer specifying the number of header rows at the top of the table.
  *   Default to 1 if absent.
  */
@@ -179,7 +179,7 @@
  *   The column name. It must be unique among column names in the same table when compared in a
  *   case-insensitive manner. Must be non-empty. May contain white-space characters but not
  *   exclusively.
- * @prop {'text' | 'number' | 'boolean' | 'datetime' | 'unknown'} [data_type='unknown']
+ * @prop {'text' | 'number' | 'boolean' | 'datetime' | 'unknown'} [dataType='unknown']
  *   Describes the type of values found in the cells of the column, when they are uniform.
  * @prop {string} [formula]
  *   If the column is a calculated column, then this field must include the formula used.
@@ -191,22 +191,22 @@
  * @prop {boolean} iterate
  *   Specifies whether an attempt should be made to calculate formulas that contain circular
  *   references. Defaults to `false` in Excel.
- * @prop {integer} iterate_count
+ * @prop {integer} iterateCount
  *   The maximum number of calculation iterations, when `iterate` is `true`. Defaults to `100` in
  *   Excel.
- * @prop {number} iterate_delta
- *   When a calculation iteration results in an absolute change that is less than iterate_delta,
+ * @prop {number} iterateDelta
+ *   When a calculation iteration results in an absolute change that is less than iterateDelta,
  *   then no further iterations should be attempted. Defaults to `0.001` in Excel.
  */
 
 /**
  * @typedef JSFStyle
  *   Captures the styles which apply to a cell.
- * @prop {string} [font-name="Calibri"]
+ * @prop {string} [fontName="Calibri"]
  *   The name of the font, e.g. `"Arial"`.
- * @prop {JSFPixelValue} [font-size=11]
+ * @prop {JSFPixelValue} [fontSize=11]
  *   The font size in pixels.
- * @prop {JSFColor} [font-color="#000"]
+ * @prop {JSFColor} [fontColor="#000"]
  *   The font color.
  * @prop {boolean} [bold=false]
  *   Indicates whether the text is bold.
@@ -214,34 +214,34 @@
  *   Indicates whether the text is italic.
  * @prop {JSFUnderline} [underline="none"]
  *   Text underline decoration type.
- * @prop {JSFColor} [fill-color="#FFF"]
+ * @prop {JSFColor} [fillColor="#FFF"]
  *   The cell's background color.
- * @prop {JSFBorderStyle} [border-top-style="none"]
+ * @prop {JSFBorderStyle} [borderTopStyle="none"]
  *   Top border style.
- * @prop {JSFColor} [border-top-color]
+ * @prop {JSFColor} [borderTopColor]
  *   Top border color.
- * @prop {JSFBorderStyle} [border-left-style="none"]
+ * @prop {JSFBorderStyle} [borderLeftStyle="none"]
  *   Left border style.
- * @prop {JSFColor} [border-left-color]
+ * @prop {JSFColor} [borderLeftColor]
  *   Left border color.
- * @prop {JSFBorderStyle} [border-bottom-style="none"]
+ * @prop {JSFBorderStyle} [borderBottomStyle="none"]
  *   Bottom border style.
- * @prop {JSFColor} [border-bottom-color]
+ * @prop {JSFColor} [borderBottomColor]
  *   Bottom border color.
- * @prop {JSFBorderStyle} [border-right-style="none"]
+ * @prop {JSFBorderStyle} [borderRightStyle="none"]
  *   Right border style.
- * @prop {JSFColor} [border-right-color]
+ * @prop {JSFColor} [borderRightColor]
  *   Right border color.
- * @prop {JSFHAlign} [horizontal-alignment="general"]
+ * @prop {JSFHAlign} [horizontalAlignment="general"]
  *   Horizontal alignment of the cells [text] content.
- * @prop {JSFVAlign} [vertical-alignment]
+ * @prop {JSFVAlign} [verticalAlignment]
  *   Vertical alignment of the cells [text] content.
- * @prop {boolean} [wrap-text]
+ * @prop {boolean} [wrapText]
  *   Indicates whether text should be wrapped when it exceeds the cell's width.
- * @prop {boolean} [shrink-to-fit]
+ * @prop {boolean} [shrinkToFit]
  *   Indicates whether the font-size should be automatically reduced in order to make the contents
  *   of the cell visible.
- * @prop {string} [number-format]
+ * @prop {string} [numberFormat]
  *   Formatting directions for rendering the cell's value to text.
  */
 
@@ -251,7 +251,7 @@
  *   chart or some other type of picture.
  * @prop {JSFAnchorAbs | JSFAnchorCell | JSFAnchorTwoCell} anchor
  *   Directions for where the drawing should be placed.
- * @prop {string} chart_id
+ * @prop {string} chartId
  *   Pointer to a chart to display.
  */
 
@@ -271,7 +271,7 @@
  *   A cell-contained placement anchor.
  * @prop {'cell'} type
  *   The type of the anchor.
- * @prop {JSFCellOffset} top_left
+ * @prop {JSFCellOffset} topLeft
  *   The top/left anchor point location.
  * @prop {JSFPoint} extent
  *   The width and height dimensions.
@@ -280,11 +280,11 @@
 /**
  * @typedef JSFAnchorTwoCell
  *   A coordinate placement defined by two corner points.
- * @prop {'two_cell'} type
+ * @prop {'twoCell'} type
  *   The type of the anchor.
- * @prop {JSFCellOffset} top_left
+ * @prop {JSFCellOffset} topLeft
  *   The top/left anchor point location.
- * @prop {JSFCellOffset} bottom_right
+ * @prop {JSFCellOffset} bottomRight
  *   The bottom/right anchor point location.
  */
 
@@ -293,11 +293,11 @@
  *   Offset defined by a cell position and its inner
  * @prop {integer} row
  *   The cell's row number.
- * @prop {number} row_offset
+ * @prop {number} rowOffset
  *   The horizontal position within the cell in pixels.
  * @prop {integer} column
  *   The cell's column number.
- * @prop {number} column_offset
+ * @prop {number} columnOffset
  *   The vertical position within the cell in pixels.
  */
 
@@ -316,7 +316,7 @@
  *   underlying numerical values.
  *
  *   When `title` field is empty or absent, and the chart has exactly 1 series, the series name
- *   should be used as the chart title instead. Except, if `auto_title_deleted` is `true`, where
+ *   should be used as the chart title instead. Except, if `autoTitleDeleted` is `true`, where
  *   no title should be displayed.
  * @prop {string} id
  *   An identifier for the chart, unique to the workbook.
@@ -328,13 +328,13 @@
  *   Axes present in the chart.
  * @prop {JSFFormula | string} [title]
  *   The title of the chart.
- * @prop {boolean} [auto_title_deleted=true]
+ * @prop {boolean} [autoTitleDeleted=true]
  *   Indicates whether a title should be displayed (true = don't display).
  * @prop {JSFFormula} [labels]
  *   A cell range or formula indicating where chart labels should be read from.
  * @prop {JSFSide | 'top-right'} [legend='top-right']
  *   Positioning of a chart legend.
- * @prop {JSFDataLabels} [data_labels]
+ * @prop {JSFDataLabels} [dataLabels]
  *   Directions on how to display labels for values on plots.
  * @prop {'standard' | 'stacked' | 'clustered' | 'percentStacked'} [grouping]
  *   Specifies the possible groupings for a chart that can be grouped (Bar)
@@ -343,7 +343,7 @@
  *      scaled to total 100%.
  *   - `stacked` - Chart series should be drawn next to each other on the value axis.
  *   - `standard` - Chart series should be drawn next to each other on the depth axis.
- * @prop {boolean} [vary_colors]
+ * @prop {boolean} [varyColors]
  *   When `true`, the colors within a series should vary by point.
  */
 
@@ -356,7 +356,7 @@
  *   The position of the axis against a plot area edge.
  * @prop {JSFFormula | string} [title]
  *   The title of the axis.
- * @prop {string} [number_format]
+ * @prop {string} [numberFormat]
  *   A number format to use to display any axis values.
  * @prop {'minMax' | 'maxMin'} [orientation="minMax"]
  *   Indicates if the axis is "reversed". Assume minMax if absent (not reversed).
@@ -364,7 +364,7 @@
  *   Minimum value to clip the axis too (do not render things outside this value).
  * @prop {number} [max]
  *   Maximum value to clip the axis too (do not render things outside this value).
- * @prop {integer} [log_base]
+ * @prop {integer} [logBase]
  *   Indicates that this is a logarithmic axis and what base it should use (minimum value = 2).
  */
 
@@ -377,7 +377,7 @@
  *   A list of cell ranges or formulas indicating where values of the series should be read from.
  *
  *   This is an array to accommodate multi-dimensional series for scatter and bubble charts
- * @prop {JSFChartType} [chart_type]
+ * @prop {JSFChartType} [chartType]
  *   Type of chart that the series belongs to (only used in combo charts)
  */
 

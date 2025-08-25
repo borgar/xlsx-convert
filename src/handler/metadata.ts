@@ -26,8 +26,7 @@ function parseBk (bk: Element, tables: MetaTable[]): MetaTableValue {
 }
 
 export function handlerMetaData (dom: Document, context: ConversionContext): MetaData {
-  /** @type {MetaTable[]} */
-  const tables = [];
+  const tables: MetaTable[] = [];
 
   dom.getElementsByTagName('futureMetadata')
     .forEach(fMD => {

@@ -13,10 +13,10 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
     cells: {},
     columns: [],
     rows: [],
-    merged_cells: [],
+    merges: [],
     defaults: {
-      col_width: 10,
-      row_height: 16,
+      colWidth: 10,
+      rowHeight: 16,
     },
     // drawings: [],
     // show_grid_lines: true,
@@ -26,7 +26,7 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
   const sheetView = dom.querySelector('sheetViews > sheetView');
   // zoomScale/zoomScaleNormal
   if (attr(sheetView, 'showGridLines') === '0') {
-    sheet.show_grid_lines = false;
+    sheet.showGridLines = false;
   }
 
   // read hyperlinks
@@ -40,8 +40,8 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
   // find default col/row sizes
   const sheetFormatPr = dom.getElementsByTagName('sheetFormatPr')[0];
   if (sheetFormatPr) {
-    sheet.defaults.col_width = numAttr(sheetFormatPr, 'baseColWidth', sheet.defaults.col_width);
-    sheet.defaults.row_height = numAttr(sheetFormatPr, 'defaultRowHeight', sheet.defaults.row_height);
+    sheet.defaults.colWidth = numAttr(sheetFormatPr, 'baseColWidth', sheet.defaults.colWidth);
+    sheet.defaults.rowHeight = numAttr(sheetFormatPr, 'defaultRowHeight', sheet.defaults.rowHeight);
   }
 
   // decode column widths
@@ -72,7 +72,7 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
           context._merged[stringifyA1Ref({ range: { top: r, left: c } })] = anchor;
         }
       }
-      sheet.merged_cells.push(ref);
+      sheet.merges.push(ref);
     });
 
   // keep a list of row heights
@@ -106,7 +106,7 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
       // cells
       row.querySelectorAll('> c').forEach(d => {
         const id = attr(d, 'r');
-        if (context.options.skip_merged) {
+        if (context.options.skipMerged) {
           if (context._merged[id] && context._merged[id] !== id) {
             // this cell is part of a merged range
             return;
@@ -123,7 +123,7 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
     });
 
   // run-length encode the row heights
-  sheet.rows = rle(row_heights, sheet.defaults.row_height);
+  sheet.rows = rle(row_heights, sheet.defaults.rowHeight);
 
   // add .F tags to array formula cells
   context._arrayFormula

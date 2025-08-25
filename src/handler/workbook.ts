@@ -13,10 +13,10 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): JSF
     tables: [],
     styles: [],
     // charts: [],
-    calculation_properties: {
+    calculationProperties: {
       iterate: false,
-      iterate_count: 100,
-      iterate_delta: 0.001,
+      iterateCount: 100,
+      iterateDelta: 0.001,
     },
     // externals: [],
     epoch: 1900,
@@ -51,10 +51,10 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): JSF
   if (calcPr) {
     const iterate = toInt(attr(calcPr, 'iterate'));
     if (iterate && isFinite(iterate)) {
-      wb.calculation_properties = {
+      wb.calculationProperties = {
         iterate: true,
-        iterate_count: toInt(numAttr(calcPr, 'iterateCount', 100)),
-        iterate_delta: numAttr(calcPr, 'iterateDelta', 0.001),
+        iterateCount: toInt(numAttr(calcPr, 'iterateCount', 100)),
+        iterateDelta: numAttr(calcPr, 'iterateDelta', 0.001),
       };
     }
   }

@@ -15,46 +15,46 @@ const addStyle = (obj: JSFStyle, key: string, val: any, skip: any = null): numbe
   return 1;
 };
 
-function convertStyle (styleDefs, styleIndex: number): JSFStyle {
+function convertStyle (styleDefs: StyleDefs, styleIndex: number): JSFStyle {
   const style = styleDefs.cellXf[styleIndex];
   const s: JSFStyle = {};
 
   if (style.numFmtId) {
     const numFmt = styleDefs.numFmts[style.numFmtId];
     if (typeof numFmt === 'string' && numFmt.toLowerCase() !== 'general') {
-      s['number-format'] = numFmt;
+      s.numberFormat = numFmt;
     }
   }
 
-  addStyle(s, 'horizontal-alignment', style.hAlign);
-  addStyle(s, 'vertical-alignment', style.vAlign, 'bottom');
-  addStyle(s, 'wrap-text', !!style.wrapText, false);
-  addStyle(s, 'shrink-to-fit', !!style.shrinkToFit, false);
+  addStyle(s, 'horizontalAlignment', style.hAlign);
+  addStyle(s, 'verticalAlignment', style.vAlign, 'bottom');
+  addStyle(s, 'wrapText', !!style.wrapText, false);
+  addStyle(s, 'shrinkToFit', !!style.shrinkToFit, false);
 
   if (style.font) {
     const font = style.font;
-    addStyle(s, 'font-name', font.name, 'Calibri');
-    addStyle(s, 'font-size', font.size, 11);
-    addStyle(s, 'font-color', font.color, '#000');
+    addStyle(s, 'fontName', font.name, 'Calibri');
+    addStyle(s, 'fontSize', font.size, 11);
+    addStyle(s, 'fontColor', font.color, '#000');
     addStyle(s, 'underline', font.underline);
     addStyle(s, 'bold', font.bold, false);
     addStyle(s, 'italic', font.italic, false);
   }
 
   if (style.fill?.fg) {
-    addStyle(s, 'fill-color', style.fill.fg, '#0000');
+    addStyle(s, 'fillColor', style.fill.fg, '#0000');
   }
 
   if (style.border) {
     const { top, bottom, left, right } = style.border;
-    addStyle(s, 'border-top-style', top?.style);
-    addStyle(s, 'border-top-color', top?.color, '#000');
-    addStyle(s, 'border-bottom-style', bottom?.style);
-    addStyle(s, 'border-bottom-color', bottom?.color, '#000');
-    addStyle(s, 'border-left-style', left?.style);
-    addStyle(s, 'border-left-color', left?.color, '#000');
-    addStyle(s, 'border-right-style', right?.style);
-    addStyle(s, 'border-right-color', right?.color, '#000');
+    addStyle(s, 'borderTopStyle', top?.style);
+    addStyle(s, 'borderTopColor', top?.color, '#000');
+    addStyle(s, 'borderBottomStyle', bottom?.style);
+    addStyle(s, 'borderBottomColor', bottom?.color, '#000');
+    addStyle(s, 'borderLeftStyle', left?.style);
+    addStyle(s, 'borderLeftColor', left?.color, '#000');
+    addStyle(s, 'borderRightStyle', right?.style);
+    addStyle(s, 'borderRightColor', right?.color, '#000');
   }
 
   return s;

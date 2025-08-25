@@ -5,7 +5,7 @@ import { BUILTIN_FORMATS } from '../constants.ts';
 import type { ConversionContext } from '../ConversionContext.ts';
 import type { Theme } from './theme.ts';
 
-function valOfNode (node: Element, subNodeName, fallback = null): string | null {
+function valOfNode (node: Element, subNodeName: string, fallback: any = null): string | null {
   const subNode = node.querySelectorAll(subNodeName)[0];
   if (subNode) {
     return attr(subNode, 'val', fallback);

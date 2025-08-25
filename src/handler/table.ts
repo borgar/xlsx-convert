@@ -12,8 +12,8 @@ export function handlerTable (dom: Document, context: ConversionContext): JSFTab
     name: attr(tableElm, 'name'),
     sheet: '',
     ref: attr(tableElm, 'ref'),
-    header_row_count: numAttr(tableElm, 'headerRowCount', 1),
-    totals_row_count: numAttr(tableElm, 'totalsRowCount', 0), // totalsRowShown
+    headerRowCount: numAttr(tableElm, 'headerRowCount', 1),
+    totalsRowCount: numAttr(tableElm, 'totalsRowCount', 0), // totalsRowShown
     columns: [],
     // alt text: extLst>ext>table[altTextSummary]
   };
