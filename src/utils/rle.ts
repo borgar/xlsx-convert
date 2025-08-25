@@ -1,4 +1,4 @@
-import { JSFGridSize } from '../jsf-types';
+import type { JSFGridSize } from '../jsf-types.js';
 
 type IndexHeightPair = [ number, number ];
 

@@ -3,22 +3,22 @@ import path from 'path';
 import JSZip from 'jszip';
 import { Document, parseXML } from '@borgar/simple-xml';
 
-import { convertStyles } from './utils/convertStyles.js';
-import { ConversionContext } from './ConversionContext.js';
+import { convertStyles } from './utils/convertStyles.ts';
+import { ConversionContext } from './ConversionContext.ts';
 
-import { handlerRels, type Rel } from './handler/rels.js';
-import { handlerWorkbook } from './handler/workbook.js';
-import { handlerSharedStrings } from './handler/sharedstrings.js';
-import { handlerPersons } from './handler/persons.js';
-import { handlerTheme } from './handler/theme.js';
-import { handlerStyles } from './handler/styles.js';
-import { handlerRDStruct } from './handler/rdstuct.js';
-import { handlerRDValue } from './handler/rdvalue.js';
-import { handlerMetaData } from './handler/metadata.js';
-import { handlerComments } from './handler/comments.js';
-import { handlerWorksheet } from './handler/worksheet.js';
-import { handlerExternal } from './handler/external.js';
-import { handlerTable } from './handler/table.js';
+import { handlerRels, type Rel } from './handler/rels.ts';
+import { handlerWorkbook } from './handler/workbook.ts';
+import { handlerSharedStrings } from './handler/sharedstrings.ts';
+import { handlerPersons } from './handler/persons.ts';
+import { handlerTheme } from './handler/theme.ts';
+import { handlerStyles } from './handler/styles.ts';
+import { handlerRDStruct } from './handler/rdstuct.ts';
+import { handlerRDValue } from './handler/rdvalue.ts';
+import { handlerMetaData } from './handler/metadata.ts';
+import { handlerComments } from './handler/comments.ts';
+import { handlerWorksheet } from './handler/worksheet.ts';
+import { handlerExternal } from './handler/external.ts';
+import { handlerTable } from './handler/table.ts';
 import type { JSFWorkbook } from './jsf-types.js';
 
 /** Convertion options */

@@ -1,9 +1,9 @@
-import { type Color, readColor } from '../color.js';
-import { attr, boolAttr } from '../utils/attr.js';
-import { BUILTIN_FORMATS } from '../constants.js';
 import type { Document, Element } from '@borgar/simple-xml';
-import type { ConversionContext } from '../ConversionContext.js';
-import { Theme } from './theme.js';
+import { type Color, readColor } from '../color.ts';
+import { attr, boolAttr } from '../utils/attr.ts';
+import { BUILTIN_FORMATS } from '../constants.ts';
+import type { ConversionContext } from '../ConversionContext.ts';
+import type { Theme } from './theme.ts';
 
 function valOfNode (node: Element, subNodeName, fallback = null): string | null {
   const subNode = node.querySelectorAll(subNodeName)[0];

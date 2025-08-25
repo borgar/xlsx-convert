@@ -1,6 +1,6 @@
 import { Document } from '@borgar/simple-xml';
-import { numAttr } from '../utils/attr.js';
-import { ConversionContext } from '../ConversionContext.js';
+import { numAttr } from '../utils/attr.ts';
+import { ConversionContext } from '../ConversionContext.ts';
 
 export type RDValue = Record<string, string | number>;
 

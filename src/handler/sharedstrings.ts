@@ -1,5 +1,5 @@
 import { Document } from '@borgar/simple-xml';
-import { numAttr } from '../utils/attr.js';
+import { numAttr } from '../utils/attr.ts';
 
 export function handlerSharedStrings (dom: Document): string[] {
   const sst = dom.querySelectorAll('sst')[0];

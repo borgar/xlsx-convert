@@ -2,9 +2,9 @@ import {
   type ReferenceStruct,
   isFunction, isReference, parseA1Ref, parseStructRef, stringifyA1Ref,
   stringifyStructRef, tokenTypes, tokenize,
-  ReferenceA1,
+  type ReferenceA1,
 } from '@borgar/fx';
-import { JSFExternal } from '../jsf-types';
+import type { JSFExternal } from '../jsf-types.js';
 
 type Ref = ReferenceStruct | ReferenceA1;
 type RefContext = string[];

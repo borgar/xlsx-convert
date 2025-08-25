@@ -1,12 +1,12 @@
 import { dateToSerial, isDateFormat } from 'numfmt';
-import { toInt, toNum } from '../utils/typecast.js';
-import { attr, numAttr } from '../utils/attr.js';
-import { unescape } from '../utils/unescape.js';
-import { RelativeFormula } from '../RelativeFormula.js';
-import { normalizeFormula } from '../utils/normalizeFormula.js';
+import { toInt, toNum } from '../utils/typecast.ts';
+import { attr, numAttr } from '../utils/attr.ts';
+import { unescape } from '../utils/unescape.ts';
+import { RelativeFormula } from '../RelativeFormula.ts';
+import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { Element } from '@borgar/simple-xml';
-import { ConversionContext } from '../ConversionContext.js';
-import { JSFCell } from '../jsf-types.js';
+import { ConversionContext } from '../ConversionContext.ts';
+import type { JSFCell } from '../jsf-types.ts';
 
 /**
  * @param {Record<string, any>} obj

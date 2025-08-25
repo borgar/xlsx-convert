@@ -1,5 +1,5 @@
 import { Document } from '@borgar/simple-xml';
-import { attr } from '../utils/attr.js';
+import { attr } from '../utils/attr.ts';
 
 export function handlerPersons (dom: Document): Record<string, string> {
   const persons: Record<string, string> = {};

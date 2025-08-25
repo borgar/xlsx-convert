@@ -1,6 +1,6 @@
 import { Document } from '@borgar/simple-xml';
-import { attr } from '../utils/attr.js';
-import { ConversionContext } from '../ConversionContext.js';
+import { attr } from '../utils/attr.ts';
+import { ConversionContext } from '../ConversionContext.ts';
 
 export type Comment = {
   a: string;

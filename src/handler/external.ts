@@ -1,8 +1,8 @@
-import { attr, numAttr } from '../utils/attr.js';
-import { handlerCell } from './cell.js';
-import { normalizeFormula } from '../utils/normalizeFormula.js';
-import { ConversionContext } from '../ConversionContext.js';
 import type { Document } from '@borgar/simple-xml';
+import { attr, numAttr } from '../utils/attr.ts';
+import { handlerCell } from './cell.ts';
+import { normalizeFormula } from '../utils/normalizeFormula.ts';
+import { ConversionContext } from '../ConversionContext.ts';
 import type { JSFExternal } from '../jsf-types.js';
 
 export function handlerExternal (dom: Document, fileName:string = ''): JSFExternal {

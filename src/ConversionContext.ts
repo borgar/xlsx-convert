@@ -1,11 +1,11 @@
-import { Comment } from './handler/comments.js';
-import { MetaData } from './handler/metadata.js';
-import { RDStruct } from './handler/rdstuct.js';
-import { RDValue } from './handler/rdvalue.js';
-import { Rel } from './handler/rels.js';
-import { Theme } from './handler/theme.js';
-import { JSFExternal } from './jsf-types.js';
-import { RelativeFormula } from './RelativeFormula.js';
+import type { Comment } from './handler/comments.ts';
+import type { MetaData } from './handler/metadata.ts';
+import type { RDStruct } from './handler/rdstuct.ts';
+import type { RDValue } from './handler/rdvalue.ts';
+import type { Rel } from './handler/rels.ts';
+import type { Theme } from './handler/theme.ts';
+import type { RelativeFormula } from './RelativeFormula.ts';
+import type { JSFExternal, JSFWorkbook } from './jsf-types.js';
 
 type SheetLink = {
   name: string;
@@ -14,7 +14,7 @@ type SheetLink = {
 };
 
 export class ConversionContext {
-  workbook: import('./jsf-types.js').JSFWorkbook | null;
+  workbook: JSFWorkbook | null;
   sst: string[];
   persons: Record<string, string>;
   options: Record<string, boolean>;
@@ -29,7 +29,7 @@ export class ConversionContext {
   filename: string;
   _shared: Record<number, RelativeFormula>;
   _merged: Record<string, string>;
-  _arrayFormula: string[]; // ??
+  _arrayFormula: string[];
 
   constructor () {
     this.rels = [];

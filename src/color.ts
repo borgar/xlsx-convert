@@ -1,8 +1,8 @@
-import { rgb, hsl } from 'd3-color';
-import { attr, numAttr } from './utils/attr.js';
-import { NAMED_COLORS } from './constants.js';
 import type { Element } from '@borgar/simple-xml';
-import type { Theme } from './handler/theme.js';
+import { rgb, hsl } from 'd3-color';
+import { attr, numAttr } from './utils/attr.ts';
+import { NAMED_COLORS } from './constants.ts';
+import type { Theme } from './handler/theme.ts';
 
 function bound (c: number): number {
   if (c < 0) { return 0; }

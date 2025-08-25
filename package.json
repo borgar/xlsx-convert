@@ -18,9 +18,10 @@
   },
   "scripts": {
     "build": "tsup",
-    "lint": "eslint *.mjs src/",
+    "lint": "eslint *.mjs *.js src/",
     "typecheck": "tsc --noEmit",
-    "test": "node tests/index.js"
+    "test": "node --experimental-transform-types tests/index.ts",
+    "updatetests": "UPDATE_TESTS=1 node --experimental-transform-types tests/index.ts"
   },
   "tsup": {
     "entry": [
@@ -47,6 +48,7 @@
     "json",
     "xlsx",
     "csf",
+    "jsf",
     "office",
     "spreadsheet",
     "workbook"

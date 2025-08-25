@@ -1,6 +1,6 @@
 import path from 'path';
-import { attr } from '../utils/attr.js';
-import { REL_PREFIXES } from '../constants.js';
+import { attr } from '../utils/attr.ts';
+import { REL_PREFIXES } from '../constants.ts';
 import { Document } from '@borgar/simple-xml';
 
 export type Rel = {

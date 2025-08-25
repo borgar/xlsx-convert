@@ -1,5 +1,5 @@
 import { Document } from '@borgar/simple-xml';
-import { attr } from '../utils/attr.js';
+import { attr } from '../utils/attr.ts';
 
 export type RDStructKey = {
   name: string;

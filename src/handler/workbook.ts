@@ -1,9 +1,9 @@
 import { Document } from '@borgar/simple-xml';
-import { ConversionContext } from '../ConversionContext.js';
-import { JSFNameDef, JSFWorkbook } from '../jsf-types.js';
-import { attr, numAttr } from '../utils/attr.js';
-import { normalizeFormula } from '../utils/normalizeFormula.js';
-import { toInt } from '../utils/typecast.js';
+import { ConversionContext } from '../ConversionContext.ts';
+import { attr, numAttr } from '../utils/attr.ts';
+import { normalizeFormula } from '../utils/normalizeFormula.ts';
+import { toInt } from '../utils/typecast.ts';
+import type { JSFNameDefinition, JSFWorkbook } from '../jsf-types.js';
 
 export function handlerWorkbook (dom: Document, context: ConversionContext): JSFWorkbook {
   const wb: JSFWorkbook = {
@@ -33,7 +33,7 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): JSF
 
   dom.getElementsByTagName('definedName')
     .forEach(d => {
-      const name: JSFNameDef = {
+      const name: JSFNameDefinition = {
         name: attr(d, 'name'),
         value: normalizeFormula(d.textContent, context),
       };

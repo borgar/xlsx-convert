@@ -1,11 +1,11 @@
 import { parseA1Ref, stringifyA1Ref } from '@borgar/fx';
-import { attr, numAttr } from '../utils/attr.js';
-import { rle } from '../utils/rle.js';
-import { handlerCell } from './cell.js';
+import { attr, numAttr } from '../utils/attr.ts';
+import { rle } from '../utils/rle.ts';
+import { handlerCell } from './cell.ts';
 import { Document } from '@borgar/simple-xml';
-import { ConversionContext } from '../ConversionContext.js';
-import { Rel } from './rels.js';
-import { JSFWorksheet } from '../jsf-types.js';
+import { ConversionContext } from '../ConversionContext.ts';
+import type { Rel } from './rels.ts';
+import type { JSFWorksheet } from '../jsf-types.js';
 
 export function handlerWorksheet (dom: Document, context: ConversionContext, rels: Rel[]): JSFWorksheet {
   const sheet: JSFWorksheet = {

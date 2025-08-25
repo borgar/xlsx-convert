@@ -1,14 +1,19 @@
 {
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "tests/**/*",
+    "eslint.config.js"
   ],
   "types": [ "node" ],
   "compilerOptions": {
     "rootDir": "src",
-    "target": "es2022",
-    "module": "esnext",
-    "moduleResolution": "node",
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
+    "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": true,
     "erasableSyntaxOnly": true,
     "allowJs": true,
     "checkJs": true,

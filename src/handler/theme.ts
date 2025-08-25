@@ -1,6 +1,6 @@
-import { attr } from '../utils/attr.js';
-import { COLOR_INDEX } from '../constants.js';
 import type { Document } from '@borgar/simple-xml';
+import { attr } from '../utils/attr.ts';
+import { COLOR_INDEX } from '../constants.ts';
 
 const colorIndexes = {
   lt1:       0, // Light 1

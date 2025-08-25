@@ -1,6 +1,6 @@
-import { Document, Element } from '@borgar/simple-xml';
-import { ConversionContext } from '../ConversionContext.js';
-import { attr, numAttr } from '../utils/attr.js';
+import type { Document, Element } from '@borgar/simple-xml';
+import type { ConversionContext } from '../ConversionContext.ts';
+import { attr, numAttr } from '../utils/attr.ts';
 
 type MetaTableValue = Record<string, number | string>;
 
