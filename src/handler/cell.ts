@@ -12,11 +12,11 @@ import type { JSFCell } from '../jsf-types.ts';
 const relevantStyle = (obj: Record<string, any>): boolean => {
   return !!(
     // obj['number-format'] ||
-    obj['fill-color'] ||
-    obj['border-top-style'] ||
-    obj['border-left-style'] ||
-    obj['border-bottom-style'] ||
-    obj['border-right-style']
+    obj.fillColor ||
+    obj.borderTopStyle ||
+    obj.borderLeftStyle ||
+    obj.borderBottomStyle ||
+    obj.borderRightStyle
   );
 };
 

@@ -10,14 +10,14 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): JSF
     filename: context.filename,
     sheets: [],
     names: [],
-    tables: [],
-    styles: [],
     // charts: [],
     calculationProperties: {
       iterate: false,
       iterateCount: 100,
       iterateDelta: 0.001,
     },
+    styles: [],
+    tables: [],
     // externals: [],
     epoch: 1900,
   };
