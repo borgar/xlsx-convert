@@ -8,11 +8,7 @@ import { Element } from '@borgar/simple-xml';
 import { ConversionContext } from '../ConversionContext.ts';
 import type { JSFCell } from '../jsf-types.ts';
 
-/**
- * @param {Record<string, any>} obj
- * @return {boolean}
- */
-const relevantStyle = obj => {
+const relevantStyle = (obj: Record<string, any>): boolean => {
   return !!(
     // obj['number-format'] ||
     obj['fill-color'] ||
