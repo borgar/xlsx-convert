@@ -1038,7 +1038,7 @@ function handlerCell(node, context) {
       cell.v = (0, import_numfmt.dateToSerial)(new Date(Date.parse(v)));
     } else if (valueType === "n") {
       let val = toNum(v);
-      if (context.workbook.calculationProperties.epoch === 1904 && styleIndex) {
+      if (context.workbook?.calculationProperties?.epoch === 1904 && styleIndex) {
         const z = context.workbook.styles[styleIndex]?.["number-format"];
         if (z && (0, import_numfmt.isDateFormat)(z)) {
           val += 1462;
