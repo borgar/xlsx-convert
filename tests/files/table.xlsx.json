@@ -1754,20 +1754,20 @@
         "J153": { "s": 1, "v": 119.34635761589401, "f": 8 }
       },
       "columns": [
-        { "begin": 1, "end": 1, "size": 13.33203125 },
-        { "begin": 2, "end": 2, "size": 11.1640625 },
-        { "begin": 5, "end": 5, "size": 11.33203125 },
-        { "begin": 6, "end": 6, "size": 11.6640625 },
-        { "begin": 7, "end": 7, "size": 11.83203125 },
-        { "begin": 8, "end": 8, "size": 12.6640625 },
-        { "begin": 9, "end": 9, "size": 11.6640625 },
-        { "begin": 10, "end": 10, "size": 12.6640625 },
-        { "begin": 12, "end": 12, "size": 16.83203125 }
+        { "start": 1, "end": 1, "size": 13.33203125 },
+        { "start": 2, "end": 2, "size": 11.1640625 },
+        { "start": 5, "end": 5, "size": 11.33203125 },
+        { "start": 6, "end": 6, "size": 11.6640625 },
+        { "start": 7, "end": 7, "size": 11.83203125 },
+        { "start": 8, "end": 8, "size": 12.6640625 },
+        { "start": 9, "end": 9, "size": 11.6640625 },
+        { "start": 10, "end": 10, "size": 12.6640625 },
+        { "start": 12, "end": 12, "size": 16.83203125 }
       ],
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 10, "rowHeight": 16 },
-      "hidden": false
+      "hidden": 0
     },
     {
       "name": "BMI",
@@ -1838,15 +1838,26 @@
         "C26": { "v": "Obesity class 3" }
       },
       "columns": [
-        { "begin": 3, "end": 3, "size": 16 }
+        { "start": 3, "end": 3, "size": 16 }
       ],
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 10, "rowHeight": 16 },
-      "hidden": false
+      "hidden": 0
     }
   ],
   "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontSize": 12 },
+    { "numberFormat": "0.00", "fontSize": 12 },
+    { "numberFormat": "0.0", "fontSize": 12 }
+  ],
   "tables": [
     {
       "name": "Table1",
@@ -1912,17 +1923,6 @@
       ]
     }
   ],
-  "styles": [
-    { "fontSize": 12 },
-    { "numberFormat": "0.00", "fontSize": 12 },
-    { "numberFormat": "0.0", "fontSize": 12 }
-  ],
-  "calculationProperties": {
-    "iterate": false,
-    "iterateCount": 100,
-    "iterateDelta": 0.001
-  },
-  "epoch": 1900,
   "formulas": [
     "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)",
     "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)",

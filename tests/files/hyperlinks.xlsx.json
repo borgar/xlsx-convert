@@ -7,12 +7,12 @@
         "A1": {
           "s": 1,
           "v": "http://example.com/",
-          "href": "http://example.com/"
+          "l": "http://example.com/"
         },
         "A2": {
           "s": 1,
           "v": "title text",
-          "href": "http://example.com/"
+          "l": "http://example.com/"
         },
         "A3": { "s": 1, "v": "http://example.com/", "f": 0 },
         "A4": { "s": 1, "v": "title text", "f": 1 }
@@ -21,11 +21,16 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 10, "rowHeight": 16 },
-      "hidden": false
+      "hidden": 0
     }
   ],
   "names": [],
-  "tables": [],
+  "calculationProperties": {
+    "iterate": true,
+    "iterateCount": 10,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
   "styles": [
     { "fontSize": 12 },
     {
@@ -34,12 +39,7 @@
       "underline": "single"
     }
   ],
-  "calculationProperties": {
-    "iterate": true,
-    "iterateCount": 10,
-    "iterateDelta": 0.001
-  },
-  "epoch": 1900,
+  "tables": [],
   "formulas": [
     "HYPERLINK(\"http://example.com/\")",
     "HYPERLINK(\"http://example.com/\",\"title text\")"

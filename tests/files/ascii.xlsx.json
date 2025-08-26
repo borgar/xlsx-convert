@@ -1159,19 +1159,20 @@
         "Q75": { "s": 1, "v": "ˇ", "f": 1 }
       },
       "columns": [
-        { "begin": 1, "end": 17, "size": 5.33203125 }
+        { "start": 1, "end": 17, "size": 5.33203125 }
       ],
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 10, "rowHeight": 16 },
-      "hidden": false
+      "hidden": 0
     }
   ],
   "names": [],
   "calculationProperties": {
     "iterate": false,
     "iterateCount": 100,
-    "iterateDelta": 0.001
+    "iterateDelta": 0.001,
+    "epoch": 1900
   },
   "styles": [
     { "fontSize": 12 },
@@ -1196,7 +1197,6 @@
     }
   ],
   "tables": [],
-  "epoch": 1900,
   "formulas": [
     "UNICHAR(R40C+RC1*16+N(R39C17))",
     "CHAR(R59C+RC1*16+N(R58C17))"

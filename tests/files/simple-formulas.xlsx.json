@@ -18,7 +18,7 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 10, "rowHeight": 16 },
-      "hidden": false
+      "hidden": 0
     },
     {
       "name": "Sheet2",
@@ -64,11 +64,16 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 10, "rowHeight": 16 },
-      "hidden": false
+      "hidden": 0
     }
   ],
   "names": [],
-  "tables": [],
+  "calculationProperties": {
+    "iterate": true,
+    "iterateCount": 10,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
   "styles": [
     { "fontSize": 12 },
     { "fontSize": 12 },
@@ -105,12 +110,7 @@
       "borderBottomStyle": "thin"
     }
   ],
-  "calculationProperties": {
-    "iterate": true,
-    "iterateCount": 10,
-    "iterateDelta": 0.001
-  },
-  "epoch": 1900,
+  "tables": [],
   "formulas": [
     "SUM(RC[1]:RC[5])",
     "PI()",
