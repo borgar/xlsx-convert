@@ -36,7 +36,7 @@ module.exports = __toCommonJS(index_exports);
 var fs = __toESM(require("fs/promises"), 1);
 var import_path2 = __toESM(require("path"), 1);
 var import_jszip = __toESM(require("jszip"), 1);
-var import_simple_xml = require("@borgar/simple-xml");
+var import_simple_xml10 = require("@borgar/simple-xml");
 
 // src/utils/convertStyles.ts
 var addStyle = (obj, key, val, skip = null) => {
@@ -57,36 +57,36 @@ function convertStyle(styleDefs, styleIndex) {
   const s = {};
   if (style.numFmtId) {
     const numFmt = styleDefs.numFmts[style.numFmtId];
-    if (numFmt.toLowerCase() !== "general") {
-      s["number-format"] = numFmt;
+    if (typeof numFmt === "string" && numFmt.toLowerCase() !== "general") {
+      s.numberFormat = numFmt;
     }
   }
-  addStyle(s, "horizontal-alignment", style.hAlign);
-  addStyle(s, "vertical-alignment", style.vAlign, "bottom");
-  addStyle(s, "wrap-text", !!style.wrapText, false);
-  addStyle(s, "shrink-to-fit", !!style.shrinkToFit, false);
+  addStyle(s, "horizontalAlignment", style.hAlign);
+  addStyle(s, "verticalAlignment", style.vAlign, "bottom");
+  addStyle(s, "wrapText", !!style.wrapText, false);
+  addStyle(s, "shrinkToFit", !!style.shrinkToFit, false);
   if (style.font) {
     const font = style.font;
-    addStyle(s, "font-name", font.name, "Calibri");
-    addStyle(s, "font-size", font.size, 11);
-    addStyle(s, "font-color", font.color, "#000");
+    addStyle(s, "fontName", font.name, "Calibri");
+    addStyle(s, "fontSize", font.size, 11);
+    addStyle(s, "fontColor", font.color, "#000");
     addStyle(s, "underline", font.underline);
     addStyle(s, "bold", font.bold, false);
     addStyle(s, "italic", font.italic, false);
   }
   if (style.fill?.fg) {
-    addStyle(s, "fill-color", style.fill.fg, "#0000");
+    addStyle(s, "fillColor", style.fill.fg, "#0000");
   }
   if (style.border) {
     const { top, bottom, left, right } = style.border;
-    addStyle(s, "border-top-style", top?.style);
-    addStyle(s, "border-top-color", top?.color, "#000");
-    addStyle(s, "border-bottom-style", bottom?.style);
-    addStyle(s, "border-bottom-color", bottom?.color, "#000");
-    addStyle(s, "border-left-style", left?.style);
-    addStyle(s, "border-left-color", left?.color, "#000");
-    addStyle(s, "border-right-style", right?.style);
-    addStyle(s, "border-right-color", right?.color, "#000");
+    addStyle(s, "borderTopStyle", top?.style);
+    addStyle(s, "borderTopColor", top?.color, "#000");
+    addStyle(s, "borderBottomStyle", bottom?.style);
+    addStyle(s, "borderBottomColor", bottom?.color, "#000");
+    addStyle(s, "borderLeftStyle", left?.style);
+    addStyle(s, "borderLeftColor", left?.color, "#000");
+    addStyle(s, "borderRightStyle", right?.style);
+    addStyle(s, "borderRightColor", right?.color, "#000");
   }
   return s;
 }
@@ -113,10 +113,10 @@ var ConversionContext = class {
   comments;
   externalLinks;
   filename;
+  _formulasR1C1;
   _shared;
   _merged;
   _arrayFormula;
-  // ??
   constructor() {
     this.rels = [];
     this.options = {};
@@ -131,6 +131,7 @@ var ConversionContext = class {
     this.comments = {};
     this.externalLinks = [];
     this.filename = "";
+    this._formulasR1C1 = [];
     this._shared = {};
     this._merged = {};
     this._arrayFormula = [];
@@ -349,6 +350,7 @@ var NAMED_COLORS = {
 };
 
 // src/handler/rels.ts
+var import_simple_xml = require("@borgar/simple-xml");
 function handlerRels(dom, basepath = "xl/workbook.xml") {
   basepath = import_path.default.dirname(basepath);
   const rels = [];
@@ -375,6 +377,9 @@ function handlerRels(dom, basepath = "xl/workbook.xml") {
   }
   return rels;
 }
+
+// src/handler/workbook.ts
+var import_simple_xml2 = require("@borgar/simple-xml");
 
 // src/utils/normalizeFormula.ts
 var import_fx = require("@borgar/fx");
@@ -444,16 +449,16 @@ function handlerWorkbook(dom, context) {
     filename: context.filename,
     sheets: [],
     names: [],
-    tables: [],
-    styles: [],
     // charts: [],
-    calculation_properties: {
+    calculationProperties: {
       iterate: false,
-      iterate_count: 100,
-      iterate_delta: 1e-3
+      iterateCount: 100,
+      iterateDelta: 1e-3,
+      epoch: 1900
     },
+    styles: [],
+    tables: []
     // externals: [],
-    epoch: 1900
   };
   dom.querySelectorAll("sheets > sheet").forEach((d) => {
     context.sheetLinks.push({
@@ -474,15 +479,16 @@ function handlerWorkbook(dom, context) {
     wb.names.push(name);
   });
   const pr = dom.querySelectorAll("workbook > workbookPr")[0];
-  wb.epoch = pr && numAttr(pr, "date1904") ? 1904 : 1900;
+  wb.calculationProperties.epoch = pr && numAttr(pr, "date1904") ? 1904 : 1900;
   const calcPr = dom.getElementsByTagName("calcPr")[0];
   if (calcPr) {
     const iterate = toInt(attr(calcPr, "iterate"));
     if (iterate && isFinite(iterate)) {
-      wb.calculation_properties = {
+      wb.calculationProperties = {
         iterate: true,
-        iterate_count: toInt(numAttr(calcPr, "iterateCount", 100)),
-        iterate_delta: numAttr(calcPr, "iterateDelta", 1e-3)
+        iterateCount: toInt(numAttr(calcPr, "iterateCount", 100)),
+        iterateDelta: numAttr(calcPr, "iterateDelta", 1e-3),
+        epoch: wb.calculationProperties.epoch
       };
     }
   }
@@ -490,6 +496,7 @@ function handlerWorkbook(dom, context) {
 }
 
 // src/handler/sharedstrings.ts
+var import_simple_xml3 = require("@borgar/simple-xml");
 function handlerSharedStrings(dom) {
   const sst = dom.querySelectorAll("sst")[0];
   const stringTable = sst.querySelectorAll("si").map((d) => {
@@ -504,6 +511,7 @@ function handlerSharedStrings(dom) {
 }
 
 // src/handler/persons.ts
+var import_simple_xml4 = require("@borgar/simple-xml");
 function handlerPersons(dom) {
   const persons = {};
   dom.querySelectorAll("personlist > person").forEach((person) => {
@@ -707,7 +715,6 @@ function readXf(d, styles) {
   const fillId = boolAttr(d, "applyFill") ? attr(d, "fillId") : null;
   if (fillId) {
     xf.fillId = +fillId;
-    console.log(styles.fill[+fillId]);
     xf.fill = styles.fill[+fillId];
   }
   const fontId = attr(d, "fontId");
@@ -760,9 +767,9 @@ function readFont(node, theme) {
     name = "Calibri";
   }
   return {
-    size: +valOfNode(node, "sz") || null,
+    size: +valOfNode(node, "sz"),
     name,
-    underline: u ? attr(u, "val", "single") : null,
+    underline: u ? attr(u, "val", "single") : void 0,
     bold: !!b,
     italic: !!i,
     color: readColor(node.querySelectorAll("color")[0], theme)
@@ -819,6 +826,7 @@ function handlerStyles(dom, context) {
 }
 
 // src/handler/rdstuct.ts
+var import_simple_xml5 = require("@borgar/simple-xml");
 function handlerRDStruct(dom) {
   const structures = [];
   dom.querySelectorAll("rvStructures > s").forEach((s) => {
@@ -834,6 +842,7 @@ function handlerRDStruct(dom) {
 }
 
 // src/handler/rdvalue.ts
+var import_simple_xml6 = require("@borgar/simple-xml");
 function handlerRDValue(dom, context) {
   const values = [];
   const structures = context.richStruct || [];
@@ -894,6 +903,7 @@ function handlerMetaData(dom, context) {
 }
 
 // src/handler/comments.ts
+var import_simple_xml7 = require("@borgar/simple-xml");
 function handlerComments(dom, context) {
   const persons = context.persons;
   const comments = {};
@@ -915,7 +925,7 @@ function handlerComments(dom, context) {
 }
 
 // src/handler/worksheet.ts
-var import_fx3 = require("@borgar/fx");
+var import_fx4 = require("@borgar/fx");
 
 // src/utils/rle.ts
 function rle(list, defaultValue) {
@@ -928,7 +938,7 @@ function rle(list, defaultValue) {
       current.end = item[0];
     } else {
       current = {
-        begin: item[0],
+        start: item[0],
         end: item[0],
         size: item[1]
       };
@@ -941,6 +951,7 @@ function rle(list, defaultValue) {
 
 // src/handler/cell.ts
 var import_numfmt = require("numfmt");
+var import_fx3 = require("@borgar/fx");
 
 // src/utils/unescape.ts
 function unescape(str) {
@@ -968,9 +979,10 @@ var RelativeFormula = class {
 };
 
 // src/handler/cell.ts
+var import_simple_xml8 = require("@borgar/simple-xml");
 var relevantStyle = (obj) => {
   return !!// obj['number-format'] ||
-  (obj["fill-color"] || obj["border-top-style"] || obj["border-left-style"] || obj["border-bottom-style"] || obj["border-right-style"]);
+  (obj.fillColor || obj.borderTopStyle || obj.borderLeftStyle || obj.borderBottomStyle || obj.borderRightStyle);
 };
 function handlerCell(node, context) {
   const cell = {};
@@ -981,7 +993,7 @@ function handlerCell(node, context) {
   let valueType = attr(node, "t", "n");
   const styleIndex = Math.trunc(numAttr(node, "s", 0));
   if (styleIndex) {
-    cell.si = styleIndex;
+    cell.s = styleIndex;
   }
   const vNode = node.querySelectorAll("> v")[0];
   let v = vNode ? vNode.textContent : null;
@@ -1026,7 +1038,7 @@ function handlerCell(node, context) {
       cell.v = (0, import_numfmt.dateToSerial)(new Date(Date.parse(v)));
     } else if (valueType === "n") {
       let val = toNum(v);
-      if (context.workbook && context.workbook.epoch === 1904 && styleIndex) {
+      if (context.workbook.calculationProperties.epoch === 1904 && styleIndex) {
         const z = context.workbook.styles[styleIndex]?.["number-format"];
         if (z && (0, import_numfmt.isDateFormat)(z)) {
           val += 1462;
@@ -1059,37 +1071,48 @@ function handlerCell(node, context) {
       f = fNode.textContent;
     }
     if (f) {
-      cell.f = normalizeFormula(f, context);
+      if (context.options.cellFormulas) {
+        cell.f = normalizeFormula(f, context);
+      } else {
+        const rc = normalizeFormula((0, import_fx3.translateToR1C1)(f, address), context);
+        let fi = context._formulasR1C1.indexOf(rc);
+        if (fi < 0) {
+          fi = context._formulasR1C1.length;
+          context._formulasR1C1.push(rc);
+        }
+        cell.f = fi;
+      }
     }
   }
   if (typeof cell.v === "string") {
     cell.v = unescape(cell.v);
   }
-  if (cell.v == null && cell.f == null && (!cell.si || !relevantStyle(context.workbook.styles[styleIndex]))) {
+  if (cell.v == null && cell.f == null && (!cell.s || !relevantStyle(context.workbook.styles[styleIndex]))) {
     return null;
   }
   return cell;
 }
 
 // src/handler/worksheet.ts
+var import_simple_xml9 = require("@borgar/simple-xml");
 function handlerWorksheet(dom, context, rels) {
   const sheet = {
     name: "",
     cells: {},
     columns: [],
     rows: [],
-    merged_cells: [],
+    merges: [],
     defaults: {
-      col_width: 10,
-      row_height: 16
+      colWidth: 10,
+      rowHeight: 16
     },
     // drawings: [],
-    // show_grid_lines: true,
-    hidden: false
+    // showGridLines: true,
+    hidden: 0
   };
   const sheetView = dom.querySelector("sheetViews > sheetView");
   if (attr(sheetView, "showGridLines") === "0") {
-    sheet.show_grid_lines = false;
+    sheet.showGridLines = false;
   }
   const hyperLinks = /* @__PURE__ */ new Map();
   dom.querySelectorAll("hyperlinks > hyperlink").forEach((d) => {
@@ -1099,8 +1122,8 @@ function handlerWorksheet(dom, context, rels) {
   });
   const sheetFormatPr = dom.getElementsByTagName("sheetFormatPr")[0];
   if (sheetFormatPr) {
-    sheet.defaults.col_width = numAttr(sheetFormatPr, "baseColWidth", sheet.defaults.col_width);
-    sheet.defaults.row_height = numAttr(sheetFormatPr, "defaultRowHeight", sheet.defaults.row_height);
+    sheet.defaults.colWidth = numAttr(sheetFormatPr, "baseColWidth", sheet.defaults.colWidth);
+    sheet.defaults.rowHeight = numAttr(sheetFormatPr, "defaultRowHeight", sheet.defaults.rowHeight);
   }
   dom.getElementsByTagName("col").forEach((d) => {
     const min = numAttr(d, "min", 0);
@@ -1108,7 +1131,7 @@ function handlerWorksheet(dom, context, rels) {
     const hidden = numAttr(d, "hidden", 0);
     const width = hidden ? 0 : numAttr(d, "width");
     sheet.columns.push({
-      begin: min,
+      start: min,
       end: max,
       size: width
     });
@@ -1118,14 +1141,14 @@ function handlerWorksheet(dom, context, rels) {
   context._merged = {};
   dom.getElementsByTagName("mergeCell").forEach((d) => {
     const ref = attr(d, "ref");
-    const { top, left, bottom, right } = (0, import_fx3.parseA1Ref)(ref).range;
-    const anchor = (0, import_fx3.stringifyA1Ref)({ range: { top, left } });
+    const { top, left, bottom, right } = (0, import_fx4.parseA1Ref)(ref).range;
+    const anchor = (0, import_fx4.stringifyA1Ref)({ range: { top, left } });
     for (let c = left; c <= right; c++) {
       for (let r = top; r <= bottom; r++) {
-        context._merged[(0, import_fx3.stringifyA1Ref)({ range: { top: r, left: c } })] = anchor;
+        context._merged[(0, import_fx4.stringifyA1Ref)({ range: { top: r, left: c } })] = anchor;
       }
     }
-    sheet.merged_cells.push(ref);
+    sheet.merges.push(ref);
   });
   const row_heights = [];
   dom.querySelectorAll("row").forEach((row) => {
@@ -1141,7 +1164,7 @@ function handlerWorksheet(dom, context, rels) {
     }
     row.querySelectorAll("> c").forEach((d) => {
       const id = attr(d, "r");
-      if (context.options.skip_merged) {
+      if (context.options.skipMerged) {
         if (context._merged[id] && context._merged[id] !== id) {
           return;
         }
@@ -1149,18 +1172,18 @@ function handlerWorksheet(dom, context, rels) {
       const c = handlerCell(d, context);
       if (c) {
         if (hyperLinks.has(id)) {
-          c.href = hyperLinks.get(id);
+          c.l = hyperLinks.get(id);
         }
         sheet.cells[id] = c;
       }
     });
   });
-  sheet.rows = rle(row_heights, sheet.defaults.row_height);
+  sheet.rows = rle(row_heights, sheet.defaults.rowHeight);
   context._arrayFormula.forEach((arrayRef) => {
-    const { top, left, bottom, right } = (0, import_fx3.parseA1Ref)(arrayRef).range;
+    const { top, left, bottom, right } = (0, import_fx4.parseA1Ref)(arrayRef).range;
     for (let r = top; r <= bottom; r++) {
       for (let c = left; c <= right; c++) {
-        const ref = (0, import_fx3.stringifyA1Ref)({ range: { top: r, left: c } });
+        const ref = (0, import_fx4.stringifyA1Ref)({ range: { top: r, left: c } });
         if (sheet.cells[ref]) {
           sheet.cells[ref].F = arrayRef;
         }
@@ -1217,8 +1240,8 @@ function handlerTable(dom, context) {
     name: attr(tableElm, "name"),
     sheet: "",
     ref: attr(tableElm, "ref"),
-    header_row_count: numAttr(tableElm, "headerRowCount", 1),
-    totals_row_count: numAttr(tableElm, "totalsRowCount", 0),
+    headerRowCount: numAttr(tableElm, "headerRowCount", 1),
+    totalsRowCount: numAttr(tableElm, "totalsRowCount", 0),
     // totalsRowShown
     columns: []
     // alt text: extLst>ext>table[altTextSummary]
@@ -1240,12 +1263,9 @@ function handlerTable(dom, context) {
 // src/index.ts
 var DEFAULT_OPTIONS = {
   // skip cells that are a part of merges
-  skip_merged: true,
-  // styles are attached to cells rather than being included separately
-  cell_styles: false,
-  // number format is set as z on cells (in addition to existing as
-  // 'number-format' in styles) [always true when cell_styles=true]
-  cell_z: false
+  skipMerged: true,
+  // formulas are attached to cells rather than being included separately
+  cellFormulas: false
 };
 async function convert(filename, options = DEFAULT_OPTIONS) {
   return convertBinary(await fs.readFile(filename), filename, options);
@@ -1258,7 +1278,7 @@ async function convertBinary(buffer, filename, options = DEFAULT_OPTIONS) {
   const fdesc = await zip.loadAsync(buffer);
   const getFile = async (f) => {
     const fd = fdesc.file(f);
-    return fd ? (0, import_simple_xml.parseXML)(await fd.async("string")) : null;
+    return fd ? (0, import_simple_xml10.parseXML)(await fd.async("string")) : null;
   };
   const getRels = async (f = "") => {
     const fDir = import_path2.default.dirname(f);
@@ -1328,8 +1348,8 @@ async function convertBinary(buffer, filename, options = DEFAULT_OPTIONS) {
       throw new Error("No rel found for sheet " + sheetLink.rId);
     }
   }));
-  if (options.cell_styles) {
-    wb.styles = [];
+  if (!options.cellFormulas) {
+    wb.formulas = context._formulasR1C1;
   }
   return wb;
 }
