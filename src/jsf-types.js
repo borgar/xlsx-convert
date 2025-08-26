@@ -10,9 +10,6 @@
  *   A workbook is a collection of worksheets, calculation directions, and other meta-data.
  * @prop {string} filename
  *   Name of the workbook.
- * @prop {1900 | 1904} epoch
- *   Which of the two date systems the workbook uses.
- *   See: <https://learn.microsoft.com/en-us/office/troubleshoot/excel/1900-and-1904-date-system>
  * @prop {JSFWorksheet[]} sheets
  *   An ordered list of the worksheets in the workbook.
  * @prop {JSFNameDefinition[]} names
@@ -23,8 +20,6 @@
  *   Directions on how a spreadsheet application should run calculations in the workbook.
  * @prop {JSFStyle[]} styles
  *   Styles for cells in the workbook.
- * @prop {JSFChart[]} [charts]
- *   Definitions of charts found in the workbook.
  * @prop {JSFExternal[]} [externals]
  *   Captures of external cells referenced by the workbook.
  * @prop {string[]} [formulas]
@@ -46,12 +41,13 @@
  *   A list of ranges that capture which cells have been merged.
  * @prop {JSFSheetDefaults} defaults
  *   A collection of default properties that apply to cells, rows, or columns in the worksheet.
- * @prop {boolean} hidden
+ * @prop {0 | 1 | 2} hidden
  *   Whether or not the sheet should be shown to a user in a UI displaying the workbook.
+ *   - 0 = sheet is visible
+ *   - 1 = sheet is hidden
+ *   - 2 = sheet is "extra hidden"
  * @prop {boolean} [showGridLines]
  *   Indicates whether a hairline-grid should be drawn when displaying the sheet.
- * @prop {JSFDrawing} [drawings]
- *   An list of drawings used by the workbook.
  */
 
 /**
@@ -63,7 +59,7 @@
  * @prop {string | integer} [f]
  *   Cell formula expression. When the value is a string it will be a formula with A1-style references.
  *   When the value is a number is an index to a formula in the workbook formulas list
- * @prop {string} [href]
+ * @prop {string} [l]
  *   A hyperlink URL address.
  * @prop {string} [F]
  *   The range of enclosing array if formula is an array formula.
@@ -106,13 +102,13 @@
  * @typedef JSFGridSize
  * A size of a UI-grid measure over a range of items.
  *
- * GridSize information is run-length encoded. The begin and end attributes indicate the range of
+ * GridSize information is run-length encoded. The start and end attributes indicate the range of
  * items that the `size` and `s` attributes affect. The range is expressed using integers, where
  * 1 corresponds to column A or row 1.
  *
  * GridSize may have a style-index (s) attribute like individual cells. The styling information on
  * the column should be used for all cells that are not present in the sheet's cell collection.
- * @prop {integer} begin
+ * @prop {integer} start
  *   A 1-based inclusive start index.
  * @prop {integer} end
  *   A 1-based inclusive end index.
@@ -197,6 +193,9 @@
  * @prop {number} iterateDelta
  *   When a calculation iteration results in an absolute change that is less than iterateDelta,
  *   then no further iterations should be attempted. Defaults to `0.001` in Excel.
+ * @prop {1900 | 1904} [epoch]
+ *   Which of the two date systems the workbook uses. 1900 is the deafult.
+ *   See: <https://learn.microsoft.com/en-us/office/troubleshoot/excel/1900-and-1904-date-system>
  */
 
 /**
@@ -216,6 +215,10 @@
  *   Text underline decoration type.
  * @prop {JSFColor} [fillColor="#FFF"]
  *   The cell's background color.
+ * @prop {JSFColor} [patternColor="#000"]
+ *   The color of a cell's background fill.
+ * @prop {JSFPatternStyle} [patternStyle="none"]
+ *   The style of a cell's background fill.
  * @prop {JSFBorderStyle} [borderTopStyle="none"]
  *   Top border style.
  * @prop {JSFColor} [borderTopColor]
@@ -246,161 +249,7 @@
  */
 
 /**
- * @typedef JSFDrawing
- *   Drawing describes the position and size of a visual asset on a worksheet. A drawing may be a
- *   chart or some other type of picture.
- * @prop {JSFAnchorAbs | JSFAnchorCell | JSFAnchorTwoCell} anchor
- *   Directions for where the drawing should be placed.
- * @prop {string} chartId
- *   Pointer to a chart to display.
- */
-
-/**
- * @typedef JSFAnchorAbs
- *   A single coordinate placement anchor.
- * @prop {'absolute'} type
- *   The type of the anchor.
- * @prop {JSFPoint} position
- *   The anchor point location.
- * @prop {JSFPoint} extent
- *   The width and height dimensions.
- */
-
-/**
- * @typedef JSFAnchorCell
- *   A cell-contained placement anchor.
- * @prop {'cell'} type
- *   The type of the anchor.
- * @prop {JSFCellOffset} topLeft
- *   The top/left anchor point location.
- * @prop {JSFPoint} extent
- *   The width and height dimensions.
- */
-
-/**
- * @typedef JSFAnchorTwoCell
- *   A coordinate placement defined by two corner points.
- * @prop {'twoCell'} type
- *   The type of the anchor.
- * @prop {JSFCellOffset} topLeft
- *   The top/left anchor point location.
- * @prop {JSFCellOffset} bottomRight
- *   The bottom/right anchor point location.
- */
-
-/**
- * @typedef JSFCellOffset
- *   Offset defined by a cell position and its inner
- * @prop {integer} row
- *   The cell's row number.
- * @prop {number} rowOffset
- *   The horizontal position within the cell in pixels.
- * @prop {integer} column
- *   The cell's column number.
- * @prop {number} columnOffset
- *   The vertical position within the cell in pixels.
- */
-
-/**
- * @typedef JSFPoint
- *   A coordinate or dimensional sizes in a 2D euclidean space where positive Y increases downwards.
- * @prop {JSFPixelValue} x
- *   A vertical measure in pixels (0 based)
- * @prop {JSFPixelValue} y
- *   A horizontal measure in pixels (0 based)
- */
-
-/**
- * @typedef JSFChart
- *   A chart is a generated data driven image that has the purpose of giving insight to its
- *   underlying numerical values.
- *
- *   When `title` field is empty or absent, and the chart has exactly 1 series, the series name
- *   should be used as the chart title instead. Except, if `autoTitleDeleted` is `true`, where
- *   no title should be displayed.
- * @prop {string} id
- *   An identifier for the chart, unique to the workbook.
- * @prop {JSFChartType | 'combo'} type
- *   The type of the chart.
- * @prop {JSFChartSeries[]} series
- *   The data series used to render plots.
- * @prop {JSFChartAxis[]} [axes]
- *   Axes present in the chart.
- * @prop {JSFFormula | string} [title]
- *   The title of the chart.
- * @prop {boolean} [autoTitleDeleted=true]
- *   Indicates whether a title should be displayed (true = don't display).
- * @prop {JSFFormula} [labels]
- *   A cell range or formula indicating where chart labels should be read from.
- * @prop {JSFSide | 'top-right'} [legend='top-right']
- *   Positioning of a chart legend.
- * @prop {JSFDataLabels} [dataLabels]
- *   Directions on how to display labels for values on plots.
- * @prop {'standard' | 'stacked' | 'clustered' | 'percentStacked'} [grouping]
- *   Specifies the possible groupings for a chart that can be grouped (Bar)
- *   - `clustered` - Chart series should be drawn next to each other along the category axis.
- *   - `percentStacked` - Chart series should be drawn next to each other along the value axis and
- *      scaled to total 100%.
- *   - `stacked` - Chart series should be drawn next to each other on the value axis.
- *   - `standard` - Chart series should be drawn next to each other on the depth axis.
- * @prop {boolean} [varyColors]
- *   When `true`, the colors within a series should vary by point.
- */
-
-/**
- * @typedef JSFChartAxis
- *   Describes a chart axis.
- * @prop {'category' | 'value' | 'date' | 'series'} type
- *   The type of the axis.
- * @prop {JSFSide} position
- *   The position of the axis against a plot area edge.
- * @prop {JSFFormula | string} [title]
- *   The title of the axis.
- * @prop {string} [numberFormat]
- *   A number format to use to display any axis values.
- * @prop {'minMax' | 'maxMin'} [orientation="minMax"]
- *   Indicates if the axis is "reversed". Assume minMax if absent (not reversed).
- * @prop {number} [min]
- *   Minimum value to clip the axis too (do not render things outside this value).
- * @prop {number} [max]
- *   Maximum value to clip the axis too (do not render things outside this value).
- * @prop {integer} [logBase]
- *   Indicates that this is a logarithmic axis and what base it should use (minimum value = 2).
- */
-
-/**
- * @typedef JSFChartSeries
- *   Describes a data-series to be used to drive a plot in a chart.
- * @prop {JSFFormula | string} name
- *   The name of this series.
- * @prop {JSFFormula[]} values
- *   A list of cell ranges or formulas indicating where values of the series should be read from.
- *
- *   This is an array to accommodate multi-dimensional series for scatter and bubble charts
- * @prop {JSFChartType} [chartType]
- *   Type of chart that the series belongs to (only used in combo charts)
- */
-
-/**
- * @typedef JSFDataLabels
- *   Directions on how to display labels for data values on plots.
- * @prop {boolean} values
- *   Should values be shown or not?
- */
-
-/**
- * @typedef {'top' | 'bottom' | 'left' | 'right'} JSFSide
- */
-
-/**
- * @typedef {'area' | 'area3D' | 'bar' | 'bar3D' | 'bubble' | 'column' | 'column3D' | 'doughnut' |
- *           'line' | 'line3D' | 'ofPie' | 'pie' | 'pie3D' | 'radar' | 'scatter' | 'stock' |
- *           'surface' | 'surface3D'} JSFChartType
- * The type of a chart describes what plot marks should be used to represent the data.
- */
-
-/**
- * @typedef {string} JSFFormula
+ * @typedef {`=${string}`} JSFFormula
  *   A Excel spreadsheet formula language expression in string form. Range references use A1-style.
  *
  *   ```Excel
@@ -462,6 +311,15 @@
  *   | `slantDashDot` | Draw two 1px parallel dashed lines where the lower/left line 1px "behind" the other, creating a slant.
  *   | `thick` | Draw a 3px wide pixel continuous line.
  *   | `thin` | Draw a 1px wide pixel continuous line.
+ */
+
+/**
+ * @typedef {'none' | 'solid' | 'mediumGray' | 'darkGray' | 'lightGray' | 'darkHorizontal' |
+ *           'darkVertical' | 'darkDown' | 'darkUp' | 'darkGrid' | 'darkTrellis' | 'lightHorizontal' |
+ *           'lightVertical' | 'lightDown' | 'lightUp' | 'lightGrid' | 'lightTrellis' | 'gray125' |
+ *           'gray0625'} JSFPatternStyle
+ *   The style of fill pattern used for a cell background. If the worksheets zoom factor is changed the pixel
+ *   scale of the pattern is still expected to stay the same.
  */
 
 /**

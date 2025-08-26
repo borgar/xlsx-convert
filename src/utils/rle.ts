@@ -15,7 +15,7 @@ export function rle (list: IndexHeightPair[], defaultValue: number): JSFGridSize
       }
       else {
         current = {
-          begin: item[0],
+          start: item[0],
           end: item[0],
           size: item[1],
         };

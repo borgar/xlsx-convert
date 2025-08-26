@@ -15,11 +15,11 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): JSF
       iterate: false,
       iterateCount: 100,
       iterateDelta: 0.001,
+      epoch: 1900,
     },
     styles: [],
     tables: [],
     // externals: [],
-    epoch: 1900,
   };
 
   dom.querySelectorAll('sheets > sheet')
@@ -45,7 +45,7 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): JSF
     });
 
   const pr = dom.querySelectorAll('workbook > workbookPr')[0];
-  wb.epoch = (pr && numAttr(pr, 'date1904')) ? 1904 : 1900;
+  wb.calculationProperties.epoch = (pr && numAttr(pr, 'date1904')) ? 1904 : 1900;
 
   const calcPr = dom.getElementsByTagName('calcPr')[0];
   if (calcPr) {
@@ -55,6 +55,7 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): JSF
         iterate: true,
         iterateCount: toInt(numAttr(calcPr, 'iterateCount', 100)),
         iterateDelta: numAttr(calcPr, 'iterateDelta', 0.001),
+        epoch: wb.calculationProperties.epoch,
       };
     }
   }

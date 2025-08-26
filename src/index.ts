@@ -21,6 +21,8 @@ import { handlerExternal } from './handler/external.ts';
 import { handlerTable } from './handler/table.ts';
 import type { JSFWorkbook } from './jsf-types.js';
 
+export type * from './jsf-types.js';
+
 /** Convertion options */
 export type ConversionOptions = {
   skipMerged?: boolean;

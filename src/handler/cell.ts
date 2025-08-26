@@ -103,7 +103,7 @@ export function handlerCell (node: Element, context: ConversionContext): JSFCell
     else if (valueType === 'n') {
       let val = toNum(v);
       // adjust dates if the workbook uses 1904 data system
-      if (context.workbook && context.workbook.epoch === 1904 && styleIndex) {
+      if (context.workbook.calculationProperties.epoch === 1904 && styleIndex) {
         const z = context.workbook.styles[styleIndex]?.['number-format'];
         if (z && isDateFormat(z)) {
           val += 1462;

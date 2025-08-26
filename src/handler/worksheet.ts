@@ -19,8 +19,8 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
       rowHeight: 16,
     },
     // drawings: [],
-    // show_grid_lines: true,
-    hidden: false,
+    // showGridLines: true,
+    hidden: 0,
   };
 
   const sheetView = dom.querySelector('sheetViews > sheetView');
@@ -51,7 +51,7 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
     const hidden = numAttr(d, 'hidden', 0);
     const width = hidden ? 0 : numAttr(d, 'width');
     sheet.columns.push({
-      begin: min,
+      start: min,
       end: max,
       size: width,
     });
@@ -115,7 +115,7 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
         const c = handlerCell(d, context);
         if (c) {
           if (hyperLinks.has(id)) {
-            c.href = hyperLinks.get(id);
+            c.l = hyperLinks.get(id);
           }
           sheet.cells[id] = c;
         }
