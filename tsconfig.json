@@ -17,7 +17,6 @@
     "erasableSyntaxOnly": true,
     "allowJs": true,
     "checkJs": true,
-    "declaration": true,
     "stripInternal": true,
     "noEmitOnError": true,
     "noErrorTruncation": true,
