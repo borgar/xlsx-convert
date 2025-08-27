@@ -1,0 +1,30 @@
+{
+  "filename": "a-single-lambda.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "#CALC!", "t": "e", "f": 0 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontName": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [],
+  "formulas": [
+    "LAMBDA(a,b,a*b)"
+  ]
+}

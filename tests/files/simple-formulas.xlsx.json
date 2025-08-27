@@ -4,138 +4,120 @@
     {
       "name": "Sheet1",
       "cells": {
-        "A1": { "v": 15, "f": "SUM(B1:F1)" },
+        "A1": { "v": 15, "f": 0 },
         "B1": { "v": 1 },
         "C1": { "v": 2 },
         "D1": { "v": 3 },
         "E1": { "v": 4 },
         "F1": { "v": 5 },
-        "A2": { "v": 3.141592653589793, "f": "PI()" },
-        "A3": { "v": "lore", "f": "LEFT(B3,4)" },
+        "A2": { "v": 3.141592653589793, "f": 1 },
+        "A3": { "v": "lore", "f": 2 },
         "B3": { "v": "lorem ipsum" }
       },
       "columns": [],
       "rows": [],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 16 },
-      "hidden": false
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0
     },
     {
       "name": "Sheet2",
       "cells": {
-        "B1": { "si": 2, "v": "header 1" },
-        "C1": { "si": 2, "v": "header 2" },
-        "D1": { "si": 2, "v": "header 3" },
-        "E1": { "si": 9, "v": "header 4" },
-        "A2": { "si": 6, "v": "row 1" },
-        "B2": { "si": 1, "v": 3 },
-        "C2": { "si": 1, "v": 0.123 },
-        "D2": {
-          "si": 8,
-          "v": 12.3,
-          "F": "D2:D7",
-          "f": "ROUND(C2:C7*100,1)"
-        },
-        "E2": {
-          "si": 3,
-          "v": 54.120000000000005,
-          "f": "D2*4.4"
-        },
-        "A3": { "si": 6, "v": "row 2" },
-        "B3": { "si": 1, "v": 4 },
-        "C3": { "si": 1, "v": 0.513 },
-        "D3": { "si": 1, "v": 51.3, "F": "D2:D7" },
-        "E3": { "si": 3, "v": 225.72, "f": "D3*4.4" },
-        "A4": { "si": 6, "v": "row 3" },
-        "B4": { "si": 1, "v": 23 },
-        "C4": { "si": 1, "v": 0.32 },
-        "D4": { "si": 1, "v": 32, "F": "D2:D7" },
-        "E4": { "si": 3, "v": 140.8, "f": "D4*4.4" },
-        "A5": { "si": 6, "v": "row 4" },
-        "B5": { "si": 1, "v": 5 },
-        "C5": { "si": 1, "v": 0.034546 },
-        "D5": { "si": 1, "v": 3.5, "F": "D2:D7" },
-        "E5": {
-          "si": 3,
-          "v": 15.400000000000002,
-          "f": "D5*4.4"
-        },
-        "A6": { "si": 6, "v": "row 5" },
-        "B6": { "si": 1, "v": 17 },
-        "C6": { "si": 1, "v": 0.923 },
-        "D6": { "si": 1, "v": 92.3, "F": "D2:D7" },
-        "E6": { "si": 3, "v": 406.12, "f": "D6*4.4" },
-        "A7": { "si": 6, "v": "row 6" },
-        "B7": { "si": 4, "v": 9 },
-        "C7": { "si": 4, "v": 0.81 },
-        "D7": { "si": 4, "v": 81, "F": "D2:D7" },
-        "E7": {
-          "si": 5,
-          "v": 356.40000000000003,
-          "f": "D7*4.4"
-        },
-        "C9": {
-          "si": 7,
-          "v": 32.93473,
-          "f": "SUM(C2:C7*B2:B7)"
-        },
-        "D9": {
-          "si": 7,
-          "v": 45.4,
-          "f": "AVERAGE(ANCHORARRAY(D2))"
-        }
+        "B1": { "s": 2, "v": "header 1" },
+        "C1": { "s": 2, "v": "header 2" },
+        "D1": { "s": 2, "v": "header 3" },
+        "E1": { "s": 9, "v": "header 4" },
+        "A2": { "s": 6, "v": "row 1" },
+        "B2": { "s": 1, "v": 3 },
+        "C2": { "s": 1, "v": 0.123 },
+        "D2": { "s": 8, "v": 12.3, "F": "D2:D7", "f": 3 },
+        "E2": { "s": 3, "v": 54.120000000000005, "f": 4 },
+        "A3": { "s": 6, "v": "row 2" },
+        "B3": { "s": 1, "v": 4 },
+        "C3": { "s": 1, "v": 0.513 },
+        "D3": { "s": 1, "v": 51.3, "F": "D2:D7" },
+        "E3": { "s": 3, "v": 225.72, "f": 4 },
+        "A4": { "s": 6, "v": "row 3" },
+        "B4": { "s": 1, "v": 23 },
+        "C4": { "s": 1, "v": 0.32 },
+        "D4": { "s": 1, "v": 32, "F": "D2:D7" },
+        "E4": { "s": 3, "v": 140.8, "f": 4 },
+        "A5": { "s": 6, "v": "row 4" },
+        "B5": { "s": 1, "v": 5 },
+        "C5": { "s": 1, "v": 0.034546 },
+        "D5": { "s": 1, "v": 3.5, "F": "D2:D7" },
+        "E5": { "s": 3, "v": 15.400000000000002, "f": 4 },
+        "A6": { "s": 6, "v": "row 5" },
+        "B6": { "s": 1, "v": 17 },
+        "C6": { "s": 1, "v": 0.923 },
+        "D6": { "s": 1, "v": 92.3, "F": "D2:D7" },
+        "E6": { "s": 3, "v": 406.12, "f": 4 },
+        "A7": { "s": 6, "v": "row 6" },
+        "B7": { "s": 4, "v": 9 },
+        "C7": { "s": 4, "v": 0.81 },
+        "D7": { "s": 4, "v": 81, "F": "D2:D7" },
+        "E7": { "s": 5, "v": 356.40000000000003, "f": 4 },
+        "C9": { "s": 7, "v": 32.93473, "f": 5 },
+        "D9": { "s": 7, "v": 45.4, "f": 6 }
       },
       "columns": [],
       "rows": [],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 16 },
-      "hidden": false
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0
     }
   ],
   "names": [],
-  "tables": [],
-  "calculation_properties": {
+  "calculationProperties": {
     "iterate": true,
-    "iterate_count": 10,
-    "iterate_delta": 0.001
+    "iterateCount": 10,
+    "iterateDelta": 0.001,
+    "epoch": 1900
   },
   "styles": [
-    { "font-size": 12 },
-    { "font-size": 12 },
+    { "fontSize": 12 },
+    { "fontSize": 12 },
     {
-      "horizontal-alignment": "center",
-      "font-size": 12,
+      "horizontalAlignment": "center",
+      "fontSize": 12,
       "bold": true,
-      "border-bottom-style": "thin"
+      "borderBottomStyle": "thin"
     },
-    { "font-size": 12, "border-right-style": "thin" },
+    { "fontSize": 12, "borderRightStyle": "thin" },
+    { "fontSize": 12, "borderBottomStyle": "thin" },
     {
-      "font-size": 12,
-      "border-bottom-style": "thin"
-    },
-    {
-      "font-size": 12,
-      "border-bottom-style": "thin",
-      "border-right-style": "thin"
+      "fontSize": 12,
+      "borderBottomStyle": "thin",
+      "borderRightStyle": "thin"
     },
     {
-      "horizontal-alignment": "right",
-      "font-size": 12,
+      "horizontalAlignment": "right",
+      "fontSize": 12,
       "bold": true,
-      "border-right-style": "thin"
+      "borderRightStyle": "thin"
     },
     {
-      "number-format": "0.0",
-      "font-size": 12,
+      "numberFormat": "0.0",
+      "fontSize": 12,
       "bold": true,
-      "fill-color": "#E7E6E6"
+      "fillColor": "#E7E6E6"
     },
-    { "font-size": 12, "border-top-style": "thin" },
+    { "fontSize": 12, "borderTopStyle": "thin" },
     {
-      "horizontal-alignment": "center",
-      "font-size": 12,
+      "horizontalAlignment": "center",
+      "fontSize": 12,
       "bold": true,
-      "border-bottom-style": "thin"
+      "borderBottomStyle": "thin"
     }
+  ],
+  "tables": [],
+  "formulas": [
+    "SUM(RC[1]:RC[5])",
+    "PI()",
+    "LEFT(RC[1],4)",
+    "ROUND(RC[-1]:R[5]C[-1]*100,1)",
+    "RC[-1]*4.4",
+    "SUM(R[-7]C:R[-2]C*R[-7]C[-1]:R[-2]C[-1])",
+    "AVERAGE(ANCHORARRAY(R[-7]C))"
   ]
 }

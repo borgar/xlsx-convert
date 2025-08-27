@@ -1,12 +1,15 @@
-import attr, { numAttr } from './utils/attr.js';
-import handlerCell from './cell.js';
-import { normalizeFormula } from './utils/normalizeFormula.js';
+import type { Document } from '@borgar/simple-xml';
+import { attr, numAttr } from '../utils/attr.ts';
+import { handlerCell } from './cell.ts';
+import { normalizeFormula } from '../utils/normalizeFormula.ts';
+import { ConversionContext } from '../ConversionContext.ts';
+import type { JSFExternal } from '../jsf-types.js';
 
-export default function (dom, fileName = '') {
-  const external = {
+export function handlerExternal (dom: Document, fileName:string = ''): JSFExternal {
+  const external: JSFExternal = {
     filename: fileName,
     sheets: [],
-    names: []
+    names: [],
   };
 
   // read sheet names
@@ -14,12 +17,12 @@ export default function (dom, fileName = '') {
     .forEach(sheetName => {
       external.sheets.push({
         name: attr(sheetName, 'val'),
-        cells: {}
+        cells: {},
       });
     });
 
   // read cells and their values
-  const dummyWb = { options: {}, styles: [] };
+  const dummyContext = new ConversionContext();
   dom.querySelectorAll('sheetDataSet > sheetData')
     .forEach(sheetData => {
       const sheetIndex = numAttr(sheetData, 'sheetId', 0);
@@ -27,7 +30,7 @@ export default function (dom, fileName = '') {
       sheetData.querySelectorAll('row > cell')
         .forEach(cell => {
           const id = attr(cell, 'r');
-          const c = handlerCell(cell, dummyWb);
+          const c = handlerCell(cell, dummyContext);
           if (c) {
             externalCells[id] = c;
           }
@@ -39,7 +42,7 @@ export default function (dom, fileName = '') {
     .forEach(definedName => {
       external.names.push({
         name: attr(definedName, 'name'),
-        value: normalizeFormula(attr(definedName, 'refersTo'))
+        value: normalizeFormula(attr(definedName, 'refersTo'), {}),
       });
     });
 

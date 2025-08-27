@@ -8,31 +8,36 @@
         "B1": { "v": 0 },
         "C1": { "v": 0 },
         "D1": { "v": 1 },
-        "A3": { "v": true, "F": "A3:D3", "f": "A1:D1=1" },
+        "A3": { "v": true, "F": "A3:D3", "f": 0 },
         "B3": { "v": false, "F": "A3:D3" },
         "C3": { "v": false, "F": "A3:D3" },
         "D3": { "v": true, "F": "A3:D3" },
-        "A4": { "v": true, "F": "A4:D4", "f": "A1:D1=1" },
+        "A4": { "v": true, "F": "A4:D4", "f": 1 },
         "B4": { "v": false, "F": "A4:D4" },
         "C4": { "v": false, "F": "A4:D4" },
         "D4": { "v": true, "F": "A4:D4" }
       },
       "columns": [],
       "rows": [],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 16 },
-      "hidden": false
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0
     }
   ],
   "names": [],
-  "tables": [],
-  "calculation_properties": {
+  "calculationProperties": {
     "iterate": false,
-    "iterate_count": 100,
-    "iterate_delta": 0.001
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
   },
   "styles": [
-    { "font-size": 12 },
-    { "font-size": 12 }
+    { "fontSize": 12 },
+    { "fontSize": 12 }
+  ],
+  "tables": [],
+  "formulas": [
+    "R[-2]C:R[-2]C[3]=1",
+    "R[-3]C:R[-3]C[3]=1"
   ]
 }

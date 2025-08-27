@@ -1,54 +1,67 @@
 import { parseA1Ref, stringifyA1Ref } from '@borgar/fx';
-import attr, { numAttr } from './utils/attr.js';
-import { rle } from './utils/rle.js';
-import handlerCell from './cell.js';
+import { attr, numAttr } from '../utils/attr.ts';
+import { rle } from '../utils/rle.ts';
+import { handlerCell } from './cell.ts';
+import { Document } from '@borgar/simple-xml';
+import { ConversionContext } from '../ConversionContext.ts';
+import type { Rel } from './rels.ts';
+import type { JSFWorksheet } from '../jsf-types.js';
 
-export default function (dom, wb, rels) {
-  const sheet = {
+const COL_MULT = 6.5;
+
+export function handlerWorksheet (dom: Document, context: ConversionContext, rels: Rel[]): JSFWorksheet {
+  const sheet: JSFWorksheet = {
     name: '',
     cells: {},
     columns: [],
     rows: [],
-    merged_cells: [],
+    merges: [],
     defaults: {
-      col_width: 10,
-      row_height: 16
+      colWidth: 10 * COL_MULT,
+      rowHeight: 16,
     },
-    hidden: false
+    // drawings: [],
+    // showGridLines: true,
+    hidden: 0,
   };
 
+  const sheetView = dom.querySelector('sheetViews > sheetView');
+  // zoomScale/zoomScaleNormal
+  if (attr(sheetView, 'showGridLines') === '0') {
+    sheet.showGridLines = false;
+  }
+
   // read hyperlinks
-  const hyperLinks = Object.create(null);
+  const hyperLinks = new Map<string, string>();
   dom.querySelectorAll('hyperlinks > hyperlink').forEach(d => {
     const relId = attr(d, 'r:id');
     const rel = rels.find(item => item.id === relId);
-    hyperLinks[attr(d, 'ref')] = rel && rel.target;
+    hyperLinks.set(attr(d, 'ref'), rel?.target);
   });
 
   // find default col/row sizes
   const sheetFormatPr = dom.getElementsByTagName('sheetFormatPr')[0];
   if (sheetFormatPr) {
-    sheet.defaults.col_width = numAttr(sheetFormatPr, 'baseColWidth', sheet.defaults.col_width);
-    sheet.defaults.row_height = numAttr(sheetFormatPr, 'defaultRowHeight', sheet.defaults.row_height);
+    sheet.defaults.colWidth = numAttr(sheetFormatPr, 'baseColWidth', sheet.defaults.colWidth) * COL_MULT;
+    sheet.defaults.rowHeight = numAttr(sheetFormatPr, 'defaultRowHeight', sheet.defaults.rowHeight);
   }
 
-  // decode column widths
+  // decode column widths (3.3.1.12)
   dom.getElementsByTagName('col').forEach(d => {
     const min = numAttr(d, 'min', 0);
     const max = numAttr(d, 'max', 100000); // FIXME: What is the actual max value?
     const hidden = numAttr(d, 'hidden', 0);
-    const width = hidden ? 0 : numAttr(d, 'width');
+    const width = hidden ? 0 : numAttr(d, 'width') * COL_MULT; // width is given in points (height in px)
     sheet.columns.push({
-      begin: min,
+      start: min,
       end: max,
-      size: width
+      size: width,
     });
   });
 
-  wb._shared = {};
-  wb._arrayFormula = [];
-  wb._merged = {};
-  wb.currentSheet = sheet;
+  context._shared = {};
+  context._arrayFormula = [];
+  context._merged = {};
 
   // list merged cells
   dom.getElementsByTagName('mergeCell')
@@ -58,14 +71,14 @@ export default function (dom, wb, rels) {
       const anchor = stringifyA1Ref({ range: { top, left } });
       for (let c = left; c <= right; c++) {
         for (let r = top; r <= bottom; r++) {
-          wb._merged[stringifyA1Ref({ range: { top: r, left: c } })] = anchor;
+          context._merged[stringifyA1Ref({ range: { top: r, left: c } })] = anchor;
         }
       }
-      sheet.merged_cells.push(ref);
+      sheet.merges.push(ref);
     });
 
   // keep a list of row heights
-  const row_heights = [];
+  const row_heights: [ number, number ][] = [];
 
   // parse cells
   dom.querySelectorAll('row')
@@ -81,6 +94,7 @@ export default function (dom, wb, rels) {
         row_heights.push([ +r, 0 ]);
       }
       else {
+        // Row height measured in point size
         const ht = attr(row, 'ht');
         if (ht != null) {
           row_heights.push([ +r, +ht ]);
@@ -95,16 +109,16 @@ export default function (dom, wb, rels) {
       // cells
       row.querySelectorAll('> c').forEach(d => {
         const id = attr(d, 'r');
-        if (wb.options.skip_merged) {
-          if (wb._merged[id] && wb._merged[id] !== id) {
+        if (context.options.skipMerged) {
+          if (context._merged[id] && context._merged[id] !== id) {
             // this cell is part of a merged range
             return;
           }
         }
-        const c = handlerCell(d, wb);
+        const c = handlerCell(d, context);
         if (c) {
-          if (hyperLinks[id]) {
-            c.href = hyperLinks[id];
+          if (hyperLinks.has(id)) {
+            c.l = hyperLinks.get(id);
           }
           sheet.cells[id] = c;
         }
@@ -112,10 +126,10 @@ export default function (dom, wb, rels) {
     });
 
   // run-length encode the row heights
-  sheet.rows = rle(row_heights, sheet.defaults.row_height);
+  sheet.rows = rle(row_heights, sheet.defaults.rowHeight);
 
   // add .F tags to array formula cells
-  wb._arrayFormula
+  context._arrayFormula
     .forEach(arrayRef => {
       const { top, left, bottom, right } = parseA1Ref(arrayRef).range;
       for (let r = top; r <= bottom; r++) {
@@ -128,10 +142,9 @@ export default function (dom, wb, rels) {
       }
     });
 
-  delete wb._shared;
-  delete wb._arrayFormula;
-  delete wb._merged;
-  delete wb.currentSheet;
+  delete context._shared;
+  delete context._arrayFormula;
+  delete context._merged;
 
   return sheet;
 }

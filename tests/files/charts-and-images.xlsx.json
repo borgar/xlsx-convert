@@ -1,0 +1,123 @@
+{
+  "filename": "charts-and-images.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "B1": { "s": 1, "v": 34700 },
+        "C1": { "s": 1, "v": 35065 },
+        "D1": { "s": 1, "v": 35431 },
+        "E1": { "s": 1, "v": 35796 },
+        "F1": { "s": 1, "v": 36161 },
+        "G1": { "s": 1, "v": 36526 },
+        "H1": { "s": 1, "v": 36892 },
+        "I1": { "s": 1, "v": 37257 },
+        "J1": { "s": 1, "v": 37622 },
+        "K1": { "s": 1, "v": 37987 },
+        "L1": { "s": 1, "v": 38353 },
+        "M1": { "s": 1, "v": 38718 },
+        "N1": { "s": 1, "v": 39083 },
+        "O1": { "s": 1, "v": 39448 },
+        "P1": { "s": 1, "v": 39814 },
+        "A2": { "v": "foo" },
+        "B2": { "v": 24 },
+        "C2": { "v": 13 },
+        "D2": { "v": 30 },
+        "E2": { "v": 22 },
+        "F2": { "v": 21 },
+        "G2": { "v": 19 },
+        "H2": { "v": 19 },
+        "I2": { "v": 30 },
+        "J2": { "v": 17 },
+        "K2": { "v": 26 },
+        "L2": { "v": 19 },
+        "M2": { "v": 26 },
+        "N2": { "v": 16 },
+        "O2": { "v": 27 },
+        "P2": { "v": 17 },
+        "A3": { "v": "bar" },
+        "B3": { "v": 21 },
+        "C3": { "v": 16 },
+        "D3": { "v": 26 },
+        "E3": { "v": 17 },
+        "F3": { "v": 16 },
+        "G3": { "v": 26 },
+        "H3": { "v": 15 },
+        "I3": { "v": 24 },
+        "J3": { "v": 27 },
+        "K3": { "v": 13 },
+        "L3": { "v": 13 },
+        "M3": { "v": 17 },
+        "N3": { "v": 30 },
+        "O3": { "v": 23 },
+        "P3": { "v": 20 },
+        "A4": { "v": "baz" },
+        "B4": { "v": 27 },
+        "C4": { "v": 14 },
+        "D4": { "v": 26 },
+        "E4": { "v": 22 },
+        "F4": { "v": 13 },
+        "G4": { "v": 30 },
+        "H4": { "v": 22 },
+        "I4": { "v": 22 },
+        "J4": { "v": 23 },
+        "K4": { "v": 22 },
+        "L4": { "v": 16 },
+        "M4": { "v": 23 },
+        "N4": { "v": 24 },
+        "O4": { "v": 13 },
+        "P4": { "v": 15 },
+        "B17": { "v": "#VALUE!", "t": "e", "f": 0 }
+      },
+      "columns": [
+        { "start": 1, "end": 1, "size": 32.5 },
+        { "start": 2, "end": 16, "size": 31.560546875 }
+      ],
+      "rows": [
+        { "start": 17, "end": 17, "size": 35 }
+      ],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "showGridLines": false
+    },
+    {
+      "name": "Sheet2",
+      "cells": {
+        "A1": { "v": "#VALUE!", "t": "e" },
+        "B1": { "v": "#VALUE!", "t": "e" }
+      },
+      "columns": [
+        { "start": 1, "end": 1, "size": 100.267578125 },
+        { "start": 2, "end": 2, "size": 80.767578125 }
+      ],
+      "rows": [
+        { "start": 1, "end": 1, "size": 87 }
+      ],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontName": "Tw Cen MT", "fontSize": 12 },
+    {
+      "numberFormat": "yyyy",
+      "fontName": "Tw Cen MT",
+      "fontSize": 12,
+      "bold": true,
+      "borderBottomStyle": "thin"
+    }
+  ],
+  "tables": [],
+  "formulas": [
+    "IMAGE(\"https://support.content.office.net/en-us/media/35aecc53-b3c1-4895-8a7d-554716941806.jpg\",\"Cylender\", 1)"
+  ]
+}

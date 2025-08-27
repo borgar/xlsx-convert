@@ -1,59 +1,46 @@
 import { dateToSerial, isDateFormat } from 'numfmt';
-import { toInt, toNum } from './utils/typecast.js';
-import attr from './utils/attr.js';
-import unescape from './utils/unescape.js';
-import RelativeFormula from './RelativeFormula.js';
-import { normalizeFormula } from './utils/normalizeFormula.js';
+import { translateToR1C1 } from '@borgar/fx';
+import { toInt, toNum } from '../utils/typecast.ts';
+import { attr, numAttr } from '../utils/attr.ts';
+import { unescape } from '../utils/unescape.ts';
+import { RelativeFormula } from '../RelativeFormula.ts';
+import { normalizeFormula } from '../utils/normalizeFormula.ts';
+import { Element } from '@borgar/simple-xml';
+import { ConversionContext } from '../ConversionContext.ts';
+import type { JSFCell } from '../jsf-types.ts';
 
-const relevantStyle = obj => {
+const relevantStyle = (obj: Record<string, any>): boolean => {
   return !!(
     // obj['number-format'] ||
-    obj['fill-color'] ||
-    obj['border-top-style'] ||
-    obj['border-left-style'] ||
-    obj['border-bottom-style'] ||
-    obj['border-right-style']
+    obj.fillColor ||
+    obj.borderTopStyle ||
+    obj.borderLeftStyle ||
+    obj.borderBottomStyle ||
+    obj.borderRightStyle
   );
 };
 
 // ECMA - 18.3.1.4 (Cell)
-export default function (node, wb) {
-  const cell = {};
-  const { cell_styles, cell_z } = wb.options;
+export function handlerCell (node: Element, context: ConversionContext): JSFCell {
+  const cell: JSFCell = {};
 
   // FIXME: these props are scoped by the sheet but exist on the WB object
   //        during processing and are wiped per-sheet
-  const sharedF = wb._shared || {};
-  const comments = wb.comments || {};
-  const arrayFormula = wb._arrayFormula || [];
+  const sharedF = context._shared;
+  const comments = context.comments;
+  const arrayFormula = context._arrayFormula;
 
   // .r = reference (cell address)
   const address = attr(node, 'r');
   // .t = data type: The possible values for this attribute are defined by the
   //                 ST_CellType simple type (§18.18.11).
-  let type = attr(node, 't', 'n');
+  let valueType = attr(node, 't', 'n');
 
   // .s = style index: The index of this cell's style.
   //                   Style records are stored in the Styles Part.
-  const styleIndex = toInt(attr(node, 's', 0));
+  const styleIndex = Math.trunc(numAttr(node, 's', 0));
   if (styleIndex) {
-    if (cell_styles) {
-      cell.s = Object.assign({}, wb.styles[styleIndex]);
-      if (cell_z) {
-        const z = wb.styles[styleIndex]['number-format'];
-        if (z) {
-          cell.z = z;
-        }
-        delete cell.s['number-format'];
-      }
-    }
-    else {
-      cell.si = styleIndex;
-      if (cell_z) {
-        const z = wb.styles[styleIndex]['number-format'];
-        if (z) { cell.z = z; }
-      }
-    }
+    cell.s = styleIndex;
   }
 
   const vNode = node.querySelectorAll('> v')[0];
@@ -61,11 +48,11 @@ export default function (node, wb) {
 
   // .vm = value metadata index: The zero-based index of the value metadata
   //                             record associated with this cell's value
-  const vm = attr(node, 'vm');
-  if (vm && wb.metadata) {
-    const meta = wb.metadata.values[vm - 1];
+  const vm = numAttr(node, 'vm');
+  if (vm && context.metadata) {
+    const meta = context.metadata.values[vm - 1];
     if (meta._type === '_error') {
-      type = 'e';
+      valueType = 'e';
       // TODO: some of these may have .subType, does is matter?
       if (meta.errorType === 8) {
         v = '#SPILL!';
@@ -86,38 +73,38 @@ export default function (node, wb) {
     cell.c = comments[address];
   }
 
-  if (type === 'inlineStr') {
-    type = 'str';
+  if (valueType === 'inlineStr') {
+    valueType = 'str';
     v = node.querySelectorAll('is t').map(d => d.textContent).join('');
   }
-  if (v || type === 'str') {
-    if (type === 's') {
-      cell.v = wb.sst ? wb.sst[toInt(v)] : '';
+  if (v || valueType === 'str') {
+    if (valueType === 's') {
+      cell.v = context.sst ? context.sst[toInt(v)] : '';
     }
-    else if (type === 'str') {
-      type = 's';
+    else if (valueType === 'str') {
+      valueType = 's';
       cell.v = v || '';
     }
-    else if (type === 'b') {
+    else if (valueType === 'b') {
       cell.v = !!toInt(v);
     }
-    else if (type === 'e') {
+    else if (valueType === 'e') {
       // FIXME: ensure error is a known error!
       cell.v = v;
       cell.t = 'e';
     }
-    else if (type === 'd') {
+    else if (valueType === 'd') {
       if (!/[T ]/i.test(v) && v.includes(':')) {
         // this is time only so prefix with Excel epoch date
         v = '1899-12-31T' + v;
       }
       cell.v = dateToSerial(new Date(Date.parse(v)));
     }
-    else if (type === 'n') {
+    else if (valueType === 'n') {
       let val = toNum(v);
       // adjust dates if the workbook uses 1904 data system
-      if (wb.epoch === 1904 && styleIndex) {
-        const z = wb.styles[styleIndex] && wb.styles[styleIndex]['number-format'];
+      if (context.workbook?.calculationProperties?.epoch === 1904 && styleIndex) {
+        const z = context.workbook.styles[styleIndex]?.['number-format'];
         if (z && isDateFormat(z)) {
           val += 1462;
         }
@@ -125,7 +112,7 @@ export default function (node, wb) {
       cell.v = val;
     }
     else {
-      throw new Error('Missing support for data type: ' + type);
+      throw new Error('Missing support for data type: ' + valueType);
     }
   }
 
@@ -134,7 +121,7 @@ export default function (node, wb) {
   if (fNode) {
     // .t (Formula Type): [ array | dataTable | normal | shared ]
     const formulaType = attr(fNode, 't', 'normal');
-    let f = null;
+    let f: string | null = null;
     // array for array-formula
     if (formulaType === 'array') {
       // .ref (Range of Cells): Range of cells which the formula applies to.
@@ -161,6 +148,7 @@ export default function (node, wb) {
       if (!sharedF[shareGroupIndex]) {
         sharedF[shareGroupIndex] = new RelativeFormula(fNode.textContent, address);
       }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       f = sharedF[shareGroupIndex].translate(address);
     }
     // dataTable for data table formula
@@ -177,7 +165,18 @@ export default function (node, wb) {
     }
 
     if (f) {
-      cell.f = normalizeFormula(f, wb);
+      if (context.options.cellFormulas) {
+        cell.f = normalizeFormula(f, context);
+      }
+      else {
+        const rc = normalizeFormula(translateToR1C1(f, address) as string, context);
+        let fi = context._formulasR1C1.indexOf(rc);
+        if (fi < 0) {
+          fi = context._formulasR1C1.length;
+          context._formulasR1C1.push(rc);
+        }
+        cell.f = fi;
+      }
     }
   }
 
@@ -191,7 +190,7 @@ export default function (node, wb) {
   if (
     cell.v == null &&
     cell.f == null &&
-    (!cell.si || !relevantStyle(wb.styles[styleIndex]))
+    (!cell.s || !relevantStyle(context.workbook.styles[styleIndex]))
   ) {
     return null;
   }

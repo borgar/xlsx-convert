@@ -1,3 +1,5 @@
+/* eslint-disable @stylistic/array-element-newline */
+
 export const REL_PREFIXES = [
   // standard
   'http://schemas.microsoft.com/office/2017/10/relationships/',
@@ -5,18 +7,17 @@ export const REL_PREFIXES = [
   'http://schemas.openxmlformats.org/officeDocument/2006/relationships/',
   'http://schemas.openxmlformats.org/package/2006/relationships/',
   // strict
-  'http://purl.oclc.org/ooxml/officeDocument/relationships/'
+  'http://purl.oclc.org/ooxml/officeDocument/relationships/',
 ];
 
 // switching to UK english has moved all $ to kr.
-export const BUILTIN_FORMATS = {
+export const BUILTIN_FORMATS: Record<number, string> = {
   0: 'General',
   1: '0',
   2: '0.00',
   3: '#,##0',
   4: '#,##0.00',
-  // These next four are locale dependant. For example
-  // the Icelandic locale uses `#,##0 "kr.";-#,##0 "kr."`
+  // These next four are locale dependent. For example the Icelandic locale uses `#,##0 "kr.";-#,##0 "kr."`
   5: '"$"#,##0_);("$"#,##0)',
   6: '"$"#,##0_);[Red]("$"#,##0)',
   7: '"$"#,##0.00_);("$"#,##0.00)',
@@ -27,7 +28,7 @@ export const BUILTIN_FORMATS = {
   12: '# ?/?',
   13: '# ??/??',
   // Format 14, Excel's default "Short Date" is very locale dependent:
-  // It seeme to use OS short date format: "1/2/09", "2.1.1909", "02-01-1909"
+  // It seem to use OS short date format: "1/2/09", "2.1.1909", "02-01-1909"
   14: 'm/d/yy',
   // Next three have locale dependent delimiter, and possibly more:
   15: 'd-mmm-yy',
@@ -50,7 +51,7 @@ export const BUILTIN_FORMATS = {
   47: 'mm:ss.0',
   48: '##0.0E+0',
   49: '@',
-  55: 'yyyy/mm/dd'
+  55: 'yyyy/mm/dd',
 };
 
 // formats IDs that point to other IDs
@@ -76,7 +77,7 @@ export const COLOR_INDEX = [
   'FF99CC00', 'FFFFCC00', 'FFFF9900', 'FFFF6600', 'FF666699', // 50-54
   'FF969696', 'FF003366', 'FF339966', 'FF003300', 'FF333300', // 55-59
   'FF993300', 'FF993366', 'FF333399', 'FF333333', 'System Foreground', // 60-64
-  'System Background' // 65
+  'System Background', // 65
 ];
 
 // https://social.technet.microsoft.com/Forums/windows/en-US/ac76cc56-6ff2-4778-b260-8141d7170a3b/windows-7-highlight-text-color-or-selected-text-color-in-aero
@@ -116,6 +117,5 @@ export const NAMED_COLORS = {
   'titletext': 'FF000000',
   'window': 'FFFFFFFF',
   'windowframe': 'FF646464',
-  'windowtext': 'FF000000'
+  'windowtext': 'FF000000',
 };
-

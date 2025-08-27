@@ -1,8 +1,15 @@
 import path from 'path';
-import attr from './utils/attr.js';
-import { REL_PREFIXES } from './constants.js';
+import { attr } from '../utils/attr.ts';
+import { REL_PREFIXES } from '../constants.ts';
+import { Document } from '@borgar/simple-xml';
 
-export default function (dom, basepath = 'xl/workbook.xml') {
+export type Rel = {
+  id: string;
+  type: string;
+  target: string;
+};
+
+export function handlerRels (dom: Document, basepath = 'xl/workbook.xml'): Rel[] {
   basepath = path.dirname(basepath);
   const rels = [];
   if (dom) {
@@ -24,7 +31,7 @@ export default function (dom, basepath = 'xl/workbook.xml') {
         rels.push({
           id: attr(d, 'Id'),
           type: type,
-          target: target
+          target: target,
         });
       });
   }

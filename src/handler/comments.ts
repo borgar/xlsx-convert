@@ -1,8 +1,16 @@
-import attr from './utils/attr.js';
+import { Document } from '@borgar/simple-xml';
+import { attr } from '../utils/attr.ts';
+import { ConversionContext } from '../ConversionContext.ts';
 
-export default function (dom, wb) {
-  const persons = wb.persons || {};
-  const comments = {};
+export type Comment = {
+  a: string;
+  d: string;
+  t: string;
+};
+
+export function handlerComments (dom: Document, context: ConversionContext): Record<string, Comment[]> {
+  const persons = context.persons;
+  const comments: Record<string, Comment[]> = {};
 
   dom.getElementsByTagName('threadedComment')
     .forEach(d => {
@@ -17,7 +25,7 @@ export default function (dom, wb) {
         a: persons[personId] || '',
         d: new Date(Date.parse(attr(d, 'dT'))).toISOString(),
         // text
-        t: d.getElementsByTagName('text')[0].textContent
+        t: d.getElementsByTagName('text')[0].textContent,
       });
     });
 

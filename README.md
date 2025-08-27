@@ -56,17 +56,17 @@ This will emit a structure like this:
 
 ### <a name="output" href="#output">#</a> Output:
 
-The format is similar to, but not 100% compatible with the [CSF structure](https://github.com/SheetJS/sheetjs#common-spreadsheet-format) emitted by the [`xlsx` package](https://github.com/SheetJS/sheetjs). Supported cell properties are:
+The JSF format is similar to, but not 100% compatible with the [CSF structure](https://github.com/SheetJS/sheetjs#common-spreadsheet-format) emitted by the [`xlsx` package](https://github.com/SheetJS/sheetjs). Supported cell properties are:
 
 | Cell. | Note |
 |- |-
 | `v` | Value of the cell in its correct type.
-| `f` | Formula in A1 syntax.
+| `f` | An integer index into a list of formula expressions in R1C1-syntax, or an expression string in A1-syntax.
 | `F` | The A1-style range of enclosing array if the formula is an array formula.
-| `c` | Comments attached to the cell.
-| `z` (optional) | Number formatting string attached to the cell.
-| `s` (optional) | Style information associated with the cell.
-| `si` (optional) | Index of style information associated with the cell.
+| `c` | A list of comments attached to the cell.
+| `s` (optional) | Index of style information associated with the cell.
+| `t` (optional) | A type for the value in the cell (this library only emits an `"e"` when the value is an error).
+| `href` (optional) | A URL attached to the cell.
 
 Only cells that have "relevant data" are emitted, which in praxis means cells that have such things as values, formula, and visible styles attached to them.
 
@@ -84,7 +84,5 @@ Reads an Excel XLSX file into a consumable structure. The return value contains 
 
   | name | default | effect |
   |- | - | -
-  | `skip_merged` | `true` | De-activating this will emit _all_ cells that have any "relevant" data, regardless of them being part of merges. By default only the top-left cell will be emitted. 
-  | `cell_styles` | `false` | Normally, styles are emitted as an indexed list per-workbook. This will instead inline styles per cell.
-  | `cell_z` | `false` | Number formatting is emitted as a part of the cell (as cell.z) instead of as a part of styles as `number-format`
-
+  | `skipMerged` | `true` | De-activating this will emit _all_ cells that have any "relevant" data, regardless of them being part of merges. By default only the top-left cell will be emitted. 
+  | `cellFormulas` | `false` | If true the formulas will be set as strings attached to the cell objects. By default the `f` property of a cell is an index into a formula list.

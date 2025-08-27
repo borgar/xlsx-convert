@@ -8,9 +8,9 @@
       },
       "columns": [],
       "rows": [],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 16 },
-      "hidden": false
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0
     },
     {
       "name": "Sheet2",
@@ -19,9 +19,9 @@
       },
       "columns": [],
       "rows": [],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 16 },
-      "hidden": false
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0
     },
     {
       "name": "Sheet3",
@@ -30,9 +30,9 @@
       },
       "columns": [],
       "rows": [],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 16 },
-      "hidden": false
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0
     },
     {
       "name": "Sheet4",
@@ -41,9 +41,9 @@
       },
       "columns": [],
       "rows": [],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 16 },
-      "hidden": false
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0
     },
     {
       "name": "Sheet5",
@@ -52,19 +52,21 @@
       },
       "columns": [],
       "rows": [],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 16 },
-      "hidden": false
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0
     }
   ],
   "names": [],
-  "tables": [],
-  "calculation_properties": {
+  "calculationProperties": {
     "iterate": false,
-    "iterate_count": 100,
-    "iterate_delta": 0.001
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
   },
   "styles": [
-    { "font-size": 12 }
-  ]
+    { "fontSize": 12 }
+  ],
+  "tables": [],
+  "formulas": []
 }

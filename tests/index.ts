@@ -1,13 +1,15 @@
 import fs from 'fs';
-import convert from '../src/index.js';
+import convert from '../src/index.ts';
 
-const DEBUG = true;
+const UPDATE = !!process.env.UPDATE_TESTS;
 
 const tests = [
+  'tests/files/a-single-lambda.xlsx',
   'tests/files/ascii.xlsx',
   'tests/files/background-color.xlsx',
   'tests/files/borders.xlsx',
   'tests/files/cse.xlsx',
+  'tests/files/charts-and-images.xlsx',
   'tests/files/date-time.xlsx',
   'tests/files/emojii.xlsx',
   'tests/files/external-refs.xlsx',
@@ -25,12 +27,12 @@ const tests = [
   'tests/files/strings.xlsx',
   'tests/files/table.xlsx',
   'tests/files/text-alignment.xlsx',
-  'tests/files/text-color.xlsx'
+  'tests/files/text-color.xlsx',
 ];
 
 function getType (a) {
   if (a === null) { return 'null'; }
-  // eslint-disable-next-line
+
   if (a === undefined) { return 'undefined'; }
   if (typeof a === 'number') { return 'number'; }
   if (typeof a === 'string') { return 'string'; }
@@ -41,7 +43,9 @@ function getType (a) {
   return null;
 }
 
-function compare (x, y, _path = '') {
+type Path = (string | number)[];
+
+function compare (x, y, _path: Path = []) {
   const typeX = getType(x);
   const typeY = getType(y);
   if (!typeX || !typeY) {
@@ -52,7 +56,7 @@ function compare (x, y, _path = '') {
       error: 'type mismatch',
       path: _path,
       mine: x,
-      other: y
+      other: y,
     };
   }
   else if (typeX === 'array') {
@@ -81,7 +85,7 @@ function compare (x, y, _path = '') {
         error: 'value mismatch',
         path: _path,
         mine: x,
-        other: y
+        other: y,
       };
     }
   }
@@ -119,13 +123,13 @@ function makeNiceJson (ent) {
     .replace(/"(~~xlsx-convert~~\d+)"/g, (_, key) => _tempStore.get(key));
 }
 
-async function testFile (fn, testFn) {
-  const wb = await convert(fn, { skip_merged: false, cell_z: false });
+async function testFile (xlsxFilename: string, testFilename: string) {
+  const wb = await convert(xlsxFilename, { skipMerged: false });
 
   const resultJson = JSON.parse(JSON.stringify(wb));
   let expectJson = {};
   try {
-    expectJson = JSON.parse(fs.readFileSync(testFn, 'utf8'));
+    expectJson = JSON.parse(fs.readFileSync(testFilename, 'utf8'));
   }
   catch (err) {
     if (err.code !== 'ENOENT') {
@@ -134,13 +138,14 @@ async function testFile (fn, testFn) {
   }
 
   const diff = compare(resultJson, expectJson);
-  if (diff && DEBUG) {
-    // save a version of the converted file for comparison (useful for debugging)
+  if (diff && UPDATE) {
+    // save a new version of the converted file
     fs.writeFileSync(
-      testFn.replace(/(\.json)?$/, '.output.json'),
+      testFilename.replace(/(\.json)?$/, '.json'),
       makeNiceJson(resultJson),
-      'utf8'
+      'utf8',
     );
+    return false;
   }
   return diff;
 }
@@ -150,7 +155,7 @@ function log (message = '') {
   console.log(message);
 }
 
-function renderPath (path) {
+function renderPath (path: Path) {
   return path.reduce((a, c) => {
     if (!a) { return c; }
     if (typeof c === 'number' || /\W/.test(c)) {
@@ -160,7 +165,7 @@ function renderPath (path) {
   }, '');
 }
 
-const runTests = async () => {
+async function runTests () {
   const results = [];
 
   await Promise.all(tests.map(async (testFilename, index) => {
@@ -169,7 +174,7 @@ const runTests = async () => {
     try {
       diff = await testFile(
         testFilename,
-        testFilename + '.json'
+        testFilename + '.json',
       );
     }
     catch (err) {
@@ -180,7 +185,7 @@ const runTests = async () => {
       error: error,
       diff: diff,
       test: testFilename,
-      index: index + 1
+      index: index + 1,
     });
   }));
 
@@ -229,7 +234,7 @@ const runTests = async () => {
     log('# ok');
     log();
   }
-};
+}
 
-runTests(true);
+await runTests();
 

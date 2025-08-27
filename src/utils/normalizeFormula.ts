@@ -1,13 +1,21 @@
 import {
+  type ReferenceStruct,
   isFunction, isReference, parseA1Ref, parseStructRef, stringifyA1Ref,
-  stringifyStructRef, tokenTypes, tokenize
+  stringifyStructRef, tokenTypes, tokenize,
+  type ReferenceA1,
 } from '@borgar/fx';
+import type { JSFExternal } from '../jsf-types.js';
 
-function updateContext (ref, externalLinks) {
-  const context = [];
-  if (ref.workbookName) {
-    const link = externalLinks[ref.workbookName - 1];
-    context.push(link.filename);
+type Ref = ReferenceStruct | ReferenceA1;
+type RefContext = string[];
+
+function updateContext (ref: Ref, externalLinks: JSFExternal[]): RefContext {
+  const context: RefContext = [];
+  if (ref.workbookName && isFinite(+ref.workbookName)) {
+    const wbIndex = +ref.workbookName - 1;
+    if (externalLinks[wbIndex]) {
+      context.push(externalLinks[wbIndex].filename);
+    }
   }
   if (ref.sheetName) {
     context.push(ref.sheetName);
@@ -15,7 +23,7 @@ function updateContext (ref, externalLinks) {
   return context;
 }
 
-export function normalizeFormula (formula, wb) {
+export function normalizeFormula (formula: string, wb): string {
   const tokens = tokenize(formula.normalize(), { xlsx: true });
   let normalized = '';
   tokens.forEach(t => {
@@ -25,12 +33,15 @@ export function normalizeFormula (formula, wb) {
       return;
     }
     else if (isReference(t) && wb?.externalLinks) {
+      if (t.type === tokenTypes.REF_NAMED) {
+        t.value = t.value.replace(/^(?:_xlpm\.)/ig, '');
+      }
       // normalize external references
       // xlsx reference syntax is different from Excel's runtime language syntax
       // in that external references are braced indexes into a links list, using
       // `[2]Sheet1!A1`, rather than including a name `[Workbook.xlsx]Sheet1!A1`
       if (t.value.includes('[')) {
-        let newValue;
+        let newValue: string;
         if (t.type === tokenTypes.REF_STRUCT) {
           const ref = parseStructRef(t.value, { xlsx: true });
           if (ref.table && wb.tables?.length) {

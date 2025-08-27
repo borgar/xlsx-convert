@@ -1,17 +1,58 @@
-import readColor from './color.js';
-import attr, { boolAttr } from './utils/attr.js';
-import { BUILTIN_FORMATS } from './constants.js';
+import type { Document, Element } from '@borgar/simple-xml';
+import { type Color, readColor } from '../color.ts';
+import { attr, boolAttr } from '../utils/attr.ts';
+import { BUILTIN_FORMATS } from '../constants.ts';
+import type { ConversionContext } from '../ConversionContext.ts';
+import type { Theme } from './theme.ts';
 
-const valOfNode = (node, subNodeName, fallback = null) => {
+function valOfNode (node: Element, subNodeName: string, fallback: any = null): string | null {
   const subNode = node.querySelectorAll(subNodeName)[0];
   if (subNode) {
     return attr(subNode, 'val', fallback);
   }
   return fallback;
+}
+
+type BorderSide = 'left' | 'right' | 'top' | 'bottom';
+type Border = { style: string, color: Color };
+type Borders = Record<BorderSide, Border>;
+type Fill = { type: string, fg: Color };
+type Font = {
+  size?: number,
+  name: string,
+  underline?: string,
+  bold: boolean,
+  italic: boolean,
+  color: Color,
 };
 
-const readXf = (d, styles) => {
-  const xf = {};
+export type StyleDefs = {
+  cellStyleXfs: Xf[];
+  cellXf: Xf[];
+  fill: Fill[];
+  font: Font[];
+  numFmts: Record<number, string>;
+  border: Borders[];
+};
+
+type Xf = Partial<{
+  xfId: string;
+  numFmtId: number;
+  numFmt: string;
+  fillId: number;
+  fill: Fill;
+  fontId: number;
+  font: Font;
+  borderId: number;
+  border: Borders;
+  hAlign: string;
+  vAlign: string;
+  wrapText: boolean;
+  shrinkToFit: boolean;
+}>;
+
+function readXf (d: Element, styles: StyleDefs) {
+  const xf: Xf = {};
 
   const xfId = attr(d, 'xfId'); // read from cellStyleXfs
   if (xfId) { xf.xfId = xfId; }
@@ -53,9 +94,9 @@ const readXf = (d, styles) => {
   }
 
   return xf;
-};
+}
 
-const readBorder = (node, side, theme) => {
+function readBorder (node: Element, side: BorderSide | 'start' | 'end', theme: Theme) {
   const b = node.querySelectorAll(side)[0];
   if (b) {
     const color = readColor(b.querySelectorAll('color')[0], theme);
@@ -64,9 +105,9 @@ const readBorder = (node, side, theme) => {
       return { style: style, color: color };
     }
   }
-};
+}
 
-const readFont = (node, theme) => {
+function readFont (node: Element, theme: Theme): Font {
   const u = node.querySelectorAll('u')[0];
   const b = node.querySelectorAll('b')[0];
   const i = node.querySelectorAll('i')[0];
@@ -75,29 +116,29 @@ const readFont = (node, theme) => {
     name = 'Calibri';
   }
   return {
-    size: +valOfNode(node, 'sz') || null,
+    size: +valOfNode(node, 'sz'),
     name: name,
-    underline: u ? attr(u, 'val', 'single') : null,
+    underline: u ? attr(u, 'val', 'single') : undefined,
     bold: !!b,
     italic: !!i,
-    color: readColor(node.querySelectorAll('color')[0], theme)
+    color: readColor(node.querySelectorAll('color')[0], theme),
   };
-};
+}
 
-export default function (dom, wb) {
-  const styles = {
+export function handlerStyles (dom: Document, context: ConversionContext): StyleDefs {
+  const styles: StyleDefs = {
     cellStyleXfs: [],
     cellXf: [],
     fill: [],
     font: [],
     numFmts: Object.assign({}, BUILTIN_FORMATS),
-    border: []
+    border: [],
   };
 
   // update indexed colors on the theme
   dom.querySelectorAll('colors > indexedColors > rgbColor')
     .forEach((node, i) => {
-      wb.theme.indexedColors[i] = attr(node, 'rgb');
+      context.theme.indexedColors[i] = attr(node, 'rgb');
     });
 
   dom.querySelectorAll('numFmts > numFmt')
@@ -107,7 +148,7 @@ export default function (dom, wb) {
 
   dom.querySelectorAll('fonts > font')
     .forEach(node => {
-      styles.font.push(readFont(node, wb.theme));
+      styles.font.push(readFont(node, context.theme));
     });
 
   dom.querySelectorAll('fills > fill > patternFill')
@@ -116,7 +157,7 @@ export default function (dom, wb) {
       const isSolid = type === 'solid';
       styles.fill.push({
         type: type,
-        fg: isSolid ? readColor(fp.querySelectorAll('fgColor')[0], wb.theme) : null
+        fg: isSolid ? readColor(fp.querySelectorAll('fgColor')[0], context.theme) : null,
         // bg: isSolid' ? readColor(child(fp, 'bgColor'), wb.theme) : null,
       });
     });
@@ -124,10 +165,10 @@ export default function (dom, wb) {
   dom.querySelectorAll('borders > border')
     .forEach(d => {
       const borderDefs = {
-        left: readBorder(d, 'left', wb.theme) || readBorder(d, 'start', wb.theme),
-        right: readBorder(d, 'right', wb.theme) || readBorder(d, 'end', wb.theme),
-        top: readBorder(d, 'top', wb.theme),
-        bottom: readBorder(d, 'bottom', wb.theme)
+        left: readBorder(d, 'left', context.theme) || readBorder(d, 'start', context.theme),
+        right: readBorder(d, 'right', context.theme) || readBorder(d, 'end', context.theme),
+        top: readBorder(d, 'top', context.theme),
+        bottom: readBorder(d, 'bottom', context.theme),
       };
       styles.border.push(borderDefs);
     });
@@ -139,7 +180,7 @@ export default function (dom, wb) {
   dom.querySelectorAll('cellXfs > xf')
     .forEach(d => {
       const xf = readXf(d, styles);
-      const sxf = styles.cellStyleXfs[xf.xfId];
+      const sxf: Xf = styles.cellStyleXfs[xf.xfId];
       for (const key in sxf) {
         if (xf[key] == null) {
           xf[key] = sxf[key];

@@ -5,46 +5,43 @@
       "name": "Sheet1",
       "cells": {
         "A1": {
-          "si": 1,
+          "s": 1,
           "v": "http://example.com/",
-          "href": "http://example.com/"
+          "l": "http://example.com/"
         },
         "A2": {
-          "si": 1,
+          "s": 1,
           "v": "title text",
-          "href": "http://example.com/"
+          "l": "http://example.com/"
         },
-        "A3": {
-          "si": 1,
-          "v": "http://example.com/",
-          "f": "HYPERLINK(\"http://example.com/\")"
-        },
-        "A4": {
-          "si": 1,
-          "v": "title text",
-          "f": "HYPERLINK(\"http://example.com/\",\"title text\")"
-        }
+        "A3": { "s": 1, "v": "http://example.com/", "f": 0 },
+        "A4": { "s": 1, "v": "title text", "f": 1 }
       },
       "columns": [],
       "rows": [],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 16 },
-      "hidden": false
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0
     }
   ],
   "names": [],
-  "tables": [],
-  "calculation_properties": {
+  "calculationProperties": {
     "iterate": true,
-    "iterate_count": 10,
-    "iterate_delta": 0.001
+    "iterateCount": 10,
+    "iterateDelta": 0.001,
+    "epoch": 1900
   },
   "styles": [
-    { "font-size": 12 },
+    { "fontSize": 12 },
     {
-      "font-size": 12,
-      "font-color": "#0563C1",
+      "fontSize": 12,
+      "fontColor": "#0563C1",
       "underline": "single"
     }
+  ],
+  "tables": [],
+  "formulas": [
+    "HYPERLINK(\"http://example.com/\")",
+    "HYPERLINK(\"http://example.com/\",\"title text\")"
   ]
 }

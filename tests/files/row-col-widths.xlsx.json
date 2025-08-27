@@ -24,18 +24,17 @@
       },
       "columns": [],
       "rows": [
-        { "begin": 2, "end": 2, "size": 8 },
-        { "begin": 4, "end": 4, "size": 32 },
-        { "begin": 5, "end": 5, "size": 48 },
-        { "begin": 6, "end": 6, "size": 64 },
-        { "begin": 7, "end": 10, "size": 20 },
-        { "begin": 11, "end": 11, "size": 16 },
-        { "begin": 12, "end": 14, "size": 8 },
-        { "begin": 16, "end": 19, "size": 20 }
+        { "start": 2, "end": 2, "size": 8 },
+        { "start": 4, "end": 4, "size": 32 },
+        { "start": 5, "end": 5, "size": 48 },
+        { "start": 6, "end": 6, "size": 64 },
+        { "start": 7, "end": 10, "size": 20 },
+        { "start": 12, "end": 14, "size": 8 },
+        { "start": 16, "end": 19, "size": 20 }
       ],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 16 },
-      "hidden": false
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0
     },
     {
       "name": "Column widths",
@@ -59,21 +58,21 @@
         "Q1": { "v": 40 }
       },
       "columns": [
-        { "begin": 2, "end": 2, "size": 2.6640625 },
-        { "begin": 3, "end": 3, "size": 5.33203125 },
-        { "begin": 4, "end": 4, "size": 10.6640625 },
-        { "begin": 5, "end": 5, "size": 10.83203125 },
-        { "begin": 6, "end": 6, "size": 21.33203125 },
-        { "begin": 7, "end": 10, "size": 6.6640625 },
-        { "begin": 11, "end": 11, "size": 10.83203125 },
-        { "begin": 12, "end": 13, "size": 15 },
-        { "begin": 14, "end": 14, "size": 10.83203125 },
-        { "begin": 15, "end": 17, "size": 6.6640625 }
+        { "start": 2, "end": 2, "size": 17.31640625 },
+        { "start": 3, "end": 3, "size": 34.658203125 },
+        { "start": 4, "end": 4, "size": 69.31640625 },
+        { "start": 5, "end": 5, "size": 70.408203125 },
+        { "start": 6, "end": 6, "size": 138.658203125 },
+        { "start": 7, "end": 10, "size": 43.31640625 },
+        { "start": 11, "end": 11, "size": 70.408203125 },
+        { "start": 12, "end": 13, "size": 97.5 },
+        { "start": 14, "end": 14, "size": 70.408203125 },
+        { "start": 15, "end": 17, "size": 43.31640625 }
       ],
       "rows": [],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 16 },
-      "hidden": false
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0
     },
     {
       "name": "Hidden",
@@ -185,55 +184,57 @@
         "G15": { "v": "visible" }
       },
       "columns": [
-        { "begin": 4, "end": 5, "size": 0 }
+        { "start": 4, "end": 5, "size": 0 }
       ],
       "rows": [
-        { "begin": 4, "end": 5, "size": 0 },
-        { "begin": 11, "end": 13, "size": 0 }
+        { "start": 4, "end": 5, "size": 0 },
+        { "start": 11, "end": 13, "size": 0 }
       ],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 16 },
-      "hidden": false
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0
     },
     {
       "name": "Full sheet",
       "cells": {},
       "columns": [
-        { "begin": 7, "end": 8, "size": 2.83203125 },
-        { "begin": 11, "end": 12, "size": 10.83203125 }
+        { "start": 7, "end": 8, "size": 18.408203125 },
+        { "start": 11, "end": 12, "size": 70.408203125 }
       ],
       "rows": [
-        { "begin": 7, "end": 8, "size": 16 },
-        { "begin": 10, "end": 11, "size": 16 }
+        { "start": 7, "end": 8, "size": 16 },
+        { "start": 10, "end": 11, "size": 16 }
       ],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 30 },
-      "hidden": false
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 30 },
+      "hidden": 0
     },
     {
       "name": "Long-repeats",
       "cells": {},
       "columns": [
-        { "begin": 2, "end": 26, "size": 1.6640625 },
-        { "begin": 28, "end": 52, "size": 2.6640625 }
+        { "start": 2, "end": 26, "size": 10.81640625 },
+        { "start": 28, "end": 52, "size": 17.31640625 }
       ],
       "rows": [
-        { "begin": 2, "end": 25, "size": 10 },
-        { "begin": 27, "end": 37, "size": 20 }
+        { "start": 2, "end": 25, "size": 10 },
+        { "start": 27, "end": 37, "size": 20 }
       ],
-      "merged_cells": [],
-      "defaults": { "col_width": 10, "row_height": 16 },
-      "hidden": false
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0
     }
   ],
   "names": [],
-  "tables": [],
-  "calculation_properties": {
+  "calculationProperties": {
     "iterate": false,
-    "iterate_count": 100,
-    "iterate_delta": 0.001
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
   },
   "styles": [
-    { "font-size": 12 }
-  ]
+    { "fontSize": 12 }
+  ],
+  "tables": [],
+  "formulas": []
 }
