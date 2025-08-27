@@ -80,7 +80,7 @@ Reads an Excel XLSX file into a consumable structure. The return value contains 
 
 * `target` can be either a filename which will be loaded, or a Buffer object should you wish to perform the loading externally.
 
-* `options` are set as an object of keys: `convert(filename, { option: true })`. Supported options are:
+* `options` are set as an object of keys: `xlsxConvert(filename, { option: true })`. Supported options are:
 
   | name | default | effect |
   |- | - | -
