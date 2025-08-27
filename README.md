@@ -1,6 +1,6 @@
 # XLSX-convert
 
-This is a Node.js utility to convert Excel XLSX files to JSON format. It supports only XLSX files and outputs a flavor of CSF ([see below](#output)).
+This is a Node.js utility to convert Excel XLSX files to JSON format. It supports only XLSX files and outputs JSP (JSON spreadsheet format), a variant of CSF ([see below](#output)).
 
 This utility was developed as tooling for [GRID – The new face of spreadsheets](https://grid.is/), to which it owes a debt of gratitude.
 
@@ -56,7 +56,7 @@ This will emit a structure like this:
 
 ### <a name="output" href="#output">#</a> Output:
 
-The JSF format is similar to, but not 100% compatible with the [CSF structure](https://github.com/SheetJS/sheetjs#common-spreadsheet-format) emitted by the [`xlsx` package](https://github.com/SheetJS/sheetjs). Supported cell properties are:
+The JSON spreadsheet format is similar to, but not 100% compatible with the [CSF structure](https://github.com/SheetJS/sheetjs#common-spreadsheet-format) emitted by the [`xlsx` package](https://github.com/SheetJS/sheetjs). Supported cell properties are:
 
 | Cell. | Note |
 |- |-
@@ -66,7 +66,7 @@ The JSF format is similar to, but not 100% compatible with the [CSF structure](h
 | `c` | A list of comments attached to the cell.
 | `s` (optional) | Index of style information associated with the cell.
 | `t` (optional) | A type for the value in the cell (this library only emits an `"e"` when the value is an error).
-| `href` (optional) | A URL attached to the cell.
+| `l` (optional) | A URL attached to the cell.
 
 Only cells that have "relevant data" are emitted, which in praxis means cells that have such things as values, formula, and visible styles attached to them.
 
