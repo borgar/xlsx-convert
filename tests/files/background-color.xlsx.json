@@ -87,15 +87,15 @@
         "B14": { "s": 81 }
       },
       "columns": [
-        { "start": 1, "end": 1, "size": 5.33203125 },
-        { "start": 2, "end": 11, "size": 2.6640625 }
+        { "start": 1, "end": 1, "size": 34.658203125 },
+        { "start": 2, "end": 11, "size": 17.31640625 }
       ],
       "rows": [
         { "start": 3, "end": 3, "size": 8 },
         { "start": 9, "end": 9, "size": 8 }
       ],
       "merges": [],
-      "defaults": { "colWidth": 10, "rowHeight": 16 },
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0
     }
   ],

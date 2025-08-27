@@ -1754,19 +1754,19 @@
         "J153": { "s": 1, "v": 119.34635761589401, "f": 8 }
       },
       "columns": [
-        { "start": 1, "end": 1, "size": 13.33203125 },
-        { "start": 2, "end": 2, "size": 11.1640625 },
-        { "start": 5, "end": 5, "size": 11.33203125 },
-        { "start": 6, "end": 6, "size": 11.6640625 },
-        { "start": 7, "end": 7, "size": 11.83203125 },
-        { "start": 8, "end": 8, "size": 12.6640625 },
-        { "start": 9, "end": 9, "size": 11.6640625 },
-        { "start": 10, "end": 10, "size": 12.6640625 },
-        { "start": 12, "end": 12, "size": 16.83203125 }
+        { "start": 1, "end": 1, "size": 86.658203125 },
+        { "start": 2, "end": 2, "size": 72.56640625 },
+        { "start": 5, "end": 5, "size": 73.658203125 },
+        { "start": 6, "end": 6, "size": 75.81640625 },
+        { "start": 7, "end": 7, "size": 76.908203125 },
+        { "start": 8, "end": 8, "size": 82.31640625 },
+        { "start": 9, "end": 9, "size": 75.81640625 },
+        { "start": 10, "end": 10, "size": 82.31640625 },
+        { "start": 12, "end": 12, "size": 109.408203125 }
       ],
       "rows": [],
       "merges": [],
-      "defaults": { "colWidth": 10, "rowHeight": 16 },
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0
     },
     {
@@ -1838,11 +1838,11 @@
         "C26": { "v": "Obesity class 3" }
       },
       "columns": [
-        { "start": 3, "end": 3, "size": 16 }
+        { "start": 3, "end": 3, "size": 104 }
       ],
       "rows": [],
       "merges": [],
-      "defaults": { "colWidth": 10, "rowHeight": 16 },
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0
     }
   ],

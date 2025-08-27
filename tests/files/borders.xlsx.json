@@ -52,14 +52,14 @@
         "L12": { "s": 24 }
       },
       "columns": [
-        { "start": 2, "end": 3, "size": 3.33203125 },
-        { "start": 4, "end": 4, "size": 6.6640625 },
-        { "start": 5, "end": 6, "size": 3.33203125 },
-        { "start": 7, "end": 7, "size": 6.6640625 },
-        { "start": 8, "end": 9, "size": 3.33203125 },
-        { "start": 10, "end": 10, "size": 6.6640625 },
-        { "start": 11, "end": 12, "size": 3.33203125 },
-        { "start": 13, "end": 14, "size": 10.83203125 }
+        { "start": 2, "end": 3, "size": 21.658203125 },
+        { "start": 4, "end": 4, "size": 43.31640625 },
+        { "start": 5, "end": 6, "size": 21.658203125 },
+        { "start": 7, "end": 7, "size": 43.31640625 },
+        { "start": 8, "end": 9, "size": 21.658203125 },
+        { "start": 10, "end": 10, "size": 43.31640625 },
+        { "start": 11, "end": 12, "size": 21.658203125 },
+        { "start": 13, "end": 14, "size": 70.408203125 }
       ],
       "rows": [
         { "start": 2, "end": 3, "size": 20 },
@@ -71,7 +71,7 @@
         { "start": 11, "end": 20, "size": 20 }
       ],
       "merges": [],
-      "defaults": { "colWidth": 10, "rowHeight": 16 },
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0
     }
   ],

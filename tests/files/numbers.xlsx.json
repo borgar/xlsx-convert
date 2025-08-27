@@ -14,11 +14,11 @@
         "A8": { "s": 2, "v": 0.123 }
       },
       "columns": [
-        { "start": 1, "end": 1, "size": 12.1640625 }
+        { "start": 1, "end": 1, "size": 79.06640625 }
       ],
       "rows": [],
       "merges": [],
-      "defaults": { "colWidth": 10, "rowHeight": 16 },
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0
     }
   ],

@@ -70,14 +70,14 @@
         "B17": { "v": "#VALUE!", "t": "e", "f": 0 }
       },
       "columns": [
-        { "start": 1, "end": 1, "size": 5 },
-        { "start": 2, "end": 16, "size": 4.85546875 }
+        { "start": 1, "end": 1, "size": 32.5 },
+        { "start": 2, "end": 16, "size": 31.560546875 }
       ],
       "rows": [
         { "start": 17, "end": 17, "size": 35 }
       ],
       "merges": [],
-      "defaults": { "colWidth": 10, "rowHeight": 16 },
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
       "showGridLines": false
     },
@@ -88,14 +88,14 @@
         "B1": { "v": "#VALUE!", "t": "e" }
       },
       "columns": [
-        { "start": 1, "end": 1, "size": 15.42578125 },
-        { "start": 2, "end": 2, "size": 12.42578125 }
+        { "start": 1, "end": 1, "size": 100.267578125 },
+        { "start": 2, "end": 2, "size": 80.767578125 }
       ],
       "rows": [
         { "start": 1, "end": 1, "size": 87 }
       ],
       "merges": [],
-      "defaults": { "colWidth": 10, "rowHeight": 16 },
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0
     }
   ],

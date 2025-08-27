@@ -1159,11 +1159,11 @@
         "Q75": { "s": 1, "v": "ˇ", "f": 1 }
       },
       "columns": [
-        { "start": 1, "end": 17, "size": 5.33203125 }
+        { "start": 1, "end": 17, "size": 34.658203125 }
       ],
       "rows": [],
       "merges": [],
-      "defaults": { "colWidth": 10, "rowHeight": 16 },
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0
     }
   ],

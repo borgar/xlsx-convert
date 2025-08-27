@@ -7,6 +7,8 @@ import { ConversionContext } from '../ConversionContext.ts';
 import type { Rel } from './rels.ts';
 import type { JSFWorksheet } from '../jsf-types.js';
 
+const COL_MULT = 6.5;
+
 export function handlerWorksheet (dom: Document, context: ConversionContext, rels: Rel[]): JSFWorksheet {
   const sheet: JSFWorksheet = {
     name: '',
@@ -15,7 +17,7 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
     rows: [],
     merges: [],
     defaults: {
-      colWidth: 10,
+      colWidth: 10 * COL_MULT,
       rowHeight: 16,
     },
     // drawings: [],
@@ -40,16 +42,16 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
   // find default col/row sizes
   const sheetFormatPr = dom.getElementsByTagName('sheetFormatPr')[0];
   if (sheetFormatPr) {
-    sheet.defaults.colWidth = numAttr(sheetFormatPr, 'baseColWidth', sheet.defaults.colWidth);
+    sheet.defaults.colWidth = numAttr(sheetFormatPr, 'baseColWidth', sheet.defaults.colWidth) * COL_MULT;
     sheet.defaults.rowHeight = numAttr(sheetFormatPr, 'defaultRowHeight', sheet.defaults.rowHeight);
   }
 
-  // decode column widths
+  // decode column widths (3.3.1.12)
   dom.getElementsByTagName('col').forEach(d => {
     const min = numAttr(d, 'min', 0);
     const max = numAttr(d, 'max', 100000); // FIXME: What is the actual max value?
     const hidden = numAttr(d, 'hidden', 0);
-    const width = hidden ? 0 : numAttr(d, 'width');
+    const width = hidden ? 0 : numAttr(d, 'width') * COL_MULT; // width is given in points (height in px)
     sheet.columns.push({
       start: min,
       end: max,
@@ -92,6 +94,7 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
         row_heights.push([ +r, 0 ]);
       }
       else {
+        // Row height measured in point size
         const ht = attr(row, 'ht');
         if (ht != null) {
           row_heights.push([ +r, +ht ]);

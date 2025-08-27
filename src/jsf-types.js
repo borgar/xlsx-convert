@@ -92,9 +92,9 @@
 /**
  * @typedef JSFSheetDefaults
  *   A collection of default properties that apply to cells, rows, or columns in the worksheet.
- * @prop {number} colWidth
+ * @prop {JSFPixelValue} colWidth
  *   Default width of the UI-grid column.
- * @prop {number} rowHeight
+ * @prop {JSFPixelValue} rowHeight
  *   Default height of the UI-grid height.
  */
 
@@ -112,7 +112,7 @@
  *   A 1-based inclusive start index.
  * @prop {integer} end
  *   A 1-based inclusive end index.
- * @prop {number} size
+ * @prop {JSFPixelValue} size
  *   The size of the grid item [in pixels].
  * @prop {integer} [s]
  *   An index to a style in the workbook styles list.

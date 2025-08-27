@@ -34,12 +34,12 @@
         "C9": { "s": 3, "v": 45072.499489814814, "f": 0 }
       },
       "columns": [
-        { "start": 2, "end": 2, "size": 11.6640625 },
-        { "start": 3, "end": 3, "size": 19.33203125 }
+        { "start": 2, "end": 2, "size": 75.81640625 },
+        { "start": 3, "end": 3, "size": 125.658203125 }
       ],
       "rows": [],
       "merges": [],
-      "defaults": { "colWidth": 10, "rowHeight": 16 },
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0
     }
   ],

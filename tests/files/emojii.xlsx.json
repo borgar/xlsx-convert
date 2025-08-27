@@ -334,11 +334,11 @@
         "B31": { "v": "🏳️‍⚧️" }
       },
       "columns": [
-        { "start": 2, "end": 17, "size": 5 }
+        { "start": 2, "end": 17, "size": 32.5 }
       ],
       "rows": [],
       "merges": [],
-      "defaults": { "colWidth": 10, "rowHeight": 16 },
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0
     }
   ],
