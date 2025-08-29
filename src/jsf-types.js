@@ -194,7 +194,7 @@
  *   When a calculation iteration results in an absolute change that is less than iterateDelta,
  *   then no further iterations should be attempted. Defaults to `0.001` in Excel.
  * @prop {1900 | 1904} [epoch]
- *   Which of the two date systems the workbook uses. 1900 is the deafult.
+ *   Which of the two date systems the workbook uses. 1900 is the default.
  *   See: <https://learn.microsoft.com/en-us/office/troubleshoot/excel/1900-and-1904-date-system>
  */
 
