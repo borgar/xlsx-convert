@@ -20,10 +20,16 @@ const relevantStyle = (obj: Record<string, any>): boolean => {
   );
 };
 
+const parseTimeToSerial = (ts: string): number => {
+  const [ , h, m, s, f ] = /^(\d{1,2})(?::(\d{1,2}))?(?::(\d{1,2}))?(\.\d+)?$/.exec(ts);
+  return (+h / 24) + // hours
+         (Number(m) / 1440) + // minutes
+         (Number(s + (f || '')) / 86400); // seconds with fraction
+};
+
 // ECMA - 18.3.1.4 (Cell)
 export function handlerCell (node: Element, context: ConversionContext): JSFCell {
   const cell: JSFCell = {};
-
   // FIXME: these props are scoped by the sheet but exist on the WB object
   //        during processing and are wiped per-sheet
   const sharedF = context._shared;
@@ -94,21 +100,19 @@ export function handlerCell (node: Element, context: ConversionContext): JSFCell
       cell.t = 'e';
     }
     else if (valueType === 'd') {
+      // cell.t = 'd';
       if (!/[T ]/i.test(v) && v.includes(':')) {
-        // this is time only so prefix with Excel epoch date
-        v = '1899-12-31T' + v;
+        cell.v = parseTimeToSerial(v);
       }
-      cell.v = dateToSerial(new Date(Date.parse(v)));
+      else {
+        cell.v = dateToSerial(new Date(Date.parse(v))) + (
+          // adjust dates if the workbook uses 1904 data system
+          context.workbook?.calculationProperties?.epoch === 1904 ? -1462 : 0
+        );
+      }
     }
     else if (valueType === 'n') {
-      let val = toNum(v);
-      // adjust dates if the workbook uses 1904 data system
-      if (context.workbook?.calculationProperties?.epoch === 1904 && styleIndex) {
-        const z = context.workbook.styles[styleIndex]?.['number-format'];
-        if (z && isDateFormat(z)) {
-          val += 1462;
-        }
-      }
+      const val = toNum(v);
       cell.v = val;
     }
     else {

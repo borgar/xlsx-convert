@@ -1,0 +1,54 @@
+{
+  "filename": "epoch1900-strict.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "Epoch" },
+        "B1": { "v": 1900 },
+        "A2": { "v": "DATEVALUE" },
+        "B2": { "v": 36892, "f": 0 },
+        "A3": { "v": "Casting" },
+        "B3": { "v": 36892, "f": 1 },
+        "A4": { "v": "Datecell" },
+        "B4": { "s": 2, "v": 36892 },
+        "A5": { "v": "Expected" },
+        "B5": { "v": 36892 },
+        "A6": { "v": "Date" },
+        "B6": { "s": 2, "v": 36892 },
+        "A7": { "v": "Time" },
+        "B7": { "s": 1, "v": 0.5236111111111111 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontName": "Aptos Narrow", "fontSize": 12 },
+    {
+      "numberFormat": "h:mm",
+      "fontName": "Aptos Narrow",
+      "fontSize": 12
+    },
+    {
+      "numberFormat": "m/d/yy",
+      "fontName": "Aptos Narrow",
+      "fontSize": 12
+    }
+  ],
+  "tables": [],
+  "formulas": [
+    "DATEVALUE(\"1/1/1\")",
+    "1*\"1/1/1\""
+  ]
+}
