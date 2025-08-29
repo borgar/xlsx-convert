@@ -41,8 +41,18 @@ function convertStyle (styleDefs: StyleDefs, styleIndex: number): JSFStyle {
     addStyle(s, 'italic', font.italic, false);
   }
 
-  if (style.fill?.fg) {
-    addStyle(s, 'fillColor', style.fill.fg, '#0000');
+  if (style.fill) {
+    if (style.fill.type && style.fill.type !== 'none') {
+      if (style.fill.type === 'solid') {
+        // if it's a solid fill, flip the foreground to the background
+        addStyle(s, 'fillColor', style.fill.fg, '#0000');
+      }
+      else {
+        addStyle(s, 'fillColor', style.fill.bg, '#0000');
+        addStyle(s, 'patternColor', style.fill.fg, '#0000');
+        addStyle(s, 'patternStyle', style.fill.type, 'none');
+      }
+    }
   }
 
   if (style.border) {

@@ -84,7 +84,16 @@
         "I12": { "s": 74 },
         "J12": { "s": 75 },
         "K12": { "s": 76 },
-        "B14": { "s": 81 }
+        "B14": { "s": 81 },
+        "C14": { "s": 82 },
+        "D14": { "s": 83 },
+        "E14": { "s": 84 },
+        "F14": { "s": 85 },
+        "G14": { "s": 86 },
+        "H14": { "s": 87 },
+        "I14": { "s": 88 },
+        "J14": { "s": 89 },
+        "K14": { "s": 90 }
       },
       "columns": [
         { "start": 1, "end": 1, "size": 34.658203125 },
@@ -189,15 +198,60 @@
     { "fontSize": 12, "fillColor": "#00FDFF" },
     { "fontSize": 12, "fillColor": "#0432FF" },
     { "fontSize": 12, "fillColor": "#000" },
-    { "fontSize": 12 },
-    { "fontSize": 12 },
-    { "fontSize": 12 },
-    { "fontSize": 12 },
-    { "fontSize": 12 },
-    { "fontSize": 12 },
-    { "fontSize": 12 },
-    { "fontSize": 12 },
-    { "fontSize": 12 }
+    {
+      "fontSize": 12,
+      "patternStyle": "darkGray",
+      "fillColor": "#000",
+      "patternColor": "#F00"
+    },
+    {
+      "fontSize": 12,
+      "patternStyle": "mediumGray",
+      "fillColor": "#000",
+      "patternColor": "#F00"
+    },
+    {
+      "fontSize": 12,
+      "patternStyle": "lightGray",
+      "fillColor": "#000",
+      "patternColor": "#F00"
+    },
+    {
+      "fontSize": 12,
+      "patternStyle": "gray125",
+      "fillColor": "#000",
+      "patternColor": "#F00"
+    },
+    {
+      "fontSize": 12,
+      "patternStyle": "gray0625",
+      "fillColor": "#000",
+      "patternColor": "#F00"
+    },
+    {
+      "fontSize": 12,
+      "patternStyle": "darkHorizontal",
+      "fillColor": "#000",
+      "patternColor": "#F00"
+    },
+    {
+      "fontSize": 12,
+      "patternStyle": "darkVertical",
+      "fillColor": "#000",
+      "patternColor": "#F00"
+    },
+    {
+      "fontSize": 12,
+      "patternStyle": "darkDown",
+      "fillColor": "#000",
+      "patternColor": "#F00"
+    },
+    {
+      "fontSize": 12,
+      "patternStyle": "lightGrid",
+      "fillColor": "#000",
+      "patternColor": "#F00"
+    }
   ],
   "tables": [],
   "formulas": []

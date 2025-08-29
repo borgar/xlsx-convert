@@ -16,7 +16,11 @@ function valOfNode (node: Element, subNodeName: string, fallback: any = null): s
 type BorderSide = 'left' | 'right' | 'top' | 'bottom';
 type Border = { style: string, color: Color };
 type Borders = Record<BorderSide, Border>;
-type Fill = { type: string, fg: Color };
+type Fill = {
+  type: string,
+  fg: Color
+  bg: Color
+};
 type Font = {
   size?: number,
   name: string,
@@ -154,11 +158,11 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
   dom.querySelectorAll('fills > fill > patternFill')
     .forEach(fp => {
       const type = fp && attr(fp, 'patternType');
-      const isSolid = type === 'solid';
+      // const isSolid = type === 'solid';
       styles.fill.push({
         type: type,
-        fg: isSolid ? readColor(fp.querySelectorAll('fgColor')[0], context.theme) : null,
-        // bg: isSolid' ? readColor(child(fp, 'bgColor'), wb.theme) : null,
+        fg: readColor(fp.querySelectorAll('fgColor')[0], context.theme),
+        bg: readColor(fp.querySelectorAll('bgColor')[0], context.theme),
       });
     });
 
