@@ -1,6 +1,6 @@
 # XLSX-convert
 
-This is a Node.js utility to convert Excel XLSX files to JSON format. It supports only XLSX files and outputs JSP (JSON spreadsheet format), a variant of CSF ([see below](#output)).
+This is a Node.js utility to convert Excel XLSX files to JSON format. It supports only XLSX files and outputs JSF (JSON spreadsheet format), a variant of CSF ([see below](#output)).
 
 This utility was developed as tooling for [GRID – The new face of spreadsheets](https://grid.is/), to which it owes a debt of gratitude.
 
@@ -17,14 +17,13 @@ The library is also provided as an NPM package:
 
 ```js
 // import the converter
-const xlsxConvert = require('@borgar/xlsx-convert');
+import xlsxConvert from '@borgar/xlsx-convert';
 
 // read the file
-const wb = await xlsxConvert('path/to/workbook.xlsx', options);
+const jsf = await xlsxConvert('path/to/workbook.xlsx', options);
 
 // emit results
-const output = JSON.stringify(wb, null, 2);
-console.log(output)
+console.log(jsf);
 ```
 
 This will emit a structure like this:
@@ -40,10 +39,10 @@ This will emit a structure like this:
         "A2": { "v": "Total" },
         "B2": { "v": 135.1, "f": "SUM(A1:B1)", },
       },
-      "merged_cells": [],
-      "col_widths": {},
-      "row_heights": {},
-      "hidden": false,
+      "merges": [],
+      "colWidths": [],
+      "rowHeights": [],
+      "hidden": 0,
       "name": "Sheet1"
     }
   ],
