@@ -59,7 +59,7 @@ const DEFAULT_OPTIONS: ConversionOptions = {
  */
 export async function convert (
   filename: string,
-  options: ConversionOptions,
+  options?: ConversionOptions,
 ): Promise<JSFWorkbook> {
   return convertBinary(await fs.readFile(filename), filename, options);
 }
@@ -80,7 +80,7 @@ export default convert;
 export async function convertBinary (
   buffer: Buffer | ArrayBuffer,
   filename: string,
-  options: ConversionOptions,
+  options?: ConversionOptions,
 ): Promise<JSFWorkbook> {
   if (!(buffer instanceof ArrayBuffer || buffer instanceof Buffer)) {
     throw new Error('Input is not a valid binary');

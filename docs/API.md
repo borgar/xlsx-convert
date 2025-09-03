@@ -46,7 +46,7 @@ Renames and re-exports [convert](#functionsconvertmd)
 # convert()
 
 ```ts
-function convert(filename: string, options: ConversionOptions): Promise<JSFWorkbook>;
+function convert(filename: string, options?: ConversionOptions): Promise<JSFWorkbook>;
 ```
 
 Load and convert an XLSX file into a JSON format.
@@ -59,7 +59,7 @@ may be lost in the conversion process.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `filename` | `string` | Target filename to convert |
-| `options` | [`ConversionOptions`](#type-aliasesconversionoptionsmd) | Conversion options |
+| `options?` | [`ConversionOptions`](#type-aliasesconversionoptionsmd) | Conversion options |
 
 ## Returns
 
