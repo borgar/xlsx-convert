@@ -1,4 +1,4 @@
-import { dateToSerial, isDateFormat } from 'numfmt';
+import { dateToSerial } from 'numfmt';
 import { translateToR1C1 } from '@borgar/fx';
 import { toInt, toNum } from '../utils/typecast.ts';
 import { attr, numAttr } from '../utils/attr.ts';

@@ -19,41 +19,58 @@ import { handlerComments } from './handler/comments.ts';
 import { handlerWorksheet } from './handler/worksheet.ts';
 import { handlerExternal } from './handler/external.ts';
 import { handlerTable } from './handler/table.ts';
-import type { JSFWorkbook } from './jsf-types.js';
+import type { JSFWorkbook } from './jsf-types.ts';
 
-export type * from './jsf-types.js';
+export type * from './jsf-types.ts';
 
 /** Convertion options */
 export type ConversionOptions = {
+  /**
+   * Skip cells that are a part of merges.
+   * @defaultValue true
+   */
   skipMerged?: boolean;
+  /**
+   * Formulas are attached to cells rather than being included as a separate list.
+   * @defaultValue false
+   */
   cellFormulas?: boolean;
 };
 
+/**
+ * Default conversion options
+ */
 const DEFAULT_OPTIONS: ConversionOptions = {
-  // skip cells that are a part of merges
   skipMerged: true,
-  // formulas are attached to cells rather than being included separately
   cellFormulas: false,
 };
 
 /**
- * Convert an XLSX file into a JSON format.
+ * Load and convert an XLSX file into a JSON format.
  *
- * @param filename Target file to convert
+ * The returned JSF structure contains most of the data from the original file, although some details
+ * may be lost in the conversion process.
+ *
+ * @param filename Target filename to convert
  * @param options Conversion options
  * @param [options.skipMerged] Skip any cells that are a part of merges.
  * @param [options.cellFormulas] Formulas are attached to cells rather than being included separately.
  * @return A JSON spreadsheet object.
  */
-export default async function convert (
+export async function convert (
   filename: string,
-  options: ConversionOptions = DEFAULT_OPTIONS,
+  options: ConversionOptions,
 ): Promise<JSFWorkbook> {
   return convertBinary(await fs.readFile(filename), filename, options);
 }
 
+export default convert;
+
 /**
- * Convert an XLSX file into a JSON format.
+ * Convert an XLSX binary into a JSON format.
+ *
+ * The returned JSF structure contains most of the data from the original file, although some details
+ * may be lost in the conversion process.
  *
  * @param buffer Buffer containing the file to convert
  * @param filename Name of the file being converted
@@ -63,11 +80,12 @@ export default async function convert (
 export async function convertBinary (
   buffer: Buffer | ArrayBuffer,
   filename: string,
-  options: ConversionOptions = DEFAULT_OPTIONS,
+  options: ConversionOptions,
 ): Promise<JSFWorkbook> {
   if (!(buffer instanceof ArrayBuffer || buffer instanceof Buffer)) {
     throw new Error('Input is not a valid binary');
   }
+  options = Object.assign({}, DEFAULT_OPTIONS, options);
   const zip = new JSZip();
   const fdesc = await zip.loadAsync(buffer);
 

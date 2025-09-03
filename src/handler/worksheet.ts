@@ -5,7 +5,7 @@ import { handlerCell } from './cell.ts';
 import { Document } from '@borgar/simple-xml';
 import { ConversionContext } from '../ConversionContext.ts';
 import type { Rel } from './rels.ts';
-import type { JSFWorksheet } from '../jsf-types.js';
+import type { JSFWorksheet } from '../jsf-types.ts';
 
 const COL_MULT = 6.5;
 

@@ -3,7 +3,7 @@ import { attr, numAttr } from '../utils/attr.ts';
 import { handlerCell } from './cell.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { ConversionContext } from '../ConversionContext.ts';
-import type { JSFExternal } from '../jsf-types.js';
+import type { JSFExternal } from '../jsf-types.ts';
 
 export function handlerExternal (dom: Document, fileName:string = ''): JSFExternal {
   const external: JSFExternal = {

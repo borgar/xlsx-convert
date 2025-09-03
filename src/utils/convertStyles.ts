@@ -1,5 +1,5 @@
 import type { StyleDefs } from '../handler/styles.ts';
-import type { JSFStyle } from '../jsf-types.js';
+import type { JSFStyle } from '../jsf-types.ts';
 
 const addStyle = (obj: JSFStyle, key: string, val: any, skip: any = null): number => {
   if (val == null) {

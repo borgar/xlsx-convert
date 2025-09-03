@@ -2,7 +2,7 @@ import type { Document } from '@borgar/simple-xml';
 import type { ConversionContext } from '../ConversionContext.ts';
 import { attr, numAttr } from '../utils/attr.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
-import type { JSFTable, JSFTableColumn } from '../jsf-types.js';
+import type { JSFTable, JSFTableColumn } from '../jsf-types.ts';
 
 export function handlerTable (dom: Document, context: ConversionContext): JSFTable | void {
   const tableElm = dom.getElementsByTagName('table')[0];

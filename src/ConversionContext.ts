@@ -5,7 +5,7 @@ import type { RDValue } from './handler/rdvalue.ts';
 import type { Rel } from './handler/rels.ts';
 import type { Theme } from './handler/theme.ts';
 import type { RelativeFormula } from './RelativeFormula.ts';
-import type { JSFExternal, JSFWorkbook } from './jsf-types.js';
+import type { JSFExternal, JSFWorkbook } from './jsf-types.ts';
 import type { ConversionOptions } from './index.ts';
 
 type SheetLink = {

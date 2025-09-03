@@ -71,17 +71,9 @@ Only cells that have "relevant data" are emitted, which in praxis means cells th
 
 
 
-## API
+## Documentation
 
-<a name="xlsx-convert" href="#xlsx-convert">#</a> async **xlsxConvert**( _target [, options]_ )
+Documentation can be found under [docs/](./docs/):
 
-Reads an Excel XLSX file into a consumable structure. The return value contains most of the data from the original file, although some details may be lost in the conversion process (and further will not be emitted when converting this structure to JSON).
+* The API is documented in [docs/API.md](./docs/API.md).
 
-* `target` can be either a filename which will be loaded, or a Buffer object should you wish to perform the loading externally.
-
-* `options` are set as an object of keys: `xlsxConvert(filename, { option: true })`. Supported options are:
-
-  | name | default | effect |
-  |- | - | -
-  | `skipMerged` | `true` | De-activating this will emit _all_ cells that have any "relevant" data, regardless of them being part of merges. By default only the top-left cell will be emitted. 
-  | `cellFormulas` | `false` | If true the formulas will be set as strings attached to the cell objects. By default the `f` property of a cell is an index into a formula list.

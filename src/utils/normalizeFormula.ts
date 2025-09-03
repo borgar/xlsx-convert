@@ -4,7 +4,7 @@ import {
   stringifyStructRef, tokenTypes, tokenize,
   type ReferenceA1,
 } from '@borgar/fx';
-import type { JSFExternal } from '../jsf-types.js';
+import type { JSFExternal } from '../jsf-types.ts';
 
 type Ref = ReferenceStruct | ReferenceA1;
 type RefContext = string[];

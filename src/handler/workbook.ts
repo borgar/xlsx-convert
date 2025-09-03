@@ -3,7 +3,7 @@ import { ConversionContext } from '../ConversionContext.ts';
 import { attr, numAttr } from '../utils/attr.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { toInt } from '../utils/typecast.ts';
-import type { JSFNameDefinition, JSFWorkbook } from '../jsf-types.js';
+import type { JSFNameDefinition, JSFWorkbook } from '../jsf-types.ts';
 
 export function handlerWorkbook (dom: Document, context: ConversionContext): JSFWorkbook {
   const wb: JSFWorkbook = {
