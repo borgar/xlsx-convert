@@ -1,13 +1,13 @@
-import { dateToSerial } from 'numfmt';
 import { translateToR1C1 } from '@borgar/fx';
+import { Element } from '@borgar/simple-xml';
 import { toInt, toNum } from '../utils/typecast.ts';
 import { attr, numAttr } from '../utils/attr.ts';
 import { unescape } from '../utils/unescape.ts';
 import { RelativeFormula } from '../RelativeFormula.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
-import { Element } from '@borgar/simple-xml';
 import { ConversionContext } from '../ConversionContext.ts';
 import type { JSFCell } from '../jsf-types.ts';
+import { dateToSerial } from '../utils/dateToSerial.ts';
 
 const relevantStyle = (obj: Record<string, any>): boolean => {
   return !!(

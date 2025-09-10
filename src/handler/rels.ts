@@ -1,7 +1,7 @@
-import path from 'path';
+import { Document } from '@borgar/simple-xml';
 import { attr } from '../utils/attr.ts';
 import { REL_PREFIXES } from '../constants.ts';
-import { Document } from '@borgar/simple-xml';
+import { pathDirname, pathJoin } from '../utils/path.ts';
 
 export type Rel = {
   id: string;
@@ -10,7 +10,7 @@ export type Rel = {
 };
 
 export function handlerRels (dom: Document, basepath = 'xl/workbook.xml'): Rel[] {
-  basepath = path.dirname(basepath);
+  basepath = pathDirname(basepath);
   const rels = [];
   if (dom) {
     dom
@@ -23,7 +23,7 @@ export function handlerRels (dom: Document, basepath = 'xl/workbook.xml'): Rel[]
           if (type.startsWith(p)) {
             type = type.slice(p.length);
             if (mode !== 'External') {
-              target = path.join(basepath, target);
+              target = pathJoin(basepath, target);
             }
             break;
           }

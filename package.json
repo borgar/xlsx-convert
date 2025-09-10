@@ -62,8 +62,7 @@
     "@borgar/fx": "~4.12.0",
     "@borgar/simple-xml": "~2.0.1",
     "d3-color": "~3.1.0",
-    "jszip": "~3.10.1",
-    "numfmt": "~3.2.3"
+    "jszip": "~3.10.1"
   },
   "devDependencies": {
     "@borgar/eslint-config": "~4.0.0",
