@@ -1,5 +1,5 @@
 {
-  "filename": "epoch1900-strict.xlsx",
+  "name": "epoch1900-strict.xlsx",
   "sheets": [
     {
       "name": "Sheet1",
@@ -34,15 +34,15 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontName": "Aptos Narrow", "fontSize": 12 },
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 },
     {
       "numberFormat": "h:mm",
-      "fontName": "Aptos Narrow",
+      "fontFamily": "Aptos Narrow",
       "fontSize": 12
     },
     {
       "numberFormat": "m/d/yy",
-      "fontName": "Aptos Narrow",
+      "fontFamily": "Aptos Narrow",
       "fontSize": 12
     }
   ],

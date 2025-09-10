@@ -7,7 +7,7 @@ import type { JSFNameDefinition, JSFWorkbook } from '../jsf-types.ts';
 
 export function handlerWorkbook (dom: Document, context: ConversionContext): JSFWorkbook {
   const wb: JSFWorkbook = {
-    filename: context.filename,
+    name: context.filename,
     sheets: [],
     names: [],
     // charts: [],

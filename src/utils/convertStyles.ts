@@ -33,9 +33,9 @@ function convertStyle (styleDefs: StyleDefs, styleIndex: number): JSFStyle {
 
   if (style.font) {
     const font = style.font;
-    addStyle(s, 'fontName', font.name, 'Calibri');
+    addStyle(s, 'fontFamily', font.name, 'Calibri');
     addStyle(s, 'fontSize', font.size, 11);
-    addStyle(s, 'fontColor', font.color, '#000');
+    addStyle(s, 'color', font.color, '#000');
     addStyle(s, 'underline', font.underline);
     addStyle(s, 'bold', font.bold, false);
     addStyle(s, 'italic', font.italic, false);

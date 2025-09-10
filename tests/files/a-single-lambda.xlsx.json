@@ -1,5 +1,5 @@
 {
-  "filename": "a-single-lambda.xlsx",
+  "name": "a-single-lambda.xlsx",
   "sheets": [
     {
       "name": "Sheet1",
@@ -21,7 +21,7 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontName": "Aptos Narrow", "fontSize": 12 }
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
   ],
   "tables": [],
   "formulas": [

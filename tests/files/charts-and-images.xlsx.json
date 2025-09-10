@@ -1,5 +1,5 @@
 {
-  "filename": "charts-and-images.xlsx",
+  "name": "charts-and-images.xlsx",
   "sheets": [
     {
       "name": "Sheet1",
@@ -107,10 +107,10 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontName": "Tw Cen MT", "fontSize": 12 },
+    { "fontFamily": "Tw Cen MT", "fontSize": 12 },
     {
       "numberFormat": "yyyy",
-      "fontName": "Tw Cen MT",
+      "fontFamily": "Tw Cen MT",
       "fontSize": 12,
       "bold": true,
       "borderBottomStyle": "thin"

@@ -4,8 +4,8 @@
  * A workbook is a collection of worksheets, calculation directions, and other meta-data.
  */
 export type JSFWorkbook = {
-  /** Name of the workbook. */
-  filename: string;
+  /** Name of the workbook, in the case of xlsx it will be the filename. */
+  name: string;
   /** An ordered list of the worksheets in the workbook. */
   sheets: JSFWorksheet[];
   /** A list of defined names. */
@@ -81,16 +81,21 @@ export type JSFCell = {
   c?: JSFComment[];
   /**
    * The type of the value contained in the cell. The property is optional as the type may be
-   * inferred from the `v` property of the cell, except in the case of errors.
-   * - `b` = boolean
-   * - `e` = error
-   * - `n` = number
-   * - `d` = date
-   * - `s` = string
-   * - `z` = blank
+   * inferred from the `v` property of the cell, except in the case of errors (and dates).
    */
-  t?: 'b' | 'e' | 'n' | 'd' | 's' | 'z';
+  t?: JSFCellValueType;
 };
+
+/**
+ * Signifies type of value contained in a cell.
+ * - `b` = boolean
+ * - `e` = error
+ * - `n` = number
+ * - `d` = date
+ * - `s` = string
+ * - `z` = blank
+ */
+export type JSFCellValueType = 'b' | 'e' | 'n' | 'd' | 's' | 'z';
 
 /** A cell comment. */
 export type JSFComment = {
@@ -259,20 +264,20 @@ export type JSFCalcProps = {
  */
 export type JSFStyle = {
   /**
-   * The name of the font, e.g. `"Arial"`.
+   * The name of the font family used to render text, e.g. `"Arial"`.
    * @defaultValue "Calibri"
    */
-  fontName?: string;
+  fontFamily?: string;
   /**
    * The font size in pixels.
    * @defaultValue 11
    */
   fontSize?: JSFPixelValue;
   /**
-   * The font color.
+   * The color used to render text.
    * @defaultValue "#000"
    */
-  fontColor?: JSFColor;
+  color?: JSFColor;
   /**
    * Indicates whether the text is bold.
    * @defaultValue false

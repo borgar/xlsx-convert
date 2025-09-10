@@ -1,5 +1,5 @@
 {
-  "filename": "text-color.xlsx",
+  "name": "text-color.xlsx",
   "sheets": [
     {
       "name": "Sheet1",
@@ -77,16 +77,16 @@
   "styles": [
     { "fontSize": 12 },
     { "fontSize": 12 },
-    { "fontSize": 12, "fontColor": "#C00000" },
-    { "fontSize": 12, "fontColor": "#F00" },
-    { "fontSize": 12, "fontColor": "#FFC000" },
-    { "fontSize": 12, "fontColor": "#FF0" },
-    { "fontSize": 12, "fontColor": "#92D050" },
-    { "fontSize": 12, "fontColor": "#00B050" },
-    { "fontSize": 12, "fontColor": "#00B0F0" },
-    { "fontSize": 12, "fontColor": "#0070C0" },
-    { "fontSize": 12, "fontColor": "#002060" },
-    { "fontSize": 12, "fontColor": "#7030A0" },
+    { "fontSize": 12, "color": "#C00000" },
+    { "fontSize": 12, "color": "#F00" },
+    { "fontSize": 12, "color": "#FFC000" },
+    { "fontSize": 12, "color": "#FF0" },
+    { "fontSize": 12, "color": "#92D050" },
+    { "fontSize": 12, "color": "#00B050" },
+    { "fontSize": 12, "color": "#00B0F0" },
+    { "fontSize": 12, "color": "#0070C0" },
+    { "fontSize": 12, "color": "#002060" },
+    { "fontSize": 12, "color": "#7030A0" },
     { "fontSize": 12, "bold": true },
     { "fontSize": 12, "italic": true },
     { "fontSize": 12, "underline": "single" },
@@ -98,220 +98,212 @@
     },
     {
       "fontSize": 12,
-      "fontColor": "#C00000",
+      "color": "#C00000",
+      "bold": true
+    },
+    { "fontSize": 12, "color": "#F00", "bold": true },
+    {
+      "fontSize": 12,
+      "color": "#FFC000",
+      "bold": true
+    },
+    { "fontSize": 12, "color": "#FF0", "bold": true },
+    {
+      "fontSize": 12,
+      "color": "#92D050",
       "bold": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#F00",
+      "color": "#00B050",
       "bold": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#FFC000",
+      "color": "#00B0F0",
       "bold": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#FF0",
+      "color": "#0070C0",
       "bold": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#92D050",
+      "color": "#002060",
       "bold": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#00B050",
+      "color": "#7030A0",
       "bold": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#00B0F0",
-      "bold": true
-    },
-    {
-      "fontSize": 12,
-      "fontColor": "#0070C0",
-      "bold": true
-    },
-    {
-      "fontSize": 12,
-      "fontColor": "#002060",
-      "bold": true
-    },
-    {
-      "fontSize": 12,
-      "fontColor": "#7030A0",
-      "bold": true
-    },
-    {
-      "fontSize": 12,
-      "fontColor": "#C00000",
+      "color": "#C00000",
       "italic": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#F00",
+      "color": "#F00",
       "italic": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#FFC000",
+      "color": "#FFC000",
       "italic": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#FF0",
+      "color": "#FF0",
       "italic": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#92D050",
+      "color": "#92D050",
       "italic": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#00B050",
+      "color": "#00B050",
       "italic": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#00B0F0",
+      "color": "#00B0F0",
       "italic": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#0070C0",
+      "color": "#0070C0",
       "italic": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#002060",
+      "color": "#002060",
       "italic": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#7030A0",
+      "color": "#7030A0",
       "italic": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#C00000",
+      "color": "#C00000",
       "underline": "single"
     },
     {
       "fontSize": 12,
-      "fontColor": "#F00",
+      "color": "#F00",
       "underline": "single"
     },
     {
       "fontSize": 12,
-      "fontColor": "#FFC000",
+      "color": "#FFC000",
       "underline": "single"
     },
     {
       "fontSize": 12,
-      "fontColor": "#FF0",
+      "color": "#FF0",
       "underline": "single"
     },
     {
       "fontSize": 12,
-      "fontColor": "#92D050",
+      "color": "#92D050",
       "underline": "single"
     },
     {
       "fontSize": 12,
-      "fontColor": "#00B050",
+      "color": "#00B050",
       "underline": "single"
     },
     {
       "fontSize": 12,
-      "fontColor": "#00B0F0",
+      "color": "#00B0F0",
       "underline": "single"
     },
     {
       "fontSize": 12,
-      "fontColor": "#0070C0",
+      "color": "#0070C0",
       "underline": "single"
     },
     {
       "fontSize": 12,
-      "fontColor": "#002060",
+      "color": "#002060",
       "underline": "single"
     },
     {
       "fontSize": 12,
-      "fontColor": "#7030A0",
+      "color": "#7030A0",
       "underline": "single"
     },
     {
       "fontSize": 12,
-      "fontColor": "#C00000",
+      "color": "#C00000",
       "underline": "single",
       "bold": true,
       "italic": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#F00",
+      "color": "#F00",
       "underline": "single",
       "bold": true,
       "italic": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#FFC000",
+      "color": "#FFC000",
       "underline": "single",
       "bold": true,
       "italic": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#FF0",
+      "color": "#FF0",
       "underline": "single",
       "bold": true,
       "italic": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#92D050",
+      "color": "#92D050",
       "underline": "single",
       "bold": true,
       "italic": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#00B050",
+      "color": "#00B050",
       "underline": "single",
       "bold": true,
       "italic": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#00B0F0",
+      "color": "#00B0F0",
       "underline": "single",
       "bold": true,
       "italic": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#0070C0",
+      "color": "#0070C0",
       "underline": "single",
       "bold": true,
       "italic": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#002060",
+      "color": "#002060",
       "underline": "single",
       "bold": true,
       "italic": true
     },
     {
       "fontSize": 12,
-      "fontColor": "#7030A0",
+      "color": "#7030A0",
       "underline": "single",
       "bold": true,
       "italic": true

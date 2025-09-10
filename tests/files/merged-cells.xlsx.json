@@ -1,5 +1,5 @@
 {
-  "filename": "merged-cells.xlsx",
+  "name": "merged-cells.xlsx",
   "sheets": [
     {
       "name": "Sheet1",
@@ -245,7 +245,7 @@
       "horizontalAlignment": "center",
       "verticalAlignment": "center",
       "fontSize": 12,
-      "fontColor": "#FFF",
+      "color": "#FFF",
       "fillColor": "#000",
       "borderTopStyle": "medium",
       "borderRightStyle": "medium"
@@ -254,7 +254,7 @@
       "horizontalAlignment": "center",
       "verticalAlignment": "center",
       "fontSize": 12,
-      "fontColor": "#FFF",
+      "color": "#FFF",
       "fillColor": "#000",
       "borderRightStyle": "medium"
     },
@@ -262,7 +262,7 @@
       "horizontalAlignment": "center",
       "verticalAlignment": "center",
       "fontSize": 12,
-      "fontColor": "#FFF",
+      "color": "#FFF",
       "fillColor": "#000",
       "borderBottomStyle": "medium",
       "borderRightStyle": "medium"
@@ -416,7 +416,7 @@
       "horizontalAlignment": "center",
       "verticalAlignment": "center",
       "fontSize": 12,
-      "fontColor": "#FFF",
+      "color": "#FFF",
       "fillColor": "#000",
       "borderTopStyle": "medium",
       "borderLeftStyle": "medium",
@@ -426,7 +426,7 @@
       "horizontalAlignment": "center",
       "verticalAlignment": "center",
       "fontSize": 12,
-      "fontColor": "#FFF",
+      "color": "#FFF",
       "fillColor": "#000",
       "borderBottomStyle": "medium",
       "borderLeftStyle": "medium",
@@ -558,7 +558,7 @@
       "horizontalAlignment": "center",
       "verticalAlignment": "center",
       "fontSize": 12,
-      "fontColor": "#FFF",
+      "color": "#FFF",
       "fillColor": "#000",
       "borderTopStyle": "medium",
       "borderLeftStyle": "thin"
@@ -567,7 +567,7 @@
       "horizontalAlignment": "center",
       "verticalAlignment": "center",
       "fontSize": 12,
-      "fontColor": "#FFF",
+      "color": "#FFF",
       "fillColor": "#000",
       "borderLeftStyle": "thin"
     },
@@ -575,7 +575,7 @@
       "horizontalAlignment": "center",
       "verticalAlignment": "center",
       "fontSize": 12,
-      "fontColor": "#FFF",
+      "color": "#FFF",
       "fillColor": "#000",
       "borderBottomStyle": "medium",
       "borderLeftStyle": "thin"

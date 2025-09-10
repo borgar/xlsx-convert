@@ -1,5 +1,5 @@
 {
-  "filename": "hyperlinks.xlsx",
+  "name": "hyperlinks.xlsx",
   "sheets": [
     {
       "name": "Sheet1",
@@ -35,7 +35,7 @@
     { "fontSize": 12 },
     {
       "fontSize": 12,
-      "fontColor": "#0563C1",
+      "color": "#0563C1",
       "underline": "single"
     }
   ],

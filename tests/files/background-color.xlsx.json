@@ -1,5 +1,5 @@
 {
-  "filename": "background-color.xlsx",
+  "name": "background-color.xlsx",
   "sheets": [
     {
       "name": "Sheet1",
@@ -200,57 +200,57 @@
     { "fontSize": 12, "fillColor": "#000" },
     {
       "fontSize": 12,
-      "patternStyle": "darkGray",
       "fillColor": "#000",
-      "patternColor": "#F00"
+      "patternColor": "#F00",
+      "patternStyle": "darkGray"
     },
     {
       "fontSize": 12,
-      "patternStyle": "mediumGray",
       "fillColor": "#000",
-      "patternColor": "#F00"
+      "patternColor": "#F00",
+      "patternStyle": "mediumGray"
     },
     {
       "fontSize": 12,
-      "patternStyle": "lightGray",
       "fillColor": "#000",
-      "patternColor": "#F00"
+      "patternColor": "#F00",
+      "patternStyle": "lightGray"
     },
     {
       "fontSize": 12,
-      "patternStyle": "gray125",
       "fillColor": "#000",
-      "patternColor": "#F00"
+      "patternColor": "#F00",
+      "patternStyle": "gray125"
     },
     {
       "fontSize": 12,
-      "patternStyle": "gray0625",
       "fillColor": "#000",
-      "patternColor": "#F00"
+      "patternColor": "#F00",
+      "patternStyle": "gray0625"
     },
     {
       "fontSize": 12,
-      "patternStyle": "darkHorizontal",
       "fillColor": "#000",
-      "patternColor": "#F00"
+      "patternColor": "#F00",
+      "patternStyle": "darkHorizontal"
     },
     {
       "fontSize": 12,
-      "patternStyle": "darkVertical",
       "fillColor": "#000",
-      "patternColor": "#F00"
+      "patternColor": "#F00",
+      "patternStyle": "darkVertical"
     },
     {
       "fontSize": 12,
-      "patternStyle": "darkDown",
       "fillColor": "#000",
-      "patternColor": "#F00"
+      "patternColor": "#F00",
+      "patternStyle": "darkDown"
     },
     {
       "fontSize": 12,
-      "patternStyle": "lightGrid",
       "fillColor": "#000",
-      "patternColor": "#F00"
+      "patternColor": "#F00",
+      "patternStyle": "lightGrid"
     }
   ],
   "tables": [],

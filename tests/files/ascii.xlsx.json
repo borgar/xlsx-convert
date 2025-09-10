@@ -1,5 +1,5 @@
 {
-  "filename": "ascii.xlsx",
+  "name": "ascii.xlsx",
   "sheets": [
     {
       "name": "ASCII",
@@ -1182,10 +1182,10 @@
     },
     {
       "fontSize": 12,
-      "fontColor": "#FFF",
+      "color": "#FFF",
       "fillColor": "#44546A"
     },
-    { "fontSize": 12, "fontColor": "#FFF" },
+    { "fontSize": 12, "color": "#FFF" },
     {
       "horizontalAlignment": "center",
       "fontSize": 12,
