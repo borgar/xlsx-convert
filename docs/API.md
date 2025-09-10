@@ -11,6 +11,7 @@
 - [JSFCell](#type-aliasesjsfcellmd)
 - [JSFCellId](#type-aliasesjsfcellidmd)
 - [JSFCellRange](#type-aliasesjsfcellrangemd)
+- [JSFCellValueType](#type-aliasesjsfcellvaluetypemd)
 - [JSFColor](#type-aliasesjsfcolormd)
 - [JSFComment](#type-aliasesjsfcommentmd)
 - [JSFExternal](#type-aliasesjsfexternalmd)
@@ -199,7 +200,7 @@ type JSFCell = {
   F?: string;
   l?: string;
   s?: integer;
-  t?: "b" | "e" | "n" | "d" | "s" | "z";
+  t?: JSFCellValueType;
   v?: string | null | number | boolean;
 };
 ```
@@ -215,7 +216,7 @@ A spreadsheet cell.
 | <a id="f-1"></a> `F?` | `string` | `undefined` | The range of enclosing array if formula is an array formula. |
 | <a id="l"></a> `l?` | `string` | `undefined` | A hyperlink URL address. |
 | <a id="s"></a> `s?` | `integer` | `0` | An index to a style in the workbook styles list. |
-| <a id="t"></a> `t?` | `"b"` \| `"e"` \| `"n"` \| `"d"` \| `"s"` \| `"z"` | `undefined` | The type of the value contained in the cell. The property is optional as the type may be inferred from the `v` property of the cell, except in the case of errors. - `b` = boolean - `e` = error - `n` = number - `d` = date - `s` = string - `z` = blank |
+| <a id="t"></a> `t?` | [`JSFCellValueType`](#type-aliasesjsfcellvaluetypemd) | `undefined` | The type of the value contained in the cell. The property is optional as the type may be inferred from the `v` property of the cell, except in the case of errors (and dates). |
 | <a id="v"></a> `v?` | `string` \| `null` \| `number` \| `boolean` | `null` | The value of the cell, it is assumed to be derived from a formula if the cell has one, else it is safe to assume that it is user-entered. |
 
 
@@ -244,6 +245,23 @@ type JSFCellRange = string;
 A cell coordinate range in an uppercase A1-style reference format (`"H6:J36"`).
 
 The range consists of two [JSFCellId](#type-aliasesjsfcellidmd) surrounding a colon (`:`) character.
+
+
+<a name="type-aliasesjsfcellvaluetypemd"></a>
+
+# JSFCellValueType
+
+```ts
+type JSFCellValueType = "b" | "e" | "n" | "d" | "s" | "z";
+```
+
+Signifies type of value contained in a cell.
+- `b` = boolean
+- `e` = error
+- `n` = number
+- `d` = date
+- `s` = string
+- `z` = blank
 
 
 <a name="type-aliasesjsfcolormd"></a>
@@ -499,9 +517,9 @@ type JSFStyle = {
   borderRightStyle?: JSFBorderStyle;
   borderTopColor?: JSFColor;
   borderTopStyle?: JSFBorderStyle;
+  color?: JSFColor;
   fillColor?: JSFColor;
-  fontColor?: JSFColor;
-  fontName?: string;
+  fontFamily?: string;
   fontSize?: JSFPixelValue;
   horizontalAlignment?: JSFHAlign;
   italic?: boolean;
@@ -530,9 +548,9 @@ Captures the styles which apply to a cell.
 | <a id="borderrightstyle"></a> `borderRightStyle?` | [`JSFBorderStyle`](#type-aliasesjsfborderstylemd) | `"none"` | Right border style. |
 | <a id="bordertopcolor"></a> `borderTopColor?` | [`JSFColor`](#type-aliasesjsfcolormd) | `undefined` | Top border color. |
 | <a id="bordertopstyle"></a> `borderTopStyle?` | [`JSFBorderStyle`](#type-aliasesjsfborderstylemd) | `"none"` | Top border style. |
+| <a id="color"></a> `color?` | [`JSFColor`](#type-aliasesjsfcolormd) | `"#000"` | The color used to render text. |
 | <a id="fillcolor"></a> `fillColor?` | [`JSFColor`](#type-aliasesjsfcolormd) | `"#FFFFFF"` | The cell's background color. |
-| <a id="fontcolor"></a> `fontColor?` | [`JSFColor`](#type-aliasesjsfcolormd) | `"#000"` | The font color. |
-| <a id="fontname"></a> `fontName?` | `string` | `"Calibri"` | The name of the font, e.g. `"Arial"`. |
+| <a id="fontfamily"></a> `fontFamily?` | `string` | `"Calibri"` | The name of the font family used to render text, e.g. `"Arial"`. |
 | <a id="fontsize"></a> `fontSize?` | [`JSFPixelValue`](#type-aliasesjsfpixelvaluemd) | `11` | The font size in pixels. |
 | <a id="horizontalalignment"></a> `horizontalAlignment?` | [`JSFHAlign`](#type-aliasesjsfhalignmd) | `"general"` | Horizontal alignment of the cells [text] content. |
 | <a id="italic"></a> `italic?` | `boolean` | `false` | Indicates whether the text is italic. |
@@ -630,8 +648,8 @@ Vertical alignment of a cell content.
 type JSFWorkbook = {
   calculationProperties?: JSFCalcProps;
   externals?: JSFExternal[];
-  filename: string;
   formulas?: string[];
+  name: string;
   names: JSFNameDefinition[];
   sheets: JSFWorksheet[];
   styles: JSFStyle[];
@@ -647,8 +665,8 @@ A workbook is a collection of worksheets, calculation directions, and other meta
 | ------ | ------ | ------ |
 | <a id="calculationproperties"></a> `calculationProperties?` | [`JSFCalcProps`](#type-aliasesjsfcalcpropsmd) | Directions on how a spreadsheet application should run calculations in the workbook. |
 | <a id="externals"></a> `externals?` | [`JSFExternal`](#type-aliasesjsfexternalmd)[] | Captures of external cells referenced by the workbook. |
-| <a id="filename"></a> `filename` | `string` | Name of the workbook. |
 | <a id="formulas"></a> `formulas?` | `string`[] | A list of formulas in R1C1-reference notation from the workbook. |
+| <a id="name"></a> `name` | `string` | Name of the workbook, in the case of xlsx it will be the filename. |
 | <a id="names"></a> `names` | [`JSFNameDefinition`](#type-aliasesjsfnamedefinitionmd)[] | A list of defined names. |
 | <a id="sheets"></a> `sheets` | [`JSFWorksheet`](#type-aliasesjsfworksheetmd)[] | An ordered list of the worksheets in the workbook. |
 | <a id="styles"></a> `styles` | [`JSFStyle`](#type-aliasesjsfstylemd)[] | Styles for cells in the workbook. |
