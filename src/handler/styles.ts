@@ -1,6 +1,6 @@
 import type { Document, Element } from '@borgar/simple-xml';
 import { type Color, readColor } from '../color.ts';
-import { attr, boolAttr } from '../utils/attr.ts';
+import { attr } from '../utils/attr.ts';
 import { BUILTIN_FORMATS } from '../constants.ts';
 import type { ConversionContext } from '../ConversionContext.ts';
 import type { Theme } from './theme.ts';
@@ -67,7 +67,9 @@ function readXf (d: Element, styles: StyleDefs) {
     xf.numFmt = styles.numFmts[+numFmtId];
   }
 
-  const fillId = boolAttr(d, 'applyFill') ? attr(d, 'fillId') : null;
+  // Spec says you should only read fill if `applyFill` bool is set
+  // but Excel seems to ignore that property and read fill anyway
+  const fillId = attr(d, 'fillId') ?? null;
   if (fillId) {
     xf.fillId = +fillId;
     xf.fill = styles.fill[+fillId];
@@ -157,10 +159,8 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
 
   dom.querySelectorAll('fills > fill > patternFill')
     .forEach(fp => {
-      const type = fp && attr(fp, 'patternType');
-      // const isSolid = type === 'solid';
       styles.fill.push({
-        type: type,
+        type: fp && attr(fp, 'patternType'),
         fg: readColor(fp.querySelectorAll('fgColor')[0], context.theme),
         bg: readColor(fp.querySelectorAll('bgColor')[0], context.theme),
       });

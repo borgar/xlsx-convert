@@ -75,7 +75,7 @@ export class Color {
  * @param {import("@borgar/simple-xml").Element} node
  * @param {import('./handler/theme.js').Theme} theme
  */
-export function readColor (node: Element, theme: Theme) {
+export function readColor (node: Element, theme: Theme, enforceOpaque = true) {
   if (!node) { return null; }
 
   const color = new Color();
@@ -138,6 +138,10 @@ export function readColor (node: Element, theme: Theme) {
     color.r = rgb.r;
     color.g = rgb.g;
     color.b = rgb.b;
+  }
+
+  if (enforceOpaque && color.type) {
+    color.a = 1;
   }
 
   return color.type ? color : null;

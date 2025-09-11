@@ -49,9 +49,11 @@ export async function convertBinary (
   options = Object.assign({}, DEFAULT_OPTIONS, options);
 
   const zip = await loadZip(buffer);
-
   const getFile = async (f: string) => {
-    const fd = await zip.readFile(f, 'utf8');
+    let fd = await zip.readFile(f, 'utf8');
+    if (!fd && f.startsWith('xl/xl/')) {
+      fd = await getFile(f.slice(3));
+    }
     return fd ? parseXML(fd) : null;
   };
 
@@ -72,7 +74,13 @@ export async function convertBinary (
     const rel = (rels || context.rels)
       .find(d => d.type === type);
     if (rel) {
-      return handler(await getFile(rel.target), context);
+      const dom = await getFile(rel.target);
+      if (dom) {
+        return handler(dom, context);
+      }
+      else {
+        throw new Error('Invalid file reference: ' + rel.target);
+      }
     }
     return fallback;
   }
@@ -146,7 +154,11 @@ export async function convertBinary (
       }
 
       // convert the sheet
-      const sh = handlerWorksheet(await getFile(sheetRel.target), context, sheetRels);
+      const sheetFile = await getFile(sheetRel.target);
+      if (!sheetFile) {
+        throw new Error('Missing sheet file: ' + sheetRel.target);
+      }
+      const sh = handlerWorksheet(sheetFile, context, sheetRels);
       sh.name = sheetName;
       wb.sheets[index] = sh;
     }
