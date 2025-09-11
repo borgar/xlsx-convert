@@ -77,7 +77,7 @@
         { "start": 17, "end": 17, "size": 35 }
       ],
       "merges": [],
-      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "defaults": { "colWidth": 422.5, "rowHeight": 16 },
       "hidden": 0,
       "showGridLines": false
     },
@@ -95,7 +95,7 @@
         { "start": 1, "end": 1, "size": 87 }
       ],
       "merges": [],
-      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "defaults": { "colWidth": 422.5, "rowHeight": 16 },
       "hidden": 0
     }
   ],

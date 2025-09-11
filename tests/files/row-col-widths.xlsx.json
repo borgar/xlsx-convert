@@ -33,7 +33,7 @@
         { "start": 16, "end": 19, "size": 20 }
       ],
       "merges": [],
-      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "defaults": { "colWidth": 422.5, "rowHeight": 16 },
       "hidden": 0
     },
     {
@@ -71,7 +71,7 @@
       ],
       "rows": [],
       "merges": [],
-      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "defaults": { "colWidth": 422.5, "rowHeight": 16 },
       "hidden": 0
     },
     {
@@ -191,7 +191,7 @@
         { "start": 11, "end": 13, "size": 0 }
       ],
       "merges": [],
-      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "defaults": { "colWidth": 422.5, "rowHeight": 16 },
       "hidden": 0
     },
     {
@@ -206,7 +206,7 @@
         { "start": 10, "end": 11, "size": 16 }
       ],
       "merges": [],
-      "defaults": { "colWidth": 65, "rowHeight": 30 },
+      "defaults": { "colWidth": 32.5, "rowHeight": 30 },
       "hidden": 0
     },
     {
@@ -221,7 +221,7 @@
         { "start": 27, "end": 37, "size": 20 }
       ],
       "merges": [],
-      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "defaults": { "colWidth": 422.5, "rowHeight": 16 },
       "hidden": 0
     }
   ],

@@ -210,7 +210,7 @@
         "J13:K16",
         "E15:F16"
       ],
-      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "defaults": { "colWidth": 422.5, "rowHeight": 16 },
       "hidden": 0
     }
   ],
