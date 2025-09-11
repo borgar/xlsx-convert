@@ -42,11 +42,8 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
   // find default col/row sizes
   const sheetFormatPr = dom.getElementsByTagName('sheetFormatPr')[0];
   if (sheetFormatPr) {
-    // baseColWidth is also a thing here but Excel seems to ignore it?
-    sheet.defaults.colWidth =
-      numAttr(sheetFormatPr, 'defaultColWidth', sheet.defaults.colWidth) * COL_MULT;
-    sheet.defaults.rowHeight =
-      numAttr(sheetFormatPr, 'defaultRowHeight', sheet.defaults.rowHeight);
+    sheet.defaults.colWidth = numAttr(sheetFormatPr, 'baseColWidth', sheet.defaults.colWidth) * COL_MULT;
+    sheet.defaults.rowHeight = numAttr(sheetFormatPr, 'defaultRowHeight', sheet.defaults.rowHeight);
   }
 
   // decode column widths (3.3.1.12)
