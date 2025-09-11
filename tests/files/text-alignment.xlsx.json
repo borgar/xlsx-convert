@@ -79,7 +79,7 @@
         { "start": 9, "end": 9, "size": 90 }
       ],
       "merges": [],
-      "defaults": { "colWidth": 422.5, "rowHeight": 16 },
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0
     }
   ],
