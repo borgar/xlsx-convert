@@ -206,7 +206,7 @@
         { "start": 10, "end": 11, "size": 16 }
       ],
       "merges": [],
-      "defaults": { "colWidth": 65, "rowHeight": 30 },
+      "defaults": { "colWidth": 5, "rowHeight": 30 },
       "hidden": 0
     },
     {

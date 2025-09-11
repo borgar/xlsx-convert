@@ -42,7 +42,8 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
   // find default col/row sizes
   const sheetFormatPr = dom.getElementsByTagName('sheetFormatPr')[0];
   if (sheetFormatPr) {
-    sheet.defaults.colWidth = numAttr(sheetFormatPr, 'baseColWidth', sheet.defaults.colWidth) * COL_MULT;
+    // baseColWidth is also a thing but how it is used is not very clear in the spec.
+    sheet.defaults.colWidth = numAttr(sheetFormatPr, 'defaultColWidth', sheet.defaults.colWidth);
     sheet.defaults.rowHeight = numAttr(sheetFormatPr, 'defaultRowHeight', sheet.defaults.rowHeight);
   }
 
