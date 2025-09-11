@@ -365,6 +365,11 @@ export type JSFStyle = {
    */
   shrinkToFit?: boolean;
   /**
+   * The degrees to which the cell text should be rotated. Values range from 0 to 180, and 255 to
+   * indicate vertial text. The origin of the rotation is the first letter of the text.
+   */
+  textRotation?: boolean;
+  /**
    * Formatting directions for rendering the cell's value to text.
    */
   numberFormat?: string;

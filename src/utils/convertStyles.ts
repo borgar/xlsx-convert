@@ -30,6 +30,7 @@ function convertStyle (styleDefs: StyleDefs, styleIndex: number): JSFStyle {
   addStyle(s, 'verticalAlignment', style.vAlign, 'bottom');
   addStyle(s, 'wrapText', !!style.wrapText, false);
   addStyle(s, 'shrinkToFit', !!style.shrinkToFit, false);
+  addStyle(s, 'textRotation', style.textRotation, 0);
 
   if (style.font) {
     const font = style.font;

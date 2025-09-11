@@ -1,0 +1,161 @@
+{
+  "name": "text-rotation.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "s": 2, "v": "Lorem ipsum" },
+        "B1": { "s": 1, "v": "Lorem ipsum" },
+        "C1": { "s": 4, "v": "Lorem ipsum" },
+        "D1": { "s": 5, "v": "Lorem ipsum" },
+        "E1": { "s": 6, "v": "Lorem ipsum" },
+        "F1": { "s": 7, "v": "Lorem ipsum" },
+        "G1": { "s": 19, "v": "Lorem ipsum" },
+        "H1": { "s": 20, "v": "Lorem ipsum" },
+        "A4": { "s": 3, "v": "Lorem ipsum dolor set amet" },
+        "B4": { "s": 8, "v": "Lorem ipsum dolor set amet" },
+        "D4": { "s": 9, "v": "Lorem ipsum dolor set amet" },
+        "E4": { "s": 10, "v": "Lorem ipsum dolor set amet" },
+        "F4": { "s": 11, "v": "Lorem ipsum dolor set amet" },
+        "A7": { "s": 5, "v": "Lorem ipsum" },
+        "B7": { "s": 6, "v": "Lorem ipsum" },
+        "C7": { "s": 13, "v": "Lorem ipsum" },
+        "D7": { "s": 14, "v": "Lorem ipsum" },
+        "E7": { "s": 15, "v": "Lorem ipsum" },
+        "F7": { "s": 16, "v": "Lorem ipsum" },
+        "G7": { "s": 17, "v": "Lorem ipsum" },
+        "H7": { "s": 18, "v": "Lorem ipsum" }
+      },
+      "columns": [],
+      "rows": [
+        { "start": 1, "end": 1, "size": 178 },
+        { "start": 4, "end": 4, "size": 61 },
+        { "start": 7, "end": 7, "size": 68 }
+      ],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 },
+    {
+      "textRotation": 135,
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12
+    },
+    {
+      "textRotation": 45,
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12
+    },
+    {
+      "wrapText": true,
+      "textRotation": 45,
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12
+    },
+    {
+      "textRotation": 255,
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12
+    },
+    {
+      "textRotation": 90,
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12
+    },
+    {
+      "textRotation": 180,
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12
+    },
+    {
+      "textRotation": 22,
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12
+    },
+    {
+      "wrapText": true,
+      "textRotation": 135,
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12
+    },
+    {
+      "wrapText": true,
+      "textRotation": 90,
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12
+    },
+    {
+      "wrapText": true,
+      "textRotation": 180,
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12
+    },
+    {
+      "wrapText": true,
+      "textRotation": 22,
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12
+    },
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 },
+    {
+      "verticalAlignment": "center",
+      "textRotation": 90,
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12
+    },
+    {
+      "verticalAlignment": "center",
+      "textRotation": 180,
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12
+    },
+    {
+      "horizontalAlignment": "center",
+      "textRotation": 90,
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12
+    },
+    {
+      "horizontalAlignment": "center",
+      "textRotation": 180,
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12
+    },
+    {
+      "horizontalAlignment": "left",
+      "verticalAlignment": "top",
+      "textRotation": 90,
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12
+    },
+    {
+      "horizontalAlignment": "left",
+      "verticalAlignment": "top",
+      "textRotation": 180,
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12
+    },
+    {
+      "textRotation": 91,
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12
+    },
+    {
+      "textRotation": 1,
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12
+    }
+  ],
+  "tables": [],
+  "formulas": []
+}

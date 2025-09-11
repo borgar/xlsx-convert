@@ -53,6 +53,7 @@ type Xf = Partial<{
   vAlign: string;
   wrapText: boolean;
   shrinkToFit: boolean;
+  textRotation: number;
 }>;
 
 function readXf (d: Element, styles: StyleDefs) {
@@ -93,10 +94,12 @@ function readXf (d: Element, styles: StyleDefs) {
     const vAlign = attr(align, 'vertical');
     const wrapText = attr(align, 'wrapText');
     const shrinkToFit = attr(align, 'shrinkToFit');
+    const textRotation = attr(align, 'textRotation');
     if (hAlign) { xf.hAlign = hAlign; }
     if (vAlign) { xf.vAlign = vAlign; }
     if (wrapText) { xf.wrapText = !!+wrapText; }
     if (shrinkToFit) { xf.shrinkToFit = !!+shrinkToFit; }
+    if (textRotation) { xf.textRotation = +textRotation; }
   }
 
   return xf;

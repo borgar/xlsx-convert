@@ -28,6 +28,7 @@ const tests = [
   'tests/files/table.xlsx',
   'tests/files/text-alignment.xlsx',
   'tests/files/text-color.xlsx',
+  'tests/files/text-rotation.xlsx',
   'tests/files/epoch1900.xlsx',
   'tests/files/epoch1900-strict.xlsx',
   'tests/files/epoch1904.xlsx',
