@@ -119,7 +119,7 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
         if (context.options.skipMerged) {
           if (context._merged[id] && context._merged[id] !== id) {
             // check if there are needed styles
-            if (!('s' in c) || !relevantStyle(context.workbook.styles[c.s])) {
+            if (!c || !('s' in c) || !relevantStyle(context.workbook.styles[c.s])) {
               // this cell is part of a merged range and has no required styles
               return;
             }
