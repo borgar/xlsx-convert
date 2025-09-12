@@ -42,8 +42,13 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
   // find default col/row sizes
   const sheetFormatPr = dom.getElementsByTagName('sheetFormatPr')[0];
   if (sheetFormatPr) {
-    // baseColWidth is also a thing but how it is used is not very clear in the spec.
-    sheet.defaults.colWidth = numAttr(sheetFormatPr, 'defaultColWidth', sheet.defaults.colWidth);
+    let defaultColWidth = numAttr(sheetFormatPr, 'defaultColWidth');
+    if (defaultColWidth == null) {
+      // If the user has not set defaultColWidth manually, then it can be calculated:
+      // defaultColWidth = baseColumnWidth + {padding (2 * 2 px)} + {gridline (1 px)}
+      defaultColWidth = (numAttr(sheetFormatPr, 'baseColWidth') * COL_MULT);
+    }
+    sheet.defaults.colWidth = defaultColWidth ?? sheet.defaults.colWidth;
     sheet.defaults.rowHeight = numAttr(sheetFormatPr, 'defaultRowHeight', sheet.defaults.rowHeight);
   }
 
