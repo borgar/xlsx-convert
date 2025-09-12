@@ -25,7 +25,7 @@ export type ConversionOptions = {
  *
  * @param filename Target filename to convert
  * @param options Conversion options
- * @param [options.skipMerged] Skip any cells that are a part of merges.
+ * @param [options.skipMerged] Skip any redundant cells that are a part of merges.
  * @param [options.cellFormulas] Formulas are attached to cells rather than being included separately.
  * @return A JSON spreadsheet object.
  */

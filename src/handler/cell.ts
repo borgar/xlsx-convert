@@ -9,7 +9,7 @@ import { ConversionContext } from '../ConversionContext.ts';
 import type { JSFCell } from '../jsf-types.ts';
 import { dateToSerial } from '../utils/dateToSerial.ts';
 
-const relevantStyle = (obj: Record<string, any>): boolean => {
+export const relevantStyle = (obj: Record<string, any>): boolean => {
   return !!(
     // obj['number-format'] ||
     obj.fillColor ||

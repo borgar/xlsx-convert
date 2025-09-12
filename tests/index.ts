@@ -129,7 +129,7 @@ function makeNiceJson (ent) {
 }
 
 async function testFile (xlsxFilename: string, testFilename: string) {
-  const wb = await convert(xlsxFilename, { skipMerged: false });
+  const wb = await convert(xlsxFilename);
 
   const resultJson = JSON.parse(JSON.stringify(wb));
   let expectJson = {};

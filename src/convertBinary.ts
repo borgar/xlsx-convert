@@ -91,7 +91,7 @@ export async function convertBinary (
 
   const context = new ConversionContext();
   context.rels = await getRels(wbRel.target);
-  context.options = Object.assign({}, DEFAULT_OPTIONS, options);
+  context.options = options;
   context.filename = pathBasename(filename);
 
   // external links

@@ -1,7 +1,7 @@
 import { parseA1Ref, stringifyA1Ref } from '@borgar/fx';
 import { attr, numAttr } from '../utils/attr.ts';
 import { rle } from '../utils/rle.ts';
-import { handlerCell } from './cell.ts';
+import { handlerCell, relevantStyle } from './cell.ts';
 import { Document } from '@borgar/simple-xml';
 import { ConversionContext } from '../ConversionContext.ts';
 import type { Rel } from './rels.ts';
@@ -115,13 +115,16 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
       // cells
       row.querySelectorAll('> c').forEach(d => {
         const id = attr(d, 'r');
+        const c = handlerCell(d, context);
         if (context.options.skipMerged) {
           if (context._merged[id] && context._merged[id] !== id) {
-            // this cell is part of a merged range
-            return;
+            // check if there are needed styles
+            if (!('s' in c) || !relevantStyle(context.workbook.styles[c.s])) {
+              // this cell is part of a merged range and has no required styles
+              return;
+            }
           }
         }
-        const c = handlerCell(d, context);
         if (c) {
           if (hyperLinks.has(id)) {
             c.l = hyperLinks.get(id);
