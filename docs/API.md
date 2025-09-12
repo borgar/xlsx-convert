@@ -527,6 +527,7 @@ type JSFStyle = {
   patternColor?: JSFColor;
   patternStyle?: JSFPatternStyle;
   shrinkToFit?: boolean;
+  textRotation?: boolean;
   underline?: JSFUnderline;
   verticalAlignment?: JSFVAlign;
   wrapText?: boolean;
@@ -558,6 +559,7 @@ Captures the styles which apply to a cell.
 | <a id="patterncolor"></a> `patternColor?` | [`JSFColor`](#type-aliasesjsfcolormd) | `"#000000"` | The color of a cell's background fill. |
 | <a id="patternstyle"></a> `patternStyle?` | [`JSFPatternStyle`](#type-aliasesjsfpatternstylemd) | `"none"` | The style of a cell's background fill. |
 | <a id="shrinktofit"></a> `shrinkToFit?` | `boolean` | `undefined` | Indicates whether the font-size should be automatically reduced in order to make the contents of the cell visible. |
+| <a id="textrotation"></a> `textRotation?` | `boolean` | `undefined` | The degrees to which the cell text should be rotated. Values range from 0 to 180, and 255 to indicate vertial text. The origin of the rotation is the first letter of the text. |
 | <a id="underline"></a> `underline?` | [`JSFUnderline`](#type-aliasesjsfunderlinemd) | `"none"` | Text underline decoration type. |
 | <a id="verticalalignment"></a> `verticalAlignment?` | [`JSFVAlign`](#type-aliasesjsfvalignmd) | `"bottom"` | Vertical alignment of the cells [text] content. |
 | <a id="wraptext"></a> `wrapText?` | `boolean` | `false` | Indicates whether text should be wrapped when it exceeds the cell's width. |
