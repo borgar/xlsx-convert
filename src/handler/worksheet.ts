@@ -27,7 +27,7 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
 
   const sheetView = dom.querySelector('sheetViews > sheetView');
   // zoomScale/zoomScaleNormal
-  if (attr(sheetView, 'showGridLines') === '0') {
+  if (sheetView && attr(sheetView, 'showGridLines') === '0') {
     sheet.showGridLines = false;
   }
 
