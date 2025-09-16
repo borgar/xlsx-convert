@@ -70,8 +70,8 @@
         "B17": { "v": "#VALUE!", "t": "e", "f": 0 }
       },
       "columns": [
-        { "start": 1, "end": 1, "size": 32.5 },
-        { "start": 2, "end": 16, "size": 31.560546875 }
+        { "start": 1, "end": 1, "size": 30 },
+        { "start": 2, "end": 16, "size": 29 }
       ],
       "rows": [
         { "start": 17, "end": 17, "size": 35 }
@@ -88,8 +88,8 @@
         "B1": { "v": "#VALUE!", "t": "e" }
       },
       "columns": [
-        { "start": 1, "end": 1, "size": 100.267578125 },
-        { "start": 2, "end": 2, "size": 80.767578125 }
+        { "start": 1, "end": 1, "size": 93 },
+        { "start": 2, "end": 2, "size": 75 }
       ],
       "rows": [
         { "start": 1, "end": 1, "size": 87 }

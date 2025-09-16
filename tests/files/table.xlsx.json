@@ -1754,15 +1754,15 @@
         "J153": { "s": 1, "v": 119.34635761589401, "f": 8 }
       },
       "columns": [
-        { "start": 1, "end": 1, "size": 86.658203125 },
-        { "start": 2, "end": 2, "size": 72.56640625 },
-        { "start": 5, "end": 5, "size": 73.658203125 },
-        { "start": 6, "end": 6, "size": 75.81640625 },
-        { "start": 7, "end": 7, "size": 76.908203125 },
-        { "start": 8, "end": 8, "size": 82.31640625 },
-        { "start": 9, "end": 9, "size": 75.81640625 },
-        { "start": 10, "end": 10, "size": 82.31640625 },
-        { "start": 12, "end": 12, "size": 109.408203125 }
+        { "start": 1, "end": 1, "size": 80 },
+        { "start": 2, "end": 2, "size": 67 },
+        { "start": 5, "end": 5, "size": 68 },
+        { "start": 6, "end": 6, "size": 70 },
+        { "start": 7, "end": 7, "size": 71 },
+        { "start": 8, "end": 8, "size": 76 },
+        { "start": 9, "end": 9, "size": 70 },
+        { "start": 10, "end": 10, "size": 76 },
+        { "start": 12, "end": 12, "size": 101 }
       ],
       "rows": [],
       "merges": [],
@@ -1838,7 +1838,7 @@
         "C26": { "v": "Obesity class 3" }
       },
       "columns": [
-        { "start": 3, "end": 3, "size": 104 }
+        { "start": 3, "end": 3, "size": 96 }
       ],
       "rows": [],
       "merges": [],

@@ -96,8 +96,8 @@
         "K14": { "s": 90 }
       },
       "columns": [
-        { "start": 1, "end": 1, "size": 34.658203125 },
-        { "start": 2, "end": 11, "size": 17.31640625 }
+        { "start": 1, "end": 1, "size": 32 },
+        { "start": 2, "end": 11, "size": 16 }
       ],
       "rows": [
         { "start": 3, "end": 3, "size": 8 },

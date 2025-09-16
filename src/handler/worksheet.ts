@@ -6,8 +6,7 @@ import { Document } from '@borgar/simple-xml';
 import { ConversionContext } from '../ConversionContext.ts';
 import type { Rel } from './rels.ts';
 import type { JSFWorksheet } from '../jsf-types.ts';
-
-const COL_MULT = 6.5;
+import { colWidth } from '../utils/colWidth.ts';
 
 export function handlerWorksheet (dom: Document, context: ConversionContext, rels: Rel[]): JSFWorksheet {
   const sheet: JSFWorksheet = {
@@ -17,7 +16,7 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
     rows: [],
     merges: [],
     defaults: {
-      colWidth: 10 * COL_MULT,
+      colWidth: colWidth(10, 5),
       rowHeight: 16,
     },
     // drawings: [],
@@ -42,14 +41,12 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
   // find default col/row sizes
   const sheetFormatPr = dom.getElementsByTagName('sheetFormatPr')[0];
   if (sheetFormatPr) {
-    let defaultColWidth = numAttr(sheetFormatPr, 'defaultColWidth');
-    if (defaultColWidth == null) {
-      // If the user has not set defaultColWidth manually, then it can be calculated:
-      // defaultColWidth = baseColumnWidth + {padding (2 * 2 px)} + {gridline (1 px)}
-      defaultColWidth = (numAttr(sheetFormatPr, 'baseColWidth') * COL_MULT);
-    }
-    sheet.defaults.colWidth = defaultColWidth ?? sheet.defaults.colWidth;
-    sheet.defaults.rowHeight = numAttr(sheetFormatPr, 'defaultRowHeight', sheet.defaults.rowHeight);
+    const baseColWidthChars = numAttr(sheetFormatPr, 'baseColWidth', null);
+    const defaultColWidthChars = numAttr(sheetFormatPr, 'defaultColWidth', null);
+    sheet.defaults.colWidth =
+      colWidth(defaultColWidthChars, 0) ??
+      colWidth(baseColWidthChars, 5) ??
+      colWidth(10, 5);
   }
 
   // decode column widths (3.3.1.12)
@@ -57,11 +54,10 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
     const min = numAttr(d, 'min', 0);
     const max = numAttr(d, 'max', 100000); // FIXME: What is the actual max value?
     const hidden = numAttr(d, 'hidden', 0);
-    const width = hidden ? 0 : numAttr(d, 'width') * COL_MULT; // width is given in points (height in px)
     sheet.columns.push({
       start: min,
       end: max,
-      size: width,
+      size: colWidth(hidden ? 0 : numAttr(d, 'width')),
     });
   });
 

@@ -72,7 +72,7 @@
         "B16": { "s": 46, "v": "indent 5" }
       },
       "columns": [
-        { "start": 2, "end": 9, "size": 97.5 }
+        { "start": 2, "end": 9, "size": 90 }
       ],
       "rows": [
         { "start": 2, "end": 6, "size": 90 },
@@ -271,9 +271,9 @@
     { "horizontalAlignment": "left", "fontSize": 12 },
     { "horizontalAlignment": "left", "fontSize": 12 },
     { "horizontalAlignment": "left", "fontSize": 12 },
-    { "fontSize": 12 },
-    { "fontSize": 12 },
-    { "fontSize": 12 }
+    { "textRotation": 135, "fontSize": 12 },
+    { "textRotation": 45, "fontSize": 12 },
+    { "textRotation": 255, "fontSize": 12 }
   ],
   "tables": [],
   "formulas": []

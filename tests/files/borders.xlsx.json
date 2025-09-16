@@ -52,14 +52,14 @@
         "L12": { "s": 24 }
       },
       "columns": [
-        { "start": 2, "end": 3, "size": 21.658203125 },
-        { "start": 4, "end": 4, "size": 43.31640625 },
-        { "start": 5, "end": 6, "size": 21.658203125 },
-        { "start": 7, "end": 7, "size": 43.31640625 },
-        { "start": 8, "end": 9, "size": 21.658203125 },
-        { "start": 10, "end": 10, "size": 43.31640625 },
-        { "start": 11, "end": 12, "size": 21.658203125 },
-        { "start": 13, "end": 14, "size": 70.408203125 }
+        { "start": 2, "end": 3, "size": 20 },
+        { "start": 4, "end": 4, "size": 40 },
+        { "start": 5, "end": 6, "size": 20 },
+        { "start": 7, "end": 7, "size": 40 },
+        { "start": 8, "end": 9, "size": 20 },
+        { "start": 10, "end": 10, "size": 40 },
+        { "start": 11, "end": 12, "size": 20 },
+        { "start": 13, "end": 14, "size": 65 }
       ],
       "rows": [
         { "start": 2, "end": 3, "size": 20 },

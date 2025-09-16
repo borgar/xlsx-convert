@@ -58,16 +58,16 @@
         "Q1": { "v": 40 }
       },
       "columns": [
-        { "start": 2, "end": 2, "size": 17.31640625 },
-        { "start": 3, "end": 3, "size": 34.658203125 },
-        { "start": 4, "end": 4, "size": 69.31640625 },
-        { "start": 5, "end": 5, "size": 70.408203125 },
-        { "start": 6, "end": 6, "size": 138.658203125 },
-        { "start": 7, "end": 10, "size": 43.31640625 },
-        { "start": 11, "end": 11, "size": 70.408203125 },
-        { "start": 12, "end": 13, "size": 97.5 },
-        { "start": 14, "end": 14, "size": 70.408203125 },
-        { "start": 15, "end": 17, "size": 43.31640625 }
+        { "start": 2, "end": 2, "size": 16 },
+        { "start": 3, "end": 3, "size": 32 },
+        { "start": 4, "end": 4, "size": 64 },
+        { "start": 5, "end": 5, "size": 65 },
+        { "start": 6, "end": 6, "size": 128 },
+        { "start": 7, "end": 10, "size": 40 },
+        { "start": 11, "end": 11, "size": 65 },
+        { "start": 12, "end": 13, "size": 90 },
+        { "start": 14, "end": 14, "size": 65 },
+        { "start": 15, "end": 17, "size": 40 }
       ],
       "rows": [],
       "merges": [],
@@ -198,23 +198,20 @@
       "name": "Full sheet",
       "cells": {},
       "columns": [
-        { "start": 7, "end": 8, "size": 18.408203125 },
-        { "start": 11, "end": 12, "size": 70.408203125 }
+        { "start": 7, "end": 8, "size": 17 },
+        { "start": 11, "end": 12, "size": 65 }
       ],
-      "rows": [
-        { "start": 7, "end": 8, "size": 16 },
-        { "start": 10, "end": 11, "size": 16 }
-      ],
+      "rows": [],
       "merges": [],
-      "defaults": { "colWidth": 5, "rowHeight": 30 },
+      "defaults": { "colWidth": 30, "rowHeight": 16 },
       "hidden": 0
     },
     {
       "name": "Long-repeats",
       "cells": {},
       "columns": [
-        { "start": 2, "end": 26, "size": 10.81640625 },
-        { "start": 28, "end": 52, "size": 17.31640625 }
+        { "start": 2, "end": 26, "size": 10 },
+        { "start": 28, "end": 52, "size": 16 }
       ],
       "rows": [
         { "start": 2, "end": 25, "size": 10 },
