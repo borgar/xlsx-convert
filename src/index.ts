@@ -2,6 +2,7 @@ import type { JSFWorkbook } from './jsf-types.ts';
 import { convertBinary } from './convertBinary.ts';
 
 export type * from './jsf-types.ts';
+export { InvalidFileError, EncryptionError, MissingSheetError, UnsupportedError } from './errors.ts';
 
 /** Convertion options */
 export type ConversionOptions = {

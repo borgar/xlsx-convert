@@ -8,6 +8,7 @@ import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { ConversionContext } from '../ConversionContext.ts';
 import type { JSFCell } from '../jsf-types.ts';
 import { dateToSerial } from '../utils/dateToSerial.ts';
+import { UnsupportedError } from '../errors.ts';
 
 export const relevantStyle = (obj: Record<string, any>): boolean => {
   return !!(
@@ -117,7 +118,7 @@ export function handlerCell (node: Element, context: ConversionContext): JSFCell
       cell.v = val;
     }
     else {
-      throw new Error('Missing support for data type: ' + valueType);
+      throw new UnsupportedError('Missing support for data type: ' + valueType);
     }
   }
 

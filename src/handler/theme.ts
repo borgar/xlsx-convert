@@ -22,8 +22,8 @@ export type Theme = {
   indexedColors: string[];
 };
 
-export function handlerTheme (dom: Document): Theme {
-  const theme: Theme = {
+export function getBlankTheme (): Theme {
+  return {
     // FIXME: what is the default windows Excel color scheme? (clue: not this)
     scheme: [
       'WindowText',
@@ -41,7 +41,10 @@ export function handlerTheme (dom: Document): Theme {
     ],
     indexedColors: [ ...COLOR_INDEX ],
   };
+}
 
+export function handlerTheme (dom: Document): Theme {
+  const theme: Theme = getBlankTheme();
   const elements = dom.querySelectorAll('theme > themeElements > clrScheme > *');
 
   elements.forEach(d => {

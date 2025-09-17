@@ -1,5 +1,10 @@
+export type FileContainer = {
+  readFile (name: string, mode: 'utf8'): Promise<string> | null;
+  readFile (name: string, mode?: 'binary'): Promise<ArrayBuffer> | null;
+};
+
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-export async function loadZip (archive: ArrayBuffer | Buffer) {
+export async function loadZip (archive: ArrayBuffer | Buffer): Promise<FileContainer> {
   let JSZip;
   // @ts-expect-error JSZip does not import in a browser
   if (typeof window !== 'undefined' && window.JSZip) {
@@ -16,7 +21,7 @@ export async function loadZip (archive: ArrayBuffer | Buffer) {
 
   const zip = await (new JSZip().loadAsync(archive));
   return {
-    readFile: (name: string, mode: ('utf8' | 'binary') = 'binary') => {
+    readFile: (name: string, mode = 'binary') => {
       const normName = name.replace(/^\.\//g, '');
       const fd = zip.file(normName);
       return fd ? fd.async(mode == 'utf8' ? 'string' : 'arraybuffer') : null;

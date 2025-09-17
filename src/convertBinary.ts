@@ -1,13 +1,14 @@
 import { Document, parseXML } from '@borgar/simple-xml';
 import { pathBasename, pathDirname, pathJoin } from './utils/path.ts';
 import { convertStyles } from './utils/convertStyles.ts';
-import { loadZip } from './utils/zip.ts';
+import { loadZip, type FileContainer } from './utils/zip.ts';
+import { CFBF, getBinaryFileType, ZIP } from './utils/getBinaryFileType.ts';
 import { ConversionContext } from './ConversionContext.ts';
 import { handlerRels, type Rel } from './handler/rels.ts';
 import { handlerWorkbook } from './handler/workbook.ts';
 import { handlerSharedStrings } from './handler/sharedstrings.ts';
 import { handlerPersons } from './handler/persons.ts';
-import { handlerTheme } from './handler/theme.ts';
+import { getBlankTheme, handlerTheme } from './handler/theme.ts';
 import { handlerStyles } from './handler/styles.ts';
 import { handlerRDStruct } from './handler/rdstuct.ts';
 import { handlerRDValue } from './handler/rdvalue.ts';
@@ -18,6 +19,7 @@ import { handlerExternal } from './handler/external.ts';
 import { handlerTable } from './handler/table.ts';
 import type { JSFWorkbook } from './jsf-types.ts';
 import type { ConversionOptions } from './index.ts';
+import { EncryptionError, InvalidFileError, MissingSheetError } from './errors.ts';
 
 /**
  * Default conversion options
@@ -44,17 +46,37 @@ export async function convertBinary (
   options?: ConversionOptions,
 ): Promise<JSFWorkbook> {
   if (!(buffer instanceof ArrayBuffer || buffer instanceof Buffer)) {
-    throw new Error('Input is not a valid binary');
+    throw new InvalidFileError('Input is not a valid binary');
   }
   options = Object.assign({}, DEFAULT_OPTIONS, options);
 
-  const zip = await loadZip(buffer);
+  const fileType = getBinaryFileType(buffer);
+  if (fileType === CFBF) {
+    throw new EncryptionError('Input file is encrypted');
+  }
+  else if (fileType !== ZIP) {
+    throw new InvalidFileError('Input file type is unsupported');
+  }
+
+  let zip: FileContainer;
+  try {
+    zip = await loadZip(buffer);
+  }
+  catch (err) {
+    throw new InvalidFileError('Input file type is corrupted or unsupported');
+  }
+
   const getFile = async (f: string) => {
-    let fd = await zip.readFile(f, 'utf8');
-    if (!fd && f.startsWith('xl/xl/')) {
-      fd = await getFile(f.slice(3));
+    try {
+      let fd = await zip.readFile(f, 'utf8');
+      if (!fd && f.startsWith('xl/xl/')) {
+        fd = await zip.readFile(f.slice(3), 'utf8');
+      }
+      return fd ? parseXML(fd) : null;
     }
-    return fd ? parseXML(fd) : null;
+    catch (err) {
+      throw new InvalidFileError('Input file type is corrupted');
+    }
   };
 
   const getRels = async (f = '') => {
@@ -79,7 +101,7 @@ export async function convertBinary (
         return handler(dom, context);
       }
       else {
-        throw new Error('Invalid file reference: ' + rel.target);
+        throw new ReferenceError('Invalid file reference: ' + rel.target);
       }
     }
     return fallback;
@@ -98,9 +120,14 @@ export async function convertBinary (
   for (const rel of context.rels) {
     if (rel.type === 'externalLink') {
       const extRels = await getRels(rel.target);
-      const fileName = extRels.find(d => d.id === 'rId1').target;
-      const exlink = handlerExternal(await getFile(rel.target), fileName);
-      context.externalLinks.push(exlink);
+      const fileName = extRels.find(d => d.id === 'rId1')?.target;
+      if (fileName) {
+        const exlink = handlerExternal(await getFile(rel.target), fileName);
+        context.externalLinks.push(exlink);
+      }
+      else {
+        // TODO: Throw in strict mode?
+      }
     }
   }
 
@@ -125,7 +152,7 @@ export async function convertBinary (
   context.metadata = await maybeRead(context, 'sheetMetadata', handlerMetaData);
 
   // theme / styles
-  context.theme = await maybeRead(context, 'theme', handlerTheme);
+  context.theme = await maybeRead(context, 'theme', handlerTheme) ?? getBlankTheme();
   const styleDefs = await maybeRead(context, 'styles', handlerStyles);
   wb.styles = convertStyles(styleDefs);
 
@@ -156,14 +183,14 @@ export async function convertBinary (
       // convert the sheet
       const sheetFile = await getFile(sheetRel.target);
       if (!sheetFile) {
-        throw new Error('Missing sheet file: ' + sheetRel.target);
+        throw new MissingSheetError('Missing sheet file: ' + sheetRel.target);
       }
       const sh = handlerWorksheet(sheetFile, context, sheetRels);
       sh.name = sheetName;
       wb.sheets[index] = sh;
     }
     else {
-      throw new Error('No rel found for sheet ' + sheetLink.rId);
+      // TODO: add strict mode that: throw new Error('No rel found for sheet ' + sheetLink.rId);
     }
   }));
 
