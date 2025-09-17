@@ -5,16 +5,17 @@ export const ZIP = 1;
 export const CFBF = 2;
 
 export function getBinaryFileType (buffer: Buffer | ArrayBuffer): null | number {
+  const head = new Uint8Array(buffer);
   // detect PKZip
   if (
-    buffer[0] === ZIP_HEAD[0] &&
-    buffer[1] === ZIP_HEAD[1] &&
-    buffer[2] === ZIP_HEAD[2] &&
-    buffer[3] === ZIP_HEAD[3]) {
+    head[0] === ZIP_HEAD[0] &&
+    head[1] === ZIP_HEAD[1] &&
+    head[2] === ZIP_HEAD[2] &&
+    head[3] === ZIP_HEAD[3]) {
     return ZIP;
   }
   // detect CFBF (OLE Compound File)
-  if (CFBF_HEAD.every((d, i) => buffer[i] === d)) {
+  if (CFBF_HEAD.every((d, i) => head[i] === d)) {
     return CFBF;
   }
   return null;
