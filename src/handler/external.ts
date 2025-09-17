@@ -3,7 +3,7 @@ import { attr, numAttr } from '../utils/attr.ts';
 import { handlerCell } from './cell.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { ConversionContext } from '../ConversionContext.ts';
-import type { JSFExternal } from '../jsf-types.ts';
+import type { JSFExternal, JSFNameDefinition } from '../jsf-types.ts';
 
 export function handlerExternal (dom: Document, fileName:string = ''): JSFExternal {
   const external: JSFExternal = {
@@ -40,10 +40,14 @@ export function handlerExternal (dom: Document, fileName:string = ''): JSFExtern
   // read defined names
   dom.querySelectorAll('definedNames > definedName')
     .forEach(definedName => {
-      external.names.push({
+      const nameDef: JSFNameDefinition = {
         name: attr(definedName, 'name'),
-        value: normalizeFormula(attr(definedName, 'refersTo'), {}),
-      });
+      };
+      const expr = attr(definedName, 'refersTo');
+      if (expr) {
+        nameDef.value = normalizeFormula(expr, {});
+      }
+      external.names.push(nameDef);
     });
 
   return external;
