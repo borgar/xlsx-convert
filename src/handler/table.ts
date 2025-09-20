@@ -1,8 +1,10 @@
 import type { Document } from '@borgar/simple-xml';
 import type { ConversionContext } from '../ConversionContext.ts';
-import { attr, numAttr } from '../utils/attr.ts';
+import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
-import type { JSFTable, JSFTableColumn } from '../jsf-types.ts';
+import type { JSFTable, JSFTableColumn, JSFTableStyle, JSFTableStyleName } from '../jsf-types.ts';
+
+const reTableStyleName = /^TableStyle(Dark(\d|10|11)|Light(1?\d|20|21)|Medium(1?\d|2[0-8]))$/;
 
 export function handlerTable (dom: Document, context: ConversionContext): JSFTable | void {
   const tableElm = dom.getElementsByTagName('table')[0];
@@ -18,14 +20,54 @@ export function handlerTable (dom: Document, context: ConversionContext): JSFTab
     // alt text: extLst>ext>table[altTextSummary]
   };
 
-  // table has a sortState
-  // table has props for: row/col stripes, bold first/last column
+  // todo: table can have a sortState
+
+  const tableStyleInfo = tableElm.getElementsByTagName('tableStyleInfo')[0];
+  if (tableStyleInfo) {
+    // This may be a bit confusing:
+    //
+    // Excel does not have a "none" value for the table style:
+    //
+    // 1. When there is no <tableStyleInfo /> in the file, the table should use "TableStyleMedium2"
+    // 2. When there is a <tableStyleInfo /> element, its name dictates the style.
+    // 3. When <tableStyleInfo /> does not have a name, no table styles should be used.
+    //
+    // The JSF tries to make this clearer by defaulting name to "TableStyleMedium2" but adding
+    // a "none" type to be explicit about no style.
+    const tableStyle: JSFTableStyle = {
+      name: 'none',
+      showRowStripes: true,
+      showColumnStripes: false,
+      showFirstColumn: false,
+      showLastColumn: false,
+    };
+    const name = attr(tableStyleInfo, 'name');
+    if (name && reTableStyleName.test(name)) {
+      tableStyle.name = name as JSFTableStyleName;
+    }
+    tableStyle.showRowStripes = boolAttr(tableStyleInfo, 'showRowStripes', true);
+    tableStyle.showColumnStripes = boolAttr(tableStyleInfo, 'showColumnStripes', false);
+    tableStyle.showFirstColumn = boolAttr(tableStyleInfo, 'showFirstColumn', false);
+    tableStyle.showLastColumn = boolAttr(tableStyleInfo, 'showLastColumn', false);
+
+    // only add the style if it has changes from the defaults
+    if (
+      tableStyle.name !== 'TableStyleMedium2' ||
+      !tableStyle.showRowStripes ||
+      tableStyle.showColumnStripes ||
+      tableStyle.showFirstColumn ||
+      tableStyle.showLastColumn
+    ) {
+      table.style = tableStyle;
+    }
+  }
 
   tableElm
     .querySelectorAll('tableColumns > tableColumn')
     .forEach(node => {
       const column: JSFTableColumn = {
         name: attr(node, 'name'),
+        // TODO: totalsRowLabel
         // totalsRowLabel: attr(node, 'totalsRowLabel'),
       };
 
