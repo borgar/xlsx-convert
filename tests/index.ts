@@ -33,6 +33,7 @@ const tests = [
   'tests/files/epoch1900-strict.xlsx',
   'tests/files/epoch1904.xlsx',
   'tests/files/epoch1904-strict.xlsx',
+  'tests/files/table-styles.xlsx',
 ];
 
 function getType (a) {
