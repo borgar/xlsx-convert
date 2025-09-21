@@ -21,7 +21,8 @@
     "lint": "eslint *.js tests/ src/",
     "typecheck": "tsc --noEmit",
     "docs": "typedoc && concat-md tempdocs > docs/API.md && rm -rf tempdocs",
-    "test": "node --experimental-transform-types tests/index.ts",
+    "test:unit": "vitest run src/**/*.spec.ts",
+    "test": "npm run test:unit && node --experimental-transform-types tests/index.ts",
     "updatetests": "UPDATE_TESTS=1 node --experimental-transform-types tests/index.ts",
     "check": "npm run test && npm run lint && npm run typecheck",
     "release": "git diff --exit-code && tsup && npm publish && V=$(jq -r .version package.json) && git tag -a $V -m $V && git push origin $V && gh release create $V --generate-notes"
@@ -76,6 +77,7 @@
     "typedoc": "~0.28.13",
     "typedoc-plugin-markdown": "~4.8.1",
     "typescript": "~5.9.2",
-    "typescript-eslint": "~8.44.0"
+    "typescript-eslint": "~8.44.0",
+    "vitest": "~3.2.4"
   }
 }
