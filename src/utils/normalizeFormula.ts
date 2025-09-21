@@ -16,6 +16,9 @@ function updateContext (ref: Ref, externalLinks: JSFExternal[]): RefContext {
     if (externalLinks[wbIndex]) {
       context.push(externalLinks[wbIndex].filename);
     }
+    else {
+      throw new Error('#REF!');
+    }
   }
   if (ref.sheetName) {
     context.push(ref.sheetName);
@@ -24,6 +27,10 @@ function updateContext (ref: Ref, externalLinks: JSFExternal[]): RefContext {
 }
 
 export function normalizeFormula (formula: string, wb): string {
+  // quickly test if work is actually needed
+  if (!/_xl(?:fn|udf|ws|pm)\.|\[/i.test(formula)) {
+    return formula;
+  }
   const tokens = tokenize(formula.normalize(), { xlsx: true });
   let normalized = '';
   tokens.forEach(t => {
@@ -32,7 +39,7 @@ export function normalizeFormula (formula: string, wb): string {
       normalized += t.value.replace(/^(?:_xlfn\.|_xludf\.|_xlws\.)+/i, '');
       return;
     }
-    else if (isReference(t) && wb?.externalLinks) {
+    else if (isReference(t)) {
       if (t.type === tokenTypes.REF_NAMED) {
         t.value = t.value.replace(/^(?:_xlpm\.)/ig, '');
       }
@@ -42,18 +49,23 @@ export function normalizeFormula (formula: string, wb): string {
       // `[2]Sheet1!A1`, rather than including a name `[Workbook.xlsx]Sheet1!A1`
       if (t.value.includes('[')) {
         let newValue: string;
-        if (t.type === tokenTypes.REF_STRUCT) {
-          const ref = parseStructRef(t.value, { xlsx: true });
-          if (ref.table && wb.tables?.length) {
-            // TODO: omit the table prefix if current cell is within the table
+        try {
+          if (t.type === tokenTypes.REF_STRUCT) {
+            const ref = parseStructRef(t.value, { xlsx: true });
+            if (ref.table && wb.tables?.length) {
+              // TODO: omit the table prefix if current cell is within the table
+            }
+            ref.context = updateContext(ref, wb.externalLinks);
+            newValue = stringifyStructRef(ref);
           }
-          ref.context = updateContext(ref, wb.externalLinks);
-          newValue = stringifyStructRef(ref);
+          else {
+            const ref = parseA1Ref(t.value, { xlsx: true });
+            ref.context = updateContext(ref, wb.externalLinks);
+            newValue = stringifyA1Ref(ref);
+          }
         }
-        else {
-          const ref = parseA1Ref(t.value, { xlsx: true });
-          ref.context = updateContext(ref, wb.externalLinks);
-          newValue = stringifyA1Ref(ref);
+        catch (err) {
+          newValue = '#REF!';
         }
         normalized += newValue;
         return;
