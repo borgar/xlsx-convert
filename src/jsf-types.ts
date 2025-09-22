@@ -44,7 +44,7 @@ export type JSFWorksheet = {
    * - 1 = sheet is hidden
    * - 2 = sheet is "extra hidden"
    */
-  hidden: 0 | 1 | 2;
+  hidden?: 0 | 1 | 2;
   /** Indicates whether a hairline-grid should be drawn when displaying the sheet. */
   showGridLines?: boolean;
 };
@@ -226,12 +226,14 @@ export type JSFTableColumn = {
    * Describes the type of values found in the cells of the column, when they are uniform.
    * @defaultValue "unknown"
    */
-  dataType?: 'text' | 'number' | 'boolean' | 'datetime' | 'unknown';
+  dataType?: JSFColumnDataType;
   /**
    * If the column is a calculated column, then this field must include the formula used.
    */
   formula?: string;
 };
+
+export type JSFColumnDataType = 'text' | 'number' | 'boolean' | 'datetime' | 'unknown';
 
 /**
  * Directions on how a spreadsheet application should run calculations in the workbook.

@@ -1,5 +1,5 @@
-import fs from 'fs';
-import convert from '../src/index.ts';
+import { convertBinary, convertCSV } from '../src/index.ts';
+import { readFile, writeFile } from 'fs/promises';
 
 const UPDATE = !!process.env.UPDATE_TESTS;
 
@@ -33,6 +33,11 @@ const tests = [
   'tests/excel/epoch1900-strict.xlsx',
   'tests/excel/epoch1904.xlsx',
   'tests/excel/epoch1904-strict.xlsx',
+
+  'tests/csv/test1.csv',
+  // 'tests/csv/test1.tsv',
+  // 'tests/csv/test2.csv',
+
 ];
 
 function getType (a) {
@@ -128,12 +133,20 @@ function makeNiceJson (ent) {
 }
 
 async function testFile (xlsxFilename: string, testFilename: string) {
-  const wb = await convert(xlsxFilename);
+  let wb;
+  if (xlsxFilename.endsWith('.xlsx')) {
+    const src = await readFile(xlsxFilename);
+    wb = await convertBinary(src, xlsxFilename);
+  }
+  else if (/\.[ct]sv/.test(xlsxFilename)) {
+    const src = await readFile(xlsxFilename, 'utf8');
+    wb = convertCSV(src, xlsxFilename);
+  }
 
   const resultJson = JSON.parse(JSON.stringify(wb));
   let expectJson = {};
   try {
-    expectJson = JSON.parse(fs.readFileSync(testFilename, 'utf8'));
+    expectJson = JSON.parse(await readFile(testFilename, 'utf8'));
   }
   catch (err) {
     if (err.code !== 'ENOENT') {
@@ -144,7 +157,7 @@ async function testFile (xlsxFilename: string, testFilename: string) {
   const diff = compare(resultJson, expectJson);
   if (diff && UPDATE) {
     // save a new version of the converted file
-    fs.writeFileSync(
+    await writeFile(
       testFilename.replace(/(\.json)?$/, '.json'),
       makeNiceJson(resultJson),
       'utf8',
@@ -169,10 +182,14 @@ function renderPath (path: Path) {
   }, '');
 }
 
-async function runTests () {
+async function runTests (filterText: string = '') {
   const results = [];
 
-  await Promise.all(tests.map(async (testFilename, index) => {
+  const testsToRun = tests.filter(fn => {
+    return fn.toLowerCase().includes(filterText.toLowerCase());
+  });
+
+  await Promise.all(testsToRun.map(async (testFilename, index) => {
     let diff = false;
     let error = null;
     try {
@@ -194,7 +211,7 @@ async function runTests () {
   }));
 
   log('TAP version 13');
-  log(`1..${tests.length}`);
+  log(`1..${testsToRun.length}`);
   let fails = 0;
   let passes = 0;
   results.sort((a, b) => a.index - b.index);
@@ -240,5 +257,4 @@ async function runTests () {
   }
 }
 
-await runTests();
-
+await runTests(process.argv[2] || '');

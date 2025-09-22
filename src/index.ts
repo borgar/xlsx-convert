@@ -48,5 +48,6 @@ export async function convert (
 }
 
 export { convertBinary } from './convertBinary.ts';
+export { convertCSV } from './convertCSV.ts';
 
 export default convert;

@@ -1,0 +1,46 @@
+{
+  "name": "tests/csv/test2.csv",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "Year" },
+        "B1": { "v": "Make" },
+        "C1": { "v": "Model" },
+        "D1": { "v": "Length" },
+        "A2": { "v": 1997 },
+        "B2": { "v": "Ford" },
+        "C2": { "v": "E350" },
+        "D2": { "v": 2.34 },
+        "A3": { "v": 2000 },
+        "B3": { "v": "Mercury" },
+        "C3": { "v": "Cougar" },
+        "D3": { "v": 2.38 }
+      },
+      "hidden": 0,
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 }
+    }
+  ],
+  "names": [],
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [
+    {
+      "name": "Table1",
+      "sheet": "Sheet1",
+      "ref": "A1:D3",
+      "headerRowCount": 1,
+      "totalsRowCount": 0,
+      "columns": [
+        { "name": "Year", "dataType": "number" },
+        { "name": "Make", "dataType": "text" },
+        { "name": "Model", "dataType": "text" },
+        { "name": "Length", "dataType": "number" }
+      ]
+    }
+  ]
+}

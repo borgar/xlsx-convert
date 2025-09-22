@@ -1,0 +1,59 @@
+{
+  "name": "tests/csv/test1.csv",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "Year" },
+        "B1": { "v": "Make" },
+        "C1": { "v": "Model" },
+        "D1": { "v": "Description" },
+        "E1": { "v": "Price" },
+        "A2": { "v": 1997 },
+        "B2": { "v": "Ford" },
+        "C2": { "v": "E350" },
+        "D2": { "v": "ac, abs, moon" },
+        "E2": { "v": 3000 },
+        "A3": { "v": 1999 },
+        "B3": { "v": "Chevy" },
+        "C3": { "v": "Venture \"Extended Edition\"" },
+        "D3": { "v": "" },
+        "E3": { "v": 4900 },
+        "A4": { "v": 1999 },
+        "B4": { "v": "Chevy" },
+        "C4": { "v": "Venture \"Extended Edition, Very Large\"" },
+        "E4": { "v": 5000 },
+        "A5": { "v": 1996 },
+        "B5": { "v": "Jeep" },
+        "C5": { "v": "Grand Cherokee" },
+        "D5": { "v": "MUST SELL!\nair, moon roof, loaded" },
+        "E5": { "v": 4799 }
+      },
+      "hidden": 0,
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 }
+    }
+  ],
+  "names": [],
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [
+    {
+      "name": "Table1",
+      "sheet": "Sheet1",
+      "ref": "A1:E6",
+      "headerRowCount": 1,
+      "totalsRowCount": 0,
+      "columns": [
+        { "name": "Year", "dataType": "number" },
+        { "name": "Make", "dataType": "text" },
+        { "name": "Model", "dataType": "text" },
+        { "name": "Description", "dataType": "text" },
+        { "name": "Price", "dataType": "number" }
+      ]
+    }
+  ]
+}
