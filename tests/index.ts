@@ -1,5 +1,6 @@
 import { convertBinary, convertCSV } from '../src/index.ts';
 import { readFile, writeFile } from 'fs/promises';
+import { deepStrictEqual } from 'assert';
 
 const UPDATE = !!process.env.UPDATE_TESTS;
 
@@ -33,73 +34,12 @@ const tests = [
   'tests/excel/epoch1900-strict.xlsx',
   'tests/excel/epoch1904.xlsx',
   'tests/excel/epoch1904-strict.xlsx',
+  'tests/excel/table-styles.xlsx',
 
   'tests/csv/test1.csv',
   // 'tests/csv/test1.tsv',
   // 'tests/csv/test2.csv',
-
 ];
-
-function getType (a) {
-  if (a === null) { return 'null'; }
-  if (a === undefined) { return 'undefined'; }
-  if (typeof a === 'number') { return 'number'; }
-  if (typeof a === 'string') { return 'string'; }
-  if (typeof a === 'boolean') { return 'boolean'; }
-  if (Array.isArray(a)) { return 'array'; }
-  // eslint-disable-next-line
-  if (a !== null && typeof a === 'object' && Object.getPrototypeOf(a).isPrototypeOf(Object)) { return 'object'; }
-  return null;
-}
-
-type Path = (string | number)[];
-
-function compare (x, y, _path: Path = []) {
-  const typeX = getType(x);
-  const typeY = getType(y);
-  if (!typeX || !typeY) {
-    throw new Error(`Invalid type at ${_path.join('.')}`);
-  }
-  else if (typeX !== typeY) {
-    return {
-      error: 'type mismatch',
-      path: _path,
-      mine: x,
-      other: y,
-    };
-  }
-  else if (typeX === 'array') {
-    const len = Math.max(typeX.length, typeY.length);
-    for (let i = 0; i < len; i++) {
-      const err = compare(x[i], y[i], [ ..._path, i ]);
-      if (err) {
-        return err;
-      }
-    }
-  }
-  else if (typeX === 'object') {
-    const keys = Array.from(new Set([ ...Object.keys(x), ...Object.keys(y) ]));
-    for (const key of keys) {
-      const err = compare(x[key], y[key], [ ..._path, key ]);
-      if (err) {
-        return err;
-      }
-    }
-  }
-  else {
-    const sameNaN = isNaN(x) && isNaN(y) && typeX === 'number' && typeY === 'number';
-    // same or two nans
-    if (x !== y && !sameNaN) {
-      return {
-        error: 'value mismatch',
-        path: _path,
-        mine: x,
-        other: y,
-      };
-    }
-  }
-  return null;
-}
 
 function makeNiceJson (ent) {
   let keyIdx = 1;
@@ -132,7 +72,7 @@ function makeNiceJson (ent) {
     .replace(/"(~~xlsx-convert~~\d+)"/g, (_, key) => _tempStore.get(key));
 }
 
-async function testFile (xlsxFilename: string, testFilename: string) {
+async function testFile (xlsxFilename: string, testFilename: string): Promise<string> {
   let wb;
   if (xlsxFilename.endsWith('.xlsx')) {
     const src = await readFile(xlsxFilename);
@@ -154,7 +94,15 @@ async function testFile (xlsxFilename: string, testFilename: string) {
     }
   }
 
-  const diff = compare(resultJson, expectJson);
+  let diff = '';
+  try {
+    deepStrictEqual(resultJson, expectJson);
+  }
+  catch (err) {
+    // re-indent
+    diff = String(err.message).split('\n').map(d => '  ' + d).join('\n');
+  }
+
   if (diff && UPDATE) {
     // save a new version of the converted file
     await writeFile(
@@ -162,7 +110,7 @@ async function testFile (xlsxFilename: string, testFilename: string) {
       makeNiceJson(resultJson),
       'utf8',
     );
-    return false;
+    return '';
   }
   return diff;
 }
@@ -170,16 +118,6 @@ async function testFile (xlsxFilename: string, testFilename: string) {
 function log (message = '') {
   // eslint-disable-next-line
   console.log(message);
-}
-
-function renderPath (path: Path) {
-  return path.reduce((a, c) => {
-    if (!a) { return c; }
-    if (typeof c === 'number' || /\W/.test(c)) {
-      return a + '[' + JSON.stringify(c) + ']';
-    }
-    return a + '.' + c;
-  }, '');
 }
 
 async function runTests (filterText: string = '') {
@@ -190,7 +128,7 @@ async function runTests (filterText: string = '') {
   });
 
   await Promise.all(testsToRun.map(async (testFilename, index) => {
-    let diff = false;
+    let diff = '';
     let error = null;
     try {
       diff = await testFile(
@@ -228,11 +166,8 @@ async function runTests (filterText: string = '') {
         process.exit(1);
       }
       if (d.diff) {
-        const { path, mine, other } = d.diff;
         log('  ---');
-        log('    operator: equal');
-        log('    expected: ' + renderPath(path) + ' = ' + JSON.stringify(other));
-        log('    actual: ' + renderPath(path) + ' = ' + JSON.stringify(mine));
+        log(d.diff);
         log('  ...');
       }
     }

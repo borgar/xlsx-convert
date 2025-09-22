@@ -1884,7 +1884,14 @@
           "name": "BMI class",
           "formula": "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)"
         }
-      ]
+      ],
+      "style": {
+        "name": "TableStyleMedium2",
+        "showRowStripes": false,
+        "showColumnStripes": true,
+        "showFirstColumn": true,
+        "showLastColumn": false
+      }
     },
     {
       "name": "BMI_6",

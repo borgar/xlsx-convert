@@ -8,7 +8,6 @@ type CSVConversionOptions = {
   quoteChar?: string; // default: '"'
   escapeChar?: string; // default: '"'
   skipEmptyLines?: boolean; // default: true
-  trimWhitespace?: boolean; // default: true
   sheetName?: string; // default: 'Sheet1'
   // tablename
   // default font
@@ -92,7 +91,7 @@ export function convertCSV (
         newColName = orgName + (++counter);
       }
 
-      // don't allow this name again - Excel is case insensitive but allows whitespace
+      // don't allow this name again - Excel is case-insensitive but allows whitespace
       usedNames.add(newColName.toLowerCase());
 
       // cell and column should have the same name/value
