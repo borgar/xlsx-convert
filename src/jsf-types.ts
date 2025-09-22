@@ -190,37 +190,38 @@ export type JSFTable = {
  */
 export type JSFTableStyle = {
   /**
-   * The name of the table style to use with this table.
-   * @defaultValue TableStyleMedium2
+   * The name of the table style to use with this table. If the value is null or omitted the
+   * table should not be rendered with any special styling (note that this only applies if the
+   * style object itself is present).
+   * @defaultValue null
    */
-  name: JSFTableStyleName;
+  name?: JSFTableStyleName | null;
   /**
    * Whether row stripe formatting should be applied.
    * @defaultValue true
    */
-  showRowStripes: boolean;
+  showRowStripes?: boolean;
   /**
    * Whether column stripe formatting should be applied.
    * @defaultValue false
    */
-  showColumnStripes: boolean;
+  showColumnStripes?: boolean;
   /**
    * Whether the first (leftmost) column in the table should be highlighted.
    * @defaultValue false
    */
-  showFirstColumn: boolean;
+  showFirstColumn?: boolean;
   /**
    * Whether the last (rightmost) column in the table should be highlighted.
    * @defaultValue false
    */
-  showLastColumn: boolean;
+  showLastColumn?: boolean;
 };
 
 /**
  * Excel built in table style names.
  */
 export type JSFTableStyleName =
-  'none' |
   'TableStyleDark1' |
   'TableStyleDark2' |
   'TableStyleDark3' |

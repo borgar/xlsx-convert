@@ -6163,7 +6163,7 @@
         { "name": "baz" }
       ],
       "style": {
-        "name": "none",
+        "name": null,
         "showRowStripes": false,
         "showColumnStripes": false,
         "showFirstColumn": false,
@@ -7246,7 +7246,7 @@
         { "name": "baz" }
       ],
       "style": {
-        "name": "none",
+        "name": null,
         "showRowStripes": true,
         "showColumnStripes": false,
         "showFirstColumn": false,
@@ -8538,7 +8538,7 @@
         { "name": "baz" }
       ],
       "style": {
-        "name": "none",
+        "name": null,
         "showRowStripes": true,
         "showColumnStripes": false,
         "showFirstColumn": false,
@@ -9450,7 +9450,7 @@
         { "name": "baz" }
       ],
       "style": {
-        "name": "none",
+        "name": null,
         "showRowStripes": false,
         "showColumnStripes": true,
         "showFirstColumn": false,
@@ -10716,7 +10716,7 @@
         { "name": "baz" }
       ],
       "style": {
-        "name": "none",
+        "name": null,
         "showRowStripes": true,
         "showColumnStripes": false,
         "showFirstColumn": false,
@@ -11476,7 +11476,7 @@
         { "name": "baz" }
       ],
       "style": {
-        "name": "none",
+        "name": null,
         "showRowStripes": true,
         "showColumnStripes": true,
         "showFirstColumn": false,
@@ -14072,7 +14072,7 @@
         { "name": "baz" }
       ],
       "style": {
-        "name": "none",
+        "name": null,
         "showRowStripes": true,
         "showColumnStripes": false,
         "showFirstColumn": false,
@@ -14977,7 +14977,7 @@
         { "name": "baz" }
       ],
       "style": {
-        "name": "none",
+        "name": null,
         "showRowStripes": true,
         "showColumnStripes": false,
         "showFirstColumn": true,

@@ -24,18 +24,12 @@ export function handlerTable (dom: Document, context: ConversionContext): JSFTab
 
   const tableStyleInfo = tableElm.getElementsByTagName('tableStyleInfo')[0];
   if (tableStyleInfo) {
-    // This may be a bit confusing:
-    //
-    // Excel does not have a "none" value for the table style:
-    //
-    // 1. When there is no <tableStyleInfo /> in the file, the table should use "TableStyleMedium2"
+    // This may be a bit confusing, but here is is:
+    // 1. When there is no <tableStyleInfo /> in the file, the table should be rendered using "TableStyleMedium2"
     // 2. When there is a <tableStyleInfo /> element, its name dictates the style.
-    // 3. When <tableStyleInfo /> does not have a name, no table styles should be used.
-    //
-    // The JSF tries to make this clearer by defaulting name to "TableStyleMedium2" but adding
-    // a "none" type to be explicit about no style.
+    // 3. When <tableStyleInfo /> is present but does not have a name, no table styles should be used.
     const tableStyle: JSFTableStyle = {
-      name: 'none',
+      name: null,
       showRowStripes: true,
       showColumnStripes: false,
       showFirstColumn: false,
