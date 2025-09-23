@@ -92,37 +92,13 @@
   ],
   "names": [],
   "styles": [
-    { "fontFamily": "Aptos Narrow", "fontSize": 12 },
-    {
-      "fontFamily": "Aptos Narrow",
-      "fontSize": 12,
-      "numberFormat": "yyyy-mm-dd"
-    },
-    {
-      "fontFamily": "Aptos Narrow",
-      "fontSize": 12,
-      "numberFormat": "mm/dd/yyyy"
-    },
-    {
-      "fontFamily": "Aptos Narrow",
-      "fontSize": 12,
-      "numberFormat": "$#,##0.00"
-    },
-    {
-      "fontFamily": "Aptos Narrow",
-      "fontSize": 12,
-      "numberFormat": "mm-dd-yyyy"
-    },
-    {
-      "fontFamily": "Aptos Narrow",
-      "fontSize": 12,
-      "numberFormat": "yyyy/mm/dd"
-    },
-    {
-      "fontFamily": "Aptos Narrow",
-      "fontSize": 12,
-      "numberFormat": "$#,##0"
-    }
+    {},
+    { "numberFormat": "yyyy-mm-dd" },
+    { "numberFormat": "mm/dd/yyyy" },
+    { "numberFormat": "$#,##0.00" },
+    { "numberFormat": "mm-dd-yyyy" },
+    { "numberFormat": "yyyy/mm/dd" },
+    { "numberFormat": "$#,##0" }
   ],
   "tables": [
     {

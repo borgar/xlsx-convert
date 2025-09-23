@@ -185,7 +185,7 @@ export function convertCSV (
     ],
     names: [],
     styles: parser.formats.map(pattern => {
-      const fmt: JSFStyle = { fontFamily: 'Aptos Narrow', fontSize: 12 };
+      const fmt: JSFStyle = {};
       if (pattern) {
         fmt.numberFormat = pattern;
       }

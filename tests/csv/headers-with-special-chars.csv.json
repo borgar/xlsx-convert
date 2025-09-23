@@ -54,22 +54,10 @@
   ],
   "names": [],
   "styles": [
-    { "fontFamily": "Aptos Narrow", "fontSize": 12 },
-    {
-      "fontFamily": "Aptos Narrow",
-      "fontSize": 12,
-      "numberFormat": "yyyy-mm-dd"
-    },
-    {
-      "fontFamily": "Aptos Narrow",
-      "fontSize": 12,
-      "numberFormat": "$#,##0"
-    },
-    {
-      "fontFamily": "Aptos Narrow",
-      "fontSize": 12,
-      "numberFormat": "0.00%"
-    }
+    {},
+    { "numberFormat": "yyyy-mm-dd" },
+    { "numberFormat": "$#,##0" },
+    { "numberFormat": "0.00%" }
   ],
   "tables": [
     {
@@ -83,11 +71,20 @@
         { "name": "First Name", "dataType": "text" },
         { "name": "Last Name", "dataType": "text" },
         { "name": "Email Address", "dataType": "text" },
-        { "name": "Phone # (Mobile)", "dataType": "text" },
-        { "name": "Date of Birth", "dataType": "datetime" },
+        {
+          "name": "Phone # (Mobile)",
+          "dataType": "text"
+        },
+        {
+          "name": "Date of Birth",
+          "dataType": "datetime"
+        },
         { "name": "Salary ($)", "dataType": "number" },
         { "name": "Performance %", "dataType": "number" },
-        { "name": "Notes & Comments", "dataType": "number" },
+        {
+          "name": "Notes & Comments",
+          "dataType": "number"
+        },
         { "name": "Column10", "dataType": "text" }
       ]
     }
