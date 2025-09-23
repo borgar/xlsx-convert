@@ -1,0 +1,90 @@
+{
+  "name": "tests/csv/inconsistent-row-lengths.csv",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "Name" },
+        "B1": { "v": "Age" },
+        "C1": { "v": "City" },
+        "D1": { "v": "State" },
+        "E1": { "v": "Country" },
+        "A2": { "v": "John" },
+        "B2": { "v": 25 },
+        "C2": { "v": "New York" },
+        "D2": { "v": "NY" },
+        "E2": { "v": "USA" },
+        "F2": { "v": "Extra1" },
+        "G2": { "v": "Extra2" },
+        "A3": { "v": "Jane" },
+        "B3": { "v": 30 },
+        "C3": { "v": "Los Angeles" },
+        "D3": { "v": "CA" },
+        "A4": { "v": "Bob" },
+        "B4": { "v": 35 },
+        "C4": { "v": "Chicago" },
+        "D4": { "v": "IL" },
+        "E4": { "v": "USA" },
+        "A5": { "v": "Alice" },
+        "B5": { "v": 28 },
+        "A6": { "v": "Charlie" },
+        "B6": { "v": 32 },
+        "C6": { "v": "San Francisco" },
+        "D6": { "v": "CA" },
+        "E6": { "v": "USA" },
+        "F6": { "v": "Extra" },
+        "A7": { "v": "Diana" },
+        "B7": { "v": 29 },
+        "C7": { "v": "Boston" },
+        "D7": { "v": "MA" },
+        "E7": { "v": "USA" },
+        "F7": { "v": "Extra1" },
+        "G7": { "v": "Extra2" },
+        "H7": { "v": "Extra3" },
+        "A8": { "v": "Eve" },
+        "A9": { "v": "Frank" },
+        "B9": { "v": 31 },
+        "C9": { "v": "Seattle" },
+        "D9": { "v": "WA" },
+        "E9": { "v": "USA" },
+        "A10": { "v": "Grace" },
+        "B10": { "v": 27 },
+        "C10": { "v": "Denver" },
+        "D10": { "v": "CO" },
+        "E10": { "v": "USA" },
+        "F10": { "v": "Extra1" },
+        "F1": { "v": "Column6" },
+        "G1": { "v": "Column7" },
+        "H1": { "v": "Column8" }
+      },
+      "hidden": 0,
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 }
+    }
+  ],
+  "names": [],
+  "styles": [
+    {}
+  ],
+  "tables": [
+    {
+      "name": "Table1",
+      "sheet": "Sheet1",
+      "ref": "A1:H10",
+      "headerRowCount": 1,
+      "totalsRowCount": 0,
+      "columns": [
+        { "name": "Name", "dataType": "text" },
+        { "name": "Age", "dataType": "number" },
+        { "name": "City", "dataType": "text" },
+        { "name": "State", "dataType": "text" },
+        { "name": "Country", "dataType": "text" },
+        { "name": "Column6", "dataType": "text" },
+        { "name": "Column7", "dataType": "text" },
+        { "name": "Column8", "dataType": "text" }
+      ]
+    }
+  ]
+}

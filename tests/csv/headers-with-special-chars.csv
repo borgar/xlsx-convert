@@ -1,0 +1,4 @@
+User ID,First Name,Last Name,Email Address,Phone # (Mobile),Date of Birth,Salary ($),Performance %,Notes & Comments
+001,"Smith, John",Johnson,john.smith@email.com,(555) 123-4567,1985-03-15,$75,000.50,98.5%,"Excellent work, promoted last year"
+002,"Doe, Jane",Williams,jane.doe@email.com,(555) 987-6543,1990-07-22,$85,000.00,87.2%,"Good performance, minor issues"
+003,"Johnson, Bob",Brown,bob.johnson@email.com,(555) 456-7890,1975-12-25,$95,000.25,92.5%,"Senior level, very reliable"

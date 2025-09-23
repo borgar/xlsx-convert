@@ -22,7 +22,8 @@
     "typecheck": "tsc --noEmit",
     "docs": "typedoc && concat-md tempdocs > docs/API.md && rm -rf tempdocs",
     "test:unit": "vitest run src/**/*.spec.ts",
-    "test": "npm run test:unit && node --experimental-transform-types tests/index.ts",
+    "test:fixture": "node --experimental-transform-types tests/index.ts",
+    "test": "npm run test:unit && npm run test:fixture",
     "updatetests": "UPDATE_TESTS=1 node --experimental-transform-types tests/index.ts",
     "check": "npm run test && npm run lint && npm run typecheck",
     "release": "git diff --exit-code && tsup && npm publish && V=$(jq -r .version package.json) && git tag -a $V -m $V && git push origin $V && gh release create $V --generate-notes"
@@ -63,7 +64,8 @@
     "@borgar/fx": "~4.12.0",
     "@borgar/simple-xml": "~2.0.1",
     "d3-color": "~3.1.0",
-    "jszip": "~3.10.1"
+    "jszip": "~3.10.1",
+    "numfmt": "~3.2.3"
   },
   "devDependencies": {
     "@borgar/eslint-config": "~4.0.0",

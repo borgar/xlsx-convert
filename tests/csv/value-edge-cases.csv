@@ -1,0 +1,21 @@
+ID,Value,Description,Category
+1,"",Empty quoted string,Test
+2,,Empty unquoted field,Test
+3,"   ",Just spaces quoted,Test
+4,   ,Just spaces unquoted,Test
+5,"""",Quoted quote,Test
+6,"""Hello""",Quoted with quotes,Test
+7,"Hello""World",Quote in middle,Test
+8,Hello"World,Unescaped quote,Test
+9,"Line1
+Line2",Multiline quoted,Test
+10,Line1
+Line2,Multiline unquoted,Test
+11,"a,b,c",Commas in quotes,Test
+12,a,b,c,Extra values,Test,Error
+13,"Very long text that goes on and on and on and on and might cause buffer issues or parsing problems when dealing with extremely long field values that exceed normal expectations",Length test,Test
+14,🙂😀🎉,Unicode emojis,Test
+15,café,Unicode chars,Test
+16,北京,Chinese characters,Test
+17,Москва,Cyrillic,Test
+18,∑∆∏,Math symbols,Test

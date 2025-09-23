@@ -1,0 +1,70 @@
+{
+  "name": "tests/csv/mixed-quoting-styles.csv",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "Name" },
+        "B1": { "v": "Description" },
+        "C1": { "v": "Price" },
+        "D1": { "v": "Category" },
+        "A2": { "v": "John Smith" },
+        "B2": { "v": "A person named \"John\"" },
+        "C2": { "v": 25.99 },
+        "D2": { "v": "Person" },
+        "A3": { "v": "Jane Doe" },
+        "B3": { "v": "A person named Jane" },
+        "C3": { "v": 19.95 },
+        "D3": { "v": "Person" },
+        "A4": { "v": "Bob Johnson" },
+        "B4": { "v": "A person with quotes" },
+        "C4": { "v": 45.5 },
+        "D4": { "v": "Person" },
+        "A5": { "v": "Alice Brown" },
+        "B5": { "v": "A person named \"Alice\"" },
+        "C5": { "v": 12.99 },
+        "D5": { "v": "Person" },
+        "A6": { "v": "Charlie Wilson" },
+        "B6": { "v": "A regular person" },
+        "C6": { "v": 89.99 },
+        "D6": { "v": "Person" },
+        "A7": { "v": "Diana Prince" },
+        "B7": { "v": "Wonder Woman, also known as \"Diana\"" },
+        "C7": { "v": 7.95 },
+        "D7": { "v": "Superhero" },
+        "A8": { "v": "Eve Adams" },
+        "B8": { "v": "Just a regular name" },
+        "C8": { "v": 35 },
+        "D8": { "v": "Person" },
+        "A9": { "v": "Frank Miller" },
+        "B9": { "v": "Author of \"Sin City\"" },
+        "C9": { "v": 42.5 },
+        "D9": { "v": "Author" }
+      },
+      "hidden": 0,
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 }
+    }
+  ],
+  "names": [],
+  "styles": [
+    {}
+  ],
+  "tables": [
+    {
+      "name": "Table1",
+      "sheet": "Sheet1",
+      "ref": "A1:D9",
+      "headerRowCount": 1,
+      "totalsRowCount": 0,
+      "columns": [
+        { "name": "Name", "dataType": "text" },
+        { "name": "Description", "dataType": "text" },
+        { "name": "Price", "dataType": "number" },
+        { "name": "Category", "dataType": "text" }
+      ]
+    }
+  ]
+}

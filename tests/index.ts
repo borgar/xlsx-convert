@@ -1,40 +1,63 @@
-import fs from 'fs';
-import convert from '../src/index.ts';
+import { convertBinary, convertCSV } from '../src/index.ts';
+import { readFile, writeFile } from 'fs/promises';
 import { deepStrictEqual } from 'assert';
 
 const UPDATE = !!process.env.UPDATE_TESTS;
 
 const tests = [
-  'tests/files/a-single-lambda.xlsx',
-  'tests/files/ascii.xlsx',
-  'tests/files/background-color.xlsx',
-  'tests/files/borders.xlsx',
-  'tests/files/cse.xlsx',
-  'tests/files/charts-and-images.xlsx',
-  'tests/files/date-time.xlsx',
-  'tests/files/emojii.xlsx',
-  'tests/files/external-refs.xlsx',
-  'tests/files/fonts.xlsx',
-  'tests/files/hyperlinks.xlsx',
-  'tests/files/iterative-calculations.xlsx',
-  'tests/files/literals.xlsx',
-  'tests/files/merged-cells.xlsx',
-  'tests/files/multiple-sheets.xlsx',
-  'tests/files/names.xlsx',
-  'tests/files/numbers.xlsx',
-  'tests/files/row-col-widths.xlsx',
-  'tests/files/simple-formulas.xlsx',
-  'tests/files/spilling.xlsx',
-  'tests/files/strings.xlsx',
-  'tests/files/table.xlsx',
-  'tests/files/text-alignment.xlsx',
-  'tests/files/text-color.xlsx',
-  'tests/files/text-rotation.xlsx',
-  'tests/files/epoch1900.xlsx',
-  'tests/files/epoch1900-strict.xlsx',
-  'tests/files/epoch1904.xlsx',
-  'tests/files/epoch1904-strict.xlsx',
-  'tests/files/table-styles.xlsx',
+  // Excel conversion
+  'tests/excel/a-single-lambda.xlsx',
+  'tests/excel/ascii.xlsx',
+  'tests/excel/background-color.xlsx',
+  'tests/excel/borders.xlsx',
+  'tests/excel/cse.xlsx',
+  'tests/excel/charts-and-images.xlsx',
+  'tests/excel/date-time.xlsx',
+  'tests/excel/emojii.xlsx',
+  'tests/excel/external-refs.xlsx',
+  'tests/excel/fonts.xlsx',
+  'tests/excel/hyperlinks.xlsx',
+  'tests/excel/iterative-calculations.xlsx',
+  'tests/excel/literals.xlsx',
+  'tests/excel/merged-cells.xlsx',
+  'tests/excel/multiple-sheets.xlsx',
+  'tests/excel/names.xlsx',
+  'tests/excel/numbers.xlsx',
+  'tests/excel/row-col-widths.xlsx',
+  'tests/excel/simple-formulas.xlsx',
+  'tests/excel/spilling.xlsx',
+  'tests/excel/strings.xlsx',
+  'tests/excel/table.xlsx',
+  'tests/excel/text-alignment.xlsx',
+  'tests/excel/text-color.xlsx',
+  'tests/excel/text-rotation.xlsx',
+  'tests/excel/epoch1900.xlsx',
+  'tests/excel/epoch1900-strict.xlsx',
+  'tests/excel/epoch1904.xlsx',
+  'tests/excel/epoch1904-strict.xlsx',
+  'tests/excel/table-styles.xlsx',
+  // CSV conversion
+  'tests/csv/boolean-variations.csv',
+  'tests/csv/complex-mixed-types.csv',
+  'tests/csv/date-format-variations.csv',
+  'tests/csv/duplicate-header-names.csv',
+  'tests/csv/value-edge-cases.csv',
+  'tests/csv/whitespace-nightmare.csv',
+  'tests/csv/semicolon-delimiter.csv',
+  'tests/csv/special-null-values.csv',
+  'tests/csv/tab-delimiter.tsv',
+  'tests/csv/numeric-stress-test.csv',
+  'tests/csv/mixed-quoting-styles.csv',
+  'tests/csv/minimal-single-column.csv',
+  'tests/csv/line-ending-variations.csv',
+  'tests/csv/inconsistent-row-lengths.csv',
+  'tests/csv/hard-to-detect-headers.csv',
+  'tests/csv/problematic-headers.csv',
+  'tests/csv/no-header-ambiguous.csv',
+  'tests/csv/header-type-mismatch.csv',
+  'tests/csv/header-only.csv',
+  'tests/csv/headers-with-special-chars.csv',
+
 ];
 
 function makeNiceJson (ent) {
@@ -69,12 +92,20 @@ function makeNiceJson (ent) {
 }
 
 async function testFile (xlsxFilename: string, testFilename: string): Promise<string> {
-  const wb = await convert(xlsxFilename);
+  let wb;
+  if (xlsxFilename.endsWith('.xlsx')) {
+    const src = await readFile(xlsxFilename);
+    wb = await convertBinary(src, xlsxFilename);
+  }
+  else if (/\.[ct]sv/.test(xlsxFilename)) {
+    const src = await readFile(xlsxFilename, 'utf8');
+    wb = convertCSV(src, xlsxFilename);
+  }
 
   const resultJson = JSON.parse(JSON.stringify(wb));
   let expectJson = {};
   try {
-    expectJson = JSON.parse(fs.readFileSync(testFilename, 'utf8'));
+    expectJson = JSON.parse(await readFile(testFilename, 'utf8'));
   }
   catch (err) {
     if (err.code !== 'ENOENT') {
@@ -88,12 +119,16 @@ async function testFile (xlsxFilename: string, testFilename: string): Promise<st
   }
   catch (err) {
     // re-indent
-    diff = String(err.message).split('\n').map(d => '  ' + d).join('\n');
+    diff = String(err.message)
+      .replace(/\.\.\./g, '…') // "..." has significance in TAP
+      .split('\n')
+      .map(d => '  ' + d)
+      .join('\n');
   }
 
   if (diff && UPDATE) {
     // save a new version of the converted file
-    fs.writeFileSync(
+    await writeFile(
       testFilename.replace(/(\.json)?$/, '.json'),
       makeNiceJson(resultJson),
       'utf8',
@@ -108,10 +143,14 @@ function log (message = '') {
   console.log(message);
 }
 
-async function runTests () {
+async function runTests (filterText: string = '') {
   const results = [];
 
-  await Promise.all(tests.map(async (testFilename, index) => {
+  const testsToRun = tests.filter(fn => {
+    return fn.toLowerCase().includes(filterText.toLowerCase());
+  });
+
+  await Promise.all(testsToRun.map(async (testFilename, index) => {
     let diff = '';
     let error = null;
     try {
@@ -133,7 +172,7 @@ async function runTests () {
   }));
 
   log('TAP version 13');
-  log(`1..${tests.length}`);
+  log(`1..${testsToRun.length}`);
   let fails = 0;
   let passes = 0;
   results.sort((a, b) => a.index - b.index);
@@ -176,4 +215,4 @@ async function runTests () {
   }
 }
 
-await runTests();
+await runTests(process.argv[2] || '');

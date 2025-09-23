@@ -1,0 +1,84 @@
+{
+  "name": "tests/csv/duplicate-header-names.csv",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "Name" },
+        "B1": { "v": "ID" },
+        "C1": { "v": "Name2" },
+        "D1": { "v": "Age" },
+        "E1": { "v": "ID2" },
+        "F1": { "v": "Name3" },
+        "G1": { "v": "Status" },
+        "H1": { "v": "ID3" },
+        "I1": { "v": "Name4" },
+        "A2": { "v": "John Smith" },
+        "B2": { "v": 2 },
+        "C2": { "v": "Johnny" },
+        "D2": { "v": 30 },
+        "E2": { "v": "A002" },
+        "F2": { "v": "J. Smith" },
+        "G2": { "v": "Inactive" },
+        "H2": { "v": "ID002" },
+        "I2": { "v": "John A. Smith" },
+        "A3": { "v": "Jane Doe" },
+        "B3": { "v": 3 },
+        "C3": { "v": "Janie" },
+        "D3": { "v": 28 },
+        "E3": { "v": "A003" },
+        "F3": { "v": "J. Doe" },
+        "G3": { "v": "Pending" },
+        "H3": { "v": "ID003" },
+        "I3": { "v": "Jane Marie Doe" },
+        "A4": { "v": "Bob Johnson" },
+        "B4": { "v": 4 },
+        "C4": { "v": "Bobby" },
+        "D4": { "v": 35 },
+        "E4": { "v": "A004" },
+        "F4": { "v": "B. Johnson" },
+        "G4": { "v": "Complete" },
+        "H4": { "v": "ID004" },
+        "I4": { "v": "Robert Johnson" },
+        "A5": { "v": "Alice Brown" },
+        "B5": { "v": 5 },
+        "C5": { "v": "Al" },
+        "D5": { "v": 32 },
+        "E5": { "v": "A005" },
+        "F5": { "v": "A. Brown" },
+        "G5": { "v": "Active" },
+        "H5": { "v": "ID005" },
+        "I5": { "v": "Alice M. Brown" }
+      },
+      "hidden": 0,
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 }
+    }
+  ],
+  "names": [],
+  "styles": [
+    {}
+  ],
+  "tables": [
+    {
+      "name": "Table1",
+      "sheet": "Sheet1",
+      "ref": "A1:I5",
+      "headerRowCount": 1,
+      "totalsRowCount": 0,
+      "columns": [
+        { "name": "Name", "dataType": "text" },
+        { "name": "ID", "dataType": "number" },
+        { "name": "Name2", "dataType": "text" },
+        { "name": "Age", "dataType": "number" },
+        { "name": "ID2", "dataType": "text" },
+        { "name": "Name3", "dataType": "text" },
+        { "name": "Status", "dataType": "text" },
+        { "name": "ID3", "dataType": "text" },
+        { "name": "Name4", "dataType": "text" }
+      ]
+    }
+  ]
+}

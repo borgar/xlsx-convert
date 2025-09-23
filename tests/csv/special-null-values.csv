@@ -1,0 +1,13 @@
+Name,Age,City,Status,Score
+John,25,New York,Active,95.5
+Jane,NULL,Los Angeles,NULL,NULL
+Bob,N/A,Chicago,#N/A,N/A
+Alice,n/a,Boston,n/a,n/a
+Charlie,NA,#N/A,NA,NA
+Diana,-,Seattle,-,-
+Eve,,Portland,,
+Frank,nil,Denver,nil,nil
+Grace,null,Phoenix,null,null
+Henry,NaN,Miami,NaN,NaN
+Ivan,#NAME?,Atlanta,#REF!,#DIV/0!
+Jack,#VALUE!,Dallas,#NUM!,#NULL!

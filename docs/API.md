@@ -13,6 +13,7 @@
 ## Type Aliases
 
 - [ConversionOptions](#type-aliasesconversionoptionsmd)
+- [CSVConversionOptions](#type-aliasescsvconversionoptionsmd)
 - [JSFBorderStyle](#type-aliasesjsfborderstylemd)
 - [JSFCalcProps](#type-aliasesjsfcalcpropsmd)
 - [JSFCell](#type-aliasesjsfcellmd)
@@ -20,6 +21,7 @@
 - [JSFCellRange](#type-aliasesjsfcellrangemd)
 - [JSFCellValueType](#type-aliasesjsfcellvaluetypemd)
 - [JSFColor](#type-aliasesjsfcolormd)
+- [JSFColumnDataType](#type-aliasesjsfcolumndatatypemd)
 - [JSFComment](#type-aliasesjsfcommentmd)
 - [JSFExternal](#type-aliasesjsfexternalmd)
 - [JSFExtSheet](#type-aliasesjsfextsheetmd)
@@ -43,6 +45,7 @@
 
 - [convert](#functionsconvertmd)
 - [convertBinary](#functionsconvertbinarymd)
+- [convertCSV](#functionsconvertcsvmd)
 
 ## References
 
@@ -765,6 +768,66 @@ may be lost in the conversion process.
 A JSON spreadsheet formatted object.
 
 
+<a name="functionsconvertcsvmd"></a>
+
+# convertCSV()
+
+```ts
+function convertCSV(
+   csvStream: string, 
+   name: string, 
+   options?: CSVConversionOptions): JSFWorkbook;
+```
+
+Convert a CSV/TSV into JSF format.
+
+The returned JSF structure contains all the data table found in the file presented as
+a spreadsheet table.
+
+## Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `csvStream` | `string` | A string of CSV data |
+| `name` | `string` | Name of the file being converted, to be used as the workbook name |
+| `options?` | [`CSVConversionOptions`](#type-aliasescsvconversionoptionsmd) | Conversion options |
+
+## Returns
+
+[`JSFWorkbook`](#type-aliasesjsfworkbookmd)
+
+A JSON spreadsheet formatted object.
+
+
+<a name="type-aliasescsvconversionoptionsmd"></a>
+
+# CSVConversionOptions
+
+```ts
+type CSVConversionOptions = {
+  delimiter?: null | "," | ";" | "\t";
+  escapeChar?: null | "\" | "\"";
+  locale?: string;
+  sheetName?: string;
+  skipEmptyLines?: boolean;
+  table?: boolean;
+};
+```
+
+CSV convertion options
+
+## Properties
+
+| Property | Type | Default value | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="delimiter"></a> `delimiter?` | `null` \| `","` \| `";"` \| "\t" | `null` | The delimiter to use to parse the CSV. Normally this is auto-detected. |
+| <a id="escapechar"></a> `escapeChar?` | `null` \| "\\" \| "\"" | `'"'` | The character used to escape quotation marks in strings. |
+| <a id="locale"></a> `locale?` | `string` | `'en-US'` | The locale (as a BCP 47 string) to use when parsing dates and numbers. **See** |
+| <a id="sheetname"></a> `sheetName?` | `string` | `'Sheet1'` | The name of the sheet to create in the resulting workbook. |
+| <a id="skipemptylines"></a> `skipEmptyLines?` | `boolean` | `true` | Skip empty lines instead of creating empty rows. |
+| <a id="table"></a> `table?` | `boolean` | `false` | Create a table descriptor object for the data in the sheet. |
+
+
 <a name="type-aliasesconversionoptionsmd"></a>
 
 # ConversionOptions
@@ -940,6 +1003,15 @@ type JSFColor = `#${string}`;
 A hex-encoded RGBA value that conforms to the CSS4 color specification (`"#3cb371"`).
 
 See [CSS spec](https://www.w3.org/TR/css-color-4/#hex-notation)
+
+
+<a name="type-aliasesjsfcolumndatatypemd"></a>
+
+# JSFColumnDataType
+
+```ts
+type JSFColumnDataType = "text" | "number" | "boolean" | "datetime" | "unknown";
+```
 
 
 <a name="type-aliasesjsfcommentmd"></a>
@@ -1270,7 +1342,7 @@ See: <https://support.microsoft.com/en-us/office/using-structured-references-wit
 
 ```ts
 type JSFTableColumn = {
-  dataType?: "text" | "number" | "boolean" | "datetime" | "unknown";
+  dataType?: JSFColumnDataType;
   formula?: string;
   name: string;
 };
@@ -1282,7 +1354,7 @@ Describes a column of a table.
 
 | Property | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
-| <a id="datatype"></a> `dataType?` | `"text"` \| `"number"` \| `"boolean"` \| `"datetime"` \| `"unknown"` | `"unknown"` | Describes the type of values found in the cells of the column, when they are uniform. |
+| <a id="datatype"></a> `dataType?` | [`JSFColumnDataType`](#type-aliasesjsfcolumndatatypemd) | `"unknown"` | Describes the type of values found in the cells of the column, when they are uniform. |
 | <a id="formula"></a> `formula?` | `string` | `undefined` | If the column is a calculated column, then this field must include the formula used. |
 | <a id="name"></a> `name` | `string` | `undefined` | The column name. It must be unique among column names in the same table when compared in a case-insensitive manner. Must be non-empty. May contain white-space characters but not exclusively. |
 
@@ -1450,7 +1522,7 @@ type JSFWorksheet = {
   cells: Record<JSFCellId, JSFCell>;
   columns: JSFGridSize[];
   defaults: JSFSheetDefaults;
-  hidden: 0 | 1 | 2;
+  hidden?: 0 | 1 | 2;
   merges: string[];
   name: string;
   rows: JSFGridSize[];
@@ -1467,7 +1539,7 @@ A worksheet is a collection of cells.
 | <a id="cells"></a> `cells` | `Record`\<[`JSFCellId`](#type-aliasesjsfcellidmd), [`JSFCell`](#type-aliasesjsfcellmd)\> | The cells belonging to the worksheet that have any data attached. |
 | <a id="columns"></a> `columns` | [`JSFGridSize`](#type-aliasesjsfgridsizemd)[] | Widths and styles of the columns in the worksheet. |
 | <a id="defaults"></a> `defaults` | [`JSFSheetDefaults`](#type-aliasesjsfsheetdefaultsmd) | A collection of default properties that apply to cells, rows, or columns in the worksheet. |
-| <a id="hidden"></a> `hidden` | `0` \| `1` \| `2` | Whether or not the sheet should be shown to a user in a UI displaying the workbook. - 0 = sheet is visible - 1 = sheet is hidden - 2 = sheet is "extra hidden" |
+| <a id="hidden"></a> `hidden?` | `0` \| `1` \| `2` | Whether or not the sheet should be shown to a user in a UI displaying the workbook. - 0 = sheet is visible - 1 = sheet is hidden - 2 = sheet is "extra hidden" |
 | <a id="merges"></a> `merges` | `string`[] | A list of ranges that capture which cells have been merged. |
 | <a id="name"></a> `name` | `string` | Name of the worksheet. |
 | <a id="rows"></a> `rows` | [`JSFGridSize`](#type-aliasesjsfgridsizemd)[] | Heights and styles of the rows in the worksheet. |

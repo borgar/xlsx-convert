@@ -1,0 +1,9 @@
+Name,Active,Verified,Complete,Enabled,Valid
+John,TRUE,Yes,1,On,T
+Jane,FALSE,No,0,Off,F
+Bob,true,YES,1,on,True
+Alice,false,NO,0,off,False
+Charlie,True,yes,1,ON,true
+Diana,False,no,0,OFF,false
+Grace,TRUE,Yes,TRUE,On,TRUE
+Henry,FALSE,No,FALSE,Off,FALSE
