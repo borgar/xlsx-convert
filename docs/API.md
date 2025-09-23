@@ -810,6 +810,7 @@ type CSVConversionOptions = {
   locale?: string;
   sheetName?: string;
   skipEmptyLines?: boolean;
+  table?: boolean;
 };
 ```
 
@@ -824,6 +825,7 @@ CSV convertion options
 | <a id="locale"></a> `locale?` | `string` | `'en-US'` | The locale (as a BCP 47 string) to use when parsing dates and numbers. **See** |
 | <a id="sheetname"></a> `sheetName?` | `string` | `'Sheet1'` | The name of the sheet to create in the resulting workbook. |
 | <a id="skipemptylines"></a> `skipEmptyLines?` | `boolean` | `true` | Skip empty lines instead of creating empty rows. |
+| <a id="table"></a> `table?` | `boolean` | `false` | Create a table descriptor object for the data in the sheet. |
 
 
 <a name="type-aliasesconversionoptionsmd"></a>

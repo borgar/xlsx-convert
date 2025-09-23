@@ -1,8 +1,8 @@
-import { parseBool, parseDate, parseNumber, parseTime } from 'numfmt';
+import { parseBool, parseDate, parseNumber, parseTime, type ParseData } from 'numfmt';
 import type { JSFCell } from './jsf-types.ts';
 import { toA1 } from './utils/toA1.ts';
 
-// Common things that are not numbers, but shouldn't identify as text when analizing
+// Common things that are not numbers, but shouldn't identify as text when auto-detecting types
 const reNotString = /^(?:NA|n\/a|#?N\/A|N\.A\.|NULL|null|nil|#NAME\?|#(REF|DIV\/0|VALUE|NUM|NULL)!|NaN|-?Infinity|\.+|-+)$/;
 
 const STRING = 't';
@@ -72,7 +72,7 @@ export class CSVParser {
     valueString: string,
     knownString: boolean = false,
   ) {
-    let cell: { v: any, z?: string };
+    let cell: ParseData;
     const cellID = toA1(this.column, this.row);
     if (knownString) {
       this.table[cellID] = { v: valueString };
