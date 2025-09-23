@@ -3,34 +3,65 @@ import { CSVParser } from './CSVParser.ts';
 import type { JSFStyle, JSFTableColumn, JSFWorkbook } from './jsf-types.ts';
 import { toA1 } from './utils/toA1.ts';
 
-type CSVConversionOptions = {
-  delimiter?: string; // default: ','
-  quoteChar?: string; // default: '"'
-  escapeChar?: string; // default: '"'
-  skipEmptyLines?: boolean; // default: true
-  sheetName?: string; // default: 'Sheet1'
-  // tablename
-  // default font
-  // table style?
-  // locale?: string; // default: 'en-US'
+/** CSV convertion options */
+export type CSVConversionOptions = {
+  /**
+   * The delimiter to use to parse the CSV. Normally this is auto-detected.
+   * @defaultValue null
+   */
+  delimiter?: null | ',' | ';' | '\t';
+  /**
+   * The character used to escape quotation marks in strings.
+   * @defaultValue '"'
+   */
+  escapeChar?: null | '\\' | '"';
+  /**
+   * Skip empty lines instead of creating empty rows.
+   * @defaultValue true
+   */
+  skipEmptyLines?: boolean;
+  /**
+   * The name of the sheet to create in the resulting workbook.
+   * @defaultValue 'Sheet1'
+   */
+  sheetName?: string;
+  /**
+   * The locale (as a BCP 47 string) to use when parsing dates and numbers.
+   * @see {https://developer.mozilla.org/en-US/docs/Glossary/BCP_47_language_tag}
+   * @defaultValue 'en-US'
+   */
+  locale?: string;
 };
-// type QUOTE_NONE = 0;
-// type QUOTE_ALL = 1;
-// type QUOTE_MINIMAL = 2;
-// type QUOTE_NONNUMERIC = 3;
-// type QUOTE_NOTNULL = 4;
-// type QUOTE_STRINGS = 5;
-// dataType?: 'text' | 'number' | 'boolean' | 'datetime' | 'unknown';
 
+const EMPTY_COLUMN = { t: 0, b: 0, n: 0, d: 0, total: 0 };
+
+/**
+ * Convert a CSV/TSV into JSF format.
+ *
+ * The returned JSF structure contains all the data table found in the file presented as
+ * a spreadsheet table.
+ *
+ * @param csvStream A string of CSV data
+ * @param name Name of the file being converted, to be used as the workbook name
+ * @param [options] Conversion options
+ * @return A JSON spreadsheet formatted object.
+ */
 export function convertCSV (
   csvStream: string,
   name: string,
-  options?: CSVConversionOptions,
+  options: CSVConversionOptions = {},
 ): JSFWorkbook {
-  console.log(csvStream);
-
   const parser = new CSVParser();
-  const cells = parser.parse(csvStream);
+  if (options.skipEmptyLines === false) {
+    parser.skipEmptyLines = false;
+  }
+  if (options.escapeChar) {
+    parser.escapeChar = options.escapeChar;
+  }
+  if (options.locale) {
+    parser.locale = options.locale;
+  }
+  const cells = parser.parse(csvStream, options.delimiter);
 
   const columns: JSFTableColumn[] = [];
   for (let col = 0; col < parser.width; col++) {
@@ -38,15 +69,17 @@ export function convertCSV (
   }
 
   let likelyHeader = 0;
-  // console.log(parser.columns, parser.columns.length, parser.width);
+  let singleType = 0;
   for (let col = 0; col < parser.width; col++) {
     const headCell = cells[toA1(col, 0)] ?? { v: null };
-    const count = parser.columns[col] ?? { t: 0, total: 0 };
+    const count = parser.columns[col] ?? EMPTY_COLUMN;
     if (count.t === count.total) {
       // all text column
+      // heading is sniffed by looking for for variations in text length, up to 20 rows
+      // this is the same method Python's CSV parser uses
+      singleType++;
       columns[col].dataType = 'text';
       const headLength = String(headCell.v || '').length;
-      // check for variations in text length, up to 20 rows
       for (let row = 1; row < Math.min(20, parser.height); row++) {
         const cell = cells[toA1(col, row)];
         if (cell && String(cell.v).length !== headLength) {
@@ -55,30 +88,58 @@ export function convertCSV (
         }
       }
     }
-    else if (count.t === 1 && typeof headCell.v === 'string') {
-      // this column has only a single text string which is the header
-      columns[col].dataType = 'number'; // determine which
-      likelyHeader++;
+    else if (count.n === count.total) {
+      // all numbers, unlikely to be a heading
+      columns[col].dataType = 'number';
+      singleType++;
     }
-    // console.log(headCell, count);
-    // console.log(columns[col]);
-    // console.log('');
+    else if (count.b === count.total) {
+      // all booleans, unlikely to be a heading
+      columns[col].dataType = 'boolean';
+      singleType++;
+    }
+    else if (count.d === count.total) {
+      // all dates, unlikely to be a heading
+      columns[col].dataType = 'datetime';
+      singleType++;
+    }
+    else if (
+      count.t === 1 && typeof headCell.v === 'string' ||
+      count.n === 1 && typeof headCell.v === 'number' ||
+      count.b === 1 && typeof headCell.v === 'boolean' ||
+      count.d === 1 && headCell.t === 'd'
+    ) {
+      // this column has only a single variant type which is *very likely* the header
+      likelyHeader += 2;
+      if (count.b === count.total - 1) {
+        columns[col].dataType = 'boolean';
+      }
+      else if (count.n === count.total - 1) {
+        columns[col].dataType = 'number';
+      }
+      else if (count.d === count.total - 1) {
+        columns[col].dataType = 'datetime';
+      }
+      else if (count.t === count.total - 1) {
+        columns[col].dataType = 'text';
+      }
+    }
   }
-  // console.log(likelyHeader);
-  // console.log('');
 
-  const hasHeader = likelyHeader > 0;
+  // We have a header if:
+  // - there is more than one row
+  // - there is at least one likely header column
+  // - the number of likely header columns is at least equal to the number of single-type columns
+  const hasHeader = parser.height > 1 && likelyHeader >= singleType && likelyHeader > 0;
   if (hasHeader) {
     const usedNames = new Set();
     for (let col = 0; col < parser.width; col++) {
       const cellRef = toA1(col, 0);
       const column = columns[col];
-
-      // ensure there is a cell behind the column
+      // ensure there is a cell object at the column header cell location
       if (!cells[cellRef]) {
         cells[cellRef] = { v: '' };
       }
-
       // use the cell's value as the column header as is possible
       const numFormat = parser.formats[cells[cellRef].s] || 'General';
       let newColName = format(numFormat, cells[cellRef].v ?? '') || columns[col].name;
@@ -90,10 +151,8 @@ export function convertCSV (
       while (usedNames.has(newColName.toLowerCase())) {
         newColName = orgName + (++counter);
       }
-
-      // don't allow this name again - Excel is case-insensitive but allows whitespace
+      // don't allow this name again, Excel is case-insensitive but allows whitespace
       usedNames.add(newColName.toLowerCase());
-
       // cell and column should have the same name/value
       column.name = newColName;
       cells[cellRef].v = newColName;
@@ -101,24 +160,21 @@ export function convertCSV (
     }
   }
 
-  // Analyze the sample text (presumed to be in CSV format) and return True
-  // if the first row appears to be a series of column headers. Inspecting each
-  // column, one of two key criteria will be considered to estimate if the sample
-  // contains a header:
-  //
-  // - the second through n-th rows contain numeric values
-  //
-  // - the second through n-th rows contain strings where at least one
-  //   value’s length differs from that of the putative header of that column.
-  //
-  // Twenty rows after the first row are sampled; if more than half of columns + rows
-  // meet the criteria, True is returned.
+  const sheetName = options.sheetName || 'Sheet1';
+  const table = {
+    name: 'Table1',
+    sheet: sheetName,
+    ref: 'A1:' + toA1(parser.width - 1, parser.height - 1),
+    headerRowCount: hasHeader ? 1 : 0,
+    totalsRowCount: 0,
+    columns: columns,
+  };
 
   const output: JSFWorkbook = {
     name: name,
     sheets: [
       {
-        name: 'Sheet1',
+        name: sheetName,
         cells: cells,
         hidden: 0,
         columns: [],
@@ -135,28 +191,8 @@ export function convertCSV (
       }
       return fmt;
     }),
-    tables: [
-      // FIXME: if !parser.width or !parser.height we should not emit a table!
-      {
-        name: 'Table1',
-        sheet: 'Sheet1',
-        ref: 'A1:' + toA1(parser.width - 1, parser.height - 1),
-        headerRowCount: hasHeader ? 1 : 0,
-        totalsRowCount: 0,
-        columns: columns,
-        // style: {
-        //   name: 'TableStyleMedium2',
-        //   showRowStripes: false,
-        //   showColumnStripes: true,
-        //   showFirstColumn: true,
-        //   showLastColumn: false,
-        // },
-      },
-    ],
+    tables: (parser.width && parser.height) ? [ table ] : [],
   };
-  console.dir(output, { depth: null });
-  // console.log(output);
 
   return output;
 }
-

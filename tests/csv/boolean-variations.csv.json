@@ -1,0 +1,90 @@
+{
+  "name": "tests/csv/boolean-variations.csv",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "Name" },
+        "B1": { "v": "Active" },
+        "C1": { "v": "Verified" },
+        "D1": { "v": "Complete" },
+        "E1": { "v": "Enabled" },
+        "F1": { "v": "Valid" },
+        "A2": { "v": "John" },
+        "B2": { "v": true },
+        "C2": { "v": "Yes" },
+        "D2": { "v": 1 },
+        "E2": { "v": "On" },
+        "F2": { "v": "T" },
+        "A3": { "v": "Jane" },
+        "B3": { "v": false },
+        "C3": { "v": "No" },
+        "D3": { "v": 0 },
+        "E3": { "v": "Off" },
+        "F3": { "v": "F" },
+        "A4": { "v": "Bob" },
+        "B4": { "v": true },
+        "C4": { "v": "YES" },
+        "D4": { "v": 1 },
+        "E4": { "v": "on" },
+        "F4": { "v": true },
+        "A5": { "v": "Alice" },
+        "B5": { "v": false },
+        "C5": { "v": "NO" },
+        "D5": { "v": 0 },
+        "E5": { "v": "off" },
+        "F5": { "v": false },
+        "A6": { "v": "Charlie" },
+        "B6": { "v": true },
+        "C6": { "v": "yes" },
+        "D6": { "v": 1 },
+        "E6": { "v": "ON" },
+        "F6": { "v": true },
+        "A7": { "v": "Diana" },
+        "B7": { "v": false },
+        "C7": { "v": "no" },
+        "D7": { "v": 0 },
+        "E7": { "v": "OFF" },
+        "F7": { "v": false },
+        "A8": { "v": "Grace" },
+        "B8": { "v": true },
+        "C8": { "v": "Yes" },
+        "D8": { "v": true },
+        "E8": { "v": "On" },
+        "F8": { "v": true },
+        "A9": { "v": "Henry" },
+        "B9": { "v": false },
+        "C9": { "v": "No" },
+        "D9": { "v": false },
+        "E9": { "v": "Off" },
+        "F9": { "v": false }
+      },
+      "hidden": 0,
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 }
+    }
+  ],
+  "names": [],
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [
+    {
+      "name": "Table1",
+      "sheet": "Sheet1",
+      "ref": "A1:F9",
+      "headerRowCount": 1,
+      "totalsRowCount": 0,
+      "columns": [
+        { "name": "Name", "dataType": "text" },
+        { "name": "Active", "dataType": "boolean" },
+        { "name": "Verified", "dataType": "text" },
+        { "name": "Complete", "dataType": "unknown" },
+        { "name": "Enabled", "dataType": "text" },
+        { "name": "Valid", "dataType": "unknown" }
+      ]
+    }
+  ]
+}

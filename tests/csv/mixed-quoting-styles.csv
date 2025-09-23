@@ -1,0 +1,9 @@
+Name,Description,Price,Category
+"John Smith","A person named ""John""",25.99,Person
+Jane Doe,A person named Jane,19.95,"Person"
+"Bob Johnson",A person with quotes,45.50,Person
+Alice Brown,"A person named ""Alice""",12.99,"Person"
+Charlie Wilson,A regular person,89.99,Person
+"Diana Prince","Wonder Woman, also known as ""Diana""",7.95,"Superhero"
+Eve Adams,Just a regular name,35.00,Person
+"Frank Miller","Author of ""Sin City""",42.50,"Author"

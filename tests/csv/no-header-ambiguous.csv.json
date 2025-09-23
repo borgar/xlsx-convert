@@ -1,0 +1,62 @@
+{
+  "name": "tests/csv/no-header-ambiguous.csv",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "A001" },
+        "B1": { "v": "Product Alpha" },
+        "C1": { "v": 25.99 },
+        "D1": { "v": "Active" },
+        "A2": { "v": "B002" },
+        "B2": { "v": "Product Beta" },
+        "C2": { "v": 19.95 },
+        "D2": { "v": "Inactive" },
+        "A3": { "v": "C003" },
+        "B3": { "v": "Product Gamma" },
+        "C3": { "v": 45.5 },
+        "D3": { "v": "Active" },
+        "A4": { "v": "D004" },
+        "B4": { "v": "Product Delta" },
+        "C4": { "v": 12.99 },
+        "D4": { "v": "Pending" },
+        "A5": { "v": "E005" },
+        "B5": { "v": "Product Epsilon" },
+        "C5": { "v": 89.99 },
+        "D5": { "v": "Active" },
+        "A6": { "v": "F006" },
+        "B6": { "v": "Product Zeta" },
+        "C6": { "v": 7.95 },
+        "D6": { "v": "Inactive" },
+        "A7": { "v": "G007" },
+        "B7": { "v": "Product Eta" },
+        "C7": { "v": 35 },
+        "D7": { "v": "Active" }
+      },
+      "hidden": 0,
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 }
+    }
+  ],
+  "names": [],
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [
+    {
+      "name": "Table1",
+      "sheet": "Sheet1",
+      "ref": "A1:D7",
+      "headerRowCount": 0,
+      "totalsRowCount": 0,
+      "columns": [
+        { "name": "Column1", "dataType": "text" },
+        { "name": "Column2", "dataType": "text" },
+        { "name": "Column3", "dataType": "number" },
+        { "name": "Column4", "dataType": "text" }
+      ]
+    }
+  ]
+}

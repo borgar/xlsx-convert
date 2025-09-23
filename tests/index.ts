@@ -5,6 +5,7 @@ import { deepStrictEqual } from 'assert';
 const UPDATE = !!process.env.UPDATE_TESTS;
 
 const tests = [
+  // Excel conversion
   'tests/excel/a-single-lambda.xlsx',
   'tests/excel/ascii.xlsx',
   'tests/excel/background-color.xlsx',
@@ -35,10 +36,28 @@ const tests = [
   'tests/excel/epoch1904.xlsx',
   'tests/excel/epoch1904-strict.xlsx',
   'tests/excel/table-styles.xlsx',
+  // CSV conversion
+  'tests/csv/boolean-variations.csv',
+  'tests/csv/complex-mixed-types.csv',
+  'tests/csv/date-format-variations.csv',
+  'tests/csv/duplicate-header-names.csv',
+  'tests/csv/value-edge-cases.csv',
+  'tests/csv/whitespace-nightmare.csv',
+  'tests/csv/semicolon-delimiter.csv',
+  'tests/csv/special-null-values.csv',
+  'tests/csv/tab-delimiter.tsv',
+  'tests/csv/numeric-stress-test.csv',
+  'tests/csv/mixed-quoting-styles.csv',
+  'tests/csv/minimal-single-column.csv',
+  'tests/csv/line-ending-variations.csv',
+  'tests/csv/inconsistent-row-lengths.csv',
+  'tests/csv/hard-to-detect-headers.csv',
+  'tests/csv/problematic-headers.csv',
+  'tests/csv/no-header-ambiguous.csv',
+  'tests/csv/header-type-mismatch.csv',
+  'tests/csv/header-only.csv',
+  'tests/csv/headers-with-special-chars.csv',
 
-  'tests/csv/test1.csv',
-  // 'tests/csv/test1.tsv',
-  // 'tests/csv/test2.csv',
 ];
 
 function makeNiceJson (ent) {
@@ -100,7 +119,11 @@ async function testFile (xlsxFilename: string, testFilename: string): Promise<st
   }
   catch (err) {
     // re-indent
-    diff = String(err.message).split('\n').map(d => '  ' + d).join('\n');
+    diff = String(err.message)
+      .replace(/\.\.\./g, '…') // "..." has significance in TAP
+      .split('\n')
+      .map(d => '  ' + d)
+      .join('\n');
   }
 
   if (diff && UPDATE) {

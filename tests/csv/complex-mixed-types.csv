@@ -1,0 +1,9 @@
+ID,Name,Birthday,Salary,Start Date,End Date,Active,Score,Notes
+1,John Smith,1985-03-15,75000.50,2020-01-01,2023-12-31,TRUE,98.7,"Great employee"
+2,Jane Doe,1990-07-22,85000,2019-06-15,,FALSE,87.2,"On leave"
+3,Bob Johnson,12/25/1975,$95000.00,01/01/2018,12/31/2024,Yes,92.5,"Senior developer"
+4,Alice Brown,1988-11-03,67500.75,2021-03-01,2022-08-15,No,89.1,"Former intern"
+5,Charlie Wilson,02-14-1992,125000,2017-09-01,,1,95.8,"Team lead"
+6,Diana Prince,1983/05/10,110000.25,2016-12-01,2025-06-30,0,91.3,"Project manager"
+7,Eve Adams,1995-01-28,55000,2022-07-01,,true,85.4,"Junior developer"
+8,Frank Miller,08-30-1980,$78000,2019-11-15,2023-03-31,false,88.9,"QA engineer"

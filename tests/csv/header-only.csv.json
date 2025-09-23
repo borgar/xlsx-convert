@@ -1,0 +1,46 @@
+{
+  "name": "tests/csv/header-only.csv",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "Name" },
+        "B1": { "v": "Age" },
+        "C1": { "v": "City" },
+        "D1": { "v": "Department" },
+        "E1": { "v": "Salary" },
+        "F1": { "v": "Status" },
+        "G1": { "v": "StartDate" },
+        "H1": { "v": "EndDate" }
+      },
+      "hidden": 0,
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 }
+    }
+  ],
+  "names": [],
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [
+    {
+      "name": "Table1",
+      "sheet": "Sheet1",
+      "ref": "A1:H1",
+      "headerRowCount": 0,
+      "totalsRowCount": 0,
+      "columns": [
+        { "name": "Column1", "dataType": "text" },
+        { "name": "Column2", "dataType": "text" },
+        { "name": "Column3", "dataType": "text" },
+        { "name": "Column4", "dataType": "text" },
+        { "name": "Column5", "dataType": "text" },
+        { "name": "Column6", "dataType": "text" },
+        { "name": "Column7", "dataType": "text" },
+        { "name": "Column8", "dataType": "text" }
+      ]
+    }
+  ]
+}

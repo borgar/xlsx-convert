@@ -1,0 +1,10 @@
+  Name  ,   Age   ,  City  ,   Notes
+  John  ,  25  ,  New York  ,  "  Leading and trailing spaces  "
+Jane,30,"  Los Angeles  ",Normal field with spaces
+  Bob Johnson  ,35,Chicago,"  Mixed   spacing   everywhere  "
+"  Alice  ",28,"  Boston  ","  All quoted with spaces  "
+Charlie,  32  ,  San Francisco  ,  Unquoted with spaces
+"  Diana Prince  ","  29  ","  Seattle  ","  Everything spaced  "
+   ,   ,   ,
+"","","",""
+ , , ,

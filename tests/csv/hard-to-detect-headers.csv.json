@@ -1,0 +1,66 @@
+{
+  "name": "tests/csv/hard-to-detect-headers.csv",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "123" },
+        "B1": { "v": "456" },
+        "C1": { "v": "789" },
+        "D1": { "v": "ABC" },
+        "A2": { "v": "Product A" },
+        "B2": { "v": 100 },
+        "C2": { "v": 25.99 },
+        "D2": { "v": "Electronics" },
+        "A3": { "v": "Product B" },
+        "B3": { "v": 200 },
+        "C3": { "v": 19.95 },
+        "D3": { "v": "Books" },
+        "A4": { "v": "Product C" },
+        "B4": { "v": 150 },
+        "C4": { "v": 45.5 },
+        "D4": { "v": "Clothing" },
+        "A5": { "v": "Product D" },
+        "B5": { "v": 75 },
+        "C5": { "v": 12.99 },
+        "D5": { "v": "Food" },
+        "A6": { "v": "Product E" },
+        "B6": { "v": 300 },
+        "C6": { "v": 89.99 },
+        "D6": { "v": "Electronics" },
+        "A7": { "v": "Product F" },
+        "B7": { "v": 50 },
+        "C7": { "v": 7.95 },
+        "D7": { "v": "Books" },
+        "A8": { "v": "Product G" },
+        "B8": { "v": 125 },
+        "C8": { "v": 35 },
+        "D8": { "v": "Clothing" }
+      },
+      "hidden": 0,
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 }
+    }
+  ],
+  "names": [],
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [
+    {
+      "name": "Table1",
+      "sheet": "Sheet1",
+      "ref": "A1:D8",
+      "headerRowCount": 1,
+      "totalsRowCount": 0,
+      "columns": [
+        { "name": "123", "dataType": "text" },
+        { "name": "456", "dataType": "number" },
+        { "name": "789", "dataType": "number" },
+        { "name": "ABC", "dataType": "text" }
+      ]
+    }
+  ]
+}

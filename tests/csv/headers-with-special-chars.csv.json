@@ -1,0 +1,95 @@
+{
+  "name": "tests/csv/headers-with-special-chars.csv",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "User ID" },
+        "B1": { "v": "First Name" },
+        "C1": { "v": "Last Name" },
+        "D1": { "v": "Email Address" },
+        "E1": { "v": "Phone # (Mobile)" },
+        "F1": { "v": "Date of Birth" },
+        "G1": { "v": "Salary ($)" },
+        "H1": { "v": "Performance %" },
+        "I1": { "v": "Notes & Comments" },
+        "A2": { "v": 1 },
+        "B2": { "v": "Smith, John" },
+        "C2": { "v": "Johnson" },
+        "D2": { "v": "john.smith@email.com" },
+        "E2": { "v": "(555) 123-4567" },
+        "F2": { "v": 31121, "t": "d", "s": 1 },
+        "G2": { "v": 75, "s": 2 },
+        "H2": { "v": 0.5 },
+        "I2": { "v": 0.985, "s": 3 },
+        "J2": { "v": "Excellent work, promoted last year" },
+        "A3": { "v": 2 },
+        "B3": { "v": "Doe, Jane" },
+        "C3": { "v": "Williams" },
+        "D3": { "v": "jane.doe@email.com" },
+        "E3": { "v": "(555) 987-6543" },
+        "F3": { "v": 33076, "t": "d", "s": 1 },
+        "G3": { "v": 85, "s": 2 },
+        "H3": { "v": 0 },
+        "I3": { "v": 0.872, "s": 3 },
+        "J3": { "v": "Good performance, minor issues" },
+        "A4": { "v": 3 },
+        "B4": { "v": "Johnson, Bob" },
+        "C4": { "v": "Brown" },
+        "D4": { "v": "bob.johnson@email.com" },
+        "E4": { "v": "(555) 456-7890" },
+        "F4": { "v": 27753, "t": "d", "s": 1 },
+        "G4": { "v": 95, "s": 2 },
+        "H4": { "v": 0.25 },
+        "I4": { "v": 0.925, "s": 3 },
+        "J4": { "v": "Senior level, very reliable" },
+        "J1": { "v": "Column10" }
+      },
+      "hidden": 0,
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 }
+    }
+  ],
+  "names": [],
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "numberFormat": "yyyy-mm-dd"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "numberFormat": "$#,##0"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "numberFormat": "0.00%"
+    }
+  ],
+  "tables": [
+    {
+      "name": "Table1",
+      "sheet": "Sheet1",
+      "ref": "A1:J4",
+      "headerRowCount": 1,
+      "totalsRowCount": 0,
+      "columns": [
+        { "name": "User ID", "dataType": "number" },
+        { "name": "First Name", "dataType": "text" },
+        { "name": "Last Name", "dataType": "text" },
+        { "name": "Email Address", "dataType": "text" },
+        { "name": "Phone # (Mobile)", "dataType": "text" },
+        { "name": "Date of Birth", "dataType": "datetime" },
+        { "name": "Salary ($)", "dataType": "number" },
+        { "name": "Performance %", "dataType": "number" },
+        { "name": "Notes & Comments", "dataType": "number" },
+        { "name": "Column10", "dataType": "text" }
+      ]
+    }
+  ]
+}

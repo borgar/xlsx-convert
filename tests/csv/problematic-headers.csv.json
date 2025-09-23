@@ -1,0 +1,54 @@
+{
+  "name": "tests/csv/problematic-headers.csv",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "Column1" },
+        "B1": { "v": "Column12" },
+        "D1": { "v": "foo" },
+        "E1": { "v": "Column13" },
+        "F1": { "v": "#Foo" },
+        "G1": { "v": "#All" },
+        "A2": { "v": 1 },
+        "B2": { "v": 1 },
+        "C2": { "v": 1 },
+        "D2": { "v": 1 },
+        "E2": { "v": 1 },
+        "F2": { "v": 1 },
+        "G2": { "v": 1 },
+        "H2": { "v": 1 },
+        "C1": { "v": "Column3" },
+        "H1": { "v": "Column8" }
+      },
+      "hidden": 0,
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 }
+    }
+  ],
+  "names": [],
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [
+    {
+      "name": "Table1",
+      "sheet": "Sheet1",
+      "ref": "A1:H2",
+      "headerRowCount": 1,
+      "totalsRowCount": 0,
+      "columns": [
+        { "name": "Column1", "dataType": "number" },
+        { "name": "Column12", "dataType": "number" },
+        { "name": "Column3", "dataType": "number" },
+        { "name": "foo", "dataType": "number" },
+        { "name": "Column13", "dataType": "number" },
+        { "name": "#Foo", "dataType": "number" },
+        { "name": "#All", "dataType": "number" },
+        { "name": "Column8", "dataType": "number" }
+      ]
+    }
+  ]
+}
