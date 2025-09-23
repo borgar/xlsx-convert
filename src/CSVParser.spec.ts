@@ -290,6 +290,7 @@ describe('CSVParser', () => {
       const csv = '999999999999999999';
       const result = parser.parse(csv);
 
+      // eslint-disable-next-line no-loss-of-precision
       expect(result.A1).toEqual({ v: 999999999999999999 });
     });
 

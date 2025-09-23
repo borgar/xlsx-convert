@@ -99,7 +99,7 @@ async function testFile (xlsxFilename: string, testFilename: string): Promise<st
   }
   else if (/\.[ct]sv/.test(xlsxFilename)) {
     const src = await readFile(xlsxFilename, 'utf8');
-    wb = convertCSV(src, xlsxFilename);
+    wb = convertCSV(src, xlsxFilename, { table: true });
   }
 
   const resultJson = JSON.parse(JSON.stringify(wb));
