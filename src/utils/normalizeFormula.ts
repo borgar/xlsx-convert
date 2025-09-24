@@ -14,7 +14,7 @@ function updateContext (ref: Ref, externalLinks: JSFExternal[]): RefContext {
   if (ref.workbookName && isFinite(+ref.workbookName)) {
     const wbIndex = +ref.workbookName - 1;
     if (externalLinks[wbIndex]) {
-      context.push(externalLinks[wbIndex].filename);
+      context.push(externalLinks[wbIndex].name);
     }
     else {
       throw new Error('#REF!');

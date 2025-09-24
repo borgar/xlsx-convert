@@ -5,9 +5,9 @@ import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { ConversionContext } from '../ConversionContext.ts';
 import type { JSFExternal, JSFNameDefinition } from '../jsf-types.ts';
 
-export function handlerExternal (dom: Document, fileName:string = ''): JSFExternal {
+export function handlerExternal (dom: Document, fileName: string = ''): JSFExternal {
   const external: JSFExternal = {
-    filename: fileName,
+    name: fileName,
     sheets: [],
     names: [],
   };

@@ -578,7 +578,7 @@ export type JSFExternal = {
   /**
    * Filename being referenced.
    */
-  filename: string;
+  name: string;
   /**
    * A list of the relevant worksheets from an external workbook.
    *

@@ -70,7 +70,7 @@
   ],
   "externals": [
     {
-      "filename": "literals.xlsx",
+      "name": "literals.xlsx",
       "sheets": [
         {
           "name": "some values",
@@ -82,7 +82,7 @@
       "names": []
     },
     {
-      "filename": "names.xlsx",
+      "name": "names.xlsx",
       "sheets": [
         {
           "name": "Sheet1",

@@ -72,8 +72,8 @@ describe('normalizeFormula', () => {
     it('should handle external references with workbook links', () => {
       const wb = {
         externalLinks: [
-          { filename: 'External.xlsx' },
-          { filename: 'Data.xlsx' },
+          { name: 'External.xlsx' },
+          { name: 'Data.xlsx' },
         ],
       };
       expect(normalizeFormula('[0]Sheet1!A1', wb)).toBe('#REF!');
@@ -94,7 +94,7 @@ describe('normalizeFormula', () => {
 
   describe('complex formulas', () => {
     it('should handle formulas with multiple normalizations', () => {
-      const wb = { externalLinks: [ { filename: 'External.xlsx' } ] };
+      const wb = { externalLinks: [ { name: 'External.xlsx' } ] };
       expect(normalizeFormula('_xlfn.IFERROR(_xlpm.MyName+[1]Sheet1!A1,0)', wb))
         .toBe('IFERROR(MyName+[External.xlsx]Sheet1!A1,0)');
     });
