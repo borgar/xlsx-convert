@@ -29,7 +29,7 @@ export class ConversionContext {
   externalLinks: JSFExternal[];
   filename: string;
   _formulasR1C1: string[];
-  _shared: Record<number, RelativeFormula>;
+  _shared: Map<number, RelativeFormula>;
   _merged: Record<string, string>;
   _arrayFormula: string[];
 
@@ -48,8 +48,7 @@ export class ConversionContext {
     this.externalLinks = [];
     this.filename = '';
     this._formulasR1C1 = [];
-    // shared formula
-    this._shared = {};
+    this._shared = new Map();
     this._merged = {};
     this._arrayFormula = [];
   }

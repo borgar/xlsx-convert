@@ -150,12 +150,11 @@ export function handlerCell (node: Element, context: ConversionContext): JSFCell
       //       refer to the cell containing the formula. Two formulas are
       //       considered to be the same when their respective representations
       //       in R1C1-reference notation, are the same.
-      const shareGroupIndex = attr(fNode, 'si');
-      if (!sharedF[shareGroupIndex]) {
-        sharedF[shareGroupIndex] = new RelativeFormula(fNode.textContent, address);
+      const shareGroupIndex = numAttr(fNode, 'si');
+      if (!sharedF.has(shareGroupIndex)) {
+        sharedF.set(shareGroupIndex, new RelativeFormula(fNode.textContent, address));
       }
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      f = sharedF[shareGroupIndex].translate(address);
+      f = sharedF.get(shareGroupIndex).translate(address);
     }
     // dataTable for data table formula
     else if (formulaType.toLowerCase() === 'datatable') {
@@ -175,6 +174,7 @@ export function handlerCell (node: Element, context: ConversionContext): JSFCell
         cell.f = normalizeFormula(f, context);
       }
       else {
+        // FIXME: if formula exists as a shared formula we are potentially doing this for the second time
         const rc = normalizeFormula(translateToR1C1(f, address) as string, context);
         let fi = context._formulasR1C1.indexOf(rc);
         if (fi < 0) {
