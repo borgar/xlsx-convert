@@ -21,6 +21,15 @@ import type { JSFWorkbook } from './jsf-types.ts';
 import type { ConversionOptions } from './index.ts';
 import { EncryptionError, InvalidFileError, MissingSheetError } from './errors.ts';
 
+function toArrayBuffer (buffer: Buffer): ArrayBuffer {
+  const arrayBuffer = new ArrayBuffer(buffer.length);
+  const view = new Uint8Array(arrayBuffer);
+  for (let i = 0; i < buffer.length; ++i) {
+    view[i] = buffer[i];
+  }
+  return arrayBuffer;
+}
+
 /**
  * Default conversion options
  */
@@ -45,7 +54,10 @@ export async function convertBinary (
   filename: string,
   options?: ConversionOptions,
 ): Promise<JSFWorkbook> {
-  if (!(buffer instanceof ArrayBuffer || buffer instanceof Buffer)) {
+  if (typeof Buffer !== 'undefined' && buffer instanceof Buffer) {
+    buffer = toArrayBuffer(buffer);
+  }
+  if (!(buffer instanceof ArrayBuffer)) {
     throw new InvalidFileError('Input is not a valid binary');
   }
   options = Object.assign({}, DEFAULT_OPTIONS, options);
@@ -60,7 +72,7 @@ export async function convertBinary (
 
   let zip: FileContainer;
   try {
-    zip = await loadZip(buffer);
+    zip = loadZip(buffer);
   }
   catch (err) {
     throw new InvalidFileError('Input file type is corrupted or unsupported');
