@@ -23,10 +23,7 @@ import { EncryptionError, InvalidFileError, MissingSheetError } from './errors.t
 
 function toArrayBuffer (buffer: Buffer): ArrayBuffer {
   const arrayBuffer = new ArrayBuffer(buffer.length);
-  const view = new Uint8Array(arrayBuffer);
-  for (let i = 0; i < buffer.length; ++i) {
-    view[i] = buffer[i];
-  }
+  new Uint8Array(arrayBuffer).set(buffer);
   return arrayBuffer;
 }
 

@@ -1,9 +1,16 @@
 import { inflateRaw as inflateJS } from 'pako';
+import type { Buffer } from 'node:buffer';
+
+const ALLOW_ZLIB = true;
+const ALLOW_STREAMS = true;
 
 export type FileContainer = {
-  readFile (name: string, mode: 'utf8'): Promise<string> | null;
-  readFile (name: string, mode?: 'binary'): Promise<ArrayBuffer> | null;
+  readFile (name: string, mode: 'utf8'): Promise<string | null>;
+  readFile (name: string, mode?: 'binary'): Promise<ArrayBuffer | null>;
+  readFile (name: string, mode?: 'utf8' | 'binary'): Promise<string | ArrayBuffer | null>;
 };
+
+type InflateFunc = (data: ArrayBuffer) => ArrayBuffer | Promise<ArrayBuffer>;
 
 type MainHead = {
   volumeEntries: number,
@@ -45,25 +52,27 @@ type LocEntry = {
   extraLength: number,
 };
 
-type Inflater = (data: ArrayBuffer) => (
-  Promise<ArrayBuffer>
-);
-
 const PK12 = 0x02014b50; // "PK\001\002"
 const PK34 = 0x04034b50; // "PK\003\004"
 const PK56 = 0x06054b50; // "PK\005\006"
 const PK66 = 0x06064b50; // "PK\006\006"
 const PK67 = 0x07064b50; // "PK\006\007"
 
-// this isn't going to yield a 64bit number, but likely will be enough
-function readBigUInt64LE (buffer: DataView<ArrayBuffer>, index: number) {
-  // const slice = Buffer.from(buffer.slice(index, index + 8));
-  // slice.swap64();
-  // return parseInt(`0x${slice.toString('hex')}`);
-  return 0;
+// this isn't going to yield a 64bit number, but likely will be enough for many cases
+function readBigUInt64LE (data: DataView, index: number) {
+  return (
+    data.getUint8(index) +
+    data.getUint8(index + 1) * 0x100 +
+    data.getUint8(index + 2) * 0x10000 +
+    data.getUint8(index + 3) * 0x1000000 +
+    data.getUint8(index + 4) * 0x100000000 +
+    data.getUint8(index + 5) * 0x10000000000 +
+    data.getUint8(index + 6) * 0x1000000000000 +
+    data.getUint8(index + 7) * 0x100000000000000
+  );
 }
 
-function loadMainHeader (data: DataView<ArrayBuffer>): MainHead {
+function loadMainHeader (data: DataView): MainHead {
   // data should be 22 bytes and start with "PK 05 06"
   // or be 56+ bytes and start with "PK 06 06" for Zip64
   if (data.byteLength === 22 && data.getUint32(0, true) === PK56) {
@@ -87,7 +96,7 @@ function loadMainHeader (data: DataView<ArrayBuffer>): MainHead {
   throw new Error('Invalid main header');
 }
 
-function loadEntryHeader (data: DataView<ArrayBuffer>): ArchEntry {
+function loadEntryHeader (data: DataView): ArchEntry {
   if (data.byteLength !== 46 || data.getUint32(0, true) !== PK12) {
     throw new Error('Invalid entry header');
   }
@@ -112,7 +121,7 @@ function loadEntryHeader (data: DataView<ArrayBuffer>): ArchEntry {
   };
 }
 
-function loadLocalHeader (data: DataView<ArrayBuffer>): LocEntry {
+function loadLocalHeader (data: DataView): LocEntry {
   if (data.byteLength !== 30 || data.getUint32(0, true) !== PK34) {
     throw new Error('Invalid local header');
   }
@@ -186,8 +195,10 @@ export function zipIndex (data: ArrayBuffer): Record<string, ArchEntry> {
   return entryTable;
 }
 
-let inflate = inflateJS;
-async function setUpInflate (allowZlib = false, allowStreams = false) {
+// default to using pako, which is a pure JS zlib implementation
+let inflate: InflateFunc = inflateJS;
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
+(async function setUpInflate (allowZlib = false, allowStreams = false) {
   // prefer DecompressionStream if we have it
   if (allowStreams && typeof DecompressionStream !== 'undefined' && typeof Response !== 'undefined') {
     inflate = async function inflateBrowser (data: ArrayBuffer) {
@@ -202,10 +213,13 @@ async function setUpInflate (allowZlib = false, allowStreams = false) {
   if (allowZlib) {
     try {
       const zlib = await import('node:zlib');
-      inflate = function inflateNode (data: ArrayBuffer) {
+      inflate = function inflateNode (data: ArrayBuffer): Promise<ArrayBuffer> {
         return new Promise((resolve, reject) => {
-          zlib.inflateRaw(data, (error: Error | null, result: Buffer) => {
-            return error ? reject(error) : resolve(result);
+          zlib.inflateRaw(new Uint8Array(data), (error: NodeJS.ErrnoException | null, result: Buffer) => {
+            if (error) return reject(error);
+            const arrayBuffer = new ArrayBuffer(result.length);
+            new Uint8Array(arrayBuffer).set(result);
+            resolve(arrayBuffer);
           });
         });
       };
@@ -214,41 +228,38 @@ async function setUpInflate (allowZlib = false, allowStreams = false) {
       // zlip is not available
     }
   }
-  // fallback to using pako, which is a pure JS zlib implementation
-  // return inflateJS;
-}
-
-setUpInflate(true, true).catch(() => {
-  // ignore errors
-});
+})(ALLOW_ZLIB, ALLOW_STREAMS);
 
 export function loadZip (archive: ArrayBuffer): FileContainer {
   const index: Record<string, ArchEntry> = zipIndex(archive);
-  return {
-    readFile: async (name: string, mode = 'binary') => {
-      const normName = name.replace(/^\.\//g, '');
-      const fd = index[normName];
-      if (!fd) {
-        return null;
-      }
-      const { offset, compressedSize } = fd;
-      const hd = loadLocalHeader(new DataView(archive, offset, 30));
-      const dataOffset = offset + 30 + hd.filenameLength + hd.extraLength;
-      let uncompressed;
-      if (fd.method === 8) {
-        uncompressed = await inflate(
-          archive.slice(dataOffset, dataOffset + compressedSize),
-        );
-      }
-      else if (fd.method === 0) {
-        uncompressed = archive.slice(dataOffset, dataOffset + compressedSize);
-      }
-      else {
-        throw new Error('Unsupported compression method: ' + fd.method);
-      }
-      return mode == 'utf8'
-        ? new TextDecoder().decode(uncompressed)
-        : uncompressed;
-    },
-  };
+
+  async function readFile (name: string, mode: 'utf8'): Promise<string | null>;
+  async function readFile (name: string, mode?: 'binary'): Promise<ArrayBuffer | null>;
+  async function readFile (name: string, mode: 'utf8' | 'binary' = 'binary'): Promise<string | ArrayBuffer | null> {
+    const normName = name.replace(/^\.\//g, '');
+    const fd = index[normName];
+    if (!fd) {
+      return null;
+    }
+    const { offset, compressedSize } = fd;
+    const hd = loadLocalHeader(new DataView(archive, offset, 30));
+    const dataOffset = offset + 30 + hd.filenameLength + hd.extraLength;
+    let uncompressed: ArrayBuffer;
+    if (fd.method === 8) {
+      uncompressed = await inflate(
+        archive.slice(dataOffset, dataOffset + compressedSize),
+      );
+    }
+    else if (fd.method === 0) {
+      uncompressed = archive.slice(dataOffset, dataOffset + compressedSize);
+    }
+    else {
+      throw new Error('Unsupported compression method: ' + fd.method);
+    }
+    return mode === 'binary'
+      ? uncompressed
+      : new TextDecoder().decode(uncompressed);
+  }
+
+  return { readFile };
 }
