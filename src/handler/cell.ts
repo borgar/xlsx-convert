@@ -9,6 +9,7 @@ import { ConversionContext } from '../ConversionContext.ts';
 import type { JSFCell } from '../jsf-types.ts';
 import { dateToSerial } from '../utils/dateToSerial.ts';
 import { UnsupportedError } from '../errors.ts';
+import { ERROR_NAMES } from '../constants.ts';
 
 export const relevantStyle = (obj: Record<string, any>): boolean => {
   return !!(
@@ -89,22 +90,6 @@ export function handlerCell (node: Element, context: ConversionContext): JSFCell
   // ECMA - 18.3.1.40 f (Formula)
   const fNode = node.querySelectorAll('> f')[0];
 
-  const formulaErrors = [
-    '#BLOCKED!',
-    '#CALC!',
-    '#DIV/0!',
-    '#FIELD!',
-    '#GETTING_DATA',
-    '#N/A',
-    '#NAME?',
-    '#NULL!',
-    '#NUM!',
-    '#REF!',
-    '#SPILL!',
-    '#UNKNOWN!',
-    '#VALUE!',
-  ];
-
   if (v || valueType === 'str') {
     if (valueType === 's') {
       cell.v = context.sst ? context.sst[toInt(v)] : '';
@@ -128,7 +113,7 @@ export function handlerCell (node: Element, context: ConversionContext): JSFCell
       // Sheets doesn't (`t="str"`). That means we have to check whether we have a formula and the
       // value looks like a known error. If it does, treat it as an error. Otherwise, it's just a
       // string.
-      if (fNode && v && formulaErrors.includes(v)) {
+      if (fNode && v && ERROR_NAMES.includes(v)) {
         valueType = 'e';
         cell.t = 'e';
         cell.v = v;
