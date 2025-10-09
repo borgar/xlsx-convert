@@ -119,3 +119,19 @@ export const NAMED_COLORS = {
   'windowframe': 'FF646464',
   'windowtext': 'FF000000',
 };
+
+export const ERROR_NAMES = [
+  '#BLOCKED!',
+  '#CALC!',
+  '#DIV/0!',
+  '#FIELD!',
+  '#GETTING_DATA',
+  '#N/A',
+  '#NAME?',
+  '#NULL!',
+  '#NUM!',
+  '#REF!',
+  '#SPILL!',
+  '#UNKNOWN!',
+  '#VALUE!',
+];

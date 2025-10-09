@@ -1,0 +1,33 @@
+{
+  "name": "errors-gsheets.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "#NAME?", "t": "e", "f": 0, "s": 1 },
+        "A2": { "s": 2, "v": "#NAME?" }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 76, "rowHeight": 16 },
+      "hidden": 0
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Arial", "fontSize": 10 },
+    { "fontFamily": "Arial", "fontSize": 0 },
+    { "fontFamily": "Arial", "fontSize": 0 }
+  ],
+  "tables": [],
+  "formulas": [
+    "FOO()"
+  ]
+}
