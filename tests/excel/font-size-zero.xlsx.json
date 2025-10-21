@@ -1,0 +1,96 @@
+{
+  "name": "font-size-zero.xlsx",
+  "sheets": [
+    {
+      "name": "GANG RIP - GR",
+      "cells": {
+        "A1": { "s": 1, "v": "GANG RIP - GR" },
+        "A2": { "s": 2, "v": "Batch ID" },
+        "B2": { "s": 2, "v": "SKU" },
+        "C2": { "s": 2, "v": "Description" },
+        "D2": { "s": 2, "v": "MFG Notes" },
+        "E2": { "s": 2, "v": "Species" },
+        "F2": { "s": 2, "v": "RUNNING TALLY" },
+        "G2": { "s": 2, "v": "Demand" },
+        "H2": { "s": 2, "v": "SEQUENCE" },
+        "I2": { "s": 2, "v": "ACTUAL" },
+        "J2": { "s": 2, "v": "Difference" },
+        "K2": { "s": 2, "v": "Status" },
+        "L2": { "s": 2, "v": "Comments" },
+        "A3": { "s": 3, "v": "SET UP" },
+        "B3": { "s": 3, "v": "SET UP" },
+        "G3": { "s": 5, "v": 1 },
+        "J3": { "s": 6, "v": 1 },
+        "K3": { "s": 3, "v": "-" },
+        "L3": { "s": 3, "v": "-" },
+        "P3": { "s": 3, "v": 0 },
+        "B6": { "s": 9 },
+        "C6": { "s": 10 },
+        "D6": { "s": 10 },
+        "E6": { "s": 10 },
+        "F6": { "s": 10 },
+        "G6": { "s": 11 },
+        "H6": { "s": 10 },
+        "I6": { "s": 10 },
+        "J6": { "s": 11 },
+        "K6": { "s": 10 }
+      },
+      "columns": [
+        { "start": 1, "end": 1, "size": 125 },
+        { "start": 2, "end": 2, "size": 130 },
+        { "start": 3, "end": 3, "size": 0 },
+        { "start": 4, "end": 4, "size": 130 },
+        { "start": 5, "end": 5, "size": 70 },
+        { "start": 6, "end": 6, "size": 0 },
+        { "start": 7, "end": 7, "size": 63 },
+        { "start": 8, "end": 8, "size": 0 },
+        { "start": 9, "end": 9, "size": 0 },
+        { "start": 10, "end": 10, "size": 93 },
+        { "start": 11, "end": 11, "size": 58 },
+        { "start": 12, "end": 12, "size": 160 }
+      ],
+      "rows": [
+        { "start": 4, "end": 4, "size": 16.5 },
+        { "start": 98, "end": 197, "size": 0 }
+      ],
+      "merges": [
+        "A1:L1"
+      ],
+      "defaults": { "colWidth": 76, "rowHeight": 16 },
+      "hidden": 0
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Arial", "fontSize": 10 },
+    {
+      "horizontalAlignment": "center",
+      "fontFamily": "Arial",
+      "fontSize": 18,
+      "bold": true,
+      "fillColor": "#A9A9A9"
+    },
+    {
+      "horizontalAlignment": "center",
+      "fontSize": 14,
+      "fillColor": "#D3D3D3"
+    },
+    {},
+    {},
+    { "numberFormat": "##0" },
+    { "numberFormat": "##0", "fillColor": "#FFC0CB" },
+    { "numberFormat": "m/d/yy" },
+    { "numberFormat": "##0" },
+    { "fontSize": 14, "fillColor": "#0FF" },
+    { "fillColor": "#0FF" },
+    { "numberFormat": "##0", "fillColor": "#0FF" }
+  ],
+  "tables": [],
+  "formulas": []
+}

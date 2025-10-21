@@ -124,8 +124,9 @@ function readFont (node: Element, theme: Theme): Font {
   if (name === 'Calibri (Body)') {
     name = 'Calibri';
   }
+  const fontSize = valOfNode(node, 'sz');
   return {
-    size: +valOfNode(node, 'sz'),
+    size: fontSize != null ? +fontSize : undefined,
     name: name,
     underline: u ? attr(u, 'val', 'single') : undefined,
     bold: !!b,
