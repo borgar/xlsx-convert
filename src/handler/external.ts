@@ -3,10 +3,10 @@ import { attr, numAttr } from '../utils/attr.ts';
 import { handlerCell } from './cell.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { ConversionContext } from '../ConversionContext.ts';
-import type { JSFExternal, JSFNameDefinition } from '../jsf-types.ts';
+import type { External, DefinedName } from '@jsfkit/types';
 
-export function handlerExternal (dom: Document, fileName: string = ''): JSFExternal {
-  const external: JSFExternal = {
+export function handlerExternal (dom: Document, fileName: string = ''): External {
+  const external: External = {
     name: fileName,
     sheets: [],
     names: [],
@@ -40,7 +40,7 @@ export function handlerExternal (dom: Document, fileName: string = ''): JSFExter
   // read defined names
   dom.querySelectorAll('definedNames > definedName')
     .forEach(definedName => {
-      const nameDef: JSFNameDefinition = {
+      const nameDef: DefinedName = {
         name: attr(definedName, 'name'),
       };
       const expr = attr(definedName, 'refersTo');

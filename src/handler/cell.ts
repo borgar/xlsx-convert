@@ -6,7 +6,7 @@ import { unescape } from '../utils/unescape.ts';
 import { RelativeFormula } from '../RelativeFormula.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { ConversionContext } from '../ConversionContext.ts';
-import type { JSFCell } from '../jsf-types.ts';
+import type { Cell } from '@jsfkit/types';
 import { dateToSerial } from '../utils/dateToSerial.ts';
 import { UnsupportedError } from '../errors.ts';
 import { ERROR_NAMES } from '../constants.ts';
@@ -31,8 +31,8 @@ const parseTimeToSerial = (ts: string): number => {
 };
 
 // ECMA - 18.3.1.4 (Cell)
-export function handlerCell (node: Element, context: ConversionContext): JSFCell {
-  const cell: JSFCell = {};
+export function handlerCell (node: Element, context: ConversionContext): Cell {
+  const cell: Cell = {};
   // FIXME: these props are scoped by the sheet but exist on the WB object
   //        during processing and are wiped per-sheet
   const sharedF = context._shared;
