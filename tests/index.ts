@@ -1,6 +1,8 @@
 import { convertBinary, convertCSV } from '../src/index.ts';
 import { readFile, writeFile } from 'fs/promises';
 import { deepStrictEqual } from 'assert';
+import type { Workbook } from '@jsfkit/types';
+import { translateToA1 } from '@borgar/fx';
 
 const UPDATE = !!process.env.UPDATE_TESTS;
 
@@ -93,11 +95,43 @@ function makeNiceJson (ent) {
     .replace(/"(~~xlsx-convert~~\d+)"/g, (_, key) => _tempStore.get(key));
 }
 
+/**
+ * Verify that formulas are the same between an R1C1 and A1
+ * JSF workbook objects.
+ *
+ * Changing the converter can result in shifts in the formula indexes
+ * these are harmless but cause large diffs in the fixtures. This test
+ * allows updating the test fixtures with more confidence when shifts
+ * are happening.
+ */
+function verifyCellFormulas (wbRC: Workbook, wbA1: Workbook) {
+  for (const [ sheetIndex, sheet ] of Object.entries(wbRC.sheets)) {
+    const a1Cells = wbA1.sheets[sheetIndex].cells;
+    for (const [ cellId, cell ] of Object.entries(sheet.cells)) {
+      if (cell.f != null) {
+        const expr = translateToA1(wbRC.formulas[cell.f], cellId);
+        if (expr !== a1Cells[cellId].f) {
+          return [
+            `  Formula mismatch in ${sheet.name}→${cellId}:`,
+            `    Expected: ${a1Cells[cellId].f}`,
+            `    Result:   ${String(expr)}`,
+          ].join('\n');
+        }
+      }
+    }
+  }
+  return '';
+}
+
 async function testFile (xlsxFilename: string, testFilename: string): Promise<string> {
-  let wb;
+  let wb: Workbook;
   if (xlsxFilename.endsWith('.xlsx')) {
     const src = await readFile(xlsxFilename);
     wb = await convertBinary(src, xlsxFilename);
+    const cf = await convertBinary(src, xlsxFilename, { cellFormulas: true });
+    // check that formulas match
+    const fxDiff = verifyCellFormulas(wb, cf);
+    if (fxDiff) { return fxDiff; }
   }
   else if (/\.[ct]sv/.test(xlsxFilename)) {
     const src = await readFile(xlsxFilename, 'utf8');
