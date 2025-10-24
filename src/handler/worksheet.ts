@@ -8,9 +8,14 @@ import type { Rel } from './rels.ts';
 import type { JSFWorksheet } from '../jsf-types.ts';
 import { colWidth } from '../utils/colWidth.ts';
 
-export function handlerWorksheet (dom: Document, context: ConversionContext, rels: Rel[]): JSFWorksheet {
+export function handlerWorksheet (
+  dom: Document,
+  context: ConversionContext,
+  rels: Rel[],
+  sheetName: string,
+): JSFWorksheet {
   const sheet: JSFWorksheet = {
-    name: '',
+    name: sheetName,
     cells: {},
     columns: [],
     rows: [],
@@ -146,6 +151,19 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
         }
       }
     });
+
+  // XXX: this is not the way to do this: sheet only has 1 picture and 1 drawing!
+  // find drawings linked to this sheet
+  dom.querySelectorAll('drawing,picture').forEach(d => {
+    const rId = attr(d, 'r:id');
+    const rel = rels.find(rel => rel.id === rId);
+    if (rel) {
+      context.images.push({ sheetName, rel, type: d.tagName });
+    }
+    else {
+      // throw new Error('Drawing not found ' + rId);
+    }
+  });
 
   delete context._shared;
   delete context._arrayFormula;

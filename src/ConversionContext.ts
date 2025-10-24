@@ -14,6 +14,12 @@ type SheetLink = {
   index: number;
 };
 
+type RefLink = {
+  rel: Rel;
+  sheetName: string;
+  type: string;
+};
+
 export class ConversionContext {
   workbook: JSFWorkbook | null;
   sst: string[];
@@ -32,6 +38,7 @@ export class ConversionContext {
   _shared: Record<number, RelativeFormula>;
   _merged: Record<string, string>;
   _arrayFormula: string[];
+  images: RefLink[];
 
   constructor () {
     this.rels = [];
@@ -52,5 +59,6 @@ export class ConversionContext {
     this._shared = {};
     this._merged = {};
     this._arrayFormula = [];
+    this.images = [];
   }
 }

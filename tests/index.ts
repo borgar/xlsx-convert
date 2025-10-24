@@ -12,6 +12,7 @@ const tests = [
   'tests/excel/borders.xlsx',
   'tests/excel/cse.xlsx',
   'tests/excel/charts-and-images.xlsx',
+  'tests/excel/every-chart.xlsx',
   'tests/excel/date-time.xlsx',
   'tests/excel/emojii.xlsx',
   'tests/excel/external-refs.xlsx',
@@ -38,6 +39,7 @@ const tests = [
   'tests/excel/table-styles.xlsx',
   'tests/excel/errors-excel.xlsx',
   'tests/excel/errors-gsheets.xlsx',
+  'tests/excel/grouped-grouped-charts.xlsx',
   // CSV conversion
   'tests/csv/boolean-variations.csv',
   'tests/csv/complex-mixed-types.csv',

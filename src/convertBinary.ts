@@ -20,6 +20,7 @@ import { handlerTable } from './handler/table.ts';
 import type { JSFWorkbook } from './jsf-types.ts';
 import type { ConversionOptions } from './index.ts';
 import { EncryptionError, InvalidFileError, MissingSheetError } from './errors.ts';
+import { handlerDrawing } from './handler/drawing.ts';
 
 /**
  * Default conversion options
@@ -185,9 +186,29 @@ export async function convertBinary (
       if (!sheetFile) {
         throw new MissingSheetError('Missing sheet file: ' + sheetRel.target);
       }
-      const sh = handlerWorksheet(sheetFile, context, sheetRels);
-      sh.name = sheetName;
+      context.images = [];
+      const sh = handlerWorksheet(sheetFile, context, sheetRels, sheetName);
       wb.sheets[index] = sh;
+
+      // process images
+      if (context.images.length) {
+        for (const img of context.images) {
+          if (img.type === 'picture') {
+            // sheet.background = ...
+          }
+          if (img.type === 'drawing') {
+            if (img.rel.type === 'drawing') {
+              const drawingDom = await getFile(img.rel.target);
+              const drawing = handlerDrawing(drawingDom, context);
+              // console.log(drawing);
+              // read drawing from img.rel.target
+            }
+            else if (img.rel.type === 'image') {
+              // read drawing from img.rel.target
+            }
+          }
+        }
+      }
     }
     else {
       // TODO: add strict mode that: throw new Error('No rel found for sheet ' + sheetLink.rId);

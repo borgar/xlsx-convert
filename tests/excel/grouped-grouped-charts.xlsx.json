@@ -1,0 +1,76 @@
+{
+  "name": "grouped-grouped-charts.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "a" },
+        "B1": { "v": 1 },
+        "A2": { "v": "b" },
+        "B2": { "v": 2 },
+        "A3": { "v": "c" },
+        "B3": { "v": 3 }
+      },
+      "columns": [
+        { "start": 9, "end": 9, "size": 57 }
+      ],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0
+    }
+  ],
+  "names": [
+    {
+      "name": "_xlchart.v1.0",
+      "value": "Sheet1!$A$1:$A$3"
+    },
+    {
+      "name": "_xlchart.v1.1",
+      "value": "Sheet1!$B$1:$B$3"
+    },
+    {
+      "name": "_xlchart.v1.2",
+      "value": "Sheet1!$A$1:$A$3"
+    },
+    {
+      "name": "_xlchart.v1.3",
+      "value": "Sheet1!$B$1:$B$3"
+    },
+    {
+      "name": "_xlchart.v1.4",
+      "value": "Sheet1!$A$1:$A$3"
+    },
+    {
+      "name": "_xlchart.v1.5",
+      "value": "Sheet1!$B$1:$B$3"
+    },
+    {
+      "name": "_xlchart.v1.6",
+      "value": "Sheet1!$A$1:$A$3"
+    },
+    {
+      "name": "_xlchart.v1.7",
+      "value": "Sheet1!$B$1:$B$3"
+    },
+    {
+      "name": "_xlchart.v1.8",
+      "value": "Sheet1!$A$1:$A$3"
+    },
+    {
+      "name": "_xlchart.v1.9",
+      "value": "Sheet1!$B$1:$B$3"
+    }
+  ],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [],
+  "formulas": []
+}
