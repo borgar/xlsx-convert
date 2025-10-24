@@ -61,7 +61,7 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
     });
   });
 
-  context._shared = {};
+  context._shared = new Map();
   context._arrayFormula = [];
   context._merged = {};
 
