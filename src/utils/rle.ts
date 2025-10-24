@@ -1,13 +1,13 @@
-import type { JSFGridSize } from '../jsf-types.ts';
+import type { GridSize } from '@jsfkit/types';
 
 type IndexHeightPair = [ number, number ];
 
-export function rle (list: IndexHeightPair[], defaultValue: number): JSFGridSize[] {
+export function rle (list: IndexHeightPair[], defaultValue: number): GridSize[] {
   let lastItem = [];
-  let current: JSFGridSize;
+  let current: GridSize;
   return list
     .sort((a, b) => a[0] - b[0])
-    .reduce((newList: JSFGridSize[], item: IndexHeightPair) => {
+    .reduce((newList: GridSize[], item: IndexHeightPair) => {
       const nextInSeq = lastItem[0] + 1 === item[0];
       const sameSize = lastItem[1] === item[1];
       if (nextInSeq && sameSize) {

@@ -6,9 +6,10 @@ import { unescape } from '../utils/unescape.ts';
 import { RelativeFormula } from '../RelativeFormula.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { ConversionContext } from '../ConversionContext.ts';
-import type { JSFCell } from '../jsf-types.ts';
+import type { Cell } from '@jsfkit/types';
 import { dateToSerial } from '../utils/dateToSerial.ts';
 import { UnsupportedError } from '../errors.ts';
+import { ERROR_NAMES } from '../constants.ts';
 
 export const relevantStyle = (obj: Record<string, any>): boolean => {
   return !!(
@@ -30,8 +31,8 @@ const parseTimeToSerial = (ts: string): number => {
 };
 
 // ECMA - 18.3.1.4 (Cell)
-export function handlerCell (node: Element, context: ConversionContext): JSFCell {
-  const cell: JSFCell = {};
+export function handlerCell (node: Element, context: ConversionContext): Cell {
+  const cell: Cell = {};
   // FIXME: these props are scoped by the sheet but exist on the WB object
   //        during processing and are wiped per-sheet
   const sharedF = context._shared;
@@ -85,13 +86,42 @@ export function handlerCell (node: Element, context: ConversionContext): JSFCell
     valueType = 'str';
     v = node.querySelectorAll('is t').map(d => d.textContent).join('');
   }
+
+  // ECMA - 18.3.1.40 f (Formula)
+  const fNode = node.querySelectorAll('> f')[0];
+
   if (v || valueType === 'str') {
     if (valueType === 's') {
       cell.v = context.sst ? context.sst[toInt(v)] : '';
     }
     else if (valueType === 'str') {
-      valueType = 's';
-      cell.v = v || '';
+      // Excel stores cells with formula errors like this:
+      //
+      //     <c r="A1" t="e" cm="1">
+      //       <f t="array" aca="1" ref="A1" ca="1">FOO()</f>
+      //       <v>#NAME?</v>
+      //     </c>
+      //
+      // Whereas Google Sheets stores the same error like this:
+      //
+      //     <c r="A1" s="1" t="str">
+      //       <f>FOO()</f>
+      //       <v>#NAME?</v>
+      //     </c>
+      //
+      // The key difference is that Excel marks the cell as having an error (`t="e"`) but Google
+      // Sheets doesn't (`t="str"`). That means we have to check whether we have a formula and the
+      // value looks like a known error. If it does, treat it as an error. Otherwise, it's just a
+      // string.
+      if (fNode && v && ERROR_NAMES.includes(v)) {
+        valueType = 'e';
+        cell.t = 'e';
+        cell.v = v;
+      }
+      else {
+        valueType = 's';
+        cell.v = v || '';
+      }
     }
     else if (valueType === 'b') {
       cell.v = !!toInt(v);
@@ -122,8 +152,6 @@ export function handlerCell (node: Element, context: ConversionContext): JSFCell
     }
   }
 
-  // ECMA - 18.3.1.40 f (Formula)
-  const fNode = node.querySelectorAll('> f')[0];
   if (fNode) {
     // .t (Formula Type): [ array | dataTable | normal | shared ]
     const formulaType = attr(fNode, 't', 'normal');

@@ -1,7 +1,7 @@
 import type { StyleDefs } from '../handler/styles.ts';
-import type { JSFStyle } from '../jsf-types.ts';
+import type { Style } from '@jsfkit/types';
 
-const addStyle = (obj: JSFStyle, key: string, val: any, skip: any = null): number => {
+const addStyle = (obj: Style, key: string, val: any, skip: any = null): number => {
   if (val == null) {
     return 0;
   }
@@ -15,9 +15,9 @@ const addStyle = (obj: JSFStyle, key: string, val: any, skip: any = null): numbe
   return 1;
 };
 
-function convertStyle (styleDefs: StyleDefs, styleIndex: number): JSFStyle {
+function convertStyle (styleDefs: StyleDefs, styleIndex: number): Style {
   const style = styleDefs.cellXf[styleIndex];
-  const s: JSFStyle = {};
+  const s: Style = {};
 
   if (style.numFmtId) {
     const numFmt = styleDefs.numFmts[style.numFmtId];
@@ -71,7 +71,7 @@ function convertStyle (styleDefs: StyleDefs, styleIndex: number): JSFStyle {
   return s;
 }
 
-export function convertStyles (styleDefs: StyleDefs): JSFStyle[] {
+export function convertStyles (styleDefs: StyleDefs): Style[] {
   const styles = [];
   for (let i = 0; i < styleDefs.cellXf.length; i++) {
     styles[i] = convertStyle(styleDefs, i);

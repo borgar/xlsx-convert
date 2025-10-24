@@ -22,6 +22,11 @@
   "excludePrivate": true,
   "excludeProtected": true,
   "pageTitleTemplates": {
-    "member": "{name}",
+    "member": "{name}"
+  },
+  "externalSymbolLinkMappings": {
+    "@jsfkit/types": {
+      "Workbook": "https://jsfkit.github.io/types/Workbook"
+    }
   }
 }

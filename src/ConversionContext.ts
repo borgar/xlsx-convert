@@ -5,7 +5,7 @@ import type { RDValue } from './handler/rdvalue.ts';
 import type { Rel } from './handler/rels.ts';
 import type { Theme } from './handler/theme.ts';
 import type { RelativeFormula } from './RelativeFormula.ts';
-import type { JSFExternal, JSFWorkbook } from './jsf-types.ts';
+import type { External, Workbook } from '@jsfkit/types';
 import type { ConversionOptions } from './index.ts';
 
 type SheetLink = {
@@ -15,7 +15,7 @@ type SheetLink = {
 };
 
 export class ConversionContext {
-  workbook: JSFWorkbook | null;
+  workbook: Workbook | null;
   sst: string[];
   persons: Record<string, string>;
   options: ConversionOptions;
@@ -26,7 +26,7 @@ export class ConversionContext {
   metadata: MetaData;
   sheetLinks: SheetLink[];
   comments: Record<string, Comment[]>;
-  externalLinks: JSFExternal[];
+  externalLinks: External[];
   filename: string;
   _formulasR1C1: string[];
   _shared: Map<number, RelativeFormula>;

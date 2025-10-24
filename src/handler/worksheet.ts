@@ -5,11 +5,11 @@ import { handlerCell, relevantStyle } from './cell.ts';
 import { Document } from '@borgar/simple-xml';
 import { ConversionContext } from '../ConversionContext.ts';
 import type { Rel } from './rels.ts';
-import type { JSFWorksheet } from '../jsf-types.ts';
+import type { Worksheet } from '@jsfkit/types';
 import { colWidth } from '../utils/colWidth.ts';
 
-export function handlerWorksheet (dom: Document, context: ConversionContext, rels: Rel[]): JSFWorksheet {
-  const sheet: JSFWorksheet = {
+export function handlerWorksheet (dom: Document, context: ConversionContext, rels: Rel[]): Worksheet {
+  const sheet: Worksheet = {
     name: '',
     cells: {},
     columns: [],

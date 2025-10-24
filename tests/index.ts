@@ -36,6 +36,8 @@ const tests = [
   'tests/excel/epoch1904.xlsx',
   'tests/excel/epoch1904-strict.xlsx',
   'tests/excel/table-styles.xlsx',
+  'tests/excel/errors-excel.xlsx',
+  'tests/excel/errors-gsheets.xlsx',
   // CSV conversion
   'tests/csv/boolean-variations.csv',
   'tests/csv/complex-mixed-types.csv',

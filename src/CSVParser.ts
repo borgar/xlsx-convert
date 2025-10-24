@@ -1,5 +1,5 @@
 import { parseBool, parseDate, parseNumber, parseTime, type ParseData } from 'numfmt';
-import type { JSFCell } from './jsf-types.ts';
+import type { Cell } from '@jsfkit/types';
 import { toA1 } from './utils/toA1.ts';
 
 // Common things that are not numbers, but shouldn't identify as text when auto-detecting types
@@ -31,7 +31,7 @@ export class CSVParser {
   locale: string;
   skipEmptyLines: boolean;
   formats: string[];
-  table: Record<string, JSFCell>;
+  table: Record<string, Cell>;
   columns: ColumnData[];
   numfmtOptions: { locale: string; };
 
@@ -55,7 +55,7 @@ export class CSVParser {
     this.columns[c].total++;
   }
 
-  setFormatIndex (cell: JSFCell, formatPattern: string): number {
+  setFormatIndex (cell: Cell, formatPattern: string): number {
     if (formatPattern) {
       let fmtIdx = this.formats.indexOf(formatPattern);
       if (fmtIdx === -1) {
@@ -80,7 +80,7 @@ export class CSVParser {
     }
     else if (valueString) {
       if ((cell = parseNumber(valueString, this.numfmtOptions))) {
-        const outCell: JSFCell = { v: cell.v };
+        const outCell: Cell = { v: cell.v };
         this.setFormatIndex(outCell, cell.z);
         this.table[cellID] = outCell;
         this.countType(NUMBER);
@@ -89,7 +89,7 @@ export class CSVParser {
         (cell = parseDate(valueString, this.numfmtOptions)) ||
         (cell = parseTime(valueString, this.numfmtOptions))
       ) {
-        const outCell: JSFCell = { v: cell.v, t: 'd' };
+        const outCell: Cell = { v: cell.v, t: 'd' };
         this.setFormatIndex(outCell, cell.z);
         this.countType(DATE);
         this.table[cellID] = outCell;
@@ -117,7 +117,7 @@ export class CSVParser {
     }
   }
 
-  parse (stream: string, delimiter?: string): Record<string, JSFCell> {
+  parse (stream: string, delimiter?: string): Record<string, Cell> {
     this.row = 0;
     this.table = {};
     this.height = 0;
