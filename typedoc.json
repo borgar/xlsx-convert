@@ -26,7 +26,7 @@
   },
   "externalSymbolLinkMappings": {
     "@jsfkit/types": {
-      "Workbook": "https://jsfkit.github.io/types/types/Workbook"
+      "Workbook": "https://jsfkit.github.io/types/Workbook"
     }
   }
 }
