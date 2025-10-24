@@ -4,12 +4,12 @@ import {
   stringifyStructRef, tokenTypes, tokenize,
   type ReferenceA1,
 } from '@borgar/fx';
-import type { JSFExternal } from '../jsf-types.ts';
+import type { External } from '@jsfkit/types';
 
 type Ref = ReferenceStruct | ReferenceA1;
 type RefContext = string[];
 
-function updateContext (ref: Ref, externalLinks: JSFExternal[]): RefContext {
+function updateContext (ref: Ref, externalLinks: External[]): RefContext {
   const context: RefContext = [];
   if (ref.workbookName && isFinite(+ref.workbookName)) {
     const wbIndex = +ref.workbookName - 1;

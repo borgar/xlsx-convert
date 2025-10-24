@@ -2,15 +2,15 @@ import type { Document } from '@borgar/simple-xml';
 import type { ConversionContext } from '../ConversionContext.ts';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
-import type { JSFTable, JSFTableColumn, JSFTableStyle, JSFTableStyleName } from '../jsf-types.ts';
+import type { Table, TableColumn, TableStyle, TableStyleName } from '@jsfkit/types';
 
 const reTableStyleName = /^TableStyle(Dark(\d|10|11)|Light(1?\d|20|21)|Medium(1?\d|2[0-8]))$/;
 
-export function handlerTable (dom: Document, context: ConversionContext): JSFTable | void {
+export function handlerTable (dom: Document, context: ConversionContext): Table | void {
   const tableElm = dom.getElementsByTagName('table')[0];
   if (!tableElm) { return; }
 
-  const table: JSFTable = {
+  const table: Table = {
     name: attr(tableElm, 'name'),
     sheet: '',
     ref: attr(tableElm, 'ref'),
@@ -28,7 +28,7 @@ export function handlerTable (dom: Document, context: ConversionContext): JSFTab
     // 1. When there is no <tableStyleInfo /> in the file, the table should be rendered using "TableStyleMedium2"
     // 2. When there is a <tableStyleInfo /> element, its name dictates the style.
     // 3. When <tableStyleInfo /> is present but does not have a name, no table styles should be used.
-    const tableStyle: JSFTableStyle = {
+    const tableStyle: TableStyle = {
       name: null,
       showRowStripes: true,
       showColumnStripes: false,
@@ -37,7 +37,7 @@ export function handlerTable (dom: Document, context: ConversionContext): JSFTab
     };
     const name = attr(tableStyleInfo, 'name');
     if (name && reTableStyleName.test(name)) {
-      tableStyle.name = name as JSFTableStyleName;
+      tableStyle.name = name as TableStyleName;
     }
     tableStyle.showRowStripes = boolAttr(tableStyleInfo, 'showRowStripes', true);
     tableStyle.showColumnStripes = boolAttr(tableStyleInfo, 'showColumnStripes', false);
@@ -59,7 +59,7 @@ export function handlerTable (dom: Document, context: ConversionContext): JSFTab
   tableElm
     .querySelectorAll('tableColumns > tableColumn')
     .forEach(node => {
-      const column: JSFTableColumn = {
+      const column: TableColumn = {
         name: attr(node, 'name'),
         // TODO: totalsRowLabel
         // totalsRowLabel: attr(node, 'totalsRowLabel'),

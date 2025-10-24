@@ -17,7 +17,7 @@ import { handlerComments } from './handler/comments.ts';
 import { handlerWorksheet } from './handler/worksheet.ts';
 import { handlerExternal } from './handler/external.ts';
 import { handlerTable } from './handler/table.ts';
-import type { JSFWorkbook } from './jsf-types.ts';
+import type { Workbook } from '@jsfkit/types';
 import type { ConversionOptions } from './index.ts';
 import { EncryptionError, InvalidFileError, MissingSheetError } from './errors.ts';
 
@@ -44,7 +44,7 @@ export async function convertBinary (
   buffer: Buffer | ArrayBuffer,
   filename: string,
   options?: ConversionOptions,
-): Promise<JSFWorkbook> {
+): Promise<Workbook> {
   if (!(buffer instanceof ArrayBuffer || buffer instanceof Buffer)) {
     throw new InvalidFileError('Input is not a valid binary');
   }

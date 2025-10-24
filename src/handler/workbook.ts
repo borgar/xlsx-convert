@@ -3,10 +3,10 @@ import { ConversionContext } from '../ConversionContext.ts';
 import { attr, numAttr } from '../utils/attr.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { toInt } from '../utils/typecast.ts';
-import type { JSFNameDefinition, JSFWorkbook } from '../jsf-types.ts';
+import type { DefinedName, Workbook } from '@jsfkit/types';
 
-export function handlerWorkbook (dom: Document, context: ConversionContext): JSFWorkbook {
-  const wb: JSFWorkbook = {
+export function handlerWorkbook (dom: Document, context: ConversionContext): Workbook {
+  const wb: Workbook = {
     name: context.filename,
     sheets: [],
     names: [],
@@ -33,7 +33,7 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): JSF
 
   dom.getElementsByTagName('definedName')
     .forEach(d => {
-      const name: JSFNameDefinition = {
+      const name: DefinedName = {
         name: attr(d, 'name'),
         value: normalizeFormula(d.textContent, context),
       };
