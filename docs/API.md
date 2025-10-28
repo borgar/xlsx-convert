@@ -706,7 +706,7 @@ may be lost in the conversion process.
 
 ## Returns
 
-`Promise`\<[`Workbook`](https://jsfkit.github.io/types/types/Workbook)\>
+`Promise`\<[`Workbook`](https://jsfkit.github.io/types/Workbook)\>
 
 A JSON spreadsheet object.
 
@@ -737,7 +737,7 @@ may be lost in the conversion process.
 
 ## Returns
 
-`Promise`\<[`Workbook`](https://jsfkit.github.io/types/types/Workbook)\>
+`Promise`\<[`Workbook`](https://jsfkit.github.io/types/Workbook)\>
 
 A JSON spreadsheet formatted object.
 
@@ -768,7 +768,7 @@ a spreadsheet table.
 
 ## Returns
 
-[`Workbook`](https://jsfkit.github.io/types/types/Workbook)
+[`Workbook`](https://jsfkit.github.io/types/Workbook)
 
 A JSON spreadsheet formatted object.
 
