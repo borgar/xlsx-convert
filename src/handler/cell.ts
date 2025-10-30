@@ -165,7 +165,7 @@ export function handlerCell (node: Element, context: ConversionContext): Cell {
       //   The possible values for this attribute are defined by the
       //   ST_Ref simple type (§18.18.62).
       const cellsRange = attr(fNode, 'ref');
-      if (cellsRange && cellsRange !== address) {
+      if (cellsRange) {
         cell.F = cellsRange;
         arrayFormula.push(cellsRange);
       }
