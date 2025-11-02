@@ -4,7 +4,7 @@
     {
       "name": "Sheet1",
       "cells": {
-        "A1": { "v": "#CALC!", "t": "e", "f": 0 }
+        "A1": { "v": "#CALC!", "t": "e", "f": 0, "F": "A1" }
       },
       "columns": [],
       "rows": [],

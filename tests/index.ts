@@ -40,6 +40,7 @@ const tests = [
   'tests/excel/table-styles.xlsx',
   'tests/excel/errors-excel.xlsx',
   'tests/excel/errors-gsheets.xlsx',
+  'tests/excel/non-spilling-array-formula.xlsx',
   // CSV conversion
   'tests/csv/boolean-variations.csv',
   'tests/csv/complex-mixed-types.csv',

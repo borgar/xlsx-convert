@@ -1,11 +1,15 @@
 {
-  "name": "errors-excel.xlsx",
+  "name": "non-spilling-array-formula.xlsx",
   "sheets": [
     {
       "name": "Sheet1",
       "cells": {
-        "A1": { "v": "#NAME?", "t": "e", "f": 0, "F": "A1" },
-        "A2": { "s": 1, "v": "#NAME?" }
+        "A1": { "v": "foo" },
+        "A2": { "v": "bar" },
+        "B2": { "v": "whoobar", "f": 0, "F": "B2" },
+        "A3": { "v": "baz" },
+        "B3": { "v": "whoofoo", "f": 1, "F": "B3" },
+        "A4": { "v": "xyzzy" }
       },
       "columns": [],
       "rows": [],
@@ -22,11 +26,11 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontFamily": "Aptos Narrow", "fontSize": 12 },
     { "fontFamily": "Aptos Narrow", "fontSize": 12 }
   ],
   "tables": [],
   "formulas": [
-    "FOO()"
+    "TAKE(\"whoo\" &SINGLE(R1C1:R4C1),1)",
+    "TAKE(\"whoo\" &R1C1:R4C1,1)"
   ]
 }
