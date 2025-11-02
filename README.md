@@ -1,6 +1,8 @@
 # XLSX-convert
 
-This is a Node.js utility to convert Excel XLSX files to JSON format. It supports only XLSX files and outputs JSF (JSON spreadsheet format), a variant of CSF ([see below](#output)).
+This is a utility to convert Excel XLSX files to JSON format. It supports only XLSX files and outputs JSF, [JSON spreadsheet format](https://github.com/jsfkit/types) ([see below](#output)).
+
+The library will run in a browser as well as in server environments (Node, Deno, Bun, etc.).
 
 This utility was developed as tooling for [GRID – The new face of spreadsheets](https://grid.is/), to which it owes a debt of gratitude.
 
@@ -55,7 +57,9 @@ This will emit a structure like this:
 
 ### <a name="output" href="#output">#</a> Output:
 
-The JSON spreadsheet format is similar to, but not 100% compatible with the [CSF structure](https://github.com/SheetJS/sheetjs#common-spreadsheet-format) emitted by the [`xlsx` package](https://github.com/SheetJS/sheetjs). Supported cell properties are:
+The [JSON spreadsheet format](https://jsfkit.github.io/types/) is similar to, but not compatible with the [CSF structure](https://github.com/SheetJS/sheetjs#common-spreadsheet-format) used by the [`xlsx` package](https://github.com/SheetJS/sheetjs).
+
+Supported cell properties are:
 
 | Cell. | Note |
 |- |-
@@ -70,10 +74,9 @@ The JSON spreadsheet format is similar to, but not 100% compatible with the [CSF
 Only cells that have "relevant data" are emitted, which in praxis means cells that have such things as values, formula, and visible styles attached to them.
 
 
-
 ## Documentation
 
 Documentation can be found under [docs/](./docs/):
 
 * The API is documented in [docs/API.md](./docs/API.md).
-
+* The JSF output is documented at [jsfkit.github.io](https://jsfkit.github.io/types/).
