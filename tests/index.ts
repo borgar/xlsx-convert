@@ -2,7 +2,7 @@ import { convertBinary, convertCSV } from '../src/index.ts';
 import { readFile, writeFile } from 'fs/promises';
 import { deepStrictEqual } from 'assert';
 import type { Workbook } from '@jsfkit/types';
-import { translateToA1 } from '@borgar/fx';
+import { translateFormulaToA1 } from '@borgar/fx';
 
 const UPDATE = !!process.env.UPDATE_TESTS;
 
@@ -109,10 +109,11 @@ function verifyCellFormulas (wbRC: Workbook, wbA1: Workbook) {
     const a1Cells = wbA1.sheets[sheetIndex].cells;
     for (const [ cellId, cell ] of Object.entries(sheet.cells)) {
       if (cell.f != null) {
-        const expr = translateToA1(wbRC.formulas[cell.f], cellId);
+        const expr = translateFormulaToA1(wbRC.formulas[cell.f], cellId, { mergeRefs: false });
         if (expr !== a1Cells[cellId].f) {
           return [
             `  Formula mismatch in ${sheet.name}→${cellId}:`,
+            `    Original: ${wbRC.formulas[cell.f]}`,
             `    Expected: ${a1Cells[cellId].f}`,
             `    Result:   ${String(expr)}`,
           ].join('\n');

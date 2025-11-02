@@ -172,11 +172,6 @@ export async function convertBinary (
       const sheetName = sheetLink.name || `Sheet${sheetLink.index}`;
       const sheetRels = await getRels(sheetRel.target);
 
-      // Note: This supports only threaded comments, not old-style comments
-      context.comments = await maybeRead(
-        context, 'threadedComment', handlerComments, {}, sheetRels,
-      );
-
       // tables are accessed when external refs are normalized, so they have
       // to be read them before that happens
       const tableRels = sheetRels.filter(rel => rel.type === 'table');
@@ -196,6 +191,19 @@ export async function convertBinary (
       }
       const sh = handlerWorksheet(sheetFile, context, sheetRels);
       sh.name = sheetName;
+
+      // Note: This supports only threaded comments, not old-style comments
+      const comments = await maybeRead(context, 'threadedComment', handlerComments, {}, sheetRels);
+      if (comments.size) {
+        for (const [ address, thread ] of comments.entries()) {
+          const cell = sh.cells[address];
+          if (!cell) {
+            sh.cells[address] = {};
+          }
+          cell.c = thread;
+        }
+      }
+
       wb.sheets[index] = sh;
     }
     else {
@@ -204,7 +212,7 @@ export async function convertBinary (
   }));
 
   if (!options.cellFormulas) {
-    wb.formulas = context._formulasR1C1;
+    wb.formulas = [ ...context._formulasR1C1.list() ];
   }
 
   return wb;

@@ -1,15 +1,16 @@
-import { translateToR1C1 } from '@borgar/fx';
+import { tokenize, translateTokensToR1C1, stringifyTokens, type Token } from '@borgar/fx/xlsx';
 import { Element } from '@borgar/simple-xml';
 import { toInt, toNum } from '../utils/typecast.ts';
 import { attr, numAttr } from '../utils/attr.ts';
 import { unescape } from '../utils/unescape.ts';
 import { RelativeFormula } from '../RelativeFormula.ts';
-import { normalizeFormula } from '../utils/normalizeFormula.ts';
+import { normalizeFormula, normalizeFormulaTokens } from '../utils/normalizeFormula.ts';
 import { ConversionContext } from '../ConversionContext.ts';
 import type { Cell } from '@jsfkit/types';
 import { dateToSerial } from '../utils/dateToSerial.ts';
 import { UnsupportedError } from '../errors.ts';
 import { ERROR_NAMES } from '../constants.ts';
+import { getFirstChild } from '../utils/getFirstChild.ts';
 
 export const relevantStyle = (obj: Record<string, any>): boolean => {
   return !!(
@@ -30,14 +31,37 @@ const parseTimeToSerial = (ts: string): number => {
          (Number(s + (f || '')) / 86400); // seconds with fraction
 };
 
+function prepFormula (formula: string | RelativeFormula, cellId: string, context: ConversionContext) {
+  if (formula) {
+    if (context.options.cellFormulas) {
+      if (typeof formula === 'string') {
+        return normalizeFormula(formula, context);
+      }
+      return normalizeFormula(formula.translate(cellId), context);
+    }
+    else {
+      let tokens: Token[];
+      if (typeof formula === 'string') {
+        tokens = tokenize(formula, { allowTernary: true });
+        tokens = translateTokensToR1C1(tokens, cellId);
+        normalizeFormulaTokens(tokens, context, true);
+      }
+      else {
+        tokens = formula.getR1C1Tokens();
+        normalizeFormulaTokens(tokens, context, true);
+      }
+      const rc = stringifyTokens(tokens);
+      return context._formulasR1C1.add(rc);
+    }
+  }
+}
+
 // ECMA - 18.3.1.4 (Cell)
 export function handlerCell (node: Element, context: ConversionContext): Cell {
   const cell: Cell = {};
   // FIXME: these props are scoped by the sheet but exist on the WB object
   //        during processing and are wiped per-sheet
   const sharedF = context._shared;
-  const comments = context.comments;
-  const arrayFormula = context._arrayFormula;
 
   // .r = reference (cell address)
   const address = attr(node, 'r');
@@ -52,7 +76,7 @@ export function handlerCell (node: Element, context: ConversionContext): Cell {
     cell.s = styleIndex;
   }
 
-  const vNode = node.querySelectorAll('> v')[0];
+  const vNode = getFirstChild(node, 'v');
   let v = vNode ? vNode.textContent : null;
 
   // .vm = value metadata index: The zero-based index of the value metadata
@@ -78,18 +102,13 @@ export function handlerCell (node: Element, context: ConversionContext): Cell {
     }
   }
 
-  if (comments[address]) {
-    cell.c = comments[address];
-  }
-
   if (valueType === 'inlineStr') {
     valueType = 'str';
     v = node.querySelectorAll('is t').map(d => d.textContent).join('');
   }
 
   // ECMA - 18.3.1.40 f (Formula)
-  const fNode = node.querySelectorAll('> f')[0];
-
+  const fNode = getFirstChild(node, 'f');
   if (v || valueType === 'str') {
     if (valueType === 's') {
       cell.v = context.sst ? context.sst[toInt(v)] : '';
@@ -155,7 +174,6 @@ export function handlerCell (node: Element, context: ConversionContext): Cell {
   if (fNode) {
     // .t (Formula Type): [ array | dataTable | normal | shared ]
     const formulaType = attr(fNode, 't', 'normal');
-    let f: string | null = null;
     // array for array-formula
     if (formulaType === 'array') {
       // .ref (Range of Cells): Range of cells which the formula applies to.
@@ -167,9 +185,9 @@ export function handlerCell (node: Element, context: ConversionContext): Cell {
       const cellsRange = attr(fNode, 'ref');
       if (cellsRange && cellsRange !== address) {
         cell.F = cellsRange;
-        arrayFormula.push(cellsRange);
+        context._arrayFormula.push(cellsRange);
       }
-      f = fNode.textContent;
+      cell.f = prepFormula(fNode.textContent, address, context);
     }
     // shared for shared formula
     else if (formulaType === 'shared') {
@@ -180,9 +198,13 @@ export function handlerCell (node: Element, context: ConversionContext): Cell {
       //       in R1C1-reference notation, are the same.
       const shareGroupIndex = numAttr(fNode, 'si');
       if (!sharedF.has(shareGroupIndex)) {
-        sharedF.set(shareGroupIndex, new RelativeFormula(fNode.textContent, address));
+        const relF = new RelativeFormula(fNode.textContent, address);
+        sharedF.set(shareGroupIndex, relF);
+        cell.f = prepFormula(relF, address, context);
       }
-      f = sharedF.get(shareGroupIndex).translate(address);
+      else {
+        cell.f = prepFormula(sharedF.get(shareGroupIndex), address, context);
+      }
     }
     // dataTable for data table formula
     else if (formulaType.toLowerCase() === 'datatable') {
@@ -194,23 +216,7 @@ export function handlerCell (node: Element, context: ConversionContext): Cell {
       // console.log('dataTable formula');
     }
     else {
-      f = fNode.textContent;
-    }
-
-    if (f) {
-      if (context.options.cellFormulas) {
-        cell.f = normalizeFormula(f, context);
-      }
-      else {
-        // FIXME: if formula exists as a shared formula we are potentially doing this for the second time
-        const rc = normalizeFormula(translateToR1C1(f, address) as string, context);
-        let fi = context._formulasR1C1.indexOf(rc);
-        if (fi < 0) {
-          fi = context._formulasR1C1.length;
-          context._formulasR1C1.push(rc);
-        }
-        cell.f = fi;
-      }
+      cell.f = prepFormula(fNode.textContent, address, context);
     }
   }
 

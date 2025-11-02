@@ -1,20 +1,30 @@
-import { translateToA1, translateToR1C1 } from '@borgar/fx';
+import { type Token, tokenize, translateTokensToR1C1, translateTokensToA1, stringifyTokens } from '@borgar/fx/xlsx';
 
 export class RelativeFormula {
   anchorA1: string;
   formula: string;
-  relative: string | undefined;
+  relative: Token[];
 
   constructor (formula: string, anchorCell: string) {
     this.anchorA1 = anchorCell;
     this.formula = formula;
   }
 
-  /** @param {string} offsetCell */
-  translate (offsetCell: string): string {
-    if (!this.relative) {
-      this.relative = translateToR1C1(this.formula, this.anchorA1) as string;
+  getR1C1Tokens (): Token[] {
+    if (this.relative) {
+      return this.relative;
     }
-    return translateToA1(this.relative, offsetCell) as string;
+    const tokens = tokenize(this.formula, { allowTernary: true });
+    this.relative = translateTokensToR1C1(tokens, this.anchorA1);
+    return this.relative;
+  }
+
+  translate (offsetCell: string): string {
+    if (offsetCell === this.anchorA1) {
+      // just pass the formula back
+      return this.formula;
+    }
+    const exprA1 = translateTokensToA1(this.getR1C1Tokens(), offsetCell);
+    return stringifyTokens(exprA1);
   }
 }

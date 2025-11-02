@@ -5,6 +5,8 @@ import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { ConversionContext } from '../ConversionContext.ts';
 import type { External, DefinedName } from '@jsfkit/types';
 
+const NO_EXTERNALS = { externalLinks: [] };
+
 export function handlerExternal (dom: Document, fileName: string = ''): External {
   const external: External = {
     name: fileName,
@@ -45,7 +47,7 @@ export function handlerExternal (dom: Document, fileName: string = ''): External
       };
       const expr = attr(definedName, 'refersTo');
       if (expr) {
-        nameDef.value = normalizeFormula(expr, {});
+        nameDef.value = normalizeFormula(expr, NO_EXTERNALS);
       }
       external.names.push(nameDef);
     });

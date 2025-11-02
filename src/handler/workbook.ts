@@ -1,6 +1,6 @@
 import { Document } from '@borgar/simple-xml';
 import { ConversionContext } from '../ConversionContext.ts';
-import { attr, numAttr } from '../utils/attr.ts';
+import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { toInt } from '../utils/typecast.ts';
 import type { DefinedName, Workbook } from '@jsfkit/types';
@@ -31,12 +31,17 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
       });
     });
 
+  // FIXME: discard names that appear twice
   dom.getElementsByTagName('definedName')
     .forEach(d => {
       const name: DefinedName = {
         name: attr(d, 'name'),
         value: normalizeFormula(d.textContent, context),
       };
+      const hidden = boolAttr(d, 'hidden');
+      if (hidden) {
+        return;
+      }
       const localSheetId = attr(d, 'localSheetId');
       if (localSheetId) {
         name.scope = context.sheetLinks[+localSheetId].name;
