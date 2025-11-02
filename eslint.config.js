@@ -29,6 +29,9 @@ export default tseslint.config(
   }),
   {
     rules: {
+      // next 2 rules are brittle and not really doing much that TS isn't already doing
+      '@typescript-eslint/no-unnecessary-type-assertion': 'off',
+      '@typescript-eslint/no-redundant-type-constituents': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       'no-shadow': 'off',
     },

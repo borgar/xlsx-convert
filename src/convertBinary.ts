@@ -21,6 +21,12 @@ import type { Workbook } from '@jsfkit/types';
 import type { ConversionOptions } from './index.ts';
 import { EncryptionError, InvalidFileError, MissingSheetError } from './errors.ts';
 
+function toArrayBuffer (buffer: Buffer): ArrayBuffer {
+  const arrayBuffer = new ArrayBuffer(buffer.length);
+  new Uint8Array(arrayBuffer).set(buffer);
+  return arrayBuffer;
+}
+
 /**
  * Default conversion options
  */
@@ -45,7 +51,10 @@ export async function convertBinary (
   filename: string,
   options?: ConversionOptions,
 ): Promise<Workbook> {
-  if (!(buffer instanceof ArrayBuffer || buffer instanceof Buffer)) {
+  if (typeof Buffer !== 'undefined' && buffer instanceof Buffer) {
+    buffer = toArrayBuffer(buffer);
+  }
+  if (!(buffer instanceof ArrayBuffer)) {
     throw new InvalidFileError('Input is not a valid binary');
   }
   options = Object.assign({}, DEFAULT_OPTIONS, options);
@@ -60,7 +69,7 @@ export async function convertBinary (
 
   let zip: FileContainer;
   try {
-    zip = await loadZip(buffer);
+    zip = loadZip(buffer);
   }
   catch (err) {
     throw new InvalidFileError('Input file type is corrupted or unsupported');
@@ -163,11 +172,6 @@ export async function convertBinary (
       const sheetName = sheetLink.name || `Sheet${sheetLink.index}`;
       const sheetRels = await getRels(sheetRel.target);
 
-      // Note: This supports only threaded comments, not old-style comments
-      context.comments = await maybeRead(
-        context, 'threadedComment', handlerComments, {}, sheetRels,
-      );
-
       // tables are accessed when external refs are normalized, so they have
       // to be read them before that happens
       const tableRels = sheetRels.filter(rel => rel.type === 'table');
@@ -187,6 +191,19 @@ export async function convertBinary (
       }
       const sh = handlerWorksheet(sheetFile, context, sheetRels);
       sh.name = sheetName;
+
+      // Note: This supports only threaded comments, not old-style comments
+      const comments = await maybeRead(context, 'threadedComment', handlerComments, {}, sheetRels);
+      if (comments.size) {
+        for (const [ address, thread ] of comments.entries()) {
+          const cell = sh.cells[address];
+          if (!cell) {
+            sh.cells[address] = {};
+          }
+          cell.c = thread;
+        }
+      }
+
       wb.sheets[index] = sh;
     }
     else {
@@ -195,7 +212,7 @@ export async function convertBinary (
   }));
 
   if (!options.cellFormulas) {
-    wb.formulas = context._formulasR1C1;
+    wb.formulas = [ ...context._formulasR1C1.list() ];
   }
 
   return wb;
