@@ -8,21 +8,20 @@ export type Comment = {
   t: string;
 };
 
-export function handlerComments (dom: Document, context: ConversionContext): Record<string, Comment[]> {
+export function handlerComments (dom: Document, context: ConversionContext): Map<string, Comment[]> {
   const persons = context.persons;
-  const comments: Record<string, Comment[]> = {};
+  const comments = new Map();
 
   dom.getElementsByTagName('threadedComment')
     .forEach(d => {
       const ref = attr(d, 'ref');
-      if (!comments[ref]) {
-        comments[ref] = [];
+      if (!comments.has(ref)) {
+        comments.set(ref, []);
       }
-      const personId = attr(d, 'personId');
-      // wb.persons
-      comments[ref].push({
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      comments.get(ref).push({
         // author
-        a: persons[personId] || '',
+        a: persons[attr(d, 'personId')] || '',
         d: new Date(Date.parse(attr(d, 'dT'))).toISOString(),
         // text
         t: d.getElementsByTagName('text')[0].textContent,

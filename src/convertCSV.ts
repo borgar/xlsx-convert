@@ -1,6 +1,6 @@
 import { format } from 'numfmt';
 import { CSVParser } from './CSVParser.ts';
-import type { JSFStyle, JSFTableColumn, JSFWorkbook } from './jsf-types.ts';
+import type { Style, TableColumn, Workbook } from '@jsfkit/types';
 import { toA1 } from './utils/toA1.ts';
 
 /** CSV convertion options */
@@ -55,7 +55,7 @@ export function convertCSV (
   csvStream: string,
   name: string,
   options: CSVConversionOptions = {},
-): JSFWorkbook {
+): Workbook {
   const outputTable = !!options.table;
   const parser = new CSVParser();
   if (options.skipEmptyLines === false) {
@@ -69,7 +69,7 @@ export function convertCSV (
   }
   const cells = parser.parse(csvStream, options.delimiter);
 
-  const columns: JSFTableColumn[] = [];
+  const columns: TableColumn[] = [];
   for (let col = 0; col < parser.width; col++) {
     columns[col] = { name: 'Column' + (col + 1), dataType: 'unknown' };
   }
@@ -180,7 +180,7 @@ export function convertCSV (
     columns: columns,
   };
 
-  const output: JSFWorkbook = {
+  const output: Workbook = {
     name: name,
     sheets: [
       {
@@ -195,7 +195,7 @@ export function convertCSV (
     ],
     names: [],
     styles: parser.formats.map(pattern => {
-      const fmt: JSFStyle = {};
+      const fmt: Style = {};
       if (pattern) {
         fmt.numberFormat = pattern;
       }

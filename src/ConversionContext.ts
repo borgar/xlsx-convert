@@ -5,7 +5,7 @@ import type { RDValue } from './handler/rdvalue.ts';
 import type { Rel } from './handler/rels.ts';
 import type { Theme } from './handler/theme.ts';
 import type { RelativeFormula } from './RelativeFormula.ts';
-import type { JSFExternal, JSFWorkbook } from './jsf-types.ts';
+import type { External, Workbook } from '@jsfkit/types';
 import type { ConversionOptions } from './index.ts';
 
 type SheetLink = {
@@ -20,8 +20,29 @@ type RefLink = {
   type: string;
 };
 
+class FormulaList {
+  container: Map<string, number>;
+
+  constructor () {
+    this.container = new Map<string, number>();
+  }
+
+  add (formula: string) {
+    if (this.container.has(formula)) {
+      return this.container.get(formula);
+    }
+    const index = this.container.size;
+    this.container.set(formula, index);
+    return index;
+  }
+
+  list () {
+    return this.container.keys();
+  }
+}
+
 export class ConversionContext {
-  workbook: JSFWorkbook | null;
+  workbook: Workbook | null;
   sst: string[];
   persons: Record<string, string>;
   options: ConversionOptions;
@@ -31,11 +52,11 @@ export class ConversionContext {
   richValues: RDValue[];
   metadata: MetaData;
   sheetLinks: SheetLink[];
-  comments: Record<string, Comment[]>;
-  externalLinks: JSFExternal[];
+  comments: Map<string, Comment[]>;
+  externalLinks: External[];
   filename: string;
-  _formulasR1C1: string[];
-  _shared: Record<number, RelativeFormula>;
+  _formulasR1C1: FormulaList;
+  _shared: Map<number, RelativeFormula>;
   _merged: Record<string, string>;
   _arrayFormula: string[];
   images: RefLink[];
@@ -51,12 +72,11 @@ export class ConversionContext {
     this.richValues = null;
     this.metadata = null;
     this.sheetLinks = [];
-    this.comments = {};
+    this.comments = new Map();
     this.externalLinks = [];
     this.filename = '';
-    this._formulasR1C1 = [];
-    // shared formula
-    this._shared = {};
+    this._formulasR1C1 = new FormulaList();
+    this._shared = new Map();
     this._merged = {};
     this._arrayFormula = [];
     this.images = [];

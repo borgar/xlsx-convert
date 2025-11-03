@@ -13,9 +13,8 @@ export function handlerRels (dom: Document, basepath = 'xl/workbook.xml'): Rel[]
   basepath = pathDirname(basepath);
   const rels = [];
   if (dom) {
-    dom
-      .querySelectorAll('Relationship')
-      .forEach(d => {
+    for (const d of dom.root.children) {
+      if (d.tagName === 'Relationship') {
         const mode = attr(d, 'TargetMode');
         let type = attr(d, 'Type');
         let target = attr(d, 'Target');
@@ -33,7 +32,8 @@ export function handlerRels (dom: Document, basepath = 'xl/workbook.xml'): Rel[]
           type: type,
           target: target,
         });
-      });
+      }
+    }
   }
   return rels;
 }

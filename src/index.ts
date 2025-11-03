@@ -1,7 +1,6 @@
-import type { JSFWorkbook } from './jsf-types.ts';
+import type { Workbook } from '@jsfkit/types';
 import { convertBinary } from './convertBinary.ts';
 
-export type * from './jsf-types.ts';
 export { InvalidFileError, EncryptionError, MissingSheetError, UnsupportedError } from './errors.ts';
 
 /** Convertion options */
@@ -33,7 +32,7 @@ export type ConversionOptions = {
 export async function convert (
   filename: string,
   options?: ConversionOptions,
-): Promise<JSFWorkbook> {
+): Promise<Workbook> {
   let fs;
   try {
     fs = await import('fs/promises');
