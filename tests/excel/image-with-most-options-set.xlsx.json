@@ -1,0 +1,59 @@
+{
+  "name": "image-with-most-options-set.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {},
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "drawing": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 1,
+              "rowOffset": 10.667,
+              "column": 0,
+              "columnOffset": 17.333
+            },
+            "to": {
+              "row": 16,
+              "rowOffset": 5.333,
+              "column": 3,
+              "columnOffset": 72
+            }
+          },
+          "content": [
+            {
+              "type": "bitmap",
+              "id": "2",
+              "name": "Picture 1",
+              "mediaId": "xl/media/image1.png",
+              "noChangeAspect": true,
+              "shapeProps": {
+                "transform": {
+                  "offset": { "x": 17.333, "y": 32 }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [],
+  "formulas": []
+}

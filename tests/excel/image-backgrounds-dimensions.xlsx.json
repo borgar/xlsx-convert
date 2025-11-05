@@ -1,0 +1,250 @@
+{
+  "name": "image-backgrounds-dimensions.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {},
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "drawing": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 0,
+              "rowOffset": 0,
+              "column": 0,
+              "columnOffset": 0
+            },
+            "to": {
+              "row": 10,
+              "rowOffset": 13.333,
+              "column": 2,
+              "columnOffset": 53.333
+            }
+          },
+          "content": [
+            {
+              "type": "bitmap",
+              "id": "6",
+              "name": "Picture 5",
+              "mediaId": "xl/media/image1.png",
+              "noChangeAspect": true,
+              "shapeProps": {
+                "transform": {
+                  "offset": { "x": 346.667, "y": 426.667 }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 0,
+              "rowOffset": 0,
+              "column": 3,
+              "columnOffset": 0
+            },
+            "to": {
+              "row": 10,
+              "rowOffset": 13.333,
+              "column": 5,
+              "columnOffset": 53.333
+            }
+          },
+          "content": [
+            {
+              "type": "bitmap",
+              "id": "7",
+              "name": "Picture 6",
+              "mediaId": "xl/media/image1.png",
+              "noChangeAspect": true,
+              "shapeProps": {
+                "transform": {
+                  "offset": { "x": 606.667, "y": 426.667 }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 0,
+              "rowOffset": 0,
+              "column": 6,
+              "columnOffset": 0
+            },
+            "to": {
+              "row": 10,
+              "rowOffset": 13.333,
+              "column": 8,
+              "columnOffset": 53.333
+            }
+          },
+          "content": [
+            {
+              "type": "bitmap",
+              "id": "8",
+              "name": "Picture 7",
+              "mediaId": "xl/media/image1.png",
+              "noChangeAspect": true,
+              "shapeProps": {
+                "transform": {
+                  "offset": { "x": 866.667, "y": 426.667 }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 12,
+              "rowOffset": 0,
+              "column": 0,
+              "columnOffset": 0
+            },
+            "to": {
+              "row": 22,
+              "rowOffset": 13.333,
+              "column": 2,
+              "columnOffset": 53.333
+            }
+          },
+          "content": [
+            {
+              "type": "bitmap",
+              "id": "13",
+              "name": "Picture 12",
+              "mediaId": "xl/media/image1.png",
+              "noChangeAspect": true,
+              "shapeProps": {
+                "transform": {
+                  "offset": { "x": 0, "y": 256 }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 12,
+              "rowOffset": 0,
+              "column": 3,
+              "columnOffset": 0
+            },
+            "to": {
+              "row": 22,
+              "rowOffset": 13.333,
+              "column": 5,
+              "columnOffset": 53.333
+            }
+          },
+          "content": [
+            {
+              "type": "bitmap",
+              "id": "14",
+              "name": "Picture 13",
+              "mediaId": "xl/media/image1.png",
+              "noChangeAspect": true,
+              "shapeProps": {
+                "transform": {
+                  "offset": { "x": 260, "y": 256 }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 24,
+              "rowOffset": 0,
+              "column": 0,
+              "columnOffset": 0
+            },
+            "to": {
+              "row": 34,
+              "rowOffset": 13.333,
+              "column": 2,
+              "columnOffset": 53.333
+            }
+          },
+          "content": [
+            {
+              "type": "bitmap",
+              "id": "18",
+              "name": "Picture 17",
+              "mediaId": "xl/media/image1.png",
+              "noChangeAspect": true,
+              "shapeProps": {
+                "transform": {
+                  "offset": { "x": 0, "y": 512 }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 24,
+              "rowOffset": 0,
+              "column": 3,
+              "columnOffset": 0
+            },
+            "to": {
+              "row": 34,
+              "rowOffset": 13.333,
+              "column": 5,
+              "columnOffset": 53.333
+            }
+          },
+          "content": [
+            {
+              "type": "bitmap",
+              "id": "19",
+              "name": "Picture 18",
+              "mediaId": "xl/media/image1.png",
+              "noChangeAspect": true,
+              "shapeProps": {
+                "transform": {
+                  "offset": { "x": 260, "y": 512 }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 },
+    {
+      "numberFormat": "0%",
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12
+    }
+  ],
+  "tables": [],
+  "formulas": []
+}

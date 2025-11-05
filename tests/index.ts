@@ -43,6 +43,8 @@ const tests = [
   'tests/excel/errors-gsheets.xlsx',
   'tests/excel/non-spilling-array-formula.xlsx',
   'tests/excel/grouped-grouped-charts.xlsx',
+  'tests/excel/image-with-most-options-set.xlsx',
+  'tests/excel/image-backgrounds-dimensions.xlsx',
   // CSV conversion
   'tests/csv/boolean-variations.csv',
   'tests/csv/complex-mixed-types.csv',

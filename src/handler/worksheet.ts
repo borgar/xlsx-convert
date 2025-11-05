@@ -158,18 +158,25 @@ export function handlerWorksheet (
     }
   });
 
-  // XXX: this is not the way to do this: sheet only has 1 picture and 1 drawing!
-  // find drawings linked to this sheet
-  dom.querySelectorAll('drawing,picture').forEach(d => {
-    const rId = attr(d, 'r:id');
+  // detect linked drawing (graphics within the sheet)
+  const drawing = getFirstChild(dom.root, 'drawing');
+  if (drawing) {
+    const rId = attr(drawing, 'r:id');
     const rel = rels.find(rel => rel.id === rId);
     if (rel) {
-      context.images.push({ sheetName, rel, type: d.tagName });
+      context.images.push({ sheetName, rel, type: 'drawing' });
     }
-    else {
-      // throw new Error('Drawing not found ' + rId);
+  }
+
+  // detect linked drawing (sheet background "wallpaper")
+  const picture = getFirstChild(dom.root, 'picture');
+  if (picture) {
+    const rId = attr(picture, 'r:id');
+    const rel = rels.find(rel => rel.id === rId);
+    if (rel) {
+      context.images.push({ sheetName, rel, type: 'picture' });
     }
-  });
+  }
 
   delete context._shared;
   delete context._arrayFormula;
