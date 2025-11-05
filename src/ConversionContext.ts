@@ -60,7 +60,7 @@ export class ConversionContext {
     this.workbook = null;
     this.sst = [];
     this.persons = {};
-    this.theme = { scheme: [], indexedColors: [] };
+    this.theme = { scheme: {}, indexedColors: [] };
     this.richStruct = [];
     this.richValues = null;
     this.metadata = null;
