@@ -22,11 +22,12 @@ export function getBlankTheme (): Theme {
       accent6: '4EA72E',
       hlink: '467886',
       folHlink: '96607D',
+      // Not sure these are ever used by Excel
       // bg1: '', // -> dk1
       // bg2: '', // -> dk2
       // tx1: '', // -> lt1
       // tx2: '', // -> lt2
-      // phClr: '', // = equivalen to CSS currentColor
+      // phClr: '', // = equivalent to CSS currentColor
     },
     indexedColors: [ ...COLOR_INDEX ],
   };
