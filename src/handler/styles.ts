@@ -1,9 +1,10 @@
 import type { Document, Element } from '@borgar/simple-xml';
-import { type Color, readColor } from '../color.ts';
+import { type Color } from '../color.ts';
 import { attr } from '../utils/attr.ts';
 import { BUILTIN_FORMATS } from '../constants.ts';
 import type { ConversionContext } from '../ConversionContext.ts';
 import type { Theme } from './theme.ts';
+import { readColor } from '../utils/readColor.ts';
 
 function valOfNode (node: Element, subNodeName: string, fallback: any = null): string | null {
   const subNode = node.querySelectorAll(subNodeName)[0];
