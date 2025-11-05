@@ -1,3 +1,4 @@
+import { Color } from '../color.ts';
 import type { StyleDefs } from '../handler/styles.ts';
 import type { Style } from '@jsfkit/types';
 
@@ -5,8 +6,8 @@ const addStyle = (obj: Style, key: string, val: any, skip: any = null): number =
   if (val == null) {
     return 0;
   }
-  if (val.hsl) {
-    val = String(val);
+  if (val instanceof Color) {
+    val = val.getJSF();
   }
   if (skip === val) {
     return 0;
