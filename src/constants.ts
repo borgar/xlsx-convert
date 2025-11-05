@@ -81,7 +81,7 @@ export const COLOR_INDEX = [
 ];
 
 // https://social.technet.microsoft.com/Forums/windows/en-US/ac76cc56-6ff2-4778-b260-8141d7170a3b/windows-7-highlight-text-color-or-selected-text-color-in-aero
-export const NAMED_COLORS = {
+export const SYSTEM_COLORS = {
   // not sure why this is reversed?
   'system foreground': 'FF000000',
   'system background': 'FFFFFFFF',
@@ -118,6 +118,172 @@ export const NAMED_COLORS = {
   'window': 'FFFFFFFF',
   'windowframe': 'FF646464',
   'windowtext': 'FF000000',
+};
+
+// The values here defined by the ST_PresetColorVal simple type §5.1.12.48.
+export const PRESET_COLORS = {
+  aliceBlue: 'FFF0F8FF',
+  antiqueWhite: 'FFFAEBD7',
+  aqua: 'FF00FFFF',
+  aquamarine: 'FF7FFFD4',
+  azure: 'FFF0FFFF',
+  beige: 'FFF5F5DC',
+  bisque: 'FFFFE4C4',
+  black: 'FF000000',
+  blanchedAlmond: 'FFFFEBCD',
+  blue: 'FF0000FF',
+  blueViolet: 'FF8A2BE2',
+  brown: 'FFA52A2A',
+  burlyWood: 'FFDEB887',
+  cadetBlue: 'FF5F9EA0',
+  chartreuse: 'FF7FFF00',
+  chocolate: 'FFD2691E',
+  coral: 'FFFF7F50',
+  cornflowerBlue: 'FF6495ED',
+  cornsilk: 'FFFFF8DC',
+  crimson: 'FFDC143C',
+  cyan: 'FF00FFFF',
+  deepPink: 'FFFF1493',
+  deepSkyBlue: 'FF00BFFF',
+  dimGray: 'FF696969',
+  dkBlue: 'FF00008B', // CSS color equivalent is "darkblue"
+  dkCyan: 'FF008B8B', // CSS color equivalent is "darkcyan"
+  dkGoldenrod: 'FFB8860B', // CSS color equivalent is "darkgoldenrod"
+  dkGray: 'FFA9A9A9', // CSS color equivalent is "darkgray"
+  dkGreen: 'FF006400', // CSS color equivalent is "darkgreen"
+  dkKhaki: 'FFBDB76B', // CSS color equivalent is "darkkhaki"
+  dkMagenta: 'FF8B008B', // CSS color equivalent is "darkmagenta"
+  dkOliveGreen: 'FF556B2F', // CSS color equivalent is "darkolivegreen"
+  dkOrange: 'FFFF8C00', // CSS color equivalent is "darkorange"
+  dkOrchid: 'FF9932CC', // CSS color equivalent is "darkorchid"
+  dkRed: 'FF8B0000', // CSS color equivalent is "darkred"
+  dkSalmon: 'FFE9967A', // CSS color equivalent is "darksalmon"
+  dkSeaGreen: 'FF8FBC8B', // CSS color equivalent is "darkseagreen"
+  dkSlateBlue: 'FF483D8B', // CSS color equivalent is "darkslateblue"
+  dkSlateGray: 'FF2F4F4F', // CSS color equivalent is "darkslategray"
+  dkTurquoise: 'FF00CED1', // CSS color equivalent is "darkturquoise"
+  dkViolet: 'FF9400D3', // CSS color equivalent is "darkviolet"
+  dodgerBlue: 'FF1E90FF',
+  firebrick: 'FFB22222',
+  floralWhite: 'FFFFFAF0',
+  forestGreen: 'FF228B22',
+  fuchsia: 'FFFF00FF',
+  gainsboro: 'FFDCDCDC',
+  ghostWhite: 'FFF8F8FF',
+  gold: 'FFFFD700',
+  goldenrod: 'FFDAA520',
+  gray: 'FF808080',
+  green: 'FF008000',
+  greenYellow: 'FFADFF2F',
+  honeydew: 'FFF0FFF0',
+  hotPink: 'FFFF69B4',
+  indianRed: 'FFCD5C5C',
+  indigo: 'FF4B0082',
+  ivory: 'FFFFFFF0',
+  khaki: 'FFF0E68C',
+  lavender: 'FFE6E6FA',
+  lavenderBlush: 'FFFFF0F5',
+  lawnGreen: 'FF7CFC00',
+  lemonChiffon: 'FFFFFACD',
+  lime: 'FF00FF00',
+  limeGreen: 'FF32CD32',
+  linen: 'FFFAF0E6',
+  ltBlue: 'FFADD8E6', // CSS color equivalent is "lightblue"
+  ltCoral: 'FFF08080', // CSS color equivalent is "lightcoral"
+  ltCyan: 'FFE0FFFF', // CSS color equivalent is "lightcyan"
+  ltGoldenrodYellow: 'FFFAFA78', // CSS color equivalent is "lightgoldenrodyellow"
+  ltGray: 'FFD3D3D3', // CSS color equivalent is "lightgray"
+  ltGreen: 'FF90EE90', // CSS color equivalent is "lightgreen"
+  ltPink: 'FFFFB6C1', // CSS color equivalent is "lightpink"
+  ltSalmon: 'FFFFA07A', // CSS color equivalent is "lightsalmon"
+  ltSeaGreen: 'FF20B2AA', // CSS color equivalent is "lightseagreen"
+  ltSkyBlue: 'FF87CEFA', // CSS color equivalent is "lightskyblue"
+  ltSlateGray: 'FF778899', // CSS color equivalent is "lightslategray"
+  ltSteelBlue: 'FFB0C4DE', // CSS color equivalent is "lightsteelblue"
+  ltYellow: 'FFFFFFE0', // CSS color equivalent is "lightyellow"
+  magenta: 'FFFF00FF',
+  maroon: 'FF800000',
+  medAquamarine: 'FF66CDAA', // CSS color equivalent is "mediumaquamarine"
+  medBlue: 'FF0000CD', // CSS color equivalent is "mediumblue"
+  medOrchid: 'FFBA55D3', // CSS color equivalent is "mediumorchid"
+  medPurple: 'FF9370DB', // CSS color equivalent is "mediumpurple"
+  medSeaGreen: 'FF3CB371', // CSS color equivalent is "mediumseagreen"
+  medSlateBlue: 'FF7B68EE', // CSS color equivalent is "mediumslateblue"
+  medSpringGreen: 'FF00FA9A', // CSS color equivalent is "mediumspringgreen"
+  medTurquoise: 'FF48D1CC', // CSS color equivalent is "mediumturquoise"
+  medVioletRed: 'FFC71585', // CSS color equivalent is "mediumvioletred"
+  midnightBlue: 'FF191970',
+  mintCream: 'FFF5FFFA',
+  mistyRose: 'FFFFE4E1',
+  moccasin: 'FFFFE4B5',
+  navajoWhite: 'FFFFDEAD',
+  navy: 'FF000080',
+  oldLace: 'FFFDF5E6',
+  olive: 'FF808000',
+  oliveDrab: 'FF6B8E23',
+  orange: 'FFFFA500',
+  orangeRed: 'FFFF4500',
+  orchid: 'FFDA70D6',
+  paleGoldenrod: 'FFEEE8AA',
+  paleGreen: 'FF98FB98',
+  paleTurquoise: 'FFAFEEEE',
+  paleVioletRed: 'FFDB7093',
+  papayaWhip: 'FFFFEFD5',
+  peachPuff: 'FFFFDAB9',
+  peru: 'FFCD853F',
+  pink: 'FFFFC0CB',
+  plum: 'FFDDA0DD',
+  powderBlue: 'FFB0E0E6',
+  purple: 'FF800080',
+  red: 'FFFF0000',
+  rosyBrown: 'FFBC8F8F',
+  royalBlue: 'FF4169E1',
+  saddleBrown: 'FF8B4513',
+  salmon: 'FFFA8072',
+  sandyBrown: 'FFF4A460',
+  seaGreen: 'FF2E8B57',
+  seaShell: 'FFFFF5EE',
+  sienna: 'FFA0522D',
+  silver: 'FFC0C0C0',
+  skyBlue: 'FF87CEEB',
+  slateBlue: 'FF6A5ACD',
+  slateGray: 'FF708090',
+  snow: 'FFFFFAFA',
+  springGreen: 'FF00FF7F',
+  steelBlue: 'FF4682B4',
+  tan: 'FFD2B48C',
+  teal: 'FF008080',
+  thistle: 'FFD8BFD8',
+  tomato: 'FFFF6347',
+  turquoise: 'FF40E0D0',
+  violet: 'FFEE82EE',
+  wheat: 'FFF5DEB3',
+  white: 'FFFFFFFF',
+  whiteSmoke: 'FFF5F5F5',
+  yellow: 'FFFFFF00',
+  yellowGreen: 'FF9ACD32',
+};
+
+// 5.1.12.54 ST_SchemeColorVal (Scheme Color)
+export const SCHEME_COLORS = {
+  lt1: 0,       // Light Color 1: Main Light Color 1
+  dk1: 1,       // Dark Color 1: Main dark color 1
+  lt2: 2,       // Light Color 2: Main Light Color 2
+  dk2: 3,       // Dark Color 2: Main dark color 2
+  accent1: 4,   // Accent Color 1: Extra scheme color 1
+  accent2: 5,   // Accent Color 2: Extra scheme color 2
+  accent3: 6,   // Accent Color 3: Extra scheme color 3
+  accent4: 7,   // Accent Color 4: Extra scheme color 4
+  accent5: 8,   // Accent Color 5: Extra scheme color 5
+  accent6: 9,   // Accent Color 6: Extra scheme color 6
+  hlink: 10,    // Hyperlink Color: Regular Hyperlink Color
+  folHlink: 11, // Followed Hyperlink Color: Followed Hyperlink Color
+  // FIXME: we need to determine the indexes of these colors:
+  bg1: 0,       // Background Color 1: Semantic background color
+  bg2: 0,       // Background Color 2: Semantic additional background color
+  tx1: 0,       // Text Color 1: Semantic text color
+  tx2: 0,       // Text Color 2: Semantic additional text color
+  phClr: 0,     // Style Color: A color used in theme definitions which means to use the color of the style.
 };
 
 export const ERROR_NAMES = [
