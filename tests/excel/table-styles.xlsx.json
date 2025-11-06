@@ -15083,6 +15083,9 @@
       }
     }
   ],
+  "views": [
+    {}
+  ],
   "formulas": [
     "SUBTOTAL(109,Table1309[baz])",
     "SUBTOTAL(109,Table17310[baz])",

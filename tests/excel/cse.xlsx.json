@@ -39,6 +39,9 @@
     { "fontSize": 12 }
   ],
   "tables": [],
+  "views": [
+    {}
+  ],
   "formulas": [
     "R[-2]C:R[-2]C[3]=1",
     "R[-3]C:R[-3]C[3]=1"

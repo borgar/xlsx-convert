@@ -41,5 +41,8 @@
     { "fontSize": 12 }
   ],
   "tables": [],
+  "views": [
+    {}
+  ],
   "formulas": []
 }

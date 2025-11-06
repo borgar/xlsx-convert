@@ -54,6 +54,9 @@
     { "fontSize": 12 }
   ],
   "tables": [],
+  "views": [
+    {}
+  ],
   "formulas": [
     "RC[-1]:R[8]C[-1]",
     "FILTER(RC[-2]:R[8]C[-2],RC[-2]:R[8]C[-2]=\"Z\")",

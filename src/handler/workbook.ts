@@ -78,10 +78,9 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
     }
   });
   // Workbook views can store many settings, but we only extract `activeTab` currently. This means
-  // we may produce views with no useful data (empty objects). If all views are empty, we omit the
-  // entire views array. But, if at least one view has data, we preserve all views (including empty
-  // ones) because the array index serves as the workbook view id that worksheet views reference.
-  if (views.some(view => Object.keys(view).length > 0)) {
+  // we may produce views with no useful data (empty objects). We still store the array so that the
+  // indices continue to align with worksheet view references.
+  if (views.length) {
     wb.views = views;
   }
 

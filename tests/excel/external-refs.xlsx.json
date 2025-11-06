@@ -71,6 +71,9 @@
       ]
     }
   ],
+  "views": [
+    {}
+  ],
   "externals": [
     {
       "name": "literals.xlsx",

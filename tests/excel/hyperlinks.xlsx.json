@@ -48,6 +48,9 @@
     }
   ],
   "tables": [],
+  "views": [
+    {}
+  ],
   "formulas": [
     "HYPERLINK(\"http://example.com/\")",
     "HYPERLINK(\"http://example.com/\",\"title text\")"

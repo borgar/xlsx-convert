@@ -38,5 +38,8 @@
     { "numberFormat": "0.0%", "fontSize": 12 }
   ],
   "tables": [],
+  "views": [
+    {}
+  ],
   "formulas": []
 }

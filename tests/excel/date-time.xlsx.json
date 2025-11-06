@@ -58,5 +58,8 @@
     }
   ],
   "tables": [],
+  "views": [
+    {}
+  ],
   "formulas": []
 }

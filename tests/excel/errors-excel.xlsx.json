@@ -29,6 +29,9 @@
     { "fontFamily": "Aptos Narrow", "fontSize": 12 }
   ],
   "tables": [],
+  "views": [
+    {}
+  ],
   "formulas": [
     "FOO()"
   ]

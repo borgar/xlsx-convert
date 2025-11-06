@@ -92,5 +92,8 @@
     { "fontSize": 12, "bold": true }
   ],
   "tables": [],
+  "views": [
+    {}
+  ],
   "formulas": []
 }

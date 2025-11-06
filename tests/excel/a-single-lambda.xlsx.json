@@ -27,6 +27,9 @@
     { "fontFamily": "Aptos Narrow", "fontSize": 12 }
   ],
   "tables": [],
+  "views": [
+    {}
+  ],
   "formulas": [
     "LAMBDA(a,b,a*b)"
   ]
