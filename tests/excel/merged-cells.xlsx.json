@@ -211,7 +211,10 @@
         "E15:F16"
       ],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "I24" }
+      ]
     }
   ],
   "names": [],

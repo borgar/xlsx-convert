@@ -1767,7 +1767,10 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "D4" }
+      ]
     },
     {
       "name": "BMI",
@@ -1843,7 +1846,10 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "G10" }
+      ]
     }
   ],
   "names": [],
@@ -1929,6 +1935,9 @@
         { "name": "Status" }
       ]
     }
+  ],
+  "views": [
+    { "activeWorksheet": 1 }
   ],
   "formulas": [
     "SUBTOTAL(110,BMI[Max])",

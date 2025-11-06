@@ -23,7 +23,16 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "views": [
+        {
+          "workbookView": 0,
+          "activeCell": "C1",
+          "activeRanges": [
+            "C1:C1048576"
+          ]
+        }
+      ]
     }
   ],
   "names": [],

@@ -105,7 +105,14 @@
       ],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "views": [
+        {
+          "workbookView": 0,
+          "activeCell": "N16",
+          "layoutScales": { "normal": 150 }
+        }
+      ]
     }
   ],
   "names": [],

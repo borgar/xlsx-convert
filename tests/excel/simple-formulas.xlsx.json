@@ -18,7 +18,10 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "D11" }
+      ]
     },
     {
       "name": "Sheet2",
@@ -64,7 +67,10 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "I10" }
+      ]
     }
   ],
   "names": [],
@@ -111,6 +117,9 @@
     }
   ],
   "tables": [],
+  "views": [
+    { "activeWorksheet": 1 }
+  ],
   "formulas": [
     "SUM(RC[1]:RC[5])",
     "PI()",
