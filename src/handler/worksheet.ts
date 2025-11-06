@@ -17,15 +17,15 @@ import { toInt } from '../utils/typecast.ts';
  * Excel stores separate zoom percentages for normal view, page layout view, and page break preview.
  * Only non-default zoom values are included in the returned object.
  */
-function getLayoutScales (sheetView: Element): WorksheetLayoutScales {
+function getLayoutScales (sheetView: Element): WorksheetLayoutScales | null {
+  const scales: WorksheetLayoutScales = {};
   const normalScale = toInt(attr(sheetView, 'zoomScaleNormal'));
+  if (normalScale != null) { scales.normal = normalScale; }
   const pageLayoutScale = toInt(attr(sheetView, 'zoomScalePageLayoutView'));
+  if (pageLayoutScale != null) { scales.pageLayout = pageLayoutScale; }
   const pageBreakPreviewScale = toInt(attr(sheetView, 'zoomScaleSheetLayoutView'));
-  return {
-    ...(normalScale && { normal: normalScale }),
-    ...(pageLayoutScale && { pageLayout: pageLayoutScale }),
-    ...(pageBreakPreviewScale && { pageBreakPreview: pageBreakPreviewScale }),
-  };
+  if (pageBreakPreviewScale != null) { scales.pageBreakPreview = pageBreakPreviewScale; }
+  return (normalScale ?? pageLayoutScale ?? pageBreakPreviewScale) != null ? scales : null;
 }
 
 export function handlerWorksheet (dom: Document, context: ConversionContext, rels: Rel[]): Worksheet {
@@ -55,47 +55,38 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
   // view may be split into four panes, although of course most aren't. But to cover that case we
   // need to find the active pane then find its active cell. When there's only one pane (i.e. almost
   // all spreadsheets), you look for the default pane, "topLeft".
-  const views: WorksheetView[] = sheetViews
-    .map(sheetView => {
-      const workbookView = toInt(attr(sheetView, 'workbookViewId'));
-      const activeLayout = attr(sheetView, 'view') as WorksheetView['activeLayout'];
-      const pane = getFirstChild(sheetView, 'pane');
-      const activePane = pane ? attr(pane, 'activePane', 'topLeft') : 'topLeft';
-      const selection = sheetView.querySelectorAll('selection')
-        .find(el => attr(el, 'pane', 'topLeft') === activePane);
-
-      let activeCell: string | null = null;
-      let activeRanges: string[] | null = null;
-      let hasUsefulRange = false;
-      if (selection) {
-        activeCell = attr(selection, 'activeCell');
-        activeRanges = attr(selection, 'sqref', '').trim().split(' ').filter(Boolean);
-        hasUsefulRange = activeRanges &&
-          (activeRanges[0] !== activeCell || activeRanges.length !== 1);
+  const views: WorksheetView[] = [];
+  sheetViews.forEach(sheetView => {
+    const view: WorksheetView = { workbookView: toInt(attr(sheetView, 'workbookViewId')) ?? 0 };
+    const activeLayout = attr(sheetView, 'view');
+    if (activeLayout === 'normal' || activeLayout === 'pageLayout' || activeLayout === 'pageBreakPreview') {
+      view.activeLayout = activeLayout;
+    }
+    const pane = getFirstChild(sheetView, 'pane');
+    const activePane = pane ? attr(pane, 'activePane', 'topLeft') : 'topLeft';
+    const selection = sheetView.children
+      .find(el => el.tagName === 'selection' && attr(el, 'pane', 'topLeft') === activePane);
+    if (selection) {
+      const activeCell = attr(selection, 'activeCell');
+      if (activeCell) {
+        view.activeCell = activeCell;
       }
-
-      const layoutScales = getLayoutScales(sheetView);
-      const hasLayoutScale = Object.keys(layoutScales).length > 0;
-
-      const view = {
-        workbookView,
-        ...(activeLayout && { activeLayout }),
-        ...(activeCell && { activeCell }),
-        ...(hasUsefulRange && { activeRanges }),
-        ...(hasLayoutScale && { layoutScales }),
-      };
-
-      // Filter out views that contain only a workbook view id with no actual view state data. An id
-      // alone isn't useful since it's just an index pointer. We only keep views that have at least
-      // one piece of meaningful, non-default, data.
-      if (Object.keys(view).length > 1) {
-        return view;
+      const activeRanges = attr(selection, 'sqref', '').trim().split(' ').filter(Boolean);
+      if (activeRanges.length > 1 || activeRanges[0] !== activeCell) {
+        view.activeRanges = activeRanges;
       }
-      else {
-        return null;
-      }
-    })
-    .filter(view => view !== null);
+    }
+    const layoutScales = getLayoutScales(sheetView);
+    if (layoutScales) {
+      view.layoutScales = layoutScales;
+    }
+    // Filter out views that contain only a workbook view id with no actual view state data. An id
+    // alone isn't useful since it's just an index pointer. We only keep views that have at least
+    // one piece of meaningful, non-default, data.
+    if (Object.keys(view).length > 1) {
+      views.push(view);
+    }
+  });
 
   if (views.length) {
     sheet.views = views;
