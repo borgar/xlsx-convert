@@ -67,8 +67,8 @@
   ],
   "tables": [],
   "views": [
-    { "activeWorksheet": 1 },
-    { "activeWorksheet": 2 }
+    { "activeSheet": 1 },
+    { "activeSheet": 2 }
   ],
   "formulas": []
 }
