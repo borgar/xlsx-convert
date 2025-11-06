@@ -49,7 +49,14 @@
       ],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "views": [
+        {
+          "workbookView": 0,
+          "activeCell": "F5",
+          "layoutScales": { "normal": 140 }
+        }
+      ]
     }
   ],
   "names": [],
@@ -85,5 +92,8 @@
     { "fontSize": 12, "bold": true }
   ],
   "tables": [],
+  "views": [
+    {}
+  ],
   "formulas": []
 }

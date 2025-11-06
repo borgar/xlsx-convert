@@ -41,6 +41,8 @@ const tests = [
   'tests/excel/errors-excel.xlsx',
   'tests/excel/errors-gsheets.xlsx',
   'tests/excel/non-spilling-array-formula.xlsx',
+  'tests/excel/workbook-views.xlsx',
+  'tests/excel/zooms.xlsx',
   // CSV conversion
   'tests/csv/boolean-variations.csv',
   'tests/csv/complex-mixed-types.csv',
@@ -77,7 +79,7 @@ function makeNiceJson (ent) {
     if (Array.isArray(value)) {
       return value;
     }
-    if (typeof value === 'object') {
+    if (typeof value === 'object' && value !== null) {
       const values = Object.values(value);
       const hasNesting = values.some(d => typeof d === 'object');
       if (values.length && !hasNesting) {

@@ -34,7 +34,10 @@
       ],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "A13" }
+      ]
     },
     {
       "name": "Column widths",
@@ -72,7 +75,16 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "views": [
+        {
+          "workbookView": 0,
+          "activeCell": "G1",
+          "activeRanges": [
+            "G1:J1"
+          ]
+        }
+      ]
     },
     {
       "name": "Hidden",
@@ -192,7 +204,10 @@
       ],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "H21" }
+      ]
     },
     {
       "name": "Full sheet",
@@ -204,7 +219,10 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 30, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "H7" }
+      ]
     },
     {
       "name": "Long-repeats",
@@ -219,7 +237,10 @@
       ],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "G37" }
+      ]
     }
   ],
   "names": [],
@@ -233,5 +254,8 @@
     { "fontSize": 12 }
   ],
   "tables": [],
+  "views": [
+    { "activeSheet": 3 }
+  ],
   "formulas": []
 }

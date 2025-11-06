@@ -1,18 +1,24 @@
 {
-  "name": "a-single-lambda.xlsx",
+  "name": "zooms.xlsx",
   "sheets": [
     {
       "name": "Sheet1",
-      "cells": {
-        "A1": { "v": "#CALC!", "t": "e", "f": 0, "F": "A1" }
-      },
+      "cells": {},
       "columns": [],
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
       "views": [
-        { "workbookView": 0, "activeCell": "B1" }
+        {
+          "workbookView": 0,
+          "activeLayout": "pageBreakPreview",
+          "layoutScales": {
+            "normal": 140,
+            "pageLayout": 60,
+            "pageBreakPreview": 70
+          }
+        }
       ]
     }
   ],
@@ -30,7 +36,5 @@
   "views": [
     {}
   ],
-  "formulas": [
-    "LAMBDA(a,b,a*b)"
-  ]
+  "formulas": []
 }

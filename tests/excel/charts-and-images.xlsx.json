@@ -79,7 +79,14 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "showGridLines": false
+      "showGridLines": false,
+      "views": [
+        {
+          "workbookView": 0,
+          "activeCell": "K16",
+          "layoutScales": { "normal": 150 }
+        }
+      ]
     },
     {
       "name": "Sheet2",
@@ -96,7 +103,10 @@
       ],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "K23" }
+      ]
     }
   ],
   "names": [],
@@ -117,6 +127,9 @@
     }
   ],
   "tables": [],
+  "views": [
+    {}
+  ],
   "formulas": [
     "IMAGE(\"https://support.content.office.net/en-us/media/35aecc53-b3c1-4895-8a7d-554716941806.jpg\",\"Cylender\", 1)"
   ]

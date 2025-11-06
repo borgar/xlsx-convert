@@ -4,11 +4,29 @@ import { handlerCell, relevantStyle } from './cell.ts';
 import { Document, Element } from '@borgar/simple-xml';
 import { ConversionContext } from '../ConversionContext.ts';
 import type { Rel } from './rels.ts';
-import type { Worksheet } from '@jsfkit/types';
+import type { Worksheet, WorksheetLayoutScales, WorksheetView } from '@jsfkit/types';
 import { colWidth } from '../utils/colWidth.ts';
 import { fromA1 } from '../utils/fromA1.ts';
 import { toA1 } from '../utils/toA1.ts';
 import { getFirstChild } from '../utils/getFirstChild.ts';
+import { toInt } from '../utils/typecast.ts';
+
+/**
+ * Extracts zoom levels (layout scales) for the different view modes for a sheet.
+ *
+ * Excel stores separate zoom percentages for normal view, page layout view, and page break preview.
+ * Only non-default zoom values are included in the returned object.
+ */
+function getLayoutScales (sheetView: Element): WorksheetLayoutScales | null {
+  const scales: WorksheetLayoutScales = {};
+  const normalScale = toInt(attr(sheetView, 'zoomScaleNormal'));
+  if (normalScale != null) { scales.normal = normalScale; }
+  const pageLayoutScale = toInt(attr(sheetView, 'zoomScalePageLayoutView'));
+  if (pageLayoutScale != null) { scales.pageLayout = pageLayoutScale; }
+  const pageBreakPreviewScale = toInt(attr(sheetView, 'zoomScaleSheetLayoutView'));
+  if (pageBreakPreviewScale != null) { scales.pageBreakPreview = pageBreakPreviewScale; }
+  return (normalScale ?? pageLayoutScale ?? pageBreakPreviewScale) != null ? scales : null;
+}
 
 export function handlerWorksheet (dom: Document, context: ConversionContext, rels: Rel[]): Worksheet {
   const sheet: Worksheet = {
@@ -26,10 +44,52 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
     hidden: 0,
   };
 
-  const sheetView = getFirstChild(getFirstChild(dom.root, 'sheetViews'), 'sheetView');
-  // zoomScale/zoomScaleNormal
-  if (sheetView && attr(sheetView, 'showGridLines') === '0') {
+  const sheetViews = dom.querySelectorAll('sheetViews > sheetView');
+  const firstSheetView = sheetViews[0];
+  // FIXME: showGridLines should be stored on the sheet view.
+  if (firstSheetView && attr(firstSheetView, 'showGridLines') === '0') {
     sheet.showGridLines = false;
+  }
+
+  // Store last selected cell and/or range (both optional) for each of the sheet's view. A sheet
+  // view may be split into four panes, although of course most aren't. But to cover that case we
+  // need to find the active pane then find its active cell. When there's only one pane (i.e. almost
+  // all spreadsheets), you look for the default pane, "topLeft".
+  const views: WorksheetView[] = [];
+  sheetViews.forEach(sheetView => {
+    const view: WorksheetView = { workbookView: toInt(attr(sheetView, 'workbookViewId')) ?? 0 };
+    const activeLayout = attr(sheetView, 'view');
+    if (activeLayout === 'normal' || activeLayout === 'pageLayout' || activeLayout === 'pageBreakPreview') {
+      view.activeLayout = activeLayout;
+    }
+    const pane = getFirstChild(sheetView, 'pane');
+    const activePane = pane ? attr(pane, 'activePane', 'topLeft') : 'topLeft';
+    const selection = sheetView.children
+      .find(el => el.tagName === 'selection' && attr(el, 'pane', 'topLeft') === activePane);
+    if (selection) {
+      const activeCell = attr(selection, 'activeCell');
+      if (activeCell) {
+        view.activeCell = activeCell;
+      }
+      const activeRanges = attr(selection, 'sqref', '').trim().split(' ').filter(Boolean);
+      if (activeRanges.length > 1 || activeRanges[0] !== activeCell) {
+        view.activeRanges = activeRanges;
+      }
+    }
+    const layoutScales = getLayoutScales(sheetView);
+    if (layoutScales) {
+      view.layoutScales = layoutScales;
+    }
+    // Filter out views that contain only a workbook view id with no actual view state data. An id
+    // alone isn't useful since it's just an index pointer. We only keep views that have at least
+    // one piece of meaningful, non-default, data.
+    if (Object.keys(view).length > 1) {
+      views.push(view);
+    }
+  });
+
+  if (views.length) {
+    sheet.views = views;
   }
 
   // read hyperlinks

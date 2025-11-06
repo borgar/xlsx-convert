@@ -1,0 +1,74 @@
+{
+  "name": "workbook-views.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "B5": { "v": "This sheet deliberately left blank." }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [
+        {
+          "workbookView": 0,
+          "layoutScales": { "normal": 100 }
+        },
+        { "workbookView": 1, "activeCell": "C9" }
+      ]
+    },
+    {
+      "name": "Sheet2",
+      "cells": {
+        "D12": { "v": "This sheet deliberately left blank." }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [
+        {
+          "workbookView": 0,
+          "activeCell": "D12",
+          "activeRanges": [
+            "J12",
+            "E25:I25",
+            "D12:G18"
+          ]
+        },
+        { "workbookView": 1, "activeCell": "D12" }
+      ]
+    },
+    {
+      "name": "Sheet3",
+      "cells": {},
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [
+        { "workbookView": 1, "activeCell": "C25" }
+      ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [],
+  "views": [
+    { "activeSheet": 1 },
+    { "activeSheet": 2 }
+  ],
+  "formulas": []
+}
