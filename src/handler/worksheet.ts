@@ -44,7 +44,7 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
     hidden: 0,
   };
 
-  const sheetViews = dom.root.querySelectorAll('sheetViews > sheetView');
+  const sheetViews = dom.querySelectorAll('sheetViews > sheetView');
   const firstSheetView = sheetViews[0];
   // FIXME: showGridLines should be stored on the sheet view.
   if (firstSheetView && attr(firstSheetView, 'showGridLines') === '0') {

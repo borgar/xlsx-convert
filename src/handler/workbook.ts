@@ -67,7 +67,7 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
 
   // Store "active sheet" (the last-used sheet at save) for each workbook view. Excel supports
   // multiple workbook views (window arrangements), though most files only have one.
-  const workbookViews = dom.root.querySelectorAll('bookViews > workbookView');
+  const workbookViews = dom.querySelectorAll('bookViews > workbookView');
   const views: WorkbookView[] = workbookViews.map(view => {
     const activeSheet = toInt(numAttr(view, 'activeTab'));
     if (Number.isSafeInteger(activeSheet) && activeSheet >= 0) {
