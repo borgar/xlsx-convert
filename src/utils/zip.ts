@@ -175,7 +175,6 @@ export function zipIndex (data: ArrayBuffer): Record<string, ArchEntry> {
     throw new Error('Invalid archive format');
   }
 
-  // const mainHeader = loadMainHeader(dataView.slice(endOffset, endStart));
   const mainHeader = loadMainHeader(new DataView(data, endOffset, endStart - endOffset));
   if (mainHeader.volumeEntries > (dataView.byteLength - mainHeader.offset) / 46) {
     throw new Error('Disk entry too large');
@@ -210,19 +209,22 @@ let inflate: InflateFunc = inflateJS;
     };
   }
   // in node/deno/bun we can have access directly to zlib
-  if (allowZlib) {
+  else if (allowZlib) {
     try {
       const zlib = await import('node:zlib');
-      inflate = function inflateNode (data: ArrayBuffer): Promise<ArrayBuffer> {
-        return new Promise((resolve, reject) => {
-          zlib.inflateRaw(new Uint8Array(data), (error: NodeJS.ErrnoException | null, result: Buffer) => {
-            if (error) return reject(error);
-            const arrayBuffer = new ArrayBuffer(result.length);
-            new Uint8Array(arrayBuffer).set(result);
-            resolve(arrayBuffer);
+      // some bundler/loaders may still return a module with no zlib
+      if (zlib?.inflateRaw) {
+        inflate = function inflateNode (data: ArrayBuffer): Promise<ArrayBuffer> {
+          return new Promise((resolve, reject) => {
+            zlib.inflateRaw(new Uint8Array(data), (error: NodeJS.ErrnoException | null, result: Buffer) => {
+              if (error) return reject(error);
+              const arrayBuffer = new ArrayBuffer(result.length);
+              new Uint8Array(arrayBuffer).set(result);
+              resolve(arrayBuffer);
+            });
           });
-        });
-      };
+        };
+      }
     }
     catch (err) {
       // zlip is not available
