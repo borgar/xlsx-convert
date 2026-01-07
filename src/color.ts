@@ -5,18 +5,18 @@ import { hslToRgb } from './utils/hslToRgb.ts';
 import { parseARGB } from './utils/parseARGB.ts';
 
 const indexToScheme = [
-  'lt1',       //  0: Light 1
-  'dk1',       //  1: Dark 1
-  'lt2',       //  2: Light 2
-  'dk2',       //  3: Dark 2
-  'accent1',   //  4: Accent 1
-  'accent2',   //  5: Accent 2
-  'accent3',   //  6: Accent 3
-  'accent4',   //  7: Accent 4
-  'accent5',   //  8: Accent 5
-  'accent6',   //  9: Accent 6
-  'hlink',     // 10: Hyperlink
-  'folHlink',  // 11: Followed Hyperlink
+  'lt1',      //  0: Light 1
+  'dk1',      //  1: Dark 1
+  'lt2',      //  2: Light 2
+  'dk2',      //  3: Dark 2
+  'accent1',  //  4: Accent 1
+  'accent2',  //  5: Accent 2
+  'accent3',  //  6: Accent 3
+  'accent4',  //  7: Accent 4
+  'accent5',  //  8: Accent 5
+  'accent6',  //  9: Accent 6
+  'hlink',    // 10: Hyperlink
+  'folHlink', // 11: Followed Hyperlink
 ];
 
 const hexValue = (n: number) => Math.trunc(clamp(0, n, 255)).toString(16).padStart(2, '0');
@@ -43,15 +43,15 @@ function tint (
   return [ r, g, b ];
 }
 
-function updateChannel (value, set, mod, off) {
+function updateChannel (value: number, set?: number, mod?: number, off?: number) {
   if (set != null) {
-    return set;
+    value = set;
   }
-  else if (mod != null) {
-    return value * mod;
+  if (mod != null) {
+    value = value * mod;
   }
-  else if (off != mod) {
-    return value + off;
+  if (off != null) {
+    value += off;
   }
   return value;
 }
@@ -144,8 +144,9 @@ export class Color {
     ) {
       let [ h, s, l ] = rgbToHsl(r, g, b);
       h = updateChannel(h, mod.hue, mod.hueMod, mod.hueOff);
-      s = updateChannel(h, mod.sat, mod.satMod, mod.satOff);
-      l = updateChannel(h, mod.lum, mod.lumMod, mod.lumOff);
+      s = updateChannel(s, mod.sat, mod.satMod, mod.satOff);
+      l = updateChannel(l, mod.lum, mod.lumMod, mod.lumOff);
+      // console.log(rgbToHsl(r, g, b), [ h, s, l ], mod.lum, mod.lumMod, mod.lumOff);
       // §5.1.2.2.7: The color rendered should be the complement of its input color
       if (mod.comp) {
         h = (h + 180) % 360;

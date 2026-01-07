@@ -5,6 +5,38 @@ import { Color } from '../color.ts';
 import { SYSTEM_COLORS, PRESET_COLORS, SCHEME_COLORS } from '../constants.ts';
 import { parseARGB } from './parseARGB.ts';
 
+function addOps (elm: Element, color: Color): Color {
+  elm.children.forEach(opElm => {
+    const tagName = opElm?.tagName;
+    // booleans
+    if (tagName === 'comp' || tagName === 'gamma' || tagName === 'invGamma' ||
+        tagName === 'gray' || tagName === 'inv') {
+      color.ops[tagName] = true;
+    }
+    // [0-1]
+    else if (
+      tagName === 'alpha' || tagName === 'alphaMod' || tagName === 'alphaOff' ||
+      tagName === 'blueMod' || tagName === 'blueOff' ||
+      tagName === 'greenMod' || tagName === 'greenOff' ||
+      tagName === 'redMod' || tagName === 'redOff' ||
+      tagName === 'hueMod' || tagName === 'hueOff' ||
+      tagName === 'sat' || tagName === 'satMod' || tagName === 'satOff' ||
+      tagName === 'lum' || tagName === 'lumMod' || tagName === 'lumOff' ||
+      tagName === 'shade' || tagName === 'tint') {
+      color.ops[tagName] = numAttr(opElm, 'val', 0) / 100000;
+    }
+    // [0-360]
+    else if (tagName === 'hue') {
+      color.ops[tagName] = numAttr(opElm, 'val', 0) / 100000;
+    }
+    // [0-255]
+    else if (tagName === 'blue' || tagName === 'green' || tagName === 'red') {
+      color.ops[tagName] = numAttr(opElm, 'val', 0) / 100000;
+    }
+  });
+  return color;
+}
+
 /**
  * Reads a color element and returns a Color container. This should handle any of the
  * multiple color elements found within an XSLX workbook:
@@ -69,11 +101,11 @@ export function readColor (elm: Element, theme: Theme): Color | undefined {
   // §5.1.2.2.29: Scheme Color - "specifies a color bound to a user's theme"
   else if (tagName === 'schemeClr') {
     const val = attr(elm, 'val');
-    if (SCHEME_COLORS[val]) {
+    if (val in SCHEME_COLORS) {
       const color = new Color(theme);
       color.type = 'theme';
       color.value = SCHEME_COLORS[val] ?? SCHEME_COLORS.phClr;
-      return color;
+      return addOps(elm, color);
     }
   }
 
@@ -87,7 +119,7 @@ export function readColor (elm: Element, theme: Theme): Color | undefined {
       numAttr(elm, 'lum', 0) / 100000,
       1,
     ];
-    return color;
+    return addOps(elm, color);
   }
 
   // §5.1.2.2.22: Preset Color
@@ -97,7 +129,7 @@ export function readColor (elm: Element, theme: Theme): Color | undefined {
       const color = new Color(theme);
       color.type = 'preset';
       color.value = val;
-      return color;
+      return addOps(elm, color);
     }
   }
 
@@ -114,7 +146,7 @@ export function readColor (elm: Element, theme: Theme): Color | undefined {
       255 * numAttr(elm, 'b', 0) / 100000,
       1,
     ];
-    return color;
+    return addOps(elm, color);
   }
 
   // §5.1.2.2.32: RGB Color Model - Hex Variant
@@ -123,7 +155,7 @@ export function readColor (elm: Element, theme: Theme): Color | undefined {
     const color = new Color(theme);
     color.type = 'rgb';
     color.rgba = parseARGB(attr(elm, 'val', '0'));
-    return color;
+    return addOps(elm, color);
   }
 
   // §5.1.2.2.33: System Color
@@ -139,11 +171,13 @@ export function readColor (elm: Element, theme: Theme): Color | undefined {
         // §5.1.12.28: Specifies the color value that was last computed by the generating application.
         color.rgba = parseARGB(lastClr);
       }
-      return color;
+      return addOps(elm, color);
     }
   }
-
-  if (tagName) {
-    throw new Error('Unsupported color element: ' + tagName);
+  else if (tagName) {
+    throw new Error('Unknown color element: ' + tagName);
   }
+
+  // FIXME: do something sensible when the color was invalid
+  return new Color();
 }

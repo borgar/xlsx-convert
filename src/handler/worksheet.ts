@@ -4,7 +4,7 @@ import { handlerCell, relevantStyle } from './cell.ts';
 import { Document, Element } from '@borgar/simple-xml';
 import { ConversionContext } from '../ConversionContext.ts';
 import type { Rel } from './rels.ts';
-import type { Worksheet } from '@jsfkit/types';
+import type { GridSize, Worksheet } from '@jsfkit/types';
 import { colWidth } from '../utils/colWidth.ts';
 import { fromA1 } from '../utils/fromA1.ts';
 import { toA1 } from '../utils/toA1.ts';
@@ -59,14 +59,17 @@ export function handlerWorksheet (
   // decode column widths (3.3.1.12)
   getFirstChild(dom.root, 'cols')?.children.forEach(d => {
     if (d.tagName !== 'col') { return; }
-    const min = numAttr(d, 'min', 0);
-    const max = numAttr(d, 'max', 100000); // FIXME: What is the actual max value?
+    const style = numAttr(d, 'style');
     const hidden = numAttr(d, 'hidden', 0);
-    sheet.columns.push({
-      start: min,
-      end: max,
+    const colSpec: GridSize = {
+      start: numAttr(d, 'min', 0),
+      end: numAttr(d, 'max', 100000), // FIXME: What is the actual max value?
       size: colWidth(hidden ? 0 : numAttr(d, 'width')),
-    });
+    };
+    if (style != null) {
+      colSpec.s = +style;
+    }
+    sheet.columns.push(colSpec);
   });
 
   context._shared = new Map();

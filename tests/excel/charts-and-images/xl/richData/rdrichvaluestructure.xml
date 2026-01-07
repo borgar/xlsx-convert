@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rvStructures count="2" xmlns="http://schemas.microsoft.com/office/spreadsheetml/2017/richdata">
+  <s t="_webimage">
+    <k n="WebImageIdentifier" t="i"/>
+    <k n="CalcOrigin" t="i"/>
+    <k n="ComputedImage" t="b"/>
+    <k n="ImageSizing" t="i"/>
+    <k n="Text" t="s"/>
+  </s>
+  <s t="_localImage">
+    <k n="_rvRel:LocalImageIdentifier" t="i"/>
+    <k n="CalcOrigin" t="i"/>
+    <k n="Text" t="s"/>
+  </s>
+</rvStructures>

@@ -218,6 +218,7 @@ export async function convertBinary (
             if (img.rel.type === 'drawing') {
               const drawingDom = await getFile(img.rel.target);
               const drawingRels = await getRels(img.rel.target);
+              // @ts-ignore
               sh.drawing = handlerDrawing(drawingDom, context, drawingRels);
             }
             else if (img.rel.type === 'image') {

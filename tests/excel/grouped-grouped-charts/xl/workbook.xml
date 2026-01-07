@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<workbook mc:Ignorable="x15 xr xr6 xr10 xr2" xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:x15="http://schemas.microsoft.com/office/spreadsheetml/2010/11/main" xmlns:xr="http://schemas.microsoft.com/office/spreadsheetml/2014/revision" xmlns:xr10="http://schemas.microsoft.com/office/spreadsheetml/2016/revision10" xmlns:xr2="http://schemas.microsoft.com/office/spreadsheetml/2015/revision2" xmlns:xr6="http://schemas.microsoft.com/office/spreadsheetml/2016/revision6">
+  <fileVersion appName="xl" lastEdited="7" lowestEdited="7" rupBuild="11014"/>
+  <workbookPr defaultThemeVersion="202300"/>
+  <mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+    <mc:Choice Requires="x15">
+      <x15ac:absPath url="/Users/borgar/Sites/borgar-github/xlsx-convert/tests/excel/" xmlns:x15ac="http://schemas.microsoft.com/office/spreadsheetml/2010/11/ac"/>
+    </mc:Choice>
+  </mc:AlternateContent>
+  <xr:revisionPtr documentId="8_{E30DB643-8D43-E945-BA97-80D0E6F5046F}" revIDLastSave="0" xr10:uidLastSave="{00000000-0000-0000-0000-000000000000}" xr6:coauthVersionLast="47" xr6:coauthVersionMax="47"/>
+  <bookViews>
+    <workbookView windowHeight="16660" windowWidth="25560" xWindow="3800" xr2:uid="{803018F5-762A-0243-ADC0-8AB3B9C93750}" yWindow="760"/>
+  </bookViews>
+  <sheets>
+    <sheet name="Sheet1" r:id="rId1" sheetId="1"/>
+  </sheets>
+  <definedNames>
+    <definedName hidden="1" name="_xlchart.v1.0">Sheet1!$A$1:$A$3</definedName>
+    <definedName hidden="1" name="_xlchart.v1.1">Sheet1!$B$1:$B$3</definedName>
+    <definedName hidden="1" name="_xlchart.v1.2">Sheet1!$A$1:$A$3</definedName>
+    <definedName hidden="1" name="_xlchart.v1.3">Sheet1!$B$1:$B$3</definedName>
+    <definedName hidden="1" name="_xlchart.v1.4">Sheet1!$A$1:$A$3</definedName>
+    <definedName hidden="1" name="_xlchart.v1.5">Sheet1!$B$1:$B$3</definedName>
+    <definedName hidden="1" name="_xlchart.v1.6">Sheet1!$A$1:$A$3</definedName>
+    <definedName hidden="1" name="_xlchart.v1.7">Sheet1!$B$1:$B$3</definedName>
+    <definedName hidden="1" name="_xlchart.v1.8">Sheet1!$A$1:$A$3</definedName>
+    <definedName hidden="1" name="_xlchart.v1.9">Sheet1!$B$1:$B$3</definedName>
+  </definedNames>
+  <calcPr calcId="181029"/>
+  <extLst>
+    <ext uri="{140A7094-0E35-4892-8432-C4D2E57EDEB5}" xmlns:x15="http://schemas.microsoft.com/office/spreadsheetml/2010/11/main">
+      <x15:workbookPr chartTrackingRefBase="1"/>
+    </ext>
+    <ext uri="{B58B0392-4F1F-4190-BB64-5DF3571DCE5F}" xmlns:xcalcf="http://schemas.microsoft.com/office/spreadsheetml/2018/calcfeatures">
+      <xcalcf:calcFeatures>
+        <xcalcf:feature name="microsoft.com:RD"/>
+        <xcalcf:feature name="microsoft.com:Single"/>
+        <xcalcf:feature name="microsoft.com:FV"/>
+        <xcalcf:feature name="microsoft.com:CNMTM"/>
+        <xcalcf:feature name="microsoft.com:LET_WF"/>
+        <xcalcf:feature name="microsoft.com:LAMBDA_WF"/>
+        <xcalcf:feature name="microsoft.com:ARRAYTEXT_WF"/>
+      </xcalcf:calcFeatures>
+    </ext>
+  </extLst>
+</workbook>

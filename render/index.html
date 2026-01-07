@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Minimal render example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="importmap">
+  {"imports": {
+    "@borgar/fx": "/borgar-github/xlsx-convert/node_modules/@borgar/fx/dist/index.js",
+    "@borgar/fx/xlsx": "/borgar-github/xlsx-convert/node_modules/@borgar/fx/dist/xlsx/index.js",
+    "@borgar/simple-xml": "/borgar-github/xlsx-convert/node_modules/@borgar/simple-xml/dist/index.js",
+    "@borgar/xlsx-convert": "/borgar-github/xlsx-convert/dist/index.js",
+    "@borgar/textbox": "/borgar-github/textbox/lib/index.js",
+    "@grid-is/fontstack": "/grid/packages/fontstack/dist/index.js",
+    "@grid-is/cellatrix": "/grid/packages/cellatrix/dist/index.js",
+    "@grid-is/mondrian": "/grid/packages/mondrian/dist/index.js",
+    "pako": "/borgar-github/xlsx-convert/node_modules/pako/dist/pako.esm.mjs",
+    "numfmt": "/borgar-github/numfmt/lib/index.js"
+  }}
+  </script>
+</head>
+<body>
+
+<canvas id="output" style="background: #ccc;"></canvas>
+
+<script type="module">
+import { Model } from '@grid-is/cellatrix';
+import { Renderer } from '@grid-is/mondrian';
+import { convertBinary } from '@borgar/xlsx-convert';
+import { loadFonts } from '@grid-is/fontstack';
+
+// const INITIAL_WORKBOOK = 'image-backgrounds-dimensions.xlsx';
+const INITIAL_WORKBOOK = 'shape-color-swatch.xlsx';
+
+// ensure we have loaded common Excel fonts because we're not re-rendering when fonts load
+// const baseURL = new URL('../../node_modules/@grid-is/fontstack/fonts/', document.location);
+// await loadFonts(baseURL, 'woff2');
+
+// fetch an xlsx binary
+const s = await fetch(INITIAL_WORKBOOK);
+if (!s.ok) { throw new Error(e.statusText); }
+const xlsxFile = await s.arrayBuffer();
+
+// convert to jsf internal format
+const jsf = await convertBinary(xlsxFile, INITIAL_WORKBOOK);
+
+// get a model container to manage the spreadsheet
+const model = Model.fromJSF(jsf);
+
+// set up a renderer and give it a workbook
+const renderer = new Renderer();
+renderer.setWorkbook(model.getWorkbook());
+
+// render to canvas
+const canvas = document.querySelector('#output');
+const ref = renderer.getFullSheetRef();
+ref.range.right = 10;
+ref.range.bottom = 30;
+const viewRect = renderer.refToRect(ref);
+renderer.resize(canvas, viewRect);
+renderer.render(canvas, viewRect);
+</script>
+
+</body>
+</html>

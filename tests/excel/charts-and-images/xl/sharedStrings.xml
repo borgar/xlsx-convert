@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sst count="3" uniqueCount="3" xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+  <si>
+    <t>foo</t>
+  </si>
+  <si>
+    <t>bar</t>
+  </si>
+  <si>
+    <t>baz</t>
+  </si>
+</sst>

@@ -133,6 +133,20 @@ export function readGraphicContent (parent: Element, context: ConversionContext,
       // spPr (Shape Properties)
       // style (Shape Style)
       // txBody (Shape Text Body)
+      const out = {
+        type: 'shape',
+        id: '',
+        name: '',
+      };
+      // Non-Visual Properties
+      const cNvPr = d.querySelector('cNvPr');
+      if (cNvPr) {
+        out.id = cNvPr.getAttribute('id'); // "295"
+        out.name = cNvPr.getAttribute('name'); // "Rectangle 294"
+      }
+      // spPr (Shape Properties)
+      const spPr = getFirstChild(d, 'spPr');
+      out.shapeProps = readShapeProperties(spPr, context);
 
       // [ "xdr:sp", { "macro": "", "textlink": "" },
       //   [ "xdr:nvSpPr",
@@ -167,6 +181,7 @@ export function readGraphicContent (parent: Element, context: ConversionContext,
       //         [ "a:rPr", { "lang": "en-GB", "sz": "1600", "b": "0", "i": "1", "kern": "1200" } ],
       //         [ "a:t", "Image in a cell" ] ] ] ]
       // ]
+      content.push(out);
     }
     else if (d.tagName === 'pic') {
       const out: BitmapRef = {
@@ -214,7 +229,7 @@ export function readGraphicContent (parent: Element, context: ConversionContext,
 
         const spPr = getFirstChild(d, 'spPr');
         out.shapeProps = readShapeProperties(spPr, context);
-        console.log(out.shapeProps);
+        // console.log(out.shapeProps);
 
         // <blip> may contain any of:
         // - alphaBiLevel (Alpha Bi-Level Effect) – §5.1.10.1

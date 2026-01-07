@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xdr:wsDr xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:xdr="http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing">
+
+  <xdr:twoCellAnchor>
+    <xdr:from>
+      <xdr:col>3</xdr:col>
+      <xdr:colOff>0</xdr:colOff>
+      <xdr:row>5</xdr:row>
+      <xdr:rowOff>0</xdr:rowOff>
+    </xdr:from>
+    <xdr:to>
+      <xdr:col>12</xdr:col>
+      <xdr:colOff>778142</xdr:colOff>
+      <xdr:row>17</xdr:row>
+      <xdr:rowOff>38100</xdr:rowOff>
+    </xdr:to>
+
+    <xdr:grpSp>
+      <xdr:nvGrpSpPr>
+        <xdr:cNvPr id="16" name="Group 15" />
+        <xdr:cNvGrpSpPr/>
+      </xdr:nvGrpSpPr>
+
+      <xdr:grpSpPr>
+        <a:xfrm>
+          <a:off x="2476500" y="1016000"/>
+          <a:ext cx="8106042" cy="2476500"/>
+          <a:chOff x="2476500" y="1016000"/>
+          <a:chExt cx="8106042" cy="2476500"/>
+        </a:xfrm>
+      </xdr:grpSpPr>
+
+      <xdr:grpSp>
+        <xdr:nvGrpSpPr>
+          <xdr:cNvPr id="12" name="Group 11" />
+          <xdr:cNvGrpSpPr/>
+        </xdr:nvGrpSpPr>
+        <xdr:grpSpPr>
+          <a:xfrm>
+            <a:off x="2476500" y="1016000"/>
+            <a:ext cx="5211420" cy="2476500"/>
+            <a:chOff x="4127500" y="2235200"/>
+            <a:chExt cx="6184900" cy="2882900"/>
+          </a:xfrm>
+        </xdr:grpSpPr>
+
+        <xdr:graphicFrame macro="">
+          <xdr:nvGraphicFramePr>
+            <xdr:cNvPr id="14" name="Chart 13">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId id="{F4A1DF36-A597-FDB4-442B-DA004E3AA17E}" xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main"/>
+                </a:ext>
+              </a:extLst>
+            </xdr:cNvPr>
+            <xdr:cNvGraphicFramePr>
+              <a:graphicFrameLocks/>
+            </xdr:cNvGraphicFramePr>
+          </xdr:nvGraphicFramePr>
+          <xdr:xfrm>
+            <a:off x="4127500" y="2235200"/>
+            <a:ext cx="2882900" cy="2882900"/>
+          </xdr:xfrm>
+          <a:graphic>
+            <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/chart">
+              <c:chart r:id="rId2" xmlns:c="http://schemas.openxmlformats.org/drawingml/2006/chart" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"/>
+            </a:graphicData>
+          </a:graphic>
+        </xdr:graphicFrame>
+      </xdr:grpSp>
+
+      <xdr:graphicFrame macro="">
+        <xdr:nvGraphicFramePr>
+          <xdr:cNvPr id="15" name="Chart 14">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId id="{3BF04C78-79D2-BA4B-98B9-C1AADFCE5071}" xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main"/>
+              </a:ext>
+            </a:extLst>
+          </xdr:cNvPr>
+          <xdr:cNvGraphicFramePr>
+            <a:graphicFrameLocks/>
+          </xdr:cNvGraphicFramePr>
+        </xdr:nvGraphicFramePr>
+        <xdr:xfrm>
+          <a:off x="8153400" y="1016000"/>
+          <a:ext cx="2429142" cy="2476500"/>
+        </xdr:xfrm>
+        <a:graphic>
+          <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/chart">
+            <c:chart r:id="rId3" xmlns:c="http://schemas.openxmlformats.org/drawingml/2006/chart" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"/>
+          </a:graphicData>
+        </a:graphic>
+      </xdr:graphicFrame>
+
+    </xdr:grpSp>
+
+    <xdr:clientData/>
+  </xdr:twoCellAnchor>
+</xdr:wsDr>
