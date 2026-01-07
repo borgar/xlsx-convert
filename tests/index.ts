@@ -17,6 +17,7 @@ const tests = [
   'tests/excel/date-time.xlsx',
   'tests/excel/emojii.xlsx',
   'tests/excel/external-refs.xlsx',
+  'tests/excel/gt-in-attr-value.xlsx',
   'tests/excel/fonts.xlsx',
   'tests/excel/hyperlinks.xlsx',
   'tests/excel/iterative-calculations.xlsx',
