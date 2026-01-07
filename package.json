@@ -1,6 +1,6 @@
 {
   "name": "@borgar/xlsx-convert",
-  "version": "3.6.1",
+  "version": "3.6.2",
   "description": "Utility to convert Excel XLSX files to JSON",
   "type": "module",
   "source": "src/index.ts",
@@ -62,7 +62,7 @@
   "license": "MIT",
   "dependencies": {
     "@borgar/fx": "~5.0.0",
-    "@borgar/simple-xml": "~2.2.0",
+    "@borgar/simple-xml": "~2.2.1",
     "numfmt": "~3.2.3",
     "pako": "~2.1.0"
   },
