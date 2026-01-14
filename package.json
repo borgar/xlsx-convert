@@ -21,7 +21,7 @@
     "lint": "eslint *.js tests/ src/",
     "typecheck": "tsc --noEmit",
     "docs": "typedoc && concat-md tempdocs > docs/API.md && rm -rf tempdocs",
-    "test:unit": "vitest run src/**/*.spec.ts",
+    "test:unit": "vitest run src/*.spec.ts src/**/*.spec.ts",
     "test:fixture": "node --experimental-transform-types tests/index.ts",
     "test": "npm run test:unit && npm run test:fixture",
     "updatetests": "UPDATE_TESTS=1 node --experimental-transform-types tests/index.ts",
