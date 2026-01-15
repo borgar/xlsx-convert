@@ -22,7 +22,10 @@ export function handlerRels (dom: Document, basepath = 'xl/workbook.xml'): Rel[]
           if (type.startsWith(p)) {
             type = type.slice(p.length);
             if (mode !== 'External') {
-              target = pathJoin(basepath, target);
+              // Absolute paths start from package root; relative paths join with basepath
+              target = target.startsWith('/')
+                ? target.slice(1)
+                : pathJoin(basepath, target);
             }
             break;
           }
