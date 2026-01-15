@@ -61,25 +61,25 @@
   "author": "Borgar Þorsteinsson <borgar@borgar.net> (http://borgar.net/)",
   "license": "MIT",
   "dependencies": {
-    "@borgar/fx": "~5.0.0",
+    "@borgar/fx": "~5.0.1",
     "@borgar/simple-xml": "~2.2.1",
     "numfmt": "~3.2.3",
     "pako": "~2.1.0"
   },
   "devDependencies": {
     "@borgar/eslint-config": "~4.0.1",
-    "@eslint/js": "~9.39.0",
+    "@eslint/js": "~9.39.2",
     "@jsfkit/types": "~1.1.0",
-    "@types/node": "~24.9.2",
+    "@types/node": "~25.0.8",
     "concat-md": "~0.5.1",
-    "eslint": "~9.39.0",
-    "globals": "~16.5.0",
+    "eslint": "~9.39.2",
+    "globals": "~17.0.0",
     "jszip": "^3.10.1",
-    "tsup": "~8.5.0",
-    "typedoc": "~0.28.14",
+    "tsup": "~8.5.1",
+    "typedoc": "~0.28.16",
     "typedoc-plugin-markdown": "~4.9.0",
     "typescript": "~5.9.3",
-    "typescript-eslint": "~8.46.2",
-    "vitest": "~4.0.6"
+    "typescript-eslint": "~8.53.0",
+    "vitest": "~4.0.17"
   }
 }
