@@ -1,4 +1,5 @@
 import { Document, parseXML } from '@borgar/simple-xml';
+import { attr } from './utils/attr.ts';
 import { pathBasename, pathDirname, pathJoin } from './utils/path.ts';
 import { convertStyles } from './utils/convertStyles.ts';
 import { loadZip, type FileContainer } from './utils/zip.ts';
@@ -125,9 +126,16 @@ export async function convertBinary (
   context.options = options;
   context.filename = pathBasename(filename);
 
-  // external links
-  for (const rel of context.rels) {
-    if (rel.type === 'externalLink') {
+  // workbook - read DOM first to get externalReferences order
+  const wbDom = await getFile(wbRel.target);
+
+  // external links - use order from <externalReferences> in workbook.xml,
+  // not the document order in workbook.xml.rels (which can differ)
+  const extRefRIds = wbDom.getElementsByTagName('externalReference')
+    .map(d => attr(d, 'r:id'));
+  for (const rId of extRefRIds) {
+    const rel = context.rels.find(d => d.id === rId);
+    if (rel) {
       const extRels = await getRels(rel.target);
       const fileName = extRels.find(d => d.id === 'rId1')?.target;
       if (fileName) {
@@ -141,7 +149,7 @@ export async function convertBinary (
   }
 
   // workbook
-  const wb = handlerWorkbook(await getFile(wbRel.target), context);
+  const wb = handlerWorkbook(wbDom, context);
   context.workbook = wb;
   // copy external links in
   if (context.externalLinks.length) {
