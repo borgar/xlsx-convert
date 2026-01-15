@@ -35,15 +35,15 @@
   "names": [
     {
       "name": "name2cell",
-      "value": "[literals.xlsx]Sheet1!$A$1"
+      "value": "[names.xlsx]Sheet1!$A$1"
     },
     {
       "name": "name2name",
-      "value": "literals.xlsx!unscoped"
+      "value": "names.xlsx!unscoped"
     },
     {
       "name": "name2scopedname",
-      "value": "[literals.xlsx]Sheet1!scoped"
+      "value": "[names.xlsx]Sheet1!scoped"
     }
   ],
   "calculationProperties": {
@@ -66,7 +66,7 @@
         { "name": "a" },
         {
           "name": "b",
-          "formula": "Table1[@a]*[literals.xlsx]Sheet1!$A$1"
+          "formula": "Table1[@a]*[names.xlsx]Sheet1!$A$1"
         }
       ]
     }
@@ -75,18 +75,6 @@
     {}
   ],
   "externals": [
-    {
-      "name": "literals.xlsx",
-      "sheets": [
-        {
-          "name": "some values",
-          "cells": {
-            "E2": { "v": "lorem ipsum dolor set amet" }
-          }
-        }
-      ],
-      "names": []
-    },
     {
       "name": "names.xlsx",
       "sheets": [
@@ -103,17 +91,29 @@
         { "name": "scoped", "value": "='Sheet1'!$A$2" },
         { "name": "unscoped", "value": "='Sheet1'!$A$2" }
       ]
+    },
+    {
+      "name": "literals.xlsx",
+      "sheets": [
+        {
+          "name": "some values",
+          "cells": {
+            "E2": { "v": "lorem ipsum dolor set amet" }
+          }
+        }
+      ],
+      "names": []
     }
   ],
   "formulas": [
-    "[literals.xlsx]Sheet1!R1C1",
-    "[literals.xlsx]Sheet1!scoped",
-    "Table1[@a]*[literals.xlsx]Sheet1!R1C1",
-    "literals.xlsx!unscoped",
-    "literals.xlsx!formula",
+    "[names.xlsx]Sheet1!R1C1",
+    "[names.xlsx]Sheet1!scoped",
+    "Table1[@a]*[names.xlsx]Sheet1!R1C1",
+    "names.xlsx!unscoped",
+    "names.xlsx!formula",
     "name2cell",
     "name2name",
     "name2scopedname",
-    "'[names.xlsx]some values'!R2C5"
+    "'[literals.xlsx]some values'!R2C5"
   ]
 }
