@@ -171,13 +171,20 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
     // .s = Style Index. Index to style record for the row
     //                   (only applied if customFormat attribute is '1').
 
-    // cells
-    // row.querySelectorAll('> c').forEach(d => {
+    // cells: 3.3.1.3
+    let lastId = '';
     row.childNodes.forEach(d => {
       if (!(d instanceof Element) || d.nodeName !== 'C') {
         return;
       }
-      const id = attr(d, 'r');
+      // the cell reference attribute is optional, but nearly always there
+      let id = attr(d, 'r');
+      if (!id) {
+        // spec does not say what to do when the attribute is missing but
+        // Excel will simply count from the last ID, so we do the same
+        const cellPos = fromA1(lastId ?? 'A' + r);
+        id = toA1(cellPos.left + 1, cellPos.top);
+      }
       const c = handlerCell(d, context);
       if (context.options.skipMerged && id) {
         if (context._merged[id] && context._merged[id] !== id) {
@@ -194,6 +201,7 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
         }
         sheet.cells[id] = c;
       }
+      lastId = id;
     });
   });
 
