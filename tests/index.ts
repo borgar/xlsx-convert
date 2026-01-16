@@ -44,6 +44,7 @@ const tests = [
   'tests/excel/non-spilling-array-formula.xlsx',
   'tests/excel/workbook-views.xlsx',
   'tests/excel/zooms.xlsx',
+  'tests/excel/cells-without-r-attributes.xlsx',
   // CSV conversion
   'tests/csv/boolean-variations.csv',
   'tests/csv/complex-mixed-types.csv',
