@@ -45,6 +45,7 @@ const tests = [
   'tests/excel/workbook-views.xlsx',
   'tests/excel/zooms.xlsx',
   'tests/excel/cells-without-r-attributes.xlsx',
+  'tests/excel/row-col-styles.xlsx',
   // CSV conversion
   'tests/csv/boolean-variations.csv',
   'tests/csv/complex-mixed-types.csv',
@@ -67,6 +68,7 @@ const tests = [
   'tests/csv/header-only.csv',
   'tests/csv/headers-with-special-chars.csv',
 
+  'tests/excel/1_91-34_init.xlsx',
 ];
 
 function makeNiceJson (ent) {

@@ -1,28 +1,39 @@
 import type { GridSize } from '@jsfkit/types';
 
-type IndexHeightPair = [ number, number ];
-
-export function rle (list: IndexHeightPair[], defaultValue: number): GridSize[] {
-  let lastItem = [];
+export function rle (list: GridSize[], defaultValue: number): GridSize[] {
+  let lastItem: GridSize = {
+    start: NaN,
+    end: NaN,
+    size: NaN,
+    s: NaN,
+  };
   let current: GridSize;
   return list
-    .sort((a, b) => a[0] - b[0])
-    .reduce((newList: GridSize[], item: IndexHeightPair) => {
-      const nextInSeq = lastItem[0] + 1 === item[0];
-      const sameSize = lastItem[1] === item[1];
-      if (nextInSeq && sameSize) {
-        current.end = item[0];
+    .sort((a, b) => a.start - b.start)
+    .reduce((newList: GridSize[], item: GridSize) => {
+      const nextInSeq = lastItem.end + 1 === item.start;
+      const sameSize = lastItem.size === item.size;
+      const sameStyle = lastItem.s === item.s;
+      if (nextInSeq && sameSize && sameStyle) {
+        current.end = item.end;
       }
       else {
         current = {
-          start: item[0],
-          end: item[0],
-          size: item[1],
+          start: item.start,
+          end: item.end,
+          size: item.size,
         };
+        if (item.s != null) {
+          current.s = item.s;
+        }
         newList.push(current);
       }
       lastItem = item;
       return newList;
     }, [])
-    .filter(d => d.size !== defaultValue);
+    .filter(d => {
+      const defaultSize = d.size !== defaultValue;
+      const hasStyle = d.s != null;
+      return defaultSize || hasStyle;
+    });
 }

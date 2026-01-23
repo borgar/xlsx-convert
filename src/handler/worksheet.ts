@@ -4,7 +4,7 @@ import { handlerCell, relevantStyle } from './cell.ts';
 import { Document, Element } from '@borgar/simple-xml';
 import { ConversionContext } from '../ConversionContext.ts';
 import type { Rel } from './rels.ts';
-import type { Worksheet, WorksheetLayoutScales, WorksheetView } from '@jsfkit/types';
+import type { GridSize, Worksheet, WorksheetLayoutScales, WorksheetView } from '@jsfkit/types';
 import { colWidth } from '../utils/colWidth.ts';
 import { fromA1 } from '../utils/fromA1.ts';
 import { toA1 } from '../utils/toA1.ts';
@@ -26,6 +26,14 @@ function getLayoutScales (sheetView: Element): WorksheetLayoutScales | null {
   const pageBreakPreviewScale = toInt(attr(sheetView, 'zoomScaleSheetLayoutView'));
   if (pageBreakPreviewScale != null) { scales.pageBreakPreview = pageBreakPreviewScale; }
   return (normalScale ?? pageLayoutScale ?? pageBreakPreviewScale) != null ? scales : null;
+}
+
+function gridSize (start: number, end: number, size: number, style?: number): GridSize {
+  const item: GridSize = { start, end, size };
+  if (style != null) {
+    item.s = style;
+  }
+  return item;
 }
 
 export function handlerWorksheet (dom: Document, context: ConversionContext, rels: Rel[]): Worksheet {
@@ -114,14 +122,12 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
   // decode column widths (3.3.1.12)
   getFirstChild(dom.root, 'cols')?.children.forEach(d => {
     if (d.tagName !== 'col') { return; }
-    const min = numAttr(d, 'min', 0);
-    const max = numAttr(d, 'max', 100000); // FIXME: What is the actual max value?
-    const hidden = numAttr(d, 'hidden', 0);
-    sheet.columns.push({
-      start: min,
-      end: max,
-      size: colWidth(hidden ? 0 : numAttr(d, 'width')),
-    });
+    const min = numAttr(d, 'min');
+    const max = numAttr(d, 'max');
+    if (min == null || max == null) { return; }
+    const size = colWidth(numAttr(d, 'hidden', 0) ? 0 : numAttr(d, 'width'));
+    const style = numAttr(d, 'style');
+    sheet.columns.push(gridSize(min, max, size, style));
   });
 
   context._shared = new Map();
@@ -143,7 +149,7 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
   });
 
   // keep a list of row heights
-  const row_heights: [ number, number ][] = [];
+  const rows: GridSize[] = [];
 
   // parse cells
   getFirstChild(dom.root, 'sheetData')?.children.forEach(row => {
@@ -152,24 +158,25 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
     //                 <row> definition corresponds.
     const r = attr(row, 'r');
 
-    // .hidden = 1 if the row is hidden (.collapsed also exists)
+    // .hidden = 1 if the row is hidden
     // .ht = Row height measured in point size
+    // .customFormat = 1 if the row style should be applied.
+    // .s = Style Index. Index to style record for the row
+    //                   (only applied if customFormat attribute is '1').
     const isHidden = numAttr(row, 'hidden');
+    const rowStyle = numAttr(row, 's');
     if (isHidden) {
-      row_heights.push([ +r, 0 ]);
+      rows.push(gridSize(+r, +r, 0, rowStyle));
     }
     else {
       // Row height measured in point size
       const ht = attr(row, 'ht');
-      if (ht != null) {
-        row_heights.push([ +r, +ht ]);
+      if (ht != null || rowStyle != null) {
+        // FIXME: GridSize.size should be optional: https://github.com/jsfkit/types/issues/14
+        const height = ht == null ? sheet.defaults.rowHeight : +ht;
+        rows.push(gridSize(+r, +r, height, rowStyle));
       }
     }
-
-    // FIXME: rows have styles:
-    // .customFormat = 1 if the row style should be applied.
-    // .s = Style Index. Index to style record for the row
-    //                   (only applied if customFormat attribute is '1').
 
     // cells: 3.3.1.3
     let lastId = '';
@@ -206,7 +213,7 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
   });
 
   // run-length encode the row heights
-  sheet.rows = rle(row_heights, sheet.defaults.rowHeight);
+  sheet.rows = rle(rows, sheet.defaults.rowHeight);
 
   // add .F tags to array formula cells
   context._arrayFormula.forEach(arrayRef => {
