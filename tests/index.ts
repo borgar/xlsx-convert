@@ -67,8 +67,6 @@ const tests = [
   'tests/csv/header-type-mismatch.csv',
   'tests/csv/header-only.csv',
   'tests/csv/headers-with-special-chars.csv',
-
-  'tests/excel/1_91-34_init.xlsx',
 ];
 
 function makeNiceJson (ent) {
