@@ -1,0 +1,88 @@
+{
+  "name": "comments.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": 123 },
+        "B3": { "v": 456 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [{ "workbookView": 0, "activeCell": "D24" }],
+      "notes": [
+        {
+          "ref": "B2",
+          "author": "Jón Jónsson",
+          "text": "A note, with some rich text, on an empty cell."
+        },
+        {
+          "ref": "B3",
+          "author": "Jón Jónsson",
+          "text": "A note on a cell with data."
+        }
+      ],
+      "comments": [
+        {
+          "id": "{CF327984-011D-6749-8C27-A358EC5BE04A}",
+          "ref": "D13",
+          "personId": "{3DB0C038-8ED0-334F-836F-17C97737837B}",
+          "text": "It's a comment!\n\nWith some newlines!",
+          "datetime": "2026-01-26T14:36:22.400Z"
+        },
+        {
+          "id": "{102D4108-9F86-5143-949F-992FEE01EF22}",
+          "ref": "D13",
+          "personId": "{3DB0C038-8ED0-334F-836F-17C97737837B}",
+          "text": "Love it!",
+          "datetime": "2026-01-26T14:36:28.790Z",
+          "parentId": "{CF327984-011D-6749-8C27-A358EC5BE04A}"
+        }
+      ]
+    },
+    {
+      "name": "Sheet2",
+      "cells": {
+        "B5": { "v": "Blah blah blah" }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [{ "workbookView": 0, "activeCell": "D17" }],
+      "comments": [
+        {
+          "id": "{336863C7-7412-954B-B3B2-9EA0AC592F57}",
+          "ref": "B5",
+          "personId": "{3DB0C038-8ED0-334F-836F-17C97737837B}",
+          "text": "A resolved comment",
+          "datetime": "2026-01-26T14:36:50.450Z",
+          "done": true
+        }
+      ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [{ "fontFamily": "Aptos Narrow", "fontSize": 12 }],
+  "tables": [],
+  "views": [{}],
+  "people": [
+    {
+      "id": "{3DB0C038-8ED0-334F-836F-17C97737837B}",
+      "displayName": "Jón Jónsson",
+      "userId": "Jón Jónsson",
+      "providerId": "None"
+    }
+  ],
+  "formulas": []
+}

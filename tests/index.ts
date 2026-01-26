@@ -12,6 +12,7 @@ const tests = [
   'tests/excel/ascii.xlsx',
   'tests/excel/background-color.xlsx',
   'tests/excel/borders.xlsx',
+  'tests/excel/comments.xlsx',
   'tests/excel/cse.xlsx',
   'tests/excel/charts-and-images.xlsx',
   'tests/excel/date-time.xlsx',
