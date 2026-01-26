@@ -15,6 +15,7 @@ import { handlerRDStruct } from './handler/rdstuct.ts';
 import { handlerRDValue } from './handler/rdvalue.ts';
 import { handlerMetaData } from './handler/metadata.ts';
 import { handlerComments } from './handler/comments.ts';
+import { handlerNotes } from './handler/notes.ts';
 import { handlerWorksheet } from './handler/worksheet.ts';
 import { handlerExternal } from './handler/external.ts';
 import { handlerTable } from './handler/table.ts';
@@ -160,7 +161,7 @@ export async function convertBinary (
   context.sst = await maybeRead(context, 'sharedStrings', handlerSharedStrings, []);
 
   // persons
-  context.persons = await maybeRead(context, 'person', handlerPersons);
+  const people = await maybeRead(context, 'person', handlerPersons, []);
 
   // richData
   context.richStruct = await maybeRead(context, 'rdRichValueStructure', handlerRDStruct);
@@ -200,16 +201,16 @@ export async function convertBinary (
       const sh = handlerWorksheet(sheetFile, context, sheetRels);
       sh.name = sheetName;
 
-      // Note: This supports only threaded comments, not old-style comments
-      const comments = await maybeRead(context, 'threadedComment', handlerComments, {}, sheetRels);
-      if (comments.size) {
-        for (const [ address, thread ] of comments.entries()) {
-          const cell = sh.cells[address];
-          if (!cell) {
-            sh.cells[address] = {};
-          }
-          cell.c = thread;
-        }
+      // Notes (old school, 90s, sticky notes).
+      const notes = await maybeRead(context, 'comments', handlerNotes, [], sheetRels);
+      if (notes.length > 0) {
+        sh.notes = notes;
+      }
+
+      // Threaded comments (since Excel 2019).
+      const comments = await maybeRead(context, 'threadedComment', handlerComments, [], sheetRels);
+      if (comments.length > 0) {
+        sh.comments = comments;
       }
 
       wb.sheets[index] = sh;
@@ -218,6 +219,11 @@ export async function convertBinary (
       // TODO: add strict mode that: throw new Error('No rel found for sheet ' + sheetLink.rId);
     }
   }));
+
+  // Store people from the workbook.
+  if (people.length > 0) {
+    wb.people = people;
+  }
 
   if (!options.cellFormulas) {
     wb.formulas = [ ...context._formulasR1C1.list() ];
