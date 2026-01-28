@@ -20,7 +20,7 @@ export function handlerPersons (dom: Document): Person[] {
 
         const providerId = attr(person, 'providerId');
         if (providerId) {
-          p.providerId = providerId as Person['providerId'];
+          p.providerId = providerId;
         }
 
         persons.push(p);
