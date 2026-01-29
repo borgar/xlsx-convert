@@ -70,7 +70,7 @@ describe('fromA1', () => {
     });
   });
 
-  describe.only('robustness / formatting', () => {
+  describe('robustness / formatting', () => {
     const MAX_ROW = 1048575;
     const MAX_COL = 16383;
 
