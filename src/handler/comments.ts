@@ -1,5 +1,5 @@
 import type { Document } from '@borgar/simple-xml';
-import type { MentionTextRun, HyperlinkTextRun, ThreadedComment } from '@jsfkit/types';
+import type { HyperlinkTextRun, MentionTextRun, ThreadedComment } from '@jsfkit/types';
 import { attr } from '../utils/attr.ts';
 
 /**
