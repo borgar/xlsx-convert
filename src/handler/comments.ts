@@ -1,6 +1,6 @@
 import type { Document } from '@borgar/simple-xml';
 import type { HyperlinkTextRun, MentionTextRun, ThreadedComment } from '@jsfkit/types';
-import { attr } from '../utils/attr.ts';
+import { attr, numAttr } from '../utils/attr.ts';
 
 /**
  * Parse threaded comments from xl/threadedComments{n}.xml.
@@ -55,22 +55,17 @@ export function handlerComments (dom: Document): ThreadedComment[] {
       node.querySelectorAll('mentions > mention')
         .forEach(mentionNode => {
           const mentionPersonId = attr(mentionNode, 'mentionpersonId');
-          const startIndex = attr(mentionNode, 'startIndex');
-          const length = attr(mentionNode, 'length');
+          const start = numAttr(mentionNode, 'startIndex');
+          const length = numAttr(mentionNode, 'length');
 
           // Skip mentions with invalid data (all fields required).
-          if (!mentionPersonId || !startIndex || !length) return;
-
-          const start = parseInt(startIndex, 10);
-          const len = parseInt(length, 10);
-
-          if (Number.isNaN(start) || Number.isNaN(len)) return;
+          if (!mentionPersonId || !Number.isInteger(start) || !Number.isInteger(length)) return;
 
           runs.push({
             type: 'mention',
             personId: mentionPersonId,
             start: start,
-            end: start + len,
+            end: start + length,
           });
         });
 
@@ -83,22 +78,19 @@ export function handlerComments (dom: Document): ThreadedComment[] {
         if (ext) {
           ext.getElementsByTagName('hyperlink')
             .forEach(hyperlinkNode => {
-              const startIndex = attr(hyperlinkNode, 'startIndex');
-              const length = attr(hyperlinkNode, 'length');
+              const start = numAttr(hyperlinkNode, 'startIndex');
+              const length = numAttr(hyperlinkNode, 'length');
               const url = attr(hyperlinkNode, 'url');
 
-              if (startIndex && length && url) {
-                const start = parseInt(startIndex, 10);
-                const len = parseInt(length, 10);
-                if (!Number.isNaN(start) && !Number.isNaN(len)) {
-                  runs.push({
-                    type: 'hyperlink',
-                    url: url,
-                    start: start,
-                    end: start + len,
-                  });
-                }
-              }
+              // Skip invalid hyperlinks (all fields required).
+              if (!Number.isInteger(start) || !Number.isInteger(length) || !url) return;
+
+              runs.push({
+                type: 'hyperlink',
+                url: url,
+                start: start,
+                end: start + length,
+              });
             });
         }
       }

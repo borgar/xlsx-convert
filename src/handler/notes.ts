@@ -1,6 +1,6 @@
 import type { Document } from '@borgar/simple-xml';
 import type { Note } from '@jsfkit/types';
-import { attr } from '../utils/attr.ts';
+import { attr, numAttr } from '../utils/attr.ts';
 
 /**
  * Parse notes from xl/comments{n}.xml.
@@ -25,7 +25,7 @@ export function handlerNotes (dom: Document): Note[] {
       const ref = attr(commentNode, 'ref');
       if (!ref) return;
 
-      const authorId = parseInt(attr(commentNode, 'authorId', '0'), 10);
+      const authorId = numAttr(commentNode, 'authorId');
       const author = authors[authorId] || '';
 
       // For backwards-compatibility, Excel duplicates threaded comments as notes. They have an
