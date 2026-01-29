@@ -131,15 +131,15 @@ describe('numAttr', () => {
       expect(numAttr(element as any, 'hex')).toBe(255);
     });
 
-    it('should convert non-numeric strings to NaN', () => {
+    it('should not convert non-numeric strings to NaN', () => {
       const element = createMockElement({
         text: 'not-a-number',
         mixed: '123abc',
         empty: '',
       });
 
-      expect(numAttr(element as any, 'text')).toBeNaN();
-      expect(numAttr(element as any, 'mixed')).toBeNaN();
+      expect(numAttr(element as any, 'text')).toBe(null);
+      expect(numAttr(element as any, 'mixed')).toBe(null);
       expect(numAttr(element as any, 'empty')).toBe(0); // Empty string converts to 0
     });
   });
@@ -169,8 +169,8 @@ describe('numAttr', () => {
         negInfinity: '-Infinity',
       });
 
-      expect(numAttr(element as any, 'infinity')).toBe(Infinity);
-      expect(numAttr(element as any, 'negInfinity')).toBe(-Infinity);
+      expect(numAttr(element as any, 'infinity')).toBe(null);
+      expect(numAttr(element as any, 'negInfinity')).toBe(null);
     });
 
     it('should handle whitespace in numeric strings', () => {
@@ -291,12 +291,14 @@ describe('integration tests', () => {
     const element = createMockElement({
       id: 'test-element',
       count: '5',
+      decimal: '3.14',
       enabled: '1',
       disabled: '0',
     });
 
     expect(attr(element as any, 'id')).toBe('test-element');
     expect(numAttr(element as any, 'count')).toBe(5);
+    expect(numAttr(element as any, 'decimal')).toBe(3.14);
     expect(boolAttr(element as any, 'enabled')).toBe(true);
     expect(boolAttr(element as any, 'disabled')).toBe(false);
   });
