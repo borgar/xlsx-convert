@@ -1,5 +1,5 @@
 import { performance } from 'node:perf_hooks';
-import { readdir, writeFile, mkdir, stat } from 'node:fs/promises';
+import { readdir, writeFile, mkdir, stat, rename } from 'node:fs/promises';
 import { basename, dirname, join } from 'node:path';
 import process from 'node:process';
 import { convert } from './src/index.ts';
@@ -19,6 +19,7 @@ type Stats = {
 
 type Result = {
   file: string;
+  fileSize: number;
   fileSizeMB: number;
   durationMs: number;
   success: boolean;
@@ -159,7 +160,7 @@ async function main () {
     }
 
     const durationMs = performance.now() - start;
-    results.push({ file, fileSizeMB, durationMs, success, error: errorInfo });
+    results.push({ file, fileSize: st.size, fileSizeMB, durationMs, success, error: errorInfo });
 
     const status = success ? 'OK' : 'FAIL';
     const msPerMB = durationMs / fileSizeMB;
@@ -177,9 +178,23 @@ async function main () {
   }
 
   const durationsJsonl = results
-    .map(r => JSON.stringify({ filepath: join(inputFolder, r.file), durationMs: r.durationMs }))
+    .map(r => JSON.stringify({
+      filepath: join(inputFolder, r.file),
+      durationMs: r.durationMs,
+      bytes: r.fileSize,
+      msPerMb: r.durationMs / r.fileSizeMB,
+    }))
     .join('\n') + '\n';
-  await writeFile(join(outputFolder, 'durations.jsonl'), durationsJsonl);
+  const durationsPath = join(outputFolder, 'durations.jsonl');
+  try {
+    const prevStat = await stat(durationsPath);
+    const ts = prevStat.mtime.toISOString().replace(/\.\d+Z$/, '');
+    await rename(durationsPath, join(outputFolder, `durations-${ts}.jsonl`));
+  }
+  catch {
+    // no previous file to rename
+  }
+  await writeFile(durationsPath, durationsJsonl);
 
   const allDurations = results.map(r => r.durationMs);
   const successDurations = results.filter(r => r.success).map(r => r.durationMs);
