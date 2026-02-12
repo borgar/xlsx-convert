@@ -19,7 +19,7 @@ type Stats = {
 
 type Result = {
   file: string;
-  fileSizeKB: number;
+  fileSizeMB: number;
   durationMs: number;
   success: boolean;
   error?: { name: string; message: string };
@@ -78,12 +78,12 @@ function computeStats (durations: number[]): Stats {
   };
 }
 
-function formatRate (msPerKB: number): string {
-  if (msPerKB === 0) return '0 ms/KB';
+function formatRate (msPerMB: number): string {
+  if (msPerMB === 0) return '0 ms/MB';
   const digits = 3;
-  const magnitude = Math.floor(Math.log10(Math.abs(msPerKB)));
+  const magnitude = Math.floor(Math.log10(Math.abs(msPerMB)));
   const decimalPlaces = Math.max(0, digits - 1 - magnitude);
-  return `${msPerKB.toFixed(decimalPlaces)} ms/KB`;
+  return `${msPerMB.toFixed(decimalPlaces)} ms/MB`;
 }
 
 function reportStats (label: string, stats: Stats, format: (n: number) => string = formatDuration) {
@@ -128,7 +128,7 @@ async function main () {
   for (const file of xlsxFiles) {
     const filepath = join(inputFolder, file);
     const st = await stat(filepath);
-    const fileSizeKB = st.size / 1024;
+    const fileSizeMB = st.size / (1024 * 1024);
     const start = performance.now();
     let success = true;
     let errorInfo: { name: string; message: string } | undefined;
@@ -144,11 +144,11 @@ async function main () {
     }
 
     const durationMs = performance.now() - start;
-    results.push({ file, fileSizeKB, durationMs, success, error: errorInfo });
+    results.push({ file, fileSizeMB, durationMs, success, error: errorInfo });
 
     const status = success ? 'OK' : 'FAIL';
-    const msPerKB = durationMs / fileSizeKB;
-    log(`  ${formatDuration(durationMs).padStart(12)}  ${status}  ${file}  (${formatRate(msPerKB)})`);
+    const msPerMB = durationMs / fileSizeMB;
+    log(`  ${formatDuration(durationMs).padStart(12)}  ${status}  ${file}  (${formatRate(msPerMB)})`);
 
     if (outputFolder) {
       const baseName = file.replace(/\.xlsx$/, '');
@@ -167,8 +167,8 @@ async function main () {
 
   reportStats('All conversions', computeStats(allDurations));
 
-  const allRates = results.map(r => r.durationMs / r.fileSizeKB);
-  const successRates = results.filter(r => r.success).map(r => r.durationMs / r.fileSizeKB);
+  const allRates = results.map(r => r.durationMs / r.fileSizeMB);
+  const successRates = results.filter(r => r.success).map(r => r.durationMs / r.fileSizeMB);
 
   reportStats('All conversions (normalized)', computeStats(allRates), formatRate);
 
