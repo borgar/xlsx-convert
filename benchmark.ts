@@ -101,7 +101,7 @@ async function main () {
   }
 
   const entries = await readdir(inputFolder);
-  const xlsxFiles = entries.filter(f => f.endsWith('.xlsx')).sort();
+  const xlsxFiles = entries.filter(f => f.endsWith('.xlsx') && !f.startsWith('~$')).sort();
 
   if (xlsxFiles.length === 0) {
     log(`No .xlsx files found in ${inputFolder}`);
