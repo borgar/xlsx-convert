@@ -1,5 +1,5 @@
 import { performance } from 'node:perf_hooks';
-import { readdir, writeFile, mkdir } from 'node:fs/promises';
+import { readdir, writeFile, mkdir, stat } from 'node:fs/promises';
 import { join } from 'node:path';
 import process from 'node:process';
 import { convert } from './src/index.ts';
@@ -19,6 +19,7 @@ type Stats = {
 
 type Result = {
   file: string;
+  fileSizeKB: number;
   durationMs: number;
   success: boolean;
   error?: { name: string; message: string };
@@ -77,18 +78,26 @@ function computeStats (durations: number[]): Stats {
   };
 }
 
-function reportStats (label: string, stats: Stats) {
+function formatRate (msPerKB: number): string {
+  if (msPerKB === 0) return '0 ms/KB';
+  const digits = 3;
+  const magnitude = Math.floor(Math.log10(Math.abs(msPerKB)));
+  const decimalPlaces = Math.max(0, digits - 1 - magnitude);
+  return `${msPerKB.toFixed(decimalPlaces)} ms/KB`;
+}
+
+function reportStats (label: string, stats: Stats, format: (n: number) => string = formatDuration) {
   log(`\n  ${label}:`);
   log(`    count:   ${stats.count}`);
-  log(`    median:  ${formatDuration(stats.median)}`);
-  log(`    average: ${formatDuration(stats.average)}`);
-  log(`    stddev:  ${formatDuration(stats.stddev)}`);
-  log(`    min:     ${formatDuration(stats.min)}`);
-  log(`    max:     ${formatDuration(stats.max)}`);
-  log(`    p1:      ${formatDuration(stats.p1)}`);
-  log(`    p10:     ${formatDuration(stats.p10)}`);
-  log(`    p90:     ${formatDuration(stats.p90)}`);
-  log(`    p99:     ${formatDuration(stats.p99)}`);
+  log(`    median:  ${format(stats.median)}`);
+  log(`    average: ${format(stats.average)}`);
+  log(`    stddev:  ${format(stats.stddev)}`);
+  log(`    min:     ${format(stats.min)}`);
+  log(`    max:     ${format(stats.max)}`);
+  log(`    p1:      ${format(stats.p1)}`);
+  log(`    p10:     ${format(stats.p10)}`);
+  log(`    p90:     ${format(stats.p90)}`);
+  log(`    p99:     ${format(stats.p99)}`);
 }
 
 async function main () {
@@ -118,6 +127,8 @@ async function main () {
 
   for (const file of xlsxFiles) {
     const filepath = join(inputFolder, file);
+    const st = await stat(filepath);
+    const fileSizeKB = st.size / 1024;
     const start = performance.now();
     let success = true;
     let errorInfo: { name: string; message: string } | undefined;
@@ -133,10 +144,11 @@ async function main () {
     }
 
     const durationMs = performance.now() - start;
-    results.push({ file, durationMs, success, error: errorInfo });
+    results.push({ file, fileSizeKB, durationMs, success, error: errorInfo });
 
     const status = success ? 'OK' : 'FAIL';
-    log(`  ${formatDuration(durationMs).padStart(12)}  ${status}  ${file}`);
+    const msPerKB = durationMs / fileSizeKB;
+    log(`  ${formatDuration(durationMs).padStart(12)}  ${status}  ${file}  (${formatRate(msPerKB)})`);
 
     if (outputFolder) {
       const baseName = file.replace(/\.xlsx$/, '');
@@ -155,8 +167,14 @@ async function main () {
 
   reportStats('All conversions', computeStats(allDurations));
 
+  const allRates = results.map(r => r.durationMs / r.fileSizeKB);
+  const successRates = results.filter(r => r.success).map(r => r.durationMs / r.fileSizeKB);
+
+  reportStats('All conversions (normalized)', computeStats(allRates), formatRate);
+
   if (failCount > 0 && successDurations.length > 0) {
     reportStats('Successful conversions only', computeStats(successDurations));
+    reportStats('Successful conversions only (normalized)', computeStats(successRates), formatRate);
     log(`\n  Failures: ${failCount}`);
     for (const r of results) {
       if (!r.success) {
