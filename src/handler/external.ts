@@ -1,5 +1,5 @@
-import type { Document } from '@borgar/simple-xml';
-import { attr, numAttr } from '../utils/attr.ts';
+import { Element, type Document } from '@borgar/simple-xml';
+import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { handlerCell } from './cell.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { ConversionContext } from '../ConversionContext.ts';
@@ -28,15 +28,22 @@ export function handlerExternal (dom: Document, fileName: string = ''): External
   dom.querySelectorAll('sheetDataSet > sheetData')
     .forEach(sheetData => {
       const sheetIndex = numAttr(sheetData, 'sheetId', 0);
+      if (boolAttr(sheetData, 'refreshError')) {
+        external.sheets[sheetIndex].refreshError = true;
+      }
       const externalCells = external.sheets[sheetIndex].cells;
-      sheetData.querySelectorAll('row > cell')
-        .forEach(cell => {
-          const id = attr(cell, 'r');
-          const c = handlerCell(cell, dummyContext);
-          if (c) {
-            externalCells[id] = c;
+      for (const row of sheetData.childNodes) {
+        if (row instanceof Element && row.tagName === 'row') {
+          for (const cell of row.childNodes) {
+            if (cell instanceof Element && cell.tagName === 'cell') {
+              const c = handlerCell(cell, dummyContext);
+              if (c) {
+                externalCells[attr(cell, 'r')] = c;
+              }
+            }
           }
-        });
+        }
+      }
     });
 
   // read defined names
