@@ -138,10 +138,14 @@ export async function convertBinary (
     const rel = context.rels.find(d => d.id === rId);
     if (rel) {
       const extRels = await getRels(rel.target);
-      const fileName = extRels.find(d => d.id === 'rId1')?.target;
-      if (fileName) {
-        const exlink = handlerExternal(await getFile(rel.target), fileName);
+      const targetRel = extRels.find(d => d.id === 'rId1');
+      const target = targetRel?.target;
+      if (target) {
+        const exlink = handlerExternal(await getFile(rel.target), target);
         context.externalLinks.push(exlink);
+        if (targetRel.type.endsWith('xlPathMissing')) {
+          exlink.pathMissing = true;
+        }
       }
       else {
         // TODO: Throw in strict mode?

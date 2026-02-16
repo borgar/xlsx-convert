@@ -47,6 +47,7 @@ const tests = [
   'tests/excel/zooms.xlsx',
   'tests/excel/cells-without-r-attributes.xlsx',
   'tests/excel/row-col-styles.xlsx',
+  'tests/excel/missing-external.xlsx',
   // CSV conversion
   'tests/csv/boolean-variations.csv',
   'tests/csv/complex-mixed-types.csv',
