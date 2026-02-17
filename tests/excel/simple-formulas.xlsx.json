@@ -60,7 +60,7 @@
         "C7": { "s": 4, "v": 0.81 },
         "D7": { "s": 4, "v": 81, "F": "D2:D7" },
         "E7": { "s": 5, "v": 356.40000000000003, "f": 4 },
-        "C9": { "s": 7, "v": 32.93473, "f": 5, "F": "C9" },
+        "C9": { "s": 7, "v": 32.93473, "F": "C9", "f": 5 },
         "D9": { "s": 7, "v": 45.4, "f": 6 }
       },
       "columns": [],
@@ -81,36 +81,53 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontSize": 12 },
-    { "fontSize": 12 },
+    { "fontFamily": "Calibri", "fontSize": 12 },
+    { "fontFamily": "Calibri", "fontSize": 12 },
     {
       "horizontalAlignment": "center",
+      "fontFamily": "Calibri",
       "fontSize": 12,
       "bold": true,
       "borderBottomStyle": "thin"
     },
-    { "fontSize": 12, "borderRightStyle": "thin" },
-    { "fontSize": 12, "borderBottomStyle": "thin" },
     {
+      "fontFamily": "Calibri",
+      "fontSize": 12,
+      "borderRightStyle": "thin"
+    },
+    {
+      "fontFamily": "Calibri",
+      "fontSize": 12,
+      "borderBottomStyle": "thin"
+    },
+    {
+      "fontFamily": "Calibri",
       "fontSize": 12,
       "borderBottomStyle": "thin",
       "borderRightStyle": "thin"
     },
     {
       "horizontalAlignment": "right",
+      "fontFamily": "Calibri",
       "fontSize": 12,
       "bold": true,
       "borderRightStyle": "thin"
     },
     {
       "numberFormat": "0.0",
+      "fontFamily": "Calibri",
       "fontSize": 12,
       "bold": true,
       "fillColor": "#E7E6E6"
     },
-    { "fontSize": 12, "borderTopStyle": "thin" },
+    {
+      "fontFamily": "Calibri",
+      "fontSize": 12,
+      "borderTopStyle": "thin"
+    },
     {
       "horizontalAlignment": "center",
+      "fontFamily": "Calibri",
       "fontSize": 12,
       "bold": true,
       "borderBottomStyle": "thin"

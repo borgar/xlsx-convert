@@ -1178,24 +1178,32 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontSize": 12 },
+    { "fontFamily": "Calibri", "fontSize": 12 },
     {
       "horizontalAlignment": "center",
+      "fontFamily": "Calibri",
       "fontSize": 12
     },
     {
+      "fontFamily": "Calibri",
       "fontSize": 12,
       "color": "#FFF",
       "fillColor": "#44546A"
     },
-    { "fontSize": 12, "color": "#FFF" },
+    {
+      "fontFamily": "Calibri",
+      "fontSize": 12,
+      "color": "#FFF"
+    },
     {
       "horizontalAlignment": "center",
+      "fontFamily": "Calibri",
       "fontSize": 12,
       "fillColor": "#FFC000"
     },
     {
       "horizontalAlignment": "center",
+      "fontFamily": "Calibri",
       "fontSize": 12
     }
   ],
