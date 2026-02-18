@@ -15,6 +15,7 @@ const tests = [
   'tests/excel/comments.xlsx',
   'tests/excel/cse.xlsx',
   'tests/excel/charts-and-images.xlsx',
+  'tests/excel/data-table.xlsx',
   'tests/excel/date-time.xlsx',
   'tests/excel/emojii.xlsx',
   'tests/excel/external-refs.xlsx',
