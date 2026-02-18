@@ -19,6 +19,9 @@ import { handlerNotes } from './handler/notes.ts';
 import { handlerWorksheet } from './handler/worksheet.ts';
 import { handlerExternal } from './handler/external.ts';
 import { handlerTable } from './handler/table.ts';
+import { handlerPivotCacheDefinition } from './handler/pivotCacheDefinition.ts';
+import { handlerPivotCacheRecords } from './handler/pivotCacheRecords.ts';
+import { handlerPivotTable } from './handler/pivotTable.ts';
 import type { Workbook } from '@jsfkit/types';
 import type { ConversionOptions } from './index.ts';
 import { EncryptionError, InvalidFileError, MissingSheetError } from './errors.ts';
@@ -173,6 +176,34 @@ export async function convertBinary (
   // metadata
   context.metadata = await maybeRead(context, 'sheetMetadata', handlerMetaData);
 
+  // pivot caches (workbook-level)
+  const pivotCacheRels = context.rels.filter(d => d.type === 'pivotCacheDefinition');
+  const cachePathToIndex = new Map<string, number>();
+  for (const cacheRel of pivotCacheRels) {
+    const cacheDom = await getFile(cacheRel.target);
+    if (cacheDom) {
+      const cache = handlerPivotCacheDefinition(cacheDom);
+      if (cache) {
+        // read the cache records via the cache definition's rels
+        const cacheDefRels = await getRels(cacheRel.target);
+        const recordsRel = cacheDefRels.find(d => d.type === 'pivotCacheRecords');
+        if (recordsRel) {
+          const recordsDom = await getFile(recordsRel.target);
+          if (recordsDom) {
+            const records = handlerPivotCacheRecords(recordsDom);
+            if (records.length > 0) {
+              cache.records = records;
+            }
+          }
+        }
+        if (!wb.pivotCaches) { wb.pivotCaches = []; }
+        const cacheIndex = wb.pivotCaches.length;
+        wb.pivotCaches.push(cache);
+        cachePathToIndex.set(cacheRel.target, cacheIndex);
+      }
+    }
+  }
+
   // theme / styles
   context.theme = await maybeRead(context, 'theme', handlerTheme) ?? getBlankTheme();
   const styleDefs = await maybeRead(context, 'styles', handlerStyles);
@@ -194,6 +225,29 @@ export async function convertBinary (
         if (table) {
           table.sheet = sheetName;
           wb.tables.push(table);
+        }
+      }
+
+      // pivot tables (sheet-level)
+      const pivotTableRels = sheetRels.filter(rel => rel.type === 'pivotTable');
+      for (const ptRel of pivotTableRels) {
+        const ptDom = await getFile(ptRel.target);
+        if (ptDom) {
+          const pt = handlerPivotTable(ptDom);
+          if (pt) {
+            pt.sheet = sheetName;
+            // resolve cacheIndex from pivot table's rels -> pivotCacheDefinition
+            const ptRels = await getRels(ptRel.target);
+            const ptCacheRel = ptRels.find(d => d.type === 'pivotCacheDefinition');
+            if (ptCacheRel) {
+              const idx = cachePathToIndex.get(ptCacheRel.target);
+              if (idx != null) {
+                pt.cacheIndex = idx;
+              }
+            }
+            if (!wb.pivotTables) { wb.pivotTables = []; }
+            wb.pivotTables.push(pt);
+          }
         }
       }
 
