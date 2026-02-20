@@ -40,6 +40,17 @@ function parseRowColItemType (value: string | null): PivotRowColItemType | undef
   return map[value];
 }
 
+function parseSubtotal (value: string | null): PivotDataFieldAggregation | undefined {
+  if (value == null) { return undefined; }
+  const map: Record<string, PivotDataFieldAggregation> = {
+    average: 'average', count: 'count', countNums: 'countNums',
+    max: 'max', min: 'min', product: 'product',
+    stdDev: 'stdDev', stdDevP: 'stdDevP', sum: 'sum',
+    var: 'var', varP: 'varP',
+  };
+  return map[value];
+}
+
 function parseShowDataAs (value: string | null): PivotShowDataAs | undefined {
   if (value == null) { return undefined; }
   const map: Record<string, PivotShowDataAs> = {
@@ -170,9 +181,9 @@ export function handlerPivotTable (dom: Document): PivotTable | void {
       name: attr(df, 'name'),
       fieldIndex: numAttr(df, 'fld', 0),
     };
-    const subtotal = attr(df, 'subtotal');
-    if (subtotal) {
-      dataField.subtotal = subtotal as PivotDataFieldAggregation;
+    const subtotal = parseSubtotal(attr(df, 'subtotal'));
+    if (subtotal != null) {
+      dataField.subtotal = subtotal;
     }
     const showDataAs = parseShowDataAs(attr(df, 'showDataAs'));
     if (showDataAs != null) {
