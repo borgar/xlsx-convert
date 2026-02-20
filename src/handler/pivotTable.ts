@@ -182,8 +182,8 @@ export function handlerPivotTable (dom: Document): PivotTable | void {
     if (baseField != null) { dataField.baseField = baseField; }
     const baseItem = numAttr(df, 'baseItem');
     if (baseItem != null) { dataField.baseItem = baseItem; }
-    const numFmtId = attr(df, 'numFmtId');
-    if (numFmtId) { dataField.numberFormat = numFmtId; }
+    const numFmtId = numAttr(df, 'numFmtId');
+    if (numFmtId != null) { dataField.numFmtId = numFmtId; }
     dataFields.push(dataField);
   }
 
