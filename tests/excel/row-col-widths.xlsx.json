@@ -251,7 +251,7 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontSize": 12 }
+    { "fontFamily": "Calibri", "fontSize": 12 }
   ],
   "tables": [],
   "views": [

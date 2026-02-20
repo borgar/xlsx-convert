@@ -33,27 +33,36 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontSize": 12 },
-    { "numberFormat": "m/d/yy", "fontSize": 12 },
-    { "fontSize": 12 },
+    { "fontFamily": "Calibri", "fontSize": 12 },
+    {
+      "numberFormat": "m/d/yy",
+      "fontFamily": "Calibri",
+      "fontSize": 12
+    },
+    { "fontFamily": "Calibri", "fontSize": 12 },
     {
       "numberFormat": "[$-F800]dddd\\,\\ mmmm\\ dd\\,\\ yyyy",
+      "fontFamily": "Calibri",
       "fontSize": 12
     },
     {
       "numberFormat": "[$-F400]h:mm:ss\\ AM/PM",
+      "fontFamily": "Calibri",
       "fontSize": 12
     },
     {
       "numberFormat": "yyyy\\-mm\\-dd;@",
+      "fontFamily": "Calibri",
       "fontSize": 12
     },
     {
       "numberFormat": "[$]d/m/yyyy;@",
+      "fontFamily": "Calibri",
       "fontSize": 12
     },
     {
       "numberFormat": "[$]dddd\\,\\ mmmm\\ d\\,\\ yyyy;@",
+      "fontFamily": "Calibri",
       "fontSize": 12
     }
   ],
