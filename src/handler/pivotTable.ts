@@ -231,6 +231,7 @@ export function handlerPivotTable (dom: Document): PivotTable | void {
   // Grand totals
   const rowGrandTotals = boolAttr(root, 'rowGrandTotals');
   const colGrandTotals = boolAttr(root, 'colGrandTotals');
+  const autoRefresh = boolAttr(root, 'autoRefresh');
 
   const pt: PivotTable = {
     name,
@@ -250,6 +251,7 @@ export function handlerPivotTable (dom: Document): PivotTable | void {
   if (style) { pt.style = style; }
   if (rowGrandTotals != null) { pt.rowGrandTotals = rowGrandTotals; }
   if (colGrandTotals != null) { pt.colGrandTotals = colGrandTotals; }
+  if (autoRefresh != null) { pt.autoRefresh = autoRefresh; }
 
   return pt;
 }
