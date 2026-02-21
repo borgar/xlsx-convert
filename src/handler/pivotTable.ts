@@ -88,7 +88,7 @@ export function handlerPivotTable (dom: Document): PivotTable | void {
     else if (attr(pf, 'dataField') === '1') { field.axis = 'data'; }
 
     const showAll = boolAttr(pf, 'showAll');
-    if (showAll === false) { field.showSubtotals = false; }
+    if (showAll === false) { field.showAll = false; }
 
     // check for explicit subtotal attributes on the field
     const subtotalFunctions: PivotSubtotalFunction[] = [];
