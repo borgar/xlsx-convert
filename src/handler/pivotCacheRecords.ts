@@ -24,12 +24,10 @@ export function handlerPivotCacheRecords (dom: Document): PivotCacheRecord[] {
           record.push(!!+attr(child, 'v'));
           break;
         case 'd':
-          // dates stored as ISO strings
-          record.push(attr(child, 'v'));
+          record.push({ d: attr(child, 'v') });
           break;
         case 'e':
-          // errors stored as string
-          record.push(attr(child, 'v'));
+          record.push({ e: attr(child, 'v') });
           break;
         case 'm':
           record.push(null);
