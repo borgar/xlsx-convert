@@ -11,9 +11,16 @@ describe('handlerPivotCacheDefinition', () => {
     expect(parse('<root/>')).toBeUndefined();
   });
 
-  it('should return undefined for non-worksheet source', () => {
+  it('should return undefined for unsupported source type', () => {
     const xml = `<pivotCacheDefinition>
-      <cacheSource type="external"/>
+      <cacheSource type="unknown"/>
+    </pivotCacheDefinition>`;
+    expect(parse(xml)).toBeUndefined();
+  });
+
+  it('should return undefined for missing type attribute', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource/>
     </pivotCacheDefinition>`;
     expect(parse(xml)).toBeUndefined();
   });
@@ -131,5 +138,90 @@ describe('handlerPivotCacheDefinition', () => {
     </pivotCacheDefinition>`;
     const cache = parse(xml)!;
     expect(cache.fields[0].sharedItems).toBeUndefined();
+  });
+
+  it('should parse external source with connectionId', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="external" connectionId="1"/>
+      <cacheFields count="1">
+        <cacheField name="Col"/>
+      </cacheFields>
+    </pivotCacheDefinition>`;
+    const cache = parse(xml)!;
+    expect(cache.sourceType).toBe('external');
+    expect(cache).toHaveProperty('connectionId', 1);
+    expect(cache.fields).toHaveLength(1);
+  });
+
+  it('should return undefined for external source without connectionId', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="external"/>
+    </pivotCacheDefinition>`;
+    expect(parse(xml)).toBeUndefined();
+  });
+
+  it('should parse consolidation source with pages and rangeSets', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="consolidation">
+        <consolidation autoPage="0">
+          <pages count="1">
+            <page count="2">
+              <pageItem name="East"/>
+              <pageItem name="West"/>
+            </page>
+          </pages>
+          <rangeSets count="2">
+            <rangeSet ref="A1:C10" sheet="East" i1="0"/>
+            <rangeSet ref="A1:C10" sheet="West" i1="1"/>
+          </rangeSets>
+        </consolidation>
+      </cacheSource>
+      <cacheFields count="1">
+        <cacheField name="Value"/>
+      </cacheFields>
+    </pivotCacheDefinition>`;
+    const cache = parse(xml)!;
+    expect(cache.sourceType).toBe('consolidation');
+    expect(cache).toHaveProperty('consolidation');
+    const consol = (cache as any).consolidation;
+    expect(consol.autoPage).toBe(false);
+    expect(consol.pages).toEqual([['East', 'West']]);
+    expect(consol.rangeSets).toEqual([
+      { ref: 'A1:C10', sheet: 'East', i1: 0 },
+      { ref: 'A1:C10', sheet: 'West', i1: 1 },
+    ]);
+    expect(cache.fields).toHaveLength(1);
+  });
+
+  it('should parse consolidation source without pages', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="consolidation">
+        <consolidation>
+          <rangeSets count="1">
+            <rangeSet ref="A1:B5" sheet="Sheet1"/>
+          </rangeSets>
+        </consolidation>
+      </cacheSource>
+      <cacheFields count="0"/>
+    </pivotCacheDefinition>`;
+    const cache = parse(xml)!;
+    expect(cache.sourceType).toBe('consolidation');
+    const consol = (cache as any).consolidation;
+    expect(consol.autoPage).toBeUndefined();
+    expect(consol.pages).toBeUndefined();
+    expect(consol.rangeSets).toEqual([{ ref: 'A1:B5', sheet: 'Sheet1' }]);
+  });
+
+  it('should parse scenario source', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="scenario"/>
+      <cacheFields count="1">
+        <cacheField name="Scenario"/>
+      </cacheFields>
+    </pivotCacheDefinition>`;
+    const cache = parse(xml)!;
+    expect(cache.sourceType).toBe('scenario');
+    expect(cache.fields).toHaveLength(1);
+    expect(cache.fields[0].name).toBe('Scenario');
   });
 });
