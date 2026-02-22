@@ -85,7 +85,7 @@ export function handlerPivotTable (dom: Document): PivotTable | void {
     if (axis === 'axisRow') { field.axis = 'row'; }
     else if (axis === 'axisCol') { field.axis = 'col'; }
     else if (axis === 'axisPage') { field.axis = 'page'; }
-    else if (attr(pf, 'dataField') === '1') { field.axis = 'data'; }
+    else if (attr(pf, 'dataField') === '1') { field.axis = 'values'; }
 
     const showAll = boolAttr(pf, 'showAll');
     if (showAll === false) { field.showAll = false; }
