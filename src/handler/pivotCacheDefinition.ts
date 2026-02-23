@@ -17,8 +17,13 @@ export function handlerPivotCacheDefinition (dom: Document): PivotCache | void {
     if (!wsSource) { return; }
     const ref = attr(wsSource, 'ref');
     const sheet = attr(wsSource, 'sheet');
-    if (!ref || !sheet) { return; }
-    return { sourceType: 'worksheet', worksheetSource: { ref, sheet }, fields };
+    const name = attr(wsSource, 'name');
+    if (!name && (!ref || !sheet)) { return; }
+    const worksheetSource: Record<string, string> = {};
+    if (ref) { worksheetSource.ref = ref; }
+    if (sheet) { worksheetSource.sheet = sheet; }
+    if (name) { worksheetSource.name = name; }
+    return { sourceType: 'worksheet', worksheetSource, fields };
   }
 
   if (sourceType === 'external') {
