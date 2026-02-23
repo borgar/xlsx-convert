@@ -228,6 +228,16 @@ describe('handlerPivotCacheDefinition', () => {
     expect(consol.rangeSets).toEqual([{ ref: 'A1:B5', sheet: 'Sheet1' }]);
   });
 
+  it('should return undefined for consolidation source without consolidation element', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="consolidation"/>
+      <cacheFields count="1">
+        <cacheField name="Value"/>
+      </cacheFields>
+    </pivotCacheDefinition>`;
+    expect(parse(xml)).toBeUndefined();
+  });
+
   it('should parse scenario source', () => {
     const xml = `<pivotCacheDefinition>
       <cacheSource type="scenario"/>
