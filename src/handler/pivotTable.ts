@@ -106,7 +106,7 @@ function parseShowDataAs (value: string | null): PivotShowDataAs | undefined {
   return map[value];
 }
 
-export function handlerPivotTable (dom: Document): PivotTable | void {
+export function handlerPivotTable (dom: Document): PivotTable | undefined {
   const root = dom.getElementsByTagName('pivotTableDefinition')[0];
   if (!root) { return; }
 

@@ -2,7 +2,7 @@ import type { Document, Element } from '@borgar/simple-xml';
 import type { PivotCache, PivotCacheConsolidationRangeSet, PivotCacheField, PivotCacheSharedItem, PivotCacheWorksheetSource } from '@jsfkit/types';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 
-export function handlerPivotCacheDefinition (dom: Document): PivotCache | void {
+export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefined {
   const root = dom.getElementsByTagName('pivotCacheDefinition')[0];
   if (!root) { return; }
 

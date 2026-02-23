@@ -46,6 +46,9 @@ describe('handlerPivotCacheDefinition', () => {
     const cache = parse(xml)!;
     expect(cache).toBeDefined();
     expect(cache.sourceType).toBe('worksheet');
+    if (cache.sourceType !== 'worksheet') {
+      throw new Error('expected worksheet');
+    }
     expect(cache.worksheetSource).toEqual({ name: 'SalesTable' });
     expect(cache.fields).toHaveLength(1);
   });
@@ -66,6 +69,9 @@ describe('handlerPivotCacheDefinition', () => {
     </pivotCacheDefinition>`;
     const cache = parse(xml)!;
     expect(cache.sourceType).toBe('worksheet');
+    if (cache.sourceType !== 'worksheet') {
+      throw new Error('expected worksheet');
+    }
     expect(cache.worksheetSource).toEqual({ ref: 'A1:C10', sheet: 'Sheet1' });
     expect(cache.fields).toHaveLength(2);
     expect(cache.fields[0].name).toBe('Name');
