@@ -18,13 +18,15 @@ export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefi
     const ref = attr(wsSource, 'ref');
     const sheet = attr(wsSource, 'sheet');
     const name = attr(wsSource, 'name');
+    if (ref && sheet) {
+      const worksheetSource: PivotCacheWorksheetSource = name ? { ref, sheet, name } : { ref, sheet };
+      return { sourceType: 'worksheet', worksheetSource, fields };
+    }
     if (name) {
       const worksheetSource: PivotCacheWorksheetSource = sheet ? { name, sheet } : { name };
       return { sourceType: 'worksheet', worksheetSource, fields };
     }
-    if (!ref || !sheet) { return; }
-    const worksheetSource: PivotCacheWorksheetSource = { ref, sheet };
-    return { sourceType: 'worksheet', worksheetSource, fields };
+    return;
   }
 
   if (sourceType === 'external') {
