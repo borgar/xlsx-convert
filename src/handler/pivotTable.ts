@@ -1,4 +1,4 @@
-import type { Document } from '@borgar/simple-xml';
+import type { Document, Element } from '@borgar/simple-xml';
 import type {
   PivotDataField,
   PivotDataFieldAggregation,
@@ -34,6 +34,23 @@ function parseItemType (value: string | null): PivotItemType | undefined {
 
 // PivotRowColItemType is the same OOXML ST_ItemType enum as PivotItemType
 const parseRowColItemType = parseItemType as (value: string | null) => PivotRowColItemType | undefined;
+
+function parseRowColItems (root: Element, selector: string): PivotRowColItem[] {
+  const items: PivotRowColItem[] = [];
+  for (const el of root.querySelectorAll(selector)) {
+    const itemType = parseRowColItemType(attr(el, 't'));
+    const repeatedItemCount = numAttr(el, 'r', 0);
+    const itemIndices: number[] = [];
+    for (const x of el.getElementsByTagName('x')) {
+      itemIndices.push(numAttr(x, 'v', 0));
+    }
+    const item: PivotRowColItem = { itemIndices };
+    if (itemType != null) { item.itemType = itemType; }
+    if (repeatedItemCount !== 0) { item.repeatedItemCount = repeatedItemCount; }
+    items.push(item);
+  }
+  return items;
+}
 
 function parseSubtotal (value: string | null): PivotDataFieldAggregation | undefined {
   if (value == null) { return undefined; }
@@ -139,35 +156,8 @@ export function handlerPivotTable (dom: Document): PivotTable | void {
     colFieldIndices.push(numAttr(f, 'x', 0));
   }
 
-  // Row items
-  const rowItems: PivotRowColItem[] = [];
-  for (const ri of root.querySelectorAll('rowItems > i')) {
-    const itemType = parseRowColItemType(attr(ri, 't'));
-    const repeatedItemCount = numAttr(ri, 'r', 0);
-    const itemIndices: number[] = [];
-    for (const x of ri.getElementsByTagName('x')) {
-      itemIndices.push(numAttr(x, 'v', 0));
-    }
-    const item: PivotRowColItem = { itemIndices };
-    if (itemType != null) { item.itemType = itemType; }
-    if (repeatedItemCount !== 0) { item.repeatedItemCount = repeatedItemCount; }
-    rowItems.push(item);
-  }
-
-  // Column items
-  const colItems: PivotRowColItem[] = [];
-  for (const ci of root.querySelectorAll('colItems > i')) {
-    const itemType = parseRowColItemType(attr(ci, 't'));
-    const repeatedItemCount = numAttr(ci, 'r', 0);
-    const itemIndices: number[] = [];
-    for (const x of ci.getElementsByTagName('x')) {
-      itemIndices.push(numAttr(x, 'v', 0));
-    }
-    const item: PivotRowColItem = { itemIndices };
-    if (itemType != null) { item.itemType = itemType; }
-    if (repeatedItemCount !== 0) { item.repeatedItemCount = repeatedItemCount; }
-    colItems.push(item);
-  }
+  const rowItems = parseRowColItems(root, 'rowItems > i');
+  const colItems = parseRowColItems(root, 'colItems > i');
 
   // Data fields
   const dataFields: PivotDataField[] = [];
