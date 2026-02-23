@@ -4,6 +4,12 @@ export function parseARGB (value: string): [ number, number, number, number ] {
   if (!value) {
     return [ 0, 0, 0, 1 ];
   }
+  // if (value === 'window') {
+  //   return [ 255, 128, 128, 1 ];
+  // }
+  // if (value === 'windowText') {
+  //   return [ 128, 128, 255, 1 ];
+  // }
   const lc = value.toLowerCase();
   if (lc in SYSTEM_COLORS) {
     value = SYSTEM_COLORS[lc];

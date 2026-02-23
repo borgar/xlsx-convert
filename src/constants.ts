@@ -278,11 +278,10 @@ export const SCHEME_COLORS = {
   accent6: 9,   // Accent Color 6: Extra scheme color 6
   hlink: 10,    // Hyperlink Color: Regular Hyperlink Color
   folHlink: 11, // Followed Hyperlink Color: Followed Hyperlink Color
-  // FIXME: we need to determine the indexes of these colors:
   bg1: 0,       // Background Color 1: Semantic background color
-  bg2: 0,       // Background Color 2: Semantic additional background color
-  tx1: 0,       // Text Color 1: Semantic text color
-  tx2: 0,       // Text Color 2: Semantic additional text color
+  bg2: 2,       // Background Color 2: Semantic additional background color
+  tx1: 1,       // Text Color 1: Semantic text color
+  tx2: 3,       // Text Color 2: Semantic additional text color
   phClr: 0,     // Style Color: A color used in theme definitions which means to use the color of the style.
 };
 

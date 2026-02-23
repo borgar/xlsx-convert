@@ -1,25 +1,25 @@
 import type { Element } from '@borgar/simple-xml';
-import type { GraphicAnchor } from './types.ts';
+import type { GraphicAnchor } from '@jsfkit/types';
 import { readPosition } from './readPosition.ts';
 import { readExtent } from './readExtent.ts';
 import { readCellPos } from './readCellPos.ts';
 
 export function readAnchor (element: Element | null): GraphicAnchor | undefined {
-  if (element?.tagName === 'absoluteAnchor') { // §5.6.2.1
+  if (element?.tagName === 'absoluteAnchor') {
     return {
       type: 'absolute',
-      position: readPosition(element.querySelector('pos')),
-      extent: readExtent(element.querySelector('ext')),
+      pos: readPosition(element.querySelector('pos')),
+      ext: readExtent(element.querySelector('ext')),
     };
   }
-  else if (element?.tagName === 'oneCellAnchor') { // §5.6.2.23
+  else if (element?.tagName === 'oneCellAnchor') {
     return {
       type: 'oneCell',
       from: readCellPos(element.querySelector('from')),
-      extent: readExtent(element.querySelector('ext')),
+      ext: readExtent(element.querySelector('ext')),
     };
   }
-  else if (element?.tagName === 'twoCellAnchor') { // §5.6.2.32
+  else if (element?.tagName === 'twoCellAnchor') {
     return {
       type: 'twoCell',
       from: readCellPos(element.querySelector('from')),

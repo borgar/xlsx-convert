@@ -1,15 +1,14 @@
-import { emu2px } from './emu2px.ts';
-import { numAttr } from '../../utils/attr.ts';
-import type { Extent } from './types.ts';
+import type { Extent } from '@jsfkit/types';
 import type { Element } from '@borgar/simple-xml';
+import { numAttr } from '../../utils/attr.ts';
 
 export function readExtent (elm: Element | null, nullIfZero = false): Extent | undefined {
   if (elm) {
     const r = {
-      x: emu2px(numAttr(elm, 'cx', 0)),
-      y: emu2px(numAttr(elm, 'cy', 0)),
+      cx: numAttr(elm, 'cx', 0),
+      cy: numAttr(elm, 'cy', 0),
     };
-    if (nullIfZero && !r.x && !r.y) {
+    if (nullIfZero && !r.cx && !r.cy) {
       return undefined;
     }
     return r;

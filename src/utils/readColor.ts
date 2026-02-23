@@ -179,5 +179,5 @@ export function readColor (elm: Element, theme: Theme): Color | undefined {
   }
 
   // FIXME: do something sensible when the color was invalid
-  return new Color();
+  return new Color(theme);
 }

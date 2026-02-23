@@ -3,7 +3,7 @@ import type { MetaData } from './handler/metadata.ts';
 import type { RDStruct } from './handler/rdstuct.ts';
 import type { RDValue } from './handler/rdvalue.ts';
 import type { Rel } from './handler/rels.ts';
-import type { Theme } from './handler/theme.ts';
+import { getBlankTheme, type Theme } from './handler/theme.ts';
 import type { RelativeFormula } from './RelativeFormula.ts';
 import type { External, Workbook } from '@jsfkit/types';
 import type { ConversionOptions } from './index.ts';
@@ -16,7 +16,7 @@ type SheetLink = {
 
 type RefLink = {
   rel: Rel;
-  sheetName: string;
+  sheetName?: string;
   type: string;
 };
 
@@ -47,6 +47,7 @@ export class ConversionContext {
   persons: Record<string, string>;
   options: ConversionOptions;
   rels: Rel[];
+  drawingRels: Rel[];
   theme: Theme;
   richStruct: RDStruct[];
   richValues: RDValue[];
@@ -67,7 +68,7 @@ export class ConversionContext {
     this.workbook = null;
     this.sst = [];
     this.persons = {};
-    this.theme = { scheme: {}, indexedColors: [] };
+    this.theme = getBlankTheme();
     this.richStruct = [];
     this.richValues = null;
     this.metadata = null;

@@ -26,7 +26,343 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "drawing": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 42, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 55,
+              "rowOff": 101600,
+              "col": 9,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "13",
+              "name": "Chart 12",
+              "chartId": "rId1",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 42,
+              "rowOff": 0,
+              "col": 10,
+              "colOff": 0
+            },
+            "to": {
+              "row": 55,
+              "rowOff": 101600,
+              "col": 15,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "14",
+              "name": "Chart 13",
+              "chartId": "rId2",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 42,
+              "rowOff": 0,
+              "col": 16,
+              "colOff": 0
+            },
+            "to": {
+              "row": 55,
+              "rowOff": 101600,
+              "col": 21,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "15",
+              "name": "Chart 14",
+              "chartId": "rId3",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 28,
+              "rowOff": 0,
+              "col": 16,
+              "colOff": 0
+            },
+            "to": {
+              "row": 41,
+              "rowOff": 101600,
+              "col": 21,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "16",
+              "name": "Chart 15",
+              "chartId": "rId4",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 28,
+              "rowOff": 0,
+              "col": 10,
+              "colOff": 0
+            },
+            "to": {
+              "row": 41,
+              "rowOff": 101600,
+              "col": 15,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "17",
+              "name": "Chart 16",
+              "chartId": "rId5",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 28, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 41,
+              "rowOff": 101600,
+              "col": 9,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "18",
+              "name": "Chart 17",
+              "chartId": "rId6",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 9,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "19",
+              "name": "Chart 18",
+              "chartId": "rId7",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 10, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 15,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "20",
+              "name": "Chart 19",
+              "chartId": "rId8",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 16, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 21,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "21",
+              "name": "Chart 20",
+              "chartId": "rId9",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 14, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 27,
+              "rowOff": 101600,
+              "col": 9,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "22",
+              "name": "Chart 21",
+              "chartId": "rId10",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 14,
+              "rowOff": 0,
+              "col": 10,
+              "colOff": 0
+            },
+            "to": {
+              "row": 27,
+              "rowOff": 101600,
+              "col": 15,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "23",
+              "name": "Chart 22",
+              "chartId": "rId11",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 14,
+              "rowOff": 0,
+              "col": 16,
+              "colOff": 0
+            },
+            "to": {
+              "row": 27,
+              "rowOff": 101600,
+              "col": 21,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "24",
+              "name": "Chart 23",
+              "chartId": "rId12",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 14,
+              "rowOff": 0,
+              "col": 22,
+              "colOff": 0
+            },
+            "to": {
+              "row": 27,
+              "rowOff": 101600,
+              "col": 27,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "25",
+              "name": "Chart 24",
+              "chartId": "rId13",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Line",
@@ -53,7 +389,338 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "drawing": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 42, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 55,
+              "rowOff": 101600,
+              "col": 9,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "2",
+              "name": "Chart 1",
+              "chartId": "rId1",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 42,
+              "rowOff": 0,
+              "col": 10,
+              "colOff": 0
+            },
+            "to": {
+              "row": 55,
+              "rowOff": 101600,
+              "col": 15,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "3",
+              "name": "Chart 2",
+              "chartId": "rId2",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 42,
+              "rowOff": 0,
+              "col": 16,
+              "colOff": 0
+            },
+            "to": {
+              "row": 55,
+              "rowOff": 101600,
+              "col": 21,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "4",
+              "name": "Chart 3",
+              "chartId": "rId3",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 28, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 41,
+              "rowOff": 101600,
+              "col": 9,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "7",
+              "name": "Chart 6",
+              "chartId": "rId4",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 9,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "8",
+              "name": "Chart 7",
+              "chartId": "rId5",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 10, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 15,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "9",
+              "name": "Chart 8",
+              "chartId": "rId6",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 16, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 21,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "10",
+              "name": "Chart 9",
+              "chartId": "rId7",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 14, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 27,
+              "rowOff": 101600,
+              "col": 9,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "11",
+              "name": "Chart 10",
+              "chartId": "rId8",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 14,
+              "rowOff": 0,
+              "col": 10,
+              "colOff": 0
+            },
+            "to": {
+              "row": 27,
+              "rowOff": 101600,
+              "col": 15,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "12",
+              "name": "Chart 11",
+              "chartId": "rId9",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 14,
+              "rowOff": 0,
+              "col": 16,
+              "colOff": 0
+            },
+            "to": {
+              "row": 27,
+              "rowOff": 101600,
+              "col": 21,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "13",
+              "name": "Chart 12",
+              "chartId": "rId10",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 56, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 69,
+              "rowOff": 101600,
+              "col": 9,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "15",
+              "name": "Chart 14",
+              "chartId": "rId11",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 56,
+              "rowOff": 0,
+              "col": 10,
+              "colOff": 0
+            },
+            "to": {
+              "row": 69,
+              "rowOff": 101600,
+              "col": 15,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "16",
+              "name": "Chart 15",
+              "chartId": "rId12",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 56,
+              "rowOff": 0,
+              "col": 16,
+              "colOff": 0
+            },
+            "to": {
+              "row": 69,
+              "rowOff": 101600,
+              "col": 21,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "17",
+              "name": "Chart 16",
+              "chartId": "rId13",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Pie",
@@ -80,7 +747,124 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "drawing": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 28, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 41,
+              "rowOff": 101600,
+              "col": 9,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "5",
+              "name": "Chart 4",
+              "chartId": "rId1",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 9,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "6",
+              "name": "Chart 5",
+              "chartId": "rId2",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 10, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 15,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "7",
+              "name": "Chart 6",
+              "chartId": "rId3",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 16, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 21,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "8",
+              "name": "Chart 7",
+              "chartId": "rId4",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 14, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 27,
+              "rowOff": 101600,
+              "col": 9,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "9",
+              "name": "Chart 8",
+              "chartId": "rId5",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Hierarchy",
@@ -107,7 +891,8 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "drawing": []
     },
     {
       "name": "Statistical",
@@ -134,7 +919,8 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "drawing": []
     },
     {
       "name": "XY",
@@ -161,7 +947,180 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "drawing": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 28,
+              "rowOff": 0,
+              "col": 10,
+              "colOff": 0
+            },
+            "to": {
+              "row": 41,
+              "rowOff": 101600,
+              "col": 15,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "6",
+              "name": "Chart 5",
+              "chartId": "rId1",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 28, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 41,
+              "rowOff": 101600,
+              "col": 9,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "7",
+              "name": "Chart 6",
+              "chartId": "rId2",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 9,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "8",
+              "name": "Chart 7",
+              "chartId": "rId3",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 10, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 15,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "9",
+              "name": "Chart 8",
+              "chartId": "rId4",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 16, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 21,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "10",
+              "name": "Chart 9",
+              "chartId": "rId5",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 14, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 27,
+              "rowOff": 101600,
+              "col": 9,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "11",
+              "name": "Chart 10",
+              "chartId": "rId6",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 14,
+              "rowOff": 0,
+              "col": 10,
+              "colOff": 0
+            },
+            "to": {
+              "row": 27,
+              "rowOff": 101600,
+              "col": 15,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "12",
+              "name": "Chart 11",
+              "chartId": "rId7",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Stock",
@@ -291,7 +1250,101 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "drawing": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 7, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 12,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "10",
+              "name": "Chart 9",
+              "chartId": "rId1",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 15, "rowOff": 0, "col": 7, "colOff": 0 },
+            "to": {
+              "row": 28,
+              "rowOff": 101600,
+              "col": 12,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "12",
+              "name": "Chart 11",
+              "chartId": "rId2",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 30, "rowOff": 0, "col": 7, "colOff": 0 },
+            "to": {
+              "row": 43,
+              "rowOff": 101600,
+              "col": 12,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "15",
+              "name": "Chart 14",
+              "chartId": "rId3",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 45, "rowOff": 0, "col": 7, "colOff": 0 },
+            "to": {
+              "row": 58,
+              "rowOff": 101600,
+              "col": 12,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "17",
+              "name": "Chart 16",
+              "chartId": "rId4",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Waterfall",
@@ -318,7 +1371,8 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "drawing": []
     },
     {
       "name": "Surface",
@@ -345,7 +1399,106 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "drawing": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 9,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "8",
+              "name": "Chart 7",
+              "chartId": "rId1",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 10, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 15,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "9",
+              "name": "Chart 8",
+              "chartId": "rId2",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 14, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 27,
+              "rowOff": 101600,
+              "col": 9,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "16",
+              "name": "Chart 15",
+              "chartId": "rId3",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 14,
+              "rowOff": 0,
+              "col": 10,
+              "colOff": 0
+            },
+            "to": {
+              "row": 27,
+              "rowOff": 101600,
+              "col": 15,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "17",
+              "name": "Chart 16",
+              "chartId": "rId4",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Radar",
@@ -372,7 +1525,78 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "drawing": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 9,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "3",
+              "name": "Chart 2",
+              "chartId": "rId1",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 10, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 15,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "4",
+              "name": "Chart 3",
+              "chartId": "rId2",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 16, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 21,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "5",
+              "name": "Chart 4",
+              "chartId": "rId3",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Combo",
@@ -399,7 +1623,78 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "drawing": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 9,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "3",
+              "name": "Chart 2",
+              "chartId": "rId1",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 10, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 15,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "4",
+              "name": "Chart 3",
+              "chartId": "rId2",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 16, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 21,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "5",
+              "name": "Chart 4",
+              "chartId": "rId3",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Map",
@@ -426,175 +1721,11 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "drawing": []
     }
   ],
-  "names": [
-    {
-      "name": "_xlchart.v1.0",
-      "value": "Hierarchy!$A$12:$A$16"
-    },
-    {
-      "name": "_xlchart.v1.1",
-      "value": "Hierarchy!$B$11"
-    },
-    {
-      "name": "_xlchart.v1.10",
-      "value": "Statistical!$A$12:$A$16"
-    },
-    {
-      "name": "_xlchart.v1.11",
-      "value": "Statistical!$B$11"
-    },
-    {
-      "name": "_xlchart.v1.12",
-      "value": "Statistical!$B$12:$B$16"
-    },
-    {
-      "name": "_xlchart.v1.13",
-      "value": "Statistical!$C$11"
-    },
-    {
-      "name": "_xlchart.v1.14",
-      "value": "Statistical!$C$12:$C$16"
-    },
-    {
-      "name": "_xlchart.v1.15",
-      "value": "Statistical!$A$12:$A$16"
-    },
-    {
-      "name": "_xlchart.v1.16",
-      "value": "Statistical!$B$11"
-    },
-    {
-      "name": "_xlchart.v1.17",
-      "value": "Statistical!$B$12:$B$16"
-    },
-    {
-      "name": "_xlchart.v1.18",
-      "value": "Statistical!$C$11"
-    },
-    {
-      "name": "_xlchart.v1.19",
-      "value": "Statistical!$C$12:$C$16"
-    },
-    {
-      "name": "_xlchart.v1.2",
-      "value": "Hierarchy!$B$12:$B$16"
-    },
-    {
-      "name": "_xlchart.v1.20",
-      "value": "Statistical!$A$12:$A$16"
-    },
-    {
-      "name": "_xlchart.v1.21",
-      "value": "Statistical!$B$11"
-    },
-    {
-      "name": "_xlchart.v1.22",
-      "value": "Statistical!$B$12:$B$16"
-    },
-    {
-      "name": "_xlchart.v1.23",
-      "value": "Statistical!$C$11"
-    },
-    {
-      "name": "_xlchart.v1.24",
-      "value": "Statistical!$C$12:$C$16"
-    },
-    {
-      "name": "_xlchart.v1.25",
-      "value": "Waterfall!$A$12:$A$16"
-    },
-    {
-      "name": "_xlchart.v1.26",
-      "value": "Waterfall!$B$11"
-    },
-    {
-      "name": "_xlchart.v1.27",
-      "value": "Waterfall!$B$12:$B$16"
-    },
-    {
-      "name": "_xlchart.v1.28",
-      "value": "Waterfall!$C$11"
-    },
-    {
-      "name": "_xlchart.v1.29",
-      "value": "Waterfall!$C$12:$C$16"
-    },
-    {
-      "name": "_xlchart.v1.3",
-      "value": "Hierarchy!$C$11"
-    },
-    {
-      "name": "_xlchart.v1.4",
-      "value": "Hierarchy!$C$12:$C$16"
-    },
-    {
-      "name": "_xlchart.v1.5",
-      "value": "Hierarchy!$A$12:$A$16"
-    },
-    {
-      "name": "_xlchart.v1.6",
-      "value": "Hierarchy!$B$11"
-    },
-    {
-      "name": "_xlchart.v1.7",
-      "value": "Hierarchy!$B$12:$B$16"
-    },
-    {
-      "name": "_xlchart.v1.8",
-      "value": "Hierarchy!$C$11"
-    },
-    {
-      "name": "_xlchart.v1.9",
-      "value": "Hierarchy!$C$12:$C$16"
-    },
-    {
-      "name": "_xlchart.v2.30",
-      "value": "Waterfall!$A$12:$A$16"
-    },
-    {
-      "name": "_xlchart.v2.31",
-      "value": "Waterfall!$B$11"
-    },
-    {
-      "name": "_xlchart.v2.32",
-      "value": "Waterfall!$B$12:$B$16"
-    },
-    {
-      "name": "_xlchart.v2.33",
-      "value": "Waterfall!$C$11"
-    },
-    {
-      "name": "_xlchart.v2.34",
-      "value": "Waterfall!$C$12:$C$16"
-    },
-    {
-      "name": "_xlchart.v5.35",
-      "value": "Map!$A$11"
-    },
-    {
-      "name": "_xlchart.v5.36",
-      "value": "Map!$A$12:$A$16"
-    },
-    {
-      "name": "_xlchart.v5.37",
-      "value": "Map!$B$11"
-    },
-    {
-      "name": "_xlchart.v5.38",
-      "value": "Map!$B$12:$B$16"
-    },
-    {
-      "name": "_xlchart.v5.39",
-      "value": "Map!$C$11"
-    },
-    {
-      "name": "_xlchart.v5.40",
-      "value": "Map!$C$12:$C$16"
-    }
-  ],
+  "names": [],
   "calculationProperties": {
     "iterate": false,
     "iterateCount": 100,

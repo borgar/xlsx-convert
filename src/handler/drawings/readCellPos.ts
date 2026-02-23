@@ -1,12 +1,18 @@
-import type { Element } from '@borgar/simple-xml';
-import type { CellOffset } from './types.ts';
-import { emu2px } from './emu2px.ts';
+import { Element } from '@borgar/simple-xml';
+import type { CellOffset } from '@jsfkit/types';
 
 export function readCellPos (elm: Element | null): CellOffset {
-  return {
-    row: +(elm?.querySelector('row')?.textContent ?? 0),
-    rowOffset: emu2px(+(elm?.querySelector('rowOff')?.textContent ?? 0)),
-    column: +(elm?.querySelector('col')?.textContent ?? 0),
-    columnOffset: emu2px(+(elm?.querySelector('colOff')?.textContent ?? 0)),
+  const out = {
+    row: 0,
+    rowOff: 0,
+    col: 0,
+    colOff: 0,
   };
+  for (const node of elm.childNodes) {
+    const tagName = (node instanceof Element) ? node.tagName : '';
+    if (tagName in out) {
+      out[tagName] = +(node.textContent || '0');
+    }
+  }
+  return out;
 }

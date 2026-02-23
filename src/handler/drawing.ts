@@ -1,11 +1,10 @@
 import type { Document, Element } from '@borgar/simple-xml';
-import type { Drawing } from './drawings/types.ts';
+import type { Drawing } from '@jsfkit/types';
 import { readAnchor } from './drawings/readAnchor.ts';
-import type { Rel } from './rels.ts';
 import { readGraphicContent } from './drawings/readGraphicContent.ts';
 import type { ConversionContext } from '../ConversionContext.ts';
 
-export function handlerDrawing (dom: Document, context: ConversionContext, rels: Rel[]): Drawing[] {
+export function handlerDrawing (dom: Document, context: ConversionContext): Drawing[] {
   const drawings: Drawing[] = [];
 
   // loop across anchors
@@ -18,12 +17,11 @@ export function handlerDrawing (dom: Document, context: ConversionContext, rels:
       if (anch) {
         drawing = {
           anchor: anch,
-          content: readGraphicContent(anchorElm, context, rels),
+          content: readGraphicContent(anchorElm, context),
         };
       }
     }
 
-    // console.dir(drawing, { depth: null });
     if (drawing?.content?.length) {
       drawings.push(drawing);
     }

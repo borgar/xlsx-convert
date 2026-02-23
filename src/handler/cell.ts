@@ -17,6 +17,7 @@ export const relevantStyle = (obj: Record<string, any>): boolean => {
     // obj['number-format'] ||
     obj.fillColor ||
     obj.patternColor ||
+    obj.patternStyle ||
     obj.borderTopStyle ||
     obj.borderLeftStyle ||
     obj.borderBottomStyle ||

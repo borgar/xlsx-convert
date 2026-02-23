@@ -19,8 +19,8 @@ type Border = { style: string, color: Color };
 type Borders = Record<BorderSide, Border>;
 type Fill = {
   type: string,
-  fg: Color
-  bg: Color
+  fg?: Color
+  bg?: Color
 };
 type Font = {
   size?: number,
@@ -163,11 +163,16 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
 
   dom.querySelectorAll('fills > fill > patternFill')
     .forEach(fp => {
-      styles.fill.push({
-        type: fp && attr(fp, 'patternType'),
-        fg: readColor(fp.querySelectorAll('fgColor')[0], context.theme),
-        bg: readColor(fp.querySelectorAll('bgColor')[0], context.theme),
-      });
+      const fgColor = fp.querySelector('fgColor');
+      const bgColor = fp.querySelector('bgColor');
+      const fill: Fill = { type: attr(fp, 'patternType', 'none') };
+      if (fgColor) {
+        fill.fg = readColor(fgColor, context.theme);
+      }
+      if (bgColor) {
+        fill.bg = readColor(bgColor, context.theme);
+      }
+      styles.fill.push(fill);
     });
 
   dom.querySelectorAll('borders > border')

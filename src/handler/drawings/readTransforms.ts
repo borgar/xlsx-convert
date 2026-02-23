@@ -1,31 +1,51 @@
 import type { Element } from '@borgar/simple-xml';
-import type { Transform2D } from './types.ts';
 import { boolAttr, numAttr } from '../../utils/attr.ts';
 import { readPosition } from './readPosition.ts';
-import { getFirstChild } from '../../utils/getFirstChild.ts';
+import type { Xfrm, XfrmGroup } from '@jsfkit/types';
+import { readExtent } from './readExtent.ts';
 
-export function readTransforms (elm: Element | null): Transform2D | undefined {
+export function readTransforms (elm: Element | null, group: true): XfrmGroup | undefined;
+export function readTransforms (elm: Element | null, group?: false): Xfrm | undefined;
+export function readTransforms (elm: Element | null, group = false): Xfrm | XfrmGroup | undefined {
   if (elm) {
-    const out: Transform2D = {};
-    if (boolAttr(elm, 'flipH')) {
-      out.flipH = true;
-    }
-    if (boolAttr(elm, 'flipV')) {
-      out.flipV = true;
-    }
+    // NB: the more liberal type is being set here to avoid type complexity
+    const out: XfrmGroup = {};
+
+    // flipping
+    const flipH = boolAttr(elm, 'flipH', false);
+    const flipV = boolAttr(elm, 'flipV', false);
+    if (flipH && flipV) { out.flip = 'xy'; }
+    if (flipH) { out.flip = 'x'; }
+    if (flipV) { out.flip = 'y'; }
+
+    // rotation
     const rot = numAttr(elm, 'rot', 0);
-    if (rot) {
-      out.rotate = rot;
+    if (rot) { out.rot = rot; }
+
+    // offsets
+    for (const ch of elm.children) {
+      if (ch.tagName === 'off') {
+        const off = readPosition(ch, true);
+        if (off) { out.off = off; }
+      }
+      else if (ch.tagName === 'ext') {
+        const ext = readExtent(ch);
+        if (ext) { out.ext = ext; }
+      }
+
+      if (group) {
+        if (ch.tagName === 'chOff') {
+          const off = readPosition(ch, true);
+          if (off) { out.chOff = off; }
+        }
+        else if (ch.tagName === 'chExt') {
+          const ext = readExtent(ch);
+          if (ext) { out.chExt = ext; }
+        }
+      }
     }
-    const off = readPosition(getFirstChild(elm, 'off'), true);
-    if (off) {
-      out.offset = off;
-    }
-    const extent = readPosition(getFirstChild(elm, 'ext'), true);
-    if (extent) {
-      out.offset = extent;
-    }
-    if (out.flipH || out.flipV || out.rotate || out.offset || out.extent) {
+
+    if (out.flip || out.rot || out.off || out.ext) {
       return out;
     }
   }

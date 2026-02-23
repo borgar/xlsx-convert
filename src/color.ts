@@ -3,6 +3,7 @@ import type { Theme } from './handler/theme.ts';
 import { rgbToHsl } from './utils/rgbToHsl.ts';
 import { hslToRgb } from './utils/hslToRgb.ts';
 import { parseARGB } from './utils/parseARGB.ts';
+import type { Color as JSFColor } from '@jsfkit/types';
 
 const indexToScheme = [
   'lt1',      //  0: Light 1
@@ -59,7 +60,7 @@ function updateChannel (value: number, set?: number, mod?: number, off?: number)
 export class Color {
   type: 'theme' | 'rgb' | 'index' | 'hsl' | 'preset' | 'system';
   value: string;
-  theme?: Theme;
+  theme: Theme;
   rgba?: [ number, number, number, number ];
   hsla?: [ number, number, number, number ];
   ops: {
@@ -93,16 +94,18 @@ export class Color {
     tint?: number,
   };
 
-  constructor (theme?: Theme) {
+  constructor (theme: Theme) {
     this.type = 'preset';
     this.value = 'black';
     this.theme = theme;
     this.ops = {};
+    this.hsla = [ 0, 0, 0, 0 ];
+    this.rgba = [ 0, 0, 0, 0 ];
   }
 
-  getJSF () {
+  getJSF (): JSFColor {
     // Currently we always convert to string representation
-    return this.toString();
+    return this.toString() as JSFColor;
   }
 
   resolveRGBA (): [ number, number, number, number ] {
@@ -146,7 +149,6 @@ export class Color {
       h = updateChannel(h, mod.hue, mod.hueMod, mod.hueOff);
       s = updateChannel(s, mod.sat, mod.satMod, mod.satOff);
       l = updateChannel(l, mod.lum, mod.lumMod, mod.lumOff);
-      // console.log(rgbToHsl(r, g, b), [ h, s, l ], mod.lum, mod.lumMod, mod.lumOff);
       // §5.1.2.2.7: The color rendered should be the complement of its input color
       if (mod.comp) {
         h = (h + 180) % 360;

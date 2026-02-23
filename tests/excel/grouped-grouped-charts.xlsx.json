@@ -17,51 +17,68 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "drawing": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 5, "rowOff": 0, "col": 3, "colOff": 0 },
+            "to": {
+              "row": 17,
+              "rowOff": 38100,
+              "col": 12,
+              "colOff": 778142
+            }
+          },
+          "content": [
+            {
+              "type": "group",
+              "id": "16",
+              "name": "Group 15",
+              "content": [
+                {
+                  "type": "group",
+                  "id": "12",
+                  "name": "Group 11",
+                  "content": [
+                    {
+                      "type": "chart",
+                      "id": "14",
+                      "name": "Chart 13",
+                      "chartId": "rId2",
+                      "xfrm": {
+                        "off": { "x": 4127500, "y": 2235200 },
+                        "ext": { "cx": 2882900, "cy": 2882900 }
+                      }
+                    }
+                  ],
+                  "xfrm": {
+                    "off": { "x": 2476500, "y": 1016000 },
+                    "ext": { "cx": 5211420, "cy": 2476500 }
+                  }
+                },
+                {
+                  "type": "chart",
+                  "id": "15",
+                  "name": "Chart 14",
+                  "chartId": "rId3",
+                  "xfrm": {
+                    "off": { "x": 8153400, "y": 1016000 },
+                    "ext": { "cx": 2429142, "cy": 2476500 }
+                  }
+                }
+              ],
+              "xfrm": {
+                "off": { "x": 2476500, "y": 1016000 },
+                "ext": { "cx": 8106042, "cy": 2476500 }
+              }
+            }
+          ]
+        }
+      ]
     }
   ],
-  "names": [
-    {
-      "name": "_xlchart.v1.0",
-      "value": "Sheet1!$A$1:$A$3"
-    },
-    {
-      "name": "_xlchart.v1.1",
-      "value": "Sheet1!$B$1:$B$3"
-    },
-    {
-      "name": "_xlchart.v1.2",
-      "value": "Sheet1!$A$1:$A$3"
-    },
-    {
-      "name": "_xlchart.v1.3",
-      "value": "Sheet1!$B$1:$B$3"
-    },
-    {
-      "name": "_xlchart.v1.4",
-      "value": "Sheet1!$A$1:$A$3"
-    },
-    {
-      "name": "_xlchart.v1.5",
-      "value": "Sheet1!$B$1:$B$3"
-    },
-    {
-      "name": "_xlchart.v1.6",
-      "value": "Sheet1!$A$1:$A$3"
-    },
-    {
-      "name": "_xlchart.v1.7",
-      "value": "Sheet1!$B$1:$B$3"
-    },
-    {
-      "name": "_xlchart.v1.8",
-      "value": "Sheet1!$A$1:$A$3"
-    },
-    {
-      "name": "_xlchart.v1.9",
-      "value": "Sheet1!$B$1:$B$3"
-    }
-  ],
+  "names": [],
   "calculationProperties": {
     "iterate": false,
     "iterateCount": 100,

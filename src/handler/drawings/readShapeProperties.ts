@@ -1,114 +1,181 @@
 import type { Element } from '@borgar/simple-xml';
-import type { Transform2D } from './types.ts';
+import type { Path, ShapeProperties, GuidePoint, BlackWhiteMode, ConnectionPoint, AdjPoint } from '@jsfkit/types';
 import { readTransforms } from './readTransforms.ts';
-import { attr, boolAttr } from '../../utils/attr.ts';
+import { readPath } from './readPath.ts';
+import { attr, numAttr, numStrAttr } from '../../utils/attr.ts';
 import type { ConversionContext } from '../../ConversionContext.ts';
-import { readColor } from '../../utils/readColor.ts';
 import { getFirstChild } from '../../utils/getFirstChild.ts';
 import { SHAPE_TYPE } from '../../constants.ts';
+import { addProp } from '../../utils/addProp.ts';
+import { readFill } from './readFill.ts';
+import { readLineProps } from './readLineProps.ts';
 
-type ShapeProperties = {
-  transform?: Transform2D,
-  bwMode?: boolean, // grayscale or duetone?
-  patternStyle?: string,
-  patternColor?: string,
-  fillColor?: string,
-  shape?: string,
-};
+function readGuides (elm: Element | null): GuidePoint[] {
+  if (!elm) return;
+  const gds = [];
+  elm.children.forEach(gd => {
+    if (gd.tagName === 'gd') {
+      gds.push({
+        name: attr(gd, 'name'),
+        fmla: attr(gd, 'fmla'),
+      });
+    }
+  });
+  return (gds.length) ? gds : undefined;
+}
+
+function readAdjPoint (posElm: Element): AdjPoint {
+  return {
+    x: numStrAttr(posElm, 'x'),
+    y: numStrAttr(posElm, 'y'),
+  };
+}
 
 export function readShapeProperties (elm: Element | null, context: ConversionContext): ShapeProperties {
   const props: ShapeProperties = {};
 
-  const bwMode = boolAttr(elm, 'bwMode');
-  if (bwMode) {
-    props.bwMode = true;
+  const bwMode = attr(elm, 'bwMode') as BlackWhiteMode | undefined;
+  if (bwMode && bwMode !== 'auto') {
+    props.bwMode = bwMode;
   }
-  // console.log(elm.toString());
 
   elm.children.forEach(d => {
     const { tagName } = d;
-    // 2D Transform for Individual Objects – §5.1.9.6
+
     if (tagName === 'xfrm') {
-      props.transform = readTransforms(d);
+      addProp(props, 'xfrm', readTransforms(d));
     }
 
-    // No Fill – §5.1.10.44 (<noFill> is a noop since we assume no fill)
-    // Picture Fill – §5.1.10.14
-    else if (tagName === 'blipFill') {
-      // recurse/reuse the reader from readGraphicContent?
-      // console.log(d.toString());
-    }
-    // Gradient Fill – §5.1.10.33
-    else if (tagName === 'gradFill') {
-      // console.log(d.toString());
-    }
-    // Group Fill – §5.1.10.35
-    else if (tagName === 'grpFill') {
-      // When specified, this setting indicates that the parent element is part of a
-      // group and should inherit the fill properties of the group.
-    }
-    // Pattern Fill – §5.1.10.47
-    else if (tagName === 'pattFill') {
-      // FIXME: ensure that this matches with styles behavior
-      // 5.1.12.51 ST_PresetPatternVal
-      const prst = attr(d, 'prst');
-      if (prst) {
-        props.patternStyle = prst;
-      }
-      props.patternColor = readColor(getFirstChild(d, 'fgClr').children[0], context.theme).getJSF();
-      props.fillColor = readColor(getFirstChild(d, 'bgClr').children[0], context.theme).getJSF();
-    }
-    // Solid Fill – §5.1.10.54
-    else if (tagName === 'solidFill') {
-      props.fillColor = readColor(d.children[0], context.theme).getJSF();
+    else if (
+      tagName === 'blipFill' ||
+      tagName === 'gradFill' ||
+      tagName === 'grpFill' ||
+      tagName === 'solidFill' ||
+      tagName === 'pattFill'
+    ) {
+      addProp(props, 'fill', readFill(d, context));
     }
 
     // Custom Geometry – §5.1.11.8
     else if (tagName === 'custGeom') {
-      // console.log(d.toString());
-    }
+      // ahLst (List of Shape Adjust Handles) §5.1.11.1
+      const ahLst = getFirstChild(d, 'ahLst');
+      const ahs = [];
+      ahLst?.children.forEach(ah => {
+        if (ah.tagName === 'ahPolar') {
+          ahs.push({
+            type: 'polar',
+            // name of guide that will update with the angle from this
+            gdRefAng: attr(ah, 'gdRefAng'),
+            maxAng: numStrAttr(ah, 'maxAng'),
+            minAng: numStrAttr(ah, 'minAng'),
+            // name of guide that will update with the radius from this
+            gdRefR: attr(ah, 'gdRefR'),
+            maxR: numStrAttr(ah, 'maxR'),
+            minR: numStrAttr(ah, 'minR'),
+            pos: readAdjPoint(getFirstChild(ah, 'pos')),
+          });
+        }
+        else if (ah.tagName === 'ahXY') {
+          ahs.push({
+            type: 'xy',
+            gdRefX: attr(ah, 'gdRefX'),
+            maxX: numAttr(ah, 'maxX'),
+            minX: numAttr(ah, 'minX'),
+            gdRefY: attr(ah, 'gdRefY'),
+            maxY: numAttr(ah, 'maxY'),
+            minY: numAttr(ah, 'minY'),
+            pos: readAdjPoint(getFirstChild(ah, 'pos')),
+          });
+        }
+      });
+      if (ahs.length) { props.ah = ahs; }
 
-    // Effect Container – §5.1.10.25
-    else if (tagName === 'effectDag') {
-      // console.log(d.toString());
-    }
-    // Effect Container – §5.1.10.26
-    else if (tagName === 'effectLst') {
-      // glow
-      // outerShdw
-      // reflection
-      // softEdge
-      // console.log(d.toString());
-    }
+      // avLst (List of Shape Adjust Values) §5.1.11.5
+      const av = readGuides(d.querySelector('avLst'));
+      if (av) { props.av = av; }
 
-    // Extension List – §5.1.2.1.15
-    else if (tagName === 'extLst') {
-      // console.log(d.toString());
+      // cxnLst (List of Shape Connection Sites) §5.1.11.10
+      const cxnList = d.querySelectorAll('cxnLst > cxn');
+      if (cxnList.length) {
+        const cxns: ConnectionPoint[] = [];
+        cxnList.forEach(cElm => {
+          const pos = readAdjPoint(getFirstChild(cElm, 'pos'));
+          if (pos) {
+            const pt: ConnectionPoint = { pos };
+            const ang = numStrAttr(cElm, 'ang');
+            if (ang) { pt.ang = ang; }
+            cxns.push(pt);
+          }
+        });
+        if (cxns.length) { props.cxn = cxns; }
+      }
+
+      // gdLst (List of Shape Guides) §5.1.11.12
+      const gd = readGuides(d.querySelector('gdLst'));
+      if (gd) { props.gd = gd; }
+
+      // pathLst (List of Shape Paths) §5.1.11.16
+      const paths: Path[] = [];
+      const pathLst = d.querySelector('pathLst');
+      pathLst?.children.forEach(section => {
+        const p = readPath(section);
+        if (p) { paths.push(p); }
+      });
+      if (paths.length) { props.paths = paths; }
+
+      // rect (Shape Text Rectangle) §5.1.11.22
+      const rectElm = d.querySelector('rect');
+      if (rectElm) {
+        // all attr are required
+        const rect = {
+          t: attr(rectElm, 't'),
+          b: attr(rectElm, 'b'),
+          l: attr(rectElm, 'l'),
+          r: attr(rectElm, 'r'),
+        };
+        // ...but rect itself is redundant if it is t=t/b=b/r=r/l=l
+        if (rect.t !== 't' || rect.b !== 'b' || rect.l !== 'l' || rect.r !== 'r') {
+          props.rect = rect;
+        }
+      }
     }
 
     // Outline – §5.1.2.1.24
     else if (tagName === 'ln') {
-      // console.log(d.toString());
+      addProp(props, 'line', readLineProps(d, context));
     }
 
     // Preset geometry – §5.1.11.18
     else if (tagName === 'prstGeom') {
-      // TODO: support child element: 5.1.11.5 <avLst> (List of Shape Adjust Values)
       const prst = attr(d, 'prst');
       if (SHAPE_TYPE.includes(prst)) {
-        props.shape = prst;
+        props.preset = prst;
       }
+      //  Shape Adjust Values (5.1.11.5)
+      const av = readGuides(d.querySelector('avLst'));
+      if (av) { props.av = av; }
     }
 
     // 3D Scene Properties – §5.1.4.1.26
     else if (tagName === 'scene3d') {
-      // console.log(d.toString());
+      // TBD
     }
+
     // Apply 3D shape properties – §5.1.7.12
     else if (tagName === 'sp3d') {
-      // console.log(d.toString());
+      // TBD
+    }
+
+    // Effect Container – §5.1.10.25
+    else if (tagName === 'effectDag') {
+      // TBD
+    }
+
+    // Effect Container – §5.1.10.26
+    else if (tagName === 'effectLst') {
+      // TBD
     }
   });
-
   return props;
 }
