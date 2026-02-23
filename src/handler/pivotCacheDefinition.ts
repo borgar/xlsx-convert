@@ -1,5 +1,5 @@
 import type { Document, Element } from '@borgar/simple-xml';
-import type { PivotCache, PivotCacheConsolidationRangeSet, PivotCacheField, PivotCacheSharedItem } from '@jsfkit/types';
+import type { PivotCache, PivotCacheConsolidationRangeSet, PivotCacheField, PivotCacheSharedItem, PivotCacheWorksheetSource } from '@jsfkit/types';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 
 export function handlerPivotCacheDefinition (dom: Document): PivotCache | void {
@@ -19,7 +19,7 @@ export function handlerPivotCacheDefinition (dom: Document): PivotCache | void {
     const sheet = attr(wsSource, 'sheet');
     const name = attr(wsSource, 'name');
     if (!name && (!ref || !sheet)) { return; }
-    const worksheetSource: Record<string, string> = {};
+    const worksheetSource: PivotCacheWorksheetSource = {};
     if (ref) { worksheetSource.ref = ref; }
     if (sheet) { worksheetSource.sheet = sheet; }
     if (name) { worksheetSource.name = name; }
