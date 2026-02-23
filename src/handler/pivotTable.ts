@@ -94,8 +94,8 @@ export function handlerPivotTable (dom: Document): PivotTable | void {
     const subtotalFunctions: PivotSubtotalFunction[] = [];
     for (const fn of SUBTOTAL_ATTRS) {
       const attrName = fn === 'countA' ? 'countASubtotal'
-        : fn === 'stdDev' ? 'stddevSubtotal'
-          : fn === 'stdDevP' ? 'stddevpSubtotal'
+        : fn === 'stdDev' ? 'stdDevSubtotal'
+          : fn === 'stdDevP' ? 'stdDevPSubtotal'
             : fn + 'Subtotal';
       if (boolAttr(pf, attrName) === true) {
         subtotalFunctions.push(fn);

@@ -85,6 +85,20 @@ describe('handlerPivotTable', () => {
     expect(pt.fields[0].subtotalFunctions).toEqual(['sum', 'countA']);
   });
 
+  it('should parse stdDevSubtotal and stdDevPSubtotal (camelCase per OOXML)', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="1">
+        <pivotField axis="axisRow" showAll="1" stdDevSubtotal="1" stdDevPSubtotal="1"/>
+      </pivotFields>
+      <rowFields count="1"><field x="0"/></rowFields>
+      <colFields count="0"/>
+      <dataFields count="0"/>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.fields[0].subtotalFunctions).toEqual(['stdDev', 'stdDevP']);
+  });
+
   it('should parse sortType', () => {
     const xml = `<pivotTableDefinition name="PT1" cacheId="0">
       <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
