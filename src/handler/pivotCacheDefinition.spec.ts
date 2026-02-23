@@ -201,7 +201,7 @@ describe('handlerPivotCacheDefinition', () => {
     expect(cache).toHaveProperty('consolidation');
     const consol = (cache as any).consolidation;
     expect(consol.autoPage).toBe(false);
-    expect(consol.pages).toEqual([['East', 'West']]);
+    expect(consol.pages).toEqual([ [ 'East', 'West' ] ]);
     expect(consol.rangeSets).toEqual([
       { ref: 'A1:C10', sheet: 'East', i1: 0 },
       { ref: 'A1:C10', sheet: 'West', i1: 1 },
@@ -225,7 +225,7 @@ describe('handlerPivotCacheDefinition', () => {
     const consol = (cache as any).consolidation;
     expect(consol.autoPage).toBeUndefined();
     expect(consol.pages).toBeUndefined();
-    expect(consol.rangeSets).toEqual([{ ref: 'A1:B5', sheet: 'Sheet1' }]);
+    expect(consol.rangeSets).toEqual([ { ref: 'A1:B5', sheet: 'Sheet1' } ]);
   });
 
   it('should return undefined for consolidation source without consolidation element', () => {

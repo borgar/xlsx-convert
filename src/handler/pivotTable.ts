@@ -16,18 +16,38 @@ import type {
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 
 const SUBTOTAL_ATTRS: PivotSubtotalFunction[] = [
-  'sum', 'countA', 'avg', 'max', 'min', 'product', 'count',
-  'stdDev', 'stdDevP', 'var', 'varP',
+  'sum',
+  'countA',
+  'avg',
+  'max',
+  'min',
+  'product',
+  'count',
+  'stdDev',
+  'stdDevP',
+  'var',
+  'varP',
 ];
 
 function parseItemType (value: string | null): PivotItemType | undefined {
   if (value == null) { return undefined; }
   // map OOXML item types to our type names
   const map: Record<string, PivotItemType> = {
-    data: 'data', default: 'default', sum: 'sum', countA: 'countA',
-    avg: 'avg', max: 'max', min: 'min', product: 'product', count: 'count',
-    stdDev: 'stdDev', stdDevP: 'stdDevP', var: 'var', varP: 'varP',
-    grand: 'grand', blank: 'blank',
+    data: 'data',
+    default: 'default',
+    sum: 'sum',
+    countA: 'countA',
+    avg: 'avg',
+    max: 'max',
+    min: 'min',
+    product: 'product',
+    count: 'count',
+    stdDev: 'stdDev',
+    stdDevP: 'stdDevP',
+    var: 'var',
+    varP: 'varP',
+    grand: 'grand',
+    blank: 'blank',
   };
   return map[value];
 }
@@ -55,10 +75,17 @@ function parseRowColItems (root: Element, selector: string): PivotRowColItem[] {
 function parseSubtotal (value: string | null): PivotDataFieldAggregation | undefined {
   if (value == null) { return undefined; }
   const map: Record<string, PivotDataFieldAggregation> = {
-    average: 'average', count: 'count', countNums: 'countNums',
-    max: 'max', min: 'min', product: 'product',
-    stdDev: 'stdDev', stdDevP: 'stdDevP', sum: 'sum',
-    var: 'var', varP: 'varP',
+    average: 'average',
+    count: 'count',
+    countNums: 'countNums',
+    max: 'max',
+    min: 'min',
+    product: 'product',
+    stdDev: 'stdDev',
+    stdDevP: 'stdDevP',
+    sum: 'sum',
+    var: 'var',
+    varP: 'varP',
   };
   return map[value];
 }
@@ -66,10 +93,15 @@ function parseSubtotal (value: string | null): PivotDataFieldAggregation | undef
 function parseShowDataAs (value: string | null): PivotShowDataAs | undefined {
   if (value == null) { return undefined; }
   const map: Record<string, PivotShowDataAs> = {
-    normal: 'normal', difference: 'difference', percent: 'percent',
-    percentDiff: 'percentDiff', runTotal: 'runTotal',
-    percentOfRow: 'percentOfRow', percentOfCol: 'percentOfCol',
-    percentOfTotal: 'percentOfTotal', index: 'index',
+    normal: 'normal',
+    difference: 'difference',
+    percent: 'percent',
+    percentDiff: 'percentDiff',
+    runTotal: 'runTotal',
+    percentOfRow: 'percentOfRow',
+    percentOfCol: 'percentOfCol',
+    percentOfTotal: 'percentOfTotal',
+    index: 'index',
   };
   return map[value];
 }
@@ -105,9 +137,12 @@ export function handlerPivotTable (dom: Document): PivotTable | void {
     // check for explicit subtotal attributes on the field
     const subtotalFunctions: PivotSubtotalFunction[] = [];
     for (const fn of SUBTOTAL_ATTRS) {
-      const attrName = fn === 'countA' ? 'countASubtotal'
-        : fn === 'stdDev' ? 'stdDevSubtotal'
-          : fn === 'stdDevP' ? 'stdDevPSubtotal'
+      const attrName = fn === 'countA'
+        ? 'countASubtotal'
+        : fn === 'stdDev'
+          ? 'stdDevSubtotal'
+          : fn === 'stdDevP'
+            ? 'stdDevPSubtotal'
             : fn + 'Subtotal';
       if (boolAttr(pf, attrName) === true) {
         subtotalFunctions.push(fn);

@@ -40,8 +40,8 @@ describe('handlerPivotTable', () => {
     expect(pt!.ref).toBe('A3:D20');
     expect(pt!.location).toEqual({ firstHeaderRow: 1, firstDataRow: 2, firstDataCol: 1 });
     expect(pt!.fields).toHaveLength(2);
-    expect(pt!.rowFieldIndices).toEqual([0]);
-    expect(pt!.colFieldIndices).toEqual([-2]);
+    expect(pt!.rowFieldIndices).toEqual([ 0 ]);
+    expect(pt!.colFieldIndices).toEqual([ -2 ]);
     expect(pt!.dataFields).toHaveLength(1);
     expect(pt!.dataFields[0]).toEqual({ name: 'Sum of Amount', fieldIndex: 1 });
   });
@@ -82,7 +82,7 @@ describe('handlerPivotTable', () => {
       <dataFields count="0"/>
     </pivotTableDefinition>`;
     const pt = parse(xml)!;
-    expect(pt.fields[0].subtotalFunctions).toEqual(['sum', 'countA']);
+    expect(pt.fields[0].subtotalFunctions).toEqual([ 'sum', 'countA' ]);
   });
 
   it('should parse stdDevSubtotal and stdDevPSubtotal (camelCase per OOXML)', () => {
@@ -96,7 +96,7 @@ describe('handlerPivotTable', () => {
       <dataFields count="0"/>
     </pivotTableDefinition>`;
     const pt = parse(xml)!;
-    expect(pt.fields[0].subtotalFunctions).toEqual(['stdDev', 'stdDevP']);
+    expect(pt.fields[0].subtotalFunctions).toEqual([ 'stdDev', 'stdDevP' ]);
   });
 
   it('should parse sortType', () => {
@@ -169,7 +169,7 @@ describe('handlerPivotTable', () => {
       </pageFields>
     </pivotTableDefinition>`;
     const pt = parse(xml)!;
-    expect(pt.pageFields).toEqual([{ fieldIndex: 0, selectedItem: 2, name: 'Region' }]);
+    expect(pt.pageFields).toEqual([ { fieldIndex: 0, selectedItem: 2, name: 'Region' } ]);
   });
 
   it('should parse style info', () => {
@@ -231,8 +231,8 @@ describe('handlerPivotTable', () => {
     </pivotTableDefinition>`;
     const pt = parse(xml)!;
     expect(pt.rowItems).toEqual([
-      { itemType: 'sum', itemIndices: [0] },
-      { itemType: 'avg', itemIndices: [0] },
+      { itemType: 'sum', itemIndices: [ 0 ] },
+      { itemType: 'avg', itemIndices: [ 0 ] },
     ]);
   });
 
@@ -252,11 +252,11 @@ describe('handlerPivotTable', () => {
     </pivotTableDefinition>`;
     const pt = parse(xml)!;
     expect(pt.rowItems).toEqual([
-      { itemIndices: [0] },
-      { itemType: 'grand', itemIndices: [0] },
+      { itemIndices: [ 0 ] },
+      { itemType: 'grand', itemIndices: [ 0 ] },
     ]);
     expect(pt.colItems).toEqual([
-      { repeatedItemCount: 1, itemIndices: [2] },
+      { repeatedItemCount: 1, itemIndices: [ 2 ] },
     ]);
   });
 });
