@@ -260,11 +260,11 @@ export function handlerPivotTable (dom: Document): PivotTable | void {
     ref,
     location: { firstHeaderRow, firstDataRow, firstDataCol },
     fields,
-    rowFieldIndices,
-    colFieldIndices,
-    dataFields,
   };
 
+  if (rowFieldIndices.length > 0) { pt.rowFieldIndices = rowFieldIndices; }
+  if (colFieldIndices.length > 0) { pt.colFieldIndices = colFieldIndices; }
+  if (dataFields.length > 0) { pt.dataFields = dataFields; }
   if (pageFields.length > 0) { pt.pageFields = pageFields; }
   if (rowItems.length > 0) { pt.rowItems = rowItems; }
   if (colItems.length > 0) { pt.colItems = colItems; }
