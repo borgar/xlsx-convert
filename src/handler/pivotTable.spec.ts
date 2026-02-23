@@ -218,6 +218,24 @@ describe('handlerPivotTable', () => {
     expect(pt.autoRefresh).toBeUndefined();
   });
 
+  it('should parse subtotal-typed row/col items (e.g. t="sum")', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="0"/>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="0"/>
+      <rowItems count="2">
+        <i t="sum"><x v="0"/></i>
+        <i t="avg"><x v="0"/></i>
+      </rowItems>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.rowItems).toEqual([
+      { itemType: 'sum', itemIndices: [0] },
+      { itemType: 'avg', itemIndices: [0] },
+    ]);
+  });
+
   it('should parse row and column items', () => {
     const xml = `<pivotTableDefinition name="PT1" cacheId="0">
       <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>

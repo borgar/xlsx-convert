@@ -32,13 +32,8 @@ function parseItemType (value: string | null): PivotItemType | undefined {
   return map[value];
 }
 
-function parseRowColItemType (value: string | null): PivotRowColItemType | undefined {
-  if (value == null) { return undefined; }
-  const map: Record<string, PivotRowColItemType> = {
-    data: 'data', default: 'default', grand: 'grand', blank: 'blank',
-  };
-  return map[value];
-}
+// PivotRowColItemType is the same OOXML ST_ItemType enum as PivotItemType
+const parseRowColItemType = parseItemType as (value: string | null) => PivotRowColItemType | undefined;
 
 function parseSubtotal (value: string | null): PivotDataFieldAggregation | undefined {
   if (value == null) { return undefined; }
