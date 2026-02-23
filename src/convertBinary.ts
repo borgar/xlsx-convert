@@ -245,8 +245,11 @@ export async function convertBinary (
                 pt.cacheIndex = idx;
               }
             }
-            if (!wb.pivotTables) { wb.pivotTables = []; }
-            wb.pivotTables.push(pt);
+            // Only include pivot tables whose cache was successfully parsed
+            if (pt.cacheIndex >= 0) {
+              if (!wb.pivotTables) { wb.pivotTables = []; }
+              wb.pivotTables.push(pt);
+            }
           }
         }
       }
