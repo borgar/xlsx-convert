@@ -7,7 +7,6 @@ import type {
   PivotItemType,
   PivotPageField,
   PivotRowColItem,
-  PivotRowColItemType,
   PivotShowDataAs,
   PivotSubtotalFunction,
   PivotTable,
@@ -52,13 +51,10 @@ function parseItemType (value: string | null): PivotItemType | undefined {
   return map[value];
 }
 
-// PivotRowColItemType is the same OOXML ST_ItemType enum as PivotItemType
-const parseRowColItemType = parseItemType as (value: string | null) => PivotRowColItemType | undefined;
-
 function parseRowColItems (root: Element, selector: string): PivotRowColItem[] {
   const items: PivotRowColItem[] = [];
   for (const el of root.querySelectorAll(selector)) {
-    const itemType = parseRowColItemType(attr(el, 't'));
+    const itemType = parseItemType(attr(el, 't'));
     const repeatedItemCount = numAttr(el, 'r', 0);
     const itemIndices: number[] = [];
     for (const x of el.getElementsByTagName('x')) {
