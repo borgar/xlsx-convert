@@ -75,7 +75,7 @@ export function handlerPivotTable (dom: Document): PivotTable | void {
   const ref = attr(locationEl, 'ref');
   const firstHeaderRow = numAttr(locationEl, 'firstHeaderRow', 1);
   const firstDataRow = numAttr(locationEl, 'firstDataRow', 1);
-  const firstDataCol = numAttr(locationEl, 'firstDataCol', 1);
+  const firstDataCol = numAttr(locationEl, 'firstDataCol', 0);
 
   // Parse pivot fields
   const fields: PivotField[] = [];
