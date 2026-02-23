@@ -1,0 +1,66 @@
+{
+  "name": "row-col-styles.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "D3": { "s": 3 },
+        "B6": { "s": 4 },
+        "D6": { "s": 5, "v": "xxxx" }
+      },
+      "columns": [
+        { "start": 4, "end": 4, "size": 65, "s": 1 }
+      ],
+      "rows": [
+        { "start": 6, "end": 6, "size": 16, "s": 2 }
+      ],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "D6" }
+      ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "fillColor": "#FF0"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "fillColor": "#84E291"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "fillColor": "#F6C6AC"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "fillColor": "#47D45A"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "color": "#F00",
+      "fillColor": "#84E291"
+    }
+  ],
+  "tables": [],
+  "views": [
+    {}
+  ],
+  "formulas": []
+}

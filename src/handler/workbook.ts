@@ -3,7 +3,7 @@ import { ConversionContext } from '../ConversionContext.ts';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { toInt } from '../utils/typecast.ts';
-import type { DefinedName, Workbook } from '@jsfkit/types';
+import type { DefinedName, Workbook, WorkbookView } from '@jsfkit/types';
 
 export function handlerWorkbook (dom: Document, context: ConversionContext): Workbook {
   const wb: Workbook = {
@@ -63,6 +63,25 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
         epoch: wb.calculationProperties.epoch,
       };
     }
+  }
+
+  // Store "active sheet" (the last-used sheet at save) for each workbook view. Excel supports
+  // multiple workbook views (window arrangements), though most files only have one.
+  const workbookViews = dom.querySelectorAll('bookViews > workbookView');
+  const views: WorkbookView[] = workbookViews.map(view => {
+    const activeSheet = toInt(numAttr(view, 'activeTab'));
+    if (Number.isSafeInteger(activeSheet) && activeSheet >= 0) {
+      return { activeSheet };
+    }
+    else {
+      return {};
+    }
+  });
+  // Workbook views can store many settings, but we only extract `activeTab` currently. This means
+  // we may produce views with no useful data (empty objects). We still store the array so that the
+  // indices continue to align with worksheet view references.
+  if (views.length) {
+    wb.views = views;
   }
 
   return wb;

@@ -1,4 +1,3 @@
-import type { Comment } from './handler/comments.ts';
 import type { MetaData } from './handler/metadata.ts';
 import type { RDStruct } from './handler/rdstuct.ts';
 import type { RDValue } from './handler/rdvalue.ts';
@@ -44,7 +43,6 @@ class FormulaList {
 export class ConversionContext {
   workbook: Workbook | null;
   sst: string[];
-  persons: Record<string, string>;
   options: ConversionOptions;
   rels: Rel[];
   drawingRels: Rel[];
@@ -53,7 +51,6 @@ export class ConversionContext {
   richValues: RDValue[];
   metadata: MetaData;
   sheetLinks: SheetLink[];
-  comments: Map<string, Comment[]>;
   externalLinks: External[];
   filename: string;
   _formulasR1C1: FormulaList;
@@ -66,14 +63,11 @@ export class ConversionContext {
     this.rels = [];
     this.options = {};
     this.workbook = null;
-    this.sst = [];
-    this.persons = {};
     this.theme = getBlankTheme();
     this.richStruct = [];
     this.richValues = null;
     this.metadata = null;
     this.sheetLinks = [];
-    this.comments = new Map();
     this.externalLinks = [];
     this.filename = '';
     this._formulasR1C1 = new FormulaList();

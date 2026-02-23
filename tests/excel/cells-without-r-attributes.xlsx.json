@@ -1,0 +1,42 @@
+{
+  "name": "cells-without-r-attributes.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "foo" },
+        "B1": { "v": "bar" },
+        "C1": { "v": "baz" },
+        "B2": { "v": "xyzzy" },
+        "C2": { "v": "quux" },
+        "D2": { "v": "fnord" },
+        "F3": { "v": "bard" },
+        "G3": { "v": "florg" },
+        "H3": { "v": "spiff" }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "A4" }
+      ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [],
+  "views": [
+    {}
+  ],
+  "formulas": []
+}

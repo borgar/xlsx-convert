@@ -11,7 +11,10 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "A3" }
+      ]
     }
   ],
   "names": [],
@@ -26,6 +29,9 @@
     { "fontFamily": "Aptos Narrow", "fontSize": 12 }
   ],
   "tables": [],
+  "views": [
+    {}
+  ],
   "formulas": [
     "FOO()"
   ]

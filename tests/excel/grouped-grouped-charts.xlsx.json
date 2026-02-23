@@ -18,6 +18,9 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "K6" }
+      ],
       "drawing": [
         {
           "anchor": {
@@ -89,5 +92,8 @@
     { "fontFamily": "Aptos Narrow", "fontSize": 12 }
   ],
   "tables": [],
+  "views": [
+    {}
+  ],
   "formulas": []
 }

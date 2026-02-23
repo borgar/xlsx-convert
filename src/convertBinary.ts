@@ -1,4 +1,5 @@
 import { Document, parseXML } from '@borgar/simple-xml';
+import { attr } from './utils/attr.ts';
 import { pathBasename, pathDirname, pathJoin } from './utils/path.ts';
 import { convertStyles } from './utils/convertStyles.ts';
 import { loadZip, type FileContainer } from './utils/zip.ts';
@@ -14,6 +15,7 @@ import { handlerRDStruct } from './handler/rdstuct.ts';
 import { handlerRDValue } from './handler/rdvalue.ts';
 import { handlerMetaData } from './handler/metadata.ts';
 import { handlerComments } from './handler/comments.ts';
+import { handlerNotes } from './handler/notes.ts';
 import { handlerWorksheet } from './handler/worksheet.ts';
 import { handlerExternal } from './handler/external.ts';
 import { handlerTable } from './handler/table.ts';
@@ -139,14 +141,25 @@ export async function convertBinary (
   context.options = options;
   context.filename = pathBasename(filename);
 
-  // external links
-  for (const rel of context.rels) {
-    if (rel.type === 'externalLink') {
+  // workbook - read DOM first to get externalReferences order
+  const wbDom = await getFile(wbRel.target);
+
+  // external links - use order from <externalReferences> in workbook.xml,
+  // not the document order in workbook.xml.rels (which can differ)
+  const extRefRIds = wbDom.getElementsByTagName('externalReference')
+    .map(d => attr(d, 'r:id'));
+  for (const rId of extRefRIds) {
+    const rel = context.rels.find(d => d.id === rId);
+    if (rel) {
       const extRels = await getRels(rel.target);
-      const fileName = extRels.find(d => d.id === 'rId1')?.target;
-      if (fileName) {
-        const exlink = handlerExternal(await getFile(rel.target), fileName);
+      const targetRel = extRels.find(d => d.id === 'rId1');
+      const target = targetRel?.target;
+      if (target) {
+        const exlink = handlerExternal(await getFile(rel.target), target);
         context.externalLinks.push(exlink);
+        if (targetRel.type.endsWith('xlPathMissing')) {
+          exlink.pathMissing = true;
+        }
       }
       else {
         // TODO: Throw in strict mode?
@@ -155,7 +168,7 @@ export async function convertBinary (
   }
 
   // workbook
-  const wb = handlerWorkbook(await getFile(wbRel.target), context);
+  const wb = handlerWorkbook(wbDom, context);
   context.workbook = wb;
   // copy external links in
   if (context.externalLinks.length) {
@@ -166,7 +179,7 @@ export async function convertBinary (
   context.sst = await maybeRead(context, 'sharedStrings', handlerSharedStrings, []);
 
   // persons
-  context.persons = await maybeRead(context, 'person', handlerPersons);
+  const people = await maybeRead(context, 'person', handlerPersons, []);
 
   // richData
   context.richStruct = await maybeRead(context, 'rdRichValueStructure', handlerRDStruct);
@@ -207,16 +220,16 @@ export async function convertBinary (
       context.images = [];
       const sh = handlerWorksheet(sheetFile, context, sheetRels, sheetName);
 
-      // Note: This supports only threaded comments, not old-style comments
-      const comments = await maybeRead(context, 'threadedComment', handlerComments, {}, sheetRels);
-      if (comments.size) {
-        for (const [ address, thread ] of comments.entries()) {
-          const cell = sh.cells[address];
-          if (!cell) {
-            sh.cells[address] = {};
-          }
-          cell.c = thread;
-        }
+      // Notes (old school, 90s, sticky notes).
+      const notes = await maybeRead(context, 'comments', handlerNotes, [], sheetRels);
+      if (notes.length > 0) {
+        sh.notes = notes;
+      }
+
+      // Threaded comments (since Excel 2019).
+      const comments = await maybeRead(context, 'threadedComment', handlerComments, [], sheetRels);
+      if (comments.length > 0) {
+        sh.comments = comments;
       }
 
       wb.sheets[index] = sh;
@@ -261,6 +274,11 @@ export async function convertBinary (
       // TODO: add strict mode that: throw new Error('No rel found for sheet ' + sheetLink.rId);
     }
   }));
+
+  // Store people from the workbook.
+  if (people.length > 0) {
+    wb.people = people;
+  }
 
   if (!options.cellFormulas) {
     wb.formulas = [ ...context._formulasR1C1.list() ];

@@ -11,7 +11,7 @@ export function handlerTable (dom: Document, context: ConversionContext): Table 
   if (!tableElm) { return; }
 
   const table: Table = {
-    name: attr(tableElm, 'name'),
+    name: attr(tableElm, 'displayName') || attr(tableElm, 'name'),
     sheet: '',
     ref: attr(tableElm, 'ref'),
     headerRowCount: numAttr(tableElm, 'headerRowCount', 1),

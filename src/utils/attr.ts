@@ -17,7 +17,8 @@ export function numAttr<T = number | null> (
   fallBack: T = null as unknown as T,
 ): number | T {
   const v = attr(node, name);
-  return v == null ? fallBack : +v;
+  const n = +v;
+  return v != null && Number.isFinite(n) ? n : fallBack;
 }
 
 export function boolAttr<T = boolean | null> (

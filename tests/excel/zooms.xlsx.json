@@ -1,0 +1,40 @@
+{
+  "name": "zooms.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {},
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [
+        {
+          "workbookView": 0,
+          "activeLayout": "pageBreakPreview",
+          "layoutScales": {
+            "normal": 140,
+            "pageLayout": 60,
+            "pageBreakPreview": 70
+          }
+        }
+      ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [],
+  "views": [
+    {}
+  ],
+  "formulas": []
+}

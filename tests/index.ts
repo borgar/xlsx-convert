@@ -12,12 +12,15 @@ const tests = [
   'tests/excel/ascii.xlsx',
   'tests/excel/background-color.xlsx',
   'tests/excel/borders.xlsx',
+  'tests/excel/comments.xlsx',
   'tests/excel/cse.xlsx',
   'tests/excel/charts-and-images.xlsx',
   'tests/excel/every-chart.xlsx',
+  'tests/excel/data-table.xlsx',
   'tests/excel/date-time.xlsx',
   'tests/excel/emojii.xlsx',
   'tests/excel/external-refs.xlsx',
+  'tests/excel/gt-in-attr-value.xlsx',
   'tests/excel/fonts.xlsx',
   'tests/excel/hyperlinks.xlsx',
   'tests/excel/iterative-calculations.xlsx',
@@ -45,6 +48,11 @@ const tests = [
   'tests/excel/grouped-grouped-charts.xlsx',
   'tests/excel/image-with-most-options-set.xlsx',
   'tests/excel/image-backgrounds-dimensions.xlsx',
+  'tests/excel/workbook-views.xlsx',
+  'tests/excel/zooms.xlsx',
+  'tests/excel/cells-without-r-attributes.xlsx',
+  'tests/excel/row-col-styles.xlsx',
+  'tests/excel/missing-external.xlsx',
   // CSV conversion
   'tests/csv/boolean-variations.csv',
   'tests/csv/complex-mixed-types.csv',
@@ -66,7 +74,6 @@ const tests = [
   'tests/csv/header-type-mismatch.csv',
   'tests/csv/header-only.csv',
   'tests/csv/headers-with-special-chars.csv',
-
 ];
 
 function makeNiceJson (ent) {
@@ -81,7 +88,7 @@ function makeNiceJson (ent) {
     if (Array.isArray(value)) {
       return value;
     }
-    if (typeof value === 'object') {
+    if (typeof value === 'object' && value !== null) {
       const values = Object.values(value);
       const hasNesting = values.some(d => typeof d === 'object');
       if (values.length && !hasNesting) {

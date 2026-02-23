@@ -40,7 +40,10 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "F11" }
+      ]
     }
   ],
   "names": [],
@@ -51,15 +54,27 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontSize": 12 },
-    { "numberFormat": "0%", "fontSize": 12 },
-    { "numberFormat": "0.0", "fontSize": 12 },
+    { "fontFamily": "Calibri", "fontSize": 12 },
+    {
+      "numberFormat": "0%",
+      "fontFamily": "Calibri",
+      "fontSize": 12
+    },
+    {
+      "numberFormat": "0.0",
+      "fontFamily": "Calibri",
+      "fontSize": 12
+    },
     {
       "numberFormat": "yyyy\\-mm\\-dd\\ hh:mm:ss;@",
+      "fontFamily": "Calibri",
       "fontSize": 12
     }
   ],
   "tables": [],
+  "views": [
+    {}
+  ],
   "formulas": [
     "IF(RC[-2]<>\"\",IF(RC=\"\",NOW(),RC),\"\")",
     "R[-1]C*(1+R1C2)",

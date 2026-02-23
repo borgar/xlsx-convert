@@ -27,6 +27,14 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
+      "views": [
+        {
+          "workbookView": 0,
+          "activeRanges": [
+            "A1:XFD1048576"
+          ]
+        }
+      ],
       "drawing": [
         {
           "anchor": {
@@ -390,6 +398,15 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
+      "views": [
+        {
+          "workbookView": 0,
+          "activeCell": "D23",
+          "activeRanges": [
+            "A1:XFD1048576"
+          ]
+        }
+      ],
       "drawing": [
         {
           "anchor": {
@@ -748,6 +765,9 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "K18" }
+      ],
       "drawing": [
         {
           "anchor": {
@@ -1736,6 +1756,9 @@
     { "fontFamily": "Aptos Narrow", "fontSize": 12 }
   ],
   "tables": [],
+  "views": [
+    { "activeSheet": 2 }
+  ],
   "formulas": [
     "RANDBETWEEN(1,100)"
   ]

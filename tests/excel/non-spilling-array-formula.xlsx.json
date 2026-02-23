@@ -15,7 +15,10 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "B2" }
+      ]
     }
   ],
   "names": [],
@@ -29,6 +32,9 @@
     { "fontFamily": "Aptos Narrow", "fontSize": 12 }
   ],
   "tables": [],
+  "views": [
+    {}
+  ],
   "formulas": [
     "TAKE(\"whoo\" &SINGLE(R1C1:R4C1),1)",
     "TAKE(\"whoo\" &R1C1:R4C1,1)"

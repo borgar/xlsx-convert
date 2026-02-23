@@ -23,7 +23,10 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "B7" }
+      ]
     }
   ],
   "names": [],
@@ -47,6 +50,9 @@
     }
   ],
   "tables": [],
+  "views": [
+    {}
+  ],
   "formulas": [
     "DATEVALUE(\"1/1/1\")",
     "1*\"1/1/1\""
