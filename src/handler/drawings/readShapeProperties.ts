@@ -1,5 +1,5 @@
 import type { Element } from '@borgar/simple-xml';
-import type { Path, ShapeProperties, GuidePoint, BlackWhiteMode, ConnectionPoint, AdjPoint } from '@jsfkit/types';
+import type { Path, Shape, GuidePoint, BlackWhiteMode, ConnectionPoint, AdjustPoint } from '@jsfkit/types';
 import { readTransforms } from './readTransforms.ts';
 import { readPath } from './readPath.ts';
 import { attr, numAttr, numStrAttr } from '../../utils/attr.ts';
@@ -24,15 +24,15 @@ function readGuides (elm: Element | null): GuidePoint[] {
   return (gds.length) ? gds : undefined;
 }
 
-function readAdjPoint (posElm: Element): AdjPoint {
+function readAdjustPoint (posElm: Element): AdjustPoint {
   return {
     x: numStrAttr(posElm, 'x'),
     y: numStrAttr(posElm, 'y'),
   };
 }
 
-export function readShapeProperties (elm: Element | null, context: ConversionContext): ShapeProperties {
-  const props: ShapeProperties = {};
+export function readShapeProperties (elm: Element | null, context: ConversionContext): Shape {
+  const props: Shape = {};
 
   const bwMode = attr(elm, 'bwMode') as BlackWhiteMode | undefined;
   if (bwMode && bwMode !== 'auto') {
@@ -73,7 +73,7 @@ export function readShapeProperties (elm: Element | null, context: ConversionCon
             gdRefR: attr(ah, 'gdRefR'),
             maxR: numStrAttr(ah, 'maxR'),
             minR: numStrAttr(ah, 'minR'),
-            pos: readAdjPoint(getFirstChild(ah, 'pos')),
+            pos: readAdjustPoint(getFirstChild(ah, 'pos')),
           });
         }
         else if (ah.tagName === 'ahXY') {
@@ -85,7 +85,7 @@ export function readShapeProperties (elm: Element | null, context: ConversionCon
             gdRefY: attr(ah, 'gdRefY'),
             maxY: numAttr(ah, 'maxY'),
             minY: numAttr(ah, 'minY'),
-            pos: readAdjPoint(getFirstChild(ah, 'pos')),
+            pos: readAdjustPoint(getFirstChild(ah, 'pos')),
           });
         }
       });
@@ -100,7 +100,7 @@ export function readShapeProperties (elm: Element | null, context: ConversionCon
       if (cxnList.length) {
         const cxns: ConnectionPoint[] = [];
         cxnList.forEach(cElm => {
-          const pos = readAdjPoint(getFirstChild(cElm, 'pos'));
+          const pos = readAdjustPoint(getFirstChild(cElm, 'pos'));
           if (pos) {
             const pt: ConnectionPoint = { pos };
             const ang = numStrAttr(cElm, 'ang');

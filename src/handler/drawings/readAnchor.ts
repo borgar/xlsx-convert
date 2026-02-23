@@ -1,6 +1,6 @@
 import type { Element } from '@borgar/simple-xml';
 import type { GraphicAnchor } from '@jsfkit/types';
-import { readPosition } from './readPosition.ts';
+import { readPoint } from './readPoint.ts';
 import { readExtent } from './readExtent.ts';
 import { readCellPos } from './readCellPos.ts';
 
@@ -8,7 +8,7 @@ export function readAnchor (element: Element | null): GraphicAnchor | undefined 
   if (element?.tagName === 'absoluteAnchor') {
     return {
       type: 'absolute',
-      pos: readPosition(element.querySelector('pos')),
+      pos: readPoint(element.querySelector('pos')),
       ext: readExtent(element.querySelector('ext')),
     };
   }

@@ -1,8 +1,8 @@
 import type { Element } from '@borgar/simple-xml';
 import { numAttr } from '../../utils/attr.ts';
-import type { Position } from '@jsfkit/types';
+import type { Point } from '@jsfkit/types';
 
-export function readPosition (elm: Element | null, nullIfZero = false): Position | undefined {
+export function readPoint (elm: Element | null, nullIfZero = false): Point | undefined {
   if (elm) {
     const r = {
       x: numAttr(elm, 'x', 0),

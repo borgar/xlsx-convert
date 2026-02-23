@@ -1,6 +1,6 @@
 import type { Element } from '@borgar/simple-xml';
 import { boolAttr, numAttr } from '../../utils/attr.ts';
-import { readPosition } from './readPosition.ts';
+import { readPoint } from './readPoint.ts';
 import type { Xfrm, XfrmGroup } from '@jsfkit/types';
 import { readExtent } from './readExtent.ts';
 
@@ -25,7 +25,7 @@ export function readTransforms (elm: Element | null, group = false): Xfrm | Xfrm
     // offsets
     for (const ch of elm.children) {
       if (ch.tagName === 'off') {
-        const off = readPosition(ch, true);
+        const off = readPoint(ch, true);
         if (off) { out.off = off; }
       }
       else if (ch.tagName === 'ext') {
@@ -35,7 +35,7 @@ export function readTransforms (elm: Element | null, group = false): Xfrm | Xfrm
 
       if (group) {
         if (ch.tagName === 'chOff') {
-          const off = readPosition(ch, true);
+          const off = readPoint(ch, true);
           if (off) { out.chOff = off; }
         }
         else if (ch.tagName === 'chExt') {
