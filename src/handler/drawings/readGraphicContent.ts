@@ -34,7 +34,7 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
         }
         // Group Shape Properties
         else if (child.tagName === 'grpSpPr') {
-          const xfrm = readTransforms(child.querySelector('>xfrm'));
+          const xfrm = readTransforms(child.querySelector('>xfrm'), true);
           if (xfrm) { out.xfrm = xfrm; }
         }
       });
