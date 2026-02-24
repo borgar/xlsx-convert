@@ -2,7 +2,7 @@ import type { Element } from '@borgar/simple-xml';
 import type { FlipAxis, GradientColorStop, GradientLinearFill, GradientPathFill, PathFillType, RelativeRect } from '@jsfkit/types';
 import { getFirstChild } from '../../utils/getFirstChild.ts';
 import { attr, boolAttr, dmlPercentAttr, numAttr } from '../../utils/attr.ts';
-import { readColor } from '../../utils/readColor.ts';
+import { readColor } from '../../color/readColor.ts';
 import type { ConversionContext } from '../../ConversionContext.ts';
 
 export function readFillGradient (elm: Element, context: ConversionContext) {

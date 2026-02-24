@@ -1,7 +1,7 @@
 import type { Element } from '@borgar/simple-xml';
 import { attr, numAttr } from '../../utils/attr.ts';
 import type { ConversionContext } from '../../ConversionContext.ts';
-import { readColor } from '../../utils/readColor.ts';
+import { readColor } from '../../color/readColor.ts';
 import { getFirstChild } from '../../utils/getFirstChild.ts';
 
 type FontIndex = ('major' | 'minor' | 'none');

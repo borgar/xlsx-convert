@@ -2,7 +2,7 @@ import type { Element } from '@borgar/simple-xml';
 import type { NoFill, PatternFill, FillPatternStyle, SolidFill, GroupFill } from '@jsfkit/types';
 import { attr } from '../../utils/attr.ts';
 import { getFirstChild } from '../../utils/getFirstChild.ts';
-import { readColor } from '../../utils/readColor.ts';
+import { readColor } from '../../color/readColor.ts';
 import { readFillGradient } from './readFillGradient.ts';
 import { readFillBlip } from './readFillBlip.ts';
 import type { ConversionContext } from '../../ConversionContext.ts';

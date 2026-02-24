@@ -1,7 +1,7 @@
 import type { Element } from '@borgar/simple-xml';
 import { attr, numAttr } from '../utils/attr.ts';
 import type { Theme } from '../handler/theme.ts';
-import { Color } from '../color.ts';
+import { Color } from './Color.ts';
 import { SYSTEM_COLORS, PRESET_COLORS, SCHEME_COLORS } from '../constants.ts';
 import { parseARGB } from './parseARGB.ts';
 
@@ -11,7 +11,7 @@ function addOps (elm: Element, color: Color): Color {
     // booleans
     if (tagName === 'comp' || tagName === 'gamma' || tagName === 'invGamma' ||
         tagName === 'gray' || tagName === 'inv') {
-      color.ops[tagName] = true;
+      color.ops.push({ type: tagName });
     }
     // [0-1]
     else if (
@@ -23,15 +23,15 @@ function addOps (elm: Element, color: Color): Color {
       tagName === 'sat' || tagName === 'satMod' || tagName === 'satOff' ||
       tagName === 'lum' || tagName === 'lumMod' || tagName === 'lumOff' ||
       tagName === 'shade' || tagName === 'tint') {
-      color.ops[tagName] = numAttr(opElm, 'val', 0) / 100000;
+      color.ops.push({ type: tagName, value: numAttr(opElm, 'val', 0) / 100000 });
     }
     // [0-360]
     else if (tagName === 'hue') {
-      color.ops[tagName] = numAttr(opElm, 'val', 0) / 100000;
+      color.ops.push({ type: tagName, value: numAttr(opElm, 'val', 0) / 100000 });
     }
     // [0-255]
     else if (tagName === 'blue' || tagName === 'green' || tagName === 'red') {
-      color.ops[tagName] = numAttr(opElm, 'val', 0) / 100000;
+      color.ops.push({ type: tagName, value: numAttr(opElm, 'val', 0) / 100000 });
     }
   });
   return color;
@@ -90,10 +90,10 @@ export function readColor (elm: Element, theme: Theme): Color | undefined {
     }
     const tint = numAttr(elm, 'tint', 0);
     if (tint < 0) {
-      color.ops.shade = -tint;
+      color.ops.push({ type: 'shade', value: -tint });
     }
     else if (tint > 0) {
-      color.ops.tint = tint;
+      color.ops.push({ type: 'tint', value: tint });
     }
     return color;
   }
