@@ -1,0 +1,435 @@
+{
+  "name": "rotated-groups-shapes.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "s": 2 },
+        "B1": { "s": 3 },
+        "C1": { "s": 2 },
+        "D1": { "s": 5 },
+        "E1": { "s": 3 },
+        "F1": { "s": 2 },
+        "G1": { "s": 3 },
+        "B2": { "s": 4 },
+        "D2": { "s": 6 },
+        "E2": { "s": 4 },
+        "G2": { "s": 4 },
+        "B3": { "s": 4 },
+        "D3": { "s": 6 },
+        "E3": { "s": 4 },
+        "G3": { "s": 4 },
+        "B4": { "s": 4 },
+        "D4": { "s": 6 },
+        "E4": { "s": 4 },
+        "G4": { "s": 4 },
+        "B5": { "s": 4 },
+        "D5": { "s": 6 },
+        "E5": { "s": 4 },
+        "G5": { "s": 4 },
+        "B6": { "s": 4 },
+        "D6": { "s": 6 },
+        "E6": { "s": 4 },
+        "G6": { "s": 4 },
+        "A7": { "s": 7 },
+        "B7": { "s": 8 },
+        "C7": { "s": 7 },
+        "D7": { "s": 9 },
+        "E7": { "s": 8 },
+        "F7": { "s": 7 },
+        "G7": { "s": 8 },
+        "A8": { "s": 2 },
+        "B8": { "s": 3 },
+        "C8": { "s": 2 },
+        "D8": { "s": 5 },
+        "E8": { "s": 3 },
+        "F8": { "s": 2 },
+        "G8": { "s": 3 },
+        "B9": { "s": 4 },
+        "D9": { "s": 6 },
+        "E9": { "s": 4 },
+        "G9": { "s": 4 },
+        "B10": { "s": 4 },
+        "D10": { "s": 6 },
+        "E10": { "s": 4 },
+        "G10": { "s": 4 },
+        "B11": { "s": 4 },
+        "D11": { "s": 6 },
+        "E11": { "s": 4 },
+        "G11": { "s": 4 },
+        "B12": { "s": 4 },
+        "D12": { "s": 6 },
+        "E12": { "s": 4 },
+        "G12": { "s": 4 },
+        "B13": { "s": 4 },
+        "D13": { "s": 6 },
+        "E13": { "s": 4 },
+        "G13": { "s": 4 },
+        "A14": { "s": 7 },
+        "B14": { "s": 8 },
+        "C14": { "s": 7 },
+        "D14": { "s": 9 },
+        "E14": { "s": 8 },
+        "F14": { "s": 7 },
+        "G14": { "s": 8 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [
+        {
+          "workbookView": 0,
+          "activeCell": "G6",
+          "layoutScales": { "normal": 150 }
+        }
+      ],
+      "drawing": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 1,
+              "rowOff": 12700,
+              "col": 1,
+              "colOff": 4273
+            },
+            "to": {
+              "row": 5,
+              "rowOff": 194732,
+              "col": 2,
+              "colOff": 821266
+            }
+          },
+          "content": [
+            {
+              "type": "group",
+              "id": "5",
+              "name": "Group 4",
+              "content": [
+                {
+                  "type": "shape",
+                  "id": "2",
+                  "name": "Rectangle 1",
+                  "shape": {
+                    "xfrm": {
+                      "off": { "x": 622137, "y": 304800 },
+                      "ext": { "cx": 1222515, "cy": 310243 }
+                    },
+                    "preset": "rect"
+                  }
+                },
+                {
+                  "type": "shape",
+                  "id": "3",
+                  "name": "Rectangle 2",
+                  "shape": {
+                    "xfrm": {
+                      "off": { "x": 1847227, "y": 632460 },
+                      "ext": { "cx": 1213733, "cy": 658223 }
+                    },
+                    "preset": "rect"
+                  }
+                },
+                {
+                  "type": "shape",
+                  "id": "4",
+                  "name": "Rectangle 3",
+                  "shape": {
+                    "xfrm": {
+                      "off": { "x": 1205154, "y": 1288866 },
+                      "ext": { "cx": 634512, "cy": 636089 }
+                    },
+                    "preset": "rect"
+                  }
+                }
+              ],
+              "xfrm": {
+                "off": { "x": 834006, "y": 215900 },
+                "ext": { "cx": 1646727, "cy": 994832 },
+                "chOff": { "x": 622137, "y": 304800 },
+                "chExt": { "cx": 2438823, "cy": 1620155 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 8,
+              "rowOff": 12699,
+              "col": 1,
+              "colOff": 4273
+            },
+            "to": {
+              "row": 12,
+              "rowOff": 194731,
+              "col": 2,
+              "colOff": 821266
+            }
+          },
+          "content": [
+            {
+              "type": "group",
+              "id": "6",
+              "name": "Group 5",
+              "content": [
+                {
+                  "type": "shape",
+                  "id": "7",
+                  "name": "Rectangle 6",
+                  "shape": {
+                    "xfrm": {
+                      "off": { "x": 622137, "y": 304800 },
+                      "ext": { "cx": 1222515, "cy": 310243 }
+                    },
+                    "preset": "rect"
+                  }
+                },
+                {
+                  "type": "shape",
+                  "id": "8",
+                  "name": "Rectangle 7",
+                  "shape": {
+                    "xfrm": {
+                      "off": { "x": 1847227, "y": 632460 },
+                      "ext": { "cx": 1213733, "cy": 658223 }
+                    },
+                    "preset": "rect"
+                  }
+                },
+                {
+                  "type": "shape",
+                  "id": "9",
+                  "name": "Rectangle 8",
+                  "shape": {
+                    "xfrm": {
+                      "off": { "x": 1205154, "y": 1288866 },
+                      "ext": { "cx": 634512, "cy": 636089 }
+                    },
+                    "preset": "rect"
+                  }
+                }
+              ],
+              "xfrm": {
+                "rot": 300000,
+                "off": { "x": 834006, "y": 1638299 },
+                "ext": { "cx": 1646727, "cy": 994832 },
+                "chOff": { "x": 622137, "y": 304800 },
+                "chExt": { "cx": 2438823, "cy": 1620155 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 1,
+              "rowOff": 12699,
+              "col": 4,
+              "colOff": 4273
+            },
+            "to": {
+              "row": 5,
+              "rowOff": 194731,
+              "col": 5,
+              "colOff": 821266
+            }
+          },
+          "content": [
+            {
+              "type": "group",
+              "id": "10",
+              "name": "Group 9",
+              "content": [
+                {
+                  "type": "shape",
+                  "id": "11",
+                  "name": "Rectangle 10",
+                  "shape": {
+                    "xfrm": {
+                      "rot": 805838,
+                      "off": { "x": 622137, "y": 304800 },
+                      "ext": { "cx": 1222515, "cy": 310243 }
+                    },
+                    "preset": "rect"
+                  }
+                },
+                {
+                  "type": "shape",
+                  "id": "12",
+                  "name": "Rectangle 11",
+                  "shape": {
+                    "xfrm": {
+                      "rot": 21095762,
+                      "off": { "x": 1847227, "y": 632460 },
+                      "ext": { "cx": 1213733, "cy": 658223 }
+                    },
+                    "preset": "rect"
+                  }
+                },
+                {
+                  "type": "shape",
+                  "id": "13",
+                  "name": "Rectangle 12",
+                  "shape": {
+                    "xfrm": {
+                      "rot": 664808,
+                      "off": { "x": 1205154, "y": 1288866 },
+                      "ext": { "cx": 634512, "cy": 636089 }
+                    },
+                    "preset": "rect"
+                  }
+                }
+              ],
+              "xfrm": {
+                "off": { "x": 3323206, "y": 215899 },
+                "ext": { "cx": 1646727, "cy": 994832 },
+                "chOff": { "x": 622137, "y": 304800 },
+                "chExt": { "cx": 2438823, "cy": 1620155 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 8,
+              "rowOff": 29632,
+              "col": 3,
+              "colOff": 825539
+            },
+            "to": {
+              "row": 13,
+              "rowOff": 8464,
+              "col": 5,
+              "colOff": 812799
+            }
+          },
+          "content": [
+            {
+              "type": "group",
+              "id": "18",
+              "name": "Group 17",
+              "content": [
+                {
+                  "type": "shape",
+                  "id": "19",
+                  "name": "Rectangle 18",
+                  "shape": {
+                    "xfrm": {
+                      "rot": 805838,
+                      "off": { "x": 622137, "y": 304800 },
+                      "ext": { "cx": 1222515, "cy": 310243 }
+                    },
+                    "preset": "rect"
+                  }
+                },
+                {
+                  "type": "shape",
+                  "id": "20",
+                  "name": "Rectangle 19",
+                  "shape": {
+                    "xfrm": {
+                      "rot": 21095762,
+                      "off": { "x": 1847227, "y": 632460 },
+                      "ext": { "cx": 1213733, "cy": 658223 }
+                    },
+                    "preset": "rect"
+                  }
+                },
+                {
+                  "type": "shape",
+                  "id": "21",
+                  "name": "Rectangle 20",
+                  "shape": {
+                    "xfrm": {
+                      "rot": 664808,
+                      "off": { "x": 1205154, "y": 1288866 },
+                      "ext": { "cx": 634512, "cy": 636089 }
+                    },
+                    "preset": "rect"
+                  }
+                }
+              ],
+              "xfrm": {
+                "rot": 300000,
+                "off": { "x": 3314739, "y": 1655232 },
+                "ext": { "cx": 1646727, "cy": 994832 },
+                "chOff": { "x": 622137, "y": 304800 },
+                "chExt": { "cx": 2438823, "cy": 1620155 }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 },
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "borderBottomStyle": "thin"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "borderBottomStyle": "thin",
+      "borderLeftStyle": "thin"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "borderLeftStyle": "thin"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "borderBottomStyle": "thin",
+      "borderLeftStyle": "thin",
+      "borderRightStyle": "thin"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "borderLeftStyle": "thin",
+      "borderRightStyle": "thin"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "borderTopStyle": "thin"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "borderTopStyle": "thin",
+      "borderLeftStyle": "thin"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "borderTopStyle": "thin",
+      "borderLeftStyle": "thin",
+      "borderRightStyle": "thin"
+    }
+  ],
+  "tables": [],
+  "views": [
+    {}
+  ],
+  "formulas": []
+}
