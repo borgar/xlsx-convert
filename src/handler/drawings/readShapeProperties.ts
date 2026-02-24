@@ -35,9 +35,7 @@ export function readShapeProperties (elm: Element | null, context: ConversionCon
   const props: Shape = {};
 
   const bwMode = attr(elm, 'bwMode') as BlackWhiteMode | undefined;
-  if (bwMode && bwMode !== 'auto') {
-    props.bwMode = bwMode;
-  }
+  if (bwMode && bwMode !== 'auto') { props.bwMode = bwMode; }
 
   elm.children.forEach(d => {
     const { tagName } = d;

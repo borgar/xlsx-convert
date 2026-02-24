@@ -42,7 +42,6 @@ export async function convert (
   if (!fs) {
     throw new Error("'fs/promises' is not available, use convertBinary() instead");
   }
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   return convertBinary(await fs.readFile(filename), filename, options);
 }
 

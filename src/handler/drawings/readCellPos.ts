@@ -10,8 +10,9 @@ export function readCellPos (elm: Element | null): CellOffset {
   };
   for (const node of elm.childNodes) {
     const tagName = (node instanceof Element) ? node.tagName : '';
-    if (tagName in out) {
-      out[tagName] = +(node.textContent || '0');
+    const val = +(node.textContent || '0');
+    if (tagName in out && isFinite(val)) {
+      out[tagName] = val;
     }
   }
   return out;

@@ -245,7 +245,7 @@ export function handlerWorksheet (
     }
   }
 
-  // detect linked drawing (sheet background "wallpaper")
+  // detect linked picture (sheet background "wallpaper")
   const picture = getFirstChild(dom.root, 'picture');
   if (picture) {
     const rId = attr(picture, 'r:id');
@@ -253,6 +253,7 @@ export function handlerWorksheet (
     if (rel) {
       context.images.push({ sheetName, rel, type: 'picture' });
     }
+    // TODO: set a property on the sheet to link to this image
   }
 
   delete context._shared;

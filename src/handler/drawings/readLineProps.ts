@@ -12,11 +12,10 @@ const LINECMPD = { dbl: 'dbl', sng: 'sng', thickThin: 'thickThin', thinThick: 't
 const LINEJOIN = { bevel: 'bevel', round: 'round', square: 'miter' };
 
 export function readLineProps (elm: Element, context: ConversionContext): Line {
-  const line: Line = {
-    // FIXME: what is the default line width?
-    // The spec is insistant that 0 means no line here, but testing indicates that lines have a stroke by default.
-    width: numAttr(elm, 'w', 19050),
-  };
+  // If we're here, that means a line should be drawn.
+  // - When <a:ln> is absent → no line is rendered
+  // - When <a:ln> is present but w is omitted → line should be (0.75 pt = 9525 EMUs)
+  const line: Line = { width: numAttr(elm, 'w', 9525) };
   addProp(line, 'cmpd', LINECMPD[attr(elm, 'cmpd', 'sng')], 'sng');
   addProp(line, 'cap', LINECAP[attr(elm, 'cap', 'square')], 'butt');
   addProp(line, 'align', LINEALIGN[attr(elm, 'algn', 'ctr')], 'center');

@@ -24,6 +24,7 @@ import type { ConversionOptions } from './index.ts';
 import { EncryptionError, InvalidFileError, MissingSheetError } from './errors.ts';
 import { handlerDrawing } from './handler/drawing.ts';
 import { arrayBufferToDataUri } from './utils/arrayBufferToDataUri.ts';
+import { getMimeType } from './utils/getMimeType.ts';
 
 function toArrayBuffer (buffer: Buffer): ArrayBuffer {
   const arrayBuffer = new ArrayBuffer(buffer.length);
@@ -242,27 +243,20 @@ export async function convertBinary (
           if (img.type === 'picture') {
             // sheet.background = ...
 
-            // only once per image file...
+            // only do this once per image file
             if (!images[img.rel.target]) {
               // img.rel.type should be "image"
               const imageData = await getBinaryFile(img.rel.target);
-              // XXX: will need to resolve what mime type this is... based on ext?
-              const mime = 'image/png';
+              const mime = getMimeType(img.rel.target);
               const dataURI = await arrayBufferToDataUri(imageData, mime);
-              // console.log(img.rel, dataURI);
               images[img.rel.target] = dataURI;
               imageCount++;
             }
           }
-          if (img.type === 'drawing') {
-            if (img.rel.type === 'drawing') {
-              const drawingDom = await getFile(img.rel.target);
-              context.drawingRels = await getRels(img.rel.target);
-              sh.drawing = handlerDrawing(drawingDom, context);
-            }
-            else if (img.rel.type === 'image') {
-              // read drawing from img.rel.target
-            }
+          if (img.type === 'drawing' && img.rel.type === 'drawing') {
+            const drawingDom = await getFile(img.rel.target);
+            context.drawingRels = await getRels(img.rel.target);
+            sh.drawing = handlerDrawing(drawingDom, context);
           }
         }
         if (imageCount) {

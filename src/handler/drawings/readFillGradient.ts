@@ -69,7 +69,7 @@ export function readFillGradient (elm: Element, context: ConversionContext) {
   const flip = attr(elm, 'flip') as FlipAxis | undefined;
   if (flip) { fill.flip = flip; }
 
-  // .rotWithShape (if a fill will rotate along with a shape when the shape is rotated) boolean
+  // If a fill will rotate along with a shape when the shape is rotated
   const rotWithShape = boolAttr(elm, 'rotWithShape', false);
   if (rotWithShape) { fill.rotWithShape = rotWithShape; }
 

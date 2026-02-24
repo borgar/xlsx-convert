@@ -6,9 +6,8 @@ import { getFirstChild } from '../../utils/getFirstChild.ts';
 export function readPath (p?: Element | null): Path | undefined {
   if (p?.tagName !== 'path') return;
 
-  const path: Partial<Path> = {
-    d: [],
-  };
+  const path: Partial<Path> = { d: [] };
+
   // if (boolAttr(p, 'extrusionOk')) { path.extrusionOk = true; }
   if (boolAttr(p, 'stroke') === false) { path.stroke = false; }
 
@@ -47,11 +46,13 @@ export function readPath (p?: Element | null): Path | undefined {
     }
     // arcTo
     else if (elm.tagName === 'arcTo') {
-      const hR = numStrAttr(elm, 'hR', 0);
-      const wR = numStrAttr(elm, 'wR', 0);
-      const stAng = numStrAttr(elm, 'stAng', 0);
-      const swAng = numStrAttr(elm, 'swAng', 0);
-      path.d.push([ 'A', stAng, swAng, wR, hR ]);
+      path.d.push([
+        'A',
+        numStrAttr(elm, 'stAng', 0),
+        numStrAttr(elm, 'swAng', 0),
+        numStrAttr(elm, 'wR', 0),
+        numStrAttr(elm, 'hR', 0),
+      ]);
     }
     // quadBezTo
     else if (elm.tagName === 'quadBezTo') {
