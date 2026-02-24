@@ -2,6 +2,8 @@ import type { Document } from '@borgar/simple-xml';
 import { attr } from '../utils/attr.ts';
 import { COLOR_INDEX } from '../constants.ts';
 import { getFirstChild } from '../utils/getFirstChild.ts';
+import { readFill } from './drawings/readFill.ts';
+import type { ConversionContext } from '../ConversionContext.ts';
 
 export type Theme = {
   scheme: Record<string, string>;
@@ -43,8 +45,13 @@ export function getBlankTheme (): Theme {
   };
 }
 
-export function handlerTheme (dom: Document): Theme {
+export function handlerTheme (dom: Document, context: ConversionContext): Theme {
   const theme: Theme = getBlankTheme();
+
+  // get a derivitive of context but use our new theme
+  const ctx = Object.create(context);
+  ctx.theme = theme;
+
   const themeElements = dom.querySelector('theme > themeElements');
 
   const clrScheme = getFirstChild(themeElements, 'clrScheme');
@@ -74,6 +81,36 @@ export function handlerTheme (dom: Document): Theme {
       if (latin) { theme.fontScheme.minor = attr(latin, 'typeface', 'Aptos Narrow'); }
     }
   });
+
+  const fmtScheme = getFirstChild(themeElements, 'fmtScheme');
+
+  const fillStyleLst = getFirstChild(fmtScheme, 'fillStyleLst');
+  const fillList = [];
+  fillStyleLst.children.forEach(d => {
+    const fill = readFill(d, ctx);
+    if (fill) { fillList.push(fill); }
+  });
+  theme.fillList = fillList;
+
+  const bgFillStyleLst = getFirstChild(fmtScheme, 'bgFillStyleLst');
+  const bgFillList = [];
+  bgFillStyleLst.children.forEach(d => {
+    const fill = readFill(d, ctx);
+    if (fill) { bgFillList.push(fill); }
+  });
+  theme.bgFillList = bgFillList;
+
+  // const lnStyleLst = getFirstChild(fmtScheme, 'lnStyleLst');
+  // const lineList = [];
+  // lnStyleLst.children.forEach(d => {});
+  // theme.lineList = lineList;
+
+  // const effectStyleLst = getFirstChild(fmtScheme, 'effectStyleLst');
+  // const effectList = [];
+  // effectStyleLst.children.forEach(d => {});
+  // theme.effectList = effectList;
+
+  // const objectDefaults = dom.querySelector('theme > objectDefaults');
 
   return theme;
 }

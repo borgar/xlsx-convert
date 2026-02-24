@@ -185,11 +185,16 @@ export async function convertBinary (
   // richData
   context.richStruct = await maybeRead(context, 'rdRichValueStructure', handlerRDStruct);
   context.richValues = await maybeRead(context, 'rdRichValue', handlerRDValue);
+
   // metadata
   context.metadata = await maybeRead(context, 'sheetMetadata', handlerMetaData);
 
-  // theme / styles
-  context.theme = await maybeRead(context, 'theme', handlerTheme) ?? getBlankTheme();
+  // theme
+  const themeRel = context.rels.find(d => d.type === 'theme');
+  const themeRels = themeRel ? await getRels(themeRel.target) : [];
+  context.theme = await maybeRead(context, 'theme', handlerTheme, null, themeRels) ?? getBlankTheme();
+
+  // styles
   const styleDefs = await maybeRead(context, 'styles', handlerStyles);
   wb.styles = convertStyles(styleDefs);
 
@@ -248,8 +253,15 @@ export async function convertBinary (
               // img.rel.type should be "image"
               const imageData = await getBinaryFile(img.rel.target);
               const mime = getMimeType(img.rel.target);
-              const dataURI = await arrayBufferToDataUri(imageData, mime);
-              images[img.rel.target] = dataURI;
+              let imageValue: string | null = null;
+              if (options.imageCallback) {
+                const ret = await options.imageCallback(imageData, img.rel.target);
+                if (typeof ret === 'string') { imageValue = ret; }
+              }
+              if (typeof imageValue !== 'string') {
+                imageValue = await arrayBufferToDataUri(imageData, mime);
+              }
+              images[img.rel.target] = imageValue;
               imageCount++;
             }
           }

@@ -15,6 +15,14 @@ export type ConversionOptions = {
    * @defaultValue false
    */
   cellFormulas?: boolean;
+  /**
+   * Image reading callback. All read images are passed through this callback if it is provided.
+   * This is useful, for example, for extracting the images to disk.
+   *
+   * If the return value is a string, the value will be used in the images record on
+   * the workbook instead of the standard data-URI conversion.
+   */
+  imageCallback?: (data?: ArrayBuffer, filename?: string) => Promise<string | void> | string | void
 };
 
 /**
