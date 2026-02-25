@@ -195,7 +195,7 @@
               "name": "Straight Arrow Connector 11",
               "shape": {
                 "xfrm": {
-                  "flip": "y",
+                  "flip": "xy",
                   "off": { "x": 1007533, "y": 3496733 },
                   "ext": { "cx": 2218267, "cy": 143934 }
                 },
