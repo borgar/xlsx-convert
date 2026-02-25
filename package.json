@@ -1,6 +1,6 @@
 {
   "name": "@borgar/xlsx-convert",
-  "version": "3.9.1",
+  "version": "3.10.0",
   "description": "Utility to convert Excel XLSX files to JSON",
   "type": "module",
   "source": "src/index.ts",
@@ -28,6 +28,12 @@
     "check": "npm run test && npm run lint && npm run typecheck",
     "release": "git diff --exit-code && tsup && npm publish && V=$(jq -r .version package.json) && git tag -a $V -m $V && git push origin $V && gh release create $V --generate-notes"
   },
+  "files": [
+    "dist",
+    "docs",
+    "LICENSE",
+    "README.md"
+  ],
   "tsup": {
     "entry": [
       "src/index.ts"
@@ -67,9 +73,9 @@
     "pako": "~2.1.0"
   },
   "devDependencies": {
-    "@borgar/eslint-config": "~4.0.1",
+    "@borgar/eslint-config": "~4.1.0",
     "@eslint/js": "~9.39.2",
-    "@jsfkit/types": "~1.4.0",
+    "@jsfkit/types": "~1.4.1",
     "@types/node": "~25.3.0",
     "concat-md": "~0.5.1",
     "eslint": "~9.39.2",
