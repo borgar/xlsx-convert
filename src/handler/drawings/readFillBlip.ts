@@ -1,24 +1,9 @@
 import type { Element } from '@borgar/simple-xml';
-import type { BlipFill, FlipAxis, RectAlignment } from '@jsfkit/types';
+import type { BlipFill, FlipAxis, RectAlignment, Tile } from '@jsfkit/types';
 import type { ConversionContext } from '../../ConversionContext.ts';
 import { attr, boolAttr, dmlPercentAttr, numAttr } from '../../utils/attr.ts';
-
-function readRelRect (elm: Element) {
-  if (elm) {
-    const l = dmlPercentAttr(elm, 'l');
-    const t = dmlPercentAttr(elm, 't');
-    const r = dmlPercentAttr(elm, 'r');
-    const b = dmlPercentAttr(elm, 'b');
-    if (l != null && t != null && r != null && b != null) {
-      return {
-        t: (t ?? 0),
-        l: (l ?? 0),
-        b: (b ?? 100),
-        r: (r ?? 100),
-      };
-    }
-  }
-}
+import { readRelRect } from './readRelRect.ts';
+import { addProp } from '../../utils/addProp.ts';
 
 export function readFillBlip (elm: Element | undefined | null, context: ConversionContext) {
   if (elm?.tagName === 'blipFill') {
@@ -28,7 +13,7 @@ export function readFillBlip (elm: Element | undefined | null, context: Conversi
     };
 
     const blip = elm.querySelector('blip');
-    const rId = blip.getAttribute('r:embed'); // "rId1"
+    const rId = blip.getAttribute('r:embed');
     if (!rId) { return; }
     const rel = context.drawingRels.find(rel => rel.id === rId);
 
@@ -53,15 +38,22 @@ export function readFillBlip (elm: Element | undefined | null, context: Conversi
     const srcRect = readRelRect(elm.querySelector('> srcRect'));
     if (srcRect) { out.srcRect = srcRect; }
 
-    const tile = elm.querySelector('tile');
-    if (tile) {
-      const tx = numAttr(tile, 'tx'); // additional horizontal offset after alignment (EMU)
-      const ty = numAttr(tile, 'ty'); // additional vertical offset after alignment (EMU)
-      const sx = dmlPercentAttr(tile, 'sx'); // amount to vertically scale the srcRect
-      const sy = dmlPercentAttr(tile, 'sy'); // amount to horizontally scale the srcRect
-      const flip = attr(tile, 'flip') as FlipAxis; // direction(s) in which to flip the source image while tiling
-      const align = attr(tile, 'algn') as RectAlignment; // where to align the first tile with respect to the shape (after sx/sy, but before tx/ty)
-      out.tile = { tx, ty, sx, sy, flip, align };
+    const tileElm = elm.querySelector('tile');
+    if (tileElm) {
+      const tile: Tile = {};
+      // additional horizontal offset after alignment (EMU)
+      addProp(tile, 'tx', numAttr(tileElm, 'tx'));
+      // additional vertical offset after alignment (EMU)
+      addProp(tile, 'ty', numAttr(tileElm, 'ty'));
+      // amount to vertically scale the srcRect
+      addProp(tile, 'sx', dmlPercentAttr(tileElm, 'sx'));
+      // amount to horizontally scale the srcRect
+      addProp(tile, 'sy', dmlPercentAttr(tileElm, 'sy'));
+      // direction(s) in which to flip the source image while tiling
+      addProp(tile, 'flip', attr(tileElm, 'flip') as FlipAxis | undefined);
+      // where to align the first tile with respect to the shape (after sx/sy, but before tx/ty)
+      addProp(tile, 'align', attr(tileElm, 'algn') as RectAlignment | undefined);
+      out.tile = tile;
     }
 
     return out;

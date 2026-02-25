@@ -7,8 +7,8 @@ export function arrayBufferToDataUri (buf: ArrayBuffer | Buffer, mime: string): 
   else if (typeof Buffer !== 'undefined' && buf instanceof Buffer) {
     buffer = buf;
   }
+  // Browser
   else if (typeof FileReader !== 'undefined' && buf instanceof ArrayBuffer) {
-    // Browser fallback (original code)
     const blob = new Blob([ buf ], { type: mime });
     return new Promise((resolve, reject) => {
       const r = new FileReader();

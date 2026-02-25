@@ -94,10 +94,10 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
       // Non-Visual Properties
       const cNvPr = d.querySelector('cNvPr');
       if (cNvPr) {
-        out.id = cNvPr.getAttribute('id'); // "2"
-        out.name = cNvPr.getAttribute('name'); // "Picture 2"
+        out.id = cNvPr.getAttribute('id');
+        out.name = cNvPr.getAttribute('name');
         const desc = cNvPr.getAttribute('descr');
-        if (desc) { out.desc = desc; } // "Spit Cat"
+        if (desc) { out.desc = desc; }
       }
       // Non-Visual Picture Drawing Properties
       //  todo: Support 5.8.2.6: cNvPicPr[preferRelativeResize]
@@ -123,8 +123,8 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
       // Non-Visual Properties
       const cNvPr = d.querySelector('cNvPr');
       if (cNvPr) {
-        out.id = cNvPr.getAttribute('id'); // "2"
-        out.name = cNvPr.getAttribute('name'); // "Chart 1"
+        out.id = cNvPr.getAttribute('id');
+        out.name = cNvPr.getAttribute('name');
       }
       // const graphicFrameLocks = d.querySelector('graphicFrameLocks');
       // if (graphicFrameLocks) { out.locked = {}; }

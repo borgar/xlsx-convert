@@ -55,6 +55,4 @@ export function readFill (elm: Element | null | undefined, context: ConversionCo
       bg: readColor(elm.children[0], context.theme).getJSF(),
     } as SolidFill;
   }
-
-  return undefined;
 }
