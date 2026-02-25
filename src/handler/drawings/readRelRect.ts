@@ -1,7 +1,5 @@
 import type { Element } from '@borgar/simple-xml';
-import type { BlipFill, FlipAxis, RectAlignment } from '@jsfkit/types';
-import type { ConversionContext } from '../../ConversionContext.ts';
-import { attr, boolAttr, dmlPercentAttr, numAttr } from '../../utils/attr.ts';
+import { dmlPercentAttr } from '../../utils/attr.ts';
 
 export function readRelRect (elm: Element) {
   if (elm) {
