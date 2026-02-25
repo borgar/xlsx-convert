@@ -251,18 +251,20 @@ export async function convertBinary (
             // only do this once per image file
             if (!images[img.rel.target]) {
               // img.rel.type should be "image"
-              const imageData = await getBinaryFile(img.rel.target);
-              const mime = getMimeType(img.rel.target);
-              let imageValue: string | null = null;
-              if (options.imageCallback) {
-                const ret = await options.imageCallback(imageData, img.rel.target);
-                if (typeof ret === 'string') { imageValue = ret; }
+              const fileData = await getBinaryFile(img.rel.target);
+              if (fileData) {
+                const mime = getMimeType(img.rel.target);
+                let imageValue: string | null = null;
+                if (options.imageCallback) {
+                  const ret = await options.imageCallback(fileData, img.rel.target);
+                  if (typeof ret === 'string') { imageValue = ret; }
+                }
+                if (typeof imageValue !== 'string') {
+                  imageValue = await arrayBufferToDataUri(fileData, mime);
+                }
+                images[img.rel.target] = imageValue;
+                imageCount++;
               }
-              if (typeof imageValue !== 'string') {
-                imageValue = await arrayBufferToDataUri(imageData, mime);
-              }
-              images[img.rel.target] = imageValue;
-              imageCount++;
             }
           }
           if (img.type === 'drawing' && img.rel.type === 'drawing') {

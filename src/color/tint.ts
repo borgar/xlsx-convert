@@ -7,7 +7,7 @@ export function tint (
   b: number,
   amount: number,
 ): [ number, number, number ] | [ number, number, number, number ] {
-  if (tint) {
+  if (amount) {
     // eslint-disable-next-line prefer-const
     let [ h, s, l ] = rgbToHsl(r, g, b);
     if (amount < 0) { // darken

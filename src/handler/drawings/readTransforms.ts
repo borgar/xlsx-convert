@@ -15,8 +15,8 @@ export function readTransforms (elm: Element | null, group = false): Xfrm | Xfrm
     const flipH = boolAttr(elm, 'flipH', false);
     const flipV = boolAttr(elm, 'flipV', false);
     if (flipH && flipV) { out.flip = 'xy'; }
-    if (flipH) { out.flip = 'x'; }
-    if (flipV) { out.flip = 'y'; }
+    else if (flipH) { out.flip = 'x'; }
+    else if (flipV) { out.flip = 'y'; }
 
     // rotation
     const rot = numAttr(elm, 'rot', 0);

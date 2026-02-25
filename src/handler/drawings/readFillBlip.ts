@@ -13,7 +13,7 @@ export function readFillBlip (elm: Element | undefined | null, context: Conversi
     };
 
     const blip = elm.querySelector('blip');
-    const rId = blip.getAttribute('r:embed');
+    const rId = blip?.getAttribute('r:embed');
     if (!rId) { return; }
     const rel = context.drawingRels.find(rel => rel.id === rId);
 
@@ -29,7 +29,7 @@ export function readFillBlip (elm: Element | undefined | null, context: Conversi
     const rotWithShape = boolAttr(elm, 'rotWithShape', false);
     if (rotWithShape) { out.rotWithShape = rotWithShape; }
 
-    const alphaModFix = blip.querySelector('> alphaModFix');
+    const alphaModFix = blip?.querySelector('> alphaModFix');
     if (alphaModFix) { out.alpha = dmlPercentAttr(alphaModFix, 'amt', 100); }
 
     const stretchRect = readRelRect(elm.querySelector('> stretch > fillRect'));

@@ -9,8 +9,8 @@ const IMAGE_MIME_TYPES = {
   '.jxr': 'image/vnd.ms-photo',
   '.hdp': 'image/vnd.ms-photo',
   '.bmp': 'image/bmp',
-  '.tif': 'image / tiff',
-  '.tiff': 'image / tiff',
+  '.tif': 'image/tiff',
+  '.tiff': 'image/tiff',
   '.svg': 'image/svg+xml',
 };
 

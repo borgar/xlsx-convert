@@ -48,14 +48,14 @@ export function getBlankTheme (): Theme {
 export function handlerTheme (dom: Document, context: ConversionContext): Theme {
   const theme: Theme = getBlankTheme();
 
-  // get a derivitive of context but use our new theme
+  // get a derivative of context but use our new theme
   const ctx = Object.create(context);
   ctx.theme = theme;
 
   const themeElements = dom.querySelector('theme > themeElements');
 
   const clrScheme = getFirstChild(themeElements, 'clrScheme');
-  clrScheme.children.forEach(child => {
+  clrScheme?.children.forEach(child => {
     const key = child.tagName;
     const color = child.children[0];
     if (key in theme.scheme && color) {
@@ -69,7 +69,7 @@ export function handlerTheme (dom: Document, context: ConversionContext): Theme 
   });
 
   const fontScheme = getFirstChild(themeElements, 'fontScheme');
-  fontScheme.children.forEach(d => {
+  fontScheme?.children.forEach(d => {
     if (d.tagName === 'majorFont') {
       const latin = getFirstChild(d, 'latin');
       // fallback to Calibri?
@@ -86,7 +86,7 @@ export function handlerTheme (dom: Document, context: ConversionContext): Theme 
 
   const fillStyleLst = getFirstChild(fmtScheme, 'fillStyleLst');
   const fillList = [];
-  fillStyleLst.children.forEach(d => {
+  fillStyleLst?.children.forEach(d => {
     const fill = readFill(d, ctx);
     if (fill) { fillList.push(fill); }
   });
@@ -94,7 +94,7 @@ export function handlerTheme (dom: Document, context: ConversionContext): Theme 
 
   const bgFillStyleLst = getFirstChild(fmtScheme, 'bgFillStyleLst');
   const bgFillList = [];
-  bgFillStyleLst.children.forEach(d => {
+  bgFillStyleLst?.children.forEach(d => {
     const fill = readFill(d, ctx);
     if (fill) { bgFillList.push(fill); }
   });
@@ -102,12 +102,12 @@ export function handlerTheme (dom: Document, context: ConversionContext): Theme 
 
   // const lnStyleLst = getFirstChild(fmtScheme, 'lnStyleLst');
   // const lineList = [];
-  // lnStyleLst.children.forEach(d => {});
+  // lnStyleLst?.children.forEach(d => {});
   // theme.lineList = lineList;
 
   // const effectStyleLst = getFirstChild(fmtScheme, 'effectStyleLst');
   // const effectList = [];
-  // effectStyleLst.children.forEach(d => {});
+  // effectStyleLst?.children.forEach(d => {});
   // theme.effectList = effectList;
 
   // const objectDefaults = dom.querySelector('theme > objectDefaults');

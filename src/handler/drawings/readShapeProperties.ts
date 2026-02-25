@@ -10,7 +10,7 @@ import { addProp } from '../../utils/addProp.ts';
 import { readFill } from './readFill.ts';
 import { readLineProps } from './readLineProps.ts';
 
-function readGuides (elm: Element | null): GuidePoint[] {
+function readGuides (elm: Element | null): GuidePoint[] | undefined {
   if (!elm) return;
   const gds = [];
   elm.children.forEach(gd => {
@@ -26,8 +26,8 @@ function readGuides (elm: Element | null): GuidePoint[] {
 
 function readAdjustPoint (posElm: Element): AdjustPoint {
   return {
-    x: numStrAttr(posElm, 'x'),
-    y: numStrAttr(posElm, 'y'),
+    x: numStrAttr(posElm, 'x', 0),
+    y: numStrAttr(posElm, 'y', 0),
   };
 }
 
@@ -91,7 +91,7 @@ export function readShapeProperties (elm: Element | null, context: ConversionCon
 
       // avLst (List of Shape Adjust Values) §5.1.11.5
       const av = readGuides(d.querySelector('avLst'));
-      if (av) { props.av = av; }
+      if (av?.length) { props.av = av; }
 
       // cxnLst (List of Shape Connection Sites) §5.1.11.10
       const cxnList = d.querySelectorAll('cxnLst > cxn');
@@ -111,7 +111,7 @@ export function readShapeProperties (elm: Element | null, context: ConversionCon
 
       // gdLst (List of Shape Guides) §5.1.11.12
       const gd = readGuides(d.querySelector('gdLst'));
-      if (gd) { props.gd = gd; }
+      if (gd?.length) { props.gd = gd; }
 
       // pathLst (List of Shape Paths) §5.1.11.16
       const paths: Path[] = [];
@@ -152,7 +152,7 @@ export function readShapeProperties (elm: Element | null, context: ConversionCon
       }
       //  Shape Adjust Values (5.1.11.5)
       const av = readGuides(d.querySelector('avLst'));
-      if (av) { props.av = av; }
+      if (av?.length) { props.av = av; }
     }
 
     // 3D Scene Properties – §5.1.4.1.26
