@@ -126,7 +126,7 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
     if (axis === 'axisRow') { field.axis = 'row'; }
     else if (axis === 'axisCol') { field.axis = 'col'; }
     else if (axis === 'axisPage') { field.axis = 'page'; }
-    else if (attr(pf, 'dataField') === '1') { field.axis = 'values'; }
+    if (boolAttr(pf, 'dataField') === true) { field.dataField = true; }
 
     const showAll = boolAttr(pf, 'showAll');
     if (showAll === false) { field.showAll = false; }

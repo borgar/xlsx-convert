@@ -62,7 +62,8 @@ describe('handlerPivotTable', () => {
     expect(pt.fields[0].axis).toBe('row');
     expect(pt.fields[1].axis).toBe('col');
     expect(pt.fields[2].axis).toBe('page');
-    expect(pt.fields[3].axis).toBe('values');
+    expect(pt.fields[3].axis).toBeUndefined();
+    expect(pt.fields[3].dataField).toBe(true);
   });
 
   it('should parse showAll=false', () => {
