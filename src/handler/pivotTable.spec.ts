@@ -26,11 +26,17 @@ describe('handlerPivotTable', () => {
   });
 
   it('should return undefined for missing name', () => {
-    expect(parse('<pivotTableDefinition><location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/></pivotTableDefinition>')).toBeUndefined();
+    expect(
+      parse(
+        '<pivotTableDefinition><location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/></pivotTableDefinition>',
+      ),
+    ).toBeUndefined();
   });
 
   it('should return undefined for missing location', () => {
-    expect(parse('<pivotTableDefinition name="PT1"></pivotTableDefinition>')).toBeUndefined();
+    expect(
+      parse('<pivotTableDefinition name="PT1"></pivotTableDefinition>'),
+    ).toBeUndefined();
   });
 
   it('should parse a basic pivot table', () => {
@@ -38,7 +44,11 @@ describe('handlerPivotTable', () => {
     expect(pt).toBeDefined();
     expect(pt!.name).toBe('PivotTable1');
     expect(pt!.ref).toBe('A3:D20');
-    expect(pt!.location).toEqual({ firstHeaderRow: 1, firstDataRow: 2, firstDataCol: 1 });
+    expect(pt!.location).toEqual({
+      firstHeaderRow: 1,
+      firstDataRow: 2,
+      firstDataCol: 1,
+    });
     expect(pt!.fields).toHaveLength(2);
     expect(pt!.rowFieldIndices).toEqual([ 0 ]);
     expect(pt!.colFieldIndices).toEqual([ -2 ]);
@@ -170,7 +180,9 @@ describe('handlerPivotTable', () => {
       </pageFields>
     </pivotTableDefinition>`;
     const pt = parse(xml)!;
-    expect(pt.pageFields).toEqual([ { fieldIndex: 0, selectedItem: 2, name: 'Region' } ]);
+    expect(pt.pageFields).toEqual([
+      { fieldIndex: 0, selectedItem: 2, name: 'Region' },
+    ]);
   });
 
   it('should parse style info', () => {
@@ -256,8 +268,6 @@ describe('handlerPivotTable', () => {
       { itemIndices: [ 0 ] },
       { itemType: 'grand', itemIndices: [ 0 ] },
     ]);
-    expect(pt.colItems).toEqual([
-      { repeatedItemCount: 1, itemIndices: [ 2 ] },
-    ]);
+    expect(pt.colItems).toEqual([ { repeatedItemCount: 1, itemIndices: [ 2 ] } ]);
   });
 });

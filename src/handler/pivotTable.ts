@@ -33,7 +33,9 @@ function parseEnum<T extends string> (
   value: string | null,
   allowed: ReadonlySet<T>,
 ): T | undefined {
-  if (value == null) { return undefined; }
+  if (value == null) {
+    return undefined;
+  }
   return allowed.has(value as T) ? (value as T) : undefined;
 }
 
@@ -96,9 +98,15 @@ function parseRowColItems (root: Element, selector: string): PivotRowColItem[] {
       itemIndices.push(numAttr(x, 'v', 0));
     }
     const item: PivotRowColItem = {};
-    if (itemIndices.length > 0) { item.itemIndices = itemIndices; }
-    if (itemType != null) { item.itemType = itemType; }
-    if (repeatedItemCount !== 0) { item.repeatedItemCount = repeatedItemCount; }
+    if (itemIndices.length > 0) {
+      item.itemIndices = itemIndices;
+    }
+    if (itemType != null) {
+      item.itemType = itemType;
+    }
+    if (repeatedItemCount !== 0) {
+      item.repeatedItemCount = repeatedItemCount;
+    }
     items.push(item);
   }
   return items;
@@ -106,16 +114,24 @@ function parseRowColItems (root: Element, selector: string): PivotRowColItem[] {
 
 export function handlerPivotTable (dom: Document): PivotTable | undefined {
   const root = dom.getElementsByTagName('pivotTableDefinition')[0];
-  if (!root) { return; }
+  if (!root) {
+    return;
+  }
 
   const name = attr(root, 'name');
-  if (!name) { return; }
+  if (!name) {
+    return;
+  }
 
   const locationEl = root.getElementsByTagName('location')[0];
-  if (!locationEl) { return; }
+  if (!locationEl) {
+    return;
+  }
 
   const ref = attr(locationEl, 'ref');
-  if (!ref) { return; }
+  if (!ref) {
+    return;
+  }
   const firstHeaderRow = numAttr(locationEl, 'firstHeaderRow', 1);
   const firstDataRow = numAttr(locationEl, 'firstDataRow', 1);
   const firstDataCol = numAttr(locationEl, 'firstDataCol', 0);
@@ -125,24 +141,35 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
   for (const pf of root.querySelectorAll('pivotFields > pivotField')) {
     const field: PivotField = {};
     const axis = attr(pf, 'axis');
-    if (axis === 'axisRow') { field.axis = 'row'; }
-    else if (axis === 'axisCol') { field.axis = 'col'; }
-    else if (axis === 'axisPage') { field.axis = 'page'; }
-    if (boolAttr(pf, 'dataField') === true) { field.dataField = true; }
+    if (axis === 'axisRow') {
+      field.axis = 'row';
+    }
+    else if (axis === 'axisCol') {
+      field.axis = 'col';
+    }
+    else if (axis === 'axisPage') {
+      field.axis = 'page';
+    }
+    if (boolAttr(pf, 'dataField') === true) {
+      field.dataField = true;
+    }
 
     const showAll = boolAttr(pf, 'showAll');
-    if (showAll === false) { field.showAll = false; }
+    if (showAll === false) {
+      field.showAll = false;
+    }
 
     // check for explicit subtotal attributes on the field
     const subtotalFunctions: PivotSubtotalFunction[] = [];
     for (const fn of SUBTOTAL_ATTRS) {
-      const attrName = fn === 'countA'
-        ? 'countASubtotal'
-        : fn === 'stdDev'
-          ? 'stdDevSubtotal'
-          : fn === 'stdDevP'
-            ? 'stdDevPSubtotal'
-            : fn + 'Subtotal';
+      const attrName =
+        fn === 'countA'
+          ? 'countASubtotal'
+          : fn === 'stdDev'
+            ? 'stdDevSubtotal'
+            : fn === 'stdDevP'
+              ? 'stdDevPSubtotal'
+              : fn + 'Subtotal';
       if (boolAttr(pf, attrName) === true) {
         subtotalFunctions.push(fn);
       }
@@ -163,11 +190,17 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
       for (const item of itemsContainer.getElementsByTagName('item')) {
         const fi: PivotFieldItem = {};
         const x = numAttr(item, 'x');
-        if (x != null) { fi.itemIndex = x; }
+        if (x != null) {
+          fi.itemIndex = x;
+        }
         const t = parseEnum(attr(item, 't'), ITEM_TYPES);
-        if (t != null) { fi.itemType = t; }
+        if (t != null) {
+          fi.itemType = t;
+        }
         const h = boolAttr(item, 'h');
-        if (h === true) { fi.hidden = true; }
+        if (h === true) {
+          fi.hidden = true;
+        }
         items.push(fi);
       }
       if (items.length > 0) {
@@ -209,11 +242,17 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
       dataField.showDataAs = showDataAs;
     }
     const baseField = numAttr(df, 'baseField');
-    if (baseField != null) { dataField.baseField = baseField; }
+    if (baseField != null) {
+      dataField.baseField = baseField;
+    }
     const baseItem = numAttr(df, 'baseItem');
-    if (baseItem != null) { dataField.baseItem = baseItem; }
+    if (baseItem != null) {
+      dataField.baseItem = baseItem;
+    }
     const numFmtId = numAttr(df, 'numFmtId');
-    if (numFmtId != null) { dataField.numFmtId = numFmtId; }
+    if (numFmtId != null) {
+      dataField.numFmtId = numFmtId;
+    }
     dataFields.push(dataField);
   }
 
@@ -224,9 +263,13 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
       fieldIndex: numAttr(pf, 'fld', 0),
     };
     const item = numAttr(pf, 'item');
-    if (item != null) { pageField.selectedItem = item; }
+    if (item != null) {
+      pageField.selectedItem = item;
+    }
     const pfName = attr(pf, 'name');
-    if (pfName) { pageField.name = pfName; }
+    if (pfName) {
+      pageField.name = pfName;
+    }
     pageFields.push(pageField);
   }
 
@@ -236,17 +279,29 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
   if (styleInfo) {
     style = {};
     const styleName = attr(styleInfo, 'name');
-    if (styleName) { style.name = styleName; }
+    if (styleName) {
+      style.name = styleName;
+    }
     const showRowHeaders = boolAttr(styleInfo, 'showRowHeaders');
-    if (showRowHeaders != null) { style.showRowHeaders = showRowHeaders; }
+    if (showRowHeaders != null) {
+      style.showRowHeaders = showRowHeaders;
+    }
     const showColHeaders = boolAttr(styleInfo, 'showColHeaders');
-    if (showColHeaders != null) { style.showColHeaders = showColHeaders; }
+    if (showColHeaders != null) {
+      style.showColHeaders = showColHeaders;
+    }
     const showRowStripes = boolAttr(styleInfo, 'showRowStripes');
-    if (showRowStripes != null) { style.showRowStripes = showRowStripes; }
+    if (showRowStripes != null) {
+      style.showRowStripes = showRowStripes;
+    }
     const showColStripes = boolAttr(styleInfo, 'showColStripes');
-    if (showColStripes != null) { style.showColStripes = showColStripes; }
+    if (showColStripes != null) {
+      style.showColStripes = showColStripes;
+    }
     const showLastColumn = boolAttr(styleInfo, 'showLastColumn');
-    if (showLastColumn != null) { style.showLastColumn = showLastColumn; }
+    if (showLastColumn != null) {
+      style.showLastColumn = showLastColumn;
+    }
   }
 
   // Grand totals
@@ -263,16 +318,36 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
     fields,
   };
 
-  if (rowFieldIndices.length > 0) { pt.rowFieldIndices = rowFieldIndices; }
-  if (colFieldIndices.length > 0) { pt.colFieldIndices = colFieldIndices; }
-  if (dataFields.length > 0) { pt.dataFields = dataFields; }
-  if (pageFields.length > 0) { pt.pageFields = pageFields; }
-  if (rowItems.length > 0) { pt.rowItems = rowItems; }
-  if (colItems.length > 0) { pt.colItems = colItems; }
-  if (style) { pt.style = style; }
-  if (rowGrandTotals != null) { pt.rowGrandTotals = rowGrandTotals; }
-  if (colGrandTotals != null) { pt.colGrandTotals = colGrandTotals; }
-  if (autoRefresh != null) { pt.autoRefresh = autoRefresh; }
+  if (rowFieldIndices.length > 0) {
+    pt.rowFieldIndices = rowFieldIndices;
+  }
+  if (colFieldIndices.length > 0) {
+    pt.colFieldIndices = colFieldIndices;
+  }
+  if (dataFields.length > 0) {
+    pt.dataFields = dataFields;
+  }
+  if (pageFields.length > 0) {
+    pt.pageFields = pageFields;
+  }
+  if (rowItems.length > 0) {
+    pt.rowItems = rowItems;
+  }
+  if (colItems.length > 0) {
+    pt.colItems = colItems;
+  }
+  if (style) {
+    pt.style = style;
+  }
+  if (rowGrandTotals != null) {
+    pt.rowGrandTotals = rowGrandTotals;
+  }
+  if (colGrandTotals != null) {
+    pt.colGrandTotals = colGrandTotals;
+  }
+  if (autoRefresh != null) {
+    pt.autoRefresh = autoRefresh;
+  }
 
   return pt;
 }
