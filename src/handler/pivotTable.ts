@@ -115,6 +115,7 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
   if (!locationEl) { return; }
 
   const ref = attr(locationEl, 'ref');
+  if (!ref) { return; }
   const firstHeaderRow = numAttr(locationEl, 'firstHeaderRow', 1);
   const firstDataRow = numAttr(locationEl, 'firstDataRow', 1);
   const firstDataCol = numAttr(locationEl, 'firstDataCol', 0);
@@ -244,6 +245,8 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
     if (showRowStripes != null) { style.showRowStripes = showRowStripes; }
     const showColStripes = boolAttr(styleInfo, 'showColStripes');
     if (showColStripes != null) { style.showColStripes = showColStripes; }
+    const showLastColumn = boolAttr(styleInfo, 'showLastColumn');
+    if (showLastColumn != null) { style.showLastColumn = showLastColumn; }
   }
 
   // Grand totals
