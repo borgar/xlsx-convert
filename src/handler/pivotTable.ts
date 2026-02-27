@@ -197,7 +197,7 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
   const dataFields: PivotDataField[] = [];
   for (const df of root.querySelectorAll('dataFields > dataField')) {
     const dataField: PivotDataField = {
-      name: attr(df, 'name'),
+      name: attr(df, 'name') ?? '',
       fieldIndex: numAttr(df, 'fld', 0),
     };
     const subtotal = parseEnum(attr(df, 'subtotal'), DATA_FIELD_AGGREGATIONS);
