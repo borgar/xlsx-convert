@@ -95,7 +95,8 @@ function parseRowColItems (root: Element, selector: string): PivotRowColItem[] {
     for (const x of el.getElementsByTagName('x')) {
       itemIndices.push(numAttr(x, 'v', 0));
     }
-    const item: PivotRowColItem = { itemIndices };
+    const item: PivotRowColItem = {};
+    if (itemIndices.length > 0) { item.itemIndices = itemIndices; }
     if (itemType != null) { item.itemType = itemType; }
     if (repeatedItemCount !== 0) { item.repeatedItemCount = repeatedItemCount; }
     items.push(item);
