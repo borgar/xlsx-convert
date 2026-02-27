@@ -28,33 +28,68 @@ const SUBTOTAL_ATTRS: PivotSubtotalFunction[] = [
   'varP',
 ];
 
-function parseItemType (value: string | null): PivotItemType | undefined {
+/** Parse a string as a member of a known set of enum values, returning undefined for unknown values. */
+function parseEnum<T extends string> (
+  value: string | null,
+  allowed: ReadonlySet<T>,
+): T | undefined {
   if (value == null) { return undefined; }
-  // map OOXML item types to our type names
-  const map: Record<string, PivotItemType> = {
-    data: 'data',
-    default: 'default',
-    sum: 'sum',
-    countA: 'countA',
-    avg: 'avg',
-    max: 'max',
-    min: 'min',
-    product: 'product',
-    count: 'count',
-    stdDev: 'stdDev',
-    stdDevP: 'stdDevP',
-    var: 'var',
-    varP: 'varP',
-    grand: 'grand',
-    blank: 'blank',
-  };
-  return map[value];
+  return allowed.has(value as T) ? (value as T) : undefined;
 }
+
+const ITEM_TYPES: ReadonlySet<PivotItemType> = new Set<PivotItemType>([
+  'data',
+  'default',
+  'sum',
+  'countA',
+  'avg',
+  'max',
+  'min',
+  'product',
+  'count',
+  'stdDev',
+  'stdDevP',
+  'var',
+  'varP',
+  'grand',
+  'blank',
+]);
+
+const DATA_FIELD_AGGREGATIONS: ReadonlySet<PivotDataFieldAggregation> =
+  new Set<PivotDataFieldAggregation>([
+    'average',
+    'count',
+    'countNums',
+    'max',
+    'min',
+    'product',
+    'stdDev',
+    'stdDevP',
+    'sum',
+    'var',
+    'varP',
+  ]);
+
+const SHOW_DATA_AS_VALUES: ReadonlySet<PivotShowDataAs> =
+  new Set<PivotShowDataAs>([
+    'normal',
+    'difference',
+    'percent',
+    'percentDiff',
+    'runTotal',
+    'percentOfRow',
+    'percentOfCol',
+    'percentOfTotal',
+    'percentOfParentRow',
+    'percentOfParentCol',
+    'percentOfParent',
+    'index',
+  ]);
 
 function parseRowColItems (root: Element, selector: string): PivotRowColItem[] {
   const items: PivotRowColItem[] = [];
   for (const el of root.querySelectorAll(selector)) {
-    const itemType = parseItemType(attr(el, 't'));
+    const itemType = parseEnum(attr(el, 't'), ITEM_TYPES);
     const repeatedItemCount = numAttr(el, 'r', 0);
     const itemIndices: number[] = [];
     for (const x of el.getElementsByTagName('x')) {
@@ -66,40 +101,6 @@ function parseRowColItems (root: Element, selector: string): PivotRowColItem[] {
     items.push(item);
   }
   return items;
-}
-
-function parseSubtotal (value: string | null): PivotDataFieldAggregation | undefined {
-  if (value == null) { return undefined; }
-  const map: Record<string, PivotDataFieldAggregation> = {
-    average: 'average',
-    count: 'count',
-    countNums: 'countNums',
-    max: 'max',
-    min: 'min',
-    product: 'product',
-    stdDev: 'stdDev',
-    stdDevP: 'stdDevP',
-    sum: 'sum',
-    var: 'var',
-    varP: 'varP',
-  };
-  return map[value];
-}
-
-function parseShowDataAs (value: string | null): PivotShowDataAs | undefined {
-  if (value == null) { return undefined; }
-  const map: Record<string, PivotShowDataAs> = {
-    normal: 'normal',
-    difference: 'difference',
-    percent: 'percent',
-    percentDiff: 'percentDiff',
-    runTotal: 'runTotal',
-    percentOfRow: 'percentOfRow',
-    percentOfCol: 'percentOfCol',
-    percentOfTotal: 'percentOfTotal',
-    index: 'index',
-  };
-  return map[value];
 }
 
 export function handlerPivotTable (dom: Document): PivotTable | undefined {
@@ -161,7 +162,7 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
         const fi: PivotFieldItem = {};
         const x = numAttr(item, 'x');
         if (x != null) { fi.itemIndex = x; }
-        const t = parseItemType(attr(item, 't'));
+        const t = parseEnum(attr(item, 't'), ITEM_TYPES);
         if (t != null) { fi.itemType = t; }
         const h = boolAttr(item, 'h');
         if (h === true) { fi.hidden = true; }
@@ -197,11 +198,11 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
       name: attr(df, 'name'),
       fieldIndex: numAttr(df, 'fld', 0),
     };
-    const subtotal = parseSubtotal(attr(df, 'subtotal'));
+    const subtotal = parseEnum(attr(df, 'subtotal'), DATA_FIELD_AGGREGATIONS);
     if (subtotal != null) {
       dataField.subtotal = subtotal;
     }
-    const showDataAs = parseShowDataAs(attr(df, 'showDataAs'));
+    const showDataAs = parseEnum(attr(df, 'showDataAs'), SHOW_DATA_AS_VALUES);
     if (showDataAs != null) {
       dataField.showDataAs = showDataAs;
     }
