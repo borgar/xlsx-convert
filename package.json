@@ -13,6 +13,9 @@
       "default": "./dist/index.js"
     }
   },
+  "bin": {
+    "xlsx-convert": "./dist/cli.cjs"
+  },
   "directories": {
     "test": "tests"
   },
@@ -36,7 +39,8 @@
   ],
   "tsup": {
     "entry": [
-      "src/index.ts"
+      "src/index.ts",
+      "src/cli.ts"
     ],
     "format": [
       "esm",
