@@ -2,6 +2,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { basename, extname } from 'node:path';
 import { convertBinary, convertCSV } from './index.ts';
+import type { Workbook } from '@jsfkit/types';
 
 type CliOptions = {
   input?: string;
@@ -63,21 +64,20 @@ async function main (): Promise<void> {
   const input = parsed.input;
   const lower = input.toLowerCase();
   const ext = extname(lower);
-  let outputJson: string;
+  let workbook: Workbook;
 
   if (ext === '.csv') {
     const csvText = await readFile(input, 'utf8');
-    const workbook = convertCSV(csvText, basename(input));
-    outputJson = JSON.stringify(workbook);
+    workbook = convertCSV(csvText, basename(input));
   }
   else if (ext === '.xlsx' || ext === '.xlsm') {
     const bin = await readFile(input);
-    const workbook = await convertBinary(bin, input);
-    outputJson = JSON.stringify(workbook);
+    workbook = await convertBinary(bin, input);
   }
   else {
     throw new Error('Unsupported file type. Expected .xlsx, .xlsm, or .csv.');
   }
+  const outputJson = JSON.stringify(workbook, null, 2);
 
   if (parsed.output) {
     await writeFile(parsed.output, outputJson + '\n');
