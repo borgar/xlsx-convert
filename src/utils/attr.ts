@@ -29,3 +29,23 @@ export function boolAttr<T = boolean | null> (
   const v = attr(node, name, fallBack);
   return v == null ? fallBack : !!+v;
 }
+
+export function dmlPercentAttr<T = number | null> (
+  node: Element,
+  name: string,
+  fallBack: T = null as unknown as T,
+): number | T {
+  const v = attr(node, name);
+  return v == null ? fallBack : +v * 0.001;
+}
+
+export function numStrAttr<T = number | null> (
+  node: Element,
+  name: string,
+  fallBack: T = null as unknown as T,
+): number | string | T {
+  const v = attr(node, name);
+  if (v == null) { return fallBack; }
+  if (isFinite(+v)) { return +v; }
+  return v;
+}

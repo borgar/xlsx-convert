@@ -2,7 +2,7 @@ import type { MetaData } from './handler/metadata.ts';
 import type { RDStruct } from './handler/rdstuct.ts';
 import type { RDValue } from './handler/rdvalue.ts';
 import type { Rel } from './handler/rels.ts';
-import type { Theme } from './handler/theme.ts';
+import { getBlankTheme, type Theme } from './handler/theme.ts';
 import type { RelativeFormula } from './RelativeFormula.ts';
 import type { External, Workbook } from '@jsfkit/types';
 import type { ConversionOptions } from './index.ts';
@@ -11,6 +11,12 @@ type SheetLink = {
   name: string;
   rId: string;
   index: number;
+};
+
+type RefLink = {
+  rel: Rel;
+  sheetName?: string;
+  type: string;
 };
 
 class FormulaList {
@@ -39,6 +45,7 @@ export class ConversionContext {
   sst: string[];
   options: ConversionOptions;
   rels: Rel[];
+  drawingRels: Rel[];
   theme: Theme;
   richStruct: RDStruct[];
   richValues: RDValue[];
@@ -50,13 +57,13 @@ export class ConversionContext {
   _shared: Map<number, RelativeFormula>;
   _merged: Record<string, string>;
   _arrayFormula: string[];
+  images: RefLink[];
 
   constructor () {
     this.rels = [];
     this.options = {};
     this.workbook = null;
-    this.sst = [];
-    this.theme = { scheme: {}, indexedColors: [] };
+    this.theme = getBlankTheme();
     this.richStruct = [];
     this.richValues = null;
     this.metadata = null;
@@ -67,5 +74,6 @@ export class ConversionContext {
     this._shared = new Map();
     this._merged = {};
     this._arrayFormula = [];
+    this.images = [];
   }
 }

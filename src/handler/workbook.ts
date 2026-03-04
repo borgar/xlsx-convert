@@ -63,6 +63,10 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
         epoch: wb.calculationProperties.epoch,
       };
     }
+    const calcMode = attr(calcPr, 'calcMode');
+    if (calcMode === 'autoNoTable' || calcMode === 'manual') {
+      wb.calculationProperties.calcMode = calcMode;
+    }
   }
 
   // Store "active sheet" (the last-used sheet at save) for each workbook view. Excel supports

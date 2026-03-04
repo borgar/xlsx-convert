@@ -4,14 +4,15 @@
     {
       "name": "Sheet1",
       "cells": {
-        "A1": { "v": "#NAME?", "t": "e", "f": 0, "s": 1 },
+        "A1": { "s": 1, "t": "e", "v": "#NAME?", "f": 0 },
         "A2": { "s": 2, "v": "#NAME?" }
       },
       "columns": [],
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 76, "rowHeight": 16 },
-      "hidden": 0
+      "hidden": 0,
+      "drawing": []
     }
   ],
   "names": [],
