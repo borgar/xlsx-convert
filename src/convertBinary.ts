@@ -229,6 +229,10 @@ export async function convertBinary (
   const styleDefs = await maybeRead(context, 'styles', handlerStyles);
   wb.styles = convertStyles(styleDefs);
 
+  // Initialize before the concurrent Promise.all so pushes from different
+  // sheet callbacks don't need a check-and-create guard across await points.
+  wb.pivotTables = [];
+
   // worksheets
   await Promise.all(context.sheetLinks.map(async (sheetLink, index) => {
     const sheetRel = context.rels.find(d => d.id === sheetLink.rId);
@@ -267,7 +271,6 @@ export async function convertBinary (
             }
             // Only include pivot tables whose cache was successfully parsed
             if (pt.cacheIndex >= 0) {
-              if (!wb.pivotTables) { wb.pivotTables = []; }
               wb.pivotTables.push(pt);
             }
           }
@@ -339,6 +342,11 @@ export async function convertBinary (
       // TODO: add strict mode that: throw new Error('No rel found for sheet ' + sheetLink.rId);
     }
   }));
+
+  // Remove empty pivotTables array if no pivot tables were found
+  if (wb.pivotTables.length === 0) {
+    delete wb.pivotTables;
+  }
 
   // Store people from the workbook.
   if (people.length > 0) {

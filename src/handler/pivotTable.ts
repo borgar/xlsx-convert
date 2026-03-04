@@ -389,7 +389,7 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
   const pt: PivotTable = {
     name,
     sheet: '', // resolved by caller
-    cacheIndex: -1, // resolved by caller
+    cacheIndex: -1, // sentinel: resolved by caller; kept only if >= 0
     ref,
     location,
     fields,
