@@ -43,13 +43,13 @@ export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefi
     for (const pageEl of consolidationEl.querySelectorAll('pages > page')) {
       const items: string[] = [];
       for (const itemEl of pageEl.getElementsByTagName('pageItem')) {
-        items.push(attr(itemEl, 'name'));
+        items.push(attr(itemEl, 'name') ?? '');
       }
       pages.push(items);
     }
     const rangeSets: PivotCacheConsolidationRangeSet[] = [];
     for (const rsEl of consolidationEl.querySelectorAll('rangeSets > rangeSet')) {
-      const rs: PivotCacheConsolidationRangeSet = { ref: attr(rsEl, 'ref') };
+      const rs: PivotCacheConsolidationRangeSet = { ref: attr(rsEl, 'ref') ?? '' };
       const sheet = attr(rsEl, 'sheet');
       if (sheet) { rs.sheet = sheet; }
       const i1 = numAttr(rsEl, 'i1');
@@ -99,19 +99,19 @@ function parseFields (root: Element): PivotCacheField[] {
       for (const child of sharedItemsEl.children) {
         switch (child.tagName) {
           case 's':
-            sharedItems.push({ type: 'string', value: attr(child, 'v') });
+            sharedItems.push({ type: 'string', value: attr(child, 'v') ?? '' });
             break;
           case 'n':
-            sharedItems.push({ type: 'number', value: +attr(child, 'v') });
+            sharedItems.push({ type: 'number', value: +(attr(child, 'v') ?? 0) });
             break;
           case 'b':
-            sharedItems.push({ type: 'boolean', value: !!+attr(child, 'v') });
+            sharedItems.push({ type: 'boolean', value: !!+(attr(child, 'v') ?? 0) });
             break;
           case 'd':
-            sharedItems.push({ type: 'date', value: attr(child, 'v') });
+            sharedItems.push({ type: 'date', value: attr(child, 'v') ?? '' });
             break;
           case 'e':
-            sharedItems.push({ type: 'error', value: attr(child, 'v') });
+            sharedItems.push({ type: 'error', value: attr(child, 'v') ?? '' });
             break;
           case 'm':
             sharedItems.push({ type: 'missing' });
