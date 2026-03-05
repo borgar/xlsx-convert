@@ -34,6 +34,15 @@ describe('handlerPivotCacheDefinition', () => {
     expect(parse(xml)).toBeUndefined();
   });
 
+  it('should return undefined for worksheetSource with ref but no sheet', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="worksheet">
+        <worksheetSource ref="A1:C10"/>
+      </cacheSource>
+    </pivotCacheDefinition>`;
+    expect(parse(xml)).toBeUndefined();
+  });
+
   it('should parse worksheetSource with name attribute (named range/table)', () => {
     const xml = `<pivotCacheDefinition>
       <cacheSource type="worksheet">
