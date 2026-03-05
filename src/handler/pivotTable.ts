@@ -39,6 +39,17 @@ function parseEnum<T extends string> (
   return allowed.has(value as T) ? (value as T) : undefined;
 }
 
+/** Set boolean properties on target when the XML attribute has the given non-default value. */
+function readBoolAttrs (
+  target: Record<string, unknown>, el: Element, specs: readonly [string, boolean][],
+): void {
+  for (const [prop, nonDefault] of specs) {
+    if (boolAttr(el, prop) === nonDefault) {
+      target[prop] = nonDefault;
+    }
+  }
+}
+
 const ITEM_TYPES: ReadonlySet<PivotItemType> = new Set<PivotItemType>([
   'data',
   'default',
@@ -154,15 +165,6 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
     else if (axis === 'axisPage') {
       field.axis = 'page';
     }
-    if (boolAttr(pf, 'dataField') === true) {
-      field.dataField = true;
-    }
-
-    const showAll = boolAttr(pf, 'showAll');
-    if (showAll === false) {
-      field.showAll = false;
-    }
-
     // check for explicit subtotal attributes on the field
     const subtotalFunctions: PivotSubtotalFunction[] = [];
     for (const fn of SUBTOTAL_ATTRS) {
@@ -219,57 +221,57 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
       }
     }
 
-    // Layout mode
-    if (boolAttr(pf, 'compact') === false) { field.compact = false; }
-    if (boolAttr(pf, 'outline') === false) { field.outline = false; }
-    if (boolAttr(pf, 'subtotalTop') === false) { field.subtotalTop = false; }
-    if (boolAttr(pf, 'insertBlankRow') === true) { field.insertBlankRow = true; }
+    // Boolean field attributes (non-default values only)
+    readBoolAttrs(field, pf, [
+      ['dataField', true],
+      ['showAll', false],
+      // Layout mode
+      ['compact', false],
+      ['outline', false],
+      ['subtotalTop', false],
+      ['insertBlankRow', true],
+      // Subtotal control
+      ['defaultSubtotal', false],
+      // UI/drag behavior
+      ['showDropDowns', false],
+      ['dragToRow', false],
+      ['dragToCol', false],
+      ['dragToPage', false],
+      ['dragToData', false],
+      ['dragOff', false],
+      ['multipleItemSelectionAllowed', true],
+      ['insertPageBreak', true],
+      ['hideNewItems', true],
+      ['includeNewItemsInFilter', true],
+      // Auto-show
+      ['autoShow', true],
+      ['topAutoShow', false],
+      // Sort
+      ['nonAutoSortDefault', true],
+      // OLAP-specific
+      ['hiddenLevel', true],
+      ['allDrilled', true],
+      ['serverField', true],
+      ['measureFilter', true],
+      ['showPropCell', true],
+      ['showPropTip', true],
+      ['showPropAsCaption', true],
+      ['defaultAttributeDrillState', true],
+    ]);
 
-    // Subtotal control
-    if (boolAttr(pf, 'defaultSubtotal') === false) { field.defaultSubtotal = false; }
+    // Non-boolean field attributes
     const subtotalCaption = attr(pf, 'subtotalCaption');
     if (subtotalCaption != null) { field.subtotalCaption = subtotalCaption; }
-
-    // Number format
     const pfNumFmtId = numAttr(pf, 'numFmtId');
     if (pfNumFmtId != null) { field.numFmtId = pfNumFmtId; }
-
-    // UI/drag behavior
-    if (boolAttr(pf, 'showDropDowns') === false) { field.showDropDowns = false; }
-    if (boolAttr(pf, 'dragToRow') === false) { field.dragToRow = false; }
-    if (boolAttr(pf, 'dragToCol') === false) { field.dragToCol = false; }
-    if (boolAttr(pf, 'dragToPage') === false) { field.dragToPage = false; }
-    if (boolAttr(pf, 'dragToData') === false) { field.dragToData = false; }
-    if (boolAttr(pf, 'dragOff') === false) { field.dragOff = false; }
-    if (boolAttr(pf, 'multipleItemSelectionAllowed') === true) { field.multipleItemSelectionAllowed = true; }
-    if (boolAttr(pf, 'insertPageBreak') === true) { field.insertPageBreak = true; }
-    if (boolAttr(pf, 'hideNewItems') === true) { field.hideNewItems = true; }
-    if (boolAttr(pf, 'includeNewItemsInFilter') === true) { field.includeNewItemsInFilter = true; }
-
-    // Auto-show
-    if (boolAttr(pf, 'autoShow') === true) { field.autoShow = true; }
-    if (boolAttr(pf, 'topAutoShow') === false) { field.topAutoShow = false; }
     const itemPageCount = numAttr(pf, 'itemPageCount');
     if (itemPageCount != null && itemPageCount !== 10) { field.itemPageCount = itemPageCount; }
-
-    // Sort (advanced)
     const dataSourceSort = boolAttr(pf, 'dataSourceSort');
     if (dataSourceSort != null) { field.dataSourceSort = dataSourceSort; }
-    if (boolAttr(pf, 'nonAutoSortDefault') === true) { field.nonAutoSortDefault = true; }
     const rankBy = numAttr(pf, 'rankBy');
     if (rankBy != null) { field.rankBy = rankBy; }
-
-    // OLAP-specific
-    if (boolAttr(pf, 'hiddenLevel') === true) { field.hiddenLevel = true; }
     const uniqueMemberProperty = attr(pf, 'uniqueMemberProperty');
     if (uniqueMemberProperty != null) { field.uniqueMemberProperty = uniqueMemberProperty; }
-    if (boolAttr(pf, 'allDrilled') === true) { field.allDrilled = true; }
-    if (boolAttr(pf, 'serverField') === true) { field.serverField = true; }
-    if (boolAttr(pf, 'measureFilter') === true) { field.measureFilter = true; }
-    if (boolAttr(pf, 'showPropCell') === true) { field.showPropCell = true; }
-    if (boolAttr(pf, 'showPropTip') === true) { field.showPropTip = true; }
-    if (boolAttr(pf, 'showPropAsCaption') === true) { field.showPropAsCaption = true; }
-    if (boolAttr(pf, 'defaultAttributeDrillState') === true) { field.defaultAttributeDrillState = true; }
 
     fields.push(field);
   }
@@ -426,53 +428,54 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
     pt.autoRefresh = autoRefresh;
   }
 
-  // Layout defaults (table-level)
-  if (boolAttr(root, 'compact') === false) { pt.compact = false; }
-  if (boolAttr(root, 'outline') === true) { pt.outline = true; }
-  if (boolAttr(root, 'outlineData') === true) { pt.outlineData = true; }
-  if (boolAttr(root, 'compactData') === false) { pt.compactData = false; }
-  if (boolAttr(root, 'gridDropZones') === true) { pt.gridDropZones = true; }
+  // Boolean table-level attributes (non-default values only)
+  readBoolAttrs(pt, root, [
+    // Layout defaults
+    ['compact', false],
+    ['outline', true],
+    ['outlineData', true],
+    ['compactData', false],
+    ['gridDropZones', true],
+    // Data axis
+    ['dataOnRows', true],
+    // Display options
+    ['showHeaders', false],
+    ['showEmptyRow', true],
+    ['showEmptyCol', true],
+    ['showDropZones', false],
+    // Captions
+    ['showError', true],
+    ['showMissing', false],
+    // Behavior
+    ['subtotalHiddenItems', true],
+    ['fieldPrintTitles', true],
+    ['itemPrintTitles', true],
+    ['mergeItem', true],
+    ['customListSort', false],
+    ['multipleFieldFilters', false],
+    ['preserveFormatting', false],
+    ['pageOverThenDown', true],
+  ]);
+
+  // Non-boolean table-level attributes
   const indent = numAttr(root, 'indent');
   if (indent != null && indent !== 1) { pt.indent = indent; }
-
-  // Data axis
-  if (boolAttr(root, 'dataOnRows') === true) { pt.dataOnRows = true; }
   const dataPosition = numAttr(root, 'dataPosition');
   if (dataPosition != null) { pt.dataPosition = dataPosition; }
-
-  // Display options
-  if (boolAttr(root, 'showHeaders') === false) { pt.showHeaders = false; }
-  if (boolAttr(root, 'showEmptyRow') === true) { pt.showEmptyRow = true; }
-  if (boolAttr(root, 'showEmptyCol') === true) { pt.showEmptyCol = true; }
-  if (boolAttr(root, 'showDropZones') === false) { pt.showDropZones = false; }
-
-  // Captions
   const dataCaption = attr(root, 'dataCaption');
   if (dataCaption != null) { pt.dataCaption = dataCaption; }
   const grandTotalCaption = attr(root, 'grandTotalCaption');
   if (grandTotalCaption != null) { pt.grandTotalCaption = grandTotalCaption; }
   const errorCaption = attr(root, 'errorCaption');
   if (errorCaption != null) { pt.errorCaption = errorCaption; }
-  if (boolAttr(root, 'showError') === true) { pt.showError = true; }
   const missingCaption = attr(root, 'missingCaption');
   if (missingCaption != null) { pt.missingCaption = missingCaption; }
-  if (boolAttr(root, 'showMissing') === false) { pt.showMissing = false; }
   const rowHeaderCaption = attr(root, 'rowHeaderCaption');
   if (rowHeaderCaption != null) { pt.rowHeaderCaption = rowHeaderCaption; }
   const colHeaderCaption = attr(root, 'colHeaderCaption');
   if (colHeaderCaption != null) { pt.colHeaderCaption = colHeaderCaption; }
-
-  // Behavior
-  if (boolAttr(root, 'subtotalHiddenItems') === true) { pt.subtotalHiddenItems = true; }
-  if (boolAttr(root, 'fieldPrintTitles') === true) { pt.fieldPrintTitles = true; }
-  if (boolAttr(root, 'itemPrintTitles') === true) { pt.itemPrintTitles = true; }
-  if (boolAttr(root, 'mergeItem') === true) { pt.mergeItem = true; }
-  if (boolAttr(root, 'customListSort') === false) { pt.customListSort = false; }
-  if (boolAttr(root, 'multipleFieldFilters') === false) { pt.multipleFieldFilters = false; }
-  if (boolAttr(root, 'preserveFormatting') === false) { pt.preserveFormatting = false; }
   const pageWrap = numAttr(root, 'pageWrap', 0);
   if (pageWrap !== 0) { pt.pageWrap = pageWrap; }
-  if (boolAttr(root, 'pageOverThenDown') === true) { pt.pageOverThenDown = true; }
 
   return pt;
 }
