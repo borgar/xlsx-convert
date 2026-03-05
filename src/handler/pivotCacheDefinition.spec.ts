@@ -265,6 +265,20 @@ describe('handlerPivotCacheDefinition', () => {
     expect(parse(xml)).toBeUndefined();
   });
 
+  it('should fallback to empty string when cacheField name attribute is missing', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="worksheet">
+        <worksheetSource ref="A1:B5" sheet="Data"/>
+      </cacheSource>
+      <cacheFields count="1">
+        <cacheField/>
+      </cacheFields>
+    </pivotCacheDefinition>`;
+    const cache = parse(xml)!;
+    expect(cache.fields).toHaveLength(1);
+    expect(cache.fields[0].name).toBe('');
+  });
+
   it('should parse scenario source', () => {
     const xml = `<pivotCacheDefinition>
       <cacheSource type="scenario"/>

@@ -85,7 +85,7 @@ function parseFields (root: Element): PivotCacheField[] {
     const numFmtId = numAttr(cf, 'numFmtId');
     const formula = attr(cf, 'formula');
 
-    const field: PivotCacheField = { name };
+    const field: PivotCacheField = { name: name ?? '' };
     if (numFmtId != null) {
       field.numFmtId = numFmtId;
     }
