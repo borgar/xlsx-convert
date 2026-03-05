@@ -195,6 +195,7 @@ export async function convertBinary (
   // pivot caches (workbook-level)
   const pivotCacheRels = context.rels.filter(d => d.type === 'pivotCacheDefinition');
   const cachePathToIndex = new Map<string, number>();
+  wb.pivotCaches = [];
   for (const cacheRel of pivotCacheRels) {
     const cacheDom = await getFile(cacheRel.target);
     if (cacheDom) {
@@ -212,12 +213,14 @@ export async function convertBinary (
             }
           }
         }
-        if (!wb.pivotCaches) { wb.pivotCaches = []; }
         const cacheIndex = wb.pivotCaches.length;
         wb.pivotCaches.push(cache);
         cachePathToIndex.set(cacheRel.target, cacheIndex);
       }
     }
+  }
+  if (wb.pivotCaches.length === 0) {
+    delete wb.pivotCaches;
   }
 
   // theme
