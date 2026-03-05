@@ -62,6 +62,24 @@ describe('handlerPivotCacheDefinition', () => {
     expect(cache.fields).toHaveLength(1);
   });
 
+  it('should parse worksheetSource with name and sheet but no ref', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="worksheet">
+        <worksheetSource name="SalesTable" sheet="Sheet1"/>
+      </cacheSource>
+      <cacheFields count="1">
+        <cacheField name="Amount"/>
+      </cacheFields>
+    </pivotCacheDefinition>`;
+    const cache = parse(xml)!;
+    expect(cache).toBeDefined();
+    expect(cache.sourceType).toBe('worksheet');
+    if (cache.sourceType !== 'worksheet') {
+      throw new Error('expected worksheet');
+    }
+    expect(cache.worksheetSource).toEqual({ name: 'SalesTable', sheet: 'Sheet1' });
+  });
+
   it('should parse worksheetSource with both name and ref/sheet', () => {
     const xml = `<pivotCacheDefinition>
       <cacheSource type="worksheet">
