@@ -276,6 +276,9 @@ export async function convertBinary (
             if (pt.cacheIndex >= 0) {
               wb.pivotTables.push(pt);
             }
+            else {
+              console.warn(`Pivot table "${pt.name}" on sheet "${sheetName}" dropped: cache definition not found (rel target: ${ptCacheRel?.target ?? 'none'})`);
+            }
           }
         }
       }
