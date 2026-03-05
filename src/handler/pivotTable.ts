@@ -43,7 +43,7 @@ function parseEnum<T extends string> (
 function readBoolAttrs (
   target: Record<string, unknown>, el: Element, specs: readonly [string, boolean][],
 ): void {
-  for (const [prop, nonDefault] of specs) {
+  for (const [ prop, nonDefault ] of specs) {
     if (boolAttr(el, prop) === nonDefault) {
       target[prop] = nonDefault;
     }
@@ -223,40 +223,40 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
 
     // Boolean field attributes (non-default values only)
     readBoolAttrs(field, pf, [
-      ['dataField', true],
-      ['showAll', false],
+      [ 'dataField', true ],
+      [ 'showAll', false ],
       // Layout mode
-      ['compact', false],
-      ['outline', false],
-      ['subtotalTop', false],
-      ['insertBlankRow', true],
+      [ 'compact', false ],
+      [ 'outline', false ],
+      [ 'subtotalTop', false ],
+      [ 'insertBlankRow', true ],
       // Subtotal control
-      ['defaultSubtotal', false],
+      [ 'defaultSubtotal', false ],
       // UI/drag behavior
-      ['showDropDowns', false],
-      ['dragToRow', false],
-      ['dragToCol', false],
-      ['dragToPage', false],
-      ['dragToData', false],
-      ['dragOff', false],
-      ['multipleItemSelectionAllowed', true],
-      ['insertPageBreak', true],
-      ['hideNewItems', true],
-      ['includeNewItemsInFilter', true],
+      [ 'showDropDowns', false ],
+      [ 'dragToRow', false ],
+      [ 'dragToCol', false ],
+      [ 'dragToPage', false ],
+      [ 'dragToData', false ],
+      [ 'dragOff', false ],
+      [ 'multipleItemSelectionAllowed', true ],
+      [ 'insertPageBreak', true ],
+      [ 'hideNewItems', true ],
+      [ 'includeNewItemsInFilter', true ],
       // Auto-show
-      ['autoShow', true],
-      ['topAutoShow', false],
+      [ 'autoShow', true ],
+      [ 'topAutoShow', false ],
       // Sort
-      ['nonAutoSortDefault', true],
+      [ 'nonAutoSortDefault', true ],
       // OLAP-specific
-      ['hiddenLevel', true],
-      ['allDrilled', true],
-      ['serverField', true],
-      ['measureFilter', true],
-      ['showPropCell', true],
-      ['showPropTip', true],
-      ['showPropAsCaption', true],
-      ['defaultAttributeDrillState', true],
+      [ 'hiddenLevel', true ],
+      [ 'allDrilled', true ],
+      [ 'serverField', true ],
+      [ 'measureFilter', true ],
+      [ 'showPropCell', true ],
+      [ 'showPropTip', true ],
+      [ 'showPropAsCaption', true ],
+      [ 'defaultAttributeDrillState', true ],
     ]);
 
     // Non-boolean field attributes
@@ -431,30 +431,30 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
   // Boolean table-level attributes (non-default values only)
   readBoolAttrs(pt, root, [
     // Layout defaults
-    ['compact', false],
-    ['outline', true],
-    ['outlineData', true],
-    ['compactData', false],
-    ['gridDropZones', true],
+    [ 'compact', false ],
+    [ 'outline', true ],
+    [ 'outlineData', true ],
+    [ 'compactData', false ],
+    [ 'gridDropZones', true ],
     // Data axis
-    ['dataOnRows', true],
+    [ 'dataOnRows', true ],
     // Display options
-    ['showHeaders', false],
-    ['showEmptyRow', true],
-    ['showEmptyCol', true],
-    ['showDropZones', false],
+    [ 'showHeaders', false ],
+    [ 'showEmptyRow', true ],
+    [ 'showEmptyCol', true ],
+    [ 'showDropZones', false ],
     // Captions
-    ['showError', true],
-    ['showMissing', false],
+    [ 'showError', true ],
+    [ 'showMissing', false ],
     // Behavior
-    ['subtotalHiddenItems', true],
-    ['fieldPrintTitles', true],
-    ['itemPrintTitles', true],
-    ['mergeItem', true],
-    ['customListSort', false],
-    ['multipleFieldFilters', false],
-    ['preserveFormatting', false],
-    ['pageOverThenDown', true],
+    [ 'subtotalHiddenItems', true ],
+    [ 'fieldPrintTitles', true ],
+    [ 'itemPrintTitles', true ],
+    [ 'mergeItem', true ],
+    [ 'customListSort', false ],
+    [ 'multipleFieldFilters', false ],
+    [ 'preserveFormatting', false ],
+    [ 'pageOverThenDown', true ],
   ]);
 
   // Non-boolean table-level attributes
