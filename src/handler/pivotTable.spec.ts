@@ -493,14 +493,17 @@ describe('handlerPivotTable', () => {
       <pivotFields count="0"/>
       <rowFields count="0"/><colFields count="0"/>
       <dataFields count="0"/>
-      <rowItems count="2">
+      <rowItems count="3">
         <i><x v="0"/></i>
+        <i i="0"><x v="0"/></i>
         <i i="1"><x v="0"/></i>
       </rowItems>
     </pivotTableDefinition>`;
     const pt = parse(xml)!;
+    // absent i attribute and i="0" are both suppressed (0 is the OOXML default)
     expect(pt.rowItems![0].dataFieldIndex).toBeUndefined();
-    expect(pt.rowItems![1].dataFieldIndex).toBe(1);
+    expect(pt.rowItems![1].dataFieldIndex).toBeUndefined();
+    expect(pt.rowItems![2].dataFieldIndex).toBe(1);
   });
 
   it('should parse row and column items', () => {
