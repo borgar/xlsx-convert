@@ -201,8 +201,25 @@
           ]
         },
         { "name": "Name", "numFmtId": 0 },
-        { "name": "Salary", "numFmtId": 0 }
+        {
+          "name": "Salary",
+          "numFmtId": 0,
+          "sharedItemsMeta": {
+            "containsSemiMixedTypes": false,
+            "containsString": false,
+            "containsNumber": true,
+            "containsInteger": true,
+            "minValue": 100641,
+            "maxValue": 100000000000000
+          }
+        }
       ],
+      "refreshedBy": "Gunnlaugur Þór Briem",
+      "refreshedDate": 45939.50231157408,
+      "recordCount": 15,
+      "createdVersion": 8,
+      "refreshedVersion": 8,
+      "minRefreshableVersion": 3,
       "records": [
         [
           { "x": 0 },
@@ -429,6 +446,16 @@
       "outlineData": true,
       "itemPrintTitles": true,
       "multipleFieldFilters": false,
+      "useAutoFormatting": true,
+      "applyNumberFormats": false,
+      "applyBorderFormats": false,
+      "applyFontFormats": false,
+      "applyPatternFormats": false,
+      "applyAlignmentFormats": false,
+      "applyWidthHeightFormats": true,
+      "createdVersion": 8,
+      "updatedVersion": 8,
+      "minRefreshableVersion": 3,
       "indent": 0,
       "dataCaption": "Values"
     }
