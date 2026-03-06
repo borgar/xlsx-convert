@@ -464,6 +464,8 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
     [ 'showEmptyCol', true ],
     [ 'showDropZones', false ],
     [ 'showMemberPropertyTips', false ],
+    [ 'enableDrill', false ],
+    [ 'showMultipleLabel', false ],
     // Captions
     [ 'showError', true ],
     [ 'showMissing', false ],
