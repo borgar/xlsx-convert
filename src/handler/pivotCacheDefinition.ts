@@ -114,29 +114,7 @@ function parseFields (root: Element): PivotCacheField[] {
 
     const sharedItemsEl = cf.getElementsByTagName('sharedItems')[0];
     if (sharedItemsEl) {
-      const sharedItems: PivotCacheSharedItem[] = [];
-      for (const child of sharedItemsEl.children) {
-        switch (child.tagName) {
-          case 's':
-            sharedItems.push({ type: 'string', value: attr(child, 'v') ?? '' });
-            break;
-          case 'n':
-            sharedItems.push({ type: 'number', value: +(attr(child, 'v') ?? 0) });
-            break;
-          case 'b':
-            sharedItems.push({ type: 'boolean', value: !!+(attr(child, 'v') ?? 0) });
-            break;
-          case 'd':
-            sharedItems.push({ type: 'date', value: attr(child, 'v') ?? '' });
-            break;
-          case 'e':
-            sharedItems.push({ type: 'error', value: attr(child, 'v') ?? '' });
-            break;
-          case 'm':
-            sharedItems.push({ type: 'missing' });
-            break;
-        }
-      }
+      const sharedItems = parseCacheItems(sharedItemsEl);
       if (sharedItems.length > 0) {
         field.sharedItems = sharedItems;
       }
@@ -158,6 +136,34 @@ function parseFields (root: Element): PivotCacheField[] {
     fields.push(field);
   }
   return fields;
+}
+
+/** Parse `<s>`, `<n>`, `<b>`, `<d>`, `<e>`, `<m>` children into shared/group items. */
+function parseCacheItems (container: Element): PivotCacheSharedItem[] {
+  const items: PivotCacheSharedItem[] = [];
+  for (const child of container.children) {
+    switch (child.tagName) {
+      case 's':
+        items.push({ type: 'string', value: attr(child, 'v') ?? '' });
+        break;
+      case 'n':
+        items.push({ type: 'number', value: +(attr(child, 'v') ?? 0) });
+        break;
+      case 'b':
+        items.push({ type: 'boolean', value: !!+(attr(child, 'v') ?? 0) });
+        break;
+      case 'd':
+        items.push({ type: 'date', value: attr(child, 'v') ?? '' });
+        break;
+      case 'e':
+        items.push({ type: 'error', value: attr(child, 'v') ?? '' });
+        break;
+      case 'm':
+        items.push({ type: 'missing' });
+        break;
+    }
+  }
+  return items;
 }
 
 const GROUP_BY_VALUES: ReadonlySet<PivotGroupBy> = new Set<PivotGroupBy>([
@@ -210,29 +216,7 @@ function parseFieldGroup (el: Element): PivotCacheFieldGroup | undefined {
   // groupItems
   const groupItemsEl = el.getElementsByTagName('groupItems')[0];
   if (groupItemsEl) {
-    const items: PivotCacheSharedItem[] = [];
-    for (const child of groupItemsEl.children) {
-      switch (child.tagName) {
-        case 's':
-          items.push({ type: 'string', value: attr(child, 'v') ?? '' });
-          break;
-        case 'n':
-          items.push({ type: 'number', value: +(attr(child, 'v') ?? 0) });
-          break;
-        case 'b':
-          items.push({ type: 'boolean', value: !!+(attr(child, 'v') ?? 0) });
-          break;
-        case 'd':
-          items.push({ type: 'date', value: attr(child, 'v') ?? '' });
-          break;
-        case 'e':
-          items.push({ type: 'error', value: attr(child, 'v') ?? '' });
-          break;
-        case 'm':
-          items.push({ type: 'missing' });
-          break;
-      }
-    }
+    const items = parseCacheItems(groupItemsEl);
     if (items.length > 0) { fg.groupItems = items; }
   }
 
