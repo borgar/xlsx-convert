@@ -96,6 +96,10 @@ function parseFields (root: Element): PivotCacheField[] {
     if (formula) {
       field.formula = formula;
     }
+    const databaseField = boolAttr(cf, 'databaseField');
+    if (databaseField === false) {
+      field.databaseField = false;
+    }
 
     const sharedItemsEl = cf.getElementsByTagName('sharedItems')[0];
     if (sharedItemsEl) {

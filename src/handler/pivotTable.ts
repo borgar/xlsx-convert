@@ -531,6 +531,17 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
   const filters = parseFilters(root);
   if (filters.length > 0) { pt.filters = filters; }
 
+  // Calculated fields
+  const calculatedFields: PivotTable['calculatedFields'] = [];
+  for (const cfEl of root.querySelectorAll('calculatedFields > calculatedField')) {
+    const cfName = attr(cfEl, 'name');
+    const cfFormula = attr(cfEl, 'formula');
+    if (cfName != null && cfFormula != null) {
+      calculatedFields.push({ name: cfName, formula: cfFormula });
+    }
+  }
+  if (calculatedFields.length > 0) { pt.calculatedFields = calculatedFields; }
+
   return pt;
 }
 
