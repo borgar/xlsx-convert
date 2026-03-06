@@ -1,6 +1,7 @@
 import type { Document, Element } from '@borgar/simple-xml';
 import type { PivotCache, PivotCacheConsolidationRangeSet, PivotCacheField, PivotCacheFieldGroup, PivotCacheRangePr, PivotCacheSharedItem, PivotCacheSharedItemsMeta, PivotCacheWorksheetSource, PivotGroupBy } from '@jsfkit/types';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
+import { serializeElement } from '../utils/serializeElement.ts';
 
 export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefined {
   const root = dom.getElementsByTagName('pivotCacheDefinition')[0];
@@ -15,6 +16,13 @@ export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefi
   // Cache metadata attributes
   const metadata = parseCacheMetadata(root);
 
+  // Extension list (opaque pass-through)
+  const extensions: string[] = [];
+  for (const extEl of root.querySelectorAll('extLst > ext')) {
+    extensions.push(serializeElement(extEl));
+  }
+  const extProps = extensions.length > 0 ? { extensions } : {};
+
   if (sourceType === 'worksheet') {
     const wsSource = cacheSource.getElementsByTagName('worksheetSource')[0];
     if (!wsSource) { return; }
@@ -23,11 +31,11 @@ export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefi
     const name = attr(wsSource, 'name');
     if (ref && sheet) {
       const worksheetSource: PivotCacheWorksheetSource = name ? { ref, sheet, name } : { ref, sheet };
-      return { sourceType: 'worksheet' as const, worksheetSource, fields, ...metadata };
+      return { sourceType: 'worksheet' as const, worksheetSource, fields, ...metadata, ...extProps };
     }
     if (name) {
       const worksheetSource: PivotCacheWorksheetSource = sheet ? { name, sheet } : { name };
-      return { sourceType: 'worksheet' as const, worksheetSource, fields, ...metadata };
+      return { sourceType: 'worksheet' as const, worksheetSource, fields, ...metadata, ...extProps };
     }
     return;
   }
@@ -35,7 +43,7 @@ export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefi
   if (sourceType === 'external') {
     const connectionId = numAttr(cacheSource, 'connectionId');
     if (connectionId == null) { return; }
-    return { sourceType: 'external' as const, connectionId, fields, ...metadata };
+    return { sourceType: 'external' as const, connectionId, fields, ...metadata, ...extProps };
   }
 
   if (sourceType === 'consolidation') {
@@ -74,11 +82,12 @@ export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefi
       },
       fields,
       ...metadata,
+      ...extProps,
     };
   }
 
   if (sourceType === 'scenario') {
-    return { sourceType: 'scenario' as const, fields, ...metadata };
+    return { sourceType: 'scenario' as const, fields, ...metadata, ...extProps };
   }
 }
 

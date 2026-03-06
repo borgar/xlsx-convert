@@ -23,6 +23,7 @@ import type {
   PivotTableStyle,
 } from '@jsfkit/types';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
+import { serializeElement } from '../utils/serializeElement.ts';
 
 const SUBTOTAL_ATTRS: PivotSubtotalFunction[] = [
   'sum',
@@ -530,6 +531,13 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
   // Filters
   const filters = parseFilters(root);
   if (filters.length > 0) { pt.filters = filters; }
+
+  // Extension list (opaque pass-through)
+  const extensions: string[] = [];
+  for (const extEl of root.querySelectorAll('extLst > ext')) {
+    extensions.push(serializeElement(extEl));
+  }
+  if (extensions.length > 0) { pt.extensions = extensions; }
 
   // Calculated fields
   const calculatedFields: PivotTable['calculatedFields'] = [];

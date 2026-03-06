@@ -220,6 +220,9 @@
       "createdVersion": 8,
       "refreshedVersion": 8,
       "minRefreshableVersion": 3,
+      "extensions": [
+        "<ext uri=\"{725AE2AE-9491-48be-B2B4-4EB974FC3084}\" xmlns:x14=\"http://schemas.microsoft.com/office/spreadsheetml/2009/9/main\"><x14:pivotCacheDefinition/></ext>"
+      ],
       "records": [
         [
           { "x": 0 },
@@ -457,7 +460,11 @@
       "updatedVersion": 8,
       "minRefreshableVersion": 3,
       "indent": 0,
-      "dataCaption": "Values"
+      "dataCaption": "Values",
+      "extensions": [
+        "<ext uri=\"{962EF5D1-5CA2-4c93-8EF4-DBF5C05439D2}\" xmlns:x14=\"http://schemas.microsoft.com/office/spreadsheetml/2009/9/main\"><x14:pivotTableDefinition hideValuesRow=\"1\" xmlns:xm=\"http://schemas.microsoft.com/office/excel/2006/main\"/></ext>",
+        "<ext uri=\"{747A6164-185A-40DC-8AA5-F01512510D54}\" xmlns:xpdl=\"http://schemas.microsoft.com/office/spreadsheetml/2016/pivotdefaultlayout\"><xpdl:pivotTableDefinition16/></ext>"
+      ]
     }
   ],
   "formulas": [
