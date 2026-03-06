@@ -282,6 +282,27 @@ describe('handlerPivotCacheDefinition', () => {
     expect(cache.consolidation.rangeSets).toEqual([ { ref: 'A1:B5', sheet: 'Sheet1' } ]);
   });
 
+  it('should omit ref on rangeSet when ref attribute is absent', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="consolidation">
+        <consolidation>
+          <rangeSets count="1">
+            <rangeSet sheet="Sheet1"/>
+          </rangeSets>
+        </consolidation>
+      </cacheSource>
+      <cacheFields count="0"/>
+    </pivotCacheDefinition>`;
+    const cache = parse(xml)!;
+    expect(cache.sourceType).toBe('consolidation');
+    if (cache.sourceType !== 'consolidation') {
+      throw new Error('expected consolidation');
+    }
+    expect(cache.consolidation.rangeSets).toEqual([ { sheet: 'Sheet1' } ]);
+    // ref should be absent, not set to empty string
+    expect(cache.consolidation.rangeSets[0]).not.toHaveProperty('ref');
+  });
+
   it('should return undefined for consolidation source without consolidation element', () => {
     const xml = `<pivotCacheDefinition>
       <cacheSource type="consolidation"/>

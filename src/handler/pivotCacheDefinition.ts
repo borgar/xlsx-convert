@@ -60,7 +60,9 @@ export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefi
     }
     const rangeSets: PivotCacheConsolidationRangeSet[] = [];
     for (const rsEl of consolidationEl.querySelectorAll('rangeSets > rangeSet')) {
-      const rs: PivotCacheConsolidationRangeSet = { ref: attr(rsEl, 'ref') ?? '' };
+      const rs: PivotCacheConsolidationRangeSet = {};
+      const rsRef = attr(rsEl, 'ref');
+      if (rsRef) { rs.ref = rsRef; }
       const sheet = attr(rsEl, 'sheet');
       if (sheet) { rs.sheet = sheet; }
       const i1 = numAttr(rsEl, 'i1');
