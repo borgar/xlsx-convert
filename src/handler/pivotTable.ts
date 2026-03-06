@@ -474,6 +474,8 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
     [ 'mergeItem', true ],
     [ 'customListSort', false ],
     [ 'multipleFieldFilters', false ],
+    [ 'showItems', false ],
+    [ 'showCalcMbrs', false ],
     [ 'preserveFormatting', false ],
     [ 'pageOverThenDown', true ],
   ]);
