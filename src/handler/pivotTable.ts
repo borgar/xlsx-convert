@@ -165,6 +165,8 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
   const fields: PivotField[] = [];
   for (const pf of root.querySelectorAll('pivotFields > pivotField')) {
     const field: PivotField = {};
+    const pfName = attr(pf, 'name');
+    if (pfName != null) { field.name = pfName; }
     const axis = attr(pf, 'axis');
     if (axis === 'axisRow') {
       field.axis = 'row';
