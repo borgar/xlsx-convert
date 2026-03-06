@@ -103,10 +103,13 @@ const SHOW_DATA_AS_VALUES: ReadonlySet<PivotShowDataAs> =
     'percentOfRow',
     'percentOfCol',
     'percentOfTotal',
+    'index',
     'percentOfParentRow',
     'percentOfParentCol',
     'percentOfParent',
-    'index',
+    'percentOfRunningTotal',
+    'rankAscending',
+    'rankDescending',
   ]);
 
 function parseRowColItems (root: Element, selector: string): PivotRowColItem[] {
