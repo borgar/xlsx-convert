@@ -230,6 +230,9 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
         if (boolAttr(item, 'sd') === false) {
           fi.expanded = false;
         }
+        if (boolAttr(item, 'm') === true) {
+          fi.missing = true;
+        }
         items.push(fi);
       }
       if (items.length > 0) {
@@ -310,8 +313,9 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
   // Data fields
   const dataFields: PivotDataField[] = [];
   for (const df of root.querySelectorAll('dataFields > dataField')) {
+    const dfName = attr(df, 'name');
     const dataField: PivotDataField = {
-      name: attr(df, 'name') ?? '',
+      ...(dfName != null ? { name: dfName } : {}),
       fieldIndex: numAttr(df, 'fld', 0),
     };
     const subtotal = parseEnum(attr(df, 'subtotal'), DATA_FIELD_AGGREGATIONS);
