@@ -538,6 +538,10 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
   const filters = parseFilters(root);
   if (filters.length > 0) { pt.filters = filters; }
 
+  // Revision-tracking UID (xr:uid)
+  const uid = attr(root, 'xr:uid');
+  if (uid != null) { pt.uid = uid; }
+
   // Extension list (opaque pass-through)
   const extensions: string[] = [];
   for (const extEl of root.querySelectorAll('extLst > ext')) {

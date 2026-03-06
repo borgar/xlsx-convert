@@ -176,6 +176,7 @@
   "pivotCaches": [
     {
       "sourceType": "worksheet",
+      "uid": "{93AACE53-8F3A-A04A-893A-A439866B3165}",
       "worksheetSource": { "ref": "A1:D16", "sheet": "Data" },
       "fields": [
         {
@@ -464,7 +465,8 @@
       "extensions": [
         "<ext uri=\"{962EF5D1-5CA2-4c93-8EF4-DBF5C05439D2}\" xmlns:x14=\"http://schemas.microsoft.com/office/spreadsheetml/2009/9/main\"><x14:pivotTableDefinition hideValuesRow=\"1\" xmlns:xm=\"http://schemas.microsoft.com/office/excel/2006/main\"/></ext>",
         "<ext uri=\"{747A6164-185A-40DC-8AA5-F01512510D54}\" xmlns:xpdl=\"http://schemas.microsoft.com/office/spreadsheetml/2016/pivotdefaultlayout\"><xpdl:pivotTableDefinition16/></ext>"
-      ]
+      ],
+      "uid": "{916D59D8-6143-8142-9B4B-F15BE71C47B7}"
     }
   ],
   "formulas": [
