@@ -278,6 +278,7 @@ type CacheMetadata = {
   saveData?: boolean;
   refreshOnLoad?: boolean;
   enableRefresh?: boolean;
+  upgradeOnRefresh?: boolean;
 };
 
 function parseCacheMetadata (root: Element): CacheMetadata {
@@ -302,5 +303,7 @@ function parseCacheMetadata (root: Element): CacheMetadata {
   if (refreshOnLoad != null) { result.refreshOnLoad = refreshOnLoad; }
   const enableRefresh = boolAttr(root, 'enableRefresh');
   if (enableRefresh != null) { result.enableRefresh = enableRefresh; }
+  const upgradeOnRefresh = boolAttr(root, 'upgradeOnRefresh');
+  if (upgradeOnRefresh != null) { result.upgradeOnRefresh = upgradeOnRefresh; }
   return result;
 }
