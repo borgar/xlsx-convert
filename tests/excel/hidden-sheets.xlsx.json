@@ -1,5 +1,5 @@
 {
-  "name": "hidden-sheet.xlsx",
+  "name": "hidden-sheets.xlsx",
   "formulas": [],
   "sheets": [
     {
@@ -30,6 +30,18 @@
       "name": "Sheet2",
       "hidden": 1,
       "cells": { "A1": { "v": "hidden sheet" } },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": {
+        "rowHeight": 16,
+        "colWidth": 65
+      }
+    },
+    {
+      "name": "Sheet4",
+      "hidden": 2,
+      "cells": { "A1": { "v": "there is no sheet 4..." } },
       "columns": [],
       "rows": [],
       "merges": [],
