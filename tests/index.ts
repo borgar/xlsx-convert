@@ -56,6 +56,10 @@ const tests = [
   'tests/excel/text-rotation.xlsx',
   'tests/excel/workbook-views.xlsx',
   'tests/excel/zooms.xlsx',
+  'tests/excel/cells-without-r-attributes.xlsx',
+  'tests/excel/row-col-styles.xlsx',
+  'tests/excel/missing-external.xlsx',
+  'tests/excel/trimmed-ranges.xlsx',
   // CSV conversion
   'tests/csv/boolean-variations.csv',
   'tests/csv/complex-mixed-types.csv',
