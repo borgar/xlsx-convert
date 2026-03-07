@@ -31,6 +31,7 @@ const tests = [
   'tests/excel/fonts.xlsx',
   'tests/excel/grouped-grouped-charts.xlsx',
   'tests/excel/gt-in-attr-value.xlsx',
+  'tests/excel/hidden-sheet.xlsx',
   'tests/excel/hyperlinks.xlsx',
   'tests/excel/image-backgrounds-dimensions.xlsx',
   'tests/excel/image-with-most-options-set.xlsx',

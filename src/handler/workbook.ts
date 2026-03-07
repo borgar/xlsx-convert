@@ -28,7 +28,9 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
         name: attr(d, 'name'),
         index: numAttr(d, 'sheetId'),
         rId: attr(d, 'r:id'),
+        hidden: attr(d, 'state') === 'hidden',
       });
+      console.log('Found sheet:', context.sheetLinks[context.sheetLinks.length - 1]);
     });
 
   // FIXME: discard names that appear twice

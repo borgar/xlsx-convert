@@ -11,6 +11,7 @@ type SheetLink = {
   name: string;
   rId: string;
   index: number;
+  hidden?: boolean; // XXX: should perhaps instead track "state" from OOXML
 };
 
 type RefLink = {
