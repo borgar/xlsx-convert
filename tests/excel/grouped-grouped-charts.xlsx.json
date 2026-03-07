@@ -1,0 +1,103 @@
+{
+  "name": "grouped-grouped-charts.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "a" },
+        "B1": { "v": 1 },
+        "A2": { "v": "b" },
+        "B2": { "v": 2 },
+        "A3": { "v": "c" },
+        "B3": { "v": 3 }
+      },
+      "columns": [
+        { "start": 9, "end": 9, "size": 57 }
+      ],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "K6" }
+      ],
+      "drawing": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 5, "rowOff": 0, "col": 3, "colOff": 0 },
+            "to": {
+              "row": 17,
+              "rowOff": 38100,
+              "col": 12,
+              "colOff": 778142
+            }
+          },
+          "content": [
+            {
+              "type": "group",
+              "id": "16",
+              "name": "Group 15",
+              "content": [
+                {
+                  "type": "group",
+                  "id": "12",
+                  "name": "Group 11",
+                  "content": [
+                    {
+                      "type": "chart",
+                      "id": "14",
+                      "name": "Chart 13",
+                      "chartId": "rId2",
+                      "xfrm": {
+                        "off": { "x": 4127500, "y": 2235200 },
+                        "ext": { "cx": 2882900, "cy": 2882900 }
+                      }
+                    }
+                  ],
+                  "xfrm": {
+                    "off": { "x": 2476500, "y": 1016000 },
+                    "ext": { "cx": 5211420, "cy": 2476500 },
+                    "chOff": { "x": 4127500, "y": 2235200 },
+                    "chExt": { "cx": 6184900, "cy": 2882900 }
+                  }
+                },
+                {
+                  "type": "chart",
+                  "id": "15",
+                  "name": "Chart 14",
+                  "chartId": "rId3",
+                  "xfrm": {
+                    "off": { "x": 8153400, "y": 1016000 },
+                    "ext": { "cx": 2429142, "cy": 2476500 }
+                  }
+                }
+              ],
+              "xfrm": {
+                "off": { "x": 2476500, "y": 1016000 },
+                "ext": { "cx": 8106042, "cy": 2476500 },
+                "chOff": { "x": 2476500, "y": 1016000 },
+                "chExt": { "cx": 8106042, "cy": 2476500 }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [],
+  "views": [
+    {}
+  ],
+  "formulas": []
+}

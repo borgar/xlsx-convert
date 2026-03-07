@@ -1,4 +1,4 @@
-import { Color } from '../color.ts';
+import { Color } from '../color/Color.ts';
 import type { StyleDefs } from '../handler/styles.ts';
 import type { Style } from '@jsfkit/types';
 

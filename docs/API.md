@@ -809,6 +809,7 @@ CSV convertion options
 ```ts
 type ConversionOptions = {
   cellFormulas?: boolean;
+  imageCallback?: (data?: ArrayBuffer, filename?: string) => Promise<string | void> | string | void;
   skipMerged?: boolean;
 };
 ```
@@ -820,4 +821,5 @@ Convertion options
 | Property | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
 | <a id="cellformulas"></a> `cellFormulas?` | `boolean` | `false` | Formulas are attached to cells rather than being included as a separate list. |
+| <a id="imagecallback"></a> `imageCallback?` | (`data?`: `ArrayBuffer`, `filename?`: `string`) => `Promise`\<`string` \| `void`\> \| `string` \| `void` | `undefined` | Image reading callback. All read images are passed through this callback if it is provided. This is useful, for example, for extracting the images to disk. If the return value is a string, the value will be used in the images record on the workbook instead of the standard data-URI conversion. |
 | <a id="skipmerged"></a> `skipMerged?` | `boolean` | `true` | Skip cells that are a part of merges. |

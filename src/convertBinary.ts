@@ -22,6 +22,9 @@ import { handlerTable } from './handler/table.ts';
 import type { Workbook } from '@jsfkit/types';
 import type { ConversionOptions } from './index.ts';
 import { EncryptionError, InvalidFileError, MissingSheetError } from './errors.ts';
+import { handlerDrawing } from './handler/drawing.ts';
+import { arrayBufferToDataUri } from './utils/arrayBufferToDataUri.ts';
+import { getMimeType } from './utils/getMimeType.ts';
 
 function toArrayBuffer (buffer: Buffer): ArrayBuffer {
   const arrayBuffer = new ArrayBuffer(buffer.length);
@@ -90,6 +93,19 @@ export async function convertBinary (
     }
   };
 
+  const getBinaryFile = async (f: string) => {
+    try {
+      let fd = await zip.readFile(f, 'binary');
+      if (!fd && f.startsWith('xl/xl/')) {
+        fd = await zip.readFile(f.slice(3), 'binary');
+      }
+      return fd ?? null;
+    }
+    catch (err) {
+      throw new InvalidFileError('Input file type is corrupted');
+    }
+  };
+
   const getRels = async (f = '') => {
     const fDir = pathDirname(f);
     const fBfn = pathBasename(f);
@@ -104,8 +120,7 @@ export async function convertBinary (
     fallback: any = null,
     rels: Rel[] | null = null,
   ): Promise<ReturnType<T>> {
-    const rel = (rels || context.rels)
-      .find(d => d.type === type);
+    const rel = (rels || context.rels).find(d => d.type === type);
     if (rel) {
       const dom = await getFile(rel.target);
       if (dom) {
@@ -170,11 +185,16 @@ export async function convertBinary (
   // richData
   context.richStruct = await maybeRead(context, 'rdRichValueStructure', handlerRDStruct);
   context.richValues = await maybeRead(context, 'rdRichValue', handlerRDValue);
+
   // metadata
   context.metadata = await maybeRead(context, 'sheetMetadata', handlerMetaData);
 
-  // theme / styles
-  context.theme = await maybeRead(context, 'theme', handlerTheme) ?? getBlankTheme();
+  // theme
+  const themeRel = context.rels.find(d => d.type === 'theme');
+  const themeRels = themeRel ? await getRels(themeRel.target) : [];
+  context.theme = await maybeRead(context, 'theme', handlerTheme, null, themeRels) ?? getBlankTheme();
+
+  // styles
   const styleDefs = await maybeRead(context, 'styles', handlerStyles);
   wb.styles = convertStyles(styleDefs);
 
@@ -202,8 +222,9 @@ export async function convertBinary (
       if (!sheetFile) {
         throw new MissingSheetError('Missing sheet file: ' + sheetRel.target);
       }
-      const sh = handlerWorksheet(sheetFile, context, sheetRels);
-      sh.name = sheetName;
+
+      context.images = [];
+      const sh = handlerWorksheet(sheetFile, context, sheetRels, sheetName);
 
       // Notes (old school, 90s, sticky notes).
       const notes = await maybeRead(context, 'comments', handlerNotes, [], sheetRels);
@@ -218,6 +239,44 @@ export async function convertBinary (
       }
 
       wb.sheets[index] = sh;
+
+      // process images
+      if (context.images.length) {
+        let imageCount = 0;
+        const images = {};
+        for (const img of context.images) {
+          if (img.type === 'picture') {
+            // sheet.background = ...
+
+            // only do this once per image file
+            if (!images[img.rel.target]) {
+              // img.rel.type should be "image"
+              const fileData = await getBinaryFile(img.rel.target);
+              if (fileData) {
+                const mime = getMimeType(img.rel.target);
+                let imageValue: string | null = null;
+                if (options.imageCallback) {
+                  const ret = await options.imageCallback(fileData, img.rel.target);
+                  if (typeof ret === 'string') { imageValue = ret; }
+                }
+                if (typeof imageValue !== 'string') {
+                  imageValue = await arrayBufferToDataUri(fileData, mime);
+                }
+                images[img.rel.target] = imageValue;
+                imageCount++;
+              }
+            }
+          }
+          if (img.type === 'drawing' && img.rel.type === 'drawing') {
+            const drawingDom = await getFile(img.rel.target);
+            context.drawingRels = await getRels(img.rel.target);
+            sh.drawing = handlerDrawing(drawingDom, context);
+          }
+        }
+        if (imageCount) {
+          wb.images = images;
+        }
+      }
     }
     else {
       // TODO: add strict mode that: throw new Error('No rel found for sheet ' + sheetLink.rId);
