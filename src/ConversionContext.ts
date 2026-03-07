@@ -58,6 +58,7 @@ export class ConversionContext {
   _merged: Record<string, string>;
   _arrayFormula: string[];
   images: RefLink[];
+  isLikelyGoogleSheets: boolean;
 
   constructor () {
     this.rels = [];
@@ -75,5 +76,6 @@ export class ConversionContext {
     this._merged = {};
     this._arrayFormula = [];
     this.images = [];
+    this.isLikelyGoogleSheets = false;
   }
 }

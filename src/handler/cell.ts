@@ -115,25 +115,12 @@ export function handlerCell (node: Element, context: ConversionContext): Cell {
       cell.v = context.sst ? context.sst[toInt(v)] : '';
     }
     else if (valueType === 'str') {
-      // Excel stores cells with formula errors like this:
-      //
-      //     <c r="A1" t="e" cm="1">
-      //       <f t="array" aca="1" ref="A1" ca="1">FOO()</f>
-      //       <v>#NAME?</v>
-      //     </c>
-      //
-      // Whereas Google Sheets stores the same error like this:
-      //
-      //     <c r="A1" s="1" t="str">
-      //       <f>FOO()</f>
-      //       <v>#NAME?</v>
-      //     </c>
-      //
-      // The key difference is that Excel marks the cell as having an error (`t="e"`) but Google
-      // Sheets doesn't (`t="str"`). That means we have to check whether we have a formula and the
-      // value looks like a known error. If it does, treat it as an error. Otherwise, it's just a
-      // string.
-      if (fNode && v && ERROR_NAMES.includes(v)) {
+      // Excel marks formula errors with `t="e"`, but Google Sheets uses
+      // `t="str"` with an error-looking cached value (e.g. "#NAME?"). For
+      // Google Sheets exports we treat these as errors. For other sources,
+      // `t="str"` means the formula genuinely evaluated to a string — even
+      // one that looks like an error name (e.g. `=A1` where A1 is "#VALUE!").
+      if (context.isLikelyGoogleSheets && fNode && v && ERROR_NAMES.includes(v)) {
         valueType = 'e';
         cell.t = 'e';
         cell.v = v;
