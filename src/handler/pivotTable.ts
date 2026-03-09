@@ -117,31 +117,7 @@ function parseRowColItems (root: Element, selector: string): PivotRowColItem[] {
   return items;
 }
 
-export function handlerPivotTable (dom: Document): PivotTable | undefined {
-  const root = dom.getElementsByTagName('pivotTableDefinition')[0];
-  if (!root) {
-    return;
-  }
-
-  const name = attr(root, 'name');
-  if (!name) {
-    return;
-  }
-
-  const locationEl = root.getElementsByTagName('location')[0];
-  if (!locationEl) {
-    return;
-  }
-
-  const ref = attr(locationEl, 'ref');
-  if (!ref) {
-    return;
-  }
-  const firstHeaderRow = numAttr(locationEl, 'firstHeaderRow', 1);
-  const firstDataRow = numAttr(locationEl, 'firstDataRow', 1);
-  const firstDataCol = numAttr(locationEl, 'firstDataCol', 0);
-
-  // Parse pivot fields
+function parsePivotFields (root: Element): PivotField[] {
   const fields: PivotField[] = [];
   for (const pf of root.querySelectorAll('pivotFields > pivotField')) {
     const field: PivotField = {};
@@ -270,23 +246,10 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
 
     fields.push(field);
   }
+  return fields;
+}
 
-  // Row fields
-  const rowFieldIndices: number[] = [];
-  for (const f of root.querySelectorAll('rowFields > field')) {
-    rowFieldIndices.push(numAttr(f, 'x', 0));
-  }
-
-  // Column fields
-  const colFieldIndices: number[] = [];
-  for (const f of root.querySelectorAll('colFields > field')) {
-    colFieldIndices.push(numAttr(f, 'x', 0));
-  }
-
-  const rowItems = parseRowColItems(root, 'rowItems > i');
-  const colItems = parseRowColItems(root, 'colItems > i');
-
-  // Data fields
+function parseDataFields (root: Element): PivotDataField[] {
   const dataFields: PivotDataField[] = [];
   for (const df of root.querySelectorAll('dataFields > dataField')) {
     const dfName = attr(df, 'name');
@@ -316,8 +279,10 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
     }
     dataFields.push(dataField);
   }
+  return dataFields;
+}
 
-  // Page fields
+function parsePageFields (root: Element): PivotPageField[] {
   const pageFields: PivotPageField[] = [];
   for (const pf of root.querySelectorAll('pageFields > pageField')) {
     const pageField: PivotPageField = {
@@ -341,37 +306,86 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
     }
     pageFields.push(pageField);
   }
+  return pageFields;
+}
 
-  // Style
-  let style: PivotTableStyle | undefined;
+function parseStyle (root: Element): PivotTableStyle | undefined {
   const styleInfo = root.getElementsByTagName('pivotTableStyleInfo')[0];
-  if (styleInfo) {
-    style = {};
-    const styleName = attr(styleInfo, 'name');
-    if (styleName) {
-      style.name = styleName;
-    }
-    const showRowHeaders = boolAttr(styleInfo, 'showRowHeaders');
-    if (showRowHeaders != null) {
-      style.showRowHeaders = showRowHeaders;
-    }
-    const showColHeaders = boolAttr(styleInfo, 'showColHeaders');
-    if (showColHeaders != null) {
-      style.showColHeaders = showColHeaders;
-    }
-    const showRowStripes = boolAttr(styleInfo, 'showRowStripes');
-    if (showRowStripes != null) {
-      style.showRowStripes = showRowStripes;
-    }
-    const showColStripes = boolAttr(styleInfo, 'showColStripes');
-    if (showColStripes != null) {
-      style.showColStripes = showColStripes;
-    }
-    const showLastColumn = boolAttr(styleInfo, 'showLastColumn');
-    if (showLastColumn != null) {
-      style.showLastColumn = showLastColumn;
-    }
+  if (!styleInfo) { return; }
+  const style: PivotTableStyle = {};
+  const styleName = attr(styleInfo, 'name');
+  if (styleName) {
+    style.name = styleName;
   }
+  const showRowHeaders = boolAttr(styleInfo, 'showRowHeaders');
+  if (showRowHeaders != null) {
+    style.showRowHeaders = showRowHeaders;
+  }
+  const showColHeaders = boolAttr(styleInfo, 'showColHeaders');
+  if (showColHeaders != null) {
+    style.showColHeaders = showColHeaders;
+  }
+  const showRowStripes = boolAttr(styleInfo, 'showRowStripes');
+  if (showRowStripes != null) {
+    style.showRowStripes = showRowStripes;
+  }
+  const showColStripes = boolAttr(styleInfo, 'showColStripes');
+  if (showColStripes != null) {
+    style.showColStripes = showColStripes;
+  }
+  const showLastColumn = boolAttr(styleInfo, 'showLastColumn');
+  if (showLastColumn != null) {
+    style.showLastColumn = showLastColumn;
+  }
+  return style;
+}
+
+export function handlerPivotTable (dom: Document): PivotTable | undefined {
+  const root = dom.getElementsByTagName('pivotTableDefinition')[0];
+  if (!root) {
+    return;
+  }
+
+  const name = attr(root, 'name');
+  if (!name) {
+    return;
+  }
+
+  const locationEl = root.getElementsByTagName('location')[0];
+  if (!locationEl) {
+    return;
+  }
+
+  const ref = attr(locationEl, 'ref');
+  if (!ref) {
+    return;
+  }
+  const firstHeaderRow = numAttr(locationEl, 'firstHeaderRow', 1);
+  const firstDataRow = numAttr(locationEl, 'firstDataRow', 1);
+  const firstDataCol = numAttr(locationEl, 'firstDataCol', 0);
+
+  const fields = parsePivotFields(root);
+
+  // Row fields
+  const rowFieldIndices: number[] = [];
+  for (const f of root.querySelectorAll('rowFields > field')) {
+    rowFieldIndices.push(numAttr(f, 'x', 0));
+  }
+
+  // Column fields
+  const colFieldIndices: number[] = [];
+  for (const f of root.querySelectorAll('colFields > field')) {
+    colFieldIndices.push(numAttr(f, 'x', 0));
+  }
+
+  const rowItems = parseRowColItems(root, 'rowItems > i');
+  const colItems = parseRowColItems(root, 'colItems > i');
+
+  const dataFields = parseDataFields(root);
+
+  const pageFields = parsePageFields(root);
+
+  const style = parseStyle(root);
 
   // Grand totals
   const rowGrandTotals = boolAttr(root, 'rowGrandTotals');
