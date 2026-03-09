@@ -342,6 +342,52 @@ describe('handlerPivotCacheDefinition', () => {
     expect(cache.fields[0]).not.toHaveProperty('fieldGroup');
   });
 
+  it('should parse all sharedItemsMeta attributes', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="worksheet">
+        <worksheetSource ref="A1:A10" sheet="Data"/>
+      </cacheSource>
+      <cacheFields count="1">
+        <cacheField name="Mixed">
+          <sharedItems containsBlank="1" containsMixedTypes="1" containsSemiMixedTypes="0" containsString="0" containsNumber="1" containsInteger="0" containsDate="1" containsNonDate="0" minValue="1.5" maxValue="99.9" minDate="2024-01-01T00:00:00" maxDate="2024-12-31T00:00:00">
+            <n v="42"/>
+          </sharedItems>
+        </cacheField>
+      </cacheFields>
+    </pivotCacheDefinition>`;
+    const cache = parse(xml)!;
+    expect(cache.fields[0].sharedItemsMeta).toEqual({
+      containsBlank: true,
+      containsMixedTypes: true,
+      containsSemiMixedTypes: false,
+      containsString: false,
+      containsNumber: true,
+      containsInteger: false,
+      containsDate: true,
+      containsNonDate: false,
+      minValue: 1.5,
+      maxValue: 99.9,
+      minDate: '2024-01-01T00:00:00',
+      maxDate: '2024-12-31T00:00:00',
+    });
+  });
+
+  it('should omit sharedItemsMeta when no metadata attributes are present', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="worksheet">
+        <worksheetSource ref="A1:A5" sheet="Data"/>
+      </cacheSource>
+      <cacheFields count="1">
+        <cacheField name="Col">
+          <sharedItems><s v="a"/></sharedItems>
+        </cacheField>
+      </cacheFields>
+    </pivotCacheDefinition>`;
+    const cache = parse(xml)!;
+    expect(cache.fields[0].sharedItems).toHaveLength(1);
+    expect(cache.fields[0].sharedItemsMeta).toBeUndefined();
+  });
+
   it('should parse scenario source', () => {
     const xml = `<pivotCacheDefinition>
       <cacheSource type="scenario"/>
