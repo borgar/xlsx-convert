@@ -200,8 +200,9 @@ export async function convertBinary (
   const styleDefs = await maybeRead(context, 'styles', handlerStyles);
   wb.styles = convertStyles(styleDefs);
 
-  // worksheets
-  await Promise.all(context.sheetLinks.map(async (sheetLink, index) => {
+  // worksheets — processed sequentially to avoid shared-state races on
+  // context.images and context.drawingRels between await points
+  for (const [ index, sheetLink ] of context.sheetLinks.entries()) {
     const sheetRel = context.rels.find(d => d.id === sheetLink.rId);
     if (sheetRel) {
       const sheetName = sheetLink.name || `Sheet${sheetLink.index}`;
@@ -276,14 +277,15 @@ export async function convertBinary (
           }
         }
         if (imageCount) {
-          wb.images = images;
+          wb.images ??= {};
+          Object.assign(wb.images, images);
         }
       }
     }
     else {
       // TODO: add strict mode that: throw new Error('No rel found for sheet ' + sheetLink.rId);
     }
-  }));
+  }
 
   // Store people from the workbook.
   if (people.length > 0) {

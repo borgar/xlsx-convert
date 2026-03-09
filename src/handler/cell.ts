@@ -45,11 +45,11 @@ function prepFormula (formula: string | RelativeFormula, cellId: string, context
       if (typeof formula === 'string') {
         tokens = tokenize(formula, { allowTernary: true });
         tokens = translateTokensToR1C1(tokens, cellId);
-        normalizeFormulaTokens(tokens, context, true);
+        tokens = normalizeFormulaTokens(tokens, context, true);
       }
       else {
         tokens = formula.getR1C1Tokens();
-        normalizeFormulaTokens(tokens, context, true);
+        tokens = normalizeFormulaTokens(tokens, context, true);
       }
       const rc = stringifyTokens(tokens);
       return context._formulasR1C1.add(rc);
