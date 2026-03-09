@@ -360,16 +360,6 @@ export async function convertBinary (
     }
   }
 
-  // Stabilize pivot table order after concurrent sheet processing: sort by
-  // sheet position (in the workbook's sheet list), then by name within each sheet.
-  if (wb.pivotTables.length > 1) {
-    const sheetOrder = new Map(context.sheetLinks.map((sl, i) => [ sl.name || `Sheet${sl.index}`, i ]));
-    wb.pivotTables.sort((a, b) => {
-      const si = (sheetOrder.get(a.sheet) ?? Infinity) - (sheetOrder.get(b.sheet) ?? Infinity);
-      return si !== 0 ? si : a.name.localeCompare(b.name);
-    });
-  }
-
   if (wb.pivotTables.length === 0) {
     delete wb.pivotTables;
   }
