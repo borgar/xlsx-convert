@@ -733,4 +733,27 @@ describe('handlerPivotTable', () => {
     const pt = parse(xml)!;
     expect(pt.filters).toBeUndefined();
   });
+
+  it('should parse calculatedFields', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="0"/>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="0"/>
+      <calculatedFields count="2">
+        <calculatedField name="Profit" formula="Revenue - Cost"/>
+        <calculatedField name="Margin" formula="Profit / Revenue"/>
+      </calculatedFields>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.calculatedFields).toEqual([
+      { name: 'Profit', formula: 'Revenue - Cost' },
+      { name: 'Margin', formula: 'Profit / Revenue' },
+    ]);
+  });
+
+  it('should omit calculatedFields when absent', () => {
+    const pt = parse(MINIMAL_PT)!;
+    expect(pt.calculatedFields).toBeUndefined();
+  });
 });
