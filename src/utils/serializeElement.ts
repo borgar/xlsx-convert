@@ -28,7 +28,7 @@ export function serializeElement (el: Element): string {
   }
   const children = el.children;
   const textContent = el.childNodes
-    .filter(n => n.nodeType === 3) // TEXT_NODE
+    .filter(n => n.nodeType === 3 || n.nodeType === 4) // TEXT_NODE or CDATA_SECTION_NODE
     .map(n => n.textContent)
     .join('');
   if (children.length === 0 && !textContent) {
