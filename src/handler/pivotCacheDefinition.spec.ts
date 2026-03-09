@@ -542,6 +542,33 @@ describe('handlerPivotCacheDefinition', () => {
     expect(cache.uid).toBeUndefined();
   });
 
+  it('should parse extensions from extLst', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="worksheet">
+        <worksheetSource ref="A1:B5" sheet="Data"/>
+      </cacheSource>
+      <cacheFields count="0"/>
+      <extLst>
+        <ext uri="{725AE2AE}" xmlns:x14="http://example.com"><x14:pivotCacheDefinition/></ext>
+      </extLst>
+    </pivotCacheDefinition>`;
+    const cache = parse(xml)!;
+    expect(cache.extensions).toHaveLength(1);
+    expect(cache.extensions![0]).toContain('uri="{725AE2AE}"');
+    expect(cache.extensions![0]).toContain('x14:pivotCacheDefinition');
+  });
+
+  it('should omit extensions when extLst is absent', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="worksheet">
+        <worksheetSource ref="A1:B5" sheet="Data"/>
+      </cacheSource>
+      <cacheFields count="0"/>
+    </pivotCacheDefinition>`;
+    const cache = parse(xml)!;
+    expect(cache.extensions).toBeUndefined();
+  });
+
   it('should parse scenario source', () => {
     const xml = `<pivotCacheDefinition>
       <cacheSource type="scenario"/>

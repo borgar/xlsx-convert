@@ -752,6 +752,27 @@ describe('handlerPivotTable', () => {
     ]);
   });
 
+  it('should parse extensions from extLst', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="0"/>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="0"/>
+      <extLst>
+        <ext uri="{ABC}" xmlns:x14="http://example.com"><x14:foo bar="1"/></ext>
+      </extLst>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.extensions).toHaveLength(1);
+    expect(pt.extensions![0]).toContain('uri="{ABC}"');
+    expect(pt.extensions![0]).toContain('x14:foo');
+  });
+
+  it('should omit extensions when extLst is absent', () => {
+    const pt = parse(MINIMAL_PT)!;
+    expect(pt.extensions).toBeUndefined();
+  });
+
   it('should omit calculatedFields when absent', () => {
     const pt = parse(MINIMAL_PT)!;
     expect(pt.calculatedFields).toBeUndefined();
