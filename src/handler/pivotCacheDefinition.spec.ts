@@ -388,6 +388,49 @@ describe('handlerPivotCacheDefinition', () => {
     expect(cache.fields[0].sharedItemsMeta).toBeUndefined();
   });
 
+  it('should parse all cache metadata attributes', () => {
+    const xml = `<pivotCacheDefinition
+      refreshedBy="User" refreshedDate="45000.5" refreshedDateIso="2023-03-15T12:00:00"
+      recordCount="100" createdVersion="8" refreshedVersion="7" minRefreshableVersion="3"
+      saveData="0" refreshOnLoad="1" enableRefresh="0" upgradeOnRefresh="1" xr:uid="{ABC-123}">
+      <cacheSource type="worksheet">
+        <worksheetSource ref="A1:B5" sheet="Data"/>
+      </cacheSource>
+      <cacheFields count="0"/>
+    </pivotCacheDefinition>`;
+    const cache = parse(xml)!;
+    expect(cache.refreshedBy).toBe('User');
+    expect(cache.refreshedDate).toBe(45000.5);
+    expect(cache.refreshedDateIso).toBe('2023-03-15T12:00:00');
+    expect(cache.recordCount).toBe(100);
+    expect(cache.createdVersion).toBe(8);
+    expect(cache.refreshedVersion).toBe(7);
+    expect(cache.minRefreshableVersion).toBe(3);
+    expect(cache.saveData).toBe(false);
+    expect(cache.refreshOnLoad).toBe(true);
+    expect(cache.enableRefresh).toBe(false);
+    expect(cache.upgradeOnRefresh).toBe(true);
+    expect(cache.uid).toBe('{ABC-123}');
+  });
+
+  it('should omit cache metadata attributes when absent', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="worksheet">
+        <worksheetSource ref="A1:B5" sheet="Data"/>
+      </cacheSource>
+      <cacheFields count="0"/>
+    </pivotCacheDefinition>`;
+    const cache = parse(xml)!;
+    expect(cache.refreshedBy).toBeUndefined();
+    expect(cache.refreshedDate).toBeUndefined();
+    expect(cache.recordCount).toBeUndefined();
+    expect(cache.saveData).toBeUndefined();
+    expect(cache.refreshOnLoad).toBeUndefined();
+    expect(cache.enableRefresh).toBeUndefined();
+    expect(cache.upgradeOnRefresh).toBeUndefined();
+    expect(cache.uid).toBeUndefined();
+  });
+
   it('should parse scenario source', () => {
     const xml = `<pivotCacheDefinition>
       <cacheSource type="scenario"/>
