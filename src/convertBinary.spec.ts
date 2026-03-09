@@ -1,6 +1,7 @@
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import { convertBinary } from './convertBinary.ts';
 import { readFile } from 'node:fs/promises';
+import JSZip from 'jszip';
 
 describe('convertBinary', () => {
   test('convertBinary should be exported', () => {
@@ -77,6 +78,43 @@ describe('convertBinary', () => {
       expect(Object.keys(jsf.images)).toStrictEqual([ imgName ]);
       expect(jsf.images[imgName].length).toBe(462658);
       expect(jsf.images[imgName].slice(0, 32)).toBe('data:image/png;base64,iVBORw0KGg');
+    });
+  });
+
+  describe('warn callback', () => {
+    // Returns an xlsx ArrayBuffer with a bad uniqueCount in the shared
+    // strings table, which triggers a warning from handlerSharedStrings.
+    async function makeBadSharedStringsXlsx () {
+      const bin = await readFile('./tests/excel/strings.xlsx');
+      const zip = await JSZip.loadAsync(bin);
+      const sstXml = await zip.file('xl/sharedStrings.xml')!.async('string');
+      const modified = sstXml.replace(/uniqueCount="\d+"/, 'uniqueCount="0"');
+      zip.file('xl/sharedStrings.xml', modified);
+      return zip.generateAsync({ type: 'arraybuffer' });
+    }
+
+    test('warn callback is not called when there are no warnings', async () => {
+      const warn = vi.fn();
+      const bin = await readFile('./tests/excel/numbers.xlsx');
+      await convertBinary(bin, 'numbers.xlsx', { warn });
+      expect(warn).not.toHaveBeenCalled();
+    });
+
+    test('warn callback receives shared-strings mismatch warning', async () => {
+      const modifiedBin = await makeBadSharedStringsXlsx();
+      const warn = vi.fn();
+      await convertBinary(modifiedBin, 'strings.xlsx', { warn });
+      expect(warn).toHaveBeenCalledOnce();
+      expect(warn.mock.calls[0][0]).toMatch(/String table: got \d+ entries, but expected 0/);
+    });
+
+    test('without warn callback, warnings go to console.warn', async () => {
+      const modifiedBin = await makeBadSharedStringsXlsx();
+      const spy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      await convertBinary(modifiedBin, 'strings.xlsx');
+      expect(spy).toHaveBeenCalledOnce();
+      expect(spy.mock.calls[0][0]).toMatch(/String table: got \d+ entries, but expected 0/);
+      spy.mockRestore();
     });
   });
 
