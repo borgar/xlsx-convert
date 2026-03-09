@@ -23,6 +23,7 @@ import type {
   PivotTableStyle,
 } from '@jsfkit/types';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
+import { parseEnum } from '../utils/parseEnum.ts';
 import { serializeElement } from '../utils/serializeElement.ts';
 
 const SUBTOTAL_ATTRS: PivotSubtotalFunction[] = [
@@ -38,17 +39,6 @@ const SUBTOTAL_ATTRS: PivotSubtotalFunction[] = [
   'var',
   'varP',
 ];
-
-/** Parse a string as a member of a known set of enum values, returning undefined for unknown values. */
-function parseEnum<T extends string> (
-  value: string | null,
-  allowed: ReadonlySet<T>,
-): T | undefined {
-  if (value == null) {
-    return undefined;
-  }
-  return allowed.has(value as T) ? (value as T) : undefined;
-}
 
 /** Set boolean properties on target when the XML attribute has the given non-default value. */
 function readBoolAttrs (

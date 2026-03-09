@@ -2,6 +2,7 @@ import type { Document, Element } from '@borgar/simple-xml';
 import type { PivotCache, PivotCacheConsolidationRangeSet, PivotCacheField, PivotCacheFieldGroup, PivotCacheRangePr, PivotCacheSharedItem, PivotCacheSharedItemsMeta, PivotCacheWorksheetSource, PivotGroupBy } from '@jsfkit/types';
 import { addProp } from '../utils/addProp.ts';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
+import { parseEnum } from '../utils/parseEnum.ts';
 import { serializeElement } from '../utils/serializeElement.ts';
 
 export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefined {
@@ -190,11 +191,8 @@ function parseFieldGroup (el: Element): PivotCacheFieldGroup | undefined {
     if (autoStart === false) { rp.autoStart = false; }
     const autoEnd = boolAttr(rangePrEl, 'autoEnd');
     if (autoEnd === false) { rp.autoEnd = false; }
-    const groupByStr = attr(rangePrEl, 'groupBy');
-    if (groupByStr != null && GROUP_BY_VALUES.has(groupByStr as PivotGroupBy)) {
-      const groupBy = groupByStr as PivotGroupBy;
-      if (groupBy !== 'range') { rp.groupBy = groupBy; }
-    }
+    const groupBy = parseEnum(attr(rangePrEl, 'groupBy'), GROUP_BY_VALUES);
+    if (groupBy != null && groupBy !== 'range') { rp.groupBy = groupBy; }
     const startNum = numAttr(rangePrEl, 'startNum');
     if (startNum != null) { rp.startNum = startNum; }
     const endNum = numAttr(rangePrEl, 'endNum');
