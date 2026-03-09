@@ -54,7 +54,7 @@ export function handlerWorksheet (
     },
     // drawings: [],
     // showGridLines: true,
-    hidden: context.sheetLinks.find(link => link.name === sheetName)?.hidden ?? 0,
+    hidden: 0,
   };
 
   const sheetViews = dom.querySelectorAll('sheetViews > sheetView');

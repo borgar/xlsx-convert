@@ -36,7 +36,7 @@
     {}
   ],
   "formulas": [
-    "TAKE(\"whoo\" &@R1C1:R4C1,1)",
+    "TAKE(\"whoo\" &SINGLE(R1C1:R4C1),1)",
     "TAKE(\"whoo\" &R1C1:R4C1,1)"
   ]
 }

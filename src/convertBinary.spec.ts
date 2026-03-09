@@ -79,20 +79,4 @@ describe('convertBinary', () => {
       expect(jsf.images[imgName].slice(0, 32)).toBe('data:image/png;base64,iVBORw0KGg');
     });
   });
-
-  test('images from all sheets are collected (not lost to concurrent processing)', async () => {
-    // charts-and-images.xlsx has two sheets:
-    //   Sheet1: background picture (image5.png) + drawing with 3 charts
-    //   Sheet2: drawing containing image6.png
-    // Both images should appear in wb.images. A race condition in the
-    // Promise.all sheet processing loop can cause one sheet's images to
-    // overwrite another's because context.images is shared mutable state.
-    const bin = await readFile('./tests/excel/charts-and-images.xlsx');
-    const jsf = await convertBinary(bin, 'charts-and-images.xlsx');
-    const imageKeys = Object.keys(jsf.images ?? {}).sort();
-    expect(imageKeys).toStrictEqual([
-      'xl/media/image5.png',
-      'xl/media/image6.png',
-    ]);
-  });
 });

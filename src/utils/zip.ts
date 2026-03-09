@@ -8,7 +8,6 @@ export type FileContainer = {
   readFile (name: string, mode: 'utf8'): Promise<string | null>;
   readFile (name: string, mode?: 'binary'): Promise<ArrayBuffer | null>;
   readFile (name: string, mode?: 'utf8' | 'binary'): Promise<string | ArrayBuffer | null>;
-  hasFile (name: string): boolean;
 };
 
 type InflateFunc = (data: ArrayBuffer) => ArrayBuffer | Promise<ArrayBuffer>;
@@ -264,9 +263,5 @@ export function loadZip (archive: ArrayBuffer): FileContainer {
       : new TextDecoder().decode(uncompressed);
   }
 
-  function hasFile (name: string): boolean {
-    return name.replace(/^\.\//g, '') in index;
-  }
-
-  return { readFile, hasFile };
+  return { readFile };
 }

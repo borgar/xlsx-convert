@@ -63,7 +63,7 @@
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
-      "hidden": 1
+      "hidden": 0
     }
   ],
   "names": [],

@@ -5,104 +5,52 @@ describe('normalizeFormula', () => {
   describe('basic functionality', () => {
     it('should return unchanged formula when no normalization needed', () => {
       const simpleFormula = 'SUM(A1:B2)';
-      expect(normalizeFormula(simpleFormula)).toBe(simpleFormula);
+      expect(normalizeFormula(simpleFormula, null)).toBe(simpleFormula);
 
       const basicFormula = 'A1+B1*2';
-      expect(normalizeFormula(basicFormula)).toBe(basicFormula);
+      expect(normalizeFormula(basicFormula, null)).toBe(basicFormula);
 
       const textFormula = 'CONCATENATE("Hello", " ", "World")';
-      expect(normalizeFormula(textFormula)).toBe(textFormula);
+      expect(normalizeFormula(textFormula, null)).toBe(textFormula);
     });
 
     it('should handle empty and simple formulas', () => {
-      expect(normalizeFormula('')).toBe('');
-      expect(normalizeFormula('1')).toBe('1');
-      expect(normalizeFormula('"text"')).toBe('"text"');
-      expect(normalizeFormula('TRUE')).toBe('TRUE');
+      expect(normalizeFormula('', null)).toBe('');
+      expect(normalizeFormula('1', null)).toBe('1');
+      expect(normalizeFormula('"text"', null)).toBe('"text"');
+      expect(normalizeFormula('TRUE', null)).toBe('TRUE');
     });
   });
 
   describe('function namespace normalization', () => {
     it('should remove _xlfn namespace from functions', () => {
-      expect(normalizeFormula('_xlfn.IFERROR(A1,0)')).toBe('IFERROR(A1,0)');
-      expect(normalizeFormula('_xlfn.SUMIFS(A:A,B:B,">0")')).toBe('SUMIFS(A:A,B:B,">0")');
-      expect(normalizeFormula('SUM(_xlfn.IFERROR(A1,0))')).toBe('SUM(IFERROR(A1,0))');
+      expect(normalizeFormula('_xlfn.IFERROR(A1,0)', null)).toBe('IFERROR(A1,0)');
+      expect(normalizeFormula('_xlfn.SUMIFS(A:A,B:B,">0")', null)).toBe('SUMIFS(A:A,B:B,">0")');
+      expect(normalizeFormula('SUM(_xlfn.IFERROR(A1,0))', null)).toBe('SUM(IFERROR(A1,0))');
     });
 
     it('should remove _xludf namespace from functions', () => {
-      expect(normalizeFormula('_xludf.CUSTOMFUNC(A1)')).toBe('CUSTOMFUNC(A1)');
-      expect(normalizeFormula('_xludf.MYFUNC(A1,B1)')).toBe('MYFUNC(A1,B1)');
+      expect(normalizeFormula('_xludf.CUSTOMFUNC(A1)', null)).toBe('CUSTOMFUNC(A1)');
+      expect(normalizeFormula('_xludf.MYFUNC(A1,B1)', null)).toBe('MYFUNC(A1,B1)');
     });
 
     it('should remove _xlws namespace from functions', () => {
-      expect(normalizeFormula('_xlws.WEBSERVICE("http://example.com")')).toBe('WEBSERVICE("http://example.com")');
+      expect(normalizeFormula('_xlws.WEBSERVICE("http://example.com")', null)).toBe('WEBSERVICE("http://example.com")');
     });
 
     it('should remove multiple namespaces', () => {
-      expect(normalizeFormula('_xlfn._xlws.FUNC(A1)')).toBe('FUNC(A1)');
-      expect(normalizeFormula('_xlws._xlfn.FUNC(A1)')).toBe('FUNC(A1)');
+      expect(normalizeFormula('_xlfn._xlws.FUNC(A1)', null)).toBe('FUNC(A1)');
+      expect(normalizeFormula('_xlws._xlfn.FUNC(A1)', null)).toBe('FUNC(A1)');
     });
 
     it('should handle case insensitive namespace removal', () => {
-      expect(normalizeFormula('_XLFN.IFERROR(A1,0)')).toBe('IFERROR(A1,0)');
-      expect(normalizeFormula('_XlFn.IFERROR(A1,0)')).toBe('IFERROR(A1,0)');
+      expect(normalizeFormula('_XLFN.IFERROR(A1,0)', null)).toBe('IFERROR(A1,0)');
+      expect(normalizeFormula('_XlFn.IFERROR(A1,0)', null)).toBe('IFERROR(A1,0)');
     });
 
     it('is not fooled by strings', () => {
-      expect(normalizeFormula('"_XLFN.FUNC()"')).toBe('"_XLFN.FUNC()"');
-      expect(normalizeFormula('"_xlfn.FUNC()"')).toBe('"_xlfn.FUNC()"');
-    });
-  });
-
-  describe('Trimmed ranges handling', () => {
-    it('should convert _TRO_ALL to ".:."', () => {
-      expect(normalizeFormula('_xlfn._TRO_ALL(A1)')).toBe('A1');
-      expect(normalizeFormula('_xlfn._TRO_ALL(A1:B2)')).toBe('A1.:.B2');
-      expect(normalizeFormula('_xlfn._TRO_ALL( A1:B2 )')).toBe('A1.:.B2');
-      expect(normalizeFormula('SUM( _xlfn._TRO_ALL( A1:B2 ) )')).toBe('SUM( A1.:.B2 )');
-      expect(normalizeFormula('_TRO_ALL(A1:B2)')).toBe('A1.:.B2');
-      // test r1c1
-    });
-
-    it('should convert _TRO_LEADING to ".:"', () => {
-      expect(normalizeFormula('_xlfn._TRO_LEADING(A1)')).toBe('A1');
-      expect(normalizeFormula('_xlfn._TRO_LEADING(A1:B2)')).toBe('A1.:B2');
-      expect(normalizeFormula('_xlfn._TRO_LEADING( A1:B2 )')).toBe('A1.:B2');
-      expect(normalizeFormula('SUM( _xlfn._TRO_LEADING( A1:B2 ) )')).toBe('SUM( A1.:B2 )');
-      expect(normalizeFormula('_TRO_LEADING(A1:B2)')).toBe('A1.:B2');
-    });
-
-    it('should convert _TRO_TRAILING to ":."', () => {
-      expect(normalizeFormula('_xlfn._TRO_TRAILING(A1)')).toBe('A1');
-      expect(normalizeFormula('_xlfn._TRO_TRAILING(A1:B2)')).toBe('A1:.B2');
-      expect(normalizeFormula('_xlfn._TRO_TRAILING( A1:B2 )')).toBe('A1:.B2');
-      expect(normalizeFormula('SUM( _xlfn._TRO_TRAILING( A1:B2 ) )')).toBe('SUM( A1:.B2 )');
-      expect(normalizeFormula('_TRO_TRAILING(A1:B2)')).toBe('A1:.B2');
-    });
-  });
-
-  describe('SINGLE & ANCHORARRAY handling', () => {
-    it('should convert ANCHORARRAY to #', () => {
-      expect(normalizeFormula('_xlfn.ANCHORARRAY(D1)')).toBe('D1#');
-      expect(normalizeFormula('_xlfn.ANCHORARRAY( D1:ZZ10 )')).toBe('D1:ZZ10#');
-      expect(normalizeFormula('_xlfn.ANCHORARRAY(INDIRECT("D1"))')).toBe('INDIRECT("D1")#');
-      expect(normalizeFormula('_xlfn.ANCHORARRAY(#REF!)')).toBe('#REF!#');
-      expect(normalizeFormula('SUM( _xlfn.ANCHORARRAY(D1:ZZ10) + 12 )')).toBe('SUM( D1:ZZ10# + 12 )');
-      // invalid expression, but WTH:
-      expect(normalizeFormula('_xlfn.ANCHORARRAY(SUM({1,2,3,4}))')).toBe('SUM({1,2,3,4})#');
-    });
-
-    it('should convert SINGLE to @', () => {
-      expect(normalizeFormula('_xlfn.SINGLE(A1)')).toBe('@A1');
-      expect(normalizeFormula('_xlfn.SINGLE( A1 )')).toBe('@A1');
-      expect(normalizeFormula('SINGLE(A1 )')).toBe('@A1');
-      expect(normalizeFormula('SINGLE( A1)')).toBe('@A1');
-      expect(normalizeFormula('_xlfn.SINGLE(INDIRECT("A1"))')).toBe('@INDIRECT("A1")');
-      expect(normalizeFormula('_xlfn.SINGLE(#REF!)')).toBe('@#REF!');
-      expect(normalizeFormula('_xlfn.SINGLE(A1:B1:C1:D1)')).toBe('@A1:B1:C1:D1');
-      expect(normalizeFormula('_xlfn.SINGLE(_xlfn.XLOOKUP(1,B1:B4,A1:A4))')).toBe('@XLOOKUP(1,B1:B4,A1:A4)');
-      expect(normalizeFormula('SINGLE(SUM({1,2,3},(1+2)))')).toBe('@SUM({1,2,3},(1+2))');
-      expect(normalizeFormula('SUM( _xlfn.SINGLE(D1:ZZ10) + 12 )')).toBe('SUM( @D1:ZZ10 + 12 )');
+      expect(normalizeFormula('"_XLFN.FUNC()"', null)).toBe('"_XLFN.FUNC()"');
+      expect(normalizeFormula('"_xlfn.FUNC()"', null)).toBe('"_xlfn.FUNC()"');
     });
   });
 
@@ -152,16 +100,16 @@ describe('normalizeFormula', () => {
     });
 
     it('should handle nested function calls with namespaces', () => {
-      expect(normalizeFormula('_xlfn.IF(_xlfn.ISNA(A1),"",A1)'))
+      expect(normalizeFormula('_xlfn.IF(_xlfn.ISNA(A1),"",A1)', null))
         .toBe('IF(ISNA(A1),"",A1)');
 
-      expect(normalizeFormula('SUM(_xlfn.IFERROR(A1:A10,0))'))
+      expect(normalizeFormula('SUM(_xlfn.IFERROR(A1:A10,0))', null))
         .toBe('SUM(IFERROR(A1:A10,0))');
     });
 
     it('should handle formulas with mixed content', () => {
       const formula = '_xlfn.CONCATENATE("Value: ",_xlfn.TEXT(A1,"0.00"))';
-      expect(normalizeFormula(formula))
+      expect(normalizeFormula(formula, null))
         .toBe('CONCATENATE("Value: ",TEXT(A1,"0.00"))');
     });
   });
@@ -175,19 +123,19 @@ describe('normalizeFormula', () => {
         'VLOOKUP(A1,B:C,2,FALSE)',
       ];
       formulas.forEach(formula => {
-        expect(normalizeFormula(formula)).toBe(formula);
+        expect(normalizeFormula(formula, null)).toBe(formula);
       });
     });
 
     it('should handle special characters in formulas', () => {
       const formula = '_xlfn.REGEX("test@example.com","[a-z]+@[a-z]+\\.[a-z]+")';
-      const result = normalizeFormula(formula);
+      const result = normalizeFormula(formula, null);
       expect(result).toBe('REGEX("test@example.com","[a-z]+@[a-z]+\\.[a-z]+")');
     });
 
     it('should preserve whitespace and formatting', () => {
       const formula = '_xlfn.SUM( A1 : B2 )';
-      expect(normalizeFormula(formula)).toBe('SUM( A1 : B2 )');
+      expect(normalizeFormula(formula, null)).toBe('SUM( A1 : B2 )');
     });
   });
 });

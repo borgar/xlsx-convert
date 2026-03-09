@@ -24,20 +24,10 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
 
   dom.querySelectorAll('sheets > sheet')
     .forEach(d => {
-      let hidden: 0 | 1 | 2 = 0;
-      switch (attr(d, 'state')) {
-        case 'hidden':
-          hidden = 1;
-          break;
-        case 'veryHidden':
-          hidden = 2;
-          break;
-      }
       context.sheetLinks.push({
         name: attr(d, 'name'),
         index: numAttr(d, 'sheetId'),
         rId: attr(d, 'r:id'),
-        hidden,
       });
     });
 

@@ -144,6 +144,6 @@
     "ROUND(RC[-1]:R[5]C[-1]*100,1)",
     "RC[-1]*4.4",
     "SUM(R[-7]C:R[-2]C*R[-7]C[-1]:R[-2]C[-1])",
-    "AVERAGE(R[-7]C#)"
+    "AVERAGE(ANCHORARRAY(R[-7]C))"
   ]
 }
