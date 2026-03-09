@@ -327,6 +327,21 @@ describe('handlerPivotCacheDefinition', () => {
     expect(cache.fields[0].name).toBe('');
   });
 
+  it('should omit fieldGroup for empty <fieldGroup/> element', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="worksheet">
+        <worksheetSource ref="A1:B5" sheet="Data"/>
+      </cacheSource>
+      <cacheFields count="1">
+        <cacheField name="Col">
+          <fieldGroup/>
+        </cacheField>
+      </cacheFields>
+    </pivotCacheDefinition>`;
+    const cache = parse(xml)!;
+    expect(cache.fields[0]).not.toHaveProperty('fieldGroup');
+  });
+
   it('should parse scenario source', () => {
     const xml = `<pivotCacheDefinition>
       <cacheSource type="scenario"/>
