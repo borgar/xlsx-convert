@@ -327,6 +327,117 @@ describe('handlerPivotCacheDefinition', () => {
     expect(cache.fields[0].name).toBe('');
   });
 
+  it('should parse fieldGroup with rangePr', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="worksheet">
+        <worksheetSource ref="A1:B5" sheet="Data"/>
+      </cacheSource>
+      <cacheFields count="1">
+        <cacheField name="Date">
+          <fieldGroup par="1" base="0">
+            <rangePr autoStart="0" autoEnd="0" groupBy="months" startDate="2024-01-01T00:00:00" endDate="2024-12-31T00:00:00" groupInterval="2"/>
+          </fieldGroup>
+        </cacheField>
+      </cacheFields>
+    </pivotCacheDefinition>`;
+    const cache = parse(xml)!;
+    const fg = cache.fields[0].fieldGroup!;
+    expect(fg).toBeDefined();
+    expect(fg.par).toBe(1);
+    expect(fg.base).toBe(0);
+    expect(fg.rangePr).toEqual({
+      autoStart: false,
+      autoEnd: false,
+      groupBy: 'months',
+      startDate: '2024-01-01T00:00:00',
+      endDate: '2024-12-31T00:00:00',
+      groupInterval: 2,
+    });
+  });
+
+  it('should parse fieldGroup with discretePr and groupItems', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="worksheet">
+        <worksheetSource ref="A1:B5" sheet="Data"/>
+      </cacheSource>
+      <cacheFields count="1">
+        <cacheField name="Category">
+          <fieldGroup base="0">
+            <discretePr count="3">
+              <x v="0"/><x v="1"/><x v="0"/>
+            </discretePr>
+            <groupItems count="2">
+              <s v="Group A"/><s v="Group B"/>
+            </groupItems>
+          </fieldGroup>
+        </cacheField>
+      </cacheFields>
+    </pivotCacheDefinition>`;
+    const cache = parse(xml)!;
+    const fg = cache.fields[0].fieldGroup!;
+    expect(fg).toBeDefined();
+    expect(fg.base).toBe(0);
+    expect(fg.discretePr).toEqual([ 0, 1, 0 ]);
+    expect(fg.groupItems).toEqual([
+      { type: 'string', value: 'Group A' },
+      { type: 'string', value: 'Group B' },
+    ]);
+  });
+
+  it('should parse fieldGroup rangePr with numeric range', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="worksheet">
+        <worksheetSource ref="A1:B5" sheet="Data"/>
+      </cacheSource>
+      <cacheFields count="1">
+        <cacheField name="Amount">
+          <fieldGroup>
+            <rangePr startNum="0" endNum="100"/>
+          </fieldGroup>
+        </cacheField>
+      </cacheFields>
+    </pivotCacheDefinition>`;
+    const cache = parse(xml)!;
+    const fg = cache.fields[0].fieldGroup!;
+    expect(fg.rangePr).toEqual({ startNum: 0, endNum: 100 });
+  });
+
+  it('should omit rangePr groupBy when it is the default "range"', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="worksheet">
+        <worksheetSource ref="A1:B5" sheet="Data"/>
+      </cacheSource>
+      <cacheFields count="1">
+        <cacheField name="Amount">
+          <fieldGroup>
+            <rangePr groupBy="range" startNum="0" endNum="100"/>
+          </fieldGroup>
+        </cacheField>
+      </cacheFields>
+    </pivotCacheDefinition>`;
+    const cache = parse(xml)!;
+    const fg = cache.fields[0].fieldGroup!;
+    expect(fg.rangePr!.groupBy).toBeUndefined();
+  });
+
+  it('should omit rangePr groupInterval when it is the default 1', () => {
+    const xml = `<pivotCacheDefinition>
+      <cacheSource type="worksheet">
+        <worksheetSource ref="A1:B5" sheet="Data"/>
+      </cacheSource>
+      <cacheFields count="1">
+        <cacheField name="Amount">
+          <fieldGroup>
+            <rangePr groupInterval="1" startNum="0" endNum="100"/>
+          </fieldGroup>
+        </cacheField>
+      </cacheFields>
+    </pivotCacheDefinition>`;
+    const cache = parse(xml)!;
+    const fg = cache.fields[0].fieldGroup!;
+    expect(fg.rangePr!.groupInterval).toBeUndefined();
+  });
+
   it('should omit fieldGroup for empty <fieldGroup/> element', () => {
     const xml = `<pivotCacheDefinition>
       <cacheSource type="worksheet">
