@@ -26,6 +26,213 @@ import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { parseEnum } from '../utils/parseEnum.ts';
 import { serializeElement } from '../utils/serializeElement.ts';
 
+export function handlerPivotTable (dom: Document): PivotTable | undefined {
+  const root = dom.getElementsByTagName('pivotTableDefinition')[0];
+  if (!root) {
+    return;
+  }
+
+  const name = attr(root, 'name');
+  if (!name) {
+    return;
+  }
+
+  const locationEl = root.getElementsByTagName('location')[0];
+  if (!locationEl) {
+    return;
+  }
+
+  const ref = attr(locationEl, 'ref');
+  if (!ref) {
+    return;
+  }
+  const firstHeaderRow = numAttr(locationEl, 'firstHeaderRow', 1);
+  const firstDataRow = numAttr(locationEl, 'firstDataRow', 1);
+  const firstDataCol = numAttr(locationEl, 'firstDataCol', 0);
+
+  const fields = parsePivotFields(root);
+
+  const rowFieldIndices: number[] = [];
+  for (const f of root.querySelectorAll('rowFields > field')) {
+    rowFieldIndices.push(numAttr(f, 'x', 0));
+  }
+
+  const colFieldIndices: number[] = [];
+  for (const f of root.querySelectorAll('colFields > field')) {
+    colFieldIndices.push(numAttr(f, 'x', 0));
+  }
+
+  const rowItems = parseRowColItems(root, 'rowItems > i');
+  const colItems = parseRowColItems(root, 'colItems > i');
+
+  const dataFields = parseDataFields(root);
+
+  const pageFields = parsePageFields(root);
+
+  const style = parseStyle(root);
+
+  const rowGrandTotals = boolAttr(root, 'rowGrandTotals');
+  const colGrandTotals = boolAttr(root, 'colGrandTotals');
+  const autoRefresh = boolAttr(root, 'autoRefresh');
+
+  const location: PivotTable['location'] = { firstHeaderRow, firstDataRow, firstDataCol };
+  const rowPageCount = numAttr(locationEl, 'rowPageCount', 0);
+  if (rowPageCount !== 0) { location.rowPageCount = rowPageCount; }
+  const colPageCount = numAttr(locationEl, 'colPageCount', 0);
+  if (colPageCount !== 0) { location.colPageCount = colPageCount; }
+
+  const pt: PivotTable = {
+    name,
+    sheet: '', // resolved by caller
+    cacheIndex: -1, // sentinel: resolved by caller; kept only if >= 0
+    ref,
+    location,
+    fields,
+  };
+
+  if (rowFieldIndices.length > 0) {
+    pt.rowFieldIndices = rowFieldIndices;
+  }
+  if (colFieldIndices.length > 0) {
+    pt.colFieldIndices = colFieldIndices;
+  }
+  if (dataFields.length > 0) {
+    pt.dataFields = dataFields;
+  }
+  if (pageFields.length > 0) {
+    pt.pageFields = pageFields;
+  }
+  if (rowItems.length > 0) {
+    pt.rowItems = rowItems;
+  }
+  if (colItems.length > 0) {
+    pt.colItems = colItems;
+  }
+  if (style) {
+    pt.style = style;
+  }
+  if (rowGrandTotals != null) {
+    pt.rowGrandTotals = rowGrandTotals;
+  }
+  if (colGrandTotals != null) {
+    pt.colGrandTotals = colGrandTotals;
+  }
+  if (autoRefresh != null) {
+    pt.autoRefresh = autoRefresh;
+  }
+
+  // Boolean table-level attributes (non-default values only)
+  readBoolAttrs(pt, root, [
+    // Layout defaults
+    [ 'compact', false ],
+    [ 'outline', true ],
+    [ 'outlineData', true ],
+    [ 'compactData', false ],
+    [ 'gridDropZones', true ],
+    // Data axis
+    [ 'dataOnRows', true ],
+    // Display options
+    [ 'showHeaders', false ],
+    [ 'showEmptyRow', true ],
+    [ 'showEmptyCol', true ],
+    [ 'showDropZones', false ],
+    [ 'showMemberPropertyTips', false ],
+    [ 'enableDrill', false ],
+    [ 'showMultipleLabel', false ],
+    // Captions
+    [ 'showError', true ],
+    [ 'showMissing', false ],
+    // Behavior
+    [ 'subtotalHiddenItems', true ],
+    [ 'fieldPrintTitles', true ],
+    [ 'itemPrintTitles', true ],
+    [ 'mergeItem', true ],
+    [ 'customListSort', false ],
+    [ 'multipleFieldFilters', false ],
+    [ 'showItems', false ],
+    [ 'showCalcMbrs', false ],
+    [ 'preserveFormatting', false ],
+    [ 'pageOverThenDown', true ],
+  ]);
+
+  // AutoFormat attributes (AG_AutoFormat attribute group)
+  const autoFormatId = numAttr(root, 'autoFormatId');
+  if (autoFormatId != null) { pt.autoFormatId = autoFormatId; }
+  const useAutoFormatting = boolAttr(root, 'useAutoFormatting');
+  if (useAutoFormatting != null) { pt.useAutoFormatting = useAutoFormatting; }
+  const applyNumberFormats = boolAttr(root, 'applyNumberFormats');
+  if (applyNumberFormats != null) { pt.applyNumberFormats = applyNumberFormats; }
+  const applyBorderFormats = boolAttr(root, 'applyBorderFormats');
+  if (applyBorderFormats != null) { pt.applyBorderFormats = applyBorderFormats; }
+  const applyFontFormats = boolAttr(root, 'applyFontFormats');
+  if (applyFontFormats != null) { pt.applyFontFormats = applyFontFormats; }
+  const applyPatternFormats = boolAttr(root, 'applyPatternFormats');
+  if (applyPatternFormats != null) { pt.applyPatternFormats = applyPatternFormats; }
+  const applyAlignmentFormats = boolAttr(root, 'applyAlignmentFormats');
+  if (applyAlignmentFormats != null) { pt.applyAlignmentFormats = applyAlignmentFormats; }
+  const applyWidthHeightFormats = boolAttr(root, 'applyWidthHeightFormats');
+  if (applyWidthHeightFormats != null) { pt.applyWidthHeightFormats = applyWidthHeightFormats; }
+
+  const createdVersion = numAttr(root, 'createdVersion');
+  if (createdVersion != null) { pt.createdVersion = createdVersion; }
+  const updatedVersion = numAttr(root, 'updatedVersion');
+  if (updatedVersion != null) { pt.updatedVersion = updatedVersion; }
+  const minRefreshableVersion = numAttr(root, 'minRefreshableVersion');
+  if (minRefreshableVersion != null) { pt.minRefreshableVersion = minRefreshableVersion; }
+
+  const indent = numAttr(root, 'indent');
+  if (indent != null && indent !== 1) { pt.indent = indent; }
+  const dataPosition = numAttr(root, 'dataPosition');
+  if (dataPosition != null) { pt.dataPosition = dataPosition; }
+  const dataCaption = attr(root, 'dataCaption');
+  if (dataCaption != null) { pt.dataCaption = dataCaption; }
+  const grandTotalCaption = attr(root, 'grandTotalCaption');
+  if (grandTotalCaption != null) { pt.grandTotalCaption = grandTotalCaption; }
+  const errorCaption = attr(root, 'errorCaption');
+  if (errorCaption != null) { pt.errorCaption = errorCaption; }
+  const missingCaption = attr(root, 'missingCaption');
+  if (missingCaption != null) { pt.missingCaption = missingCaption; }
+  const rowHeaderCaption = attr(root, 'rowHeaderCaption');
+  if (rowHeaderCaption != null) { pt.rowHeaderCaption = rowHeaderCaption; }
+  const colHeaderCaption = attr(root, 'colHeaderCaption');
+  if (colHeaderCaption != null) { pt.colHeaderCaption = colHeaderCaption; }
+  const pageWrap = numAttr(root, 'pageWrap', 0);
+  if (pageWrap !== 0) { pt.pageWrap = pageWrap; }
+
+  const formats = parseFormats(root);
+  if (formats.length > 0) { pt.formats = formats; }
+
+  const conditionalFormats = parseConditionalFormats(root);
+  if (conditionalFormats.length > 0) { pt.conditionalFormats = conditionalFormats; }
+
+  const filters = parseFilters(root);
+  if (filters.length > 0) { pt.filters = filters; }
+
+  const uid = attr(root, 'xr:uid');
+  if (uid != null) { pt.uid = uid; }
+
+  // Extension list (opaque pass-through)
+  const extensions: string[] = [];
+  for (const extEl of root.querySelectorAll('extLst > ext')) {
+    extensions.push(serializeElement(extEl));
+  }
+  if (extensions.length > 0) { pt.extensions = extensions; }
+
+  const calculatedFields: PivotTable['calculatedFields'] = [];
+  for (const cfEl of root.querySelectorAll('calculatedFields > calculatedField')) {
+    const cfName = attr(cfEl, 'name');
+    const cfFormula = attr(cfEl, 'formula');
+    if (cfName != null && cfFormula != null) {
+      calculatedFields.push({ name: cfName, formula: cfFormula });
+    }
+  }
+  if (calculatedFields.length > 0) { pt.calculatedFields = calculatedFields; }
+
+  return pt;
+}
+
+// --- Helper functions and constants ---
+
 const SUBTOTAL_ATTRS: PivotSubtotalFunction[] = [
   'sum',
   'countA',
@@ -39,17 +246,6 @@ const SUBTOTAL_ATTRS: PivotSubtotalFunction[] = [
   'var',
   'varP',
 ];
-
-/** Set boolean properties on target when the XML attribute has the given non-default value. */
-function readBoolAttrs (
-  target: Record<string, unknown>, el: Element, specs: readonly [string, boolean][],
-): void {
-  for (const [ prop, nonDefault ] of specs) {
-    if (boolAttr(el, prop) === nonDefault) {
-      target[prop] = nonDefault;
-    }
-  }
-}
 
 const ITEM_TYPES: ReadonlySet<PivotItemType> = new Set<PivotItemType>([
   ...SUBTOTAL_ATTRS, 'data', 'default', 'grand', 'blank',
@@ -88,6 +284,17 @@ const SHOW_DATA_AS_VALUES: ReadonlySet<PivotShowDataAs> =
     'rankAscending',
     'rankDescending',
   ]);
+
+/** Set boolean properties on target when the XML attribute has the given non-default value. */
+function readBoolAttrs (
+  target: Record<string, unknown>, el: Element, specs: readonly [string, boolean][],
+): void {
+  for (const [ prop, nonDefault ] of specs) {
+    if (boolAttr(el, prop) === nonDefault) {
+      target[prop] = nonDefault;
+    }
+  }
+}
 
 function parseRowColItems (root: Element, selector: string): PivotRowColItem[] {
   const items: PivotRowColItem[] = [];
@@ -336,211 +543,6 @@ function parseStyle (root: Element): PivotTableStyle | undefined {
     style.showLastColumn = showLastColumn;
   }
   return style;
-}
-
-export function handlerPivotTable (dom: Document): PivotTable | undefined {
-  const root = dom.getElementsByTagName('pivotTableDefinition')[0];
-  if (!root) {
-    return;
-  }
-
-  const name = attr(root, 'name');
-  if (!name) {
-    return;
-  }
-
-  const locationEl = root.getElementsByTagName('location')[0];
-  if (!locationEl) {
-    return;
-  }
-
-  const ref = attr(locationEl, 'ref');
-  if (!ref) {
-    return;
-  }
-  const firstHeaderRow = numAttr(locationEl, 'firstHeaderRow', 1);
-  const firstDataRow = numAttr(locationEl, 'firstDataRow', 1);
-  const firstDataCol = numAttr(locationEl, 'firstDataCol', 0);
-
-  const fields = parsePivotFields(root);
-
-  const rowFieldIndices: number[] = [];
-  for (const f of root.querySelectorAll('rowFields > field')) {
-    rowFieldIndices.push(numAttr(f, 'x', 0));
-  }
-
-  const colFieldIndices: number[] = [];
-  for (const f of root.querySelectorAll('colFields > field')) {
-    colFieldIndices.push(numAttr(f, 'x', 0));
-  }
-
-  const rowItems = parseRowColItems(root, 'rowItems > i');
-  const colItems = parseRowColItems(root, 'colItems > i');
-
-  const dataFields = parseDataFields(root);
-
-  const pageFields = parsePageFields(root);
-
-  const style = parseStyle(root);
-
-  const rowGrandTotals = boolAttr(root, 'rowGrandTotals');
-  const colGrandTotals = boolAttr(root, 'colGrandTotals');
-  const autoRefresh = boolAttr(root, 'autoRefresh');
-
-  const location: PivotTable['location'] = { firstHeaderRow, firstDataRow, firstDataCol };
-  const rowPageCount = numAttr(locationEl, 'rowPageCount', 0);
-  if (rowPageCount !== 0) { location.rowPageCount = rowPageCount; }
-  const colPageCount = numAttr(locationEl, 'colPageCount', 0);
-  if (colPageCount !== 0) { location.colPageCount = colPageCount; }
-
-  const pt: PivotTable = {
-    name,
-    sheet: '', // resolved by caller
-    cacheIndex: -1, // sentinel: resolved by caller; kept only if >= 0
-    ref,
-    location,
-    fields,
-  };
-
-  if (rowFieldIndices.length > 0) {
-    pt.rowFieldIndices = rowFieldIndices;
-  }
-  if (colFieldIndices.length > 0) {
-    pt.colFieldIndices = colFieldIndices;
-  }
-  if (dataFields.length > 0) {
-    pt.dataFields = dataFields;
-  }
-  if (pageFields.length > 0) {
-    pt.pageFields = pageFields;
-  }
-  if (rowItems.length > 0) {
-    pt.rowItems = rowItems;
-  }
-  if (colItems.length > 0) {
-    pt.colItems = colItems;
-  }
-  if (style) {
-    pt.style = style;
-  }
-  if (rowGrandTotals != null) {
-    pt.rowGrandTotals = rowGrandTotals;
-  }
-  if (colGrandTotals != null) {
-    pt.colGrandTotals = colGrandTotals;
-  }
-  if (autoRefresh != null) {
-    pt.autoRefresh = autoRefresh;
-  }
-
-  // Boolean table-level attributes (non-default values only)
-  readBoolAttrs(pt, root, [
-    // Layout defaults
-    [ 'compact', false ],
-    [ 'outline', true ],
-    [ 'outlineData', true ],
-    [ 'compactData', false ],
-    [ 'gridDropZones', true ],
-    // Data axis
-    [ 'dataOnRows', true ],
-    // Display options
-    [ 'showHeaders', false ],
-    [ 'showEmptyRow', true ],
-    [ 'showEmptyCol', true ],
-    [ 'showDropZones', false ],
-    [ 'showMemberPropertyTips', false ],
-    [ 'enableDrill', false ],
-    [ 'showMultipleLabel', false ],
-    // Captions
-    [ 'showError', true ],
-    [ 'showMissing', false ],
-    // Behavior
-    [ 'subtotalHiddenItems', true ],
-    [ 'fieldPrintTitles', true ],
-    [ 'itemPrintTitles', true ],
-    [ 'mergeItem', true ],
-    [ 'customListSort', false ],
-    [ 'multipleFieldFilters', false ],
-    [ 'showItems', false ],
-    [ 'showCalcMbrs', false ],
-    [ 'preserveFormatting', false ],
-    [ 'pageOverThenDown', true ],
-  ]);
-
-  // AutoFormat attributes (AG_AutoFormat attribute group)
-  const autoFormatId = numAttr(root, 'autoFormatId');
-  if (autoFormatId != null) { pt.autoFormatId = autoFormatId; }
-  const useAutoFormatting = boolAttr(root, 'useAutoFormatting');
-  if (useAutoFormatting != null) { pt.useAutoFormatting = useAutoFormatting; }
-  const applyNumberFormats = boolAttr(root, 'applyNumberFormats');
-  if (applyNumberFormats != null) { pt.applyNumberFormats = applyNumberFormats; }
-  const applyBorderFormats = boolAttr(root, 'applyBorderFormats');
-  if (applyBorderFormats != null) { pt.applyBorderFormats = applyBorderFormats; }
-  const applyFontFormats = boolAttr(root, 'applyFontFormats');
-  if (applyFontFormats != null) { pt.applyFontFormats = applyFontFormats; }
-  const applyPatternFormats = boolAttr(root, 'applyPatternFormats');
-  if (applyPatternFormats != null) { pt.applyPatternFormats = applyPatternFormats; }
-  const applyAlignmentFormats = boolAttr(root, 'applyAlignmentFormats');
-  if (applyAlignmentFormats != null) { pt.applyAlignmentFormats = applyAlignmentFormats; }
-  const applyWidthHeightFormats = boolAttr(root, 'applyWidthHeightFormats');
-  if (applyWidthHeightFormats != null) { pt.applyWidthHeightFormats = applyWidthHeightFormats; }
-
-  const createdVersion = numAttr(root, 'createdVersion');
-  if (createdVersion != null) { pt.createdVersion = createdVersion; }
-  const updatedVersion = numAttr(root, 'updatedVersion');
-  if (updatedVersion != null) { pt.updatedVersion = updatedVersion; }
-  const minRefreshableVersion = numAttr(root, 'minRefreshableVersion');
-  if (minRefreshableVersion != null) { pt.minRefreshableVersion = minRefreshableVersion; }
-
-  const indent = numAttr(root, 'indent');
-  if (indent != null && indent !== 1) { pt.indent = indent; }
-  const dataPosition = numAttr(root, 'dataPosition');
-  if (dataPosition != null) { pt.dataPosition = dataPosition; }
-  const dataCaption = attr(root, 'dataCaption');
-  if (dataCaption != null) { pt.dataCaption = dataCaption; }
-  const grandTotalCaption = attr(root, 'grandTotalCaption');
-  if (grandTotalCaption != null) { pt.grandTotalCaption = grandTotalCaption; }
-  const errorCaption = attr(root, 'errorCaption');
-  if (errorCaption != null) { pt.errorCaption = errorCaption; }
-  const missingCaption = attr(root, 'missingCaption');
-  if (missingCaption != null) { pt.missingCaption = missingCaption; }
-  const rowHeaderCaption = attr(root, 'rowHeaderCaption');
-  if (rowHeaderCaption != null) { pt.rowHeaderCaption = rowHeaderCaption; }
-  const colHeaderCaption = attr(root, 'colHeaderCaption');
-  if (colHeaderCaption != null) { pt.colHeaderCaption = colHeaderCaption; }
-  const pageWrap = numAttr(root, 'pageWrap', 0);
-  if (pageWrap !== 0) { pt.pageWrap = pageWrap; }
-
-  const formats = parseFormats(root);
-  if (formats.length > 0) { pt.formats = formats; }
-
-  const conditionalFormats = parseConditionalFormats(root);
-  if (conditionalFormats.length > 0) { pt.conditionalFormats = conditionalFormats; }
-
-  const filters = parseFilters(root);
-  if (filters.length > 0) { pt.filters = filters; }
-
-  const uid = attr(root, 'xr:uid');
-  if (uid != null) { pt.uid = uid; }
-
-  // Extension list (opaque pass-through)
-  const extensions: string[] = [];
-  for (const extEl of root.querySelectorAll('extLst > ext')) {
-    extensions.push(serializeElement(extEl));
-  }
-  if (extensions.length > 0) { pt.extensions = extensions; }
-
-  const calculatedFields: PivotTable['calculatedFields'] = [];
-  for (const cfEl of root.querySelectorAll('calculatedFields > calculatedField')) {
-    const cfName = attr(cfEl, 'name');
-    const cfFormula = attr(cfEl, 'formula');
-    if (cfName != null && cfFormula != null) {
-      calculatedFields.push({ name: cfName, formula: cfFormula });
-    }
-  }
-  if (calculatedFields.length > 0) { pt.calculatedFields = calculatedFields; }
-
-  return pt;
 }
 
 // --- Pivot area parsing (shared by formats, conditionalFormats) ---
