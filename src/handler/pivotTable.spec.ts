@@ -527,4 +527,210 @@ describe('handlerPivotTable', () => {
     ]);
     expect(pt.colItems).toEqual([ { repeatedItemCount: 1, itemIndices: [ 2 ] } ]);
   });
+
+  it('should parse formats with pivotArea', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="0"/>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="0"/>
+      <formats count="2">
+        <format dxfId="3">
+          <pivotArea type="all" dataOnly="0" outline="0"/>
+        </format>
+        <format action="blank" dxfId="5">
+          <pivotArea field="0" labelOnly="1" grandRow="1">
+            <references count="1">
+              <reference field="0" selected="0">
+                <x v="1"/><x v="3"/>
+              </reference>
+            </references>
+          </pivotArea>
+        </format>
+      </formats>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.formats).toHaveLength(2);
+    expect(pt.formats![0]).toEqual({
+      dxfId: 3,
+      pivotArea: { type: 'all', dataOnly: false, outline: false },
+    });
+    expect(pt.formats![1]).toEqual({
+      action: 'blank',
+      dxfId: 5,
+      pivotArea: {
+        field: 0,
+        labelOnly: true,
+        grandRow: true,
+        references: [
+          { field: 0, selected: false, itemIndices: [ 1, 3 ] },
+        ],
+      },
+    });
+  });
+
+  it('should parse pivotArea with axis and fieldPosition', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="0"/>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="0"/>
+      <formats count="1">
+        <format dxfId="0">
+          <pivotArea type="data" axis="axisRow" fieldPosition="2" offset="B3:C4" cacheIndex="1" collapsedLevelsAreSubtotals="1"/>
+        </format>
+      </formats>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.formats![0].pivotArea).toEqual({
+      type: 'data',
+      axis: 'row',
+      fieldPosition: 2,
+      offset: 'B3:C4',
+      cacheIndex: true,
+      collapsedLevelsAreSubtotals: true,
+    });
+  });
+
+  it('should parse pivotAreaReference subtotal flags', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="0"/>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="0"/>
+      <formats count="1">
+        <format dxfId="0">
+          <pivotArea>
+            <references count="1">
+              <reference field="0" byPosition="1" relative="1" defaultSubtotal="1" sumSubtotal="1" countASubtotal="1" avgSubtotal="1" maxSubtotal="1" minSubtotal="1" productSubtotal="1" countSubtotal="1" stdDevSubtotal="1" stdDevPSubtotal="1" varSubtotal="1" varPSubtotal="1"/>
+            </references>
+          </pivotArea>
+        </format>
+      </formats>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    const ref = pt.formats![0].pivotArea.references![0];
+    expect(ref.field).toBe(0);
+    expect(ref.byPosition).toBe(true);
+    expect(ref.relative).toBe(true);
+    expect(ref.defaultSubtotal).toBe(true);
+    expect(ref.sumSubtotal).toBe(true);
+    expect(ref.countASubtotal).toBe(true);
+    expect(ref.avgSubtotal).toBe(true);
+    expect(ref.maxSubtotal).toBe(true);
+    expect(ref.minSubtotal).toBe(true);
+    expect(ref.productSubtotal).toBe(true);
+    expect(ref.countSubtotal).toBe(true);
+    expect(ref.stdDevSubtotal).toBe(true);
+    expect(ref.stdDevPSubtotal).toBe(true);
+    expect(ref.varSubtotal).toBe(true);
+    expect(ref.varPSubtotal).toBe(true);
+  });
+
+  it('should parse conditionalFormats', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="0"/>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="0"/>
+      <conditionalFormats count="1">
+        <conditionalFormat scope="data" type="row" priority="5">
+          <pivotAreas count="2">
+            <pivotArea type="data" grandCol="1"/>
+            <pivotArea field="1"/>
+          </pivotAreas>
+        </conditionalFormat>
+      </conditionalFormats>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.conditionalFormats).toHaveLength(1);
+    expect(pt.conditionalFormats![0]).toEqual({
+      scope: 'data',
+      type: 'row',
+      priority: 5,
+      pivotAreas: [
+        { type: 'data', grandCol: true },
+        { field: 1 },
+      ],
+    });
+  });
+
+  it('should parse filters with autoFilter, top10, and customFilters', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="0"/>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="0"/>
+      <filters count="2">
+        <filter fld="0" type="count" id="1" evalOrder="2" name="Top 5">
+          <autoFilter ref="A1:A10">
+            <filterColumn colId="0">
+              <top10 val="5" top="0" percent="1" filterVal="42.5"/>
+            </filterColumn>
+          </autoFilter>
+        </filter>
+        <filter fld="1" type="captionGreaterThan" id="2" stringValue1="Foo" stringValue2="Bar" description="Caption filter">
+          <autoFilter>
+            <filterColumn colId="0">
+              <customFilters and="1">
+                <customFilter operator="greaterThan" val="100"/>
+                <customFilter operator="lessThan" val="500"/>
+              </customFilters>
+            </filterColumn>
+          </autoFilter>
+        </filter>
+      </filters>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.filters).toHaveLength(2);
+    expect(pt.filters![0]).toEqual({
+      fieldIndex: 0,
+      type: 'count',
+      id: 1,
+      evalOrder: 2,
+      name: 'Top 5',
+      autoFilter: {
+        ref: 'A1:A10',
+        filterColumns: [
+          { colId: 0, top10: { val: 5, top: false, percent: true, filterVal: 42.5 } },
+        ],
+      },
+    });
+    expect(pt.filters![1]).toEqual({
+      fieldIndex: 1,
+      type: 'captionGreaterThan',
+      id: 2,
+      stringValue1: 'Foo',
+      stringValue2: 'Bar',
+      description: 'Caption filter',
+      autoFilter: {
+        filterColumns: [
+          {
+            colId: 0,
+            customFilters: {
+              and: true,
+              filters: [
+                { operator: 'greaterThan', val: '100' },
+                { operator: 'lessThan', val: '500' },
+              ],
+            },
+          },
+        ],
+      },
+    });
+  });
+
+  it('should skip filters with invalid type', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="0"/>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="0"/>
+      <filters count="1">
+        <filter fld="0" type="invalidType" id="1"/>
+      </filters>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.filters).toBeUndefined();
+  });
 });
