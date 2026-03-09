@@ -565,15 +565,17 @@ function parsePivotArea (el: Element): PivotArea {
   if (type != null && type !== 'normal') { area.type = type; }
   const field = numAttr(el, 'field');
   if (field != null) { area.field = field; }
-  if (boolAttr(el, 'dataOnly') === false) { area.dataOnly = false; }
-  if (boolAttr(el, 'labelOnly') === true) { area.labelOnly = true; }
-  if (boolAttr(el, 'grandRow') === true) { area.grandRow = true; }
-  if (boolAttr(el, 'grandCol') === true) { area.grandCol = true; }
-  if (boolAttr(el, 'cacheIndex') === true) { area.cacheIndex = true; }
-  if (boolAttr(el, 'outline') === false) { area.outline = false; }
+  readBoolAttrs(area, el, [
+    [ 'dataOnly', false ],
+    [ 'labelOnly', true ],
+    [ 'grandRow', true ],
+    [ 'grandCol', true ],
+    [ 'cacheIndex', true ],
+    [ 'outline', false ],
+    [ 'collapsedLevelsAreSubtotals', true ],
+  ]);
   const offset = attr(el, 'offset');
   if (offset != null) { area.offset = offset; }
-  if (boolAttr(el, 'collapsedLevelsAreSubtotals') === true) { area.collapsedLevelsAreSubtotals = true; }
   const axis = AXIS_MAP[attr(el, 'axis') ?? ''];
   if (axis != null) { area.axis = axis; }
   const fieldPosition = numAttr(el, 'fieldPosition');
