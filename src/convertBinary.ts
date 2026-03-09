@@ -200,28 +200,32 @@ export async function convertBinary (
     ? pivotCacheRIds.map(rId => context.rels.find(d => d.id === rId)).filter((d): d is Rel => d != null)
     : context.rels.filter(d => d.type === 'pivotCacheDefinition');
   const cachePathToIndex = new Map<string, number>();
-  wb.pivotCaches = [];
-  for (const cacheRel of pivotCacheRels) {
-    const cacheDom = await getFile(cacheRel.target);
-    if (cacheDom) {
-      const cache = handlerPivotCacheDefinition(cacheDom);
-      if (cache) {
-        // read the cache records via the cache definition's rels
-        const cacheDefRels = await getRels(cacheRel.target);
-        const recordsRel = cacheDefRels.find(d => d.type === 'pivotCacheRecords');
-        if (recordsRel) {
-          const recordsDom = await getFile(recordsRel.target);
-          if (recordsDom) {
-            const records = handlerPivotCacheRecords(recordsDom);
-            if (records.length > 0) {
-              cache.records = records;
-            }
-          }
+  const cacheResults = await Promise.all(pivotCacheRels.map(async (cacheRel) => {
+    const [cacheDom, cacheDefRels] = await Promise.all([
+      getFile(cacheRel.target),
+      getRels(cacheRel.target),
+    ]);
+    if (!cacheDom) { return null; }
+    const cache = handlerPivotCacheDefinition(cacheDom);
+    if (!cache) { return null; }
+    // read the cache records via the cache definition's rels
+    const recordsRel = cacheDefRels.find(d => d.type === 'pivotCacheRecords');
+    if (recordsRel) {
+      const recordsDom = await getFile(recordsRel.target);
+      if (recordsDom) {
+        const records = handlerPivotCacheRecords(recordsDom);
+        if (records.length > 0) {
+          cache.records = records;
         }
-        const cacheIndex = wb.pivotCaches.length;
-        wb.pivotCaches.push(cache);
-        cachePathToIndex.set(cacheRel.target, cacheIndex);
       }
+    }
+    return { cache, target: cacheRel.target };
+  }));
+  wb.pivotCaches = [];
+  for (const result of cacheResults) {
+    if (result) {
+      cachePathToIndex.set(result.target, wb.pivotCaches.length);
+      wb.pivotCaches.push(result.cache);
     }
   }
   if (wb.pivotCaches.length === 0) {
