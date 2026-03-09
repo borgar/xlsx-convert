@@ -19,6 +19,10 @@ function escText (s: string): string {
  * Serialize an Element to compact XML, preserving namespace prefixes (using `fullName`)
  * and namespace declaration attributes. Unlike `simple-xml`'s built-in `toString()` which
  * uses `tagName` (dropping the prefix), this function preserves the full qualified name.
+ *
+ * Note: text/CDATA nodes are emitted before child elements within each level, so mixed
+ * content (`<a>text<b/>more</a>`) is reordered to `<a>textmore<b/></a>`. This is acceptable
+ * for the OOXML `<ext>` elements this function targets, which don't use mixed content.
  */
 export function serializeElement (el: Element): string {
   const tag = el.fullName;
