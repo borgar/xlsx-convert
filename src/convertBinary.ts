@@ -192,8 +192,8 @@ export async function convertBinary (
   // metadata
   context.metadata = await maybeRead(context, 'sheetMetadata', handlerMetaData);
 
-  // pivot caches (workbook-level) — use order from <pivotCaches> in workbook.xml,
-  // not the document order in workbook.xml.rels (which can differ)
+  // pivot caches (workbook-level) — prefer order from <pivotCaches> in workbook.xml
+  // over the document order in workbook.xml.rels (which can differ)
   const pivotCacheRIds = wbDom.querySelectorAll('pivotCaches > pivotCache')
     .map(d => attr(d, 'r:id'));
   const pivotCacheRels = pivotCacheRIds.length > 0
