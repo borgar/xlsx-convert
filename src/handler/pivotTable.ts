@@ -23,6 +23,7 @@ import type {
   PivotTable,
   PivotTableStyle,
 } from '@jsfkit/types';
+import { addProp } from '../utils/addProp.ts';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { parseEnum } from '../utils/parseEnum.ts';
 import { serializeElement } from '../utils/serializeElement.ts';
@@ -157,48 +158,28 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
   ]);
 
   // AutoFormat attributes (AG_AutoFormat attribute group)
-  const autoFormatId = numAttr(root, 'autoFormatId');
-  if (autoFormatId != null) { pt.autoFormatId = autoFormatId; }
-  const useAutoFormatting = boolAttr(root, 'useAutoFormatting');
-  if (useAutoFormatting != null) { pt.useAutoFormatting = useAutoFormatting; }
-  const applyNumberFormats = boolAttr(root, 'applyNumberFormats');
-  if (applyNumberFormats != null) { pt.applyNumberFormats = applyNumberFormats; }
-  const applyBorderFormats = boolAttr(root, 'applyBorderFormats');
-  if (applyBorderFormats != null) { pt.applyBorderFormats = applyBorderFormats; }
-  const applyFontFormats = boolAttr(root, 'applyFontFormats');
-  if (applyFontFormats != null) { pt.applyFontFormats = applyFontFormats; }
-  const applyPatternFormats = boolAttr(root, 'applyPatternFormats');
-  if (applyPatternFormats != null) { pt.applyPatternFormats = applyPatternFormats; }
-  const applyAlignmentFormats = boolAttr(root, 'applyAlignmentFormats');
-  if (applyAlignmentFormats != null) { pt.applyAlignmentFormats = applyAlignmentFormats; }
-  const applyWidthHeightFormats = boolAttr(root, 'applyWidthHeightFormats');
-  if (applyWidthHeightFormats != null) { pt.applyWidthHeightFormats = applyWidthHeightFormats; }
+  addProp(pt, 'autoFormatId', numAttr(root, 'autoFormatId'));
+  addProp(pt, 'useAutoFormatting', boolAttr(root, 'useAutoFormatting'));
+  addProp(pt, 'applyNumberFormats', boolAttr(root, 'applyNumberFormats'));
+  addProp(pt, 'applyBorderFormats', boolAttr(root, 'applyBorderFormats'));
+  addProp(pt, 'applyFontFormats', boolAttr(root, 'applyFontFormats'));
+  addProp(pt, 'applyPatternFormats', boolAttr(root, 'applyPatternFormats'));
+  addProp(pt, 'applyAlignmentFormats', boolAttr(root, 'applyAlignmentFormats'));
+  addProp(pt, 'applyWidthHeightFormats', boolAttr(root, 'applyWidthHeightFormats'));
 
-  const createdVersion = numAttr(root, 'createdVersion');
-  if (createdVersion != null) { pt.createdVersion = createdVersion; }
-  const updatedVersion = numAttr(root, 'updatedVersion');
-  if (updatedVersion != null) { pt.updatedVersion = updatedVersion; }
-  const minRefreshableVersion = numAttr(root, 'minRefreshableVersion');
-  if (minRefreshableVersion != null) { pt.minRefreshableVersion = minRefreshableVersion; }
+  addProp(pt, 'createdVersion', numAttr(root, 'createdVersion'));
+  addProp(pt, 'updatedVersion', numAttr(root, 'updatedVersion'));
+  addProp(pt, 'minRefreshableVersion', numAttr(root, 'minRefreshableVersion'));
 
-  const indent = numAttr(root, 'indent');
-  if (indent != null && indent !== 1) { pt.indent = indent; }
-  const dataPosition = numAttr(root, 'dataPosition');
-  if (dataPosition != null) { pt.dataPosition = dataPosition; }
-  const dataCaption = attr(root, 'dataCaption');
-  if (dataCaption != null) { pt.dataCaption = dataCaption; }
-  const grandTotalCaption = attr(root, 'grandTotalCaption');
-  if (grandTotalCaption != null) { pt.grandTotalCaption = grandTotalCaption; }
-  const errorCaption = attr(root, 'errorCaption');
-  if (errorCaption != null) { pt.errorCaption = errorCaption; }
-  const missingCaption = attr(root, 'missingCaption');
-  if (missingCaption != null) { pt.missingCaption = missingCaption; }
-  const rowHeaderCaption = attr(root, 'rowHeaderCaption');
-  if (rowHeaderCaption != null) { pt.rowHeaderCaption = rowHeaderCaption; }
-  const colHeaderCaption = attr(root, 'colHeaderCaption');
-  if (colHeaderCaption != null) { pt.colHeaderCaption = colHeaderCaption; }
-  const pageWrap = numAttr(root, 'pageWrap', 0);
-  if (pageWrap !== 0) { pt.pageWrap = pageWrap; }
+  addProp(pt, 'indent', numAttr(root, 'indent'), 1);
+  addProp(pt, 'dataPosition', numAttr(root, 'dataPosition'));
+  addProp(pt, 'dataCaption', attr(root, 'dataCaption'));
+  addProp(pt, 'grandTotalCaption', attr(root, 'grandTotalCaption'));
+  addProp(pt, 'errorCaption', attr(root, 'errorCaption'));
+  addProp(pt, 'missingCaption', attr(root, 'missingCaption'));
+  addProp(pt, 'rowHeaderCaption', attr(root, 'rowHeaderCaption'));
+  addProp(pt, 'colHeaderCaption', attr(root, 'colHeaderCaption'));
+  addProp(pt, 'pageWrap', numAttr(root, 'pageWrap'), 0);
 
   const formats = parseFormats(root);
   if (formats.length > 0) { pt.formats = formats; }
