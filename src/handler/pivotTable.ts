@@ -215,7 +215,7 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
 
 // --- Helper functions and constants ---
 
-const SUBTOTAL_ATTRS: PivotSubtotalFunction[] = [
+const SUBTOTAL_FUNCTIONS: PivotSubtotalFunction[] = [
   'sum',
   'countA',
   'avg',
@@ -230,7 +230,7 @@ const SUBTOTAL_ATTRS: PivotSubtotalFunction[] = [
 ];
 
 const ITEM_TYPES: ReadonlySet<PivotItemType> = new Set<PivotItemType>([
-  ...SUBTOTAL_ATTRS, 'data', 'default', 'grand', 'blank',
+  ...SUBTOTAL_FUNCTIONS, 'data', 'default', 'grand', 'blank',
 ]);
 
 const DATA_FIELD_AGGREGATIONS: ReadonlySet<PivotDataFieldAggregation> =
@@ -324,7 +324,7 @@ function parsePivotFields (root: Element): PivotField[] {
     }
     // check for explicit subtotal attributes on the field
     const subtotalFunctions: PivotSubtotalFunction[] = [];
-    for (const fn of SUBTOTAL_ATTRS) {
+    for (const fn of SUBTOTAL_FUNCTIONS) {
       const attrName =
         fn === 'countA'
           ? 'countASubtotal'
