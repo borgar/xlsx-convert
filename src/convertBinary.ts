@@ -360,6 +360,17 @@ export async function convertBinary (
     }
   }
 
+  // Sort pivot tables by sheet position, then by name within each sheet.
+  // Sheet order is already guaranteed by sequential processing, but rels
+  // order within a sheet is not deterministic by name.
+  if (wb.pivotTables.length > 1) {
+    const sheetOrder = new Map(context.sheetLinks.map((sl, i) => [ sl.name || `Sheet${sl.index}`, i ]));
+    wb.pivotTables.sort((a, b) => {
+      const si = (sheetOrder.get(a.sheet) ?? Infinity) - (sheetOrder.get(b.sheet) ?? Infinity);
+      return si !== 0 ? si : a.name.localeCompare(b.name);
+    });
+  }
+
   if (wb.pivotTables.length === 0) {
     delete wb.pivotTables;
   }
