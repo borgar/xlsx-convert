@@ -15,7 +15,6 @@ export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefi
   const sourceType = attr(cacheSource, 'type');
   const fields = parseFields(root);
 
-  // Cache metadata attributes
   const metadata = parseCacheMetadata(root);
 
   // Extension list (opaque pass-through)
@@ -131,7 +130,6 @@ function parseFields (root: Element): PivotCacheField[] {
         field.sharedItemsMeta = meta;
       }
     }
-    // Field grouping
     const fieldGroupEl = cf.getElementsByTagName('fieldGroup')[0];
     if (fieldGroupEl) {
       const fg = parseFieldGroup(fieldGroupEl);

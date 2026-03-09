@@ -157,7 +157,6 @@ function parsePivotFields (root: Element): PivotField[] {
       field.sortType = sortType;
     }
 
-    // Parse field items
     const itemsContainer = pf.getElementsByTagName('items')[0];
     if (itemsContainer) {
       const items: PivotFieldItem[] = [];
@@ -230,7 +229,6 @@ function parsePivotFields (root: Element): PivotField[] {
       [ 'defaultAttributeDrillState', true ],
     ]);
 
-    // Non-boolean field attributes
     const subtotalCaption = attr(pf, 'subtotalCaption');
     if (subtotalCaption != null) { field.subtotalCaption = subtotalCaption; }
     const pfNumFmtId = numAttr(pf, 'numFmtId');
@@ -366,13 +364,11 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
 
   const fields = parsePivotFields(root);
 
-  // Row fields
   const rowFieldIndices: number[] = [];
   for (const f of root.querySelectorAll('rowFields > field')) {
     rowFieldIndices.push(numAttr(f, 'x', 0));
   }
 
-  // Column fields
   const colFieldIndices: number[] = [];
   for (const f of root.querySelectorAll('colFields > field')) {
     colFieldIndices.push(numAttr(f, 'x', 0));
@@ -387,7 +383,6 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
 
   const style = parseStyle(root);
 
-  // Grand totals
   const rowGrandTotals = boolAttr(root, 'rowGrandTotals');
   const colGrandTotals = boolAttr(root, 'colGrandTotals');
   const autoRefresh = boolAttr(root, 'autoRefresh');
@@ -490,7 +485,6 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
   const applyWidthHeightFormats = boolAttr(root, 'applyWidthHeightFormats');
   if (applyWidthHeightFormats != null) { pt.applyWidthHeightFormats = applyWidthHeightFormats; }
 
-  // Version tracking
   const createdVersion = numAttr(root, 'createdVersion');
   if (createdVersion != null) { pt.createdVersion = createdVersion; }
   const updatedVersion = numAttr(root, 'updatedVersion');
@@ -498,7 +492,6 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
   const minRefreshableVersion = numAttr(root, 'minRefreshableVersion');
   if (minRefreshableVersion != null) { pt.minRefreshableVersion = minRefreshableVersion; }
 
-  // Non-boolean table-level attributes
   const indent = numAttr(root, 'indent');
   if (indent != null && indent !== 1) { pt.indent = indent; }
   const dataPosition = numAttr(root, 'dataPosition');
@@ -518,19 +511,15 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
   const pageWrap = numAttr(root, 'pageWrap', 0);
   if (pageWrap !== 0) { pt.pageWrap = pageWrap; }
 
-  // Formats
   const formats = parseFormats(root);
   if (formats.length > 0) { pt.formats = formats; }
 
-  // Conditional formats
   const conditionalFormats = parseConditionalFormats(root);
   if (conditionalFormats.length > 0) { pt.conditionalFormats = conditionalFormats; }
 
-  // Filters
   const filters = parseFilters(root);
   if (filters.length > 0) { pt.filters = filters; }
 
-  // Revision-tracking UID (xr:uid)
   const uid = attr(root, 'xr:uid');
   if (uid != null) { pt.uid = uid; }
 
@@ -541,7 +530,6 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
   }
   if (extensions.length > 0) { pt.extensions = extensions; }
 
-  // Calculated fields
   const calculatedFields: PivotTable['calculatedFields'] = [];
   for (const cfEl of root.querySelectorAll('calculatedFields > calculatedField')) {
     const cfName = attr(cfEl, 'name');
@@ -621,8 +609,6 @@ function parsePivotAreaReference (el: Element): PivotAreaReference {
   return ref;
 }
 
-// --- Formats ---
-
 function parseFormats (root: Element): PivotFormat[] {
   const formats: PivotFormat[] = [];
   for (const fmtEl of root.querySelectorAll('formats > format')) {
@@ -641,8 +627,6 @@ function parseFormats (root: Element): PivotFormat[] {
   }
   return formats;
 }
-
-// --- Conditional formats ---
 
 const CF_SCOPES: ReadonlySet<PivotConditionalFormatScope> =
   new Set<PivotConditionalFormatScope>([ 'selection', 'data', 'field' ]);
@@ -668,8 +652,6 @@ function parseConditionalFormats (root: Element): PivotConditionalFormat[] {
   }
   return results;
 }
-
-// --- Filters ---
 
 const FILTER_TYPES: ReadonlySet<PivotFilterType> = new Set<PivotFilterType>([
   'unknown',
@@ -771,7 +753,6 @@ function parseFilters (root: Element): PivotFilter[] {
     const sv2 = attr(fEl, 'stringValue2');
     if (sv2 != null) { filter.stringValue2 = sv2; }
 
-    // Parse autoFilter child
     const afEl = fEl.getElementsByTagName('autoFilter')[0];
     if (afEl) {
       const af: PivotFilter['autoFilter'] = {};

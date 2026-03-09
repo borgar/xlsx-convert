@@ -264,7 +264,6 @@ export async function convertBinary (
         }
       }
 
-      // pivot tables (sheet-level)
       const pivotTableRels = sheetRels.filter(rel => rel.type === 'pivotTable');
       for (const ptRel of pivotTableRels) {
         const ptDom = await getFile(ptRel.target);
@@ -370,7 +369,6 @@ export async function convertBinary (
     });
   }
 
-  // Remove empty pivotTables array if no pivot tables were found
   if (wb.pivotTables.length === 0) {
     delete wb.pivotTables;
   }
