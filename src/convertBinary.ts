@@ -25,6 +25,7 @@ import { EncryptionError, InvalidFileError, MissingSheetError } from './errors.t
 import { handlerDrawing } from './handler/drawing.ts';
 import { arrayBufferToDataUri } from './utils/arrayBufferToDataUri.ts';
 import { getMimeType } from './utils/getMimeType.ts';
+import { isLikelyGoogleSheetsExport } from './utils/isLikelyGoogleSheetsExport.ts';
 
 function toArrayBuffer (buffer: Buffer): ArrayBuffer {
   const arrayBuffer = new ArrayBuffer(buffer.length);
@@ -141,6 +142,7 @@ export async function convertBinary (
   context.rels = await getRels(wbRel.target);
   context.options = options;
   context.filename = pathBasename(filename);
+  context.isLikelyGoogleSheets = isLikelyGoogleSheetsExport(zip);
 
   // workbook - read DOM first to get externalReferences order
   const wbDom = await getFile(wbRel.target);

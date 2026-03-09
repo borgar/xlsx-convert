@@ -58,6 +58,7 @@ const tests = [
   'tests/excel/trimmed-ranges.xlsx',
   'tests/excel/workbook-views.xlsx',
   'tests/excel/zooms.xlsx',
+  'tests/excel/error-string-formula-ref.xlsx',
   // CSV conversion
   'tests/csv/boolean-variations.csv',
   'tests/csv/complex-mixed-types.csv',
