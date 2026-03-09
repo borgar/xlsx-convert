@@ -592,21 +592,23 @@ function parsePivotAreaReference (el: Element): PivotAreaReference {
   const ref: PivotAreaReference = {};
   const field = numAttr(el, 'field');
   if (field != null) { ref.field = field; }
-  if (boolAttr(el, 'selected') === false) { ref.selected = false; }
-  if (boolAttr(el, 'byPosition') === true) { ref.byPosition = true; }
-  if (boolAttr(el, 'relative') === true) { ref.relative = true; }
-  if (boolAttr(el, 'defaultSubtotal') === true) { ref.defaultSubtotal = true; }
-  if (boolAttr(el, 'sumSubtotal') === true) { ref.sumSubtotal = true; }
-  if (boolAttr(el, 'countASubtotal') === true) { ref.countASubtotal = true; }
-  if (boolAttr(el, 'avgSubtotal') === true) { ref.avgSubtotal = true; }
-  if (boolAttr(el, 'maxSubtotal') === true) { ref.maxSubtotal = true; }
-  if (boolAttr(el, 'minSubtotal') === true) { ref.minSubtotal = true; }
-  if (boolAttr(el, 'productSubtotal') === true) { ref.productSubtotal = true; }
-  if (boolAttr(el, 'countSubtotal') === true) { ref.countSubtotal = true; }
-  if (boolAttr(el, 'stdDevSubtotal') === true) { ref.stdDevSubtotal = true; }
-  if (boolAttr(el, 'stdDevPSubtotal') === true) { ref.stdDevPSubtotal = true; }
-  if (boolAttr(el, 'varSubtotal') === true) { ref.varSubtotal = true; }
-  if (boolAttr(el, 'varPSubtotal') === true) { ref.varPSubtotal = true; }
+  readBoolAttrs(ref, el, [
+    [ 'selected', false ],
+    [ 'byPosition', true ],
+    [ 'relative', true ],
+    [ 'defaultSubtotal', true ],
+    [ 'sumSubtotal', true ],
+    [ 'countASubtotal', true ],
+    [ 'avgSubtotal', true ],
+    [ 'maxSubtotal', true ],
+    [ 'minSubtotal', true ],
+    [ 'productSubtotal', true ],
+    [ 'countSubtotal', true ],
+    [ 'stdDevSubtotal', true ],
+    [ 'stdDevPSubtotal', true ],
+    [ 'varSubtotal', true ],
+    [ 'varPSubtotal', true ],
+  ]);
 
   const indices: number[] = [];
   for (const x of el.getElementsByTagName('x')) {
