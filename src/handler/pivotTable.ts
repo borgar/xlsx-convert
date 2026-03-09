@@ -52,21 +52,7 @@ function readBoolAttrs (
 }
 
 const ITEM_TYPES: ReadonlySet<PivotItemType> = new Set<PivotItemType>([
-  'data',
-  'default',
-  'sum',
-  'countA',
-  'avg',
-  'max',
-  'min',
-  'product',
-  'count',
-  'stdDev',
-  'stdDevP',
-  'var',
-  'varP',
-  'grand',
-  'blank',
+  ...SUBTOTAL_ATTRS, 'data', 'default', 'grand', 'blank',
 ]);
 
 const DATA_FIELD_AGGREGATIONS: ReadonlySet<PivotDataFieldAggregation> =
