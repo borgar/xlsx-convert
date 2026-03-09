@@ -4,6 +4,7 @@ import type {
   PivotAreaReference,
   PivotAreaType,
   PivotAutoFilterColumn,
+  PivotCustomFilterCriterion,
   PivotConditionalFormat,
   PivotConditionalFormatScope,
   PivotConditionalFormatType,
@@ -729,7 +730,8 @@ const FILTER_TYPES: ReadonlySet<PivotFilterType> = new Set<PivotFilterType>([
   'M12',
 ]);
 
-const CUSTOM_FILTER_OPS = new Set([
+type CustomFilterOp = NonNullable<PivotCustomFilterCriterion['operator']>;
+const CUSTOM_FILTER_OPS: ReadonlySet<CustomFilterOp> = new Set<CustomFilterOp>([
   'lessThan', 'lessThanOrEqual', 'equal', 'notEqual', 'greaterThanOrEqual', 'greaterThan',
 ]);
 
@@ -783,9 +785,9 @@ function parseFilters (root: Element): PivotFilter[] {
           const cfItems: NonNullable<PivotAutoFilterColumn['customFilters']>['filters'] = [];
           for (const cfItemEl of customFiltersEl.getElementsByTagName('customFilter')) {
             const f: (typeof cfItems)[number] = {};
-            const op = attr(cfItemEl, 'operator');
-            if (op != null && CUSTOM_FILTER_OPS.has(op)) {
-              f.operator = op as (typeof f)['operator'];
+            const op = parseEnum(attr(cfItemEl, 'operator'), CUSTOM_FILTER_OPS);
+            if (op != null) {
+              f.operator = op;
             }
             const val = attr(cfItemEl, 'val');
             if (val != null) { f.val = val; }
