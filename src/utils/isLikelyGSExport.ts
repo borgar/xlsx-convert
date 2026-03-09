@@ -26,7 +26,7 @@ import type { FileContainer } from './zip.ts';
  *    positive for this heuristic's purpose (the `t="str"` error conversion
  *    is unlikely to cause harm on synthetic files).
  */
-export function isLikelyGoogleSheetsExport (zip: FileContainer): boolean {
+export function isLikelyGSExport (zip: FileContainer): boolean {
   // The presence of docProps/app.xml is the strongest negative signal.
   // Every version of Excel and LibreOffice writes it; Google Sheets never does.
   if (zip.hasFile('docProps/app.xml')) {

@@ -24,6 +24,7 @@ const tests = [
   'tests/excel/epoch1900.xlsx',
   'tests/excel/epoch1904-strict.xlsx',
   'tests/excel/epoch1904.xlsx',
+  'tests/excel/error-string-formula-ref.xlsx',
   'tests/excel/errors-excel.xlsx',
   'tests/excel/errors-gsheets.xlsx',
   'tests/excel/every-chart.xlsx',
@@ -58,7 +59,6 @@ const tests = [
   'tests/excel/trimmed-ranges.xlsx',
   'tests/excel/workbook-views.xlsx',
   'tests/excel/zooms.xlsx',
-  'tests/excel/error-string-formula-ref.xlsx',
   // CSV conversion
   'tests/csv/boolean-variations.csv',
   'tests/csv/complex-mixed-types.csv',

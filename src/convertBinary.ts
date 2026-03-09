@@ -25,7 +25,7 @@ import { EncryptionError, InvalidFileError, MissingSheetError } from './errors.t
 import { handlerDrawing } from './handler/drawing.ts';
 import { arrayBufferToDataUri } from './utils/arrayBufferToDataUri.ts';
 import { getMimeType } from './utils/getMimeType.ts';
-import { isLikelyGoogleSheetsExport } from './utils/isLikelyGoogleSheetsExport.ts';
+import { isLikelyGSExport } from './utils/isLikelyGSExport.ts';
 
 function toArrayBuffer (buffer: Buffer): ArrayBuffer {
   const arrayBuffer = new ArrayBuffer(buffer.length);
@@ -142,7 +142,7 @@ export async function convertBinary (
   context.rels = await getRels(wbRel.target);
   context.options = options;
   context.filename = pathBasename(filename);
-  context.isLikelyGoogleSheets = isLikelyGoogleSheetsExport(zip);
+  context.isLikelyGSExport = isLikelyGSExport(zip);
 
   // workbook - read DOM first to get externalReferences order
   const wbDom = await getFile(wbRel.target);
@@ -200,8 +200,7 @@ export async function convertBinary (
   const styleDefs = await maybeRead(context, 'styles', handlerStyles);
   wb.styles = convertStyles(styleDefs);
 
-  // worksheets — processed sequentially to avoid shared-state races on
-  // context.images and context.drawingRels between await points
+  // worksheets — processed sequentially to avoid shared-state races
   for (const [ index, sheetLink ] of context.sheetLinks.entries()) {
     const sheetRel = context.rels.find(d => d.id === sheetLink.rId);
     if (sheetRel) {
@@ -209,7 +208,7 @@ export async function convertBinary (
       const sheetRels = await getRels(sheetRel.target);
 
       // tables are accessed when external refs are normalized, so they have
-      // to be read them before that happens
+      // to be read before that happens
       const tableRels = sheetRels.filter(rel => rel.type === 'table');
       for (const tableRel of tableRels) {
         const tableDom = await getFile(tableRel.target);

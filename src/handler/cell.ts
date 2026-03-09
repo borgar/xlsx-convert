@@ -120,7 +120,7 @@ export function handlerCell (node: Element, context: ConversionContext): Cell {
       // Google Sheets exports we treat these as errors. For other sources,
       // `t="str"` means the formula genuinely evaluated to a string — even
       // one that looks like an error name (e.g. `=A1` where A1 is "#VALUE!").
-      if (context.isLikelyGoogleSheets && fNode && v && ERROR_NAMES.includes(v)) {
+      if (context.isLikelyGSExport && fNode && v && ERROR_NAMES.includes(v)) {
         valueType = 'e';
         cell.t = 'e';
         cell.v = v;
