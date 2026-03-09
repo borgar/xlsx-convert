@@ -551,7 +551,12 @@ const PIVOT_AREA_TYPES: ReadonlySet<PivotAreaType> = new Set<PivotAreaType>([
   'none', 'normal', 'data', 'all', 'origin', 'button', 'topRight',
 ]);
 
-const AXIS_VALUES = new Set([ 'axisRow', 'axisCol', 'axisPage', 'axisValues' ]);
+const AXIS_MAP: Readonly<Record<string, NonNullable<PivotArea['axis']>>> = {
+  axisRow: 'row',
+  axisCol: 'col',
+  axisPage: 'page',
+  axisValues: 'values',
+};
 
 function parsePivotArea (el: Element): PivotArea {
   const area: PivotArea = {};
@@ -568,8 +573,8 @@ function parsePivotArea (el: Element): PivotArea {
   const offset = attr(el, 'offset');
   if (offset != null) { area.offset = offset; }
   if (boolAttr(el, 'collapsedLevelsAreSubtotals') === true) { area.collapsedLevelsAreSubtotals = true; }
-  const axis = attr(el, 'axis');
-  if (axis != null && AXIS_VALUES.has(axis)) { area.axis = axis as PivotArea['axis']; }
+  const axis = AXIS_MAP[attr(el, 'axis') ?? ''];
+  if (axis != null) { area.axis = axis; }
   const fieldPosition = numAttr(el, 'fieldPosition');
   if (fieldPosition != null) { area.fieldPosition = fieldPosition; }
 
