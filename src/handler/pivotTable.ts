@@ -606,7 +606,7 @@ function parseFormats (root: Element): PivotFormat[] {
   const formats: PivotFormat[] = [];
   for (const fmtEl of root.querySelectorAll('formats > format')) {
     const fmt: PivotFormat = {
-      pivotArea: { type: 'normal' },
+      pivotArea: {},
     };
     const action = attr(fmtEl, 'action');
     if (action === 'blank') { fmt.action = 'blank'; }
