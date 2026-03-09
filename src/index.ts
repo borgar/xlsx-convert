@@ -23,6 +23,10 @@ export type ConversionOptions = {
    * the workbook instead of the standard data-URI conversion.
    */
   imageCallback?: (data?: ArrayBuffer, filename?: string) => Promise<string | void> | string | void
+  /**
+   * Warning callback. If provided, warnings are passed to this function instead of `console.warn`.
+   */
+  warn?: (message: string) => void;
 };
 
 /**

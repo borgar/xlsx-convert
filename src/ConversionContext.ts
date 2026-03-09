@@ -61,6 +61,15 @@ export class ConversionContext {
   images: RefLink[];
   isLikelyGSExport: boolean;
 
+  warn (message: string): void {
+    if (this.options.warn) {
+      this.options.warn(message);
+    }
+    else {
+      console.warn(message);
+    }
+  }
+
   constructor () {
     this.rels = [];
     this.options = {};
