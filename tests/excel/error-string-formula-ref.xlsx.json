@@ -1,15 +1,11 @@
 {
-  "name": "non-spilling-array-formula.xlsx",
+  "name": "error-string-formula-ref.xlsx",
   "sheets": [
     {
       "name": "Sheet1",
       "cells": {
-        "A1": { "v": "foo" },
-        "A2": { "v": "bar" },
-        "B2": { "v": "whoobar", "f": 0, "F": "B2" },
-        "A3": { "v": "baz" },
-        "B3": { "v": "whoofoo", "f": 1, "F": "B3" },
-        "A4": { "v": "xyzzy" }
+        "A1": { "s": 1, "v": "#VALUE!" },
+        "B1": { "v": "#VALUE!", "f": 0 }
       },
       "columns": [],
       "rows": [],
@@ -17,7 +13,7 @@
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
       "views": [
-        { "workbookView": 0, "activeCell": "B2" }
+        { "workbookView": 0, "activeCell": "B1" }
       ]
     }
   ],
@@ -29,6 +25,7 @@
     "epoch": 1900
   },
   "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 },
     { "fontFamily": "Aptos Narrow", "fontSize": 12 }
   ],
   "tables": [],
@@ -36,7 +33,6 @@
     {}
   ],
   "formulas": [
-    "TAKE(\"whoo\" &@R1C1:R4C1,1)",
-    "TAKE(\"whoo\" &R1C1:R4C1,1)"
+    "RC[-1]"
   ]
 }

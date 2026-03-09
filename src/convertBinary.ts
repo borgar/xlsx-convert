@@ -28,6 +28,7 @@ import { EncryptionError, InvalidFileError, MissingSheetError } from './errors.t
 import { handlerDrawing } from './handler/drawing.ts';
 import { arrayBufferToDataUri } from './utils/arrayBufferToDataUri.ts';
 import { getMimeType } from './utils/getMimeType.ts';
+import { isLikelyGSExport } from './utils/isLikelyGSExport.ts';
 
 function toArrayBuffer (buffer: Buffer): ArrayBuffer {
   const arrayBuffer = new ArrayBuffer(buffer.length);
@@ -144,6 +145,7 @@ export async function convertBinary (
   context.rels = await getRels(wbRel.target);
   context.options = options;
   context.filename = pathBasename(filename);
+  context.isLikelyGSExport = isLikelyGSExport(zip);
 
   // workbook - read DOM first to get externalReferences order
   const wbDom = await getFile(wbRel.target);
@@ -241,19 +243,17 @@ export async function convertBinary (
   const styleDefs = await maybeRead(context, 'styles', handlerStyles);
   wb.styles = convertStyles(styleDefs);
 
-  // Initialize before the concurrent Promise.all so pushes from different
-  // sheet callbacks don't need a check-and-create guard across await points.
   wb.pivotTables = [];
 
-  // worksheets
-  await Promise.all(context.sheetLinks.map(async (sheetLink, index) => {
+  // worksheets — processed sequentially to avoid shared-state races
+  for (const [ index, sheetLink ] of context.sheetLinks.entries()) {
     const sheetRel = context.rels.find(d => d.id === sheetLink.rId);
     if (sheetRel) {
       const sheetName = sheetLink.name || `Sheet${sheetLink.index}`;
       const sheetRels = await getRels(sheetRel.target);
 
       // tables are accessed when external refs are normalized, so they have
-      // to be read them before that happens
+      // to be read before that happens
       const tableRels = sheetRels.filter(rel => rel.type === 'table');
       for (const tableRel of tableRels) {
         const tableDom = await getFile(tableRel.target);
@@ -350,14 +350,15 @@ export async function convertBinary (
           }
         }
         if (imageCount) {
-          wb.images = images;
+          wb.images ??= {};
+          Object.assign(wb.images, images);
         }
       }
     }
     else {
       // TODO: add strict mode that: throw new Error('No rel found for sheet ' + sheetLink.rId);
     }
-  }));
+  }
 
   // Stabilize pivot table order after concurrent sheet processing: sort by
   // sheet position (in the workbook's sheet list), then by name within each sheet.

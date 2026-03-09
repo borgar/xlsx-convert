@@ -11,6 +11,7 @@ type SheetLink = {
   name: string;
   rId: string;
   index: number;
+  hidden: 0 | 1 | 2; // 0: visible, 1: hidden, 2: very hidden
 };
 
 type RefLink = {
@@ -58,6 +59,7 @@ export class ConversionContext {
   _merged: Record<string, string>;
   _arrayFormula: string[];
   images: RefLink[];
+  isLikelyGSExport: boolean;
 
   constructor () {
     this.rels = [];
@@ -75,5 +77,6 @@ export class ConversionContext {
     this._merged = {};
     this._arrayFormula = [];
     this.images = [];
+    this.isLikelyGSExport = false;
   }
 }
