@@ -62,12 +62,7 @@ export class ConversionContext {
   isLikelyGSExport: boolean;
 
   warn (message: string): void {
-    if (this.options.warn) {
-      this.options.warn(message);
-    }
-    else {
-      console.warn(message);
-    }
+    this.options.warn?.(message);
   }
 
   constructor () {

@@ -11,19 +11,10 @@ describe('ConversionContext', () => {
       expect(warnFn).toHaveBeenCalledWith('test warning');
     });
 
-    test('falls back to console.warn when no callback is provided', () => {
+    test('silent when no callback is provided', () => {
       const spy = vi.spyOn(console, 'warn').mockImplementation(() => {});
       const ctx = new ConversionContext();
-      ctx.warn('fallback warning');
-      expect(spy).toHaveBeenCalledWith('fallback warning');
-      spy.mockRestore();
-    });
-
-    test('does not call console.warn when callback is provided', () => {
-      const spy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-      const ctx = new ConversionContext();
-      ctx.options = { warn: () => {} };
-      ctx.warn('intercepted');
+      ctx.warn('should be swallowed');
       expect(spy).not.toHaveBeenCalled();
       spy.mockRestore();
     });

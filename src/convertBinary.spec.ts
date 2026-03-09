@@ -108,12 +108,11 @@ describe('convertBinary', () => {
       expect(warn.mock.calls[0][0]).toMatch(/String table: got \d+ entries, but expected 0/);
     });
 
-    test('without warn callback, warnings go to console.warn', async () => {
+    test('without warn callback, warnings are silent', async () => {
       const modifiedBin = await makeBadSharedStringsXlsx();
       const spy = vi.spyOn(console, 'warn').mockImplementation(() => {});
       await convertBinary(modifiedBin, 'strings.xlsx');
-      expect(spy).toHaveBeenCalledOnce();
-      expect(spy.mock.calls[0][0]).toMatch(/String table: got \d+ entries, but expected 0/);
+      expect(spy).not.toHaveBeenCalled();
       spy.mockRestore();
     });
   });

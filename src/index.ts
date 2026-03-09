@@ -24,7 +24,7 @@ export type ConversionOptions = {
    */
   imageCallback?: (data?: ArrayBuffer, filename?: string) => Promise<string | void> | string | void
   /**
-   * Warning callback. If provided, warnings are passed to this function instead of `console.warn`.
+   * Warning callback. If provided, warnings are passed to this function; otherwise they are silently discarded.
    */
   warn?: (message: string) => void;
 };
