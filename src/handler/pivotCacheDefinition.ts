@@ -118,9 +118,12 @@ function parseFields (root: Element): PivotCacheField[] {
       if (sharedItems.length > 0) {
         field.sharedItems = sharedItems;
       }
-      // Parse metadata attributes from the <sharedItems> element. When sharedItems
-      // has children these are derivable, but for fields with no shared items (data
-      // only in records) these are the only source of type/range information.
+      // The <sharedItems> element carries metadata attributes (containsNumber,
+      // minValue, maxValue, etc.) describing the field's data types and value
+      // ranges. When shared-item children exist, this metadata could be derived
+      // by scanning them, but when the field has no shared items (all values
+      // live only in the cache records) these attributes are the only source
+      // of type/range information for the field.
       const meta = parseSharedItemsMeta(sharedItemsEl);
       if (meta) {
         field.sharedItemsMeta = meta;
