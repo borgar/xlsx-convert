@@ -1,5 +1,6 @@
 import type { Document, Element } from '@borgar/simple-xml';
 import type { PivotCache, PivotCacheConsolidationRangeSet, PivotCacheField, PivotCacheFieldGroup, PivotCacheRangePr, PivotCacheSharedItem, PivotCacheSharedItemsMeta, PivotCacheWorksheetSource, PivotGroupBy } from '@jsfkit/types';
+import { addProp } from '../utils/addProp.ts';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { serializeElement } from '../utils/serializeElement.ts';
 
@@ -175,12 +176,13 @@ const GROUP_BY_VALUES: ReadonlySet<PivotGroupBy> = new Set<PivotGroupBy>([
 
 function parseFieldGroup (el: Element): PivotCacheFieldGroup | undefined {
   const fg: PivotCacheFieldGroup = {};
+  let hasAny = false;
   const par = numAttr(el, 'par');
-  if (par != null) { fg.par = par; }
+  if (par != null) { fg.par = par; hasAny = true; }
   const base = numAttr(el, 'base');
-  if (base != null) { fg.base = base; }
+  if (base != null) { fg.base = base; hasAny = true; }
 
-  // rangePr
+  // Numeric/date range grouping parameters (start, end, interval, groupBy)
   const rangePrEl = el.getElementsByTagName('rangePr')[0];
   if (rangePrEl) {
     const rp: PivotCacheRangePr = {};
@@ -204,26 +206,27 @@ function parseFieldGroup (el: Element): PivotCacheFieldGroup | undefined {
     const groupInterval = numAttr(rangePrEl, 'groupInterval');
     if (groupInterval != null && groupInterval !== 1) { rp.groupInterval = groupInterval; }
     fg.rangePr = rp;
+    hasAny = true;
   }
 
-  // discretePr
+  // Discrete grouping: maps each source item to a group-item index
   const discretePrEl = el.getElementsByTagName('discretePr')[0];
   if (discretePrEl) {
     const indices: number[] = [];
     for (const x of discretePrEl.getElementsByTagName('x')) {
       indices.push(numAttr(x, 'v', 0));
     }
-    if (indices.length > 0) { fg.discretePr = indices; }
+    if (indices.length > 0) { fg.discretePr = indices; hasAny = true; }
   }
 
-  // groupItems
+  // Group item labels (the display values for each group bucket)
   const groupItemsEl = el.getElementsByTagName('groupItems')[0];
   if (groupItemsEl) {
     const items = parseCacheItems(groupItemsEl);
-    if (items.length > 0) { fg.groupItems = items; }
+    if (items.length > 0) { fg.groupItems = items; hasAny = true; }
   }
 
-  return fg;
+  return hasAny ? fg : undefined;
 }
 
 function parseSharedItemsMeta (el: Element): PivotCacheSharedItemsMeta | undefined {
@@ -273,29 +276,17 @@ type CacheMetadata = {
 
 function parseCacheMetadata (root: Element): CacheMetadata {
   const result: CacheMetadata = {};
-  const refreshedBy = attr(root, 'refreshedBy');
-  if (refreshedBy != null) { result.refreshedBy = refreshedBy; }
-  const refreshedDate = numAttr(root, 'refreshedDate');
-  if (refreshedDate != null) { result.refreshedDate = refreshedDate; }
-  const refreshedDateIso = attr(root, 'refreshedDateIso');
-  if (refreshedDateIso != null) { result.refreshedDateIso = refreshedDateIso; }
-  const recordCount = numAttr(root, 'recordCount');
-  if (recordCount != null) { result.recordCount = recordCount; }
-  const createdVersion = numAttr(root, 'createdVersion');
-  if (createdVersion != null) { result.createdVersion = createdVersion; }
-  const refreshedVersion = numAttr(root, 'refreshedVersion');
-  if (refreshedVersion != null) { result.refreshedVersion = refreshedVersion; }
-  const minRefreshableVersion = numAttr(root, 'minRefreshableVersion');
-  if (minRefreshableVersion != null) { result.minRefreshableVersion = minRefreshableVersion; }
-  const saveData = boolAttr(root, 'saveData');
-  if (saveData != null) { result.saveData = saveData; }
-  const refreshOnLoad = boolAttr(root, 'refreshOnLoad');
-  if (refreshOnLoad != null) { result.refreshOnLoad = refreshOnLoad; }
-  const enableRefresh = boolAttr(root, 'enableRefresh');
-  if (enableRefresh != null) { result.enableRefresh = enableRefresh; }
-  const upgradeOnRefresh = boolAttr(root, 'upgradeOnRefresh');
-  if (upgradeOnRefresh != null) { result.upgradeOnRefresh = upgradeOnRefresh; }
-  const uid = attr(root, 'xr:uid');
-  if (uid != null) { result.uid = uid; }
+  addProp(result, 'refreshedBy', attr(root, 'refreshedBy'));
+  addProp(result, 'refreshedDate', numAttr(root, 'refreshedDate'));
+  addProp(result, 'refreshedDateIso', attr(root, 'refreshedDateIso'));
+  addProp(result, 'recordCount', numAttr(root, 'recordCount'));
+  addProp(result, 'createdVersion', numAttr(root, 'createdVersion'));
+  addProp(result, 'refreshedVersion', numAttr(root, 'refreshedVersion'));
+  addProp(result, 'minRefreshableVersion', numAttr(root, 'minRefreshableVersion'));
+  addProp(result, 'saveData', boolAttr(root, 'saveData'));
+  addProp(result, 'refreshOnLoad', boolAttr(root, 'refreshOnLoad'));
+  addProp(result, 'enableRefresh', boolAttr(root, 'enableRefresh'));
+  addProp(result, 'upgradeOnRefresh', boolAttr(root, 'upgradeOnRefresh'));
+  addProp(result, 'uid', attr(root, 'xr:uid'));
   return result;
 }
