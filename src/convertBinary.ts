@@ -202,8 +202,8 @@ export async function convertBinary (
     ? pivotCacheRIds.map(rId => context.rels.find(d => d.id === rId)).filter((d): d is Rel => d != null)
     : context.rels.filter(d => d.type === 'pivotCacheDefinition');
   const cachePathToIndex = new Map<string, number>();
-  const cacheResults = await Promise.all(pivotCacheRels.map(async (cacheRel) => {
-    const [cacheDom, cacheDefRels] = await Promise.all([
+  const cacheResults = await Promise.all(pivotCacheRels.map(async cacheRel => {
+    const [ cacheDom, cacheDefRels ] = await Promise.all([
       getFile(cacheRel.target),
       getRels(cacheRel.target),
     ]);
