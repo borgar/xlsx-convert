@@ -295,7 +295,7 @@ export async function convertBinary (
     wb.formulas = [ ...context._formulasR1C1.list() ];
   }
 
-  // Populate origin metadata from docProps/app.xml (when present) or from
+  // Populate app metadata from docProps/app.xml (when present) or from
   // the Google Sheets heuristic (when docProps is absent).
   const meta: Record<string, unknown> = {};
   const appXml = await getFile('docProps/app.xml');
@@ -322,7 +322,6 @@ export async function convertBinary (
   else if (context.isLikelyGSExport) {
     meta.app = 'Google Sheets';
     meta.appGuessed = true;
-    meta.origin = 'google-sheets';
   }
   if (Object.keys(meta).length > 0) {
     wb.meta = meta;

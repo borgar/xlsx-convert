@@ -33,7 +33,6 @@
   ],
   "meta": {
     "app": "Google Sheets",
-    "appGuessed": true,
-    "origin": "google-sheets"
+    "appGuessed": true
   }
 }
