@@ -4,7 +4,7 @@
     {
       "name": "Sheet1",
       "cells": {
-        "A1": { "v": "#NAME?", "t": "e", "f": 0, "F": "A1" },
+        "A1": { "v": "#NAME?", "t": "e", "F": "A1", "f": 0 },
         "A2": { "s": 1, "v": "#NAME?" }
       },
       "columns": [],
@@ -34,5 +34,10 @@
   ],
   "formulas": [
     "FOO()"
-  ]
+  ],
+  "meta": {
+    "app": "Microsoft Excel",
+    "appVariant": "Macintosh",
+    "appVersion": "16.0300"
+  }
 }

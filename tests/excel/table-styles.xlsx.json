@@ -15148,5 +15148,10 @@
     "SUBTOTAL(109,Table12742252292367[baz])",
     "SUBTOTAL(109,Table12747257297368[baz])",
     "SUBTOTAL(109,Table12752262302369[baz])"
-  ]
+  ],
+  "meta": {
+    "app": "Microsoft Excel",
+    "appVariant": "Macintosh",
+    "appVersion": "16.0300"
+  }
 }

@@ -1214,5 +1214,10 @@
   "formulas": [
     "UNICHAR(R40C+RC1*16+N(R39C17))",
     "CHAR(R59C+RC1*16+N(R58C17))"
-  ]
+  ],
+  "meta": {
+    "app": "Microsoft Excel",
+    "appVariant": "Macintosh",
+    "appVersion": "16.0300"
+  }
 }

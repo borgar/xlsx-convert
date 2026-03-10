@@ -295,5 +295,38 @@ export async function convertBinary (
     wb.formulas = [ ...context._formulasR1C1.list() ];
   }
 
+  // Populate origin metadata from docProps/app.xml (when present) or from
+  // the Google Sheets heuristic (when docProps is absent).
+  const meta: Record<string, unknown> = {};
+  const appXml = await getFile('docProps/app.xml');
+  if (appXml) {
+    const appEl = appXml.getElementsByTagName('Application')[0];
+    if (appEl) {
+      const appText = appEl.textContent || '';
+      // Separate platform variant (e.g. "Macintosh") from the app name.
+      // Known pattern: "Microsoft Macintosh Excel" -> app "Microsoft Excel", appVariant "Macintosh"
+      const variantMatch = appText.match(/^(Microsoft)\s+(Macintosh|Windows)\s+(Excel)$/i);
+      if (variantMatch) {
+        meta.app = `${variantMatch[1]} ${variantMatch[3]}`;
+        meta.appVariant = variantMatch[2];
+      }
+      else {
+        meta.app = appText;
+      }
+    }
+    const versionEl = appXml.getElementsByTagName('AppVersion')[0];
+    if (versionEl && versionEl.textContent) {
+      meta.appVersion = versionEl.textContent;
+    }
+  }
+  else if (context.isLikelyGSExport) {
+    meta.app = 'Google Sheets';
+    meta.appGuessed = true;
+    meta.origin = 'google-sheets';
+  }
+  if (Object.keys(meta).length > 0) {
+    wb.meta = meta;
+  }
+
   return wb;
 }

@@ -98,5 +98,10 @@
     "-PMT(R[1]C[-2]/12,R[2]C[-2],-R[3]C[-2])",
     "-PMT(RC[-1]/12,R[1]C[-1],-R[2]C[-1])",
     "-PMT(R[1]C[-1]/12,R[2]C[-1],-R[3]C[-1])"
-  ]
+  ],
+  "meta": {
+    "app": "Microsoft Excel",
+    "appVariant": "Macintosh",
+    "appVersion": "16.0300"
+  }
 }

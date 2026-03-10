@@ -50,5 +50,10 @@
   ],
   "formulas": [
     "[Sheet2]Sheet2!RC"
-  ]
+  ],
+  "meta": {
+    "app": "Microsoft Excel",
+    "appVariant": "Macintosh",
+    "appVersion": "16.0300"
+  }
 }

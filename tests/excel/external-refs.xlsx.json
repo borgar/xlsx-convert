@@ -115,5 +115,10 @@
     "name2name",
     "name2scopedname",
     "'[literals.xlsx]some values'!R2C5"
-  ]
+  ],
+  "meta": {
+    "app": "Microsoft Excel",
+    "appVariant": "Macintosh",
+    "appVersion": "16.0300"
+  }
 }

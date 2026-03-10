@@ -62,5 +62,10 @@
     "R1C1.:.R4C3",
     "R1C1.:R4C3",
     "R1C1:.R4C3"
-  ]
+  ],
+  "meta": {
+    "app": "Microsoft Excel",
+    "appVariant": "Macintosh",
+    "appVersion": "16.0300"
+  }
 }

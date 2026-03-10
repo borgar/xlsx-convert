@@ -6,9 +6,9 @@
       "cells": {
         "A1": { "v": "foo" },
         "A2": { "v": "bar" },
-        "B2": { "v": "whoobar", "f": 0, "F": "B2" },
+        "B2": { "v": "whoobar", "F": "B2", "f": 0 },
         "A3": { "v": "baz" },
-        "B3": { "v": "whoofoo", "f": 1, "F": "B3" },
+        "B3": { "v": "whoofoo", "F": "B3", "f": 1 },
         "A4": { "v": "xyzzy" }
       },
       "columns": [],
@@ -38,5 +38,10 @@
   "formulas": [
     "TAKE(\"whoo\" &@R1C1:R4C1,1)",
     "TAKE(\"whoo\" &R1C1:R4C1,1)"
-  ]
+  ],
+  "meta": {
+    "app": "Microsoft Excel",
+    "appVariant": "Macintosh",
+    "appVersion": "16.0300"
+  }
 }

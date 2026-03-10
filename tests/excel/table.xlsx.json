@@ -1959,5 +1959,10 @@
     "SUBTOTAL(101,Table1[Height (cm)])",
     "SUBTOTAL(110,BMI[Max])",
     "SUBTOTAL(103,BMI[Status])"
-  ]
+  ],
+  "meta": {
+    "app": "Microsoft Excel",
+    "appVariant": "Macintosh",
+    "appVersion": "16.0300"
+  }
 }
