@@ -305,7 +305,7 @@ export async function convertBinary (
       const appText = appEl.textContent || '';
       // Separate platform variant (e.g. "Macintosh") from the app name.
       // Known pattern: "Microsoft Macintosh Excel" -> app "Microsoft Excel", appVariant "Macintosh"
-      const variantMatch = appText.match(/^(Microsoft)\s+(Macintosh|Windows)\s+(Excel)$/i);
+      const variantMatch = /^(Microsoft)\s+(Macintosh|Windows)\s+(Excel)$/i.exec(appText);
       if (variantMatch) {
         meta.app = `${variantMatch[1]} ${variantMatch[3]}`;
         meta.appVariant = variantMatch[2];
@@ -315,7 +315,7 @@ export async function convertBinary (
       }
     }
     const versionEl = appXml.getElementsByTagName('AppVersion')[0];
-    if (versionEl && versionEl.textContent) {
+    if (versionEl?.textContent) {
       meta.appVersion = versionEl.textContent;
     }
   }
