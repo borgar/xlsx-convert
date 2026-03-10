@@ -1761,5 +1761,10 @@
   ],
   "formulas": [
     "RANDBETWEEN(1,100)"
-  ]
+  ],
+  "meta": {
+    "app": "Microsoft Excel",
+    "appVariant": "Macintosh",
+    "appVersion": "16.0300"
+  }
 }

@@ -70,5 +70,10 @@
     { "activeSheet": 1 },
     { "activeSheet": 2 }
   ],
-  "formulas": []
+  "formulas": [],
+  "meta": {
+    "app": "Microsoft Excel",
+    "appVariant": "Macintosh",
+    "appVersion": "16.0300"
+  }
 }

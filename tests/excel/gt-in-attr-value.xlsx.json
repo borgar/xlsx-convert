@@ -54,5 +54,10 @@
   ],
   "formulas": [
     "SUM('[Data.xlsx]Test >>'!R2C1:R10C1)"
-  ]
+  ],
+  "meta": {
+    "app": "Microsoft Excel",
+    "appVariant": "Macintosh",
+    "appVersion": "16.0300"
+  }
 }

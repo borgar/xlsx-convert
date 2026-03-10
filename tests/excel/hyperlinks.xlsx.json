@@ -55,5 +55,10 @@
   "formulas": [
     "HYPERLINK(\"http://example.com/\")",
     "HYPERLINK(\"http://example.com/\",\"title text\")"
-  ]
+  ],
+  "meta": {
+    "app": "Microsoft Excel",
+    "appVariant": "Macintosh",
+    "appVersion": "16.0300"
+  }
 }

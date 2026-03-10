@@ -39,6 +39,7 @@ describe('convertBinary', () => {
         iterateDelta: 0.001,
       },
       formulas: [],
+      meta: { app: 'Microsoft Excel', appVariant: 'Macintosh', appVersion: '16.0300' },
       names: [],
       tables: [],
       views: [ {} ],
