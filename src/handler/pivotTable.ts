@@ -588,8 +588,6 @@ function parseFormats (root: Element): PivotFormat[] {
     };
     const action = attr(fmtEl, 'action');
     if (action === 'blank') { fmt.action = 'blank'; }
-    const dxfId = numAttr(fmtEl, 'dxfId');
-    if (dxfId != null) { fmt.dxfId = dxfId; }
     const pivotAreaEl = fmtEl.getElementsByTagName('pivotArea')[0];
     if (pivotAreaEl) {
       fmt.pivotArea = parsePivotArea(pivotAreaEl);
