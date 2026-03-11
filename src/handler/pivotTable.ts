@@ -1,9 +1,5 @@
 import type { Document, Element } from '@borgar/simple-xml';
 import type {
-  PivotArea,
-  PivotAreaAxis,
-  PivotAreaReference,
-  PivotAreaType,
   PivotAutoFilterColumn,
   PivotCustomFilterCriterion,
   PivotDataField,
@@ -499,81 +495,6 @@ function parseStyle (root: Element): PivotTableStyle | undefined {
     style.showLastColumn = showLastColumn;
   }
   return style;
-}
-
-// --- Pivot area parsing (shared by formats, conditionalFormats) ---
-
-const PIVOT_AREA_TYPES: ReadonlySet<PivotAreaType> = new Set<PivotAreaType>([
-  'none', 'normal', 'data', 'all', 'origin', 'button', 'topRight',
-]);
-
-const AXIS_MAP: Readonly<Record<string, PivotAreaAxis>> = {
-  axisRow: 'row',
-  axisCol: 'col',
-  axisPage: 'page',
-  axisValues: 'values',
-};
-
-function parsePivotArea (el: Element): PivotArea {
-  const area: PivotArea = {};
-  const type = parseEnum(attr(el, 'type'), PIVOT_AREA_TYPES);
-  if (type != null && type !== 'normal') { area.type = type; }
-  const field = numAttr(el, 'field');
-  if (field != null) { area.field = field; }
-  readBoolAttrs(area, el, [
-    [ 'dataOnly', false ],
-    [ 'labelOnly', true ],
-    [ 'grandRow', true ],
-    [ 'grandCol', true ],
-    [ 'cacheIndex', true ],
-    [ 'outline', false ],
-    [ 'collapsedLevelsAreSubtotals', true ],
-  ]);
-  const offset = attr(el, 'offset');
-  if (offset != null) { area.offset = offset; }
-  const axis = AXIS_MAP[attr(el, 'axis') ?? ''];
-  if (axis != null) { area.axis = axis; }
-  const fieldPosition = numAttr(el, 'fieldPosition');
-  if (fieldPosition != null) { area.fieldPosition = fieldPosition; }
-
-  const refs: PivotAreaReference[] = [];
-  for (const refEl of el.querySelectorAll('references > reference')) {
-    refs.push(parsePivotAreaReference(refEl));
-  }
-  if (refs.length > 0) { area.references = refs; }
-
-  return area;
-}
-
-function parsePivotAreaReference (el: Element): PivotAreaReference {
-  const ref: PivotAreaReference = {};
-  const field = numAttr(el, 'field');
-  if (field != null) { ref.field = field; }
-  readBoolAttrs(ref, el, [
-    [ 'selected', false ],
-    [ 'byPosition', true ],
-    [ 'relative', true ],
-    [ 'defaultSubtotal', true ],
-    [ 'sumSubtotal', true ],
-    [ 'countASubtotal', true ],
-    [ 'avgSubtotal', true ],
-    [ 'maxSubtotal', true ],
-    [ 'minSubtotal', true ],
-    [ 'productSubtotal', true ],
-    [ 'countSubtotal', true ],
-    [ 'stdDevSubtotal', true ],
-    [ 'stdDevPSubtotal', true ],
-    [ 'varSubtotal', true ],
-    [ 'varPSubtotal', true ],
-  ]);
-
-  const indices: number[] = [];
-  for (const x of el.getElementsByTagName('x')) {
-    indices.push(numAttr(x, 'v', 0));
-  }
-  if (indices.length > 0) { ref.itemIndices = indices; }
-
-  return ref;
 }
 
 const FILTER_TYPES: ReadonlySet<PivotFilterType> = new Set<PivotFilterType>([
