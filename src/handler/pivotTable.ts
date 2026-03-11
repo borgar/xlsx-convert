@@ -5,9 +5,6 @@ import type {
   PivotAreaReference,
   PivotAreaType,
   PivotAutoFilterColumn,
-  PivotConditionalFormat,
-  PivotConditionalFormatScope,
-  PivotConditionalFormatType,
   PivotCustomFilterCriterion,
   PivotDataField,
   PivotDataFieldAggregation,
@@ -15,7 +12,6 @@ import type {
   PivotFieldItem,
   PivotFilter,
   PivotFilterType,
-  PivotFormat,
   PivotItemType,
   PivotPageField,
   PivotRowColItem,
@@ -578,48 +574,6 @@ function parsePivotAreaReference (el: Element): PivotAreaReference {
   if (indices.length > 0) { ref.itemIndices = indices; }
 
   return ref;
-}
-
-function parseFormats (root: Element): PivotFormat[] {
-  const formats: PivotFormat[] = [];
-  for (const fmtEl of root.querySelectorAll('formats > format')) {
-    const fmt: PivotFormat = {
-      pivotArea: {},
-    };
-    const action = attr(fmtEl, 'action');
-    if (action === 'blank') { fmt.action = 'blank'; }
-    const pivotAreaEl = fmtEl.getElementsByTagName('pivotArea')[0];
-    if (pivotAreaEl) {
-      fmt.pivotArea = parsePivotArea(pivotAreaEl);
-    }
-    formats.push(fmt);
-  }
-  return formats;
-}
-
-const CF_SCOPES: ReadonlySet<PivotConditionalFormatScope> =
-  new Set<PivotConditionalFormatScope>([ 'selection', 'data', 'field' ]);
-const CF_TYPES: ReadonlySet<PivotConditionalFormatType> =
-  new Set<PivotConditionalFormatType>([ 'none', 'all', 'row', 'column' ]);
-
-function parseConditionalFormats (root: Element): PivotConditionalFormat[] {
-  const results: PivotConditionalFormat[] = [];
-  for (const cfEl of root.querySelectorAll('conditionalFormats > conditionalFormat')) {
-    const cf: PivotConditionalFormat = {
-      priority: numAttr(cfEl, 'priority', 0),
-      pivotAreas: [],
-    };
-    const scope = parseEnum(attr(cfEl, 'scope'), CF_SCOPES);
-    if (scope != null && scope !== 'selection') { cf.scope = scope; }
-    const type = parseEnum(attr(cfEl, 'type'), CF_TYPES);
-    if (type != null && type !== 'none') { cf.type = type; }
-
-    for (const paEl of cfEl.querySelectorAll('pivotAreas > pivotArea')) {
-      cf.pivotAreas.push(parsePivotArea(paEl));
-    }
-    results.push(cf);
-  }
-  return results;
 }
 
 const FILTER_TYPES: ReadonlySet<PivotFilterType> = new Set<PivotFilterType>([
