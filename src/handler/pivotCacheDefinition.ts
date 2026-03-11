@@ -1,9 +1,8 @@
 import type { Document, Element } from '@borgar/simple-xml';
-import type { PivotCache, PivotCacheConsolidationRangeSet, PivotCacheField, PivotCacheFieldGroup, PivotCacheRangePr, PivotCacheSharedItem, PivotCacheSharedItemsMeta, PivotCacheWorksheetSource, PivotGroupBy } from '@jsfkit/types';
+import type { PivotCache, PivotCacheConsolidationRangeSet, PivotCacheField, PivotCacheFieldGroup, PivotCacheRangePr, PivotCacheSharedItem, PivotCacheSharedItemsMeta, PivotCacheWorksheetSourceName, PivotCacheWorksheetSourceRange, PivotGroupBy } from '@jsfkit/types';
 import { addProp } from '../utils/addProp.ts';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { parseEnum } from '../utils/parseEnum.ts';
-import { serializeElement } from '../utils/serializeElement.ts';
 
 export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefined {
   const root = dom.getElementsByTagName('pivotCacheDefinition')[0];
@@ -17,13 +16,6 @@ export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefi
 
   const metadata = parseCacheMetadata(root);
 
-  // Extension list (opaque pass-through)
-  const extensions: string[] = [];
-  for (const extEl of root.querySelectorAll('extLst > ext')) {
-    extensions.push(serializeElement(extEl));
-  }
-  const extProps = extensions.length > 0 ? { extensions } : {};
-
   if (sourceType === 'worksheet') {
     const wsSource = cacheSource.getElementsByTagName('worksheetSource')[0];
     if (!wsSource) { return; }
@@ -31,12 +23,12 @@ export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefi
     const sheet = attr(wsSource, 'sheet');
     const name = attr(wsSource, 'name');
     if (ref && sheet) {
-      const worksheetSource: PivotCacheWorksheetSource = name ? { ref, sheet, name } : { ref, sheet };
-      return { sourceType: 'worksheet' as const, worksheetSource, fields, ...metadata, ...extProps };
+      const worksheetSource: PivotCacheWorksheetSourceRange = name ? { ref, sheet, name } : { ref, sheet };
+      return { sourceType: 'worksheet' as const, worksheetSource, fields, ...metadata };
     }
     if (name) {
-      const worksheetSource: PivotCacheWorksheetSource = sheet ? { name, sheet } : { name };
-      return { sourceType: 'worksheet' as const, worksheetSource, fields, ...metadata, ...extProps };
+      const worksheetSource: PivotCacheWorksheetSourceName = sheet ? { name, sheet } : { name };
+      return { sourceType: 'worksheet' as const, worksheetSource, fields, ...metadata };
     }
     return;
   }
@@ -44,7 +36,7 @@ export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefi
   if (sourceType === 'external') {
     const connectionId = numAttr(cacheSource, 'connectionId');
     if (connectionId == null) { return; }
-    return { sourceType: 'external' as const, connectionId, fields, ...metadata, ...extProps };
+    return { sourceType: 'external' as const, connectionId, fields, ...metadata };
   }
 
   if (sourceType === 'consolidation') {
@@ -85,12 +77,11 @@ export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefi
       },
       fields,
       ...metadata,
-      ...extProps,
     };
   }
 
   if (sourceType === 'scenario') {
-    return { sourceType: 'scenario' as const, fields, ...metadata, ...extProps };
+    return { sourceType: 'scenario' as const, fields, ...metadata };
   }
 }
 
@@ -98,13 +89,12 @@ function parseFields (root: Element): PivotCacheField[] {
   const fields: PivotCacheField[] = [];
   for (const cf of root.querySelectorAll('cacheFields > cacheField')) {
     const name = attr(cf, 'name');
-    const numFmtId = numAttr(cf, 'numFmtId');
+    // numFmtId is read from XML but not stored: the new type uses numFmt (a format
+    // code string like "General"), which requires the style table to resolve from
+    // the numeric ID. TODO: resolve numFmtId → numFmt when style table is available.
     const formula = attr(cf, 'formula');
 
     const field: PivotCacheField = { name: name ?? '' };
-    if (numFmtId != null) {
-      field.numFmtId = numFmtId;
-    }
     if (formula) {
       field.formula = formula;
     }
@@ -147,22 +137,22 @@ function parseCacheItems (container: Element): PivotCacheSharedItem[] {
   for (const child of container.children) {
     switch (child.tagName) {
       case 's':
-        items.push({ type: 'string', value: attr(child, 'v') ?? '' });
+        items.push({ t: 's', v: attr(child, 'v') ?? '' });
         break;
       case 'n':
-        items.push({ type: 'number', value: +(attr(child, 'v') ?? 0) });
+        items.push({ t: 'n', v: +(attr(child, 'v') ?? 0) });
         break;
       case 'b':
-        items.push({ type: 'boolean', value: !!+(attr(child, 'v') ?? 0) });
+        items.push({ t: 'b', v: !!+(attr(child, 'v') ?? 0) });
         break;
       case 'd':
-        items.push({ type: 'date', value: attr(child, 'v') ?? '' });
+        items.push({ t: 'd', v: attr(child, 'v') ?? '' });
         break;
       case 'e':
-        items.push({ type: 'error', value: attr(child, 'v') ?? '' });
+        items.push({ t: 'e', v: attr(child, 'v') ?? '' });
         break;
       case 'm':
-        items.push({ type: 'missing' });
+        items.push({ t: 'z' });
         break;
     }
   }
@@ -258,31 +248,17 @@ function parseSharedItemsMeta (el: Element): PivotCacheSharedItemsMeta | undefin
 type CacheMetadata = {
   refreshedBy?: string;
   refreshedDate?: number;
-  refreshedDateIso?: string;
-  recordCount?: number;
-  createdVersion?: number;
-  refreshedVersion?: number;
-  minRefreshableVersion?: number;
-  saveData?: boolean;
   refreshOnLoad?: boolean;
   enableRefresh?: boolean;
   upgradeOnRefresh?: boolean;
-  uid?: string;
 };
 
 function parseCacheMetadata (root: Element): CacheMetadata {
   const result: CacheMetadata = {};
   addProp(result, 'refreshedBy', attr(root, 'refreshedBy'));
   addProp(result, 'refreshedDate', numAttr(root, 'refreshedDate'));
-  addProp(result, 'refreshedDateIso', attr(root, 'refreshedDateIso'));
-  addProp(result, 'recordCount', numAttr(root, 'recordCount'));
-  addProp(result, 'createdVersion', numAttr(root, 'createdVersion'));
-  addProp(result, 'refreshedVersion', numAttr(root, 'refreshedVersion'));
-  addProp(result, 'minRefreshableVersion', numAttr(root, 'minRefreshableVersion'));
-  addProp(result, 'saveData', boolAttr(root, 'saveData'));
   addProp(result, 'refreshOnLoad', boolAttr(root, 'refreshOnLoad'));
   addProp(result, 'enableRefresh', boolAttr(root, 'enableRefresh'));
   addProp(result, 'upgradeOnRefresh', boolAttr(root, 'upgradeOnRefresh'));
-  addProp(result, 'uid', attr(root, 'xr:uid'));
   return result;
 }

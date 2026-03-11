@@ -165,7 +165,6 @@ describe('handlerPivotTable', () => {
       showDataAs: 'percentOfTotal',
       baseField: 0,
       baseItem: 0,
-      numFmtId: 10,
     });
   });
 
@@ -197,9 +196,9 @@ describe('handlerPivotTable', () => {
     expect(pt.style).toEqual({
       name: 'PivotStyleLight16',
       showRowHeaders: true,
-      showColHeaders: true,
+      showColumnHeaders: true,
       showRowStripes: false,
-      showColStripes: false,
+      showColumnStripes: false,
     });
   });
 
@@ -289,19 +288,7 @@ describe('handlerPivotTable', () => {
     expect(pt.fields[0].subtotalCaption).toBe('My Total');
   });
 
-  it('should parse field numFmtId', () => {
-    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
-      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
-      <pivotFields count="1">
-        <pivotField axis="axisRow" showAll="1" numFmtId="164"/>
-      </pivotFields>
-      <rowFields count="1"><field x="0"/></rowFields>
-      <colFields count="0"/>
-      <dataFields count="0"/>
-    </pivotTableDefinition>`;
-    const pt = parse(xml)!;
-    expect(pt.fields[0].numFmtId).toBe(164);
-  });
+  // numFmtId is no longer stored on PivotField (requires style table to resolve to format code).
 
   it('should parse field UI/drag behavior attributes', () => {
     const xml = `<pivotTableDefinition name="PT1" cacheId="0">
@@ -528,132 +515,8 @@ describe('handlerPivotTable', () => {
     expect(pt.colItems).toEqual([ { repeatedItemCount: 1, itemIndices: [ 2 ] } ]);
   });
 
-  it('should parse formats with pivotArea', () => {
-    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
-      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
-      <pivotFields count="0"/>
-      <rowFields count="0"/><colFields count="0"/>
-      <dataFields count="0"/>
-      <formats count="2">
-        <format dxfId="3">
-          <pivotArea type="all" dataOnly="0" outline="0"/>
-        </format>
-        <format action="blank" dxfId="5">
-          <pivotArea field="0" labelOnly="1" grandRow="1">
-            <references count="1">
-              <reference field="0" selected="0">
-                <x v="1"/><x v="3"/>
-              </reference>
-            </references>
-          </pivotArea>
-        </format>
-      </formats>
-    </pivotTableDefinition>`;
-    const pt = parse(xml)!;
-    expect(pt.formats).toHaveLength(2);
-    expect(pt.formats![0]).toEqual({
-      dxfId: 3,
-      pivotArea: { type: 'all', dataOnly: false, outline: false },
-    });
-    expect(pt.formats![1]).toEqual({
-      action: 'blank',
-      dxfId: 5,
-      pivotArea: {
-        field: 0,
-        labelOnly: true,
-        grandRow: true,
-        references: [
-          { field: 0, selected: false, itemIndices: [ 1, 3 ] },
-        ],
-      },
-    });
-  });
-
-  it('should parse pivotArea with axis and fieldPosition', () => {
-    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
-      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
-      <pivotFields count="0"/>
-      <rowFields count="0"/><colFields count="0"/>
-      <dataFields count="0"/>
-      <formats count="1">
-        <format dxfId="0">
-          <pivotArea type="data" axis="axisRow" fieldPosition="2" offset="B3:C4" cacheIndex="1" collapsedLevelsAreSubtotals="1"/>
-        </format>
-      </formats>
-    </pivotTableDefinition>`;
-    const pt = parse(xml)!;
-    expect(pt.formats![0].pivotArea).toEqual({
-      type: 'data',
-      axis: 'row',
-      fieldPosition: 2,
-      offset: 'B3:C4',
-      cacheIndex: true,
-      collapsedLevelsAreSubtotals: true,
-    });
-  });
-
-  it('should parse pivotAreaReference subtotal flags', () => {
-    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
-      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
-      <pivotFields count="0"/>
-      <rowFields count="0"/><colFields count="0"/>
-      <dataFields count="0"/>
-      <formats count="1">
-        <format dxfId="0">
-          <pivotArea>
-            <references count="1">
-              <reference field="0" byPosition="1" relative="1" defaultSubtotal="1" sumSubtotal="1" countASubtotal="1" avgSubtotal="1" maxSubtotal="1" minSubtotal="1" productSubtotal="1" countSubtotal="1" stdDevSubtotal="1" stdDevPSubtotal="1" varSubtotal="1" varPSubtotal="1"/>
-            </references>
-          </pivotArea>
-        </format>
-      </formats>
-    </pivotTableDefinition>`;
-    const pt = parse(xml)!;
-    const ref = pt.formats![0].pivotArea.references![0];
-    expect(ref.field).toBe(0);
-    expect(ref.byPosition).toBe(true);
-    expect(ref.relative).toBe(true);
-    expect(ref.defaultSubtotal).toBe(true);
-    expect(ref.sumSubtotal).toBe(true);
-    expect(ref.countASubtotal).toBe(true);
-    expect(ref.avgSubtotal).toBe(true);
-    expect(ref.maxSubtotal).toBe(true);
-    expect(ref.minSubtotal).toBe(true);
-    expect(ref.productSubtotal).toBe(true);
-    expect(ref.countSubtotal).toBe(true);
-    expect(ref.stdDevSubtotal).toBe(true);
-    expect(ref.stdDevPSubtotal).toBe(true);
-    expect(ref.varSubtotal).toBe(true);
-    expect(ref.varPSubtotal).toBe(true);
-  });
-
-  it('should parse conditionalFormats', () => {
-    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
-      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
-      <pivotFields count="0"/>
-      <rowFields count="0"/><colFields count="0"/>
-      <dataFields count="0"/>
-      <conditionalFormats count="1">
-        <conditionalFormat scope="data" type="row" priority="5">
-          <pivotAreas count="2">
-            <pivotArea type="data" grandCol="1"/>
-            <pivotArea field="1"/>
-          </pivotAreas>
-        </conditionalFormat>
-      </conditionalFormats>
-    </pivotTableDefinition>`;
-    const pt = parse(xml)!;
-    expect(pt.conditionalFormats).toHaveLength(1);
-    expect(pt.conditionalFormats![0]).toEqual({
-      scope: 'data',
-      type: 'row',
-      priority: 5,
-      pivotAreas: [
-        { type: 'data', grandCol: true },
-        { field: 1 },
-      ],
-    });
-  });
+  // formats and conditionalFormats are no longer on PivotTable (they depend on dxf which
+  // doesn't exist in JSF yet). The parsing functions are kept but not called.
 
   it('should parse filters with autoFilter, top10, and customFilters', () => {
     const xml = `<pivotTableDefinition name="PT1" cacheId="0">
@@ -752,26 +615,7 @@ describe('handlerPivotTable', () => {
     ]);
   });
 
-  it('should parse extensions from extLst', () => {
-    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
-      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
-      <pivotFields count="0"/>
-      <rowFields count="0"/><colFields count="0"/>
-      <dataFields count="0"/>
-      <extLst>
-        <ext uri="{ABC}" xmlns:x14="http://example.com"><x14:foo bar="1"/></ext>
-      </extLst>
-    </pivotTableDefinition>`;
-    const pt = parse(xml)!;
-    expect(pt.extensions).toHaveLength(1);
-    expect(pt.extensions![0]).toContain('uri="{ABC}"');
-    expect(pt.extensions![0]).toContain('x14:foo');
-  });
-
-  it('should omit extensions when extLst is absent', () => {
-    const pt = parse(MINIMAL_PT)!;
-    expect(pt.extensions).toBeUndefined();
-  });
+  // extensions are no longer on PivotTable; extLst parsing was removed.
 
   it('should omit calculatedFields when absent', () => {
     const pt = parse(MINIMAL_PT)!;

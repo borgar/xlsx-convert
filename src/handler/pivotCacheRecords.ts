@@ -15,22 +15,22 @@ export function handlerPivotCacheRecords (dom: Document): PivotCacheRecord[] {
           record.push({ x: +attr(child, 'v', '0') });
           break;
         case 'n':
-          record.push(+(attr(child, 'v') ?? 0));
+          record.push({ t: 'n', v: +(attr(child, 'v') ?? 0) });
           break;
         case 's':
-          record.push(attr(child, 'v') ?? '');
+          record.push({ t: 's', v: attr(child, 'v') ?? '' });
           break;
         case 'b':
-          record.push(!!+(attr(child, 'v') ?? 0));
+          record.push({ t: 'b', v: !!+(attr(child, 'v') ?? 0) });
           break;
         case 'd':
-          record.push({ d: attr(child, 'v') ?? '' });
+          record.push({ t: 'd', v: attr(child, 'v') ?? '' });
           break;
         case 'e':
-          record.push({ e: attr(child, 'v') ?? '' });
+          record.push({ t: 'e', v: attr(child, 'v') ?? '' });
           break;
         case 'm':
-          record.push(null);
+          record.push({ t: 'z' });
           break;
       }
     }

@@ -36,7 +36,7 @@ describe('handlerPivotCacheRecords', () => {
       <r><n v="42.5"/><n v="-7"/></r>
     </pivotCacheRecords>`;
     const records = parse(xml);
-    expect(records).toEqual([ [ 42.5, -7 ] ]);
+    expect(records).toEqual([ [ { t: 'n', v: 42.5 }, { t: 'n', v: -7 } ] ]);
   });
 
   it('should parse inline string values', () => {
@@ -44,7 +44,7 @@ describe('handlerPivotCacheRecords', () => {
       <r><s v="hello"/><s v="world"/></r>
     </pivotCacheRecords>`;
     const records = parse(xml);
-    expect(records).toEqual([ [ 'hello', 'world' ] ]);
+    expect(records).toEqual([ [ { t: 's', v: 'hello' }, { t: 's', v: 'world' } ] ]);
   });
 
   it('should parse boolean values', () => {
@@ -52,7 +52,7 @@ describe('handlerPivotCacheRecords', () => {
       <r><b v="1"/><b v="0"/></r>
     </pivotCacheRecords>`;
     const records = parse(xml);
-    expect(records).toEqual([ [ true, false ] ]);
+    expect(records).toEqual([ [ { t: 'b', v: true }, { t: 'b', v: false } ] ]);
   });
 
   it('should parse date values', () => {
@@ -60,7 +60,7 @@ describe('handlerPivotCacheRecords', () => {
       <r><d v="2024-01-15T00:00:00"/></r>
     </pivotCacheRecords>`;
     const records = parse(xml);
-    expect(records).toEqual([ [ { d: '2024-01-15T00:00:00' } ] ]);
+    expect(records).toEqual([ [ { t: 'd', v: '2024-01-15T00:00:00' } ] ]);
   });
 
   it('should parse error values', () => {
@@ -68,7 +68,7 @@ describe('handlerPivotCacheRecords', () => {
       <r><e v="#REF!"/></r>
     </pivotCacheRecords>`;
     const records = parse(xml);
-    expect(records).toEqual([ [ { e: '#REF!' } ] ]);
+    expect(records).toEqual([ [ { t: 'e', v: '#REF!' } ] ]);
   });
 
   it('should parse missing values as null', () => {
@@ -76,7 +76,7 @@ describe('handlerPivotCacheRecords', () => {
       <r><m/></r>
     </pivotCacheRecords>`;
     const records = parse(xml);
-    expect(records).toEqual([ [ null ] ]);
+    expect(records).toEqual([ [ { t: 'z' } ] ]);
   });
 
   it('should parse multiple records with mixed value types', () => {
@@ -87,8 +87,8 @@ describe('handlerPivotCacheRecords', () => {
     </pivotCacheRecords>`;
     const records = parse(xml);
     expect(records).toHaveLength(3);
-    expect(records[0]).toEqual([ { x: 0 }, 100, 'note' ]);
-    expect(records[1]).toEqual([ { x: 1 }, 200, null ]);
-    expect(records[2]).toEqual([ { x: 2 }, true, { d: '2024-06-01T00:00:00' } ]);
+    expect(records[0]).toEqual([ { x: 0 }, { t: 'n', v: 100 }, { t: 's', v: 'note' } ]);
+    expect(records[1]).toEqual([ { x: 1 }, { t: 'n', v: 200 }, { t: 'z' } ]);
+    expect(records[2]).toEqual([ { x: 2 }, { t: 'b', v: true }, { t: 'd', v: '2024-06-01T00:00:00' } ]);
   });
 });

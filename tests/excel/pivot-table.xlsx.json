@@ -173,156 +173,10 @@
   "views": [
     { "activeSheet": 1 }
   ],
-  "pivotCaches": [
-    {
-      "sourceType": "worksheet",
-      "uid": "{93AACE53-8F3A-A04A-893A-A439866B3165}",
-      "worksheetSource": { "ref": "A1:D16", "sheet": "Data" },
-      "fields": [
-        {
-          "name": "Dept",
-          "numFmtId": 0,
-          "sharedItems": [
-            { "type": "string", "value": "Engineering" },
-            { "type": "string", "value": "Finance" },
-            { "type": "string", "value": "Legal" },
-            { "type": "string", "value": "Product" }
-          ]
-        },
-        {
-          "name": "Function",
-          "numFmtId": 0,
-          "sharedItems": [
-            { "type": "string", "value": "Manager" },
-            { "type": "string", "value": "Engineer" },
-            { "type": "string", "value": "Assistant" },
-            { "type": "string", "value": "Clerk" },
-            { "type": "string", "value": "Intern" },
-            { "type": "string", "value": "PM" }
-          ]
-        },
-        { "name": "Name", "numFmtId": 0 },
-        {
-          "name": "Salary",
-          "numFmtId": 0,
-          "sharedItemsMeta": {
-            "containsSemiMixedTypes": false,
-            "containsString": false,
-            "containsNumber": true,
-            "containsInteger": true,
-            "minValue": 100641,
-            "maxValue": 100000000000000
-          }
-        }
-      ],
-      "refreshedBy": "Gunnlaugur Þór Briem",
-      "refreshedDate": 45939.50231157408,
-      "recordCount": 15,
-      "createdVersion": 8,
-      "refreshedVersion": 8,
-      "minRefreshableVersion": 3,
-      "extensions": [
-        "<ext uri=\"{725AE2AE-9491-48be-B2B4-4EB974FC3084}\" xmlns:x14=\"http://schemas.microsoft.com/office/spreadsheetml/2009/9/main\"><x14:pivotCacheDefinition/></ext>"
-      ],
-      "records": [
-        [
-          { "x": 0 },
-          { "x": 0 },
-          "Alice",
-          230624
-        ],
-        [
-          { "x": 0 },
-          { "x": 1 },
-          "Bob",
-          234236
-        ],
-        [
-          { "x": 0 },
-          { "x": 1 },
-          "Charlize",
-          180230
-        ],
-        [
-          { "x": 1 },
-          { "x": 0 },
-          "David",
-          148866
-        ],
-        [
-          { "x": 1 },
-          { "x": 2 },
-          "Elisa",
-          235753
-        ],
-        [
-          { "x": 1 },
-          { "x": 2 },
-          "Einar",
-          160051
-        ],
-        [
-          { "x": 1 },
-          { "x": 3 },
-          "Elon",
-          100000000000000
-        ],
-        [
-          { "x": 2 },
-          { "x": 0 },
-          "Fiona",
-          295876
-        ],
-        [
-          { "x": 2 },
-          { "x": 3 },
-          "George",
-          299780
-        ],
-        [
-          { "x": 2 },
-          { "x": 3 },
-          "Harold",
-          305602
-        ],
-        [
-          { "x": 2 },
-          { "x": 4 },
-          "Holger",
-          234664
-        ],
-        [
-          { "x": 3 },
-          { "x": 0 },
-          "Inez",
-          100641
-        ],
-        [
-          { "x": 3 },
-          { "x": 5 },
-          "Jason",
-          294315
-        ],
-        [
-          { "x": 3 },
-          { "x": 4 },
-          "Kathryn",
-          294077
-        ],
-        [
-          { "x": 3 },
-          { "x": 2 },
-          "Leon",
-          308183
-        ]
-      ]
-    }
-  ],
   "pivotTables": [
     {
       "name": "PivotTable5",
       "sheet": "Sheet4",
-      "cacheIndex": 0,
       "ref": "A3:H9",
       "location": {
         "firstHeaderRow": 1,
@@ -441,9 +295,9 @@
       "style": {
         "name": "PivotStyleLight16",
         "showRowHeaders": true,
-        "showColHeaders": true,
+        "showColumnHeaders": true,
         "showRowStripes": false,
-        "showColStripes": false,
+        "showColumnStripes": false,
         "showLastColumn": true
       },
       "outline": true,
@@ -457,16 +311,140 @@
       "applyPatternFormats": false,
       "applyAlignmentFormats": false,
       "applyWidthHeightFormats": true,
-      "createdVersion": 8,
-      "updatedVersion": 8,
-      "minRefreshableVersion": 3,
       "indent": 0,
       "dataCaption": "Values",
-      "extensions": [
-        "<ext uri=\"{962EF5D1-5CA2-4c93-8EF4-DBF5C05439D2}\" xmlns:x14=\"http://schemas.microsoft.com/office/spreadsheetml/2009/9/main\"><x14:pivotTableDefinition hideValuesRow=\"1\" xmlns:xm=\"http://schemas.microsoft.com/office/excel/2006/main\"/></ext>",
-        "<ext uri=\"{747A6164-185A-40DC-8AA5-F01512510D54}\" xmlns:xpdl=\"http://schemas.microsoft.com/office/spreadsheetml/2016/pivotdefaultlayout\"><xpdl:pivotTableDefinition16/></ext>"
-      ],
-      "uid": "{916D59D8-6143-8142-9B4B-F15BE71C47B7}"
+      "cache": {
+        "sourceType": "worksheet",
+        "worksheetSource": { "ref": "A1:D16", "sheet": "Data" },
+        "fields": [
+          {
+            "name": "Dept",
+            "sharedItems": [
+              { "t": "s", "v": "Engineering" },
+              { "t": "s", "v": "Finance" },
+              { "t": "s", "v": "Legal" },
+              { "t": "s", "v": "Product" }
+            ]
+          },
+          {
+            "name": "Function",
+            "sharedItems": [
+              { "t": "s", "v": "Manager" },
+              { "t": "s", "v": "Engineer" },
+              { "t": "s", "v": "Assistant" },
+              { "t": "s", "v": "Clerk" },
+              { "t": "s", "v": "Intern" },
+              { "t": "s", "v": "PM" }
+            ]
+          },
+          { "name": "Name" },
+          {
+            "name": "Salary",
+            "sharedItemsMeta": {
+              "containsSemiMixedTypes": false,
+              "containsString": false,
+              "containsNumber": true,
+              "containsInteger": true,
+              "minValue": 100641,
+              "maxValue": 100000000000000
+            }
+          }
+        ],
+        "refreshedBy": "Gunnlaugur Þór Briem",
+        "refreshedDate": 45939.50231157408,
+        "records": [
+          [
+            { "x": 0 },
+            { "x": 0 },
+            { "t": "s", "v": "Alice" },
+            { "t": "n", "v": 230624 }
+          ],
+          [
+            { "x": 0 },
+            { "x": 1 },
+            { "t": "s", "v": "Bob" },
+            { "t": "n", "v": 234236 }
+          ],
+          [
+            { "x": 0 },
+            { "x": 1 },
+            { "t": "s", "v": "Charlize" },
+            { "t": "n", "v": 180230 }
+          ],
+          [
+            { "x": 1 },
+            { "x": 0 },
+            { "t": "s", "v": "David" },
+            { "t": "n", "v": 148866 }
+          ],
+          [
+            { "x": 1 },
+            { "x": 2 },
+            { "t": "s", "v": "Elisa" },
+            { "t": "n", "v": 235753 }
+          ],
+          [
+            { "x": 1 },
+            { "x": 2 },
+            { "t": "s", "v": "Einar" },
+            { "t": "n", "v": 160051 }
+          ],
+          [
+            { "x": 1 },
+            { "x": 3 },
+            { "t": "s", "v": "Elon" },
+            { "t": "n", "v": 100000000000000 }
+          ],
+          [
+            { "x": 2 },
+            { "x": 0 },
+            { "t": "s", "v": "Fiona" },
+            { "t": "n", "v": 295876 }
+          ],
+          [
+            { "x": 2 },
+            { "x": 3 },
+            { "t": "s", "v": "George" },
+            { "t": "n", "v": 299780 }
+          ],
+          [
+            { "x": 2 },
+            { "x": 3 },
+            { "t": "s", "v": "Harold" },
+            { "t": "n", "v": 305602 }
+          ],
+          [
+            { "x": 2 },
+            { "x": 4 },
+            { "t": "s", "v": "Holger" },
+            { "t": "n", "v": 234664 }
+          ],
+          [
+            { "x": 3 },
+            { "x": 0 },
+            { "t": "s", "v": "Inez" },
+            { "t": "n", "v": 100641 }
+          ],
+          [
+            { "x": 3 },
+            { "x": 5 },
+            { "t": "s", "v": "Jason" },
+            { "t": "n", "v": 294315 }
+          ],
+          [
+            { "x": 3 },
+            { "x": 4 },
+            { "t": "s", "v": "Kathryn" },
+            { "t": "n", "v": 294077 }
+          ],
+          [
+            { "x": 3 },
+            { "x": 2 },
+            { "t": "s", "v": "Leon" },
+            { "t": "n", "v": 308183 }
+          ]
+        ]
+      }
     }
   ],
   "formulas": [

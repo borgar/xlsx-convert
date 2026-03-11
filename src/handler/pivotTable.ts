@@ -1,13 +1,14 @@
 import type { Document, Element } from '@borgar/simple-xml';
 import type {
   PivotArea,
+  PivotAreaAxis,
   PivotAreaReference,
   PivotAreaType,
   PivotAutoFilterColumn,
-  PivotCustomFilterCriterion,
   PivotConditionalFormat,
   PivotConditionalFormatScope,
   PivotConditionalFormatType,
+  PivotCustomFilterCriterion,
   PivotDataField,
   PivotDataFieldAggregation,
   PivotField,
@@ -22,13 +23,13 @@ import type {
   PivotSubtotalFunction,
   PivotTable,
   PivotTableStyle,
+  PivotTableStyleName,
 } from '@jsfkit/types';
 import { addProp } from '../utils/addProp.ts';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { parseEnum } from '../utils/parseEnum.ts';
-import { serializeElement } from '../utils/serializeElement.ts';
 
-export function handlerPivotTable (dom: Document): PivotTable | undefined {
+export function handlerPivotTable (dom: Document): (Omit<PivotTable, 'cache'> & { cache?: PivotTable['cache'] }) | undefined {
   const root = dom.getElementsByTagName('pivotTableDefinition')[0];
   if (!root) {
     return;
@@ -83,14 +84,13 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
   const colPageCount = numAttr(locationEl, 'colPageCount', 0);
   if (colPageCount !== 0) { location.colPageCount = colPageCount; }
 
-  const pt: PivotTable = {
+  const pt = {
     name,
     sheet: '', // resolved by caller
-    cacheIndex: -1, // sentinel: resolved by caller; kept only if >= 0
     ref,
     location,
     fields,
-  };
+  } as Omit<PivotTable, 'cache'> & { cache?: PivotTable['cache'] };
 
   if (rowFieldIndices.length > 0) {
     pt.rowFieldIndices = rowFieldIndices;
@@ -167,10 +167,6 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
   addProp(pt, 'applyAlignmentFormats', boolAttr(root, 'applyAlignmentFormats'));
   addProp(pt, 'applyWidthHeightFormats', boolAttr(root, 'applyWidthHeightFormats'));
 
-  addProp(pt, 'createdVersion', numAttr(root, 'createdVersion'));
-  addProp(pt, 'updatedVersion', numAttr(root, 'updatedVersion'));
-  addProp(pt, 'minRefreshableVersion', numAttr(root, 'minRefreshableVersion'));
-
   addProp(pt, 'indent', numAttr(root, 'indent'), 1);
   addProp(pt, 'dataPosition', numAttr(root, 'dataPosition'));
   addProp(pt, 'dataCaption', attr(root, 'dataCaption'));
@@ -181,24 +177,8 @@ export function handlerPivotTable (dom: Document): PivotTable | undefined {
   addProp(pt, 'colHeaderCaption', attr(root, 'colHeaderCaption'));
   addProp(pt, 'pageWrap', numAttr(root, 'pageWrap'), 0);
 
-  const formats = parseFormats(root);
-  if (formats.length > 0) { pt.formats = formats; }
-
-  const conditionalFormats = parseConditionalFormats(root);
-  if (conditionalFormats.length > 0) { pt.conditionalFormats = conditionalFormats; }
-
   const filters = parseFilters(root);
   if (filters.length > 0) { pt.filters = filters; }
-
-  const uid = attr(root, 'xr:uid');
-  if (uid != null) { pt.uid = uid; }
-
-  // Extension list (opaque pass-through)
-  const extensions: string[] = [];
-  for (const extEl of root.querySelectorAll('extLst > ext')) {
-    extensions.push(serializeElement(extEl));
-  }
-  if (extensions.length > 0) { pt.extensions = extensions; }
 
   const calculatedFields: PivotTable['calculatedFields'] = [];
   for (const cfEl of root.querySelectorAll('calculatedFields > calculatedField')) {
@@ -420,8 +400,8 @@ function parsePivotFields (root: Element): PivotField[] {
 
     const subtotalCaption = attr(pf, 'subtotalCaption');
     if (subtotalCaption != null) { field.subtotalCaption = subtotalCaption; }
-    const pfNumFmtId = numAttr(pf, 'numFmtId');
-    if (pfNumFmtId != null) { field.numFmtId = pfNumFmtId; }
+    // numFmtId is read from XML but not stored: the new type uses numFmt (a format
+    // code string), which requires the style table to resolve. TODO: resolve when available.
     const itemPageCount = numAttr(pf, 'itemPageCount');
     if (itemPageCount != null && itemPageCount !== 10) { field.itemPageCount = itemPageCount; }
     const dataSourceSort = boolAttr(pf, 'dataSourceSort');
@@ -460,10 +440,8 @@ function parseDataFields (root: Element): PivotDataField[] {
     if (baseItem != null) {
       dataField.baseItem = baseItem;
     }
-    const numFmtId = numAttr(df, 'numFmtId');
-    if (numFmtId != null) {
-      dataField.numFmtId = numFmtId;
-    }
+    // numFmtId is read from XML but not stored: the new type uses numFmt (a format
+    // code string), which requires the style table to resolve. TODO: resolve when available.
     dataFields.push(dataField);
   }
   return dataFields;
@@ -502,7 +480,7 @@ function parseStyle (root: Element): PivotTableStyle | undefined {
   const style: PivotTableStyle = {};
   const styleName = attr(styleInfo, 'name');
   if (styleName) {
-    style.name = styleName;
+    style.name = styleName as PivotTableStyleName;
   }
   const showRowHeaders = boolAttr(styleInfo, 'showRowHeaders');
   if (showRowHeaders != null) {
@@ -510,7 +488,7 @@ function parseStyle (root: Element): PivotTableStyle | undefined {
   }
   const showColHeaders = boolAttr(styleInfo, 'showColHeaders');
   if (showColHeaders != null) {
-    style.showColHeaders = showColHeaders;
+    style.showColumnHeaders = showColHeaders;
   }
   const showRowStripes = boolAttr(styleInfo, 'showRowStripes');
   if (showRowStripes != null) {
@@ -518,7 +496,7 @@ function parseStyle (root: Element): PivotTableStyle | undefined {
   }
   const showColStripes = boolAttr(styleInfo, 'showColStripes');
   if (showColStripes != null) {
-    style.showColStripes = showColStripes;
+    style.showColumnStripes = showColStripes;
   }
   const showLastColumn = boolAttr(styleInfo, 'showLastColumn');
   if (showLastColumn != null) {
@@ -533,7 +511,7 @@ const PIVOT_AREA_TYPES: ReadonlySet<PivotAreaType> = new Set<PivotAreaType>([
   'none', 'normal', 'data', 'all', 'origin', 'button', 'topRight',
 ]);
 
-const AXIS_MAP: Readonly<Record<string, NonNullable<PivotArea['axis']>>> = {
+const AXIS_MAP: Readonly<Record<string, PivotAreaAxis>> = {
   axisRow: 'row',
   axisCol: 'col',
   axisPage: 'page',

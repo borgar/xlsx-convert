@@ -22,7 +22,7 @@ import { handlerTable } from './handler/table.ts';
 import { handlerPivotCacheDefinition } from './handler/pivotCacheDefinition.ts';
 import { handlerPivotCacheRecords } from './handler/pivotCacheRecords.ts';
 import { handlerPivotTable } from './handler/pivotTable.ts';
-import type { Workbook } from '@jsfkit/types';
+import type { Workbook, PivotTable, PivotCache } from '@jsfkit/types';
 import type { ConversionOptions } from './index.ts';
 import { EncryptionError, InvalidFileError, MissingSheetError } from './errors.ts';
 import { handlerDrawing } from './handler/drawing.ts';
@@ -201,7 +201,7 @@ export async function convertBinary (
   const pivotCacheRels = pivotCacheRIds.length > 0
     ? pivotCacheRIds.map(rId => context.rels.find(d => d.id === rId)).filter((d): d is Rel => d != null)
     : context.rels.filter(d => d.type === 'pivotCacheDefinition');
-  const cachePathToIndex = new Map<string, number>();
+
   const cacheResults = await Promise.all(pivotCacheRels.map(async cacheRel => {
     const [ cacheDom, cacheDefRels ] = await Promise.all([
       getFile(cacheRel.target),
@@ -223,15 +223,11 @@ export async function convertBinary (
     }
     return { cache, target: cacheRel.target };
   }));
-  wb.pivotCaches = [];
+  const cachePathToCache = new Map<string, PivotCache>();
   for (const result of cacheResults) {
     if (result) {
-      cachePathToIndex.set(result.target, wb.pivotCaches.length);
-      wb.pivotCaches.push(result.cache);
+      cachePathToCache.set(result.target, result.cache);
     }
-  }
-  if (wb.pivotCaches.length === 0) {
-    delete wb.pivotCaches;
   }
 
   // theme
@@ -271,18 +267,20 @@ export async function convertBinary (
           const pt = handlerPivotTable(ptDom);
           if (pt) {
             pt.sheet = sheetName;
-            // resolve cacheIndex from pivot table's rels -> pivotCacheDefinition
+            // resolve cache from pivot table's rels -> pivotCacheDefinition
             const ptRels = await getRels(ptRel.target);
             const ptCacheRel = ptRels.find(d => d.type === 'pivotCacheDefinition');
+            let cacheResolved = false;
             if (ptCacheRel) {
-              const idx = cachePathToIndex.get(ptCacheRel.target);
-              if (idx != null) {
-                pt.cacheIndex = idx;
+              const cache = cachePathToCache.get(ptCacheRel.target);
+              if (cache) {
+                pt.cache = cache;
+                cacheResolved = true;
               }
             }
             // Only include pivot tables whose cache was successfully parsed
-            if (pt.cacheIndex >= 0) {
-              wb.pivotTables.push(pt);
+            if (cacheResolved) {
+              wb.pivotTables.push(pt as PivotTable);
             }
             else {
               // TODO: use a structured warning callback (e.g. options.onWarning) instead of

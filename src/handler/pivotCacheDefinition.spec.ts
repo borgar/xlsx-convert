@@ -120,13 +120,11 @@ describe('handlerPivotCacheDefinition', () => {
     expect(cache.worksheetSource).toEqual({ ref: 'A1:C10', sheet: 'Sheet1' });
     expect(cache.fields).toHaveLength(2);
     expect(cache.fields[0].name).toBe('Name');
-    expect(cache.fields[0].numFmtId).toBe(0);
     expect(cache.fields[0].sharedItems).toEqual([
-      { type: 'string', value: 'Alice' },
-      { type: 'string', value: 'Bob' },
+      { t: 's', v: 'Alice' },
+      { t: 's', v: 'Bob' },
     ]);
     expect(cache.fields[1].name).toBe('Amount');
-    expect(cache.fields[1].numFmtId).toBe(4);
     expect(cache.fields[1].sharedItems).toBeUndefined();
   });
 
@@ -150,12 +148,12 @@ describe('handlerPivotCacheDefinition', () => {
     </pivotCacheDefinition>`;
     const cache = parse(xml)!;
     expect(cache.fields[0].sharedItems).toEqual([
-      { type: 'string', value: 'hello' },
-      { type: 'number', value: 42 },
-      { type: 'boolean', value: true },
-      { type: 'date', value: '2024-01-15T00:00:00' },
-      { type: 'error', value: '#REF!' },
-      { type: 'missing' },
+      { t: 's', v: 'hello' },
+      { t: 'n', v: 42 },
+      { t: 'b', v: true },
+      { t: 'd', v: '2024-01-15T00:00:00' },
+      { t: 'e', v: '#REF!' },
+      { t: 'z' },
     ]);
   });
 
@@ -172,7 +170,7 @@ describe('handlerPivotCacheDefinition', () => {
     </pivotCacheDefinition>`;
     const cache = parse(xml)!;
     expect(cache.fields[0].sharedItems).toEqual([
-      { type: 'boolean', value: false },
+      { t: 'b', v: false },
     ]);
   });
 
@@ -188,7 +186,7 @@ describe('handlerPivotCacheDefinition', () => {
       </cacheFields>
     </pivotCacheDefinition>`;
     const cache = parse(xml)!;
-    expect(cache.fields[0].numFmtId).toBe(164);
+    // numFmtId is no longer stored (requires style table to resolve to format code string)
     expect(cache.fields[0].formula).toBe('Amount * Rate');
   });
 
@@ -379,8 +377,8 @@ describe('handlerPivotCacheDefinition', () => {
     expect(fg.base).toBe(0);
     expect(fg.discretePr).toEqual([ 0, 1, 0 ]);
     expect(fg.groupItems).toEqual([
-      { type: 'string', value: 'Group A' },
-      { type: 'string', value: 'Group B' },
+      { t: 's', v: 'Group A' },
+      { t: 's', v: 'Group B' },
     ]);
   });
 
@@ -512,16 +510,9 @@ describe('handlerPivotCacheDefinition', () => {
     const cache = parse(xml)!;
     expect(cache.refreshedBy).toBe('User');
     expect(cache.refreshedDate).toBe(45000.5);
-    expect(cache.refreshedDateIso).toBe('2023-03-15T12:00:00');
-    expect(cache.recordCount).toBe(100);
-    expect(cache.createdVersion).toBe(8);
-    expect(cache.refreshedVersion).toBe(7);
-    expect(cache.minRefreshableVersion).toBe(3);
-    expect(cache.saveData).toBe(false);
     expect(cache.refreshOnLoad).toBe(true);
     expect(cache.enableRefresh).toBe(false);
     expect(cache.upgradeOnRefresh).toBe(true);
-    expect(cache.uid).toBe('{ABC-123}');
   });
 
   it('should omit cache metadata attributes when absent', () => {
@@ -534,40 +525,12 @@ describe('handlerPivotCacheDefinition', () => {
     const cache = parse(xml)!;
     expect(cache.refreshedBy).toBeUndefined();
     expect(cache.refreshedDate).toBeUndefined();
-    expect(cache.recordCount).toBeUndefined();
-    expect(cache.saveData).toBeUndefined();
     expect(cache.refreshOnLoad).toBeUndefined();
     expect(cache.enableRefresh).toBeUndefined();
     expect(cache.upgradeOnRefresh).toBeUndefined();
-    expect(cache.uid).toBeUndefined();
   });
 
-  it('should parse extensions from extLst', () => {
-    const xml = `<pivotCacheDefinition>
-      <cacheSource type="worksheet">
-        <worksheetSource ref="A1:B5" sheet="Data"/>
-      </cacheSource>
-      <cacheFields count="0"/>
-      <extLst>
-        <ext uri="{725AE2AE}" xmlns:x14="http://example.com"><x14:pivotCacheDefinition/></ext>
-      </extLst>
-    </pivotCacheDefinition>`;
-    const cache = parse(xml)!;
-    expect(cache.extensions).toHaveLength(1);
-    expect(cache.extensions![0]).toContain('uri="{725AE2AE}"');
-    expect(cache.extensions![0]).toContain('x14:pivotCacheDefinition');
-  });
-
-  it('should omit extensions when extLst is absent', () => {
-    const xml = `<pivotCacheDefinition>
-      <cacheSource type="worksheet">
-        <worksheetSource ref="A1:B5" sheet="Data"/>
-      </cacheSource>
-      <cacheFields count="0"/>
-    </pivotCacheDefinition>`;
-    const cache = parse(xml)!;
-    expect(cache.extensions).toBeUndefined();
-  });
+  // Extensions are no longer part of the PivotCache type; extLst is parsed but not stored.
 
   it('should parse scenario source', () => {
     const xml = `<pivotCacheDefinition>
