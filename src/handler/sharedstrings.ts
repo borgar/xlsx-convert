@@ -1,7 +1,8 @@
 import { Document } from '@borgar/simple-xml';
+import type { ConversionContext } from '../ConversionContext.ts';
 import { numAttr } from '../utils/attr.ts';
 
-export function handlerSharedStrings (dom: Document): string[] {
+export function handlerSharedStrings (dom: Document, context: ConversionContext): string[] {
   const sst = dom.querySelectorAll('sst')[0];
 
   const stringTable = sst.querySelectorAll('si').map(d => {
@@ -10,8 +11,7 @@ export function handlerSharedStrings (dom: Document): string[] {
 
   const count = numAttr(sst, 'uniqueCount', 0);
   if (count !== stringTable.length) {
-    console.warn('String table did not contain correct amount of entries.');
-    console.warn(`I got ${stringTable.length}, but expected ${count}`);
+    context.warn(`String table: got ${stringTable.length} entries, but expected ${count}`);
   }
 
   return stringTable;
