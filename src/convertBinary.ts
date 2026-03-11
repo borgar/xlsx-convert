@@ -283,9 +283,7 @@ export async function convertBinary (
               wb.pivotTables.push(pt as PivotTable);
             }
             else {
-              // TODO: use a structured warning callback (e.g. options.onWarning) instead of
-              // console.warn, so consumers can intercept or suppress diagnostics.
-              console.warn(`Pivot table "${pt.name}" on sheet "${sheetName}" dropped: cache definition not found (rel target: ${ptCacheRel?.target ?? 'none'})`);
+              context.warn(`Pivot table "${pt.name}" on sheet "${sheetName}" dropped: cache definition not found (rel target: ${ptCacheRel?.target ?? 'none'})`);
             }
           }
         }
