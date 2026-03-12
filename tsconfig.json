@@ -2,7 +2,8 @@
   "include": [
     "src/**/*",
     "tests/**/*",
-    "eslint.config.js"
+    "eslint.config.js",
+    "benchmark.ts"
   ],
   "types": [ "node" ],
   "compilerOptions": {
