@@ -261,25 +261,23 @@ export async function convertBinary (
       }
 
       const pivotTableRels = sheetRels.filter(rel => rel.type === 'pivotTable');
-      for (const ptRel of pivotTableRels) {
-        const ptDom = await getFile(ptRel.target);
+      await Promise.all(pivotTableRels.map(async ptRel => {
+        const [ ptDom, ptRels ] = await Promise.all([
+          getFile(ptRel.target),
+          getRels(ptRel.target),
+        ]);
         if (ptDom) {
           const pt = handlerPivotTable(ptDom);
           if (pt) {
             pt.sheet = sheetName;
             // resolve cache from pivot table's rels -> pivotCacheDefinition
-            const ptRels = await getRels(ptRel.target);
             const ptCacheRel = ptRels.find(d => d.type === 'pivotCacheDefinition');
-            let cacheResolved = false;
             if (ptCacheRel) {
               const cache = cachePathToCache.get(ptCacheRel.target);
-              if (cache) {
-                pt.cache = cache;
-                cacheResolved = true;
-              }
+              if (cache) { pt.cache = cache; }
             }
             // Only include pivot tables whose cache was successfully parsed
-            if (cacheResolved) {
+            if (pt.cache != null) {
               wb.pivotTables.push(pt as PivotTable);
             }
             else {
@@ -287,7 +285,7 @@ export async function convertBinary (
             }
           }
         }
-      }
+      }));
 
       // convert the sheet
       const sheetFile = await getFile(sheetRel.target);
