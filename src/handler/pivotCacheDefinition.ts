@@ -2,6 +2,7 @@ import type { Document, Element } from '@borgar/simple-xml';
 import type { PivotCache, PivotCacheConsolidationRangeSet, PivotCacheField, PivotCacheFieldGroup, PivotCacheRangePr, PivotCacheSharedItem, PivotCacheSharedItemsMeta, PivotCacheWorksheetSourceName, PivotCacheWorksheetSourceRange, PivotGroupBy } from '@jsfkit/types';
 import { addProp } from '../utils/addProp.ts';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
+import { parseCacheSharedItem } from '../utils/parseCacheSharedItem.ts';
 import { parseEnum } from '../utils/parseEnum.ts';
 
 export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefined {
@@ -135,26 +136,8 @@ function parseFields (root: Element): PivotCacheField[] {
 function parseCacheItems (container: Element): PivotCacheSharedItem[] {
   const items: PivotCacheSharedItem[] = [];
   for (const child of container.children) {
-    switch (child.tagName) {
-      case 's':
-        items.push({ t: 's', v: attr(child, 'v') ?? '' });
-        break;
-      case 'n':
-        items.push({ t: 'n', v: +(attr(child, 'v') ?? 0) });
-        break;
-      case 'b':
-        items.push({ t: 'b', v: !!+(attr(child, 'v') ?? 0) });
-        break;
-      case 'd':
-        items.push({ t: 'd', v: attr(child, 'v') ?? '' });
-        break;
-      case 'e':
-        items.push({ t: 'e', v: attr(child, 'v') ?? '' });
-        break;
-      case 'm':
-        items.push({ t: 'z' });
-        break;
-    }
+    const item = parseCacheSharedItem(child);
+    if (item) { items.push(item); }
   }
   return items;
 }

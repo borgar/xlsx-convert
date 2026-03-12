@@ -1,6 +1,7 @@
 import type { Document } from '@borgar/simple-xml';
 import type { PivotCacheRecord, PivotCacheRecordValue } from '@jsfkit/types';
 import { attr } from '../utils/attr.ts';
+import { parseCacheSharedItem } from '../utils/parseCacheSharedItem.ts';
 
 export function handlerPivotCacheRecords (dom: Document): PivotCacheRecord[] {
   const root = dom.getElementsByTagName('pivotCacheRecords')[0];
@@ -10,28 +11,12 @@ export function handlerPivotCacheRecords (dom: Document): PivotCacheRecord[] {
   for (const r of root.getElementsByTagName('r')) {
     const record: PivotCacheRecordValue[] = [];
     for (const child of r.children) {
-      switch (child.tagName) {
-        case 'x':
-          record.push({ t: 'x', v: +attr(child, 'v', '0') });
-          break;
-        case 'n':
-          record.push({ t: 'n', v: +(attr(child, 'v') ?? 0) });
-          break;
-        case 's':
-          record.push({ t: 's', v: attr(child, 'v') ?? '' });
-          break;
-        case 'b':
-          record.push({ t: 'b', v: !!+(attr(child, 'v') ?? 0) });
-          break;
-        case 'd':
-          record.push({ t: 'd', v: attr(child, 'v') ?? '' });
-          break;
-        case 'e':
-          record.push({ t: 'e', v: attr(child, 'v') ?? '' });
-          break;
-        case 'm':
-          record.push({ t: 'z' });
-          break;
+      if (child.tagName === 'x') {
+        record.push({ t: 'x', v: +attr(child, 'v', '0') });
+      }
+      else {
+        const item = parseCacheSharedItem(child);
+        if (item) { record.push(item); }
       }
     }
     records.push(record);
