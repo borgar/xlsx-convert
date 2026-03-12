@@ -251,6 +251,7 @@ type CacheMetadata = {
   refreshOnLoad?: boolean;
   enableRefresh?: boolean;
   upgradeOnRefresh?: boolean;
+  uid?: string;
 };
 
 function parseCacheMetadata (root: Element): CacheMetadata {
@@ -260,5 +261,6 @@ function parseCacheMetadata (root: Element): CacheMetadata {
   addProp(result, 'refreshOnLoad', boolAttr(root, 'refreshOnLoad'));
   addProp(result, 'enableRefresh', boolAttr(root, 'enableRefresh'));
   addProp(result, 'upgradeOnRefresh', boolAttr(root, 'upgradeOnRefresh'));
+  addProp(result, 'uid', attr(root, 'xr:uid'));
   return result;
 }

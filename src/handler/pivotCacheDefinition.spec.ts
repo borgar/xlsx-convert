@@ -513,6 +513,7 @@ describe('handlerPivotCacheDefinition', () => {
     expect(cache.refreshOnLoad).toBe(true);
     expect(cache.enableRefresh).toBe(false);
     expect(cache.upgradeOnRefresh).toBe(true);
+    expect(cache.uid).toBe('{ABC-123}');
   });
 
   it('should omit cache metadata attributes when absent', () => {

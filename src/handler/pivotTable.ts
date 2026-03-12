@@ -168,6 +168,7 @@ export function handlerPivotTable (dom: Document): (Omit<PivotTable, 'cache'> & 
   addProp(pt, 'rowHeaderCaption', attr(root, 'rowHeaderCaption'));
   addProp(pt, 'colHeaderCaption', attr(root, 'colHeaderCaption'));
   addProp(pt, 'pageWrap', numAttr(root, 'pageWrap'), 0);
+  addProp(pt, 'uid', attr(root, 'xr:uid'));
 
   const filters = parseFilters(root);
   if (filters.length > 0) { pt.filters = filters; }

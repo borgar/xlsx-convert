@@ -447,6 +447,17 @@ describe('handlerPivotTable', () => {
     expect(pt.pageOverThenDown).toBe(true);
   });
 
+  it('should parse uid', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0" xr:uid="{93AACE53-8F3A-A04A-893A-A439866B3165}">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="0"/>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="0"/>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.uid).toBe('{93AACE53-8F3A-A04A-893A-A439866B3165}');
+  });
+
   it('should parse location rowPageCount and colPageCount', () => {
     const xml = `<pivotTableDefinition name="PT1" cacheId="0">
       <location ref="A1" firstHeaderRow="1" firstDataRow="3" firstDataCol="0" rowPageCount="2" colPageCount="1"/>
