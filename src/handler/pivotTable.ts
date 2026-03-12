@@ -476,6 +476,9 @@ function parseStyle (root: Element): PivotTableStyle | undefined {
   const style: PivotTableStyle = {};
   const styleName = attr(styleInfo, 'name');
   if (styleName) {
+    // Cast is intentional: Excel allows user-defined custom pivot styles whose
+    // names aren't in the PivotTableStyleName union. We preserve whatever name
+    // the file contains rather than validating against the built-in list.
     style.name = styleName as PivotTableStyleName;
   }
   const showRowHeaders = boolAttr(styleInfo, 'showRowHeaders');
