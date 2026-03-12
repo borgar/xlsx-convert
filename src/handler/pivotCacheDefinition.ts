@@ -23,8 +23,10 @@ export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefi
     const ref = attr(wsSource, 'ref');
     const sheet = attr(wsSource, 'sheet');
     const name = attr(wsSource, 'name');
-    if (ref && sheet) {
-      const worksheetSource: PivotCacheWorksheetSourceRange = { type: 'range', ref, sheet };
+    if (ref) {
+      const worksheetSource: PivotCacheWorksheetSourceRange = sheet
+        ? { type: 'range', ref, sheet }
+        : { type: 'range', ref };
       return { sourceType: 'worksheet' as const, worksheetSource, fields, ...metadata };
     }
     if (name) {
