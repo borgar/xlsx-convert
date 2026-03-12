@@ -19,6 +19,7 @@
     "allowJs": true,
     "checkJs": true,
     "stripInternal": true,
+    "noEmit": true,
     "noEmitOnError": true,
     "noErrorTruncation": true,
     "outDir": "types",

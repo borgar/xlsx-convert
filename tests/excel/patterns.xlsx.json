@@ -1,0 +1,1869 @@
+{
+  "name": "patterns.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "B1": { "s": 1 },
+        "C1": { "s": 2 },
+        "D1": { "s": 3 },
+        "E1": { "s": 4 },
+        "F1": { "s": 5 },
+        "A2": { "s": 6 },
+        "B2": { "s": 7 },
+        "C2": { "s": 8 },
+        "D2": { "s": 9 },
+        "E2": { "s": 10 },
+        "F2": { "s": 11 },
+        "A3": { "s": 12 },
+        "B3": { "s": 13 },
+        "C3": { "s": 14 },
+        "D3": { "s": 15 },
+        "E3": { "s": 16 },
+        "F3": { "s": 17 }
+      },
+      "columns": [],
+      "rows": [
+        { "start": 1, "end": 3, "size": 60 },
+        { "start": 4, "end": 4, "size": 37 },
+        { "start": 5, "end": 13, "size": 60 }
+      ],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "H12" }
+      ],
+      "drawing": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 4, "rowOff": 0, "col": 0, "colOff": 0 },
+            "to": {
+              "row": 4,
+              "rowOff": 723900,
+              "col": 0,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "3",
+              "name": "Rectangle 2",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 0, "y": 3048000 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "pct5",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 4, "rowOff": 0, "col": 1, "colOff": 0 },
+            "to": {
+              "row": 4,
+              "rowOff": 723900,
+              "col": 1,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "4",
+              "name": "Rectangle 3",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 825500, "y": 3048000 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "pct10",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 4, "rowOff": 0, "col": 2, "colOff": 0 },
+            "to": {
+              "row": 4,
+              "rowOff": 723900,
+              "col": 2,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "5",
+              "name": "Rectangle 4",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 1651000, "y": 3048000 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "pct20",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 4, "rowOff": 0, "col": 3, "colOff": 0 },
+            "to": {
+              "row": 4,
+              "rowOff": 723900,
+              "col": 3,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "6",
+              "name": "Rectangle 5",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 2476500, "y": 3048000 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "pct25",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 4, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 4,
+              "rowOff": 723900,
+              "col": 4,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "7",
+              "name": "Rectangle 6",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 3302000, "y": 3048000 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "pct30",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 4, "rowOff": 0, "col": 5, "colOff": 0 },
+            "to": {
+              "row": 4,
+              "rowOff": 723900,
+              "col": 5,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "8",
+              "name": "Rectangle 7",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 4127500, "y": 3048000 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "pct40",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 5, "rowOff": 0, "col": 0, "colOff": 0 },
+            "to": {
+              "row": 5,
+              "rowOff": 723900,
+              "col": 0,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "10",
+              "name": "Rectangle 9",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 0, "y": 3517900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "pct50",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 5, "rowOff": 0, "col": 1, "colOff": 0 },
+            "to": {
+              "row": 5,
+              "rowOff": 723900,
+              "col": 1,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "11",
+              "name": "Rectangle 10",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 825500, "y": 3517900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "pct60",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 5, "rowOff": 0, "col": 2, "colOff": 0 },
+            "to": {
+              "row": 5,
+              "rowOff": 723900,
+              "col": 2,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "12",
+              "name": "Rectangle 11",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 1651000, "y": 3517900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "pct70",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 5, "rowOff": 0, "col": 3, "colOff": 0 },
+            "to": {
+              "row": 5,
+              "rowOff": 723900,
+              "col": 3,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "13",
+              "name": "Rectangle 12",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 2476500, "y": 3517900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "pct75",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 5, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 5,
+              "rowOff": 723900,
+              "col": 4,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "14",
+              "name": "Rectangle 13",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 3302000, "y": 3517900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "pct80",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 5, "rowOff": 0, "col": 5, "colOff": 0 },
+            "to": {
+              "row": 5,
+              "rowOff": 723900,
+              "col": 5,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "15",
+              "name": "Rectangle 14",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 4127500, "y": 3517900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "pct90",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 6, "rowOff": 0, "col": 0, "colOff": 0 },
+            "to": {
+              "row": 6,
+              "rowOff": 723900,
+              "col": 0,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "16",
+              "name": "Rectangle 15",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 0, "y": 4279900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "ltDnDiag",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 6, "rowOff": 0, "col": 1, "colOff": 0 },
+            "to": {
+              "row": 6,
+              "rowOff": 723900,
+              "col": 1,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "17",
+              "name": "Rectangle 16",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 825500, "y": 4279900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "ltUpDiag",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 6, "rowOff": 0, "col": 2, "colOff": 0 },
+            "to": {
+              "row": 6,
+              "rowOff": 723900,
+              "col": 2,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "18",
+              "name": "Rectangle 17",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 1651000, "y": 4279900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "dkDnDiag",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 6, "rowOff": 0, "col": 3, "colOff": 0 },
+            "to": {
+              "row": 6,
+              "rowOff": 723900,
+              "col": 3,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "19",
+              "name": "Rectangle 18",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 2476500, "y": 4279900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "dkUpDiag",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 6, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 6,
+              "rowOff": 723900,
+              "col": 4,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "20",
+              "name": "Rectangle 19",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 3302000, "y": 4279900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "wdDnDiag",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 6, "rowOff": 0, "col": 5, "colOff": 0 },
+            "to": {
+              "row": 6,
+              "rowOff": 723900,
+              "col": 5,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "21",
+              "name": "Rectangle 20",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 4127500, "y": 4279900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "wdUpDiag",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 7, "rowOff": 0, "col": 0, "colOff": 0 },
+            "to": {
+              "row": 7,
+              "rowOff": 723900,
+              "col": 0,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "22",
+              "name": "Rectangle 21",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 0, "y": 5041900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "ltVert",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 7, "rowOff": 0, "col": 1, "colOff": 0 },
+            "to": {
+              "row": 7,
+              "rowOff": 723900,
+              "col": 1,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "23",
+              "name": "Rectangle 22",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 825500, "y": 5041900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "ltHorz",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 7, "rowOff": 0, "col": 2, "colOff": 0 },
+            "to": {
+              "row": 7,
+              "rowOff": 723900,
+              "col": 2,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "24",
+              "name": "Rectangle 23",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 1651000, "y": 5041900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "narVert",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 7, "rowOff": 0, "col": 3, "colOff": 0 },
+            "to": {
+              "row": 7,
+              "rowOff": 723900,
+              "col": 3,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "25",
+              "name": "Rectangle 24",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 2476500, "y": 5041900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "narHorz",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 7, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 7,
+              "rowOff": 723900,
+              "col": 4,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "26",
+              "name": "Rectangle 25",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 3302000, "y": 5041900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "dkVert",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 7, "rowOff": 0, "col": 5, "colOff": 0 },
+            "to": {
+              "row": 7,
+              "rowOff": 723900,
+              "col": 5,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "27",
+              "name": "Rectangle 26",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 4127500, "y": 5041900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "dkHorz",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 8, "rowOff": 0, "col": 0, "colOff": 0 },
+            "to": {
+              "row": 8,
+              "rowOff": 723900,
+              "col": 0,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "28",
+              "name": "Rectangle 27",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 0, "y": 5803900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "dashDnDiag",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 8, "rowOff": 0, "col": 1, "colOff": 0 },
+            "to": {
+              "row": 8,
+              "rowOff": 723900,
+              "col": 1,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "29",
+              "name": "Rectangle 28",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 825500, "y": 5803900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "dashUpDiag",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 8, "rowOff": 0, "col": 2, "colOff": 0 },
+            "to": {
+              "row": 8,
+              "rowOff": 723900,
+              "col": 2,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "30",
+              "name": "Rectangle 29",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 1651000, "y": 5803900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "dashHorz",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 8, "rowOff": 0, "col": 3, "colOff": 0 },
+            "to": {
+              "row": 8,
+              "rowOff": 723900,
+              "col": 3,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "31",
+              "name": "Rectangle 30",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 2476500, "y": 5803900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "dashVert",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 8, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 8,
+              "rowOff": 723900,
+              "col": 4,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "32",
+              "name": "Rectangle 31",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 3302000, "y": 5803900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "smConfetti",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 8, "rowOff": 0, "col": 5, "colOff": 0 },
+            "to": {
+              "row": 8,
+              "rowOff": 723900,
+              "col": 5,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "33",
+              "name": "Rectangle 32",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 4127500, "y": 5803900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "lgConfetti",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 9, "rowOff": 0, "col": 0, "colOff": 0 },
+            "to": {
+              "row": 9,
+              "rowOff": 723900,
+              "col": 0,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "34",
+              "name": "Rectangle 33",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 0, "y": 6565900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "zigZag",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 9, "rowOff": 0, "col": 1, "colOff": 0 },
+            "to": {
+              "row": 9,
+              "rowOff": 723900,
+              "col": 1,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "35",
+              "name": "Rectangle 34",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 825500, "y": 6565900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "wave",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 9, "rowOff": 0, "col": 2, "colOff": 0 },
+            "to": {
+              "row": 9,
+              "rowOff": 723900,
+              "col": 2,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "36",
+              "name": "Rectangle 35",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 1651000, "y": 6565900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "diagBrick",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 9, "rowOff": 0, "col": 3, "colOff": 0 },
+            "to": {
+              "row": 9,
+              "rowOff": 723900,
+              "col": 3,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "37",
+              "name": "Rectangle 36",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 2476500, "y": 6565900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "horzBrick",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 9, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 9,
+              "rowOff": 723900,
+              "col": 4,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "38",
+              "name": "Rectangle 37",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 3302000, "y": 6565900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "weave",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 9, "rowOff": 0, "col": 5, "colOff": 0 },
+            "to": {
+              "row": 9,
+              "rowOff": 723900,
+              "col": 5,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "39",
+              "name": "Rectangle 38",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 4127500, "y": 6565900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "plaid",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 10, "rowOff": 0, "col": 0, "colOff": 0 },
+            "to": {
+              "row": 10,
+              "rowOff": 723900,
+              "col": 0,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "40",
+              "name": "Rectangle 39",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 0, "y": 7327900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "divot",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 10, "rowOff": 0, "col": 1, "colOff": 0 },
+            "to": {
+              "row": 10,
+              "rowOff": 723900,
+              "col": 1,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "41",
+              "name": "Rectangle 40",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 825500, "y": 7327900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "dotGrid",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 10, "rowOff": 0, "col": 2, "colOff": 0 },
+            "to": {
+              "row": 10,
+              "rowOff": 723900,
+              "col": 2,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "42",
+              "name": "Rectangle 41",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 1651000, "y": 7327900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "dotDmnd",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 10, "rowOff": 0, "col": 3, "colOff": 0 },
+            "to": {
+              "row": 10,
+              "rowOff": 723900,
+              "col": 3,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "43",
+              "name": "Rectangle 42",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 2476500, "y": 7327900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "shingle",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 10, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 10,
+              "rowOff": 723900,
+              "col": 4,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "44",
+              "name": "Rectangle 43",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 3302000, "y": 7327900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "trellis",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 10, "rowOff": 0, "col": 5, "colOff": 0 },
+            "to": {
+              "row": 10,
+              "rowOff": 723900,
+              "col": 5,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "45",
+              "name": "Rectangle 44",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 4127500, "y": 7327900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "sphere",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 11, "rowOff": 0, "col": 0, "colOff": 0 },
+            "to": {
+              "row": 11,
+              "rowOff": 723900,
+              "col": 0,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "46",
+              "name": "Rectangle 45",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 0, "y": 8089900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "smGrid",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 11, "rowOff": 0, "col": 1, "colOff": 0 },
+            "to": {
+              "row": 11,
+              "rowOff": 723900,
+              "col": 1,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "47",
+              "name": "Rectangle 46",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 825500, "y": 8089900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "lgGrid",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 11, "rowOff": 0, "col": 2, "colOff": 0 },
+            "to": {
+              "row": 11,
+              "rowOff": 723900,
+              "col": 2,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "48",
+              "name": "Rectangle 47",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 1651000, "y": 8089900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "smCheck",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 11, "rowOff": 0, "col": 3, "colOff": 0 },
+            "to": {
+              "row": 11,
+              "rowOff": 723900,
+              "col": 3,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "49",
+              "name": "Rectangle 48",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 2476500, "y": 8089900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "lgCheck",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 11, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 11,
+              "rowOff": 723900,
+              "col": 4,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "50",
+              "name": "Rectangle 49",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 3302000, "y": 8089900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "openDmnd",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 11, "rowOff": 0, "col": 5, "colOff": 0 },
+            "to": {
+              "row": 11,
+              "rowOff": 723900,
+              "col": 5,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "51",
+              "name": "Rectangle 50",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 4127500, "y": 8089900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "solidDmnd",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 12, "rowOff": 0, "col": 0, "colOff": 0 },
+            "to": {
+              "row": 12,
+              "rowOff": 723900,
+              "col": 0,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "2",
+              "name": "Rectangle 1",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 0, "y": 8851900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "cross",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 12, "rowOff": 0, "col": 1, "colOff": 0 },
+            "to": {
+              "row": 12,
+              "rowOff": 723900,
+              "col": 1,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "9",
+              "name": "Rectangle 8",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 825500, "y": 8851900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "horz",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 12, "rowOff": 0, "col": 2, "colOff": 0 },
+            "to": {
+              "row": 12,
+              "rowOff": 723900,
+              "col": 2,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "52",
+              "name": "Rectangle 51",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 1651000, "y": 8851900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "vert",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 12, "rowOff": 0, "col": 3, "colOff": 0 },
+            "to": {
+              "row": 12,
+              "rowOff": 723900,
+              "col": 3,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "53",
+              "name": "Rectangle 52",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 2476500, "y": 8851900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "dnDiag",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 12, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": {
+              "row": 12,
+              "rowOff": 723900,
+              "col": 4,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "54",
+              "name": "Rectangle 53",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 3302000, "y": 8851900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "upDiag",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 12, "rowOff": 0, "col": 5, "colOff": 0 },
+            "to": {
+              "row": 12,
+              "rowOff": 723900,
+              "col": 5,
+              "colOff": 762000
+            }
+          },
+          "content": [
+            {
+              "type": "shape",
+              "id": "55",
+              "name": "Rectangle 54",
+              "shape": {
+                "xfrm": {
+                  "off": { "x": 4127500, "y": 8851900 },
+                  "ext": { "cx": 762000, "cy": 723900 }
+                },
+                "preset": "rect",
+                "fill": {
+                  "type": "pattern",
+                  "style": "diagCross",
+                  "fg": "#156082",
+                  "bg": "#FFF"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "patternStyle": "darkGray"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "patternStyle": "mediumGray"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "patternStyle": "lightGray"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "patternStyle": "gray125"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "patternStyle": "gray0625"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "patternStyle": "darkHorizontal"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "patternStyle": "darkVertical"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "patternStyle": "darkDown"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "patternStyle": "darkUp"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "patternStyle": "darkGrid"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "patternStyle": "darkTrellis"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "patternStyle": "lightHorizontal"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "patternStyle": "lightVertical"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "patternStyle": "lightDown"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "patternStyle": "lightUp"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "patternStyle": "lightGrid"
+    },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontSize": 12,
+      "patternStyle": "lightTrellis"
+    }
+  ],
+  "tables": [],
+  "views": [
+    {}
+  ],
+  "formulas": []
+}

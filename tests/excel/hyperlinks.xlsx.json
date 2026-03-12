@@ -40,10 +40,11 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontSize": 12 },
+    { "fontFamily": "Calibri", "fontSize": 12 },
     {
+      "fontFamily": "Calibri",
       "fontSize": 12,
-      "color": "#0563C1",
+      "color": "#467886",
       "underline": "single"
     }
   ],

@@ -15,6 +15,18 @@ export type ConversionOptions = {
    * @defaultValue false
    */
   cellFormulas?: boolean;
+  /**
+   * Image reading callback. All read images are passed through this callback if it is provided.
+   * This is useful, for example, for extracting the images to disk.
+   *
+   * If the return value is a string, the value will be used in the images record on
+   * the workbook instead of the standard data-URI conversion.
+   */
+  imageCallback?: (data?: ArrayBuffer, filename?: string) => Promise<string | void> | string | void
+  /**
+   * Warning callback. If provided, warnings are passed to this function; otherwise they are silently discarded.
+   */
+  warn?: (message: string) => void;
 };
 
 /**
@@ -42,7 +54,6 @@ export async function convert (
   if (!fs) {
     throw new Error("'fs/promises' is not available, use convertBinary() instead");
   }
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   return convertBinary(await fs.readFile(filename), filename, options);
 }
 

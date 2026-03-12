@@ -353,17 +353,23 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontSize": 12 },
+    { "fontFamily": "Calibri", "fontSize": 12 },
     {
       "horizontalAlignment": "center",
+      "fontFamily": "Calibri",
       "fontSize": 12
     },
     {
       "horizontalAlignment": "center",
+      "fontFamily": "Calibri",
       "fontSize": 12,
       "bold": true
     },
-    { "fontSize": 12, "bold": true }
+    {
+      "fontFamily": "Calibri",
+      "fontSize": 12,
+      "bold": true
+    }
   ],
   "tables": [],
   "views": [

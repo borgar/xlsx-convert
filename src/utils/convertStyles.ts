@@ -1,4 +1,4 @@
-import { Color } from '../color.ts';
+import { Color } from '../color/Color.ts';
 import type { StyleDefs } from '../handler/styles.ts';
 import type { Style } from '@jsfkit/types';
 
@@ -35,8 +35,8 @@ function convertStyle (styleDefs: StyleDefs, styleIndex: number): Style {
 
   if (style.font) {
     const font = style.font;
-    addStyle(s, 'fontFamily', font.name, 'Calibri');
-    addStyle(s, 'fontSize', font.size, 11);
+    addStyle(s, 'fontFamily', font.name);
+    addStyle(s, 'fontSize', font.size);
     addStyle(s, 'color', font.color, '#000');
     addStyle(s, 'underline', font.underline);
     addStyle(s, 'bold', font.bold, false);

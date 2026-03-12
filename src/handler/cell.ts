@@ -1,12 +1,12 @@
 import { tokenize, translateTokensToR1C1, stringifyTokens, type Token } from '@borgar/fx/xlsx';
 import { Element } from '@borgar/simple-xml';
 import { toInt, toNum } from '../utils/typecast.ts';
-import { attr, numAttr } from '../utils/attr.ts';
+import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { unescape } from '../utils/unescape.ts';
 import { RelativeFormula } from '../RelativeFormula.ts';
 import { normalizeFormula, normalizeFormulaTokens } from '../utils/normalizeFormula.ts';
 import { ConversionContext } from '../ConversionContext.ts';
-import type { Cell } from '@jsfkit/types';
+import type { Cell, DataTable } from '@jsfkit/types';
 import { dateToSerial } from '../utils/dateToSerial.ts';
 import { UnsupportedError } from '../errors.ts';
 import { ERROR_NAMES } from '../constants.ts';
@@ -17,6 +17,7 @@ export const relevantStyle = (obj: Record<string, any>): boolean => {
     // obj['number-format'] ||
     obj.fillColor ||
     obj.patternColor ||
+    obj.patternStyle ||
     obj.borderTopStyle ||
     obj.borderLeftStyle ||
     obj.borderBottomStyle ||
@@ -44,11 +45,11 @@ function prepFormula (formula: string | RelativeFormula, cellId: string, context
       if (typeof formula === 'string') {
         tokens = tokenize(formula, { allowTernary: true });
         tokens = translateTokensToR1C1(tokens, cellId);
-        normalizeFormulaTokens(tokens, context, true);
+        tokens = normalizeFormulaTokens(tokens, context, true);
       }
       else {
         tokens = formula.getR1C1Tokens();
-        normalizeFormulaTokens(tokens, context, true);
+        tokens = normalizeFormulaTokens(tokens, context, true);
       }
       const rc = stringifyTokens(tokens);
       return context._formulasR1C1.add(rc);
@@ -114,25 +115,12 @@ export function handlerCell (node: Element, context: ConversionContext): Cell {
       cell.v = context.sst ? context.sst[toInt(v)] : '';
     }
     else if (valueType === 'str') {
-      // Excel stores cells with formula errors like this:
-      //
-      //     <c r="A1" t="e" cm="1">
-      //       <f t="array" aca="1" ref="A1" ca="1">FOO()</f>
-      //       <v>#NAME?</v>
-      //     </c>
-      //
-      // Whereas Google Sheets stores the same error like this:
-      //
-      //     <c r="A1" s="1" t="str">
-      //       <f>FOO()</f>
-      //       <v>#NAME?</v>
-      //     </c>
-      //
-      // The key difference is that Excel marks the cell as having an error (`t="e"`) but Google
-      // Sheets doesn't (`t="str"`). That means we have to check whether we have a formula and the
-      // value looks like a known error. If it does, treat it as an error. Otherwise, it's just a
-      // string.
-      if (fNode && v && ERROR_NAMES.includes(v)) {
+      // Excel marks formula errors with `t="e"`, but Google Sheets uses
+      // `t="str"` with an error-looking cached value (e.g. "#NAME?"). For
+      // Google Sheets exports we treat these as errors. For other sources,
+      // `t="str"` means the formula genuinely evaluated to a string — even
+      // one that looks like an error name (e.g. `=A1` where A1 is "#VALUE!").
+      if (context.isLikelyGSExport && fNode && v && ERROR_NAMES.includes(v)) {
         valueType = 'e';
         cell.t = 'e';
         cell.v = v;
@@ -208,12 +196,24 @@ export function handlerCell (node: Element, context: ConversionContext): Cell {
     }
     // dataTable for data table formula
     else if (formulaType.toLowerCase() === 'datatable') {
-      // .dt2D (Data Table 2- D)
-      // .dtr (Data Table Row)
-      // .dtr (Data Table Row)
-      // .r2 (Input Cell 2)
-      // FIXME: support dataTable formula
-      // console.log('dataTable formula');
+      const ref = attr(fNode, 'ref');
+      const r1 = attr(fNode, 'r1');
+      if (ref && r1) {
+        const dt: DataTable = { ref, r1 };
+        const dtr = boolAttr(fNode, 'dtr', false);
+        const dt2D = boolAttr(fNode, 'dt2D', false);
+        const r2 = attr(fNode, 'r2');
+        if (dtr) {
+          dt.dtr = true;
+        }
+        if (dt2D) {
+          dt.dt2D = true;
+        }
+        if (r2) {
+          dt.r2 = r2;
+        }
+        cell.dt = dt;
+      }
     }
     else {
       cell.f = prepFormula(fNode.textContent, address, context);
@@ -230,6 +230,7 @@ export function handlerCell (node: Element, context: ConversionContext): Cell {
   if (
     cell.v == null &&
     cell.f == null &&
+    cell.dt == null &&
     (!cell.s || !relevantStyle(context.workbook.styles[styleIndex]))
   ) {
     return null;

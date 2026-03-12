@@ -5,6 +5,8 @@ import {
   type ReferenceA1Xlsx,
   type Token,
   stringifyTokens,
+  isWhitespace,
+  isRange,
 } from '@borgar/fx/xlsx';
 import {
   stringifyA1Ref as stringifyA1RefCtx,
@@ -28,12 +30,12 @@ type ConversionContextSubset = { externalLinks: ExternalSubset[] };
  */
 function updateContext (
   ref: ReferenceStructXlsx | ReferenceR1C1Xlsx | ReferenceA1Xlsx | ReferenceNameXlsx,
-  externalLinks: ExternalSubset[],
+  externalLinks?: ExternalSubset[] | null,
 ): ReferenceStruct | ReferenceR1C1 | ReferenceA1 | ReferenceName {
   const context: string[] = [];
   if (ref.workbookName && isFinite(+ref.workbookName)) {
     const wbIndex = +ref.workbookName - 1;
-    if (externalLinks[wbIndex]) {
+    if (externalLinks?.[wbIndex]) {
       context.push(externalLinks[wbIndex].name);
     }
     else {
@@ -48,12 +50,114 @@ function updateContext (
   return ref;
 }
 
-export function normalizeFormulaTokens (tokens: Token[], wb: ConversionContextSubset, r1c1 = false): Token[] {
-  tokens.forEach(t => {
+function findSubExpressionEnd (tokens: Token[], startIndex = 0) {
+  const stack = [];
+  for (let i = startIndex; i < tokens.length; i++) {
+    const t = tokens[i];
+    if (t.value === '(' || t.value === '{') {
+      stack.push(t.value);
+    }
+    else if (t.value === ')' || t.value === '}') {
+      const exp = stack.pop();
+      if (
+        (t.value === ')' && exp === '(') ||
+        (t.value === '}' && exp === '{')) {
+        if (!stack.length) {
+          return i;
+        }
+      }
+      else {
+        // paren mismatch
+        break;
+      }
+    }
+  }
+  return -1;
+}
+
+function trimExpression (tokens: Token[]): Token[] {
+  const t = tokens.concat();
+  while (isWhitespace(t.at(0))) { t.shift(); }
+  while (isWhitespace(t.at(-1))) { t.pop(); }
+  return t;
+}
+
+function updateRangeToken (
+  token: Token,
+  trim: 'both' | 'head' | 'tail',
+  externalLinks?: ExternalSubset[],
+  r1c1 = false,
+): Token {
+  if (r1c1) {
+    const ref = updateContext(parseR1C1Ref(token.value), externalLinks);
+    if (trim && 'range' in ref) {
+      ref.range.trim = trim;
+    }
+    token.value = stringifyR1C1RefCtx(ref as ReferenceR1C1 | ReferenceName);
+  }
+  else {
+    const ref = updateContext(parseA1Ref(token.value), externalLinks);
+    if (trim && 'range' in ref) {
+      ref.range.trim = trim;
+    }
+    token.value = stringifyA1RefCtx(ref as ReferenceA1 | ReferenceName);
+  }
+  return token;
+}
+
+const TRIM_OPS = {
+  '_xlfn._TRO_ALL': 'both',
+  '_TRO_ALL': 'both',
+  '_xlfn._TRO_LEADING': 'head',
+  '_TRO_LEADING': 'head',
+  '_xlfn._TRO_TRAILING': 'tail',
+  '_TRO_TRAILING': 'tail',
+};
+
+export function normalizeFormulaTokens (tokens: Token[], wb?: ConversionContextSubset | null, r1c1 = false): Token[] {
+  const outTokens = [];
+
+  for (let i = 0; i < tokens.length; i++) {
+    const t = tokens[i];
+
     if (isFunction(t)) {
-      // remove certain namespaces from functions
-      t.value = t.value.replace(/^(?:_xlfn\.|_xludf\.|_xlws\.)+/i, '');
-      return;
+      const isSingle = t.value === '_xlfn.SINGLE' || t.value === 'SINGLE';
+      const isAnchorarray = t.value === '_xlfn.ANCHORARRAY' || t.value === 'ANCHORARRAY';
+      // Excel stores # and @ operators as functions.
+      if (isSingle || isAnchorarray) {
+        const j = findSubExpressionEnd(tokens, i);
+        if (j >= 0) {
+          const subExpression = trimExpression(tokens.slice(i + 2, j));
+          if (isSingle) { outTokens.push({ type: tokenTypes.OPERATOR, value: '@' }); }
+          outTokens.push(...normalizeFormulaTokens(subExpression, wb, r1c1));
+          if (isAnchorarray) { outTokens.push({ type: tokenTypes.OPERATOR, value: '#' }); }
+          i = j;
+        }
+        else {
+          // We cannot determine sub-expression, so preserve the token instead.
+          outTokens.push(t);
+        }
+      }
+      // Excel stores trim range operators as functions.
+      else if (t.value in TRIM_OPS) {
+        const j = findSubExpressionEnd(tokens, i);
+        // If this is a broken expression or we cannot determine
+        // sub-expression, we preserve the token instead.
+        let r = t;
+        if (j >= 0) {
+          const subExpression = trimExpression(tokens.slice(i + 2, j));
+          if (subExpression.length === 1 && isRange(subExpression[0])) {
+            r = updateRangeToken(subExpression[0], TRIM_OPS[t.value], wb?.externalLinks, r1c1);
+            i = j;
+          }
+        }
+        outTokens.push(r);
+      }
+      // Remove Excel internal namespaces from functions.
+      else {
+        t.value = t.value.replace(/^(?:_xlfn\.|_xludf\.|_xlws\.)+/i, '');
+        outTokens.push(t);
+      }
     }
     else if (isReference(t)) {
       if (t.type === tokenTypes.REF_NAMED) {
@@ -70,30 +174,28 @@ export function normalizeFormulaTokens (tokens: Token[], wb: ConversionContextSu
             // if (ref.table && wb.tables?.length) {
             //   // TODO: omit the table prefix if current cell is within the table
             // }
-            t.value = stringifyStructRefCtx(updateContext(ref, wb.externalLinks));
-          }
-          else if (r1c1) {
-            const ref = updateContext(parseR1C1Ref(t.value), wb.externalLinks);
-            t.value = stringifyR1C1RefCtx(ref as ReferenceR1C1 | ReferenceName);
+            t.value = stringifyStructRefCtx(updateContext(ref, wb?.externalLinks));
           }
           else {
-            const updated = updateContext(parseA1Ref(t.value), wb.externalLinks);
-            t.value = stringifyA1RefCtx(updated as ReferenceA1 | ReferenceName);
+            updateRangeToken(t, null, wb?.externalLinks, r1c1);
           }
         }
         catch (err) {
           t.value = '#REF!';
         }
-        return;
       }
+      outTokens.push(t);
     }
-  });
-  return tokens;
+    else {
+      outTokens.push(t);
+    }
+  }
+  return outTokens;
 }
 
-export function normalizeFormula (formula: string, wb: ConversionContextSubset): string {
+export function normalizeFormula (formula: string, wb?: ConversionContextSubset | null): string {
   // quickly test if work is actually needed
-  if (!/_xl(?:fn|udf|ws|pm|nm)\.|(?:[^RC"]\[|^\[)/i.test(formula)) {
+  if (!/_xl(?:fn|udf|ws|pm|nm)\.|(?:[^RC"]\[|^\[|\.:|:\.)|ANCHORARRAY|SINGLE|_TRO_(?:ALL|LEADING|TRAILING)/i.test(formula)) {
     return formula;
   }
   const tokens = tokenize(formula.normalize());

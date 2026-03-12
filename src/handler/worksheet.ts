@@ -1,10 +1,10 @@
+import type { GridSize, Worksheet, WorksheetLayoutScales, WorksheetView } from '@jsfkit/types';
+import { Document, Element } from '@borgar/simple-xml';
 import { attr, numAttr } from '../utils/attr.ts';
 import { rle } from '../utils/rle.ts';
 import { handlerCell, relevantStyle } from './cell.ts';
-import { Document, Element } from '@borgar/simple-xml';
 import { ConversionContext } from '../ConversionContext.ts';
 import type { Rel } from './rels.ts';
-import type { GridSize, Worksheet, WorksheetLayoutScales, WorksheetView } from '@jsfkit/types';
 import { colWidth } from '../utils/colWidth.ts';
 import { fromA1 } from '../utils/fromA1.ts';
 import { toA1 } from '../utils/toA1.ts';
@@ -36,9 +36,14 @@ function gridSize (start: number, end: number, size: number, style?: number): Gr
   return item;
 }
 
-export function handlerWorksheet (dom: Document, context: ConversionContext, rels: Rel[]): Worksheet {
+export function handlerWorksheet (
+  dom: Document,
+  context: ConversionContext,
+  rels: Rel[],
+  sheetName: string,
+): Worksheet {
   const sheet: Worksheet = {
-    name: '',
+    name: sheetName,
     cells: {},
     columns: [],
     rows: [],
@@ -49,7 +54,7 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
     },
     // drawings: [],
     // showGridLines: true,
-    hidden: 0,
+    hidden: context.sheetLinks.find(link => link.name === sheetName)?.hidden ?? 0,
   };
 
   const sheetViews = dom.querySelectorAll('sheetViews > sheetView');
@@ -125,8 +130,10 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
     const min = numAttr(d, 'min');
     const max = numAttr(d, 'max');
     if (min == null || max == null) { return; }
-    const size = colWidth(numAttr(d, 'hidden', 0) ? 0 : numAttr(d, 'width'));
     const style = numAttr(d, 'style');
+    const hidden = numAttr(d, 'hidden', 0);
+    // FIXME: GridSize.size should be optional: https://github.com/jsfkit/types/issues/14
+    const size = colWidth(hidden ? 0 : numAttr(d, 'width', sheet.defaults.colWidth));
     sheet.columns.push(gridSize(min, max, size, style));
   });
 
@@ -227,6 +234,27 @@ export function handlerWorksheet (dom: Document, context: ConversionContext, rel
       }
     }
   });
+
+  // detect linked drawing (graphics within the sheet)
+  const drawing = getFirstChild(dom.root, 'drawing');
+  if (drawing) {
+    const rId = attr(drawing, 'r:id');
+    const rel = rels.find(rel => rel.id === rId);
+    if (rel) {
+      context.images.push({ sheetName, rel, type: 'drawing' });
+    }
+  }
+
+  // detect linked picture (sheet background "wallpaper")
+  const picture = getFirstChild(dom.root, 'picture');
+  if (picture) {
+    const rId = attr(picture, 'r:id');
+    const rel = rels.find(rel => rel.id === rId);
+    if (rel) {
+      context.images.push({ sheetName, rel, type: 'picture' });
+    }
+    // TODO: set a property on the sheet to link to this image
+  }
 
   delete context._shared;
   delete context._arrayFormula;
