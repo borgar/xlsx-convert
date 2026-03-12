@@ -108,15 +108,9 @@ export function handlerPivotTable (dom: Document): PivotTableWithOptionalCache |
   if (style) {
     pt.style = style;
   }
-  if (rowGrandTotals != null) {
-    pt.rowGrandTotals = rowGrandTotals;
-  }
-  if (colGrandTotals != null) {
-    pt.colGrandTotals = colGrandTotals;
-  }
-  if (autoRefresh != null) {
-    pt.autoRefresh = autoRefresh;
-  }
+  addProp(pt, 'rowGrandTotals', rowGrandTotals);
+  addProp(pt, 'colGrandTotals', colGrandTotals);
+  addProp(pt, 'autoRefresh', autoRefresh);
 
   // Boolean table-level attributes (non-default values only)
   readBoolAttrs(pt, root, [
