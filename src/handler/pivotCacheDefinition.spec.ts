@@ -183,13 +183,13 @@ describe('handlerPivotCacheDefinition', () => {
     ]);
   });
 
-  it('should parse numFmtId and formula attributes', () => {
+  it('should parse formula and databaseField attributes (calculated field)', () => {
     const xml = `<pivotCacheDefinition>
       <cacheSource type="worksheet">
         <worksheetSource ref="A1:B5" sheet="Data"/>
       </cacheSource>
       <cacheFields count="1">
-        <cacheField name="Calc" numFmtId="164" formula="Amount * Rate">
+        <cacheField name="Calc" numFmtId="164" formula="Amount * Rate" databaseField="0">
           <sharedItems/>
         </cacheField>
       </cacheFields>
@@ -197,6 +197,7 @@ describe('handlerPivotCacheDefinition', () => {
     const cache = parse(xml)!;
     // numFmtId is no longer stored (requires style table to resolve to format code string)
     expect(cache.fields[0].formula).toBe('Amount * Rate');
+    expect(cache.fields[0].databaseField).toBe(false);
   });
 
   it('should handle empty sharedItems element', () => {
