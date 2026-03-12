@@ -24,6 +24,9 @@ export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefi
     const sheet = attr(wsSource, 'sheet');
     const name = attr(wsSource, 'name');
     if (ref) {
+      // When both ref and name are present (e.g. a table-backed range), ref takes
+      // precedence and name is dropped. PivotCacheWorksheetSourceRange doesn't have
+      // a name field — the types model range and name sources as disjoint variants.
       const worksheetSource: PivotCacheWorksheetSourceRange = sheet
         ? { type: 'range', ref, sheet }
         : { type: 'range', ref };
