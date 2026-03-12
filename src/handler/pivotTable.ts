@@ -301,14 +301,7 @@ function parsePivotFields (root: Element): PivotField[] {
     // check for explicit subtotal attributes on the field
     const subtotalFunctions: PivotSubtotalFunction[] = [];
     for (const fn of SUBTOTAL_FUNCTIONS) {
-      const attrName =
-        fn === 'countA'
-          ? 'countASubtotal'
-          : fn === 'stdDev'
-            ? 'stdDevSubtotal'
-            : fn === 'stdDevP'
-              ? 'stdDevPSubtotal'
-              : fn + 'Subtotal';
+      const attrName = fn + 'Subtotal';
       if (boolAttr(pf, attrName) === true) {
         subtotalFunctions.push(fn);
       }
