@@ -21,7 +21,10 @@ import { addProp } from '../utils/addProp.ts';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { parseEnum } from '../utils/parseEnum.ts';
 
-export function handlerPivotTable (dom: Document): (Omit<PivotTable, 'cache'> & { cache?: PivotTable['cache'] }) | undefined {
+/** Pivot table parsed from XML, before the cache has been resolved by the caller. */
+type PivotTableWithOptionalCache = Omit<PivotTable, 'cache'> & { cache?: PivotTable['cache'] };
+
+export function handlerPivotTable (dom: Document): PivotTableWithOptionalCache | undefined {
   const root = dom.getElementsByTagName('pivotTableDefinition')[0];
   if (!root) {
     return;
@@ -82,7 +85,7 @@ export function handlerPivotTable (dom: Document): (Omit<PivotTable, 'cache'> & 
     ref,
     location,
     fields,
-  } as Omit<PivotTable, 'cache'> & { cache?: PivotTable['cache'] };
+  } as PivotTableWithOptionalCache;
 
   if (rowFieldIndices.length > 0) {
     pt.rowFieldIndices = rowFieldIndices;
