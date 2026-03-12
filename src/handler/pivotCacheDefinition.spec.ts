@@ -58,7 +58,7 @@ describe('handlerPivotCacheDefinition', () => {
     if (cache.sourceType !== 'worksheet') {
       throw new Error('expected worksheet');
     }
-    expect(cache.worksheetSource).toEqual({ name: 'SalesTable' });
+    expect(cache.worksheetSource).toEqual({ type: 'name', name: 'SalesTable' });
     expect(cache.fields).toHaveLength(1);
   });
 
@@ -77,7 +77,7 @@ describe('handlerPivotCacheDefinition', () => {
     if (cache.sourceType !== 'worksheet') {
       throw new Error('expected worksheet');
     }
-    expect(cache.worksheetSource).toEqual({ name: 'SalesTable', sheet: 'Sheet1' });
+    expect(cache.worksheetSource).toEqual({ type: 'name', name: 'SalesTable', sheet: 'Sheet1' });
   });
 
   it('should parse worksheetSource with both name and ref/sheet', () => {
@@ -95,7 +95,7 @@ describe('handlerPivotCacheDefinition', () => {
     if (cache.sourceType !== 'worksheet') {
       throw new Error('expected worksheet');
     }
-    expect(cache.worksheetSource).toEqual({ name: 'SalesTable', ref: 'A1:C10', sheet: 'Sheet1' });
+    expect(cache.worksheetSource).toEqual({ type: 'range', ref: 'A1:C10', sheet: 'Sheet1' });
   });
 
   it('should parse a basic cache with worksheet source and fields', () => {
@@ -117,7 +117,7 @@ describe('handlerPivotCacheDefinition', () => {
     if (cache.sourceType !== 'worksheet') {
       throw new Error('expected worksheet');
     }
-    expect(cache.worksheetSource).toEqual({ ref: 'A1:C10', sheet: 'Sheet1' });
+    expect(cache.worksheetSource).toEqual({ type: 'range', ref: 'A1:C10', sheet: 'Sheet1' });
     expect(cache.fields).toHaveLength(2);
     expect(cache.fields[0].name).toBe('Name');
     expect(cache.fields[0].sharedItems).toEqual([

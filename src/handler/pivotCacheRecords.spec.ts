@@ -20,7 +20,7 @@ describe('handlerPivotCacheRecords', () => {
       <r><x v="3"/><x v="0"/></r>
     </pivotCacheRecords>`;
     const records = parse(xml);
-    expect(records).toEqual([ [ { x: 3 }, { x: 0 } ] ]);
+    expect(records).toEqual([ [ { t: 'x', v: 3 }, { t: 'x', v: 0 } ] ]);
   });
 
   it('should default x value to 0 when v attribute is absent', () => {
@@ -28,7 +28,7 @@ describe('handlerPivotCacheRecords', () => {
       <r><x/></r>
     </pivotCacheRecords>`;
     const records = parse(xml);
-    expect(records).toEqual([ [ { x: 0 } ] ]);
+    expect(records).toEqual([ [ { t: 'x', v: 0 } ] ]);
   });
 
   it('should parse inline number values', () => {
@@ -87,8 +87,8 @@ describe('handlerPivotCacheRecords', () => {
     </pivotCacheRecords>`;
     const records = parse(xml);
     expect(records).toHaveLength(3);
-    expect(records[0]).toEqual([ { x: 0 }, { t: 'n', v: 100 }, { t: 's', v: 'note' } ]);
-    expect(records[1]).toEqual([ { x: 1 }, { t: 'n', v: 200 }, { t: 'z' } ]);
-    expect(records[2]).toEqual([ { x: 2 }, { t: 'b', v: true }, { t: 'd', v: '2024-06-01T00:00:00' } ]);
+    expect(records[0]).toEqual([ { t: 'x', v: 0 }, { t: 'n', v: 100 }, { t: 's', v: 'note' } ]);
+    expect(records[1]).toEqual([ { t: 'x', v: 1 }, { t: 'n', v: 200 }, { t: 'z' } ]);
+    expect(records[2]).toEqual([ { t: 'x', v: 2 }, { t: 'b', v: true }, { t: 'd', v: '2024-06-01T00:00:00' } ]);
   });
 });

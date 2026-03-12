@@ -12,7 +12,7 @@ export function handlerPivotCacheRecords (dom: Document): PivotCacheRecord[] {
     for (const child of r.children) {
       switch (child.tagName) {
         case 'x':
-          record.push({ x: +attr(child, 'v', '0') });
+          record.push({ t: 'x', v: +attr(child, 'v', '0') });
           break;
         case 'n':
           record.push({ t: 'n', v: +(attr(child, 'v') ?? 0) });

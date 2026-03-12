@@ -23,11 +23,11 @@ export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefi
     const sheet = attr(wsSource, 'sheet');
     const name = attr(wsSource, 'name');
     if (ref && sheet) {
-      const worksheetSource: PivotCacheWorksheetSourceRange = name ? { ref, sheet, name } : { ref, sheet };
+      const worksheetSource: PivotCacheWorksheetSourceRange = { type: 'range', ref, sheet };
       return { sourceType: 'worksheet' as const, worksheetSource, fields, ...metadata };
     }
     if (name) {
-      const worksheetSource: PivotCacheWorksheetSourceName = sheet ? { name, sheet } : { name };
+      const worksheetSource: PivotCacheWorksheetSourceName = sheet ? { type: 'name', name, sheet } : { type: 'name', name };
       return { sourceType: 'worksheet' as const, worksheetSource, fields, ...metadata };
     }
     return;
