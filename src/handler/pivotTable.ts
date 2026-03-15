@@ -394,6 +394,18 @@ function parsePivotFields (root: Element): PivotField[] {
     const uniqueMemberProperty = attr(pf, 'uniqueMemberProperty');
     if (uniqueMemberProperty != null) { field.uniqueMemberProperty = uniqueMemberProperty; }
 
+    // autoSortScope: which data field to sort by
+    const autoSortScopeEl = pf.getElementsByTagName('autoSortScope')[0];
+    if (autoSortScopeEl) {
+      const refEl = autoSortScopeEl.querySelector('pivotArea > references > reference');
+      if (refEl) {
+        const xEl = refEl.getElementsByTagName('x')[0];
+        if (xEl) {
+          field.autoSortScope = { dataField: numAttr(xEl, 'v', 0) };
+        }
+      }
+    }
+
     fields.push(field);
   }
   return fields;
