@@ -49,7 +49,7 @@ export function handlerPivotCacheDefinition (dom: Document, numFmts?: NumFmtLook
   }
 
   if (sourceType === 'consolidation') {
-    const consolidationEl = cacheSource.getElementsByTagName('consolidation')[0];
+    const consolidationEl = cacheSource.querySelector('consolidation');
     if (!consolidationEl) { return; }
     const autoPage = boolAttr(consolidationEl, 'autoPage');
     const pages: string[][] = [];
