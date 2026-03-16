@@ -511,7 +511,7 @@ describe('handlerPivotCacheDefinition', () => {
     const xml = `<pivotCacheDefinition
       refreshedBy="User" refreshedDate="45000.5" refreshedDateIso="2023-03-15T12:00:00"
       recordCount="100" createdVersion="8" refreshedVersion="7" minRefreshableVersion="3"
-      saveData="0" refreshOnLoad="1" enableRefresh="0" upgradeOnRefresh="1" xr:uid="{ABC-123}">
+      saveData="0" refreshOnLoad="1" enableRefresh="0" upgradeOnRefresh="1" invalid="1" xr:uid="{ABC-123}">
       <cacheSource type="worksheet">
         <worksheetSource ref="A1:B5" sheet="Data"/>
       </cacheSource>
@@ -523,6 +523,7 @@ describe('handlerPivotCacheDefinition', () => {
     expect(cache.refreshOnLoad).toBe(true);
     expect(cache.enableRefresh).toBe(false);
     expect(cache.upgradeOnRefresh).toBe(true);
+    expect(cache.invalid).toBe(true);
     expect(cache.uid).toBe('{ABC-123}');
   });
 
@@ -539,9 +540,10 @@ describe('handlerPivotCacheDefinition', () => {
     expect(cache.refreshOnLoad).toBeUndefined();
     expect(cache.enableRefresh).toBeUndefined();
     expect(cache.upgradeOnRefresh).toBeUndefined();
+    expect(cache.invalid).toBeUndefined();
   });
 
-  // Extensions are no longer part of the PivotCache type; extLst is parsed but not stored.
+  // Extensions are not part of the PivotCache type; extLst is parsed but not stored.
 
   it('should parse scenario source', () => {
     const xml = `<pivotCacheDefinition>

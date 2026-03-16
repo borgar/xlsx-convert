@@ -1,5 +1,5 @@
 import type { Document, Element } from '@borgar/simple-xml';
-import type { PivotCache, PivotCacheConsolidationRangeSet, PivotCacheField, PivotCacheFieldGroup, PivotCacheRangePr, PivotCacheSharedItem, PivotCacheSharedItemsMeta, PivotCacheWorksheetSourceName, PivotCacheWorksheetSourceRange, PivotGroupBy } from '@jsfkit/types';
+import type { PivotCache, PivotCacheBase, PivotCacheConsolidationRangeSet, PivotCacheField, PivotCacheFieldGroup, PivotCacheRangePr, PivotCacheSharedItem, PivotCacheSharedItemsMeta, PivotCacheWorksheetSourceName, PivotCacheWorksheetSourceRange, PivotGroupBy } from '@jsfkit/types';
 import { addProp } from '../utils/addProp.ts';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { parseCacheSharedItem } from '../utils/parseCacheSharedItem.ts';
@@ -233,15 +233,10 @@ function parseSharedItemsMeta (el: Element): PivotCacheSharedItemsMeta | undefin
   return hasAny ? meta : undefined;
 }
 
-type CacheMetadata = {
-  refreshedBy?: string;
-  refreshedDate?: number;
-  refreshOnLoad?: boolean;
-  enableRefresh?: boolean;
-  upgradeOnRefresh?: boolean;
-  uid?: string;
-  invalid?: boolean;
-};
+type CacheMetadata = Pick<PivotCacheBase,
+  'refreshedBy' | 'refreshedDate' | 'refreshOnLoad' | 'enableRefresh' |
+  'upgradeOnRefresh' | 'uid' | 'invalid'
+>;
 
 function parseCacheMetadata (root: Element): CacheMetadata {
   const result: CacheMetadata = {};

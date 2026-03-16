@@ -124,6 +124,31 @@ describe('handlerPivotTable', () => {
     expect(pt.fields[0].sortType).toBe('descending');
   });
 
+  it('should parse autoSortScope', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="1">
+        <pivotField axis="axisRow" showAll="1" sortType="descending">
+          <items count="1"><item t="default"/></items>
+          <autoSortScope>
+            <pivotArea>
+              <references count="1">
+                <reference field="4294967294" count="1" selected="0">
+                  <x v="0"/>
+                </reference>
+              </references>
+            </pivotArea>
+          </autoSortScope>
+        </pivotField>
+      </pivotFields>
+      <rowFields count="1"><field x="0"/></rowFields>
+      <colFields count="0"/>
+      <dataFields count="0"/>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.fields[0].autoSortScope).toEqual({ dataField: 0 });
+  });
+
   it('should parse field items with itemType, hidden, and itemIndex', () => {
     const xml = `<pivotTableDefinition name="PT1" cacheId="0">
       <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
