@@ -1,5 +1,5 @@
 import type { Document, Element } from '@borgar/simple-xml';
-import type { PivotCache, PivotCacheBase, PivotCacheConsolidationRangeSet, PivotCacheField, PivotCacheFieldGroup, PivotCacheRangePr, PivotCacheSharedItem, PivotCacheSharedItemsMeta, PivotCacheWorksheetSourceName, PivotCacheWorksheetSourceRange, PivotGroupBy } from '@jsfkit/types';
+import type { PivotCache, PivotCacheBase, PivotCacheConsolidationRangeSet, PivotCacheConsolidationSource, PivotCacheField, PivotCacheFieldGroup, PivotCacheRangePr, PivotCacheSharedItem, PivotCacheSharedItemsMeta, PivotCacheWorksheetSourceName, PivotCacheWorksheetSourceRange, PivotGroupBy } from '@jsfkit/types';
 import { addProp } from '../utils/addProp.ts';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { parseCacheSharedItem } from '../utils/parseCacheSharedItem.ts';
@@ -20,6 +20,8 @@ export function handlerPivotCacheDefinition (dom: Document, numFmts?: NumFmtLook
 
   const metadata = parseCacheMetadata(root);
 
+  let result: PivotCache | undefined;
+
   if (sourceType === 'worksheet') {
     const wsSource = cacheSource.getElementsByTagName('worksheetSource')[0];
     if (!wsSource) { return; }
@@ -33,25 +35,23 @@ export function handlerPivotCacheDefinition (dom: Document, numFmts?: NumFmtLook
       const worksheetSource: PivotCacheWorksheetSourceRange = sheet
         ? { type: 'range', ref, sheet }
         : { type: 'range', ref };
-      return { sourceType: 'worksheet' as const, worksheetSource, fields, ...metadata };
+      result = { sourceType: 'worksheet' as const, worksheetSource, fields };
     }
-    if (name) {
+    else if (name) {
       const worksheetSource: PivotCacheWorksheetSourceName = sheet ? { type: 'name', name, sheet } : { type: 'name', name };
-      return { sourceType: 'worksheet' as const, worksheetSource, fields, ...metadata };
+      result = { sourceType: 'worksheet' as const, worksheetSource, fields };
     }
-    return;
   }
-
-  if (sourceType === 'external') {
+  else if (sourceType === 'external') {
     const connectionId = numAttr(cacheSource, 'connectionId');
     if (connectionId == null) { return; }
-    return { sourceType: 'external' as const, connectionId, fields, ...metadata };
+    result = { sourceType: 'external' as const, connectionId, fields };
   }
-
-  if (sourceType === 'consolidation') {
+  else if (sourceType === 'consolidation') {
     const consolidationEl = cacheSource.querySelector('consolidation');
     if (!consolidationEl) { return; }
-    const autoPage = boolAttr(consolidationEl, 'autoPage');
+    const consolidation: PivotCacheConsolidationSource = { rangeSets: [] };
+    addProp(consolidation, 'autoPage', boolAttr(consolidationEl, 'autoPage'));
     const pages: string[][] = [];
     for (const pageEl of consolidationEl.querySelectorAll('pages > page')) {
       const items: string[] = [];
@@ -60,7 +60,7 @@ export function handlerPivotCacheDefinition (dom: Document, numFmts?: NumFmtLook
       }
       pages.push(items);
     }
-    const rangeSets: PivotCacheConsolidationRangeSet[] = [];
+    if (pages.length > 0) { consolidation.pages = pages; }
     for (const rsEl of consolidationEl.querySelectorAll('rangeSets > rangeSet')) {
       const rs: PivotCacheConsolidationRangeSet = {};
       addProp(rs, 'ref', attr(rsEl, 'ref'));
@@ -69,23 +69,18 @@ export function handlerPivotCacheDefinition (dom: Document, numFmts?: NumFmtLook
       addProp(rs, 'i2', numAttr(rsEl, 'i2'));
       addProp(rs, 'i3', numAttr(rsEl, 'i3'));
       addProp(rs, 'i4', numAttr(rsEl, 'i4'));
-      rangeSets.push(rs);
+      consolidation.rangeSets.push(rs);
     }
-    return {
-      sourceType: 'consolidation' as const,
-      consolidation: {
-        ...(autoPage != null ? { autoPage } : {}),
-        ...(pages.length > 0 ? { pages } : {}),
-        rangeSets,
-      },
-      fields,
-      ...metadata,
-    };
+    result = { sourceType: 'consolidation' as const, consolidation, fields };
+  }
+  else if (sourceType === 'scenario') {
+    result = { sourceType: 'scenario' as const, fields };
   }
 
-  if (sourceType === 'scenario') {
-    return { sourceType: 'scenario' as const, fields, ...metadata };
+  if (result) {
+    Object.assign(result, metadata);
   }
+  return result;
 }
 
 function parseFields (root: Element, numFmts?: NumFmtLookup): PivotCacheField[] {
