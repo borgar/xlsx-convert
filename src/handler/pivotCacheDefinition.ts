@@ -158,16 +158,16 @@ const GROUP_BY_VALUES: ReadonlySet<PivotGroupBy> = new Set<PivotGroupBy>([
   'range', 'seconds', 'minutes', 'hours', 'days', 'months', 'quarters', 'years',
 ]);
 
-function parseFieldGroup (el: Element): PivotCacheFieldGroup | undefined {
+function parseFieldGroup (elm: Element): PivotCacheFieldGroup | undefined {
   const fg: PivotCacheFieldGroup = {};
   let hasAny = false;
-  const par = numAttr(el, 'par');
+  const par = numAttr(elm, 'par');
   if (par != null) { fg.par = par; hasAny = true; }
-  const base = numAttr(el, 'base');
+  const base = numAttr(elm, 'base');
   if (base != null) { fg.base = base; hasAny = true; }
 
   // Numeric/date range grouping parameters (start, end, interval, groupBy)
-  const rangePrEl = el.getElementsByTagName('rangePr')[0];
+  const rangePrEl = elm.getElementsByTagName('rangePr')[0];
   if (rangePrEl) {
     const rp: PivotCacheRangePr = {};
     const autoStart = boolAttr(rangePrEl, 'autoStart');
@@ -191,7 +191,7 @@ function parseFieldGroup (el: Element): PivotCacheFieldGroup | undefined {
   }
 
   // Discrete grouping: maps each source item to a group-item index
-  const discretePrEl = el.getElementsByTagName('discretePr')[0];
+  const discretePrEl = elm.getElementsByTagName('discretePr')[0];
   if (discretePrEl) {
     const indices: number[] = [];
     for (const x of discretePrEl.getElementsByTagName('x')) {
@@ -201,7 +201,7 @@ function parseFieldGroup (el: Element): PivotCacheFieldGroup | undefined {
   }
 
   // Group item labels (the display values for each group bucket)
-  const groupItemsEl = el.getElementsByTagName('groupItems')[0];
+  const groupItemsEl = elm.getElementsByTagName('groupItems')[0];
   if (groupItemsEl) {
     const items = parseCacheItems(groupItemsEl);
     if (items.length > 0) { fg.groupItems = items; hasAny = true; }
@@ -210,19 +210,19 @@ function parseFieldGroup (el: Element): PivotCacheFieldGroup | undefined {
   return hasAny ? fg : undefined;
 }
 
-function parseSharedItemsMeta (el: Element): PivotCacheSharedItemsMeta | undefined {
+function parseSharedItemsMeta (elm: Element): PivotCacheSharedItemsMeta | undefined {
   const meta: PivotCacheSharedItemsMeta = {};
   let hasAny = false;
   const boolMeta = (name: keyof PivotCacheSharedItemsMeta) => {
-    const v = boolAttr(el, name);
+    const v = boolAttr(elm, name);
     if (v != null) { (meta as Record<string, unknown>)[name] = v; hasAny = true; }
   };
   const numMeta = (name: keyof PivotCacheSharedItemsMeta) => {
-    const v = numAttr(el, name);
+    const v = numAttr(elm, name);
     if (v != null) { (meta as Record<string, unknown>)[name] = v; hasAny = true; }
   };
   const strMeta = (name: keyof PivotCacheSharedItemsMeta) => {
-    const v = attr(el, name);
+    const v = attr(elm, name);
     if (v != null) { (meta as Record<string, unknown>)[name] = v; hasAny = true; }
   };
   boolMeta('containsBlank');

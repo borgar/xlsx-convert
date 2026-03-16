@@ -15,31 +15,31 @@ const AXIS_VALUES = new Map<string, PivotAreaAxis>([
 ]);
 
 /** Parse a `<pivotArea>` element into a PivotArea object. */
-export function parsePivotArea (el: Element): PivotArea {
+export function parsePivotArea (elm: Element): PivotArea {
   const area: PivotArea = {};
-  const type = parseEnum(attr(el, 'type'), AREA_TYPES);
+  const type = parseEnum(attr(elm, 'type'), AREA_TYPES);
   if (type != null && type !== 'normal') { area.type = type; }
-  const field = numAttr(el, 'field');
+  const field = numAttr(elm, 'field');
   if (field != null) { area.field = field; }
-  if (boolAttr(el, 'dataOnly') === false) { area.dataOnly = false; }
-  if (boolAttr(el, 'labelOnly') === true) { area.labelOnly = true; }
-  if (boolAttr(el, 'grandRow') === true) { area.grandRow = true; }
-  if (boolAttr(el, 'grandCol') === true) { area.grandCol = true; }
-  if (boolAttr(el, 'cacheIndex') === true) { area.cacheIndex = true; }
-  if (boolAttr(el, 'outline') === false) { area.outline = false; }
-  const offset = attr(el, 'offset');
+  if (boolAttr(elm, 'dataOnly') === false) { area.dataOnly = false; }
+  if (boolAttr(elm, 'labelOnly') === true) { area.labelOnly = true; }
+  if (boolAttr(elm, 'grandRow') === true) { area.grandRow = true; }
+  if (boolAttr(elm, 'grandCol') === true) { area.grandCol = true; }
+  if (boolAttr(elm, 'cacheIndex') === true) { area.cacheIndex = true; }
+  if (boolAttr(elm, 'outline') === false) { area.outline = false; }
+  const offset = attr(elm, 'offset');
   if (offset != null) { area.offset = offset; }
-  if (boolAttr(el, 'collapsedLevelsAreSubtotals') === true) { area.collapsedLevelsAreSubtotals = true; }
-  const axisStr = attr(el, 'axis');
+  if (boolAttr(elm, 'collapsedLevelsAreSubtotals') === true) { area.collapsedLevelsAreSubtotals = true; }
+  const axisStr = attr(elm, 'axis');
   if (axisStr != null) {
     const axis = AXIS_VALUES.get(axisStr);
     if (axis) { area.axis = axis; }
   }
-  const fieldPosition = numAttr(el, 'fieldPosition');
+  const fieldPosition = numAttr(elm, 'fieldPosition');
   if (fieldPosition != null) { area.fieldPosition = fieldPosition; }
 
   // references
-  const refsContainer = el.getElementsByTagName('references')[0];
+  const refsContainer = elm.getElementsByTagName('references')[0];
   if (refsContainer) {
     const refs: PivotAreaReference[] = [];
     for (const refEl of refsContainer.getElementsByTagName('reference')) {

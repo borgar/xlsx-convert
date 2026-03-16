@@ -241,10 +241,10 @@ const SHOW_DATA_AS_VALUES: ReadonlySet<PivotShowDataAs> =
 
 /** Set boolean properties on target when the XML attribute has the given non-default value. */
 function readBoolAttrs<T extends Record<string, unknown>> (
-  target: T, el: Element, specs: readonly [keyof T & string, boolean][],
+  target: T, elm: Element, specs: readonly [keyof T & string, boolean][],
 ): void {
   for (const [ prop, nonDefault ] of specs) {
-    if (boolAttr(el, prop) === nonDefault) {
+    if (boolAttr(elm, prop) === nonDefault) {
       (target as Record<string, unknown>)[prop] = nonDefault;
     }
   }
