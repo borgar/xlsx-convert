@@ -194,6 +194,9 @@ export async function convertBinary (
   // metadata
   context.metadata = await maybeRead(context, 'sheetMetadata', handlerMetaData);
 
+  // styles — read early so numFmts are available for pivot cache/table parsing
+  const styleDefs = await maybeRead(context, 'styles', handlerStyles);
+
   // pivot caches (workbook-level) — prefer order from <pivotCaches> in workbook.xml
   // over the document order in workbook.xml.rels (which can differ)
   const pivotCacheRIds = wbDom.querySelectorAll('pivotCaches > pivotCache')
@@ -235,8 +238,7 @@ export async function convertBinary (
   const themeRels = themeRel ? await getRels(themeRel.target) : [];
   context.theme = await maybeRead(context, 'theme', handlerTheme, null, themeRels) ?? getBlankTheme();
 
-  // styles
-  const styleDefs = await maybeRead(context, 'styles', handlerStyles);
+  // convert styles to JSF format (styleDefs was read earlier for pivot numFmtId resolution)
   wb.styles = convertStyles(styleDefs);
 
   wb.pivotTables = [];
