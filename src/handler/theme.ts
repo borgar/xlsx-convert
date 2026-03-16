@@ -1,5 +1,5 @@
 import type { Document, Element as XMLElement } from '@borgar/simple-xml';
-import type { Theme, ThemeFontCollection } from '@jsfkit/types';
+import type { Theme, ThemeCustomColor, ThemeFontCollection } from '@jsfkit/types';
 import { readDrawingMLColor } from '../color/readDrawingMLColor.ts';
 import { attr } from '../utils/attr.ts';
 import { getFirstChild } from '../utils/getFirstChild.ts';
@@ -105,6 +105,26 @@ export function handlerTheme (dom: Document, context: ConversionContext): Theme 
   // theme.effectList = effectList;
 
   // const objectDefaults = dom.querySelector('theme > objectDefaults');
+
+  const custClrLst = getFirstChild(themeElement, 'custClrLst');
+  if (custClrLst) {
+    const customColors: ThemeCustomColor[] = [];
+    custClrLst.children.forEach(custClr => {
+      const colorElm = custClr.children[0];
+      const color = colorElm ? readDrawingMLColor(colorElm) : null;
+      if (color) {
+        const entry: ThemeCustomColor = { color };
+        const name = attr(custClr, 'name');
+        if (name) {
+          entry.name = name;
+        }
+        customColors.push(entry);
+      }
+    });
+    if (customColors.length > 0) {
+      theme.customColors = customColors;
+    }
+  }
 
   return theme;
 }
