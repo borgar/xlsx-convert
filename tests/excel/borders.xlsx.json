@@ -90,30 +90,43 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontFamily": "Calibri", "fontSize": 12 },
-    { "fontFamily": "Calibri", "fontSize": 12 },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
+      "fontSize": 12
+    },
+    {
+      "fontFamily": "Calibri",
+      "fontScheme": "minor",
+      "fontSize": 12
+    },
+    {
+      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "thin"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "thin"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderLeftStyle": "thin"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderRightStyle": "thin"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "thin",
       "borderBottomStyle": "thin",
@@ -122,163 +135,222 @@
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "thin",
       "borderLeftStyle": "thin"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "thin",
       "borderRightStyle": "thin"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "thin",
       "borderLeftStyle": "thin"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "thin",
       "borderRightStyle": "thin"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "medium",
       "borderLeftStyle": "medium"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "medium",
       "borderRightStyle": "medium"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "medium",
       "borderLeftStyle": "medium"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "medium",
       "borderRightStyle": "medium"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "double"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "medium"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "dotted",
+      "borderTopColor": { "type": "auto" },
       "borderBottomStyle": "dotted",
+      "borderBottomColor": { "type": "auto" },
       "borderLeftStyle": "dotted",
-      "borderRightStyle": "dotted"
+      "borderLeftColor": { "type": "auto" },
+      "borderRightStyle": "dotted",
+      "borderRightColor": { "type": "auto" }
     },
-    { "fontFamily": "Calibri", "fontSize": 12 },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
+      "fontSize": 12
+    },
+    {
+      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "dashDot",
-      "borderBottomColor": "#156082",
+      "borderBottomColor": { "type": "theme", "value": "accent1" },
       "borderRightStyle": "dashDot",
-      "borderRightColor": "#156082"
+      "borderRightColor": { "type": "theme", "value": "accent1" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "dashDot",
-      "borderBottomColor": "#156082",
+      "borderBottomColor": { "type": "theme", "value": "accent1" },
       "borderLeftStyle": "dashDot",
-      "borderLeftColor": "#156082",
+      "borderLeftColor": { "type": "theme", "value": "accent1" },
       "borderRightStyle": "dashDot",
-      "borderRightColor": "#156082"
+      "borderRightColor": { "type": "theme", "value": "accent1" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "dashDot",
-      "borderTopColor": "#156082",
+      "borderTopColor": { "type": "theme", "value": "accent1" },
       "borderBottomStyle": "dashDot",
-      "borderBottomColor": "#156082",
+      "borderBottomColor": { "type": "theme", "value": "accent1" },
       "borderLeftStyle": "dashDot",
-      "borderLeftColor": "#156082",
+      "borderLeftColor": { "type": "theme", "value": "accent1" },
       "borderRightStyle": "dashDot",
-      "borderRightColor": "#156082"
+      "borderRightColor": { "type": "theme", "value": "accent1" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "dashDot",
-      "borderTopColor": "#156082",
+      "borderTopColor": { "type": "theme", "value": "accent1" },
       "borderBottomStyle": "dashDot",
-      "borderBottomColor": "#156082",
+      "borderBottomColor": { "type": "theme", "value": "accent1" },
       "borderRightStyle": "dashDot",
-      "borderRightColor": "#156082"
+      "borderRightColor": { "type": "theme", "value": "accent1" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderLeftStyle": "dashDot",
-      "borderLeftColor": "#156082",
+      "borderLeftColor": { "type": "theme", "value": "accent1" },
       "borderRightStyle": "mediumDashed",
-      "borderRightColor": "#00B050"
+      "borderRightColor": { "type": "srgb", "value": "00B050" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "mediumDashed",
-      "borderBottomColor": "#00B050",
+      "borderBottomColor": { "type": "srgb", "value": "00B050" },
       "borderRightStyle": "mediumDashed",
-      "borderRightColor": "#00B050"
+      "borderRightColor": { "type": "srgb", "value": "00B050" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "mediumDashed",
-      "borderBottomColor": "#00B050",
+      "borderBottomColor": { "type": "srgb", "value": "00B050" },
       "borderLeftStyle": "mediumDashed",
-      "borderLeftColor": "#00B050",
+      "borderLeftColor": { "type": "srgb", "value": "00B050" },
       "borderRightStyle": "mediumDashed",
-      "borderRightColor": "#00B050"
+      "borderRightColor": { "type": "srgb", "value": "00B050" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "mediumDashed",
-      "borderTopColor": "#00B050",
+      "borderTopColor": { "type": "srgb", "value": "00B050" },
       "borderBottomStyle": "mediumDashed",
-      "borderBottomColor": "#00B050",
+      "borderBottomColor": { "type": "srgb", "value": "00B050" },
       "borderLeftStyle": "mediumDashed",
-      "borderLeftColor": "#00B050",
+      "borderLeftColor": { "type": "srgb", "value": "00B050" },
       "borderRightStyle": "mediumDashed",
-      "borderRightColor": "#00B050"
+      "borderRightColor": { "type": "srgb", "value": "00B050" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "mediumDashed",
-      "borderTopColor": "#00B050",
+      "borderTopColor": { "type": "srgb", "value": "00B050" },
       "borderBottomStyle": "mediumDashed",
-      "borderBottomColor": "#00B050",
+      "borderBottomColor": { "type": "srgb", "value": "00B050" },
       "borderRightStyle": "mediumDashed",
-      "borderRightColor": "#00B050"
+      "borderRightColor": { "type": "srgb", "value": "00B050" }
     }
   ],
   "tables": [],
   "views": [
     {}
   ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "lt1": { "type": "system", "value": "window" },
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt2": { "type": "srgb", "value": "E7E6E6" },
+      "dk2": { "type": "srgb", "value": "44546A" },
+      "accent1": { "type": "srgb", "value": "4472C4" },
+      "accent2": { "type": "srgb", "value": "ED7D31" },
+      "accent3": { "type": "srgb", "value": "A5A5A5" },
+      "accent4": { "type": "srgb", "value": "FFC000" },
+      "accent5": { "type": "srgb", "value": "5B9BD5" },
+      "accent6": { "type": "srgb", "value": "70AD47" },
+      "hlink": { "type": "srgb", "value": "0563C1" },
+      "folHlink": { "type": "srgb", "value": "954F72" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Calibri Light" },
+        "eastAsian": { "typeface": "" },
+        "complexScript": { "typeface": "" }
+      },
+      "minor": {
+        "latin": { "typeface": "Calibri" },
+        "eastAsian": { "typeface": "" },
+        "complexScript": { "typeface": "" }
+      }
+    }
+  },
   "formulas": []
 }

@@ -2,6 +2,20 @@ import { Color } from '../color/Color.ts';
 import type { StyleDefs } from '../handler/styles.ts';
 import type { Style } from '@jsfkit/types';
 
+/**
+ * Checks whether a style value matches a "skippable" value (i.e. something that will be applied by
+ * default) and should be omitted from the output.
+ */
+function isSkipValue (val: any, skip: any): boolean {
+  if (val === skip) { return true; }
+  if (typeof val !== 'object' || typeof skip !== 'object') { return false; }
+  if (val.transforms?.length) { return false; }
+  for (const key in skip) {
+    if (key !== 'transforms' && val[key] !== skip[key]) { return false; }
+  }
+  return true;
+}
+
 const addStyle = (obj: Style, key: string, val: any, skip: any = null): number => {
   if (val == null) {
     return 0;
@@ -9,7 +23,7 @@ const addStyle = (obj: Style, key: string, val: any, skip: any = null): number =
   if (val instanceof Color) {
     val = val.getJSF();
   }
-  if (skip === val) {
+  if (skip != null && isSkipValue(val, skip)) {
     return 0;
   }
   obj[key] = val;
@@ -36,8 +50,11 @@ function convertStyle (styleDefs: StyleDefs, styleIndex: number): Style {
   if (style.font) {
     const font = style.font;
     addStyle(s, 'fontFamily', font.name);
+    if (font.scheme) {
+      s.fontScheme = font.scheme;
+    }
     addStyle(s, 'fontSize', font.size);
-    addStyle(s, 'color', font.color, '#000');
+    addStyle(s, 'color', font.color, { type: 'theme', value: 'dk1' });
     addStyle(s, 'underline', font.underline);
     addStyle(s, 'bold', font.bold, false);
     addStyle(s, 'italic', font.italic, false);
@@ -47,11 +64,11 @@ function convertStyle (styleDefs: StyleDefs, styleIndex: number): Style {
     if (style.fill.type && style.fill.type !== 'none') {
       if (style.fill.type === 'solid') {
         // if it's a solid fill, flip the foreground to the background
-        addStyle(s, 'fillColor', style.fill.fg, '#0000');
+        addStyle(s, 'fillColor', style.fill.fg);
       }
       else {
-        addStyle(s, 'fillColor', style.fill.bg, '#0000');
-        addStyle(s, 'patternColor', style.fill.fg, '#0000');
+        addStyle(s, 'fillColor', style.fill.bg);
+        addStyle(s, 'patternColor', style.fill.fg);
         addStyle(s, 'patternStyle', style.fill.type, 'none');
       }
     }
@@ -60,13 +77,13 @@ function convertStyle (styleDefs: StyleDefs, styleIndex: number): Style {
   if (style.border) {
     const { top, bottom, left, right } = style.border;
     addStyle(s, 'borderTopStyle', top?.style);
-    addStyle(s, 'borderTopColor', top?.color, '#000');
+    addStyle(s, 'borderTopColor', top?.color, { type: 'indexed', value: 64 });
     addStyle(s, 'borderBottomStyle', bottom?.style);
-    addStyle(s, 'borderBottomColor', bottom?.color, '#000');
+    addStyle(s, 'borderBottomColor', bottom?.color, { type: 'indexed', value: 64 });
     addStyle(s, 'borderLeftStyle', left?.style);
-    addStyle(s, 'borderLeftColor', left?.color, '#000');
+    addStyle(s, 'borderLeftColor', left?.color, { type: 'indexed', value: 64 });
     addStyle(s, 'borderRightStyle', right?.style);
-    addStyle(s, 'borderRightColor', right?.color, '#000');
+    addStyle(s, 'borderRightColor', right?.color, { type: 'indexed', value: 64 });
   }
 
   return s;

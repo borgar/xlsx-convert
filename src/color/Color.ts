@@ -1,73 +1,91 @@
+import type { Color as JSFColor, Theme } from '@jsfkit/types';
+import { COLOR_INDEX, SCHEME_ALIASES } from '../constants.ts';
 import { clamp } from '../utils/clamp.ts';
-import type { Theme } from '../handler/theme.ts';
 import { hslToRgb } from './hslToRgb.ts';
 import { parseARGB } from './parseARGB.ts';
-import type { Color as JSFColor } from '@jsfkit/types';
-import type { ColorOp } from './types.ts';
 import { applyColorOps } from './applyColorOps.ts';
-
-const indexToScheme = [
-  'lt1',      //  0: Light 1
-  'dk1',      //  1: Dark 1
-  'lt2',      //  2: Light 2
-  'dk2',      //  3: Dark 2
-  'accent1',  //  4: Accent 1
-  'accent2',  //  5: Accent 2
-  'accent3',  //  6: Accent 3
-  'accent4',  //  7: Accent 4
-  'accent5',  //  8: Accent 5
-  'accent6',  //  9: Accent 6
-  'hlink',    // 10: Hyperlink
-  'folHlink', // 11: Followed Hyperlink
-];
 
 export type RGBA = [number, number, number, number];
 const hexValue = (n: number) => Math.trunc(clamp(0, n, 255)).toString(16).padStart(2, '0');
 
+/**
+ * Resolves a JSFKit Color object to an RGBA tuple. Handles all colour types except theme (which
+ * requires a theme reference to look up the colour scheme).
+ */
+function resolveJSFColorToRGBA (color: JSFColor): RGBA {
+  if (color.type === 'srgb') {
+    return parseARGB(color.value);
+  }
+  else if (color.type === 'scrgb') {
+    return [
+      Math.round(color.red / 100 * 255),
+      Math.round(color.green / 100 * 255),
+      Math.round(color.blue / 100 * 255),
+      1,
+    ];
+  }
+  else if (color.type === 'hsl') {
+    // hslToRgb expects hue in 0–360, saturation and lightness in 0–1
+    return hslToRgb(color.hue, color.saturation / 100, color.lightness / 100);
+  }
+  else if (color.type === 'system' || color.type === 'preset') {
+    return parseARGB(color.value);
+  }
+  else if (color.type === 'indexed') {
+    return parseARGB(COLOR_INDEX[color.value]);
+  }
+  // Auto colour or theme colour.
+  return [ 0, 0, 0, 1 ];
+}
+
 export class Color {
-  type: 'theme' | 'rgb' | 'index' | 'hsl' | 'preset' | 'system';
-  value: string;
+  jsfColor: JSFColor;
   theme: Theme;
-  rgba?: RGBA;
-  hsla?: RGBA;
-  ops: ColorOp[];
+  /**
+   * The resolved RGBA value for this colour, if already computed. Undefined until first resolution.
+   * Access this value through {@link Color.resolveRGBA}.
+   *
+   * @private
+   */
+  _rgba: RGBA | undefined;
 
-  constructor (theme: Theme) {
-    this.type = 'preset';
-    this.value = 'black';
+  constructor (color: JSFColor, theme: Theme) {
+    this.jsfColor = color;
     this.theme = theme;
-    this.ops = [];
-    this.hsla = [ 0, 0, 0, 0 ];
-    this.rgba = [ 0, 0, 0, 0 ];
   }
 
+  /** Returns the lossless JSFKit Color object. */
   getJSF (): JSFColor {
-    // Currently we always convert to string representation
-    return this.toString() as JSFColor;
+    return this.jsfColor;
   }
 
+  /**
+   * Resolves this colour to an RGBA tuple (0–255 for RGB, 0–1 for alpha), applying theme lookups
+   * and any transforms. The result is cached.
+   */
   resolveRGBA (): RGBA {
-    let rgba: RGBA = [ 0, 0, 0, 0 ];
-    if (this.type === 'index') {
-      rgba = parseARGB(this.theme.indexedColors[+this.value]);
+    if (this._rgba) {
+      return this._rgba;
     }
-    else if (this.type === 'theme') {
-      const key = indexToScheme[+this.value];
-      rgba = parseARGB(this.theme.scheme[key]);
+    let rgba: RGBA = [ 0, 0, 0, 1 ];
+    if (this.jsfColor.type === 'theme') {
+      const key = SCHEME_ALIASES[this.jsfColor.value] ?? this.jsfColor.value;
+      const themeColor = this.theme.colorScheme[key];
+      if (themeColor) {
+        rgba = resolveJSFColorToRGBA(themeColor);
+        if (themeColor.transforms) {
+          rgba = applyColorOps(rgba, themeColor.transforms);
+        }
+      }
     }
-    else if (this.type === 'rgb') {
-      rgba = this.rgba;
+    else {
+      rgba = resolveJSFColorToRGBA(this.jsfColor);
     }
-    else if (this.type === 'hsl') {
-      rgba = hslToRgb(...this.hsla);
+    if (this.jsfColor.transforms) {
+      rgba = applyColorOps(rgba, this.jsfColor.transforms);
     }
-    else if (this.type === 'preset') {
-      rgba = parseARGB(this.value ?? '000000');
-    }
-    else if (this.type === 'system') {
-      rgba = parseARGB(this.value ?? '000000');
-    }
-    return applyColorOps(rgba, this.ops);
+    this._rgba = rgba;
+    return rgba;
   }
 
   toString () {

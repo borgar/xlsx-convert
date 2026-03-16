@@ -73,20 +73,27 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontFamily": "Aptos Narrow", "fontSize": 12 },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
+      "fontSize": 12
+    },
     {
       "numberFormat": "0.00%",
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "numberFormat": "\"$\"#,##0_);[Red]\\(\"$\"#,##0\\)",
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "numberFormat": "\"$\"#,##0.00_);[Red]\\(\"$\"#,##0.00\\)",
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     }
   ],
@@ -94,6 +101,37 @@
   "views": [
     {}
   ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "lt1": { "type": "system", "value": "window" },
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "dk2": { "type": "srgb", "value": "0E2841" },
+      "accent1": { "type": "srgb", "value": "156082" },
+      "accent2": { "type": "srgb", "value": "E97132" },
+      "accent3": { "type": "srgb", "value": "196B24" },
+      "accent4": { "type": "srgb", "value": "0F9ED5" },
+      "accent5": { "type": "srgb", "value": "A02B93" },
+      "accent6": { "type": "srgb", "value": "4EA72E" },
+      "hlink": { "type": "srgb", "value": "467886" },
+      "folHlink": { "type": "srgb", "value": "96607D" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Aptos Display" },
+        "eastAsian": { "typeface": "" },
+        "complexScript": { "typeface": "" }
+      },
+      "minor": {
+        "latin": { "typeface": "Aptos Narrow" },
+        "eastAsian": { "typeface": "" },
+        "complexScript": { "typeface": "" }
+      }
+    }
+  },
   "formulas": [
     "-PMT(R[1]C[-2]/12,R[2]C[-2],-R[3]C[-2])",
     "-PMT(RC[-1]/12,R[1]C[-1],-R[2]C[-1])",

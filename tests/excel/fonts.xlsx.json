@@ -67,30 +67,63 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontFamily": "Calibri", "fontSize": 12 },
+    {
+      "fontFamily": "Calibri",
+      "fontScheme": "minor",
+      "fontSize": 12
+    },
     { "fontFamily": "Helvetica", "fontSize": 12 },
     { "fontFamily": "Georgia", "fontSize": 12 },
-    { "fontFamily": "Calibri", "fontSize": 10 },
+    {
+      "fontFamily": "Calibri",
+      "fontScheme": "minor",
+      "fontSize": 10
+    },
     { "fontFamily": "Georgia", "fontSize": 10 },
     { "fontFamily": "Helvetica", "fontSize": 10 },
-    { "fontFamily": "Calibri", "fontSize": 11 },
+    {
+      "fontFamily": "Calibri",
+      "fontScheme": "minor",
+      "fontSize": 11
+    },
     { "fontFamily": "Georgia", "fontSize": 11 },
     { "fontFamily": "Helvetica", "fontSize": 11 },
-    { "fontFamily": "Calibri", "fontSize": 12 },
-    { "fontFamily": "Calibri", "fontSize": 14 },
+    {
+      "fontFamily": "Calibri",
+      "fontScheme": "minor",
+      "fontSize": 12
+    },
+    {
+      "fontFamily": "Calibri",
+      "fontScheme": "minor",
+      "fontSize": 14
+    },
     { "fontFamily": "Georgia", "fontSize": 14 },
     { "fontFamily": "Helvetica", "fontSize": 14 },
-    { "fontFamily": "Calibri", "fontSize": 16 },
+    {
+      "fontFamily": "Calibri",
+      "fontScheme": "minor",
+      "fontSize": 16
+    },
     { "fontFamily": "Georgia", "fontSize": 16 },
     { "fontFamily": "Helvetica", "fontSize": 16 },
-    { "fontFamily": "Calibri", "fontSize": 18 },
+    {
+      "fontFamily": "Calibri",
+      "fontScheme": "minor",
+      "fontSize": 18
+    },
     { "fontFamily": "Georgia", "fontSize": 18 },
     { "fontFamily": "Helvetica", "fontSize": 18 },
-    { "fontFamily": "Calibri", "fontSize": 20 },
+    {
+      "fontFamily": "Calibri",
+      "fontScheme": "minor",
+      "fontSize": 20
+    },
     { "fontFamily": "Georgia", "fontSize": 20 },
     { "fontFamily": "Helvetica", "fontSize": 20 },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "bold": true
     }
@@ -99,5 +132,36 @@
   "views": [
     {}
   ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "lt1": { "type": "system", "value": "window" },
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt2": { "type": "srgb", "value": "E7E6E6" },
+      "dk2": { "type": "srgb", "value": "44546A" },
+      "accent1": { "type": "srgb", "value": "4472C4" },
+      "accent2": { "type": "srgb", "value": "ED7D31" },
+      "accent3": { "type": "srgb", "value": "A5A5A5" },
+      "accent4": { "type": "srgb", "value": "FFC000" },
+      "accent5": { "type": "srgb", "value": "5B9BD5" },
+      "accent6": { "type": "srgb", "value": "70AD47" },
+      "hlink": { "type": "srgb", "value": "0563C1" },
+      "folHlink": { "type": "srgb", "value": "954F72" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Calibri Light" },
+        "eastAsian": { "typeface": "" },
+        "complexScript": { "typeface": "" }
+      },
+      "minor": {
+        "latin": { "typeface": "Calibri" },
+        "eastAsian": { "typeface": "" },
+        "complexScript": { "typeface": "" }
+      }
+    }
+  },
   "formulas": []
 }

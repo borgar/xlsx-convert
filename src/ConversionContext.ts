@@ -1,8 +1,9 @@
+import type { Theme } from '@jsfkit/types';
 import type { MetaData } from './handler/metadata.ts';
 import type { RDStruct } from './handler/rdstuct.ts';
 import type { RDValue } from './handler/rdvalue.ts';
 import type { Rel } from './handler/rels.ts';
-import { getBlankTheme, type Theme } from './handler/theme.ts';
+import { getBlankTheme } from './handler/theme.ts';
 import type { RelativeFormula } from './RelativeFormula.ts';
 import type { External, Workbook } from '@jsfkit/types';
 import type { ConversionOptions } from './index.ts';

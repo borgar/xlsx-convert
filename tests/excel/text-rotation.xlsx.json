@@ -48,90 +48,113 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontFamily": "Aptos Narrow", "fontSize": 12 },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
+      "fontSize": 12
+    },
     {
       "textRotation": 135,
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "textRotation": 45,
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "wrapText": true,
       "textRotation": 45,
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "textRotation": 255,
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "textRotation": 90,
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "textRotation": 180,
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "textRotation": 22,
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "wrapText": true,
       "textRotation": 135,
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "wrapText": true,
       "textRotation": 90,
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "wrapText": true,
       "textRotation": 180,
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "wrapText": true,
       "textRotation": 22,
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     },
-    { "fontFamily": "Aptos Narrow", "fontSize": 12 },
+    {
+      "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
+      "fontSize": 12
+    },
     {
       "verticalAlignment": "center",
       "textRotation": 90,
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "verticalAlignment": "center",
       "textRotation": 180,
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "horizontalAlignment": "center",
       "textRotation": 90,
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "horizontalAlignment": "center",
       "textRotation": 180,
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     },
     {
@@ -139,6 +162,7 @@
       "verticalAlignment": "top",
       "textRotation": 90,
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     },
     {
@@ -146,16 +170,19 @@
       "verticalAlignment": "top",
       "textRotation": 180,
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "textRotation": 91,
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "textRotation": 1,
       "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12
     }
   ],
@@ -163,5 +190,36 @@
   "views": [
     {}
   ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "lt1": { "type": "system", "value": "window" },
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "dk2": { "type": "srgb", "value": "0E2841" },
+      "accent1": { "type": "srgb", "value": "156082" },
+      "accent2": { "type": "srgb", "value": "E97132" },
+      "accent3": { "type": "srgb", "value": "196B24" },
+      "accent4": { "type": "srgb", "value": "0F9ED5" },
+      "accent5": { "type": "srgb", "value": "A02B93" },
+      "accent6": { "type": "srgb", "value": "4EA72E" },
+      "hlink": { "type": "srgb", "value": "467886" },
+      "folHlink": { "type": "srgb", "value": "96607D" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Aptos Display" },
+        "eastAsian": { "typeface": "" },
+        "complexScript": { "typeface": "" }
+      },
+      "minor": {
+        "latin": { "typeface": "Aptos Narrow" },
+        "eastAsian": { "typeface": "" },
+        "complexScript": { "typeface": "" }
+      }
+    }
+  },
   "formulas": []
 }

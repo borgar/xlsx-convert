@@ -43,10 +43,41 @@ describe('convertBinary', () => {
       tables: [],
       views: [ {} ],
       styles: [
-        { fontFamily: 'Calibri', fontSize: 12 },
-        { fontFamily: 'Calibri', fontSize: 12, numberFormat: '0.00E+00' },
-        { fontFamily: 'Calibri', fontSize: 12, numberFormat: '0.0%' },
+        { fontFamily: 'Calibri', fontScheme: 'minor', fontSize: 12 },
+        { fontFamily: 'Calibri', fontScheme: 'minor', fontSize: 12, numberFormat: '0.00E+00' },
+        { fontFamily: 'Calibri', fontScheme: 'minor', fontSize: 12, numberFormat: '0.0%' },
       ],
+      theme: {
+        name: 'Office Theme',
+        colorScheme: {
+          name: 'Office',
+          dk1: { type: 'system', value: 'windowText' },
+          lt1: { type: 'system', value: 'window' },
+          dk2: { type: 'srgb', value: '44546A' },
+          lt2: { type: 'srgb', value: 'E7E6E6' },
+          accent1: { type: 'srgb', value: '4472C4' },
+          accent2: { type: 'srgb', value: 'ED7D31' },
+          accent3: { type: 'srgb', value: 'A5A5A5' },
+          accent4: { type: 'srgb', value: 'FFC000' },
+          accent5: { type: 'srgb', value: '5B9BD5' },
+          accent6: { type: 'srgb', value: '70AD47' },
+          hlink: { type: 'srgb', value: '0563C1' },
+          folHlink: { type: 'srgb', value: '954F72' },
+        },
+        fontScheme: {
+          name: 'Office',
+          major: {
+            latin: { typeface: 'Calibri Light' },
+            eastAsian: { typeface: '' },
+            complexScript: { typeface: '' },
+          },
+          minor: {
+            latin: { typeface: 'Calibri' },
+            eastAsian: { typeface: '' },
+            complexScript: { typeface: '' },
+          },
+        },
+      },
     });
   });
 

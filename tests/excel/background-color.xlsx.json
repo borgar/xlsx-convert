@@ -123,473 +123,867 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontFamily": "Calibri", "fontSize": 12 },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
+      "fontSize": 12
+    },
+    {
+      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#FFF"
+      "fillColor": { "type": "theme", "value": "lt1" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#000"
+      "fillColor": { "type": "theme", "value": "dk1" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#E8E8E8"
+      "fillColor": { "type": "theme", "value": "lt2" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#0E2841"
+      "fillColor": { "type": "theme", "value": "dk2" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#156082"
+      "fillColor": { "type": "theme", "value": "accent1" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#E97132"
+      "fillColor": { "type": "theme", "value": "accent2" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#196B24"
+      "fillColor": { "type": "theme", "value": "accent3" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#0F9ED5"
+      "fillColor": { "type": "theme", "value": "accent4" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#A02B93"
+      "fillColor": { "type": "theme", "value": "accent5" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#4EA72E"
+      "fillColor": { "type": "theme", "value": "accent6" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#F2F2F2"
+      "fillColor": {
+        "type": "theme",
+        "value": "lt1",
+        "transforms": [
+          { "type": "shade", "value": 95.00106814783166 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#7F7F7F"
+      "fillColor": {
+        "type": "theme",
+        "value": "dk1",
+        "transforms": [
+          { "type": "tint", "value": 50.0015259254738 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#D0D0D0"
+      "fillColor": {
+        "type": "theme",
+        "value": "lt2",
+        "transforms": [
+          { "type": "shade", "value": 90.00213629566332 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#B8D4EF"
+      "fillColor": {
+        "type": "theme",
+        "value": "dk2",
+        "transforms": [
+          { "type": "tint", "value": 20.001831110568556 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#C1E4F5"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent1",
+        "transforms": [
+          { "type": "tint", "value": 20.001831110568556 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#FAE2D5"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent2",
+        "transforms": [
+          { "type": "tint", "value": 20.001831110568556 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#C1F0C8"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent3",
+        "transforms": [
+          { "type": "tint", "value": 20.001831110568556 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#CAEDFB"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent4",
+        "transforms": [
+          { "type": "tint", "value": 20.001831110568556 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#F1CEEE"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent5",
+        "transforms": [
+          { "type": "tint", "value": 20.001831110568556 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#D9F2D0"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent6",
+        "transforms": [
+          { "type": "tint", "value": 20.001831110568556 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#D8D8D8"
+      "fillColor": {
+        "type": "theme",
+        "value": "lt1",
+        "transforms": [
+          { "type": "shade", "value": 85.00015259254738 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#595959"
+      "fillColor": {
+        "type": "theme",
+        "value": "dk1",
+        "transforms": [
+          { "type": "tint", "value": 65.00137333292642 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#BFBFBF"
+      "fillColor": {
+        "type": "theme",
+        "value": "lt1",
+        "transforms": [
+          { "type": "shade", "value": 75.0022888882107 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#A5A5A5"
+      "fillColor": {
+        "type": "theme",
+        "value": "lt1",
+        "transforms": [
+          { "type": "shade", "value": 65.00137333292642 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#7F7F7F"
+      "fillColor": {
+        "type": "theme",
+        "value": "lt1",
+        "transforms": [
+          { "type": "shade", "value": 50.0015259254738 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#C00000"
+      "fillColor": { "type": "srgb", "value": "C00000" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#F00"
+      "fillColor": { "type": "srgb", "value": "FF0000" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#FFC000"
+      "fillColor": { "type": "srgb", "value": "FFC000" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#FF0"
+      "fillColor": { "type": "srgb", "value": "FFFF00" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#92D050"
+      "fillColor": { "type": "srgb", "value": "92D050" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#00B050"
+      "fillColor": { "type": "srgb", "value": "00B050" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#00B0F0"
+      "fillColor": { "type": "srgb", "value": "00B0F0" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#0070C0"
+      "fillColor": { "type": "srgb", "value": "0070C0" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#002060"
+      "fillColor": { "type": "srgb", "value": "002060" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#7030A0"
+      "fillColor": { "type": "srgb", "value": "7030A0" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#3F3F3F"
+      "fillColor": {
+        "type": "theme",
+        "value": "dk1",
+        "transforms": [
+          { "type": "tint", "value": 75.0022888882107 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#262626"
+      "fillColor": {
+        "type": "theme",
+        "value": "dk1",
+        "transforms": [
+          { "type": "tint", "value": 85.00015259254738 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#0C0C0C"
+      "fillColor": {
+        "type": "theme",
+        "value": "dk1",
+        "transforms": [
+          { "type": "tint", "value": 95.00106814783166 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#AEAEAE"
+      "fillColor": {
+        "type": "theme",
+        "value": "lt2",
+        "transforms": [
+          { "type": "shade", "value": 75.0022888882107 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#747474"
+      "fillColor": {
+        "type": "theme",
+        "value": "lt2",
+        "transforms": [
+          { "type": "shade", "value": 50.0015259254738 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#3A3A3A"
+      "fillColor": {
+        "type": "theme",
+        "value": "lt2",
+        "transforms": [
+          { "type": "shade", "value": 25.0007629627369 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#171717"
+      "fillColor": {
+        "type": "theme",
+        "value": "lt2",
+        "transforms": [
+          { "type": "shade", "value": 10.000915555284283 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#71A9E0"
+      "fillColor": {
+        "type": "theme",
+        "value": "dk2",
+        "transforms": [
+          { "type": "tint", "value": 40.00061037018951 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#2C7FCE"
+      "fillColor": {
+        "type": "theme",
+        "value": "dk2",
+        "transforms": [
+          { "type": "tint", "value": 60.00244148075809 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#0A1E30"
+      "fillColor": {
+        "type": "theme",
+        "value": "dk2",
+        "transforms": [
+          { "type": "shade", "value": 75.0022888882107 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#071420"
+      "fillColor": {
+        "type": "theme",
+        "value": "dk2",
+        "transforms": [
+          { "type": "shade", "value": 50.0015259254738 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#83CAEB"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent1",
+        "transforms": [
+          { "type": "tint", "value": 40.00061037018951 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#45B0E1"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent1",
+        "transforms": [
+          { "type": "tint", "value": 60.00244148075809 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#0F4861"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent1",
+        "transforms": [
+          { "type": "shade", "value": 75.0022888882107 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#0A3041"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent1",
+        "transforms": [
+          { "type": "shade", "value": 50.0015259254738 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#F6C6AC"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent2",
+        "transforms": [
+          { "type": "tint", "value": 40.00061037018951 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#F1A983"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent2",
+        "transforms": [
+          { "type": "tint", "value": 60.00244148075809 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#BF4F14"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent2",
+        "transforms": [
+          { "type": "shade", "value": 75.0022888882107 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#7F340D"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent2",
+        "transforms": [
+          { "type": "shade", "value": 50.0015259254738 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#84E291"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent3",
+        "transforms": [
+          { "type": "tint", "value": 40.00061037018951 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#47D45A"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent3",
+        "transforms": [
+          { "type": "tint", "value": 60.00244148075809 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#12501B"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent3",
+        "transforms": [
+          { "type": "shade", "value": 75.0022888882107 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#0C3512"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent3",
+        "transforms": [
+          { "type": "shade", "value": 50.0015259254738 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#95DCF7"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent4",
+        "transforms": [
+          { "type": "tint", "value": 40.00061037018951 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#60CBF3"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent4",
+        "transforms": [
+          { "type": "tint", "value": 60.00244148075809 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#0B769F"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent4",
+        "transforms": [
+          { "type": "shade", "value": 75.0022888882107 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#074F6A"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent4",
+        "transforms": [
+          { "type": "shade", "value": 50.0015259254738 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#E49EDD"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent5",
+        "transforms": [
+          { "type": "tint", "value": 40.00061037018951 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#D76DCC"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent5",
+        "transforms": [
+          { "type": "tint", "value": 60.00244148075809 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#78206E"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent5",
+        "transforms": [
+          { "type": "shade", "value": 75.0022888882107 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#501549"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent5",
+        "transforms": [
+          { "type": "shade", "value": 50.0015259254738 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#B3E5A1"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent6",
+        "transforms": [
+          { "type": "tint", "value": 40.00061037018951 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#8ED873"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent6",
+        "transforms": [
+          { "type": "tint", "value": 60.00244148075809 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#3A7D22"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent6",
+        "transforms": [
+          { "type": "shade", "value": 75.0022888882107 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#275317"
+      "fillColor": {
+        "type": "theme",
+        "value": "accent6",
+        "transforms": [
+          { "type": "shade", "value": 50.0015259254738 }
+        ]
+      }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#0096FF"
+      "fillColor": { "type": "srgb", "value": "0096FF" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#8EFA00"
+      "fillColor": { "type": "srgb", "value": "8EFA00" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#FFFC00"
+      "fillColor": { "type": "srgb", "value": "FFFC00" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#FF9300"
+      "fillColor": { "type": "srgb", "value": "FF9300" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#FF2600"
+      "fillColor": { "type": "srgb", "value": "FF2600" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#FF2F92"
+      "fillColor": { "type": "srgb", "value": "FF2F92" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#00FA00"
+      "fillColor": { "type": "srgb", "value": "00FA00" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#00FB92"
+      "fillColor": { "type": "srgb", "value": "00FB92" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#00FDFF"
+      "fillColor": { "type": "srgb", "value": "00FDFF" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#0432FF"
+      "fillColor": { "type": "srgb", "value": "0432FF" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#000"
+      "fillColor": { "type": "theme", "value": "dk1" }
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#000",
-      "patternColor": "#F00",
+      "fillColor": { "type": "theme", "value": "dk1" },
+      "patternColor": { "type": "srgb", "value": "FF0000" },
       "patternStyle": "darkGray"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#000",
-      "patternColor": "#F00",
+      "fillColor": { "type": "theme", "value": "dk1" },
+      "patternColor": { "type": "srgb", "value": "FF0000" },
       "patternStyle": "mediumGray"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#000",
-      "patternColor": "#F00",
+      "fillColor": { "type": "theme", "value": "dk1" },
+      "patternColor": { "type": "srgb", "value": "FF0000" },
       "patternStyle": "lightGray"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#000",
-      "patternColor": "#F00",
+      "fillColor": { "type": "theme", "value": "dk1" },
+      "patternColor": { "type": "srgb", "value": "FF0000" },
       "patternStyle": "gray125"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#000",
-      "patternColor": "#F00",
+      "fillColor": { "type": "theme", "value": "dk1" },
+      "patternColor": { "type": "srgb", "value": "FF0000" },
       "patternStyle": "gray0625"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#000",
-      "patternColor": "#F00",
+      "fillColor": { "type": "theme", "value": "dk1" },
+      "patternColor": { "type": "srgb", "value": "FF0000" },
       "patternStyle": "darkHorizontal"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#000",
-      "patternColor": "#F00",
+      "fillColor": { "type": "theme", "value": "dk1" },
+      "patternColor": { "type": "srgb", "value": "FF0000" },
       "patternStyle": "darkVertical"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#000",
-      "patternColor": "#F00",
+      "fillColor": { "type": "theme", "value": "dk1" },
+      "patternColor": { "type": "srgb", "value": "FF0000" },
       "patternStyle": "darkDown"
     },
     {
       "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": "#000",
-      "patternColor": "#F00",
+      "fillColor": { "type": "theme", "value": "dk1" },
+      "patternColor": { "type": "srgb", "value": "FF0000" },
       "patternStyle": "lightGrid"
     }
   ],
@@ -597,5 +991,36 @@
   "views": [
     {}
   ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "lt1": { "type": "system", "value": "window" },
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt2": { "type": "srgb", "value": "E7E6E6" },
+      "dk2": { "type": "srgb", "value": "44546A" },
+      "accent1": { "type": "srgb", "value": "4472C4" },
+      "accent2": { "type": "srgb", "value": "ED7D31" },
+      "accent3": { "type": "srgb", "value": "A5A5A5" },
+      "accent4": { "type": "srgb", "value": "FFC000" },
+      "accent5": { "type": "srgb", "value": "5B9BD5" },
+      "accent6": { "type": "srgb", "value": "70AD47" },
+      "hlink": { "type": "srgb", "value": "0563C1" },
+      "folHlink": { "type": "srgb", "value": "954F72" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Calibri Light" },
+        "eastAsian": { "typeface": "" },
+        "complexScript": { "typeface": "" }
+      },
+      "minor": {
+        "latin": { "typeface": "Calibri" },
+        "eastAsian": { "typeface": "" },
+        "complexScript": { "typeface": "" }
+      }
+    }
+  },
   "formulas": []
 }
