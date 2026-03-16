@@ -208,7 +208,7 @@ export async function convertBinary (
       getRels(cacheRel.target),
     ]);
     if (!cacheDom) { return null; }
-    const cache = handlerPivotCacheDefinition(cacheDom);
+    const cache = handlerPivotCacheDefinition(cacheDom, styleDefs?.numFmts);
     if (!cache) { return null; }
     // read the cache records via the cache definition's rels
     const recordsRel = cacheDefRels.find(d => d.type === 'pivotCacheRecords');
@@ -267,7 +267,7 @@ export async function convertBinary (
           getRels(ptRel.target),
         ]);
         if (ptDom) {
-          const pt = handlerPivotTable(ptDom);
+          const pt = handlerPivotTable(ptDom, styleDefs?.numFmts);
           if (pt) {
             pt.sheet = sheetName;
             // resolve cache from pivot table's rels -> pivotCacheDefinition

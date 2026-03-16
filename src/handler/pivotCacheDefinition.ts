@@ -5,7 +5,10 @@ import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { parseCacheSharedItem } from '../utils/parseCacheSharedItem.ts';
 import { parseEnum } from '../utils/parseEnum.ts';
 
-export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefined {
+/** Lookup table mapping numeric format IDs to format code strings. */
+export type NumFmtLookup = Record<number, string>;
+
+export function handlerPivotCacheDefinition (dom: Document, numFmts?: NumFmtLookup): PivotCache | undefined {
   const root = dom.getElementsByTagName('pivotCacheDefinition')[0];
   if (!root) { return; }
 
@@ -13,7 +16,7 @@ export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefi
   if (!cacheSource) { return; }
 
   const sourceType = attr(cacheSource, 'type');
-  const fields = parseFields(root);
+  const fields = parseFields(root, numFmts);
 
   const metadata = parseCacheMetadata(root);
 
@@ -91,16 +94,20 @@ export function handlerPivotCacheDefinition (dom: Document): PivotCache | undefi
   }
 }
 
-function parseFields (root: Element): PivotCacheField[] {
+function parseFields (root: Element, numFmts?: NumFmtLookup): PivotCacheField[] {
   const fields: PivotCacheField[] = [];
   for (const cf of root.querySelectorAll('cacheFields > cacheField')) {
     const name = attr(cf, 'name');
-    // numFmtId is not preserved: the type uses numFmt (a format code string like
-    // "General"), which requires the style table to resolve from the numeric ID.
-    // TODO: resolve numFmtId → numFmt when style table is available.
     const formula = attr(cf, 'formula');
 
     const field: PivotCacheField = { name: name ?? '' };
+    const numFmtId = numAttr(cf, 'numFmtId');
+    if (numFmtId != null && numFmts) {
+      const fmt = numFmts[numFmtId];
+      if (typeof fmt === 'string' && fmt.toLowerCase() !== 'general') {
+        field.numFmt = fmt;
+      }
+    }
     if (formula) {
       field.formula = formula;
     }

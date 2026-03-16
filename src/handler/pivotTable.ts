@@ -20,11 +20,12 @@ import type {
 import { addProp } from '../utils/addProp.ts';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { parseEnum } from '../utils/parseEnum.ts';
+import type { NumFmtLookup } from './pivotCacheDefinition.ts';
 
 /** Pivot table parsed from XML, before the cache has been resolved by the caller. */
 type PivotTableWithOptionalCache = Omit<PivotTable, 'cache'> & { cache?: PivotTable['cache'] };
 
-export function handlerPivotTable (dom: Document): PivotTableWithOptionalCache | undefined {
+export function handlerPivotTable (dom: Document, numFmts?: NumFmtLookup): PivotTableWithOptionalCache | undefined {
   const root = dom.getElementsByTagName('pivotTableDefinition')[0];
   if (!root) {
     return;
@@ -48,7 +49,7 @@ export function handlerPivotTable (dom: Document): PivotTableWithOptionalCache |
   const firstDataRow = numAttr(locationEl, 'firstDataRow', 1);
   const firstDataCol = numAttr(locationEl, 'firstDataCol', 0);
 
-  const fields = parsePivotFields(root);
+  const fields = parsePivotFields(root, numFmts);
 
   const rowFieldIndices: number[] = [];
   for (const f of root.querySelectorAll('rowFields > field')) {
@@ -63,7 +64,7 @@ export function handlerPivotTable (dom: Document): PivotTableWithOptionalCache |
   const rowItems = parseRowColItems(root, 'rowItems > i');
   const colItems = parseRowColItems(root, 'colItems > i');
 
-  const dataFields = parseDataFields(root);
+  const dataFields = parseDataFields(root, numFmts);
 
   const pageFields = parsePageFields(root);
 
@@ -276,7 +277,7 @@ function parseRowColItems (root: Element, selector: string): PivotRowColItem[] {
   return items;
 }
 
-function parsePivotFields (root: Element): PivotField[] {
+function parsePivotFields (root: Element, numFmts?: NumFmtLookup): PivotField[] {
   const fields: PivotField[] = [];
   for (const pf of root.querySelectorAll('pivotFields > pivotField')) {
     const field: PivotField = {};
@@ -383,8 +384,13 @@ function parsePivotFields (root: Element): PivotField[] {
 
     const subtotalCaption = attr(pf, 'subtotalCaption');
     if (subtotalCaption != null) { field.subtotalCaption = subtotalCaption; }
-    // numFmtId is not preserved: the type uses numFmt (a format code string),
-    // which requires the style table to resolve. TODO: resolve when available.
+    const pfNumFmtId = numAttr(pf, 'numFmtId');
+    if (pfNumFmtId != null && numFmts) {
+      const fmt = numFmts[pfNumFmtId];
+      if (typeof fmt === 'string' && fmt.toLowerCase() !== 'general') {
+        field.numFmt = fmt;
+      }
+    }
     const itemPageCount = numAttr(pf, 'itemPageCount');
     if (itemPageCount != null && itemPageCount !== 10) { field.itemPageCount = itemPageCount; }
     const dataSourceSort = boolAttr(pf, 'dataSourceSort');
@@ -411,7 +417,7 @@ function parsePivotFields (root: Element): PivotField[] {
   return fields;
 }
 
-function parseDataFields (root: Element): PivotDataField[] {
+function parseDataFields (root: Element, numFmts?: NumFmtLookup): PivotDataField[] {
   const dataFields: PivotDataField[] = [];
   for (const df of root.querySelectorAll('dataFields > dataField')) {
     const dfName = attr(df, 'name');
@@ -435,8 +441,13 @@ function parseDataFields (root: Element): PivotDataField[] {
     if (baseItem != null) {
       dataField.baseItem = baseItem;
     }
-    // numFmtId is not preserved: the type uses numFmt (a format code string),
-    // which requires the style table to resolve. TODO: resolve when available.
+    const dfNumFmtId = numAttr(df, 'numFmtId');
+    if (dfNumFmtId != null && numFmts) {
+      const fmt = numFmts[dfNumFmtId];
+      if (typeof fmt === 'string' && fmt.toLowerCase() !== 'general') {
+        dataField.numFmt = fmt;
+      }
+    }
     dataFields.push(dataField);
   }
   return dataFields;
