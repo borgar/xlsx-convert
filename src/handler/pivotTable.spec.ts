@@ -288,7 +288,7 @@ describe('handlerPivotTable', () => {
     expect(pt.fields[0].subtotalCaption).toBe('My Total');
   });
 
-  // numFmtId is no longer stored on PivotField (requires style table to resolve to format code).
+  // numFmtId is not preserved on PivotField (requires style table to resolve to format code).
 
   it('should parse field UI/drag behavior attributes', () => {
     const xml = `<pivotTableDefinition name="PT1" cacheId="0">

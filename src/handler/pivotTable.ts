@@ -383,8 +383,8 @@ function parsePivotFields (root: Element): PivotField[] {
 
     const subtotalCaption = attr(pf, 'subtotalCaption');
     if (subtotalCaption != null) { field.subtotalCaption = subtotalCaption; }
-    // numFmtId is read from XML but not stored: the new type uses numFmt (a format
-    // code string), which requires the style table to resolve. TODO: resolve when available.
+    // numFmtId is not preserved: the type uses numFmt (a format code string),
+    // which requires the style table to resolve. TODO: resolve when available.
     const itemPageCount = numAttr(pf, 'itemPageCount');
     if (itemPageCount != null && itemPageCount !== 10) { field.itemPageCount = itemPageCount; }
     const dataSourceSort = boolAttr(pf, 'dataSourceSort');
@@ -435,8 +435,8 @@ function parseDataFields (root: Element): PivotDataField[] {
     if (baseItem != null) {
       dataField.baseItem = baseItem;
     }
-    // numFmtId is read from XML but not stored: the new type uses numFmt (a format
-    // code string), which requires the style table to resolve. TODO: resolve when available.
+    // numFmtId is not preserved: the type uses numFmt (a format code string),
+    // which requires the style table to resolve. TODO: resolve when available.
     dataFields.push(dataField);
   }
   return dataFields;

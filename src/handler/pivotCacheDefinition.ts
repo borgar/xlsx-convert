@@ -95,9 +95,9 @@ function parseFields (root: Element): PivotCacheField[] {
   const fields: PivotCacheField[] = [];
   for (const cf of root.querySelectorAll('cacheFields > cacheField')) {
     const name = attr(cf, 'name');
-    // numFmtId is read from XML but not stored: the new type uses numFmt (a format
-    // code string like "General"), which requires the style table to resolve from
-    // the numeric ID. TODO: resolve numFmtId → numFmt when style table is available.
+    // numFmtId is not preserved: the type uses numFmt (a format code string like
+    // "General"), which requires the style table to resolve from the numeric ID.
+    // TODO: resolve numFmtId → numFmt when style table is available.
     const formula = attr(cf, 'formula');
 
     const field: PivotCacheField = { name: name ?? '' };

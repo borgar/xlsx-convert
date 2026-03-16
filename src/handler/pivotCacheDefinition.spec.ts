@@ -195,7 +195,7 @@ describe('handlerPivotCacheDefinition', () => {
       </cacheFields>
     </pivotCacheDefinition>`;
     const cache = parse(xml)!;
-    // numFmtId is no longer stored (requires style table to resolve to format code string)
+    // numFmtId is not preserved (requires style table to resolve to format code string)
     expect(cache.fields[0].formula).toBe('Amount * Rate');
     expect(cache.fields[0].databaseField).toBe(false);
   });
