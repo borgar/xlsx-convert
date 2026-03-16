@@ -63,18 +63,12 @@ export function handlerPivotCacheDefinition (dom: Document, numFmts?: NumFmtLook
     const rangeSets: PivotCacheConsolidationRangeSet[] = [];
     for (const rsEl of consolidationEl.querySelectorAll('rangeSets > rangeSet')) {
       const rs: PivotCacheConsolidationRangeSet = {};
-      const rsRef = attr(rsEl, 'ref');
-      if (rsRef) { rs.ref = rsRef; }
-      const sheet = attr(rsEl, 'sheet');
-      if (sheet) { rs.sheet = sheet; }
-      const i1 = numAttr(rsEl, 'i1');
-      if (i1 != null) { rs.i1 = i1; }
-      const i2 = numAttr(rsEl, 'i2');
-      if (i2 != null) { rs.i2 = i2; }
-      const i3 = numAttr(rsEl, 'i3');
-      if (i3 != null) { rs.i3 = i3; }
-      const i4 = numAttr(rsEl, 'i4');
-      if (i4 != null) { rs.i4 = i4; }
+      addProp(rs, 'ref', attr(rsEl, 'ref'));
+      addProp(rs, 'sheet', attr(rsEl, 'sheet'));
+      addProp(rs, 'i1', numAttr(rsEl, 'i1'));
+      addProp(rs, 'i2', numAttr(rsEl, 'i2'));
+      addProp(rs, 'i3', numAttr(rsEl, 'i3'));
+      addProp(rs, 'i4', numAttr(rsEl, 'i4'));
       rangeSets.push(rs);
     }
     return {
