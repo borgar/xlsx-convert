@@ -87,7 +87,6 @@ function parseFields (root: Element, numFmts?: NumFmtLookup): PivotCacheField[] 
   const fields: PivotCacheField[] = [];
   for (const cf of root.querySelectorAll('cacheFields > cacheField')) {
     const name = attr(cf, 'name');
-    const formula = attr(cf, 'formula');
 
     const field: PivotCacheField = { name: name ?? '' };
     const numFmtId = numAttr(cf, 'numFmtId');
@@ -97,9 +96,7 @@ function parseFields (root: Element, numFmts?: NumFmtLookup): PivotCacheField[] 
         field.numFmt = fmt;
       }
     }
-    if (formula) {
-      field.formula = formula;
-    }
+    addProp(field, 'formula', attr(cf, 'formula'));
     const databaseField = boolAttr(cf, 'databaseField');
     if (databaseField === false) {
       field.databaseField = false;
