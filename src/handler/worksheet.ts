@@ -239,7 +239,7 @@ export function handlerWorksheet (
   const drawing = getFirstChild(dom.root, 'drawing');
   if (drawing) {
     const rId = attr(drawing, 'r:id');
-    const rel = rels.find(rel => rel.id === rId);
+    const rel = rels.find(d => d.id === rId);
     if (rel) {
       context.images.push({ sheetName, rel, type: 'drawing' });
     }
@@ -249,7 +249,7 @@ export function handlerWorksheet (
   const picture = getFirstChild(dom.root, 'picture');
   if (picture) {
     const rId = attr(picture, 'r:id');
-    const rel = rels.find(rel => rel.id === rId);
+    const rel = rels.find(d => d.id === rId);
     if (rel) {
       context.images.push({ sheetName, rel, type: 'picture' });
     }
