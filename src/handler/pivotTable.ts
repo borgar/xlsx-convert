@@ -20,6 +20,7 @@ import type {
 import { addProp } from '../utils/addProp.ts';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { parseEnum } from '../utils/parseEnum.ts';
+import { parsePivotArea } from '../utils/parsePivotArea.ts';
 import type { NumFmtLookup } from './pivotCacheDefinition.ts';
 
 /** Pivot table parsed from XML, before the cache has been resolved by the caller. */
@@ -400,15 +401,12 @@ function parsePivotFields (root: Element, numFmts?: NumFmtLookup): PivotField[] 
     const uniqueMemberProperty = attr(pf, 'uniqueMemberProperty');
     if (uniqueMemberProperty != null) { field.uniqueMemberProperty = uniqueMemberProperty; }
 
-    // autoSortScope: which data field to sort by
+    // autoSortScope: pivot area defining the sort key
     const autoSortScopeEl = pf.getElementsByTagName('autoSortScope')[0];
     if (autoSortScopeEl) {
-      const refEl = autoSortScopeEl.querySelector('pivotArea > references > reference');
-      if (refEl) {
-        const xEl = refEl.getElementsByTagName('x')[0];
-        if (xEl) {
-          field.autoSortScope = { dataField: numAttr(xEl, 'v', 0) };
-        }
+      const pivotAreaEl = autoSortScopeEl.getElementsByTagName('pivotArea')[0];
+      if (pivotAreaEl) {
+        field.autoSortScope = parsePivotArea(pivotAreaEl);
       }
     }
 
