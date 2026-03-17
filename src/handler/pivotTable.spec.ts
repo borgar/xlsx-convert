@@ -189,6 +189,38 @@ describe('handlerPivotTable', () => {
     });
   });
 
+  it('should convert unsigned field index sentinels to signed', () => {
+    // 4294967294 (0xFFFFFFFE) → -2 (values), 4294967295 (0xFFFFFFFF) → -1 (nothing)
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="1">
+        <pivotField axis="axisRow" showAll="1" sortType="descending">
+          <items count="1"><item t="default"/></items>
+          <autoSortScope>
+            <pivotArea field="4294967295">
+              <references count="2">
+                <reference field="4294967294" count="1" selected="0">
+                  <x v="0"/>
+                </reference>
+                <reference field="3" count="1" selected="0">
+                  <x v="1"/>
+                </reference>
+              </references>
+            </pivotArea>
+          </autoSortScope>
+        </pivotField>
+      </pivotFields>
+      <rowFields count="1"><field x="0"/></rowFields>
+      <colFields count="0"/>
+      <dataFields count="0"/>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    const scope = pt.fields[0].autoSortScope!;
+    expect(scope.field).toBe(-1);
+    expect(scope.references![0].field).toBe(-2);
+    expect(scope.references![1].field).toBe(3);
+  });
+
   it('should parse field items with itemType, hidden, and itemIndex', () => {
     const xml = `<pivotTableDefinition name="PT1" cacheId="0">
       <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
