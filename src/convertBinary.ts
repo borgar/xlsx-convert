@@ -241,7 +241,7 @@ export async function convertBinary (
   // convert styles to JSF format (styleDefs was read earlier for pivot numFmtId resolution)
   wb.styles = convertStyles(styleDefs);
 
-  wb.pivotTables = [];
+  const pivotTables: PivotTable[] = [];
 
   // worksheets — processed sequentially to avoid shared-state races
   for (const [ index, sheetLink ] of context.sheetLinks.entries()) {
@@ -280,7 +280,7 @@ export async function convertBinary (
             }
             // Only include pivot tables whose cache was successfully parsed
             if (pt.cache != null) {
-              wb.pivotTables.push(pt as PivotTable);
+              pivotTables.push(pt as PivotTable);
             }
             else {
               context.warn(`Pivot table "${pt.name}" on sheet "${sheetName}" dropped: cache definition not found (rel target: ${ptCacheRel?.target ?? 'none'})`);
@@ -359,16 +359,16 @@ export async function convertBinary (
   // Sort pivot tables by sheet position, then by name within each sheet.
   // Sheet order is already guaranteed by sequential processing, but rels
   // order within a sheet is not deterministic by name.
-  if (wb.pivotTables.length > 1) {
+  if (pivotTables.length > 1) {
     const sheetOrder = new Map(context.sheetLinks.map((sl, i) => [ sl.name || `Sheet${sl.index}`, i ]));
-    wb.pivotTables.sort((a, b) => {
+    pivotTables.sort((a, b) => {
       const si = (sheetOrder.get(a.sheet) ?? Infinity) - (sheetOrder.get(b.sheet) ?? Infinity);
       return si !== 0 ? si : a.name.localeCompare(b.name);
     });
   }
 
-  if (wb.pivotTables.length === 0) {
-    delete wb.pivotTables;
+  if (pivotTables.length > 0) {
+    wb.pivotTables = pivotTables;
   }
 
   // Store people from the workbook.
