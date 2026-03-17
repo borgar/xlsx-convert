@@ -1,7 +1,7 @@
 import type { Document } from '@borgar/simple-xml';
 import type { PivotCacheRecord, PivotCacheRecordValue } from '@jsfkit/types';
-import { attr } from '../utils/attr.ts';
-import { parseCacheSharedItem } from '../utils/parseCacheSharedItem.ts';
+import { attr } from '../../utils/attr.ts';
+import { parseCacheSharedItem } from './parseCacheSharedItem.ts';
 
 export function handlerPivotCacheRecords (dom: Document): PivotCacheRecord[] {
   const root = dom.getElementsByTagName('pivotCacheRecords')[0];

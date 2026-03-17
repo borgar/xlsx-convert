@@ -1,9 +1,9 @@
 import type { Document, Element } from '@borgar/simple-xml';
 import type { PivotCache, PivotCacheBase, PivotCacheConsolidationRangeSet, PivotCacheConsolidationSource, PivotCacheField, PivotCacheFieldGroup, PivotCacheRangePr, PivotCacheSharedItem, PivotCacheSharedItemsMeta, PivotCacheWorksheetSourceName, PivotCacheWorksheetSourceRange, PivotGroupBy } from '@jsfkit/types';
-import { addProp } from '../utils/addProp.ts';
-import { attr, boolAttr, numAttr } from '../utils/attr.ts';
-import { parseCacheSharedItem } from '../utils/parseCacheSharedItem.ts';
-import { parseEnum } from '../utils/parseEnum.ts';
+import { addProp } from '../../utils/addProp.ts';
+import { attr, boolAttr, numAttr } from '../../utils/attr.ts';
+import { parseEnum } from '../../utils/parseEnum.ts';
+import { parseCacheSharedItem } from './parseCacheSharedItem.ts';
 
 /** Lookup table mapping numeric format IDs to format code strings. */
 export type NumFmtLookup = Record<number, string>;

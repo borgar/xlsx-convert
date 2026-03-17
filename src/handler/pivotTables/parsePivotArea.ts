@@ -1,7 +1,7 @@
 import type { Element } from '@borgar/simple-xml';
 import type { PivotArea, PivotAreaAxis, PivotAreaReference, PivotAreaType } from '@jsfkit/types';
-import { attr, boolAttr, numAttr } from './attr.ts';
-import { parseEnum } from './parseEnum.ts';
+import { attr, boolAttr, numAttr } from '../../utils/attr.ts';
+import { parseEnum } from '../../utils/parseEnum.ts';
 
 const AREA_TYPES: ReadonlySet<PivotAreaType> = new Set<PivotAreaType>([
   'none', 'normal', 'data', 'all', 'origin', 'button', 'topRight',

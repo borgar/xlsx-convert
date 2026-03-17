@@ -20,8 +20,8 @@ import type {
 import { addProp } from '../utils/addProp.ts';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { parseEnum } from '../utils/parseEnum.ts';
-import { parsePivotArea } from '../utils/parsePivotArea.ts';
-import type { NumFmtLookup } from './pivotCacheDefinition.ts';
+import { parsePivotArea } from './pivotTables/parsePivotArea.ts';
+import type { NumFmtLookup } from './pivotTables/pivotCacheDefinition.ts';
 
 /** Pivot table parsed from XML, before the cache has been resolved by the caller. */
 type PivotTableWithOptionalCache = Omit<PivotTable, 'cache'> & { cache?: PivotTable['cache'] };

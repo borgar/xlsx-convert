@@ -1,6 +1,6 @@
 import type { Element } from '@borgar/simple-xml';
 import type { PivotCacheSharedItem } from '@jsfkit/types';
-import { attr, boolAttr, numAttr } from './attr.ts';
+import { attr, boolAttr, numAttr } from '../../utils/attr.ts';
 
 /** Parse a single `<s>`, `<n>`, `<b>`, `<d>`, `<e>`, or `<m>` element into a shared item. */
 export function parseCacheSharedItem (elm: Element): PivotCacheSharedItem | undefined {
