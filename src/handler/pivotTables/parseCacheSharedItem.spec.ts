@@ -47,7 +47,11 @@ describe('parseCacheSharedItem', () => {
     expect(result).not.toHaveProperty('u');
   });
 
-  it('does not set u on nil items', () => {
+  it('preserves u="1" on nil item', () => {
+    expect(parse('<m u="1"/>')).toEqual({ t: 'z', u: true });
+  });
+
+  it('does not set u on nil items without u attribute', () => {
     const result = parse('<m/>');
     expect(result).toEqual({ t: 'z' });
     expect(result).not.toHaveProperty('u');
