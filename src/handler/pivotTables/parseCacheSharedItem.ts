@@ -5,11 +5,11 @@ import { attr, boolAttr, numAttr } from '../../utils/attr.ts';
 /** Parse a single `<s>`, `<n>`, `<b>`, `<d>`, `<e>`, or `<m>` element into a shared item. */
 export function parseCacheSharedItem (elm: Element): PivotCacheSharedItem | undefined {
   const tag = elm.tagName;
-  if (tag === 'm') {
-    return { t: 'z' };
-  }
   let result: PivotCacheSharedItem | undefined;
-  if (tag === 's') {
+  if (tag === 'm') {
+    result = { t: 'z' };
+  }
+  else if (tag === 's') {
     result = { t: 's', v: attr(elm, 'v') ?? '' };
   }
   else if (tag === 'n') {
