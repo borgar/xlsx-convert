@@ -31,6 +31,37 @@ export function getBlankTheme (): Theme {
   };
 }
 
+/**
+ * Extracts a font collection from the given OOXML element, which should be either a `majorFont` or
+ * `minorFont` element.
+ *
+ * The font collection must contain a `latin` element (although we include a fallback), plus
+ * optional `ea` (east Asian) and `cs` (complex script) elements. These three specify a typeface to
+ * use for that script.
+ */
+function extractFontCollection (fontCollection: XMLElement) {
+  const latin = getFirstChild(fontCollection, 'latin');
+  const eastAsian = getFirstChild(fontCollection, 'ea');
+  const complexScript = getFirstChild(fontCollection, 'cs');
+
+  const font: ThemeFontCollection = {
+    latin: {
+      typeface: attr(latin, 'typeface', 'Aptos Display'),
+    },
+  };
+  if (eastAsian) {
+    font.eastAsian = {
+      typeface: attr(eastAsian, 'typeface', ''),
+    };
+  }
+  if (complexScript) {
+    font.complexScript = {
+      typeface: attr(complexScript, 'typeface', ''),
+    };
+  }
+  return font;
+}
+
 export function handlerTheme (dom: Document, context: ConversionContext): Theme {
   const theme: Theme = getBlankTheme();
 
@@ -127,35 +158,4 @@ export function handlerTheme (dom: Document, context: ConversionContext): Theme 
   }
 
   return theme;
-}
-
-/**
- * Extracts a font collection from the given OOXML element, which should be either a `majorFont` or
- * `minorFont` element.
- *
- * The font collection must contain a `latin` element (although we include a fallback), plus
- * optional `ea` (east Asian) and `cs` (complex script) elements. These three specify a typeface to
- * use for that script.
- */
-function extractFontCollection (fontCollection: XMLElement) {
-  const latin = getFirstChild(fontCollection, 'latin');
-  const eastAsian = getFirstChild(fontCollection, 'ea');
-  const complexScript = getFirstChild(fontCollection, 'cs');
-
-  const font: ThemeFontCollection = {
-    latin: {
-      typeface: attr(latin, 'typeface', 'Aptos Display'),
-    },
-  };
-  if (eastAsian) {
-    font.eastAsian = {
-      typeface: attr(eastAsian, 'typeface', ''),
-    };
-  }
-  if (complexScript) {
-    font.complexScript = {
-      typeface: attr(complexScript, 'typeface', ''),
-    };
-  }
-  return font;
 }
