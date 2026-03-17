@@ -85,7 +85,7 @@
           "layoutScales": { "normal": 150 }
         }
       ],
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",

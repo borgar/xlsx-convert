@@ -35,7 +35,7 @@
           ]
         }
       ],
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",
@@ -407,7 +407,7 @@
           ]
         }
       ],
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",
@@ -768,7 +768,7 @@
       "views": [
         { "workbookView": 0, "activeCell": "K18" }
       ],
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",
@@ -912,7 +912,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "drawing": []
+      "drawings": []
     },
     {
       "name": "Statistical",
@@ -940,7 +940,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "drawing": []
+      "drawings": []
     },
     {
       "name": "XY",
@@ -968,7 +968,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",
@@ -1271,7 +1271,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",
@@ -1392,7 +1392,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "drawing": []
+      "drawings": []
     },
     {
       "name": "Surface",
@@ -1420,7 +1420,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",
@@ -1546,7 +1546,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",
@@ -1644,7 +1644,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",
@@ -1742,7 +1742,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "drawing": []
+      "drawings": []
     }
   ],
   "names": [],

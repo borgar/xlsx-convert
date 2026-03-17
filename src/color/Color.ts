@@ -43,7 +43,7 @@ export class Color {
 
   getJSF (): JSFColor {
     // Currently we always convert to string representation
-    return this.toString() as JSFColor;
+    return this.toString() as any;
   }
 
   resolveRGBA (): RGBA {

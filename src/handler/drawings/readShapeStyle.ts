@@ -3,14 +3,15 @@ import { attr, numAttr } from '../../utils/attr.ts';
 import type { ConversionContext } from '../../ConversionContext.ts';
 import { readColor } from '../../color/readColor.ts';
 import { getFirstChild } from '../../utils/getFirstChild.ts';
+import type { Color } from '@jsfkit/types';
 
 type FontIndex = ('major' | 'minor' | 'none');
 
 type ShapeStyle = {
-  line?: { color: string, index: number },
-  fill?: { color: string, index: number },
-  effect?: { color: string, index: number },
-  font?: { color: string, index: FontIndex },
+  line?: { color: Color, index: number },
+  fill?: { color: Color, index: number },
+  effect?: { color: Color, index: number },
+  font?: { color: Color, index: FontIndex },
 };
 
 export function readShapeStyle (elm: Element | null, context: ConversionContext): ShapeStyle {

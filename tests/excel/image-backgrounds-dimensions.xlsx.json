@@ -12,7 +12,7 @@
       "views": [
         { "workbookView": 0, "activeCell": "I18" }
       ],
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",

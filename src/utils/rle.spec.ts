@@ -439,6 +439,95 @@ describe('rle', () => {
     });
   });
 
+  describe('items without size property', () => {
+    it('should discard consecutive items that both lack size', () => {
+      const input: GridSize[] = [
+        { start: 1, end: 1 },
+        { start: 2, end: 2 },
+        { start: 3, end: 3 },
+      ];
+      expect(rle(input, 20)).toEqual([]);
+    });
+
+    it('should break runs when one has size and another does not', () => {
+      const input: GridSize[] = [
+        { start: 1, end: 1, size: 30 },
+        { start: 2, end: 2 },
+        { start: 3, end: 3, size: 30 },
+      ];
+      expect(rle(input, 20)).toEqual([
+        { start: 1, end: 1, size: 30 },
+        { start: 3, end: 3, size: 30 },
+      ]);
+    });
+
+    it('should handle items with only style and no size', () => {
+      const input: GridSize[] = [
+        { start: 1, end: 1, s: 5 },
+        { start: 2, end: 2, s: 5 },
+        { start: 3, end: 3, s: 10 },
+      ];
+      expect(rle(input, 20)).toEqual([
+        { start: 1, end: 2, s: 5 },
+        { start: 3, end: 3, s: 10 },
+      ]);
+    });
+
+    it('should handle mix of items with and without size/s', () => {
+      const input: GridSize[] = [
+        { start: 1, end: 1, size: 30 },
+        { start: 2, end: 2 },
+        { start: 3, end: 3, s: 5 },
+        { start: 4, end: 4 },
+        { start: 5, end: 5, size: 25, s: 3 },
+      ];
+      expect(rle(input, 20)).toEqual([
+        { start: 1, end: 1, size: 30 },
+        { start: 3, end: 3, s: 5 },
+        { start: 5, end: 5, size: 25, s: 3 },
+      ]);
+    });
+
+    it('should compress consecutive no-size no-style items across gaps', () => {
+      const input: GridSize[] = [
+        { start: 1, end: 1 },
+        { start: 2, end: 2 },
+        { start: 4, end: 4 },
+        { start: 5, end: 5 },
+      ];
+      expect(rle(input, 20)).toEqual([]);
+    });
+
+    it('should break run when style appears on item without size', () => {
+      const input: GridSize[] = [
+        { start: 1, end: 1, size: 30 },
+        { start: 2, end: 2, size: 30 },
+        { start: 3, end: 3, size: 30 },
+        { start: 4, end: 4 },
+        { start: 5, end: 5, size: 30 },
+        { start: 6, end: 6, size: 30 },
+      ];
+      expect(rle(input, 20)).toEqual([
+        { start: 1, end: 3, size: 30 },
+        { start: 5, end: 6, size: 30 },
+      ]);
+    });
+
+    it('should handle Excel-like row scenario with only styles, no custom heights', () => {
+      const input: GridSize[] = [
+        { start: 1, end: 1, s: 1 },   // styled row, default height
+        { start: 2, end: 2, s: 1 },   // same style
+        { start: 3, end: 3 },         // no style, no height
+        { start: 4, end: 4, s: 2 },   // different style
+        { start: 5, end: 5, s: 2 },   // same style
+      ];
+      expect(rle(input, 20)).toEqual([
+        { start: 1, end: 2, s: 1 },
+        { start: 4, end: 5, s: 2 },
+      ]);
+    });
+  });
+
   describe('return type validation', () => {
     it('should return array of JSFGridSize objects', () => {
       const input: GridSize[] = [
