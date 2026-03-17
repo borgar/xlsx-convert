@@ -395,6 +395,9 @@ function parsePageFields (root: Element): PivotPageField[] {
   return pageFields;
 }
 
+// NB: readBoolAttrs can't be used here because the OOXML attribute names
+// (showColHeaders, showColStripes) differ from the JSF property names
+// (showColumnHeaders, showColumnStripes).
 function parseStyle (root: Element): PivotTableStyle | undefined {
   const styleInfo = root.getElementsByTagName('pivotTableStyleInfo')[0];
   if (!styleInfo) { return; }
