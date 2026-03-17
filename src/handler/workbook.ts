@@ -5,6 +5,11 @@ import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { toInt } from '../utils/typecast.ts';
 import type { DefinedName, Workbook, WorkbookView } from '@jsfkit/types';
 
+const HIDDEN: Record<string, 1 | 2> = {
+  hidden: 1,
+  veryHidden: 2,
+};
+
 export function handlerWorkbook (dom: Document, context: ConversionContext): Workbook {
   const wb: Workbook = {
     name: context.filename,
@@ -24,20 +29,11 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
 
   dom.querySelectorAll('sheets > sheet')
     .forEach(d => {
-      let hidden: 0 | 1 | 2 = 0;
-      switch (attr(d, 'state')) {
-        case 'hidden':
-          hidden = 1;
-          break;
-        case 'veryHidden':
-          hidden = 2;
-          break;
-      }
       context.sheetLinks.push({
         name: attr(d, 'name'),
         index: numAttr(d, 'sheetId'),
         rId: attr(d, 'r:id'),
-        hidden,
+        hidden: HIDDEN[attr(d, 'state')] ?? 0,
       });
     });
 

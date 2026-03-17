@@ -79,15 +79,15 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "showGridLines": false,
       "views": [
         {
           "workbookView": 0,
           "activeCell": "K16",
+          "showGridLines": false,
           "layoutScales": { "normal": 150 }
         }
       ],
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",
@@ -269,7 +269,7 @@
       "views": [
         { "workbookView": 0, "activeCell": "K23" }
       ],
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",

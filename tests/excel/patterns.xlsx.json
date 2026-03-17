@@ -34,7 +34,7 @@
       "views": [
         { "workbookView": 0, "activeCell": "H12" }
       ],
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",

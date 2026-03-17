@@ -9,7 +9,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",

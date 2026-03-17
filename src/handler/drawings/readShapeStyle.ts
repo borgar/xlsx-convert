@@ -1,5 +1,5 @@
 import type { Element } from '@borgar/simple-xml';
-import type { Color as JSFColor } from '@jsfkit/types';
+import type { Color } from '@jsfkit/types';
 import { attr, numAttr } from '../../utils/attr.ts';
 import type { ConversionContext } from '../../ConversionContext.ts';
 import { readColor } from '../../color/readColor.ts';
@@ -8,10 +8,10 @@ import { getFirstChild } from '../../utils/getFirstChild.ts';
 type FontIndex = ('major' | 'minor' | 'none');
 
 type ShapeStyle = {
-  line?: { color: JSFColor, index: number },
-  fill?: { color: JSFColor, index: number },
-  effect?: { color: JSFColor, index: number },
-  font?: { color: JSFColor, index: FontIndex },
+  line?: { color: Color, index: number },
+  fill?: { color: Color, index: number },
+  effect?: { color: Color, index: number },
+  font?: { color: Color, index: FontIndex },
 };
 
 export function readShapeStyle (elm: Element | null, context: ConversionContext): ShapeStyle {

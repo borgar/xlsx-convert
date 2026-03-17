@@ -100,9 +100,9 @@ function makeNiceJson (ent) {
       if (values.length && !hasNesting) {
         const str = formatJSON(value);
         if (str.length < 50) {
-          const key = '~~xlsx-convert~~' + (keyIdx++);
-          _tempStore.set(key, str);
-          return key;
+          const tkey = '~~xlsx-convert~~' + (keyIdx++);
+          _tempStore.set(tkey, str);
+          return tkey;
         }
       }
     }

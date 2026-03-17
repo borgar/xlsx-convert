@@ -21,7 +21,7 @@
       "views": [
         { "workbookView": 0, "activeCell": "K6" }
       ],
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",
