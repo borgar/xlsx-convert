@@ -148,7 +148,7 @@ describe('handlerPivotTable', () => {
     const pt = parse(xml)!;
     expect(pt.fields[0].autoSortScope).toEqual({
       references: [
-        { field: 4294967294, selected: false, itemIndices: [ 0 ] },
+        { field: -2, selected: false, itemIndices: [ 0 ] },
       ],
     });
   });
@@ -183,7 +183,7 @@ describe('handlerPivotTable', () => {
       outline: false,
       fieldPosition: 0,
       references: [
-        { field: 4294967294, selected: false, itemIndices: [ 0 ] },
+        { field: -2, selected: false, itemIndices: [ 0 ] },
         { field: 25, selected: false, itemIndices: [ 0 ] },
       ],
     });

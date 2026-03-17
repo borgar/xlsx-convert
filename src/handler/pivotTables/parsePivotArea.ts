@@ -14,13 +14,21 @@ const AXIS_VALUES = new Map<string, PivotAreaAxis>([
   [ 'axisValues', 'values' ],
 ]);
 
+// OOXML types pivotArea/@field and reference/@field as xsd:unsignedInt, so
+// sentinel values -2 and -1 are serialized as 4294967294 and 4294967295.
+// Convert to signed representation for JSF (see PivotFieldIndex).
+function toSignedFieldIndex (field: number): number {
+  // Values above 0x7FFFFFFF are unsigned representations of negative sentinels
+  return field > 0x7FFFFFFF ? (field | 0) : field;
+}
+
 /** Parse a `<pivotArea>` element into a PivotArea object. */
 export function parsePivotArea (elm: Element): PivotArea {
   const area: PivotArea = {};
   const type = parseEnum(attr(elm, 'type'), AREA_TYPES);
   if (type != null && type !== 'normal') { area.type = type; }
   const field = numAttr(elm, 'field');
-  if (field != null) { area.field = field; }
+  if (field != null) { area.field = toSignedFieldIndex(field); }
   if (boolAttr(elm, 'dataOnly') === false) { area.dataOnly = false; }
   if (boolAttr(elm, 'labelOnly') === true) { area.labelOnly = true; }
   if (boolAttr(elm, 'grandRow') === true) { area.grandRow = true; }
@@ -45,7 +53,7 @@ export function parsePivotArea (elm: Element): PivotArea {
     for (const refEl of refsContainer.getElementsByTagName('reference')) {
       const ref: PivotAreaReference = {};
       const refField = numAttr(refEl, 'field');
-      if (refField != null) { ref.field = refField; }
+      if (refField != null) { ref.field = toSignedFieldIndex(refField); }
       if (boolAttr(refEl, 'selected') === false) { ref.selected = false; }
       if (boolAttr(refEl, 'byPosition') === true) { ref.byPosition = true; }
       if (boolAttr(refEl, 'relative') === true) { ref.relative = true; }
