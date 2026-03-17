@@ -34,7 +34,10 @@ export default tseslint.config(
       '@typescript-eslint/no-redundant-type-constituents': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-call': 'off',
-      'no-shadow': 'off',
+      'no-use-before-define': 'error',
+      'no-labels': 'error',
+      'no-restricted-syntax': [ 'error', 'SwitchStatement' ],
+      'no-shadow': [ 'error', { builtinGlobals: false } ],
     },
   },
 );

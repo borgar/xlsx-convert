@@ -15,7 +15,7 @@ export function readFillBlip (elm: Element | undefined | null, context: Conversi
     const blip = elm.querySelector('blip');
     const rId = blip?.getAttribute('r:embed');
     if (!rId) { return; }
-    const rel = context.drawingRels.find(rel => rel.id === rId);
+    const rel = context.drawingRels.find(d => d.id === rId);
 
     if (rel?.type !== 'image') { return; }
     out.mediaId = rel.target;

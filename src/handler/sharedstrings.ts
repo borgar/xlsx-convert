@@ -6,7 +6,7 @@ export function handlerSharedStrings (dom: Document, context: ConversionContext)
   const sst = dom.querySelectorAll('sst')[0];
 
   const stringTable = sst.querySelectorAll('si').map(d => {
-    return d.querySelectorAll('t').map(d => d.textContent).join('');
+    return d.querySelectorAll('t').map(t => t.textContent).join('');
   });
 
   const count = numAttr(sst, 'uniqueCount', 0);
