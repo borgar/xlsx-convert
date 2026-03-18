@@ -105,7 +105,7 @@ export function parseFilters (root: Element): PivotFilter[] {
     const sv2 = attr(fEl, 'stringValue2');
     if (sv2 != null) { filter.stringValue2 = sv2; }
 
-    const afEl = fEl.getElementsByTagName('autoFilter')[0];
+    const afEl = fEl.querySelector('autoFilter');
     if (afEl) {
       const af: PivotFilter['autoFilter'] = {};
       const afRef = attr(afEl, 'ref');
@@ -113,7 +113,7 @@ export function parseFilters (root: Element): PivotFilter[] {
       const filterColumns: PivotAutoFilterColumn[] = [];
       for (const fcEl of afEl.getElementsByTagName('filterColumn')) {
         const fc: PivotAutoFilterColumn = { colId: numAttr(fcEl, 'colId', 0) };
-        const top10El = fcEl.getElementsByTagName('top10')[0];
+        const top10El = fcEl.querySelector('top10');
         if (top10El) {
           fc.top10 = { val: numAttr(top10El, 'val', 0) };
           const top = boolAttr(top10El, 'top');
@@ -123,7 +123,7 @@ export function parseFilters (root: Element): PivotFilter[] {
           const filterVal = numAttr(top10El, 'filterVal');
           if (filterVal != null) { fc.top10.filterVal = filterVal; }
         }
-        const customFiltersEl = fcEl.getElementsByTagName('customFilters')[0];
+        const customFiltersEl = fcEl.querySelector('customFilters');
         if (customFiltersEl) {
           const cfItems: NonNullable<PivotAutoFilterColumn['customFilters']>['filters'] = [];
           for (const cfItemEl of customFiltersEl.getElementsByTagName('customFilter')) {

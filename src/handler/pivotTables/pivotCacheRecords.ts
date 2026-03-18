@@ -4,7 +4,7 @@ import { attr } from '../../utils/attr.ts';
 import { parseCacheSharedItem } from './parseCacheSharedItem.ts';
 
 export function handlerPivotCacheRecords (dom: Document): PivotCacheRecord[] {
-  const root = dom.getElementsByTagName('pivotCacheRecords')[0];
+  const root = dom.querySelector('pivotCacheRecords');
   if (!root) { return []; }
 
   const records: PivotCacheRecord[] = [];

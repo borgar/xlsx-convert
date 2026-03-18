@@ -34,7 +34,7 @@ function parseFieldGroup (elm: Element): PivotCacheFieldGroup | undefined {
   if (base != null) { fg.base = base; hasAny = true; }
 
   // Numeric/date range grouping parameters (start, end, interval, groupBy)
-  const rangePrEl = elm.getElementsByTagName('rangePr')[0];
+  const rangePrEl = elm.querySelector('rangePr');
   if (rangePrEl) {
     const rp: PivotCacheRangePr = {};
     const autoStart = boolAttr(rangePrEl, 'autoStart');
@@ -58,7 +58,7 @@ function parseFieldGroup (elm: Element): PivotCacheFieldGroup | undefined {
   }
 
   // Discrete grouping: maps each source item to a group-item index
-  const discretePrEl = elm.getElementsByTagName('discretePr')[0];
+  const discretePrEl = elm.querySelector('discretePr');
   if (discretePrEl) {
     const indices: number[] = [];
     for (const x of discretePrEl.getElementsByTagName('x')) {
@@ -68,7 +68,7 @@ function parseFieldGroup (elm: Element): PivotCacheFieldGroup | undefined {
   }
 
   // Group item labels (the display values for each group bucket)
-  const groupItemsEl = elm.getElementsByTagName('groupItems')[0];
+  const groupItemsEl = elm.querySelector('groupItems');
   if (groupItemsEl) {
     const items = parseCacheItems(groupItemsEl);
     if (items.length > 0) { fg.groupItems = items; hasAny = true; }
@@ -126,7 +126,7 @@ function parseFields (root: Element, numFmts?: NumFmtLookup): PivotCacheField[] 
       field.databaseField = false;
     }
 
-    const sharedItemsEl = cf.getElementsByTagName('sharedItems')[0];
+    const sharedItemsEl = cf.querySelector('sharedItems');
     if (sharedItemsEl) {
       const sharedItems = parseCacheItems(sharedItemsEl);
       if (sharedItems.length > 0) {
@@ -143,7 +143,7 @@ function parseFields (root: Element, numFmts?: NumFmtLookup): PivotCacheField[] 
         field.sharedItemsMeta = meta;
       }
     }
-    const fieldGroupEl = cf.getElementsByTagName('fieldGroup')[0];
+    const fieldGroupEl = cf.querySelector('fieldGroup');
     if (fieldGroupEl) {
       const fg = parseFieldGroup(fieldGroupEl);
       if (fg) { field.fieldGroup = fg; }
@@ -167,10 +167,10 @@ function parseCacheMetadata (root: Element): CacheMetadata {
 }
 
 export function handlerPivotCacheDefinition (dom: Document, numFmts?: NumFmtLookup): PivotCache | undefined {
-  const root = dom.getElementsByTagName('pivotCacheDefinition')[0];
+  const root = dom.querySelector('pivotCacheDefinition');
   if (!root) { return; }
 
-  const cacheSource = root.getElementsByTagName('cacheSource')[0];
+  const cacheSource = root.querySelector('cacheSource');
   if (!cacheSource) { return; }
 
   const sourceType = attr(cacheSource, 'type');
@@ -181,7 +181,7 @@ export function handlerPivotCacheDefinition (dom: Document, numFmts?: NumFmtLook
   let result: PivotCache | undefined;
 
   if (sourceType === 'worksheet') {
-    const wsSource = cacheSource.getElementsByTagName('worksheetSource')[0];
+    const wsSource = cacheSource.querySelector('worksheetSource');
     if (!wsSource) { return; }
     const ref = attr(wsSource, 'ref');
     const sheet = attr(wsSource, 'sheet');

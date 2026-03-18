@@ -6,7 +6,7 @@ import { attr, boolAttr } from '../../utils/attr.ts';
 // (showColHeaders, showColStripes) differ from the JSF property names
 // (showColumnHeaders, showColumnStripes).
 export function parseStyle (root: Element): PivotTableStyle | undefined {
-  const styleInfo = root.getElementsByTagName('pivotTableStyleInfo')[0];
+  const styleInfo = root.querySelector('pivotTableStyleInfo');
   if (!styleInfo) { return; }
   const style: PivotTableStyle = {};
   const styleName = attr(styleInfo, 'name');

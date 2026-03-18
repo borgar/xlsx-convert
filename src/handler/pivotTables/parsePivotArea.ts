@@ -47,7 +47,7 @@ export function parsePivotArea (elm: Element): PivotArea {
   if (fieldPosition != null) { area.fieldPosition = fieldPosition; }
 
   // references
-  const refsContainer = elm.getElementsByTagName('references')[0];
+  const refsContainer = elm.querySelector('references');
   if (refsContainer) {
     const refs: PivotAreaReference[] = [];
     for (const refEl of refsContainer.getElementsByTagName('reference')) {

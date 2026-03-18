@@ -40,7 +40,7 @@ export function parsePivotFields (root: Element, numFmts?: NumFmtLookup): PivotF
       field.sortType = sortType;
     }
 
-    const itemsContainer = pf.getElementsByTagName('items')[0];
+    const itemsContainer = pf.querySelector('items');
     if (itemsContainer) {
       const items: PivotFieldItem[] = [];
       for (const item of itemsContainer.getElementsByTagName('item')) {
@@ -131,9 +131,9 @@ export function parsePivotFields (root: Element, numFmts?: NumFmtLookup): PivotF
     if (uniqueMemberProperty != null) { field.uniqueMemberProperty = uniqueMemberProperty; }
 
     // autoSortScope: pivot area defining the sort key
-    const autoSortScopeEl = pf.getElementsByTagName('autoSortScope')[0];
+    const autoSortScopeEl = pf.querySelector('autoSortScope');
     if (autoSortScopeEl) {
-      const pivotAreaEl = autoSortScopeEl.getElementsByTagName('pivotArea')[0];
+      const pivotAreaEl = autoSortScopeEl.querySelector('pivotArea');
       if (pivotAreaEl) {
         field.autoSortScope = parsePivotArea(pivotAreaEl);
       }

@@ -13,7 +13,7 @@ import { parseStyle } from './pivotTables/parseStyle.ts';
 import { readBoolAttrs } from './pivotTables/readBoolAttrs.ts';
 
 export function handlerPivotTable (dom: Document, numFmts?: NumFmtLookup): PivotTableWithOptionalCache | undefined {
-  const root = dom.getElementsByTagName('pivotTableDefinition')[0];
+  const root = dom.querySelector('pivotTableDefinition');
   if (!root) {
     return;
   }
@@ -23,7 +23,7 @@ export function handlerPivotTable (dom: Document, numFmts?: NumFmtLookup): Pivot
     return;
   }
 
-  const locationEl = root.getElementsByTagName('location')[0];
+  const locationEl = root.querySelector('location');
   if (!locationEl) {
     return;
   }
