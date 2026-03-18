@@ -3,10 +3,8 @@ import type { PivotCache, PivotCacheBase, PivotCacheConsolidationRangeSet, Pivot
 import { addProp } from '../../utils/addProp.ts';
 import { attr, boolAttr, numAttr } from '../../utils/attr.ts';
 import { parseEnum } from '../../utils/parseEnum.ts';
+import type { NumFmtLookup } from './NumFmtLookup.ts';
 import { parseCacheSharedItem } from './parseCacheSharedItem.ts';
-
-/** Lookup table mapping numeric format IDs to format code strings. */
-export type NumFmtLookup = Record<number, string>;
 
 type CacheMetadata = Pick<PivotCacheBase,
   'refreshedBy' | 'refreshedDate' | 'refreshOnLoad' | 'enableRefresh' |
