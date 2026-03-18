@@ -2,10 +2,6 @@ import { describe, it, expect } from 'vitest';
 import { handlerPivotTable } from './pivotTable.ts';
 import { parseXML } from '@borgar/simple-xml';
 
-function parse (xml: string) {
-  return handlerPivotTable(parseXML(xml));
-}
-
 const MINIMAL_PT = `<?xml version="1.0" encoding="UTF-8"?>
 <pivotTableDefinition name="PivotTable1" cacheId="0">
   <location ref="A3:D20" firstHeaderRow="1" firstDataRow="2" firstDataCol="1"/>
@@ -19,6 +15,10 @@ const MINIMAL_PT = `<?xml version="1.0" encoding="UTF-8"?>
     <dataField name="Sum of Amount" fld="1"/>
   </dataFields>
 </pivotTableDefinition>`;
+
+function parse (xml: string) {
+  return handlerPivotTable(parseXML(xml));
+}
 
 describe('handlerPivotTable', () => {
   it('should return undefined for missing pivotTableDefinition', () => {
