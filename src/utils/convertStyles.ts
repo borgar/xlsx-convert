@@ -6,13 +6,18 @@ import type { Color as JSFColor, Style } from '@jsfkit/types';
 type SkipValue = string | number | boolean | JSFColor | null;
 
 /**
- * Checks whether a style value matches a "skippable" value (i.e. something that will be applied by
- * default) and should be omitted from the output.
+ * Checks whether a style value should be omitted because it matches the given default. For
+ * primitives, strict equality is used. For JSF Color objects, all properties of the skip value
+ * must match those on val — but a colour with transforms is never skippable, since the transforms
+ * produce a different resolved colour even if the base type and value are the same.
  */
 function isSkipValue (val: any, skip: SkipValue): boolean {
+  // Use strict equality if either value is a primitive.
   if (typeof val !== 'object' || typeof skip !== 'object') {
     return val === skip;
   }
+  // Colours with transforms aren't skippable because the transforms produce a different resolved
+  // colour even if the base type and value are the same.
   if (val.transforms?.length) { return false; }
   for (const key in skip) {
     if (val[key] !== skip[key]) { return false; }
