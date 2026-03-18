@@ -81,13 +81,10 @@ export function applyColorOps (
     }
     else if (op.type === 'invGamma') {
       // The output color rendered by should be the inverse sRGB gamma shift of the input color.
-      const invG = (v: number) => {
-        const n = v / 255;
-        return (n <= 0.04045 ? n / 12.92 : ((n + 0.055) / 1.055) ** 2.4) * 255;
-      };
-      r = invG(r);
-      g = invG(g);
-      b = invG(b);
+      const invG = (n: number) => (n <= 0.04045 ? n / 12.92 : ((n + 0.055) / 1.055) ** 2.4) * 255;
+      r = invG(r / 255);
+      g = invG(g / 255);
+      b = invG(b / 255);
     }
 
     // gray (Gray) §5.1.2.2.9
