@@ -42,9 +42,16 @@ export function readColor (elm: Element, theme: Theme, indexedColors: string[]):
     let jsfColor: JSFColor | undefined;
     const argb = attr(elm, 'rgb', ''); // ARGB
     if (argb) {
-      // Convert ARGB to 6-digit sRGB hex (dropping the alpha prefix if present)
+      // Convert ARGB to 6-digit sRGB hex. If the alpha byte is not fully opaque, preserve it as an
+      // alpha transform since SrgbColor has no alpha field.
       const hex = argb.length === 8 ? argb.slice(2) : argb;
       jsfColor = { type: 'srgb', value: hex.toUpperCase() };
+      if (argb.length === 8) {
+        const alphaPct = parseInt(argb.slice(0, 2), 16) / 255 * 100;
+        if (alphaPct < 100) {
+          jsfColor.transforms = [ { type: 'alpha', value: alphaPct } ];
+        }
+      }
     }
     else {
       const indexed = attr(elm, 'indexed', '');
