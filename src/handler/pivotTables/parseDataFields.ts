@@ -1,5 +1,6 @@
 import type { Element } from '@borgar/simple-xml';
 import type { PivotDataField, PivotDataFieldAggregation, PivotShowDataAs } from '@jsfkit/types';
+import { addProp } from '../../utils/addProp.ts';
 import { attr, numAttr } from '../../utils/attr.ts';
 import { parseEnum } from '../../utils/parseEnum.ts';
 import type { NumFmtLookup } from './NumFmtLookup.ts';
@@ -41,27 +42,14 @@ const SHOW_DATA_AS_VALUES: ReadonlySet<PivotShowDataAs> =
 export function parseDataFields (root: Element, numFmts?: NumFmtLookup): PivotDataField[] {
   const dataFields: PivotDataField[] = [];
   for (const df of root.querySelectorAll('dataFields > dataField')) {
-    const dfName = attr(df, 'name');
     const dataField: PivotDataField = {
-      ...(dfName != null ? { name: dfName } : {}),
       fieldIndex: numAttr(df, 'fld', 0),
     };
-    const subtotal = parseEnum(attr(df, 'subtotal'), DATA_FIELD_AGGREGATIONS);
-    if (subtotal != null) {
-      dataField.subtotal = subtotal;
-    }
-    const showDataAs = parseEnum(attr(df, 'showDataAs'), SHOW_DATA_AS_VALUES);
-    if (showDataAs != null) {
-      dataField.showDataAs = showDataAs;
-    }
-    const baseField = numAttr(df, 'baseField');
-    if (baseField != null) {
-      dataField.baseField = baseField;
-    }
-    const baseItem = numAttr(df, 'baseItem');
-    if (baseItem != null) {
-      dataField.baseItem = baseItem;
-    }
+    addProp(dataField, 'name', attr(df, 'name'));
+    addProp(dataField, 'subtotal', parseEnum(attr(df, 'subtotal'), DATA_FIELD_AGGREGATIONS));
+    addProp(dataField, 'showDataAs', parseEnum(attr(df, 'showDataAs'), SHOW_DATA_AS_VALUES));
+    addProp(dataField, 'baseField', numAttr(df, 'baseField'));
+    addProp(dataField, 'baseItem', numAttr(df, 'baseItem'));
     const dfNumFmtId = numAttr(df, 'numFmtId');
     if (dfNumFmtId != null && numFmts) {
       const fmt = numFmts[dfNumFmtId];

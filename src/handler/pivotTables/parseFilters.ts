@@ -1,5 +1,6 @@
 import type { Element } from '@borgar/simple-xml';
 import type { PivotAutoFilterColumn, PivotCustomFilterCriterion, PivotFilter, PivotFilterType } from '@jsfkit/types';
+import { addProp } from '../../utils/addProp.ts';
 import { attr, boolAttr, numAttr } from '../../utils/attr.ts';
 import { parseEnum } from '../../utils/parseEnum.ts';
 
@@ -88,28 +89,19 @@ export function parseFilters (root: Element): PivotFilter[] {
       type,
       id: numAttr(fEl, 'id', 0),
     };
-    const evalOrder = numAttr(fEl, 'evalOrder');
-    if (evalOrder != null && evalOrder !== 0) { filter.evalOrder = evalOrder; }
-    const mpFld = numAttr(fEl, 'mpFld');
-    if (mpFld != null) { filter.mpFld = mpFld; }
-    const iMeasureHier = numAttr(fEl, 'iMeasureHier');
-    if (iMeasureHier != null) { filter.iMeasureHier = iMeasureHier; }
-    const iMeasureFld = numAttr(fEl, 'iMeasureFld');
-    if (iMeasureFld != null) { filter.iMeasureFld = iMeasureFld; }
-    const name = attr(fEl, 'name');
-    if (name != null) { filter.name = name; }
-    const description = attr(fEl, 'description');
-    if (description != null) { filter.description = description; }
-    const sv1 = attr(fEl, 'stringValue1');
-    if (sv1 != null) { filter.stringValue1 = sv1; }
-    const sv2 = attr(fEl, 'stringValue2');
-    if (sv2 != null) { filter.stringValue2 = sv2; }
+    addProp(filter, 'evalOrder', numAttr(fEl, 'evalOrder'), 0);
+    addProp(filter, 'mpFld', numAttr(fEl, 'mpFld'));
+    addProp(filter, 'iMeasureHier', numAttr(fEl, 'iMeasureHier'));
+    addProp(filter, 'iMeasureFld', numAttr(fEl, 'iMeasureFld'));
+    addProp(filter, 'name', attr(fEl, 'name'));
+    addProp(filter, 'description', attr(fEl, 'description'));
+    addProp(filter, 'stringValue1', attr(fEl, 'stringValue1'));
+    addProp(filter, 'stringValue2', attr(fEl, 'stringValue2'));
 
     const afEl = fEl.querySelector('autoFilter');
     if (afEl) {
       const af: PivotFilter['autoFilter'] = {};
-      const afRef = attr(afEl, 'ref');
-      if (afRef != null) { af.ref = afRef; }
+      addProp(af, 'ref', attr(afEl, 'ref'));
       const filterColumns: PivotAutoFilterColumn[] = [];
       for (const fcEl of afEl.getElementsByTagName('filterColumn')) {
         const fc: PivotAutoFilterColumn = { colId: numAttr(fcEl, 'colId', 0) };
@@ -120,20 +112,15 @@ export function parseFilters (root: Element): PivotFilter[] {
           if (top === false) { fc.top10.top = false; }
           const percent = boolAttr(top10El, 'percent');
           if (percent === true) { fc.top10.percent = true; }
-          const filterVal = numAttr(top10El, 'filterVal');
-          if (filterVal != null) { fc.top10.filterVal = filterVal; }
+          addProp(fc.top10, 'filterVal', numAttr(top10El, 'filterVal'));
         }
         const customFiltersEl = fcEl.querySelector('customFilters');
         if (customFiltersEl) {
           const cfItems: NonNullable<PivotAutoFilterColumn['customFilters']>['filters'] = [];
           for (const cfItemEl of customFiltersEl.getElementsByTagName('customFilter')) {
             const f: (typeof cfItems)[number] = {};
-            const op = parseEnum(attr(cfItemEl, 'operator'), CUSTOM_FILTER_OPS);
-            if (op != null) {
-              f.operator = op;
-            }
-            const val = attr(cfItemEl, 'val');
-            if (val != null) { f.val = val; }
+            addProp(f, 'operator', parseEnum(attr(cfItemEl, 'operator'), CUSTOM_FILTER_OPS));
+            addProp(f, 'val', attr(cfItemEl, 'val'));
             cfItems.push(f);
           }
           const cf: NonNullable<PivotAutoFilterColumn['customFilters']> = { filters: cfItems };

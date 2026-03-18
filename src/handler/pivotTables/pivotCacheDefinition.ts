@@ -41,18 +41,12 @@ function parseFieldGroup (elm: Element): PivotCacheFieldGroup | undefined {
     if (autoStart === false) { rp.autoStart = false; }
     const autoEnd = boolAttr(rangePrEl, 'autoEnd');
     if (autoEnd === false) { rp.autoEnd = false; }
-    const groupBy = parseEnum(attr(rangePrEl, 'groupBy'), GROUP_BY_VALUES);
-    if (groupBy != null && groupBy !== 'range') { rp.groupBy = groupBy; }
-    const startNum = numAttr(rangePrEl, 'startNum');
-    if (startNum != null) { rp.startNum = startNum; }
-    const endNum = numAttr(rangePrEl, 'endNum');
-    if (endNum != null) { rp.endNum = endNum; }
-    const startDate = attr(rangePrEl, 'startDate');
-    if (startDate != null) { rp.startDate = startDate; }
-    const endDate = attr(rangePrEl, 'endDate');
-    if (endDate != null) { rp.endDate = endDate; }
-    const groupInterval = numAttr(rangePrEl, 'groupInterval');
-    if (groupInterval != null && groupInterval !== 1) { rp.groupInterval = groupInterval; }
+    addProp(rp, 'groupBy', parseEnum(attr(rangePrEl, 'groupBy'), GROUP_BY_VALUES), 'range');
+    addProp(rp, 'startNum', numAttr(rangePrEl, 'startNum'));
+    addProp(rp, 'endNum', numAttr(rangePrEl, 'endNum'));
+    addProp(rp, 'startDate', attr(rangePrEl, 'startDate'));
+    addProp(rp, 'endDate', attr(rangePrEl, 'endDate'));
+    addProp(rp, 'groupInterval', numAttr(rangePrEl, 'groupInterval'), 1);
     fg.rangePr = rp;
     hasAny = true;
   }

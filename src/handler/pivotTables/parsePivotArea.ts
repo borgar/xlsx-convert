@@ -1,5 +1,6 @@
 import type { Element } from '@borgar/simple-xml';
 import type { PivotArea, PivotAreaAxis, PivotAreaReference, PivotAreaType } from '@jsfkit/types';
+import { addProp } from '../../utils/addProp.ts';
 import { attr, boolAttr, numAttr } from '../../utils/attr.ts';
 import { parseEnum } from '../../utils/parseEnum.ts';
 
@@ -35,16 +36,14 @@ export function parsePivotArea (elm: Element): PivotArea {
   if (boolAttr(elm, 'grandCol') === true) { area.grandCol = true; }
   if (boolAttr(elm, 'cacheIndex') === true) { area.cacheIndex = true; }
   if (boolAttr(elm, 'outline') === false) { area.outline = false; }
-  const offset = attr(elm, 'offset');
-  if (offset != null) { area.offset = offset; }
+  addProp(area, 'offset', attr(elm, 'offset'));
   if (boolAttr(elm, 'collapsedLevelsAreSubtotals') === true) { area.collapsedLevelsAreSubtotals = true; }
   const axisStr = attr(elm, 'axis');
   if (axisStr != null) {
     const axis = AXIS_VALUES.get(axisStr);
     if (axis) { area.axis = axis; }
   }
-  const fieldPosition = numAttr(elm, 'fieldPosition');
-  if (fieldPosition != null) { area.fieldPosition = fieldPosition; }
+  addProp(area, 'fieldPosition', numAttr(elm, 'fieldPosition'));
 
   // references
   const refsContainer = elm.querySelector('references');

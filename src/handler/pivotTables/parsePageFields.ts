@@ -1,5 +1,6 @@
 import type { Element } from '@borgar/simple-xml';
 import type { PivotPageField } from '@jsfkit/types';
+import { addProp } from '../../utils/addProp.ts';
 import { attr, numAttr } from '../../utils/attr.ts';
 
 export function parsePageFields (root: Element): PivotPageField[] {
@@ -8,22 +9,10 @@ export function parsePageFields (root: Element): PivotPageField[] {
     const pageField: PivotPageField = {
       fieldIndex: numAttr(pf, 'fld', 0),
     };
-    const item = numAttr(pf, 'item');
-    if (item != null) {
-      pageField.selectedItem = item;
-    }
-    const pfName = attr(pf, 'name');
-    if (pfName) {
-      pageField.name = pfName;
-    }
-    const pfCaption = attr(pf, 'cap');
-    if (pfCaption != null) {
-      pageField.caption = pfCaption;
-    }
-    const pfHier = numAttr(pf, 'hier');
-    if (pfHier != null) {
-      pageField.hierarchy = pfHier;
-    }
+    addProp(pageField, 'selectedItem', numAttr(pf, 'item'));
+    addProp(pageField, 'name', attr(pf, 'name'));
+    addProp(pageField, 'caption', attr(pf, 'cap'));
+    addProp(pageField, 'hierarchy', numAttr(pf, 'hier'));
     pageFields.push(pageField);
   }
   return pageFields;

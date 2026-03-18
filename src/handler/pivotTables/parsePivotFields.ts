@@ -1,5 +1,6 @@
 import type { Element } from '@borgar/simple-xml';
 import type { PivotField, PivotFieldItem, PivotSubtotalFunction } from '@jsfkit/types';
+import { addProp } from '../../utils/addProp.ts';
 import { attr, boolAttr, numAttr } from '../../utils/attr.ts';
 import { parseEnum } from '../../utils/parseEnum.ts';
 import type { NumFmtLookup } from './NumFmtLookup.ts';
@@ -11,8 +12,7 @@ export function parsePivotFields (root: Element, numFmts?: NumFmtLookup): PivotF
   const fields: PivotField[] = [];
   for (const pf of root.querySelectorAll('pivotFields > pivotField')) {
     const field: PivotField = {};
-    const pfName = attr(pf, 'name');
-    if (pfName != null) { field.name = pfName; }
+    addProp(field, 'name', attr(pf, 'name'));
     const axis = attr(pf, 'axis');
     if (axis === 'axisRow') {
       field.axis = 'row';
@@ -45,22 +45,13 @@ export function parsePivotFields (root: Element, numFmts?: NumFmtLookup): PivotF
       const items: PivotFieldItem[] = [];
       for (const item of itemsContainer.getElementsByTagName('item')) {
         const fi: PivotFieldItem = {};
-        const x = numAttr(item, 'x');
-        if (x != null) {
-          fi.itemIndex = x;
-        }
-        const t = parseEnum(attr(item, 't'), ITEM_TYPES);
-        if (t != null) {
-          fi.itemType = t;
-        }
+        addProp(fi, 'itemIndex', numAttr(item, 'x'));
+        addProp(fi, 'itemType', parseEnum(attr(item, 't'), ITEM_TYPES));
         const h = boolAttr(item, 'h');
         if (h === true) {
           fi.hidden = true;
         }
-        const n = attr(item, 'n');
-        if (n != null) {
-          fi.name = n;
-        }
+        addProp(fi, 'name', attr(item, 'n'));
         if (boolAttr(item, 'sd') === false) {
           fi.expanded = false;
         }
@@ -112,8 +103,7 @@ export function parsePivotFields (root: Element, numFmts?: NumFmtLookup): PivotF
       [ 'defaultAttributeDrillState', true ],
     ]);
 
-    const subtotalCaption = attr(pf, 'subtotalCaption');
-    if (subtotalCaption != null) { field.subtotalCaption = subtotalCaption; }
+    addProp(field, 'subtotalCaption', attr(pf, 'subtotalCaption'));
     const pfNumFmtId = numAttr(pf, 'numFmtId');
     if (pfNumFmtId != null && numFmts) {
       const fmt = numFmts[pfNumFmtId];
@@ -121,14 +111,10 @@ export function parsePivotFields (root: Element, numFmts?: NumFmtLookup): PivotF
         field.numFmt = fmt;
       }
     }
-    const itemPageCount = numAttr(pf, 'itemPageCount');
-    if (itemPageCount != null && itemPageCount !== 10) { field.itemPageCount = itemPageCount; }
-    const dataSourceSort = boolAttr(pf, 'dataSourceSort');
-    if (dataSourceSort != null) { field.dataSourceSort = dataSourceSort; }
-    const rankBy = numAttr(pf, 'rankBy');
-    if (rankBy != null) { field.rankBy = rankBy; }
-    const uniqueMemberProperty = attr(pf, 'uniqueMemberProperty');
-    if (uniqueMemberProperty != null) { field.uniqueMemberProperty = uniqueMemberProperty; }
+    addProp(field, 'itemPageCount', numAttr(pf, 'itemPageCount'), 10);
+    addProp(field, 'dataSourceSort', boolAttr(pf, 'dataSourceSort'));
+    addProp(field, 'rankBy', numAttr(pf, 'rankBy'));
+    addProp(field, 'uniqueMemberProperty', attr(pf, 'uniqueMemberProperty'));
 
     // autoSortScope: pivot area defining the sort key
     const autoSortScopeEl = pf.querySelector('autoSortScope');
