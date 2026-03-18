@@ -11,7 +11,7 @@ function isSkipValue (val: any, skip: any): boolean {
   if (typeof val !== 'object' || typeof skip !== 'object') { return false; }
   if (val.transforms?.length) { return false; }
   for (const key in skip) {
-    if (key !== 'transforms' && val[key] !== skip[key]) { return false; }
+    if (val[key] !== skip[key]) { return false; }
   }
   return true;
 }
