@@ -48,112 +48,89 @@
     "epoch": 1900
   },
   "styles": [
-    {
-      "fontFamily": "Aptos Narrow",
-      "fontScheme": "minor",
-      "fontSize": 12
-    },
+    { "fontScheme": "minor", "fontSize": 12 },
     {
       "textRotation": 135,
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "textRotation": 45,
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "wrapText": true,
       "textRotation": 45,
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "textRotation": 255,
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "textRotation": 90,
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "textRotation": 180,
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "textRotation": 22,
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "wrapText": true,
       "textRotation": 135,
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "wrapText": true,
       "textRotation": 90,
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "wrapText": true,
       "textRotation": 180,
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "wrapText": true,
       "textRotation": 22,
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
-    {
-      "fontFamily": "Aptos Narrow",
-      "fontScheme": "minor",
-      "fontSize": 12
-    },
+    { "fontScheme": "minor", "fontSize": 12 },
     {
       "verticalAlignment": "center",
       "textRotation": 90,
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "verticalAlignment": "center",
       "textRotation": 180,
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "horizontalAlignment": "center",
       "textRotation": 90,
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "horizontalAlignment": "center",
       "textRotation": 180,
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
@@ -161,7 +138,6 @@
       "horizontalAlignment": "left",
       "verticalAlignment": "top",
       "textRotation": 90,
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
@@ -169,19 +145,16 @@
       "horizontalAlignment": "left",
       "verticalAlignment": "top",
       "textRotation": 180,
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "textRotation": 91,
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "textRotation": 1,
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     }

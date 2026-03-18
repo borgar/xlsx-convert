@@ -29,11 +29,7 @@
     "epoch": 1900
   },
   "styles": [
-    {
-      "fontFamily": "Aptos Narrow",
-      "fontScheme": "minor",
-      "fontSize": 12
-    }
+    { "fontScheme": "minor", "fontSize": 12 }
   ],
   "tables": [],
   "views": [

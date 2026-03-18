@@ -33,20 +33,14 @@
     "epoch": 1900
   },
   "styles": [
-    {
-      "fontFamily": "Calibri",
-      "fontScheme": "minor",
-      "fontSize": 12
-    },
+    { "fontScheme": "minor", "fontSize": 12 },
     {
       "numberFormat": "0.00E+00",
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "numberFormat": "0.0%",
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12
     }

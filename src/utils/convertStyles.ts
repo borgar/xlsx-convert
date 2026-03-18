@@ -49,9 +49,11 @@ function convertStyle (styleDefs: StyleDefs, styleIndex: number): Style {
 
   if (style.font) {
     const font = style.font;
-    addStyle(s, 'fontFamily', font.name);
     if (font.scheme) {
       s.fontScheme = font.scheme;
+    }
+    else {
+      addStyle(s, 'fontFamily', font.name);
     }
     addStyle(s, 'fontSize', font.size);
     addStyle(s, 'color', font.color, { type: 'theme', value: 'dk1' });

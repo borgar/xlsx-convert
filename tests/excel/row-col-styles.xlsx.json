@@ -30,19 +30,13 @@
     "epoch": 1900
   },
   "styles": [
+    { "fontScheme": "minor", "fontSize": 12 },
     {
-      "fontFamily": "Aptos Narrow",
-      "fontScheme": "minor",
-      "fontSize": 12
-    },
-    {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "fillColor": { "type": "srgb", "value": "FFFF00" }
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "fillColor": {
@@ -54,7 +48,6 @@
       }
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "fillColor": {
@@ -66,7 +59,6 @@
       }
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "fillColor": {
@@ -78,7 +70,6 @@
       }
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "color": { "type": "srgb", "value": "FF0000" },

@@ -316,14 +316,9 @@
     "epoch": 1900
   },
   "styles": [
-    {
-      "fontFamily": "Tw Cen MT",
-      "fontScheme": "minor",
-      "fontSize": 12
-    },
+    { "fontScheme": "minor", "fontSize": 12 },
     {
       "numberFormat": "yyyy",
-      "fontFamily": "Tw Cen MT",
       "fontScheme": "minor",
       "fontSize": 12,
       "bold": true,

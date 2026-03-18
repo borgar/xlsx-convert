@@ -37,20 +37,14 @@
     "epoch": 1900
   },
   "styles": [
-    {
-      "fontFamily": "Aptos Narrow",
-      "fontScheme": "minor",
-      "fontSize": 12
-    },
+    { "fontScheme": "minor", "fontSize": 12 },
     {
       "numberFormat": "h:mm",
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "numberFormat": "m/d/yy",
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     }

@@ -44,9 +44,9 @@ describe('convertBinary', () => {
       tables: [],
       views: [ {} ],
       styles: [
-        { fontFamily: 'Calibri', fontScheme: 'minor', fontSize: 12 },
-        { fontFamily: 'Calibri', fontScheme: 'minor', fontSize: 12, numberFormat: '0.00E+00' },
-        { fontFamily: 'Calibri', fontScheme: 'minor', fontSize: 12, numberFormat: '0.0%' },
+        { fontScheme: 'minor', fontSize: 12 },
+        { fontScheme: 'minor', fontSize: 12, numberFormat: '0.00E+00' },
+        { fontScheme: 'minor', fontSize: 12, numberFormat: '0.0%' },
       ],
       theme: {
         name: 'Office Theme',

@@ -377,37 +377,25 @@
     "epoch": 1900
   },
   "styles": [
+    { "fontScheme": "minor", "fontSize": 12 },
+    { "fontScheme": "minor", "fontSize": 12 },
     {
-      "fontFamily": "Aptos Narrow",
-      "fontScheme": "minor",
-      "fontSize": 12
-    },
-    {
-      "fontFamily": "Aptos Narrow",
-      "fontScheme": "minor",
-      "fontSize": 12
-    },
-    {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "thin"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "thin",
       "borderLeftStyle": "thin"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderLeftStyle": "thin"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "thin",
@@ -415,27 +403,23 @@
       "borderRightStyle": "thin"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderLeftStyle": "thin",
       "borderRightStyle": "thin"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "thin"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "thin",
       "borderLeftStyle": "thin"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "thin",

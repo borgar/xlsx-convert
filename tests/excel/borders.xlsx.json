@@ -90,42 +90,29 @@
     "epoch": 1900
   },
   "styles": [
+    { "fontScheme": "minor", "fontSize": 12 },
+    { "fontScheme": "minor", "fontSize": 12 },
     {
-      "fontFamily": "Calibri",
-      "fontScheme": "minor",
-      "fontSize": 12
-    },
-    {
-      "fontFamily": "Calibri",
-      "fontScheme": "minor",
-      "fontSize": 12
-    },
-    {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "thin"
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "thin"
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderLeftStyle": "thin"
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderRightStyle": "thin"
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "thin",
@@ -134,75 +121,64 @@
       "borderRightStyle": "thin"
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "thin",
       "borderLeftStyle": "thin"
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "thin",
       "borderRightStyle": "thin"
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "thin",
       "borderLeftStyle": "thin"
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "thin",
       "borderRightStyle": "thin"
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "medium",
       "borderLeftStyle": "medium"
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "medium",
       "borderRightStyle": "medium"
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "medium",
       "borderLeftStyle": "medium"
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "medium",
       "borderRightStyle": "medium"
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "double"
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "medium"
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "dotted",
@@ -214,13 +190,8 @@
       "borderRightStyle": "dotted",
       "borderRightColor": { "type": "auto" }
     },
+    { "fontScheme": "minor", "fontSize": 12 },
     {
-      "fontFamily": "Calibri",
-      "fontScheme": "minor",
-      "fontSize": 12
-    },
-    {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "dashDot",
@@ -229,7 +200,6 @@
       "borderRightColor": { "type": "theme", "value": "accent1" }
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "dashDot",
@@ -240,7 +210,6 @@
       "borderRightColor": { "type": "theme", "value": "accent1" }
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "dashDot",
@@ -253,7 +222,6 @@
       "borderRightColor": { "type": "theme", "value": "accent1" }
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "dashDot",
@@ -264,7 +232,6 @@
       "borderRightColor": { "type": "theme", "value": "accent1" }
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderLeftStyle": "dashDot",
@@ -273,7 +240,6 @@
       "borderRightColor": { "type": "srgb", "value": "00B050" }
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "mediumDashed",
@@ -282,7 +248,6 @@
       "borderRightColor": { "type": "srgb", "value": "00B050" }
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "mediumDashed",
@@ -293,7 +258,6 @@
       "borderRightColor": { "type": "srgb", "value": "00B050" }
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "mediumDashed",
@@ -306,7 +270,6 @@
       "borderRightColor": { "type": "srgb", "value": "00B050" }
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "mediumDashed",

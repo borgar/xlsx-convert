@@ -40,13 +40,8 @@
     "epoch": 1900
   },
   "styles": [
+    { "fontScheme": "minor", "fontSize": 12 },
     {
-      "fontFamily": "Calibri",
-      "fontScheme": "minor",
-      "fontSize": 12
-    },
-    {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "color": { "type": "theme", "value": "hlink" },

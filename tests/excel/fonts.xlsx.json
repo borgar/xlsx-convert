@@ -67,62 +67,29 @@
     "epoch": 1900
   },
   "styles": [
-    {
-      "fontFamily": "Calibri",
-      "fontScheme": "minor",
-      "fontSize": 12
-    },
+    { "fontScheme": "minor", "fontSize": 12 },
     { "fontFamily": "Helvetica", "fontSize": 12 },
     { "fontFamily": "Georgia", "fontSize": 12 },
-    {
-      "fontFamily": "Calibri",
-      "fontScheme": "minor",
-      "fontSize": 10
-    },
+    { "fontScheme": "minor", "fontSize": 10 },
     { "fontFamily": "Georgia", "fontSize": 10 },
     { "fontFamily": "Helvetica", "fontSize": 10 },
-    {
-      "fontFamily": "Calibri",
-      "fontScheme": "minor",
-      "fontSize": 11
-    },
+    { "fontScheme": "minor", "fontSize": 11 },
     { "fontFamily": "Georgia", "fontSize": 11 },
     { "fontFamily": "Helvetica", "fontSize": 11 },
-    {
-      "fontFamily": "Calibri",
-      "fontScheme": "minor",
-      "fontSize": 12
-    },
-    {
-      "fontFamily": "Calibri",
-      "fontScheme": "minor",
-      "fontSize": 14
-    },
+    { "fontScheme": "minor", "fontSize": 12 },
+    { "fontScheme": "minor", "fontSize": 14 },
     { "fontFamily": "Georgia", "fontSize": 14 },
     { "fontFamily": "Helvetica", "fontSize": 14 },
-    {
-      "fontFamily": "Calibri",
-      "fontScheme": "minor",
-      "fontSize": 16
-    },
+    { "fontScheme": "minor", "fontSize": 16 },
     { "fontFamily": "Georgia", "fontSize": 16 },
     { "fontFamily": "Helvetica", "fontSize": 16 },
-    {
-      "fontFamily": "Calibri",
-      "fontScheme": "minor",
-      "fontSize": 18
-    },
+    { "fontScheme": "minor", "fontSize": 18 },
     { "fontFamily": "Georgia", "fontSize": 18 },
     { "fontFamily": "Helvetica", "fontSize": 18 },
-    {
-      "fontFamily": "Calibri",
-      "fontScheme": "minor",
-      "fontSize": 20
-    },
+    { "fontScheme": "minor", "fontSize": 20 },
     { "fontFamily": "Georgia", "fontSize": 20 },
     { "fontFamily": "Helvetica", "fontSize": 20 },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "bold": true

@@ -1178,40 +1178,31 @@
     "epoch": 1900
   },
   "styles": [
-    {
-      "fontFamily": "Calibri",
-      "fontScheme": "minor",
-      "fontSize": 12
-    },
+    { "fontScheme": "minor", "fontSize": 12 },
     {
       "horizontalAlignment": "center",
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "color": { "type": "theme", "value": "lt1" },
       "fillColor": { "type": "theme", "value": "dk2" }
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "color": { "type": "theme", "value": "lt1" }
     },
     {
       "horizontalAlignment": "center",
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "fillColor": { "type": "theme", "value": "accent4" }
     },
     {
       "horizontalAlignment": "center",
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12
     }

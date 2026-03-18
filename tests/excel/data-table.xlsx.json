@@ -73,26 +73,19 @@
     "epoch": 1900
   },
   "styles": [
-    {
-      "fontFamily": "Aptos Narrow",
-      "fontScheme": "minor",
-      "fontSize": 12
-    },
+    { "fontScheme": "minor", "fontSize": 12 },
     {
       "numberFormat": "0.00%",
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "numberFormat": "\"$\"#,##0_);[Red]\\(\"$\"#,##0\\)",
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     },
     {
       "numberFormat": "\"$\"#,##0.00_);[Red]\\(\"$\"#,##0.00\\)",
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12
     }

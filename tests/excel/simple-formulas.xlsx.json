@@ -81,38 +81,26 @@
     "epoch": 1900
   },
   "styles": [
-    {
-      "fontFamily": "Calibri",
-      "fontScheme": "minor",
-      "fontSize": 12
-    },
-    {
-      "fontFamily": "Calibri",
-      "fontScheme": "minor",
-      "fontSize": 12
-    },
+    { "fontScheme": "minor", "fontSize": 12 },
+    { "fontScheme": "minor", "fontSize": 12 },
     {
       "horizontalAlignment": "center",
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "bold": true,
       "borderBottomStyle": "thin"
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderRightStyle": "thin"
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "thin"
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderBottomStyle": "thin",
@@ -120,7 +108,6 @@
     },
     {
       "horizontalAlignment": "right",
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "bold": true,
@@ -128,21 +115,18 @@
     },
     {
       "numberFormat": "0.0",
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "bold": true,
       "fillColor": { "type": "theme", "value": "lt2" }
     },
     {
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "borderTopStyle": "thin"
     },
     {
       "horizontalAlignment": "center",
-      "fontFamily": "Calibri",
       "fontScheme": "minor",
       "fontSize": 12,
       "bold": true,

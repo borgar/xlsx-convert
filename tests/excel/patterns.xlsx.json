@@ -1774,109 +1774,88 @@
     "epoch": 1900
   },
   "styles": [
+    { "fontScheme": "minor", "fontSize": 12 },
     {
-      "fontFamily": "Aptos Narrow",
-      "fontScheme": "minor",
-      "fontSize": 12
-    },
-    {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "darkGray"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "mediumGray"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "lightGray"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "gray125"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "gray0625"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "darkHorizontal"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "darkVertical"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "darkDown"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "darkUp"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "darkGrid"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "darkTrellis"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "lightHorizontal"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "lightVertical"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "lightDown"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "lightUp"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "lightGrid"
     },
     {
-      "fontFamily": "Aptos Narrow",
       "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "lightTrellis"
