@@ -7,8 +7,9 @@ import type { Style } from '@jsfkit/types';
  * default) and should be omitted from the output.
  */
 function isSkipValue (val: any, skip: any): boolean {
-  if (val === skip) { return true; }
-  if (typeof val !== 'object' || typeof skip !== 'object') { return false; }
+  if (typeof val !== 'object' || typeof skip !== 'object') {
+    return val === skip;
+  }
   if (val.transforms?.length) { return false; }
   for (const key in skip) {
     if (val[key] !== skip[key]) { return false; }
