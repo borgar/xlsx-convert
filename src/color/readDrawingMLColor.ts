@@ -25,11 +25,11 @@ function readTransforms (elm: Element): ColorTransform[] {
       tagName === 'sat' || tagName === 'satMod' || tagName === 'satOff' ||
       tagName === 'lum' || tagName === 'lumMod' || tagName === 'lumOff' ||
       tagName === 'shade' || tagName === 'tint') {
-      transforms.push({ type: tagName, value: numAttr(opElm, 'val', 0) / 1_000 } as ColorTransform);
+      transforms.push({ type: tagName, value: numAttr(opElm, 'val', 0) / 1000 } as ColorTransform);
     }
     // Degree-based operations (OOXML stores as 1/60,000th of a degree)
     else if (tagName === 'hue' || tagName === 'hueOff') {
-      transforms.push({ type: tagName, value: numAttr(opElm, 'val', 0) / 60_000 } as ColorTransform);
+      transforms.push({ type: tagName, value: numAttr(opElm, 'val', 0) / 60000 } as ColorTransform);
     }
   });
   return transforms;
@@ -55,18 +55,18 @@ export function readDrawingMLColor (elm: Element): JSFColor {
     // OOXML scRGB values are stored as 1/1000th of a percent
     color = {
       type: 'scrgb',
-      red: numAttr(elm, 'r', 0) / 1_000,
-      green: numAttr(elm, 'g', 0) / 1_000,
-      blue: numAttr(elm, 'b', 0) / 1_000,
+      red: numAttr(elm, 'r', 0) / 1000,
+      green: numAttr(elm, 'g', 0) / 1000,
+      blue: numAttr(elm, 'b', 0) / 1000,
     };
   }
   else if (tagName === 'hslClr') {
     // OOXML stores hue as 1/60,000th of a degree, saturation and lightness as 1/1000th of a percent
     color = {
       type: 'hsl',
-      hue: numAttr(elm, 'hue', 0) / 60_000,
-      saturation: numAttr(elm, 'sat', 0) / 1_000,
-      lightness: numAttr(elm, 'lum', 0) / 1_000,
+      hue: numAttr(elm, 'hue', 0) / 60000,
+      saturation: numAttr(elm, 'sat', 0) / 1000,
+      lightness: numAttr(elm, 'lum', 0) / 1000,
     };
   }
   else if (tagName === 'prstClr') {
