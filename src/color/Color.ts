@@ -1,5 +1,5 @@
 import type { Color as JSFColor, Theme } from '@jsfkit/types';
-import { COLOR_INDEX, SCHEME_ALIASES } from '../constants.ts';
+import { SCHEME_ALIASES } from '../constants.ts';
 import { clamp } from '../utils/clamp.ts';
 import { hslToRgb } from './hslToRgb.ts';
 import { parseARGB } from './parseARGB.ts';
@@ -12,7 +12,7 @@ const hexValue = (n: number) => Math.trunc(clamp(0, n, 255)).toString(16).padSta
  * Resolves a JSFKit Color object to an RGBA tuple. Handles all colour types except theme (which
  * requires a theme reference to look up the colour scheme).
  */
-function resolveJSFColorToRGBA (color: JSFColor): RGBA {
+function resolveJSFColorToRGBA (color: JSFColor, indexedColors: string[]): RGBA {
   if (color.type === 'srgb') {
     return parseARGB(color.value);
   }
@@ -32,7 +32,7 @@ function resolveJSFColorToRGBA (color: JSFColor): RGBA {
     return parseARGB(color.value);
   }
   else if (color.type === 'indexed') {
-    return parseARGB(COLOR_INDEX[color.value]);
+    return parseARGB(indexedColors[color.value]);
   }
   // Auto colour or theme colour.
   return [ 0, 0, 0, 1 ];
@@ -41,6 +41,7 @@ function resolveJSFColorToRGBA (color: JSFColor): RGBA {
 export class Color {
   jsfColor: JSFColor;
   theme: Theme;
+  indexedColors: string[];
   /**
    * The resolved RGBA value for this colour, if already computed. Undefined until first resolution.
    * Access this value through {@link Color.resolveRGBA}.
@@ -49,9 +50,10 @@ export class Color {
    */
   _rgba: RGBA | undefined;
 
-  constructor (color: JSFColor, theme: Theme) {
+  constructor (color: JSFColor, theme: Theme, indexedColors: string[]) {
     this.jsfColor = color;
     this.theme = theme;
+    this.indexedColors = indexedColors;
   }
 
   /** Returns the lossless JSFKit Color object. */
@@ -72,14 +74,14 @@ export class Color {
       const key = SCHEME_ALIASES[this.jsfColor.value] ?? this.jsfColor.value;
       const themeColor = this.theme.colorScheme[key];
       if (themeColor) {
-        rgba = resolveJSFColorToRGBA(themeColor);
+        rgba = resolveJSFColorToRGBA(themeColor, this.indexedColors);
         if (themeColor.transforms) {
           rgba = applyColorOps(rgba, themeColor.transforms);
         }
       }
     }
     else {
-      rgba = resolveJSFColorToRGBA(this.jsfColor);
+      rgba = resolveJSFColorToRGBA(this.jsfColor, this.indexedColors);
     }
     if (this.jsfColor.transforms) {
       rgba = applyColorOps(rgba, this.jsfColor.transforms);

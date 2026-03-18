@@ -19,7 +19,7 @@ import { readDrawingMLColor } from './readDrawingMLColor.ts';
  * - `<srgbClr>`
  * - `<sysClr>`
  */
-export function readColor (elm: Element, theme: Theme): Color | undefined {
+export function readColor (elm: Element, theme: Theme, indexedColors: string[]): Color | undefined {
   if (!elm) { return undefined; }
   const tagName = elm.tagName;
   // §3.8.3 - bgColor
@@ -36,7 +36,7 @@ export function readColor (elm: Element, theme: Theme): Color | undefined {
     // - [tint]    - Specifies the tint value applied to the color (-1.0 .. 1.0)
     const auto = attr(elm, 'auto');
     if (auto === '1' || auto === 'true') {
-      return new Color({ type: 'auto' }, theme);
+      return new Color({ type: 'auto' }, theme, indexedColors);
     }
 
     let jsfColor: JSFColor | undefined;
@@ -81,7 +81,7 @@ export function readColor (elm: Element, theme: Theme): Color | undefined {
       jsfColor.transforms = [ { type: 'tint', value: (1 - tint) * 100 } as ColorTransform ];
     }
 
-    return new Color(jsfColor, theme);
+    return new Color(jsfColor, theme, indexedColors);
   }
 
   // DrawingML colour elements — validate, then delegate to readDrawingMLColor()
@@ -92,7 +92,7 @@ export function readColor (elm: Element, theme: Theme): Color | undefined {
     if (val in SCHEME_COLORS) {
       const jsfColor = readDrawingMLColor(elm);
       if (jsfColor) {
-        return new Color(jsfColor, theme);
+        return new Color(jsfColor, theme, indexedColors);
       }
     }
   }
@@ -103,7 +103,7 @@ export function readColor (elm: Element, theme: Theme): Color | undefined {
   else if (tagName === 'hslClr' || tagName === 'srgbClr' || tagName === 'scrgbClr') {
     const jsfColor = readDrawingMLColor(elm);
     if (jsfColor) {
-      return new Color(jsfColor, theme);
+      return new Color(jsfColor, theme, indexedColors);
     }
   }
 
@@ -113,7 +113,7 @@ export function readColor (elm: Element, theme: Theme): Color | undefined {
     if (val in PRESET_COLORS) {
       const jsfColor = readDrawingMLColor(elm);
       if (jsfColor) {
-        return new Color(jsfColor, theme);
+        return new Color(jsfColor, theme, indexedColors);
       }
     }
   }
@@ -127,7 +127,7 @@ export function readColor (elm: Element, theme: Theme): Color | undefined {
       // value that was last computed by the generating application).
       const jsfColor = readDrawingMLColor(elm);
       if (jsfColor) {
-        return new Color(jsfColor, theme);
+        return new Color(jsfColor, theme, indexedColors);
       }
     }
   }
