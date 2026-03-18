@@ -69,13 +69,9 @@ describe('convertBinary', () => {
           name: 'Office',
           major: {
             latin: { typeface: 'Calibri Light' },
-            eastAsian: { typeface: '' },
-            complexScript: { typeface: '' },
           },
           minor: {
             latin: { typeface: 'Calibri' },
-            eastAsian: { typeface: '' },
-            complexScript: { typeface: '' },
           },
         },
       },

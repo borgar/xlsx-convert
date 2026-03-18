@@ -50,14 +50,16 @@ function extractFontCollection (fontCollection: XMLElement) {
     },
   };
   if (eastAsian) {
-    font.eastAsian = {
-      typeface: attr(eastAsian, 'typeface', ''),
-    };
+    const typeface = attr(eastAsian, 'typeface');
+    if (typeface) {
+      font.eastAsian = { typeface };
+    }
   }
   if (complexScript) {
-    font.complexScript = {
-      typeface: attr(complexScript, 'typeface', ''),
-    };
+    const typeface = attr(complexScript, 'typeface');
+    if (typeface) {
+      font.complexScript = { typeface };
+    }
   }
   return font;
 }

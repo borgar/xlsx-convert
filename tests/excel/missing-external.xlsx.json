@@ -73,14 +73,10 @@
     "fontScheme": {
       "name": "Office",
       "major": {
-        "latin": { "typeface": "Aptos Display" },
-        "eastAsian": { "typeface": "" },
-        "complexScript": { "typeface": "" }
+        "latin": { "typeface": "Aptos Display" }
       },
       "minor": {
-        "latin": { "typeface": "Aptos Narrow" },
-        "eastAsian": { "typeface": "" },
-        "complexScript": { "typeface": "" }
+        "latin": { "typeface": "Aptos Narrow" }
       }
     }
   },

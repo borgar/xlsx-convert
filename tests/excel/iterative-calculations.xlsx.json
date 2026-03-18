@@ -102,14 +102,10 @@
     "fontScheme": {
       "name": "Office",
       "major": {
-        "latin": { "typeface": "Calibri Light" },
-        "eastAsian": { "typeface": "" },
-        "complexScript": { "typeface": "" }
+        "latin": { "typeface": "Calibri Light" }
       },
       "minor": {
-        "latin": { "typeface": "Calibri" },
-        "eastAsian": { "typeface": "" },
-        "complexScript": { "typeface": "" }
+        "latin": { "typeface": "Calibri" }
       }
     }
   },
