@@ -1,12 +1,15 @@
 import { Color } from '../color/Color.ts';
 import type { StyleDefs } from '../handler/styles.ts';
-import type { Style } from '@jsfkit/types';
+import type { Color as JSFColor, Style } from '@jsfkit/types';
+
+/** Style values that can (potentially) be omitted. */
+type SkipValue = string | number | boolean | JSFColor | null;
 
 /**
  * Checks whether a style value matches a "skippable" value (i.e. something that will be applied by
  * default) and should be omitted from the output.
  */
-function isSkipValue (val: any, skip: any): boolean {
+function isSkipValue (val: any, skip: SkipValue): boolean {
   if (typeof val !== 'object' || typeof skip !== 'object') {
     return val === skip;
   }
@@ -17,7 +20,7 @@ function isSkipValue (val: any, skip: any): boolean {
   return true;
 }
 
-const addStyle = (obj: Style, key: string, val: any, skip: any = null): number => {
+const addStyle = (obj: Style, key: string, val: any, skip: SkipValue = null): number => {
   if (val == null) {
     return 0;
   }
