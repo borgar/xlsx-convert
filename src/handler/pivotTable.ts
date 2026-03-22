@@ -96,9 +96,9 @@ export function handlerPivotTable (dom: Document, numFmts?: NumFmtLookup): Pivot
   if (style) {
     pt.style = style;
   }
-  addProp(pt, 'rowGrandTotals', rowGrandTotals);
-  addProp(pt, 'colGrandTotals', colGrandTotals);
-  addProp(pt, 'autoRefresh', autoRefresh);
+  addProp(pt, 'rowGrandTotals', rowGrandTotals, true);
+  addProp(pt, 'colGrandTotals', colGrandTotals, true);
+  addProp(pt, 'autoRefresh', autoRefresh, false);
 
   // Boolean table-level attributes (non-default values only)
   readBoolAttrs(pt, root, [
