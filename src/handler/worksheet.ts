@@ -1,6 +1,6 @@
 import type { GridSize, Worksheet, WorksheetLayoutScales, WorksheetView } from '@jsfkit/types';
 import { Document, Element } from '@borgar/simple-xml';
-import { attr, numAttr } from '../utils/attr.ts';
+import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { rle } from '../utils/rle.ts';
 import { handlerCell, relevantStyle } from './cell.ts';
 import { ConversionContext } from '../ConversionContext.ts';
@@ -10,6 +10,7 @@ import { fromA1 } from '../utils/fromA1.ts';
 import { toA1 } from '../utils/toA1.ts';
 import { getFirstChild } from '../utils/getFirstChild.ts';
 import { toInt } from '../utils/typecast.ts';
+import { addProp } from '../utils/addProp.ts';
 
 /**
  * Extracts zoom levels (layout scales) for the different view modes for a sheet.
@@ -28,8 +29,11 @@ function getLayoutScales (sheetView: Element): WorksheetLayoutScales | null {
   return (normalScale ?? pageLayoutScale ?? pageBreakPreviewScale) != null ? scales : null;
 }
 
-function gridSize (start: number, end: number, size: number, style?: number): GridSize {
-  const item: GridSize = { start, end, size };
+function gridSize (start: number, end: number, size?: number, style?: number): GridSize {
+  const item: GridSize = { start, end };
+  if (size != null) {
+    item.size = size;
+  }
   if (style != null) {
     item.s = style;
   }
@@ -57,18 +61,12 @@ export function handlerWorksheet (
     hidden: context.sheetLinks.find(link => link.name === sheetName)?.hidden ?? 0,
   };
 
-  const sheetViews = dom.querySelectorAll('sheetViews > sheetView');
-  const firstSheetView = sheetViews[0];
-  // FIXME: showGridLines should be stored on the sheet view.
-  if (firstSheetView && attr(firstSheetView, 'showGridLines') === '0') {
-    sheet.showGridLines = false;
-  }
-
   // Store last selected cell and/or range (both optional) for each of the sheet's view. A sheet
   // view may be split into four panes, although of course most aren't. But to cover that case we
   // need to find the active pane then find its active cell. When there's only one pane (i.e. almost
   // all spreadsheets), you look for the default pane, "topLeft".
   const views: WorksheetView[] = [];
+  const sheetViews = dom.querySelectorAll('sheetViews > sheetView');
   sheetViews.forEach(sheetView => {
     const view: WorksheetView = { workbookView: toInt(attr(sheetView, 'workbookViewId')) ?? 0 };
     const activeLayout = attr(sheetView, 'view');
@@ -89,10 +87,9 @@ export function handlerWorksheet (
         view.activeRanges = activeRanges;
       }
     }
-    const layoutScales = getLayoutScales(sheetView);
-    if (layoutScales) {
-      view.layoutScales = layoutScales;
-    }
+    addProp(view, 'showGridLines', boolAttr(sheetView, 'showGridLines'), true);
+    addProp(view, 'layoutScales', getLayoutScales(sheetView));
+
     // Filter out views that contain only a workbook view id with no actual view state data. An id
     // alone isn't useful since it's just an index pointer. We only keep views that have at least
     // one piece of meaningful, non-default, data.
@@ -132,8 +129,7 @@ export function handlerWorksheet (
     if (min == null || max == null) { return; }
     const style = numAttr(d, 'style');
     const hidden = numAttr(d, 'hidden', 0);
-    // FIXME: GridSize.size should be optional: https://github.com/jsfkit/types/issues/14
-    const size = colWidth(hidden ? 0 : numAttr(d, 'width', sheet.defaults.colWidth));
+    const size = colWidth(hidden ? 0 : numAttr(d, 'width'));
     sheet.columns.push(gridSize(min, max, size, style));
   });
 

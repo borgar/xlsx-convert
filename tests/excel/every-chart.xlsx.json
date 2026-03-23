@@ -35,7 +35,7 @@
           ]
         }
       ],
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",
@@ -407,7 +407,7 @@
           ]
         }
       ],
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",
@@ -768,7 +768,7 @@
       "views": [
         { "workbookView": 0, "activeCell": "K18" }
       ],
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",
@@ -912,7 +912,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "drawing": []
+      "drawings": []
     },
     {
       "name": "Statistical",
@@ -940,7 +940,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "drawing": []
+      "drawings": []
     },
     {
       "name": "XY",
@@ -968,7 +968,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",
@@ -1271,7 +1271,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",
@@ -1392,7 +1392,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "drawing": []
+      "drawings": []
     },
     {
       "name": "Surface",
@@ -1420,7 +1420,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",
@@ -1546,7 +1546,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",
@@ -1644,7 +1644,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",
@@ -1742,7 +1742,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "drawing": []
+      "drawings": []
     }
   ],
   "names": [],
@@ -1753,12 +1753,39 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+    { "fontScheme": "minor", "fontSize": 12 }
   ],
   "tables": [],
   "views": [
     { "activeSheet": 2 }
   ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "lt1": { "type": "system", "value": "window" },
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "dk2": { "type": "srgb", "value": "0E2841" },
+      "accent1": { "type": "srgb", "value": "156082" },
+      "accent2": { "type": "srgb", "value": "E97132" },
+      "accent3": { "type": "srgb", "value": "196B24" },
+      "accent4": { "type": "srgb", "value": "0F9ED5" },
+      "accent5": { "type": "srgb", "value": "A02B93" },
+      "accent6": { "type": "srgb", "value": "4EA72E" },
+      "hlink": { "type": "srgb", "value": "467886" },
+      "folHlink": { "type": "srgb", "value": "96607D" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Aptos Display" }
+      },
+      "minor": {
+        "latin": { "typeface": "Aptos Narrow" }
+      }
+    }
+  },
   "formulas": [
     "RANDBETWEEN(1,100)"
   ]

@@ -84,336 +84,336 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontFamily": "Calibri", "fontSize": 12 },
-    { "fontFamily": "Calibri", "fontSize": 12 },
+    { "fontScheme": "minor", "fontSize": 12 },
+    { "fontScheme": "minor", "fontSize": 12 },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#C00000"
+      "color": { "type": "srgb", "value": "C00000" }
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#F00"
+      "color": { "type": "srgb", "value": "FF0000" }
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#FFC000"
+      "color": { "type": "srgb", "value": "FFC000" }
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#FF0"
+      "color": { "type": "srgb", "value": "FFFF00" }
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#92D050"
+      "color": { "type": "srgb", "value": "92D050" }
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#00B050"
+      "color": { "type": "srgb", "value": "00B050" }
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#00B0F0"
+      "color": { "type": "srgb", "value": "00B0F0" }
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#0070C0"
+      "color": { "type": "srgb", "value": "0070C0" }
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#002060"
+      "color": { "type": "srgb", "value": "002060" }
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#7030A0"
+      "color": { "type": "srgb", "value": "7030A0" }
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "bold": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "underline": "single"
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
       "underline": "single",
       "bold": true,
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#C00000",
+      "color": { "type": "srgb", "value": "C00000" },
       "bold": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#F00",
+      "color": { "type": "srgb", "value": "FF0000" },
       "bold": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#FFC000",
+      "color": { "type": "srgb", "value": "FFC000" },
       "bold": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#FF0",
+      "color": { "type": "srgb", "value": "FFFF00" },
       "bold": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#92D050",
+      "color": { "type": "srgb", "value": "92D050" },
       "bold": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#00B050",
+      "color": { "type": "srgb", "value": "00B050" },
       "bold": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#00B0F0",
+      "color": { "type": "srgb", "value": "00B0F0" },
       "bold": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#0070C0",
+      "color": { "type": "srgb", "value": "0070C0" },
       "bold": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#002060",
+      "color": { "type": "srgb", "value": "002060" },
       "bold": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#7030A0",
+      "color": { "type": "srgb", "value": "7030A0" },
       "bold": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#C00000",
+      "color": { "type": "srgb", "value": "C00000" },
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#F00",
+      "color": { "type": "srgb", "value": "FF0000" },
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#FFC000",
+      "color": { "type": "srgb", "value": "FFC000" },
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#FF0",
+      "color": { "type": "srgb", "value": "FFFF00" },
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#92D050",
+      "color": { "type": "srgb", "value": "92D050" },
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#00B050",
+      "color": { "type": "srgb", "value": "00B050" },
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#00B0F0",
+      "color": { "type": "srgb", "value": "00B0F0" },
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#0070C0",
+      "color": { "type": "srgb", "value": "0070C0" },
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#002060",
+      "color": { "type": "srgb", "value": "002060" },
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#7030A0",
+      "color": { "type": "srgb", "value": "7030A0" },
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#C00000",
+      "color": { "type": "srgb", "value": "C00000" },
       "underline": "single"
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#F00",
+      "color": { "type": "srgb", "value": "FF0000" },
       "underline": "single"
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#FFC000",
+      "color": { "type": "srgb", "value": "FFC000" },
       "underline": "single"
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#FF0",
+      "color": { "type": "srgb", "value": "FFFF00" },
       "underline": "single"
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#92D050",
+      "color": { "type": "srgb", "value": "92D050" },
       "underline": "single"
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#00B050",
+      "color": { "type": "srgb", "value": "00B050" },
       "underline": "single"
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#00B0F0",
+      "color": { "type": "srgb", "value": "00B0F0" },
       "underline": "single"
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#0070C0",
+      "color": { "type": "srgb", "value": "0070C0" },
       "underline": "single"
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#002060",
+      "color": { "type": "srgb", "value": "002060" },
       "underline": "single"
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#7030A0",
+      "color": { "type": "srgb", "value": "7030A0" },
       "underline": "single"
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#C00000",
+      "color": { "type": "srgb", "value": "C00000" },
       "underline": "single",
       "bold": true,
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#F00",
+      "color": { "type": "srgb", "value": "FF0000" },
       "underline": "single",
       "bold": true,
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#FFC000",
+      "color": { "type": "srgb", "value": "FFC000" },
       "underline": "single",
       "bold": true,
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#FF0",
+      "color": { "type": "srgb", "value": "FFFF00" },
       "underline": "single",
       "bold": true,
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#92D050",
+      "color": { "type": "srgb", "value": "92D050" },
       "underline": "single",
       "bold": true,
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#00B050",
+      "color": { "type": "srgb", "value": "00B050" },
       "underline": "single",
       "bold": true,
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#00B0F0",
+      "color": { "type": "srgb", "value": "00B0F0" },
       "underline": "single",
       "bold": true,
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#0070C0",
+      "color": { "type": "srgb", "value": "0070C0" },
       "underline": "single",
       "bold": true,
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#002060",
+      "color": { "type": "srgb", "value": "002060" },
       "underline": "single",
       "bold": true,
       "italic": true
     },
     {
-      "fontFamily": "Calibri",
+      "fontScheme": "minor",
       "fontSize": 12,
-      "color": "#7030A0",
+      "color": { "type": "srgb", "value": "7030A0" },
       "underline": "single",
       "bold": true,
       "italic": true
@@ -423,5 +423,32 @@
   "views": [
     {}
   ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "lt1": { "type": "system", "value": "window" },
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt2": { "type": "srgb", "value": "E7E6E6" },
+      "dk2": { "type": "srgb", "value": "44546A" },
+      "accent1": { "type": "srgb", "value": "4472C4" },
+      "accent2": { "type": "srgb", "value": "ED7D31" },
+      "accent3": { "type": "srgb", "value": "A5A5A5" },
+      "accent4": { "type": "srgb", "value": "FFC000" },
+      "accent5": { "type": "srgb", "value": "5B9BD5" },
+      "accent6": { "type": "srgb", "value": "70AD47" },
+      "hlink": { "type": "srgb", "value": "0563C1" },
+      "folHlink": { "type": "srgb", "value": "954F72" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Calibri Light" }
+      },
+      "minor": {
+        "latin": { "typeface": "Calibri" }
+      }
+    }
+  },
   "formulas": []
 }

@@ -3,7 +3,7 @@ import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { handlerCell } from './cell.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { ConversionContext } from '../ConversionContext.ts';
-import type { External, DefinedName } from '@jsfkit/types';
+import type { External, ExternalDefinedName } from '@jsfkit/types';
 
 const NO_EXTERNALS = { externalLinks: [] };
 
@@ -49,7 +49,7 @@ export function handlerExternal (dom: Document, fileName: string = ''): External
   // read defined names
   dom.querySelectorAll('definedNames > definedName')
     .forEach(definedName => {
-      const nameDef: DefinedName = {
+      const nameDef: ExternalDefinedName = {
         name: attr(definedName, 'name'),
       };
       const expr = attr(definedName, 'refersTo');

@@ -1,6 +1,6 @@
 import type { GridSize } from '@jsfkit/types';
 
-export function rle (list: GridSize[], defaultValue: number): GridSize[] {
+export function rle (list: GridSize[], defaultSize: number): GridSize[] {
   let lastItem: GridSize = {
     start: NaN,
     end: NaN,
@@ -21,8 +21,10 @@ export function rle (list: GridSize[], defaultValue: number): GridSize[] {
         current = {
           start: item.start,
           end: item.end,
-          size: item.size,
         };
+        if (item.size != null) {
+          current.size = item.size;
+        }
         if (item.s != null) {
           current.s = item.s;
         }
@@ -32,8 +34,8 @@ export function rle (list: GridSize[], defaultValue: number): GridSize[] {
       return newList;
     }, [])
     .filter(d => {
-      const defaultSize = d.size !== defaultValue;
+      const hasSize = d.size != null && d.size !== defaultSize;
       const hasStyle = d.s != null;
-      return defaultSize || hasStyle;
+      return hasSize || hasStyle;
     });
 }
