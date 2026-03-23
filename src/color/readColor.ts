@@ -1,41 +1,9 @@
 import type { Element } from '@borgar/simple-xml';
+import type { Color as JSFColor, ColorTransform, Theme } from '@jsfkit/types';
 import { attr, numAttr } from '../utils/attr.ts';
-import type { Theme } from '../handler/theme.ts';
 import { Color } from './Color.ts';
-import { SYSTEM_COLORS, PRESET_COLORS, SCHEME_COLORS } from '../constants.ts';
-import { parseARGB } from './parseARGB.ts';
-
-function addOps (elm: Element, color: Color): Color {
-  elm.children.forEach(opElm => {
-    const tagName = opElm?.tagName;
-    // booleans
-    if (tagName === 'comp' || tagName === 'gamma' || tagName === 'invGamma' ||
-        tagName === 'gray' || tagName === 'inv') {
-      color.ops.push({ type: tagName });
-    }
-    // [0-1]
-    else if (
-      tagName === 'alpha' || tagName === 'alphaMod' || tagName === 'alphaOff' ||
-      tagName === 'blueMod' || tagName === 'blueOff' ||
-      tagName === 'greenMod' || tagName === 'greenOff' ||
-      tagName === 'redMod' || tagName === 'redOff' ||
-      tagName === 'hueMod' || tagName === 'hueOff' ||
-      tagName === 'sat' || tagName === 'satMod' || tagName === 'satOff' ||
-      tagName === 'lum' || tagName === 'lumMod' || tagName === 'lumOff' ||
-      tagName === 'shade' || tagName === 'tint') {
-      color.ops.push({ type: tagName, value: numAttr(opElm, 'val', 0) / 100000 });
-    }
-    // [0-360]
-    else if (tagName === 'hue') {
-      color.ops.push({ type: tagName, value: numAttr(opElm, 'val', 0) / 100000 });
-    }
-    // [0-255]
-    else if (tagName === 'blue' || tagName === 'green' || tagName === 'red') {
-      color.ops.push({ type: tagName, value: numAttr(opElm, 'val', 0) / 100000 });
-    }
-  });
-  return color;
-}
+import { SYSTEM_COLORS, PRESET_COLORS, SCHEME_COLORS, INDEX_TO_SCHEME } from '../constants.ts';
+import { readDrawingMLColor } from './readDrawingMLColor.ts';
 
 /**
  * Reads a color element and returns a Color container. This should handle any of the
@@ -51,13 +19,13 @@ function addOps (elm: Element, color: Color): Color {
  * - `<srgbClr>`
  * - `<sysClr>`
  */
-export function readColor (elm: Element, theme: Theme): Color | undefined {
-  const tagName = elm?.tagName;
+export function readColor (elm: Element, theme: Theme, indexedColors: string[]): Color | undefined {
+  if (!elm) { return undefined; }
+  const tagName = elm.tagName;
   // §3.8.3 - bgColor
   // §3.8.18 - fgColor
   // §3.3.1.14 - color
   if (tagName === 'color' || tagName === 'fgColor' || tagName === 'bgColor') {
-    const color = new Color(theme);
     // Element may have any of the following attributes:
     // - [auto]    - A boolean value indicating the color is automatic and system color dependent.
     // - [indexed] - References a color in indexedColors.
@@ -66,96 +34,95 @@ export function readColor (elm: Element, theme: Theme): Color | undefined {
     //               <srgbClr> value expressed in the Theme part.
     // As well as:
     // - [tint]    - Specifies the tint value applied to the color (-1.0 .. 1.0)
+    const auto = attr(elm, 'auto');
+    if (auto === '1' || auto === 'true') {
+      return new Color({ type: 'auto' }, theme, indexedColors);
+    }
+
+    let jsfColor: JSFColor | undefined;
     const argb = attr(elm, 'rgb', ''); // ARGB
     if (argb) {
-      color.type = 'rgb';
-      color.rgba = parseARGB(argb);
+      // Convert ARGB to 6-digit sRGB hex. If the alpha byte is not fully opaque, preserve it as an
+      // alpha transform since SrgbColor has no alpha field.
+      const hex = argb.length === 8 ? argb.slice(2) : argb;
+      jsfColor = { type: 'srgb', value: hex.toUpperCase() };
+      if (argb.length === 8) {
+        const alphaPct = parseInt(argb.slice(0, 2), 16) / 255 * 100;
+        if (alphaPct < 100) {
+          jsfColor.transforms = [ { type: 'alpha', value: alphaPct } ];
+        }
+      }
     }
     else {
       const indexed = attr(elm, 'indexed', '');
       if (indexed) {
-        color.type = 'index';
-        color.value = indexed;
+        jsfColor = { type: 'indexed', value: +indexed };
       }
       else {
         // theme: A zero-based index into the <clrScheme> collection (§20.1.6.2),
         //        referencing a particular <sysClr> or <srgbClr> value expressed
         //        in the Theme part.
-        const _theme = attr(elm, 'theme');
-        if (_theme && theme) {
-          color.type = 'theme';
-          color.value = _theme;
+        const themeIdx = attr(elm, 'theme');
+        if (themeIdx && theme) {
+          const key = INDEX_TO_SCHEME[+themeIdx];
+          if (key) {
+            jsfColor = { type: 'theme', value: key } as JSFColor;
+          }
         }
       }
     }
+
+    if (!jsfColor) {
+      return undefined;
+    }
+
+    // Convert the XLSX tint attribute to a shade or tint colour transform. XLSX tint is the
+    // proportion shifted towards white (positive) or black (negative), but the internal
+    // ColorTransform value uses the DrawingML convention: the percentage of the original
+    // colour to retain. So XLSX tint=0.4 ("add 40% white") becomes value=60 ("retain 60%").
     const tint = numAttr(elm, 'tint', 0);
     if (tint < 0) {
-      color.ops.push({ type: 'shade', value: -tint });
+      jsfColor.transforms = [ { type: 'shade', value: (1 + tint) * 100 } as ColorTransform ];
     }
     else if (tint > 0) {
-      color.ops.push({ type: 'tint', value: tint });
+      jsfColor.transforms = [ { type: 'tint', value: (1 - tint) * 100 } as ColorTransform ];
     }
-    return color;
+
+    return new Color(jsfColor, theme, indexedColors);
   }
+
+  // DrawingML colour elements — validate, then delegate to readDrawingMLColor()
 
   // §5.1.2.2.29: Scheme Color - "specifies a color bound to a user's theme"
   else if (tagName === 'schemeClr') {
     const val = attr(elm, 'val');
     if (val in SCHEME_COLORS) {
-      const color = new Color(theme);
-      color.type = 'theme';
-      color.value = SCHEME_COLORS[val] ?? SCHEME_COLORS.phClr;
-      return addOps(elm, color);
+      const jsfColor = readDrawingMLColor(elm);
+      if (jsfColor) {
+        return new Color(jsfColor, theme, indexedColors);
+      }
     }
   }
 
   // §5.1.2.2.13: HSL Color Model - "a perceptual gamma of 2.2 is assumed"
-  else if (tagName === 'hslClr') {
-    const color = new Color(theme);
-    color.type = 'hsl';
-    color.hsla = [
-      numAttr(elm, 'hue', 0) / 100000,
-      numAttr(elm, 'sat', 0) / 100000,
-      numAttr(elm, 'lum', 0) / 100000,
-      1,
-    ];
-    return addOps(elm, color);
+  // §5.1.2.2.32: RGB Color Model - Hex Variant
+  // §5.1.2.2.30: RGB Color Model - Percentage Variant
+  else if (tagName === 'hslClr' || tagName === 'srgbClr' || tagName === 'scrgbClr') {
+    const jsfColor = readDrawingMLColor(elm);
+    if (jsfColor) {
+      return new Color(jsfColor, theme, indexedColors);
+    }
   }
 
   // §5.1.2.2.22: Preset Color
   else if (tagName === 'prstClr') {
     const val = attr(elm, 'val');
     if (val in PRESET_COLORS) {
-      const color = new Color(theme);
-      color.type = 'preset';
-      color.value = val;
-      return addOps(elm, color);
+      const jsfColor = readDrawingMLColor(elm);
+      if (jsfColor) {
+        return new Color(jsfColor, theme, indexedColors);
+      }
     }
-  }
-
-  // §5.1.2.2.30: RGB Color Model - Percentage Variant
-  else if (tagName === 'scrgbClr') {
-    // This element specifies a color using the red, green, blue RGB color model.
-    // Each component, red, green, and blue is expressed as a percentage from
-    // 0% to 100%. A linear gamma of 1.0 is assumed.
-    const color = new Color(theme);
-    color.type = 'hsl';
-    color.rgba = [
-      255 * numAttr(elm, 'r', 0) / 100000,
-      255 * numAttr(elm, 'g', 0) / 100000,
-      255 * numAttr(elm, 'b', 0) / 100000,
-      1,
-    ];
-    return addOps(elm, color);
-  }
-
-  // §5.1.2.2.32: RGB Color Model - Hex Variant
-  else if (tagName === 'srgbClr') {
-    // <srgbClr val="BCBCBC" />
-    const color = new Color(theme);
-    color.type = 'rgb';
-    color.rgba = parseARGB(attr(elm, 'val', '0'));
-    return addOps(elm, color);
   }
 
   // §5.1.2.2.33: System Color
@@ -163,21 +130,17 @@ export function readColor (elm: Element, theme: Theme): Color | undefined {
     // §5.1.12.58: Specifies the system color value
     const val = attr(elm, 'val');
     if (val && SYSTEM_COLORS[val.toLowerCase()]) {
-      const color = new Color(theme);
-      color.type = 'system';
-      color.value = val;
-      const lastClr = attr(elm, 'lastClr');
-      if (lastClr) {
-        // §5.1.12.28: Specifies the color value that was last computed by the generating application.
-        color.rgba = parseARGB(lastClr);
+      // FIXME: JSF Color has no equivalent of sysClr's lastClr (§5.1.12.28, specifies the colour
+      // value that was last computed by the generating application).
+      const jsfColor = readDrawingMLColor(elm);
+      if (jsfColor) {
+        return new Color(jsfColor, theme, indexedColors);
       }
-      return addOps(elm, color);
     }
   }
   else if (tagName) {
     throw new Error('Unknown color element: ' + tagName);
   }
 
-  // FIXME: do something sensible when the color was invalid
-  return new Color(theme);
+  return undefined;
 }

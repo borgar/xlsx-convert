@@ -18,7 +18,7 @@ export function readFillGradient (elm: Element, context: ConversionContext) {
       colorStops = [];
       child.querySelectorAll('>gs').forEach(gs => {
         const offset = dmlPercentAttr(gs, 'pos');
-        const color = readColor(getFirstChild(gs), context.theme).getJSF();
+        const color = readColor(getFirstChild(gs), context.theme, context.indexedColors).getJSF();
         colorStops.push({ offset, color });
       });
     }

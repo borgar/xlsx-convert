@@ -35,13 +35,40 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontFamily": "Calibri", "fontSize": 12 },
-    { "fontFamily": "Calibri", "fontSize": 12 }
+    { "fontScheme": "minor", "fontSize": 12 },
+    { "fontScheme": "minor", "fontSize": 12 }
   ],
   "tables": [],
   "views": [
     {}
   ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "lt1": { "type": "system", "value": "window" },
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt2": { "type": "srgb", "value": "E7E6E6" },
+      "dk2": { "type": "srgb", "value": "44546A" },
+      "accent1": { "type": "srgb", "value": "4472C4" },
+      "accent2": { "type": "srgb", "value": "ED7D31" },
+      "accent3": { "type": "srgb", "value": "A5A5A5" },
+      "accent4": { "type": "srgb", "value": "FFC000" },
+      "accent5": { "type": "srgb", "value": "5B9BD5" },
+      "accent6": { "type": "srgb", "value": "70AD47" },
+      "hlink": { "type": "srgb", "value": "0563C1" },
+      "folHlink": { "type": "srgb", "value": "954F72" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Calibri Light" }
+      },
+      "minor": {
+        "latin": { "typeface": "Calibri" }
+      }
+    }
+  },
   "formulas": [
     "R[-2]C:R[-2]C[3]=1",
     "R[-3]C:R[-3]C[3]=1"

@@ -286,6 +286,34 @@ export const SCHEME_COLORS = {
   phClr: 0,     // Style Color: A color used in theme definitions which means to use the color of the style.
 };
 
+/** Inverse of {@link SCHEME_COLORS}: maps a zero-based index to the canonical scheme key name. */
+export const INDEX_TO_SCHEME = [
+  'lt1',      //  0: Light 1
+  'dk1',      //  1: Dark 1
+  'lt2',      //  2: Light 2
+  'dk2',      //  3: Dark 2
+  'accent1',  //  4: Accent 1
+  'accent2',  //  5: Accent 2
+  'accent3',  //  6: Accent 3
+  'accent4',  //  7: Accent 4
+  'accent5',  //  8: Accent 5
+  'accent6',  //  9: Accent 6
+  'hlink',    // 10: Hyperlink
+  'folHlink', // 11: Followed Hyperlink
+];
+
+/**
+ * Semantic scheme aliases that map to canonical scheme keys. Used when resolving theme colours
+ * to RGBA, since ThemeColorScheme only has the canonical twelve properties.
+ */
+export const SCHEME_ALIASES: Record<string, string> = {
+  bg1: 'lt1',
+  bg2: 'lt2',
+  tx1: 'dk1',
+  tx2: 'dk2',
+  phClr: 'lt1',
+};
+
 // ST_ShapeType simple type (§5.1.12.56).
 export const SHAPE_TYPE = [
   'line',

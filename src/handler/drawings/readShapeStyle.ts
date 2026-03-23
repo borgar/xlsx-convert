@@ -1,4 +1,5 @@
 import type { Element } from '@borgar/simple-xml';
+import type { Color } from '@jsfkit/types';
 import { attr, numAttr } from '../../utils/attr.ts';
 import type { ConversionContext } from '../../ConversionContext.ts';
 import { readColor } from '../../color/readColor.ts';
@@ -7,10 +8,10 @@ import { getFirstChild } from '../../utils/getFirstChild.ts';
 type FontIndex = ('major' | 'minor' | 'none');
 
 type ShapeStyle = {
-  line?: { color: string, index: number },
-  fill?: { color: string, index: number },
-  effect?: { color: string, index: number },
-  font?: { color: string, index: FontIndex },
+  line?: { color: Color, index: number },
+  fill?: { color: Color, index: number },
+  effect?: { color: Color, index: number },
+  font?: { color: Color, index: FontIndex },
 };
 
 export function readShapeStyle (elm: Element | null, context: ConversionContext): ShapeStyle {
@@ -29,7 +30,7 @@ export function readShapeStyle (elm: Element | null, context: ConversionContext)
       // The idx attribute refers the index of a line style within the fillStyleLst element.
       props.line = {
         index: numAttr(d, 'idx'),
-        color: readColor(getFirstChild(d), context.theme).getJSF(),
+        color: readColor(getFirstChild(d), context.theme, context.indexedColors).getJSF(),
       };
     }
     else if (tagName === 'fillRef') {
@@ -44,14 +45,14 @@ export function readShapeStyle (elm: Element | null, context: ConversionContext)
       // second background fill style, and so on.
       props.fill = {
         index: numAttr(d, 'idx'),
-        color: readColor(getFirstChild(d), context.theme).getJSF(),
+        color: readColor(getFirstChild(d), context.theme, context.indexedColors).getJSF(),
       };
     }
     else if (tagName === 'effectRef') {
       // The idx attribute refers the index of an effect style within the `effectStyleLst`` element.
       props.effect = {
         index: numAttr(d, 'idx'),
-        color: readColor(getFirstChild(d), context.theme).getJSF(),
+        color: readColor(getFirstChild(d), context.theme, context.indexedColors).getJSF(),
       };
     }
     else if (tagName === 'fontRef') {
@@ -59,7 +60,7 @@ export function readShapeStyle (elm: Element | null, context: ConversionContext)
       // idx: ST_FontCollectionIndex: [ 'major', 'minor', 'none' ]
       props.font = {
         index: attr(d, 'idx') as (FontIndex | undefined),
-        color: readColor(getFirstChild(d), context.theme).getJSF(),
+        color: readColor(getFirstChild(d), context.theme, context.indexedColors).getJSF(),
       };
     }
   });

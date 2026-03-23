@@ -39,10 +39,10 @@ export function readFill (elm: Element | null | undefined, context: ConversionCo
     } as PatternFill;
     for (const ch of elm.children) {
       if (ch.tagName === 'fgClr') {
-        fill.fg = readColor(getFirstChild(ch), context.theme).getJSF();
+        fill.fg = readColor(getFirstChild(ch), context.theme, context.indexedColors).getJSF();
       }
       if (ch.tagName === 'bgClr') {
-        fill.bg = readColor(getFirstChild(ch), context.theme).getJSF();
+        fill.bg = readColor(getFirstChild(ch), context.theme, context.indexedColors).getJSF();
       }
     }
     return fill;
@@ -52,7 +52,7 @@ export function readFill (elm: Element | null | undefined, context: ConversionCo
   else if (tagName === 'solidFill') {
     return {
       type: 'solid',
-      bg: readColor(elm.children[0], context.theme).getJSF(),
+      bg: readColor(elm.children[0], context.theme, context.indexedColors).getJSF(),
     } as SolidFill;
   }
 }

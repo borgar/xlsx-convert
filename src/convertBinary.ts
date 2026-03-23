@@ -9,7 +9,7 @@ import { handlerRels, type Rel } from './handler/rels.ts';
 import { handlerWorkbook } from './handler/workbook.ts';
 import { handlerSharedStrings } from './handler/sharedstrings.ts';
 import { handlerPersons } from './handler/persons.ts';
-import { getBlankTheme, handlerTheme } from './handler/theme.ts';
+import { handlerTheme } from './handler/theme.ts';
 import { handlerStyles } from './handler/styles.ts';
 import { handlerRDStruct } from './handler/rdstuct.ts';
 import { handlerRDValue } from './handler/rdvalue.ts';
@@ -234,9 +234,8 @@ export async function convertBinary (
   }
 
   // theme
-  const themeRel = context.rels.find(d => d.type === 'theme');
-  const themeRels = themeRel ? await getRels(themeRel.target) : [];
-  context.theme = await maybeRead(context, 'theme', handlerTheme, null, themeRels) ?? getBlankTheme();
+  context.theme = await maybeRead(context, 'theme', handlerTheme);
+  wb.theme = context.theme;
 
   // convert styles to JSF format (styleDefs was read earlier for pivot numFmtId resolution)
   wb.styles = convertStyles(styleDefs);
@@ -342,7 +341,7 @@ export async function convertBinary (
           if (img.type === 'drawing' && img.rel.type === 'drawing') {
             const drawingDom = await getFile(img.rel.target);
             context.drawingRels = await getRels(img.rel.target);
-            sh.drawing = handlerDrawing(drawingDom, context);
+            sh.drawings = handlerDrawing(drawingDom, context);
           }
         }
         if (imageCount) {

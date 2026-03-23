@@ -1,48 +1,67 @@
-import type { Document } from '@borgar/simple-xml';
+import type { Document, Element as XMLElement } from '@borgar/simple-xml';
+import type { Theme, ThemeCustomColor, ThemeFontCollection } from '@jsfkit/types';
+import { readDrawingMLColor } from '../color/readDrawingMLColor.ts';
 import { attr } from '../utils/attr.ts';
-import { COLOR_INDEX } from '../constants.ts';
 import { getFirstChild } from '../utils/getFirstChild.ts';
-import { readFill } from './drawings/readFill.ts';
 import type { ConversionContext } from '../ConversionContext.ts';
-
-export type Theme = {
-  scheme: Record<string, string>;
-  indexedColors: string[];
-  fontScheme: { major: string, minor: string },
-  lineList?: any[],
-  fillList?: any[],
-  bgFillList?: any[],
-  effectList?: any[],
-};
 
 export function getBlankTheme (): Theme {
   return {
-    // XXX: rename to something like colorScheme?
-    scheme: {
-      lt1: 'FFFFFF', // Window
-      dk1: '000000', // WindowText
-      lt2: 'E8E8E8',
-      dk2: '0E2841',
-      accent1: '156082',
-      accent2: 'E97132',
-      accent3: '196B24',
-      accent4: '0F9ED5',
-      accent5: 'A02B93',
-      accent6: '4EA72E',
-      hlink: '467886',
-      folHlink: '96607D',
-      // bg1: '', // -> dk1
-      // bg2: '', // -> dk2
-      // tx1: '', // -> lt1
-      // tx2: '', // -> lt2
-      // phClr: '', // = equivalent to CSS currentColor
+    name: 'Office',
+    colorScheme: {
+      name: 'Office',
+      lt1: { type: 'system', value: 'window' },
+      dk1: { type: 'system', value: 'windowText' },
+      lt2: { type: 'srgb', value: 'E8E8E8' },
+      dk2: { type: 'srgb', value: '0E2841' },
+      accent1: { type: 'srgb', value: '156082' },
+      accent2: { type: 'srgb', value: 'E97132' },
+      accent3: { type: 'srgb', value: '196B24' },
+      accent4: { type: 'srgb', value: '0F9ED5' },
+      accent5: { type: 'srgb', value: 'A02B93' },
+      accent6: { type: 'srgb', value: '4EA72E' },
+      hlink: { type: 'srgb', value: '467886' },
+      folHlink: { type: 'srgb', value: '96607D' },
     },
-    indexedColors: [ ...COLOR_INDEX ],
     fontScheme: {
-      major: 'Aptos Display',
-      minor: 'Aptos Narrow',
+      name: 'Office',
+      major: { latin: { typeface: 'Aptos Display' } },
+      minor: { latin: { typeface: 'Aptos Display' } },
     },
   };
+}
+
+/**
+ * Extracts a font collection from the given OOXML element, which should be either a `majorFont` or
+ * `minorFont` element.
+ *
+ * The font collection must contain a `latin` element (although we include a fallback), plus
+ * optional `ea` (east Asian) and `cs` (complex script) elements. These three specify a typeface to
+ * use for that script.
+ */
+function extractFontCollection (fontCollection: XMLElement) {
+  const latin = getFirstChild(fontCollection, 'latin');
+  const eastAsian = getFirstChild(fontCollection, 'ea');
+  const complexScript = getFirstChild(fontCollection, 'cs');
+
+  const font: ThemeFontCollection = {
+    latin: {
+      typeface: attr(latin, 'typeface', 'Aptos Display'),
+    },
+  };
+  if (eastAsian) {
+    const typeface = attr(eastAsian, 'typeface');
+    if (typeface) {
+      font.eastAsian = { typeface };
+    }
+  }
+  if (complexScript) {
+    const typeface = attr(complexScript, 'typeface');
+    if (typeface) {
+      font.complexScript = { typeface };
+    }
+  }
+  return font;
 }
 
 export function handlerTheme (dom: Document, context: ConversionContext): Theme {
@@ -52,53 +71,61 @@ export function handlerTheme (dom: Document, context: ConversionContext): Theme 
   const ctx = Object.create(context);
   ctx.theme = theme;
 
-  const themeElements = dom.querySelector('theme > themeElements');
+  const themeElement = dom.querySelector('theme');
+  const themeName = attr(themeElement, 'name');
+  if (themeName) {
+    theme.name = themeName;
+  }
+
+  const themeElements = themeElement.querySelector('themeElements');
 
   const clrScheme = getFirstChild(themeElements, 'clrScheme');
+  const clrSchemeName = attr(clrScheme, 'name');
+  if (clrSchemeName) {
+    theme.colorScheme.name = clrSchemeName;
+  }
   clrScheme?.children.forEach(child => {
     const key = child.tagName;
-    const color = child.children[0];
-    if (key in theme.scheme && color) {
-      if (color.tagName === 'sysClr') {
-        theme.scheme[key] = attr(color, 'lastClr');
-      }
-      if (color.tagName === 'srgbClr') {
-        theme.scheme[key] = attr(color, 'val');
+    const colorElm = child.children[0];
+    if (key in theme.colorScheme && colorElm) {
+      const color = readDrawingMLColor(colorElm);
+      if (color) {
+        theme.colorScheme[key] = color;
       }
     }
   });
 
   const fontScheme = getFirstChild(themeElements, 'fontScheme');
+  const fontSchemeName = attr(fontScheme, 'name');
+  if (fontSchemeName) {
+    theme.fontScheme.name = fontSchemeName;
+  }
   fontScheme?.children.forEach(d => {
     if (d.tagName === 'majorFont') {
-      const latin = getFirstChild(d, 'latin');
-      // fallback to Calibri?
-      if (latin) { theme.fontScheme.major = attr(latin, 'typeface', 'Aptos Display'); }
+      theme.fontScheme.major = extractFontCollection(d);
     }
     else if (d.tagName === 'minorFont') {
-      const latin = getFirstChild(d, 'latin');
-      // fallback to Calibri?
-      if (latin) { theme.fontScheme.minor = attr(latin, 'typeface', 'Aptos Narrow'); }
+      theme.fontScheme.minor = extractFontCollection(d);
     }
   });
 
-  const fmtScheme = getFirstChild(themeElements, 'fmtScheme');
+  // const fmtScheme = getFirstChild(themeElements, 'fmtScheme');
 
-  const fillStyleLst = getFirstChild(fmtScheme, 'fillStyleLst');
-  const fillList = [];
-  fillStyleLst?.children.forEach(d => {
-    const fill = readFill(d, ctx);
-    if (fill) { fillList.push(fill); }
-  });
-  theme.fillList = fillList;
+  // const fillStyleLst = getFirstChild(fmtScheme, 'fillStyleLst');
+  // const fillList = [];
+  // fillStyleLst?.children.forEach(d => {
+  //   const fill = readFill(d, ctx);
+  //   if (fill) { fillList.push(fill); }
+  // });
+  // theme.fillList = fillList;
 
-  const bgFillStyleLst = getFirstChild(fmtScheme, 'bgFillStyleLst');
-  const bgFillList = [];
-  bgFillStyleLst?.children.forEach(d => {
-    const fill = readFill(d, ctx);
-    if (fill) { bgFillList.push(fill); }
-  });
-  theme.bgFillList = bgFillList;
+  // const bgFillStyleLst = getFirstChild(fmtScheme, 'bgFillStyleLst');
+  // const bgFillList = [];
+  // bgFillStyleLst?.children.forEach(d => {
+  //   const fill = readFill(d, ctx);
+  //   if (fill) { bgFillList.push(fill); }
+  // });
+  // theme.bgFillList = bgFillList;
 
   // const lnStyleLst = getFirstChild(fmtScheme, 'lnStyleLst');
   // const lineList = [];
@@ -111,6 +138,26 @@ export function handlerTheme (dom: Document, context: ConversionContext): Theme 
   // theme.effectList = effectList;
 
   // const objectDefaults = dom.querySelector('theme > objectDefaults');
+
+  const custClrLst = getFirstChild(themeElement, 'custClrLst');
+  if (custClrLst) {
+    const customColors: ThemeCustomColor[] = [];
+    custClrLst.children.forEach(custClr => {
+      const colorElm = custClr.children[0];
+      const color = colorElm ? readDrawingMLColor(colorElm) : null;
+      if (color) {
+        const entry: ThemeCustomColor = { color };
+        const name = attr(custClr, 'name');
+        if (name) {
+          entry.name = name;
+        }
+        customColors.push(entry);
+      }
+    });
+    if (customColors.length > 0) {
+      theme.customColors = customColors;
+    }
+  }
 
   return theme;
 }
