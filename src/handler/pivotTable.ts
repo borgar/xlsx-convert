@@ -102,7 +102,7 @@ export function handlerPivotTable (dom: Document, numFmts?: NumFmtLookup): Pivot
 
   // Boolean table-level attributes (non-default values only)
   readBoolAttrs(pt, root, [
-    // Layout defaults
+    // Layout — stored only when deviating from OOXML default
     [ 'compact', false ],
     [ 'outline', true ],
     [ 'outlineData', true ],
