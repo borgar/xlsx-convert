@@ -1,9 +1,9 @@
 import type { Document, Element } from '@borgar/simple-xml';
+import type { Theme } from '@jsfkit/types';
 import { type Color } from '../color/Color.ts';
 import { attr } from '../utils/attr.ts';
 import { BUILTIN_FORMATS } from '../constants.ts';
 import type { ConversionContext } from '../ConversionContext.ts';
-import type { Theme } from './theme.ts';
 import { readColor } from '../color/readColor.ts';
 
 function valOfNode (node: Element, subNodeName: string, fallback: any = null): string | null {
@@ -15,7 +15,7 @@ function valOfNode (node: Element, subNodeName: string, fallback: any = null): s
 }
 
 type BorderSide = 'left' | 'right' | 'top' | 'bottom';
-type Border = { style: string, color: Color };
+type Border = { style: string, color?: Color };
 type Borders = Record<BorderSide, Border>;
 type Fill = {
   type: string,
@@ -25,10 +25,11 @@ type Fill = {
 type Font = {
   size?: number,
   name: string,
+  scheme?: 'major' | 'minor',
   underline?: string,
   bold: boolean,
   italic: boolean,
-  color: Color,
+  color?: Color,
 };
 
 export type StyleDefs = {
@@ -106,10 +107,10 @@ function readXf (d: Element, styles: StyleDefs) {
   return xf;
 }
 
-function readBorder (node: Element, side: BorderSide | 'start' | 'end', theme: Theme) {
+function readBorder (node: Element, side: BorderSide | 'start' | 'end', theme: Theme, indexedColors: string[]) {
   const b = node.querySelectorAll(side)[0];
   if (b) {
-    const color = readColor(b.querySelectorAll('color')[0], theme);
+    const color = readColor(b.querySelectorAll('color')[0], theme, indexedColors);
     const style = attr(b, 'style');
     if (color || style) {
       return { style: style, color: color };
@@ -117,7 +118,7 @@ function readBorder (node: Element, side: BorderSide | 'start' | 'end', theme: T
   }
 }
 
-function readFont (node: Element, theme: Theme): Font {
+function readFont (node: Element, theme: Theme, indexedColors: string[]): Font {
   const u = node.querySelectorAll('u')[0];
   const b = node.querySelectorAll('b')[0];
   const i = node.querySelectorAll('i')[0];
@@ -125,13 +126,15 @@ function readFont (node: Element, theme: Theme): Font {
   if (name === 'Calibri (Body)') {
     name = 'Calibri';
   }
+  const scheme = valOfNode(node, 'scheme');
   return {
     size: +valOfNode(node, 'sz'),
     name: name,
+    scheme: (scheme === 'major' || scheme === 'minor') ? scheme : undefined,
     underline: u ? attr(u, 'val', 'single') : undefined,
     bold: !!b,
     italic: !!i,
-    color: readColor(node.querySelectorAll('color')[0], theme),
+    color: readColor(node.querySelectorAll('color')[0], theme, indexedColors),
   };
 }
 
@@ -145,10 +148,10 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
     border: [],
   };
 
-  // update indexed colors on the theme
+  // update indexed colors for this conversion
   dom.querySelectorAll('colors > indexedColors > rgbColor')
     .forEach((node, i) => {
-      context.theme.indexedColors[i] = attr(node, 'rgb');
+      context.indexedColors[i] = attr(node, 'rgb');
     });
 
   dom.querySelectorAll('numFmts > numFmt')
@@ -158,7 +161,7 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
 
   dom.querySelectorAll('fonts > font')
     .forEach(node => {
-      styles.font.push(readFont(node, context.theme));
+      styles.font.push(readFont(node, context.theme, context.indexedColors));
     });
 
   dom.querySelectorAll('fills > fill > patternFill')
@@ -167,10 +170,10 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
       const bgColor = fp.querySelector('bgColor');
       const fill: Fill = { type: attr(fp, 'patternType', 'none') };
       if (fgColor) {
-        fill.fg = readColor(fgColor, context.theme);
+        fill.fg = readColor(fgColor, context.theme, context.indexedColors);
       }
       if (bgColor) {
-        fill.bg = readColor(bgColor, context.theme);
+        fill.bg = readColor(bgColor, context.theme, context.indexedColors);
       }
       styles.fill.push(fill);
     });
@@ -178,10 +181,10 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
   dom.querySelectorAll('borders > border')
     .forEach(d => {
       const borderDefs = {
-        left: readBorder(d, 'left', context.theme) || readBorder(d, 'start', context.theme),
-        right: readBorder(d, 'right', context.theme) || readBorder(d, 'end', context.theme),
-        top: readBorder(d, 'top', context.theme),
-        bottom: readBorder(d, 'bottom', context.theme),
+        left: readBorder(d, 'left', context.theme, context.indexedColors) || readBorder(d, 'start', context.theme, context.indexedColors),
+        right: readBorder(d, 'right', context.theme, context.indexedColors) || readBorder(d, 'end', context.theme, context.indexedColors),
+        top: readBorder(d, 'top', context.theme, context.indexedColors),
+        bottom: readBorder(d, 'bottom', context.theme, context.indexedColors),
       };
       styles.border.push(borderDefs);
     });

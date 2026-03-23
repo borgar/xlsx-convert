@@ -60,8 +60,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "pct5",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -92,8 +92,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "pct10",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -124,8 +124,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "pct20",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -156,8 +156,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "pct25",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -188,8 +188,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "pct30",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -220,8 +220,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "pct40",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -252,8 +252,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "pct50",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -284,8 +284,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "pct60",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -316,8 +316,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "pct70",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -348,8 +348,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "pct75",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -380,8 +380,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "pct80",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -412,8 +412,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "pct90",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -444,8 +444,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "ltDnDiag",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -476,8 +476,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "ltUpDiag",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -508,8 +508,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "dkDnDiag",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -540,8 +540,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "dkUpDiag",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -572,8 +572,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "wdDnDiag",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -604,8 +604,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "wdUpDiag",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -636,8 +636,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "ltVert",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -668,8 +668,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "ltHorz",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -700,8 +700,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "narVert",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -732,8 +732,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "narHorz",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -764,8 +764,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "dkVert",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -796,8 +796,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "dkHorz",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -828,8 +828,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "dashDnDiag",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -860,8 +860,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "dashUpDiag",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -892,8 +892,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "dashHorz",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -924,8 +924,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "dashVert",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -956,8 +956,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "smConfetti",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -988,8 +988,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "lgConfetti",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1020,8 +1020,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "zigZag",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1052,8 +1052,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "wave",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1084,8 +1084,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "diagBrick",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1116,8 +1116,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "horzBrick",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1148,8 +1148,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "weave",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1180,8 +1180,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "plaid",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1212,8 +1212,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "divot",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1244,8 +1244,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "dotGrid",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1276,8 +1276,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "dotDmnd",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1308,8 +1308,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "shingle",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1340,8 +1340,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "trellis",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1372,8 +1372,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "sphere",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1404,8 +1404,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "smGrid",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1436,8 +1436,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "lgGrid",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1468,8 +1468,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "smCheck",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1500,8 +1500,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "lgCheck",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1532,8 +1532,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "openDmnd",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1564,8 +1564,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "solidDmnd",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1596,8 +1596,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "cross",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1628,8 +1628,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "horz",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1660,8 +1660,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "vert",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1692,8 +1692,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "dnDiag",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1724,8 +1724,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "upDiag",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1756,8 +1756,8 @@
                 "fill": {
                   "type": "pattern",
                   "style": "diagCross",
-                  "fg": "#156082",
-                  "bg": "#FFF"
+                  "fg": { "type": "theme", "value": "accent1" },
+                  "bg": { "type": "theme", "value": "bg1" }
                 }
               }
             }
@@ -1774,89 +1774,89 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontFamily": "Aptos Narrow", "fontSize": 12 },
+    { "fontScheme": "minor", "fontSize": 12 },
     {
-      "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "darkGray"
     },
     {
-      "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "mediumGray"
     },
     {
-      "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "lightGray"
     },
     {
-      "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "gray125"
     },
     {
-      "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "gray0625"
     },
     {
-      "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "darkHorizontal"
     },
     {
-      "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "darkVertical"
     },
     {
-      "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "darkDown"
     },
     {
-      "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "darkUp"
     },
     {
-      "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "darkGrid"
     },
     {
-      "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "darkTrellis"
     },
     {
-      "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "lightHorizontal"
     },
     {
-      "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "lightVertical"
     },
     {
-      "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "lightDown"
     },
     {
-      "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "lightUp"
     },
     {
-      "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "lightGrid"
     },
     {
-      "fontFamily": "Aptos Narrow",
+      "fontScheme": "minor",
       "fontSize": 12,
       "patternStyle": "lightTrellis"
     }
@@ -1865,5 +1865,32 @@
   "views": [
     {}
   ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "lt1": { "type": "system", "value": "window" },
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "dk2": { "type": "srgb", "value": "0E2841" },
+      "accent1": { "type": "srgb", "value": "156082" },
+      "accent2": { "type": "srgb", "value": "E97132" },
+      "accent3": { "type": "srgb", "value": "196B24" },
+      "accent4": { "type": "srgb", "value": "0F9ED5" },
+      "accent5": { "type": "srgb", "value": "A02B93" },
+      "accent6": { "type": "srgb", "value": "4EA72E" },
+      "hlink": { "type": "srgb", "value": "467886" },
+      "folHlink": { "type": "srgb", "value": "96607D" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Aptos Display" }
+      },
+      "minor": {
+        "latin": { "typeface": "Aptos Narrow" }
+      }
+    }
+  },
   "formulas": []
 }
