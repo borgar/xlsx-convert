@@ -5,6 +5,7 @@ import { attr, boolAttr, numAttr } from '../../utils/attr.ts';
 import { parseEnum } from '../../utils/parseEnum.ts';
 import type { NumFmtLookup } from './NumFmtLookup.ts';
 import { parseCacheSharedItem } from './parseCacheSharedItem.ts';
+import { resolveNumFmt } from './resolveNumFmt.ts';
 
 type CacheMetadata = Pick<PivotCacheBase,
   'refreshedBy' | 'refreshedDate' | 'refreshOnLoad' | 'enableRefresh' |
@@ -107,13 +108,7 @@ function parseFields (root: Element, numFmts?: NumFmtLookup): PivotCacheField[] 
     const name = attr(cf, 'name');
 
     const field: PivotCacheField = { name: name ?? '' };
-    const numFmtId = numAttr(cf, 'numFmtId');
-    if (numFmtId != null && numFmts) {
-      const fmt = numFmts[numFmtId];
-      if (typeof fmt === 'string' && fmt.toLowerCase() !== 'general') {
-        field.numFmt = fmt;
-      }
-    }
+    addProp(field, 'numFmt', resolveNumFmt(cf, numFmts));
     addProp(field, 'formula', attr(cf, 'formula'));
     const databaseField = boolAttr(cf, 'databaseField');
     if (databaseField === false) {

@@ -7,6 +7,7 @@ import type { NumFmtLookup } from './NumFmtLookup.ts';
 import { ITEM_TYPES, SUBTOTAL_FUNCTIONS } from './constants.ts';
 import { parsePivotArea } from './parsePivotArea.ts';
 import { readBoolAttrs } from './readBoolAttrs.ts';
+import { resolveNumFmt } from './resolveNumFmt.ts';
 
 export function parsePivotFields (root: Element, numFmts?: NumFmtLookup): PivotField[] {
   const fields: PivotField[] = [];
@@ -104,13 +105,7 @@ export function parsePivotFields (root: Element, numFmts?: NumFmtLookup): PivotF
     ]);
 
     addProp(field, 'subtotalCaption', attr(pf, 'subtotalCaption'));
-    const pfNumFmtId = numAttr(pf, 'numFmtId');
-    if (pfNumFmtId != null && numFmts) {
-      const fmt = numFmts[pfNumFmtId];
-      if (typeof fmt === 'string' && fmt.toLowerCase() !== 'general') {
-        field.numFmt = fmt;
-      }
-    }
+    addProp(field, 'numFmt', resolveNumFmt(pf, numFmts));
     addProp(field, 'itemPageCount', numAttr(pf, 'itemPageCount'), 10);
     addProp(field, 'dataSourceSort', boolAttr(pf, 'dataSourceSort'));
     addProp(field, 'rankBy', numAttr(pf, 'rankBy'));
