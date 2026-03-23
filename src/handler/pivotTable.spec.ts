@@ -220,14 +220,15 @@ describe('handlerPivotTable', () => {
     expect(scope.references![1].field).toBe(3);
   });
 
-  it('should parse field items with itemType, hidden, and itemIndex', () => {
+  it('should parse field items with itemType, hidden, missing, and itemIndex', () => {
     const xml = `<pivotTableDefinition name="PT1" cacheId="0">
       <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
       <pivotFields count="1">
         <pivotField axis="axisRow" showAll="1">
-          <items count="3">
+          <items count="4">
             <item x="0"/>
             <item x="1" h="1"/>
+            <item x="2" m="1"/>
             <item t="default"/>
           </items>
         </pivotField>
@@ -240,6 +241,7 @@ describe('handlerPivotTable', () => {
     expect(pt.fields[0].items).toEqual([
       { itemIndex: 0 },
       { itemIndex: 1, hidden: true },
+      { itemIndex: 2, missing: true },
       { itemType: 'default' },
     ]);
   });
