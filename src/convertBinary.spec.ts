@@ -142,6 +142,19 @@ describe('convertBinary', () => {
       expect(spy).not.toHaveBeenCalled();
       spy.mockRestore();
     });
+
+    test('warns when pivot table cache definition is missing', async () => {
+      const bin = await readFile('./tests/excel/pivot-table.xlsx');
+      const zip = await JSZip.loadAsync(bin);
+      // Remove the pivot cache definition file so the cache can't be resolved
+      zip.remove('xl/pivotCache/pivotCacheDefinition1.xml');
+      const modifiedBin = await zip.generateAsync({ type: 'arraybuffer' });
+      const warn = vi.fn();
+      const wb = await convertBinary(modifiedBin, 'pivot-table.xlsx', { warn });
+      expect(warn).toHaveBeenCalledOnce();
+      expect(warn.mock.calls[0][0]).toMatch(/Pivot table.*dropped.*cache definition/);
+      expect(wb.pivotTables).toBeUndefined();
+    });
   });
 
   test('images from all sheets are collected (not lost to concurrent processing)', async () => {

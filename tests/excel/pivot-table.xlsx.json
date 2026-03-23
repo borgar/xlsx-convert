@@ -1,0 +1,482 @@
+{
+  "name": "pivot-table.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet4",
+      "cells": {
+        "A3": { "s": 1, "v": "Average of Salary" },
+        "B3": { "s": 1, "v": "Column Labels" },
+        "A4": { "s": 1, "v": "Row Labels" },
+        "B4": { "v": "Assistant" },
+        "C4": { "v": "Clerk" },
+        "D4": { "v": "Engineer" },
+        "E4": { "v": "Intern" },
+        "F4": { "v": "Manager" },
+        "G4": { "v": "PM" },
+        "H4": { "v": "Grand Total" },
+        "A5": { "s": 2, "v": "Engineering" },
+        "D5": { "s": 3, "v": 207233 },
+        "F5": { "s": 3, "v": 230624 },
+        "H5": { "s": 3, "v": 215030 },
+        "A6": { "s": 2, "v": "Finance" },
+        "B6": { "s": 3, "v": 197902 },
+        "C6": { "s": 3, "v": 100000000000000 },
+        "F6": { "s": 3, "v": 148866 },
+        "H6": { "s": 3, "v": 25000000136167.5 },
+        "A7": { "s": 2, "v": "Legal" },
+        "C7": { "s": 3, "v": 302691 },
+        "E7": { "s": 3, "v": 234664 },
+        "F7": { "s": 3, "v": 295876 },
+        "H7": { "s": 3, "v": 283980.5 },
+        "A8": { "s": 2, "v": "Product" },
+        "B8": { "s": 3, "v": 308183 },
+        "E8": { "s": 3, "v": 294077 },
+        "F8": { "s": 3, "v": 100641 },
+        "G8": { "s": 3, "v": 294315 },
+        "H8": { "s": 3, "v": 249304 },
+        "A9": { "s": 2, "v": "Grand Total" },
+        "B9": { "s": 3, "v": 234662.33333333334 },
+        "C9": { "s": 3, "v": 33333333535127.332 },
+        "D9": { "s": 3, "v": 207233 },
+        "E9": { "s": 3, "v": 264370.5 },
+        "F9": { "s": 3, "v": 194001.75 },
+        "G9": { "s": 3, "v": 294315 },
+        "H9": { "s": 3, "v": 6666666888193.2 },
+        "C23": { "v": 0, "f": 0 }
+      },
+      "columns": [
+        { "start": 1, "end": 1, "size": 93 },
+        { "start": 2, "end": 2, "size": 96 },
+        { "start": 3, "end": 3, "size": 76 },
+        { "start": 4, "end": 4, "size": 51 },
+        { "start": 5, "end": 5, "size": 57 },
+        { "start": 6, "end": 6, "size": 63 },
+        { "start": 7, "end": 7, "size": 44 },
+        { "start": 8, "end": 8, "size": 76 }
+      ],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [
+        {
+          "workbookView": 0,
+          "activeCell": "C23",
+          "layoutScales": { "normal": 204 }
+        }
+      ]
+    },
+    {
+      "name": "Data",
+      "cells": {
+        "A1": { "v": "Dept" },
+        "B1": { "v": "Function" },
+        "C1": { "v": "Name" },
+        "D1": { "v": "Salary" },
+        "A2": { "v": "Engineering" },
+        "B2": { "v": "Manager" },
+        "C2": { "v": "Alice" },
+        "D2": { "v": 230624 },
+        "A3": { "v": "Engineering" },
+        "B3": { "v": "Engineer" },
+        "C3": { "v": "Bob" },
+        "D3": { "v": 234236 },
+        "A4": { "v": "Engineering" },
+        "B4": { "v": "Engineer" },
+        "C4": { "v": "Charlize" },
+        "D4": { "v": 180230 },
+        "A5": { "v": "Finance" },
+        "B5": { "v": "Manager" },
+        "C5": { "v": "David" },
+        "D5": { "v": 148866 },
+        "A6": { "v": "Finance" },
+        "B6": { "v": "Assistant" },
+        "C6": { "v": "Elisa" },
+        "D6": { "v": 235753 },
+        "A7": { "v": "Finance" },
+        "B7": { "v": "Assistant" },
+        "C7": { "v": "Einar" },
+        "D7": { "v": 160051 },
+        "A8": { "v": "Finance" },
+        "B8": { "v": "Clerk" },
+        "C8": { "v": "Elon" },
+        "D8": { "v": 12121 },
+        "A9": { "v": "Legal" },
+        "B9": { "v": "Manager" },
+        "C9": { "v": "Fiona" },
+        "D9": { "v": 295876 },
+        "A10": { "v": "Legal" },
+        "B10": { "v": "Clerk" },
+        "C10": { "v": "George" },
+        "D10": { "v": 299780 },
+        "A11": { "v": "Legal" },
+        "B11": { "v": "Clerk" },
+        "C11": { "v": "Harold" },
+        "D11": { "v": 305602 },
+        "A12": { "v": "Legal" },
+        "B12": { "v": "Intern" },
+        "C12": { "v": "Holger" },
+        "D12": { "v": 234664 },
+        "A13": { "v": "Product" },
+        "B13": { "v": "Manager" },
+        "C13": { "v": "Inez" },
+        "D13": { "v": 100641 },
+        "A14": { "v": "Product" },
+        "B14": { "v": "PM" },
+        "C14": { "v": "Jason" },
+        "D14": { "v": 294315 },
+        "A15": { "v": "Product" },
+        "B15": { "v": "Intern" },
+        "C15": { "v": "Kathryn" },
+        "D15": { "v": 294077 },
+        "A16": { "v": "Product" },
+        "B16": { "v": "Assistant" },
+        "C16": { "v": "Leon" },
+        "D16": { "v": 308183 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [
+        {
+          "workbookView": 0,
+          "activeCell": "D8",
+          "layoutScales": { "normal": 231 }
+        }
+      ]
+    }
+  ],
+  "names": [
+    { "name": "data", "value": "Data!$A$1:$D$16" },
+    { "name": "MyValue", "value": "#REF!" },
+    { "name": "rnum", "value": "7" }
+  ],
+  "calculationProperties": {
+    "iterate": true,
+    "iterateCount": 10,
+    "iterateDelta": 0.01,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontScheme": "minor", "fontSize": 12 },
+    { "fontScheme": "minor", "fontSize": 12 },
+    {
+      "horizontalAlignment": "left",
+      "fontScheme": "minor",
+      "fontSize": 12
+    },
+    { "fontScheme": "minor", "fontSize": 12 }
+  ],
+  "tables": [],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "lt1": { "type": "system", "value": "window" },
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "dk2": { "type": "srgb", "value": "0E2841" },
+      "accent1": { "type": "srgb", "value": "156082" },
+      "accent2": { "type": "srgb", "value": "E97132" },
+      "accent3": { "type": "srgb", "value": "196B24" },
+      "accent4": { "type": "srgb", "value": "0F9ED5" },
+      "accent5": { "type": "srgb", "value": "A02B93" },
+      "accent6": { "type": "srgb", "value": "4EA72E" },
+      "hlink": { "type": "srgb", "value": "467886" },
+      "folHlink": { "type": "srgb", "value": "96607D" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Aptos Display" }
+      },
+      "minor": {
+        "latin": { "typeface": "Aptos Narrow" }
+      }
+    }
+  },
+  "views": [
+    { "activeSheet": 1 }
+  ],
+  "pivotTables": [
+    {
+      "name": "PivotTable5",
+      "sheet": "Sheet4",
+      "ref": "A3:H9",
+      "location": {
+        "firstHeaderRow": 1,
+        "firstDataRow": 2,
+        "firstDataCol": 1
+      },
+      "fields": [
+        {
+          "axis": "row",
+          "items": [
+            { "itemIndex": 0 },
+            { "itemIndex": 1 },
+            { "itemIndex": 2 },
+            { "itemIndex": 3 },
+            { "itemType": "default" }
+          ],
+          "showAll": false
+        },
+        {
+          "axis": "col",
+          "items": [
+            { "itemIndex": 2 },
+            { "itemIndex": 3 },
+            { "itemIndex": 1 },
+            { "itemIndex": 4 },
+            { "itemIndex": 0 },
+            { "itemIndex": 5 },
+            { "itemType": "default" }
+          ],
+          "showAll": false
+        },
+        { "showAll": false },
+        { "dataField": true, "showAll": false }
+      ],
+      "rowFieldIndices": [
+        0
+      ],
+      "colFieldIndices": [
+        1
+      ],
+      "dataFields": [
+        {
+          "name": "Average of Salary",
+          "fieldIndex": 3,
+          "subtotal": "average",
+          "baseField": 0,
+          "baseItem": 0
+        }
+      ],
+      "rowItems": [
+        {
+          "itemIndices": [
+            0
+          ]
+        },
+        {
+          "itemIndices": [
+            1
+          ]
+        },
+        {
+          "itemIndices": [
+            2
+          ]
+        },
+        {
+          "itemIndices": [
+            3
+          ]
+        },
+        {
+          "itemIndices": [
+            0
+          ],
+          "itemType": "grand"
+        }
+      ],
+      "colItems": [
+        {
+          "itemIndices": [
+            0
+          ]
+        },
+        {
+          "itemIndices": [
+            1
+          ]
+        },
+        {
+          "itemIndices": [
+            2
+          ]
+        },
+        {
+          "itemIndices": [
+            3
+          ]
+        },
+        {
+          "itemIndices": [
+            4
+          ]
+        },
+        {
+          "itemIndices": [
+            5
+          ]
+        },
+        {
+          "itemIndices": [
+            0
+          ],
+          "itemType": "grand"
+        }
+      ],
+      "style": {
+        "name": "PivotStyleLight16",
+        "showRowHeaders": true,
+        "showColumnHeaders": true,
+        "showRowStripes": false,
+        "showColumnStripes": false,
+        "showLastColumn": true
+      },
+      "outline": true,
+      "outlineData": true,
+      "itemPrintTitles": true,
+      "multipleFieldFilters": false,
+      "uid": "{916D59D8-6143-8142-9B4B-F15BE71C47B7}",
+      "useAutoFormatting": true,
+      "applyNumberFormats": false,
+      "applyBorderFormats": false,
+      "applyFontFormats": false,
+      "applyPatternFormats": false,
+      "applyAlignmentFormats": false,
+      "applyWidthHeightFormats": true,
+      "indent": 0,
+      "dataCaption": "Values",
+      "cache": {
+        "sourceType": "worksheet",
+        "uid": "{93AACE53-8F3A-A04A-893A-A439866B3165}",
+        "worksheetSource": { "type": "range", "ref": "A1:D16", "sheet": "Data" },
+        "fields": [
+          {
+            "name": "Dept",
+            "sharedItems": [
+              { "t": "s", "v": "Engineering" },
+              { "t": "s", "v": "Finance" },
+              { "t": "s", "v": "Legal" },
+              { "t": "s", "v": "Product" }
+            ]
+          },
+          {
+            "name": "Function",
+            "sharedItems": [
+              { "t": "s", "v": "Manager" },
+              { "t": "s", "v": "Engineer" },
+              { "t": "s", "v": "Assistant" },
+              { "t": "s", "v": "Clerk" },
+              { "t": "s", "v": "Intern" },
+              { "t": "s", "v": "PM" }
+            ]
+          },
+          { "name": "Name" },
+          {
+            "name": "Salary",
+            "sharedItemsMeta": {
+              "containsSemiMixedTypes": false,
+              "containsString": false,
+              "containsNumber": true,
+              "containsInteger": true,
+              "minValue": 100641,
+              "maxValue": 100000000000000
+            }
+          }
+        ],
+        "refreshedBy": "Gunnlaugur Þór Briem",
+        "refreshedDate": 45939.50231157408,
+        "records": [
+          [
+            { "t": "x", "v": 0 },
+            { "t": "x", "v": 0 },
+            { "t": "s", "v": "Alice" },
+            { "t": "n", "v": 230624 }
+          ],
+          [
+            { "t": "x", "v": 0 },
+            { "t": "x", "v": 1 },
+            { "t": "s", "v": "Bob" },
+            { "t": "n", "v": 234236 }
+          ],
+          [
+            { "t": "x", "v": 0 },
+            { "t": "x", "v": 1 },
+            { "t": "s", "v": "Charlize" },
+            { "t": "n", "v": 180230 }
+          ],
+          [
+            { "t": "x", "v": 1 },
+            { "t": "x", "v": 0 },
+            { "t": "s", "v": "David" },
+            { "t": "n", "v": 148866 }
+          ],
+          [
+            { "t": "x", "v": 1 },
+            { "t": "x", "v": 2 },
+            { "t": "s", "v": "Elisa" },
+            { "t": "n", "v": 235753 }
+          ],
+          [
+            { "t": "x", "v": 1 },
+            { "t": "x", "v": 2 },
+            { "t": "s", "v": "Einar" },
+            { "t": "n", "v": 160051 }
+          ],
+          [
+            { "t": "x", "v": 1 },
+            { "t": "x", "v": 3 },
+            { "t": "s", "v": "Elon" },
+            { "t": "n", "v": 100000000000000 }
+          ],
+          [
+            { "t": "x", "v": 2 },
+            { "t": "x", "v": 0 },
+            { "t": "s", "v": "Fiona" },
+            { "t": "n", "v": 295876 }
+          ],
+          [
+            { "t": "x", "v": 2 },
+            { "t": "x", "v": 3 },
+            { "t": "s", "v": "George" },
+            { "t": "n", "v": 299780 }
+          ],
+          [
+            { "t": "x", "v": 2 },
+            { "t": "x", "v": 3 },
+            { "t": "s", "v": "Harold" },
+            { "t": "n", "v": 305602 }
+          ],
+          [
+            { "t": "x", "v": 2 },
+            { "t": "x", "v": 4 },
+            { "t": "s", "v": "Holger" },
+            { "t": "n", "v": 234664 }
+          ],
+          [
+            { "t": "x", "v": 3 },
+            { "t": "x", "v": 0 },
+            { "t": "s", "v": "Inez" },
+            { "t": "n", "v": 100641 }
+          ],
+          [
+            { "t": "x", "v": 3 },
+            { "t": "x", "v": 5 },
+            { "t": "s", "v": "Jason" },
+            { "t": "n", "v": 294315 }
+          ],
+          [
+            { "t": "x", "v": 3 },
+            { "t": "x", "v": 4 },
+            { "t": "s", "v": "Kathryn" },
+            { "t": "n", "v": 294077 }
+          ],
+          [
+            { "t": "x", "v": 3 },
+            { "t": "x", "v": 2 },
+            { "t": "s", "v": "Leon" },
+            { "t": "n", "v": 308183 }
+          ]
+        ]
+      }
+    }
+  ],
+  "formulas": [
+    "R[-10]C[-1]"
+  ]
+}

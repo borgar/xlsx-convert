@@ -45,6 +45,7 @@ const tests = [
   'tests/excel/non-spilling-array-formula.xlsx',
   'tests/excel/numbers.xlsx',
   'tests/excel/patterns.xlsx',
+  'tests/excel/pivot-table.xlsx',
   'tests/excel/rotated-groups-shapes.xlsx',
   'tests/excel/row-col-styles.xlsx',
   'tests/excel/row-col-widths.xlsx',

@@ -1,0 +1,94 @@
+import { describe, it, expect } from 'vitest';
+import { handlerPivotCacheRecords } from './pivotCacheRecords.ts';
+import { parseXML } from '@borgar/simple-xml';
+
+function parse (xml: string) {
+  return handlerPivotCacheRecords(parseXML(xml));
+}
+
+describe('handlerPivotCacheRecords', () => {
+  it('should return empty array for missing root element', () => {
+    expect(parse('<root/>')).toEqual([]);
+  });
+
+  it('should return empty array for empty records element', () => {
+    expect(parse('<pivotCacheRecords count="0"/>')).toEqual([]);
+  });
+
+  it('should parse shared item index values', () => {
+    const xml = `<pivotCacheRecords count="1">
+      <r><x v="3"/><x v="0"/></r>
+    </pivotCacheRecords>`;
+    const records = parse(xml);
+    expect(records).toEqual([ [ { t: 'x', v: 3 }, { t: 'x', v: 0 } ] ]);
+  });
+
+  it('should default x value to 0 when v attribute is absent', () => {
+    const xml = `<pivotCacheRecords count="1">
+      <r><x/></r>
+    </pivotCacheRecords>`;
+    const records = parse(xml);
+    expect(records).toEqual([ [ { t: 'x', v: 0 } ] ]);
+  });
+
+  it('should parse inline number values', () => {
+    const xml = `<pivotCacheRecords count="1">
+      <r><n v="42.5"/><n v="-7"/></r>
+    </pivotCacheRecords>`;
+    const records = parse(xml);
+    expect(records).toEqual([ [ { t: 'n', v: 42.5 }, { t: 'n', v: -7 } ] ]);
+  });
+
+  it('should parse inline string values', () => {
+    const xml = `<pivotCacheRecords count="1">
+      <r><s v="hello"/><s v="world"/></r>
+    </pivotCacheRecords>`;
+    const records = parse(xml);
+    expect(records).toEqual([ [ { t: 's', v: 'hello' }, { t: 's', v: 'world' } ] ]);
+  });
+
+  it('should parse boolean values', () => {
+    const xml = `<pivotCacheRecords count="1">
+      <r><b v="1"/><b v="0"/></r>
+    </pivotCacheRecords>`;
+    const records = parse(xml);
+    expect(records).toEqual([ [ { t: 'b', v: true }, { t: 'b', v: false } ] ]);
+  });
+
+  it('should parse date values', () => {
+    const xml = `<pivotCacheRecords count="1">
+      <r><d v="2024-01-15T00:00:00"/></r>
+    </pivotCacheRecords>`;
+    const records = parse(xml);
+    expect(records).toEqual([ [ { t: 'd', v: '2024-01-15T00:00:00' } ] ]);
+  });
+
+  it('should parse error values', () => {
+    const xml = `<pivotCacheRecords count="1">
+      <r><e v="#REF!"/></r>
+    </pivotCacheRecords>`;
+    const records = parse(xml);
+    expect(records).toEqual([ [ { t: 'e', v: '#REF!' } ] ]);
+  });
+
+  it('should parse missing values as null', () => {
+    const xml = `<pivotCacheRecords count="1">
+      <r><m/></r>
+    </pivotCacheRecords>`;
+    const records = parse(xml);
+    expect(records).toEqual([ [ { t: 'z' } ] ]);
+  });
+
+  it('should parse multiple records with mixed value types', () => {
+    const xml = `<pivotCacheRecords count="3">
+      <r><x v="0"/><n v="100"/><s v="note"/></r>
+      <r><x v="1"/><n v="200"/><m/></r>
+      <r><x v="2"/><b v="1"/><d v="2024-06-01T00:00:00"/></r>
+    </pivotCacheRecords>`;
+    const records = parse(xml);
+    expect(records).toHaveLength(3);
+    expect(records[0]).toEqual([ { t: 'x', v: 0 }, { t: 'n', v: 100 }, { t: 's', v: 'note' } ]);
+    expect(records[1]).toEqual([ { t: 'x', v: 1 }, { t: 'n', v: 200 }, { t: 'z' } ]);
+    expect(records[2]).toEqual([ { t: 'x', v: 2 }, { t: 'b', v: true }, { t: 'd', v: '2024-06-01T00:00:00' } ]);
+  });
+});

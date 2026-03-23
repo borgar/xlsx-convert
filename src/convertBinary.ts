@@ -19,7 +19,10 @@ import { handlerNotes } from './handler/notes.ts';
 import { handlerWorksheet } from './handler/worksheet.ts';
 import { handlerExternal } from './handler/external.ts';
 import { handlerTable } from './handler/table.ts';
-import type { Workbook } from '@jsfkit/types';
+import { handlerPivotCacheDefinition } from './handler/pivotTables/pivotCacheDefinition.ts';
+import { handlerPivotCacheRecords } from './handler/pivotTables/pivotCacheRecords.ts';
+import { handlerPivotTable } from './handler/pivotTable.ts';
+import type { Workbook, PivotTable, PivotCache } from '@jsfkit/types';
 import type { ConversionOptions } from './index.ts';
 import { EncryptionError, InvalidFileError, MissingSheetError } from './errors.ts';
 import { handlerDrawing } from './handler/drawing.ts';
@@ -191,13 +194,53 @@ export async function convertBinary (
   // metadata
   context.metadata = await maybeRead(context, 'sheetMetadata', handlerMetaData);
 
+  // styles — read early so numFmts are available for pivot cache/table parsing
+  const styleDefs = await maybeRead(context, 'styles', handlerStyles);
+
+  // pivot caches (workbook-level) — prefer order from <pivotCaches> in workbook.xml
+  // over the document order in workbook.xml.rels (which can differ)
+  const pivotCacheRIds = wbDom.querySelectorAll('pivotCaches > pivotCache')
+    .map(d => attr(d, 'r:id'));
+  const pivotCacheRels = pivotCacheRIds.length > 0
+    ? pivotCacheRIds.map(rId => context.rels.find(d => d.id === rId)).filter((d): d is Rel => d != null)
+    : context.rels.filter(d => d.type === 'pivotCacheDefinition');
+
+  const cacheResults = await Promise.all(pivotCacheRels.map(async cacheRel => {
+    const [ cacheDom, cacheDefRels ] = await Promise.all([
+      getFile(cacheRel.target),
+      getRels(cacheRel.target),
+    ]);
+    if (!cacheDom) { return null; }
+    const cache = handlerPivotCacheDefinition(cacheDom, styleDefs?.numFmts);
+    if (!cache) { return null; }
+    // read the cache records via the cache definition's rels
+    const recordsRel = cacheDefRels.find(d => d.type === 'pivotCacheRecords');
+    if (recordsRel) {
+      const recordsDom = await getFile(recordsRel.target);
+      if (recordsDom) {
+        const records = handlerPivotCacheRecords(recordsDom);
+        if (records.length > 0) {
+          cache.records = records;
+        }
+      }
+    }
+    return { cache, target: cacheRel.target };
+  }));
+  const cachePathToCache = new Map<string, PivotCache>();
+  for (const result of cacheResults) {
+    if (result) {
+      cachePathToCache.set(result.target, result.cache);
+    }
+  }
+
   // theme
   context.theme = await maybeRead(context, 'theme', handlerTheme);
   wb.theme = context.theme;
 
-  // styles
-  const styleDefs = await maybeRead(context, 'styles', handlerStyles);
+  // convert styles to JSF format (styleDefs was read earlier for pivot numFmtId resolution)
   wb.styles = convertStyles(styleDefs);
+
+  const pivotTables: PivotTable[] = [];
 
   // worksheets — processed sequentially to avoid shared-state races
   for (const [ index, sheetLink ] of context.sheetLinks.entries()) {
@@ -217,6 +260,33 @@ export async function convertBinary (
           wb.tables.push(table);
         }
       }
+
+      const pivotTableRels = sheetRels.filter(rel => rel.type === 'pivotTable');
+      await Promise.all(pivotTableRels.map(async ptRel => {
+        const [ ptDom, ptRels ] = await Promise.all([
+          getFile(ptRel.target),
+          getRels(ptRel.target),
+        ]);
+        if (ptDom) {
+          const pt = handlerPivotTable(ptDom, styleDefs?.numFmts);
+          if (pt) {
+            pt.sheet = sheetName;
+            // resolve cache from pivot table's rels -> pivotCacheDefinition
+            const ptCacheRel = ptRels.find(d => d.type === 'pivotCacheDefinition');
+            if (ptCacheRel) {
+              const cache = cachePathToCache.get(ptCacheRel.target);
+              if (cache) { pt.cache = cache; }
+            }
+            // Only include pivot tables whose cache was successfully parsed
+            if (pt.cache != null) {
+              pivotTables.push(pt as PivotTable);
+            }
+            else {
+              context.warn(`Pivot table "${pt.name}" on sheet "${sheetName}" dropped: cache definition not found (rel target: ${ptCacheRel?.target ?? 'none'})`);
+            }
+          }
+        }
+      }));
 
       // convert the sheet
       const sheetFile = await getFile(sheetRel.target);
@@ -283,6 +353,21 @@ export async function convertBinary (
     else {
       // TODO: add strict mode that: throw new Error('No rel found for sheet ' + sheetLink.rId);
     }
+  }
+
+  // Sort pivot tables by sheet position, then by name within each sheet.
+  // Sheet order is already guaranteed by sequential processing, but rels
+  // order within a sheet is not deterministic by name.
+  if (pivotTables.length > 1) {
+    const sheetOrder = new Map(context.sheetLinks.map((sl, i) => [ sl.name || `Sheet${sl.index}`, i ]));
+    pivotTables.sort((a, b) => {
+      const si = (sheetOrder.get(a.sheet) ?? Infinity) - (sheetOrder.get(b.sheet) ?? Infinity);
+      return si !== 0 ? si : a.name.localeCompare(b.name);
+    });
+  }
+
+  if (pivotTables.length > 0) {
+    wb.pivotTables = pivotTables;
   }
 
   // Store people from the workbook.
