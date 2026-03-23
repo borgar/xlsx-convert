@@ -181,7 +181,6 @@ describe('handlerPivotTable', () => {
     expect(pt.fields[0].autoSortScope).toEqual({
       dataOnly: false,
       outline: false,
-      fieldPosition: 0,
       references: [
         { field: -2, selected: false, itemIndices: [ 0 ] },
         { field: 25, selected: false, itemIndices: [ 0 ] },

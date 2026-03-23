@@ -43,7 +43,7 @@ export function parsePivotArea (elm: Element): PivotArea {
     const axis = AXIS_VALUES.get(axisStr);
     if (axis) { area.axis = axis; }
   }
-  addProp(area, 'fieldPosition', numAttr(elm, 'fieldPosition'));
+  addProp(area, 'fieldPosition', numAttr(elm, 'fieldPosition'), 0);
 
   // references
   const refsContainer = elm.querySelector('references');
