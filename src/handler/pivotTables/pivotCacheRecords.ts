@@ -1,6 +1,6 @@
 import type { Document } from '@borgar/simple-xml';
 import type { PivotCacheRecord, PivotCacheRecordValue } from '@jsfkit/types';
-import { attr } from '../../utils/attr.ts';
+import { numAttr } from '../../utils/attr.ts';
 import { parseCacheSharedItem } from './parseCacheSharedItem.ts';
 
 export function handlerPivotCacheRecords (dom: Document): PivotCacheRecord[] {
@@ -12,7 +12,7 @@ export function handlerPivotCacheRecords (dom: Document): PivotCacheRecord[] {
     const record: PivotCacheRecordValue[] = [];
     for (const child of r.children) {
       if (child.tagName === 'x') {
-        record.push({ t: 'x', v: +attr(child, 'v', '0') });
+        record.push({ t: 'x', v: numAttr(child, 'v', 0) });
       }
       else {
         const item = parseCacheSharedItem(child);
