@@ -145,5 +145,10 @@
     "RC[-1]*4.4",
     "SUM(R[-7]C:R[-2]C*R[-7]C[-1]:R[-2]C[-1])",
     "AVERAGE(R[-7]C#)"
-  ]
+  ],
+  "meta": {
+    "app": "Microsoft Excel",
+    "appVariant": "Macintosh",
+    "appVersion": "16.0300"
+  }
 }

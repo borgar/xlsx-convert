@@ -79,5 +79,10 @@
     "IF(RC[-2]<>\"\",IF(RC=\"\",NOW(),RC),\"\")",
     "R[-1]C*(1+R1C2)",
     "R[-2]C*(1+R[-1]C)"
-  ]
+  ],
+  "meta": {
+    "app": "Microsoft Excel",
+    "appVariant": "Macintosh",
+    "appVersion": "16.0300"
+  }
 }

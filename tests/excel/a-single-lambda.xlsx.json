@@ -4,7 +4,7 @@
     {
       "name": "Sheet1",
       "cells": {
-        "A1": { "v": "#CALC!", "t": "e", "f": 0, "F": "A1" }
+        "A1": { "v": "#CALC!", "t": "e", "F": "A1", "f": 0 }
       },
       "columns": [],
       "rows": [],
@@ -32,5 +32,10 @@
   ],
   "formulas": [
     "LAMBDA(a,b,a*b)"
-  ]
+  ],
+  "meta": {
+    "app": "Microsoft Excel",
+    "appVariant": "Macintosh",
+    "appVersion": "16.0300"
+  }
 }
