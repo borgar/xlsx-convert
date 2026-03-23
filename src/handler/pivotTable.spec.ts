@@ -326,6 +326,17 @@ describe('handlerPivotTable', () => {
     expect(pt.autoRefresh).toBeUndefined();
   });
 
+  it('should not set autoRefresh when explicitly false (OOXML default)', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0" autoRefresh="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="0"/>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="0"/>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.autoRefresh).toBeUndefined();
+  });
+
   it('should parse subtotal-typed row/col items (e.g. t="sum")', () => {
     const xml = `<pivotTableDefinition name="PT1" cacheId="0">
       <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
