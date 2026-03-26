@@ -58,6 +58,9 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
   const pr = dom.querySelectorAll('workbook > workbookPr')[0];
   wb.calculationProperties.epoch = (pr && numAttr(pr, 'date1904')) ? 1904 : 1900;
 
+  // if theme is missing later, we can use this to determine which defaults to use
+  context.defaultThemeVersion = pr.getAttribute('defaultThemeVersion') || '202300';
+
   const calcPr = dom.getElementsByTagName('calcPr')[0];
   if (calcPr) {
     const iterate = toInt(attr(calcPr, 'iterate'));
