@@ -83,7 +83,8 @@ export class ConversionContext {
     this.rels = [];
     this.options = {};
     this.workbook = null;
-    this.theme = getBlankTheme();
+    this.defaultThemeVersion = '202300';
+    this.theme = getBlankTheme(this.defaultThemeVersion);
     this.indexedColors = [ ...COLOR_INDEX ];
     this.richStruct = [];
     this.richValues = null;
@@ -91,7 +92,6 @@ export class ConversionContext {
     this.sheetLinks = [];
     this.externalLinks = [];
     this.filename = '';
-    this.defaultThemeVersion = '202300';
     this._formulasR1C1 = new FormulaList();
     this._shared = new Map();
     this._merged = {};
