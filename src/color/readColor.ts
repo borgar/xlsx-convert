@@ -1,5 +1,5 @@
 import type { Element } from '@borgar/simple-xml';
-import type { Color as JSFColor, ColorTransform, Theme } from '@jsfkit/types';
+import type { Color as JSFColor, Theme } from '@jsfkit/types';
 import { attr, numAttr } from '../utils/attr.ts';
 import { Color } from './Color.ts';
 import { SYSTEM_COLORS, PRESET_COLORS, SCHEME_COLORS, INDEX_TO_SCHEME } from '../constants.ts';
@@ -9,9 +9,12 @@ import { readDrawingMLColor } from './readDrawingMLColor.ts';
  * Reads a color element and returns a Color container. This should handle any of the
  * multiple color elements found within an XSLX workbook:
  *
+ * Color types found in (workbook) styles:
  * - `<color>`
  * - `<fgColor>`
  * - `<bgColor>`
+ *
+ * Color types found in DrawingML:
  * - `<schemeClr>`
  * - `<hslClr>`
  * - `<prstClr>`
@@ -47,6 +50,9 @@ export function readColor (elm: Element, theme: Theme, indexedColors: string[]):
       const hex = argb.length === 8 ? argb.slice(2) : argb;
       jsfColor = { type: 'srgb', value: hex.toUpperCase() };
       if (argb.length === 8) {
+        // NOTE: Yes, Excel removes this when it opens workbooks that have it, but we don't
+        // have tested confirmation yet if this is [always] safe to remove, so we preserve it
+        // leaving it up to consumers to discard the alpha channel at render-time.
         const alphaPct = parseInt(argb.slice(0, 2), 16) / 255 * 100;
         if (alphaPct < 100) {
           jsfColor.transforms = [ { type: 'alpha', value: alphaPct } ];
@@ -82,10 +88,10 @@ export function readColor (elm: Element, theme: Theme, indexedColors: string[]):
     // colour to retain. So XLSX tint=0.4 ("add 40% white") becomes value=60 ("retain 60%").
     const tint = numAttr(elm, 'tint', 0);
     if (tint < 0) {
-      jsfColor.transforms = [ { type: 'shade', value: (1 + tint) * 100 } as ColorTransform ];
+      jsfColor.transforms = [ { type: 'shade', value: (1 + tint) * 100 } ];
     }
     else if (tint > 0) {
-      jsfColor.transforms = [ { type: 'tint', value: (1 - tint) * 100 } as ColorTransform ];
+      jsfColor.transforms = [ { type: 'tint', value: (1 - tint) * 100 } ];
     }
 
     return new Color(jsfColor, theme, indexedColors);
