@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { normalizeFormula } from './normalizeFormula.js';
+import { tokenize, tokenTypes } from '@borgar/fx/xlsx';
 
 describe('normalizeFormula', () => {
   describe('basic functionality', () => {
@@ -188,6 +189,82 @@ describe('normalizeFormula', () => {
     it('should preserve whitespace and formatting', () => {
       const formula = '_xlfn.SUM( A1 : B2 )';
       expect(normalizeFormula(formula)).toBe('SUM( A1 : B2 )');
+    });
+  });
+
+  describe('preservePrefixes', () => {
+    const pp = { externalLinks: [], preservePrefixes: true };
+
+    it('should preserve _xlfn namespace on functions', () => {
+      expect(normalizeFormula('_xlfn.IFERROR(A1,0)', pp)).toBe('_xlfn.IFERROR(A1,0)');
+      expect(normalizeFormula('_xlfn.SUMIFS(A:A,B:B,">0")', pp)).toBe('_xlfn.SUMIFS(A:A,B:B,">0")');
+    });
+
+    it('should preserve _xludf namespace on functions', () => {
+      expect(normalizeFormula('_xludf.CUSTOMFUNC(A1)', pp)).toBe('_xludf.CUSTOMFUNC(A1)');
+    });
+
+    it('should preserve _xlws namespace on functions', () => {
+      expect(normalizeFormula('_xlws.WEBSERVICE("http://example.com")', pp))
+        .toBe('_xlws.WEBSERVICE("http://example.com")');
+    });
+
+    it('should preserve SINGLE as function call', () => {
+      expect(normalizeFormula('_xlfn.SINGLE(A1)', pp)).toBe('_xlfn.SINGLE(A1)');
+      expect(normalizeFormula('SINGLE(A1)', pp)).toBe('SINGLE(A1)');
+    });
+
+    it('should preserve ANCHORARRAY as function call', () => {
+      expect(normalizeFormula('_xlfn.ANCHORARRAY(D1)', pp)).toBe('_xlfn.ANCHORARRAY(D1)');
+    });
+
+    it('should preserve _TRO_* as function calls', () => {
+      expect(normalizeFormula('_xlfn._TRO_ALL(A1:B2)', pp)).toBe('_xlfn._TRO_ALL(A1:B2)');
+      expect(normalizeFormula('_xlfn._TRO_LEADING(A1:B2)', pp)).toBe('_xlfn._TRO_LEADING(A1:B2)');
+      expect(normalizeFormula('_xlfn._TRO_TRAILING(A1:B2)', pp)).toBe('_xlfn._TRO_TRAILING(A1:B2)');
+    });
+
+    it('should preserve _xlpm on named references', () => {
+      expect(normalizeFormula('_xlpm.MyName', pp)).toBe('_xlpm.MyName');
+      expect(normalizeFormula('SUM(_xlpm.DataRange)', pp)).toBe('SUM(_xlpm.DataRange)');
+    });
+
+    it('should still normalize external references', () => {
+      const wb = { externalLinks: [ { name: 'External.xlsx' } ], preservePrefixes: true };
+      expect(normalizeFormula('[1]Sheet1!A1', wb)).toBe('[External.xlsx]Sheet1!A1');
+    });
+
+    it('should preserve prefixes while normalizing external references', () => {
+      const wb = { externalLinks: [ { name: 'External.xlsx' } ], preservePrefixes: true };
+      expect(normalizeFormula('_xlfn.IFERROR(_xlpm.MyName+[1]Sheet1!A1,0)', wb))
+        .toBe('_xlfn.IFERROR(_xlpm.MyName+[External.xlsx]Sheet1!A1,0)');
+    });
+
+    it('should preserve LET with _xlpm parameters and fx parses c:r as name range not column range', () => {
+      const formula = '_xlfn.LET(_xlpm.c, C24,_xlpm.r, OFFSET(_xlpm.c,1,1), _xlpm.c:_xlpm.r)';
+      const result = normalizeFormula(formula, pp);
+      expect(result).toBe(formula);
+
+      // With prefixes preserved, fx tokenizes "_xlpm.c" and "_xlpm.r" as
+      // separate named references (REF_NAMED) joined by a ":" operator —
+      // a normal range between two LET-parameter names.
+      const tokens = tokenize(result);
+      const lastNamedIdx = tokens.reduce((acc, t, i) => (t.type === tokenTypes.REF_NAMED ? i : acc), -1);
+      const lastRef = tokens[lastNamedIdx];
+      expect(lastRef.value).toBe('_xlpm.r');
+      const prevRef = tokens[lastNamedIdx - 2];
+      expect(prevRef.value).toBe('_xlpm.c');
+      expect(prevRef.type).toBe(tokenTypes.REF_NAMED);
+      const colon = tokens[lastNamedIdx - 1];
+      expect(colon.value).toBe(':');
+
+      // Without preservePrefixes, prefixes are stripped and "c:r" becomes a
+      // column range (REF_BEAM) — the wrong interpretation.
+      const stripped = normalizeFormula(formula);
+      const strippedTokens = tokenize(stripped);
+      const beamToken = strippedTokens.find(t => t.value === 'c:r');
+      expect(beamToken).toBeDefined();
+      expect(beamToken.type).toBe(tokenTypes.REF_BEAM);
     });
   });
 });
