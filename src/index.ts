@@ -16,6 +16,13 @@ export type ConversionOptions = {
    */
   cellFormulas?: boolean;
   /**
+   * Preserve XLSX-internal prefixes (`_xlfn.`, `_xludf.`, `_xlws.`, `_xlpm.`, `_xlnm.`)
+   * in formula output instead of stripping them. Also preserves `SINGLE`, `ANCHORARRAY`,
+   * and `_TRO_*` as function calls rather than converting them to operators.
+   * @defaultValue false
+   */
+  preservePrefixes?: boolean;
+  /**
    * Image reading callback. All read images are passed through this callback if it is provided.
    * This is useful, for example, for extracting the images to disk.
    *

@@ -64,6 +64,10 @@ export class ConversionContext {
   images: RefLink[];
   isLikelyGSExport: boolean;
 
+  get preservePrefixes (): boolean | undefined {
+    return this.options.preservePrefixes;
+  }
+
   warn (message: string): void {
     this.options.warn?.(message);
   }
