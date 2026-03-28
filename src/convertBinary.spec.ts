@@ -170,6 +170,14 @@ describe('convertBinary', () => {
     expect(wb.names[0].value).toContain('_xlfn.LAMBDA');
     expect(wb.names[0].value).toContain('_xlpm.x');
 
+    // cellFormulas mode also retains prefixes
+    const wbCF = await convertBinary(bin, 'prefixed-formulas.xlsx', {
+      preservePrefixes: true, cellFormulas: true,
+    });
+    const a1f = Object.values(wbCF.sheets[0].cells).map(c => c.f).filter((f): f is string => typeof f === 'string');
+    expect(a1f.some(f => f.includes('_xlfn.'))).toBe(true);
+    expect(a1f.some(f => f.includes('_xlpm.'))).toBe(true);
+
     // Without the option, prefixes are stripped
     const wbDefault = await convertBinary(bin, 'prefixed-formulas.xlsx');
     expect(wbDefault.formulas.some(f => f.includes('_xlfn.'))).toBe(false);

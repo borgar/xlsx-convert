@@ -64,6 +64,8 @@ export class ConversionContext {
   images: RefLink[];
   isLikelyGSExport: boolean;
 
+  // Exposes options.preservePrefixes so ConversionContext satisfies
+  // ConversionContextSubset at runtime (not just structurally).
   get preservePrefixes (): boolean | undefined {
     return this.options.preservePrefixes;
   }

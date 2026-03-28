@@ -216,6 +216,7 @@ describe('normalizeFormula', () => {
 
     it('should preserve ANCHORARRAY as function call', () => {
       expect(normalizeFormula('_xlfn.ANCHORARRAY(D1)', pp)).toBe('_xlfn.ANCHORARRAY(D1)');
+      expect(normalizeFormula('ANCHORARRAY(D1)', pp)).toBe('ANCHORARRAY(D1)');
     });
 
     it('should preserve _TRO_* as function calls', () => {
@@ -224,8 +225,9 @@ describe('normalizeFormula', () => {
       expect(normalizeFormula('_xlfn._TRO_TRAILING(A1:B2)', pp)).toBe('_xlfn._TRO_TRAILING(A1:B2)');
     });
 
-    it('should preserve _xlpm on named references', () => {
+    it('should preserve _xlpm and _xlnm on named references', () => {
       expect(normalizeFormula('_xlpm.MyName', pp)).toBe('_xlpm.MyName');
+      expect(normalizeFormula('_xlnm.Print_Area', pp)).toBe('_xlnm.Print_Area');
       expect(normalizeFormula('SUM(_xlpm.DataRange)', pp)).toBe('SUM(_xlpm.DataRange)');
     });
 
