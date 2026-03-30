@@ -18,7 +18,8 @@ export type ConversionOptions = {
   /**
    * Preserve XLSX-internal prefixes (`_xlfn.`, `_xludf.`, `_xlws.`, `_xlpm.`, `_xlnm.`)
    * in formula output instead of stripping them. Also preserves `SINGLE`, `ANCHORARRAY`,
-   * and `_TRO_*` as function calls rather than converting them to operators.
+   * and `_TRO_*` (both `_xlfn.`-prefixed and bare forms) as function calls rather than
+   * converting them to operators.
    * @defaultValue false
    */
   preservePrefixes?: boolean;
