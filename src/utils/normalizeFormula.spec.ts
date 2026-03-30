@@ -223,6 +223,10 @@ describe('normalizeFormula', () => {
       expect(normalizeFormula('_xlfn._TRO_ALL(A1:B2)', pp)).toBe('_xlfn._TRO_ALL(A1:B2)');
       expect(normalizeFormula('_xlfn._TRO_LEADING(A1:B2)', pp)).toBe('_xlfn._TRO_LEADING(A1:B2)');
       expect(normalizeFormula('_xlfn._TRO_TRAILING(A1:B2)', pp)).toBe('_xlfn._TRO_TRAILING(A1:B2)');
+      // bare forms (without _xlfn. prefix)
+      expect(normalizeFormula('_TRO_ALL(A1:B2)', pp)).toBe('_TRO_ALL(A1:B2)');
+      expect(normalizeFormula('_TRO_LEADING(A1:B2)', pp)).toBe('_TRO_LEADING(A1:B2)');
+      expect(normalizeFormula('_TRO_TRAILING(A1:B2)', pp)).toBe('_TRO_TRAILING(A1:B2)');
     });
 
     it('should preserve _xlpm and _xlnm on named references', () => {
