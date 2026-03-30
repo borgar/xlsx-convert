@@ -161,7 +161,7 @@ export async function convertBinary (
       const targetRel = extRels.find(d => d.id === 'rId1');
       const target = targetRel?.target;
       if (target) {
-        const exlink = handlerExternal(await getFile(rel.target), target);
+        const exlink = handlerExternal(await getFile(rel.target), target, context.options.preservePrefixes);
         context.externalLinks.push(exlink);
         if (targetRel.type.endsWith('xlPathMissing')) {
           exlink.pathMissing = true;

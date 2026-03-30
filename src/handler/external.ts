@@ -7,7 +7,7 @@ import type { External, ExternalDefinedName } from '@jsfkit/types';
 
 const NO_EXTERNALS = { externalLinks: [] };
 
-export function handlerExternal (dom: Document, fileName: string = ''): External {
+export function handlerExternal (dom: Document, fileName: string = '', preservePrefixes?: boolean): External {
   const external: External = {
     name: fileName,
     sheets: [],
@@ -54,7 +54,7 @@ export function handlerExternal (dom: Document, fileName: string = ''): External
       };
       const expr = attr(definedName, 'refersTo');
       if (expr) {
-        nameDef.value = normalizeFormula(expr, NO_EXTERNALS);
+        nameDef.value = normalizeFormula(expr, preservePrefixes ? { externalLinks: [], preservePrefixes } : NO_EXTERNALS);
       }
       external.names.push(nameDef);
     });
