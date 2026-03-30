@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { normalizeFormula } from './normalizeFormula.js';
-import { tokenize, tokenTypes } from '@borgar/fx/xlsx';
+import { normalizeFormula, normalizeFormulaTokens } from './normalizeFormula.js';
+import { tokenize, tokenTypes, stringifyTokens, translateTokensToR1C1 } from '@borgar/fx/xlsx';
 
 describe('normalizeFormula', () => {
   describe('basic functionality', () => {
@@ -278,6 +278,15 @@ describe('normalizeFormula', () => {
       const beamToken = strippedTokens.find(t => t.value === 'c:r');
       expect(beamToken).toBeDefined();
       expect(beamToken.type).toBe(tokenTypes.REF_BEAM);
+    });
+
+    it('should preserve prefixes in R1C1 mode', () => {
+      // Simulate the R1C1 path used by cell.ts: tokenize → translateToR1C1 → normalizeFormulaTokens(…, true)
+      const formula = '_xlfn.IFERROR(_xlpm.x,0)';
+      const tokens = tokenize(formula);
+      const r1c1Tokens = translateTokensToR1C1(tokens, 'A1');
+      const result = stringifyTokens(normalizeFormulaTokens(r1c1Tokens, pp, true));
+      expect(result).toBe('_xlfn.IFERROR(_xlpm.x,0)');
     });
   });
 });
