@@ -54,7 +54,8 @@ export function handlerExternal (dom: Document, fileName: string = '', preserveP
       };
       const expr = attr(definedName, 'refersTo');
       if (expr) {
-        nameDef.value = normalizeFormula(expr, preservePrefixes ? { externalLinks: [], preservePrefixes } : NO_EXTERNALS);
+        const ctx = preservePrefixes ? { externalLinks: [], preservePrefixes } : NO_EXTERNALS;
+        nameDef.value = normalizeFormula(expr, ctx);
       }
       external.names.push(nameDef);
     });
