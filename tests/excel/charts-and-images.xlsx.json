@@ -109,7 +109,7 @@
               "type": "chart",
               "id": "2",
               "name": "Chart 1",
-              "chartId": "rId1",
+              "chartId": "xl/charts/chart1.xml",
               "xfrm": {
                 "ext": { "cx": 0, "cy": 0 }
               }
@@ -137,7 +137,7 @@
               "type": "chart",
               "id": "5",
               "name": "Chart 4",
-              "chartId": "rId2",
+              "chartId": "xl/charts/chart2.xml",
               "xfrm": {
                 "ext": { "cx": 0, "cy": 0 }
               }
@@ -165,7 +165,7 @@
               "type": "chart",
               "id": "6",
               "name": "Chart 5",
-              "chartId": "rId3",
+              "chartId": "xl/charts/chart3.xml",
               "xfrm": {
                 "ext": { "cx": 0, "cy": 0 }
               }

@@ -1,0 +1,53 @@
+{
+  "name": "chart-box-and-whisker.xlsx",
+  "sheets": [
+    {
+      "name": "Statistical",
+      "cells": {
+        "B1": { "v": "Foo" },
+        "C1": { "v": "Bar" },
+        "A2": { "v": "a" },
+        "B2": { "v": 32, "f": 0 },
+        "C2": { "v": 78, "f": 0 },
+        "A3": { "v": "b" },
+        "B3": { "v": 30, "f": 0 },
+        "C3": { "v": 44, "f": 0 },
+        "A4": { "v": "c" },
+        "B4": { "v": 16, "f": 0 },
+        "C4": { "v": 45, "f": 0 },
+        "A5": { "v": "d" },
+        "B5": { "v": 63, "f": 0 },
+        "C5": { "v": 40, "f": 0 },
+        "A6": { "v": "e" },
+        "B6": { "v": 95, "f": 0 },
+        "C6": { "v": 39, "f": 0 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "N14" }
+      ],
+      "drawing": []
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [],
+  "views": [
+    {}
+  ],
+  "formulas": [
+    "RANDBETWEEN(1,100)"
+  ]
+}

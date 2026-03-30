@@ -1,0 +1,250 @@
+{
+  "name": "chart-bar3d.xlsx",
+  "sheets": [
+    {
+      "name": "Bar",
+      "cells": {
+        "B1": { "v": "Foo" },
+        "C1": { "v": "Bar" },
+        "A2": { "v": "a" },
+        "B2": { "v": 37, "f": 0 },
+        "C2": { "v": 4, "f": 0 },
+        "A3": { "v": "b" },
+        "B3": { "v": 63, "f": 0 },
+        "C3": { "v": 13, "f": 0 },
+        "A4": { "v": "c" },
+        "B4": { "v": 72, "f": 0 },
+        "C4": { "v": 62, "f": 0 },
+        "A5": { "v": "d" },
+        "B5": { "v": 30, "f": 0 },
+        "C5": { "v": 68, "f": 0 },
+        "A6": { "v": "e" },
+        "B6": { "v": 37, "f": 0 },
+        "C6": { "v": 51, "f": 0 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "Y26" }
+      ],
+      "drawing": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 0,
+              "rowOff": 88900,
+              "col": 3,
+              "colOff": 177800
+            },
+            "to": {
+              "row": 13,
+              "rowOff": 190500,
+              "col": 8,
+              "colOff": 622300
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "2",
+              "name": "Chart 1",
+              "chartId": "xl/charts/chart1.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 0,
+              "rowOff": 88900,
+              "col": 9,
+              "colOff": 177800
+            },
+            "to": {
+              "row": 13,
+              "rowOff": 190500,
+              "col": 14,
+              "colOff": 622300
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "3",
+              "name": "Chart 2",
+              "chartId": "xl/charts/chart2.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 0,
+              "rowOff": 88900,
+              "col": 15,
+              "colOff": 177800
+            },
+            "to": {
+              "row": 13,
+              "rowOff": 190500,
+              "col": 20,
+              "colOff": 622300
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "4",
+              "name": "Chart 3",
+              "chartId": "xl/charts/chart3.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 0,
+              "rowOff": 88900,
+              "col": 21,
+              "colOff": 177800
+            },
+            "to": {
+              "row": 13,
+              "rowOff": 190500,
+              "col": 26,
+              "colOff": 622300
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "5",
+              "name": "Chart 4",
+              "chartId": "xl/charts/chart4.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 15,
+              "rowOff": 88900,
+              "col": 3,
+              "colOff": 177800
+            },
+            "to": {
+              "row": 28,
+              "rowOff": 190500,
+              "col": 8,
+              "colOff": 622300
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "6",
+              "name": "Chart 5",
+              "chartId": "xl/charts/chart5.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 15,
+              "rowOff": 88900,
+              "col": 9,
+              "colOff": 177800
+            },
+            "to": {
+              "row": 28,
+              "rowOff": 190500,
+              "col": 14,
+              "colOff": 622300
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "7",
+              "name": "Chart 6",
+              "chartId": "xl/charts/chart6.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 15,
+              "rowOff": 88900,
+              "col": 15,
+              "colOff": 177800
+            },
+            "to": {
+              "row": 28,
+              "rowOff": 190500,
+              "col": 20,
+              "colOff": 622300
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "8",
+              "name": "Chart 7",
+              "chartId": "xl/charts/chart7.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [],
+  "views": [
+    {}
+  ],
+  "formulas": [
+    "RANDBETWEEN(1,100)"
+  ]
+}

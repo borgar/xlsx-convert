@@ -1,0 +1,174 @@
+{
+  "name": "chart-bubble.xlsx",
+  "sheets": [
+    {
+      "name": "XY",
+      "cells": {
+        "B1": { "v": "Foo" },
+        "C1": { "v": "Bar" },
+        "D1": { "v": "Baz" },
+        "A2": { "v": "a" },
+        "B2": { "v": 33, "f": 0 },
+        "C2": { "v": 399, "f": 1 },
+        "D2": { "v": 7563, "f": 2 },
+        "A3": { "v": "b" },
+        "B3": { "v": 59, "f": 0 },
+        "C3": { "v": 323, "f": 1 },
+        "D3": { "v": 1231, "f": 2 },
+        "A4": { "v": "c" },
+        "B4": { "v": 63, "f": 0 },
+        "C4": { "v": 866, "f": 1 },
+        "D4": { "v": 6887, "f": 2 },
+        "A5": { "v": "d" },
+        "B5": { "v": 57, "f": 0 },
+        "C5": { "v": 9, "f": 1 },
+        "D5": { "v": 8977, "f": 2 },
+        "A6": { "v": "e" },
+        "B6": { "v": 18, "f": 0 },
+        "C6": { "v": 173, "f": 1 },
+        "D6": { "v": 2618, "f": 2 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "R18" }
+      ],
+      "drawing": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 0,
+              "rowOff": 50800,
+              "col": 10,
+              "colOff": 177800
+            },
+            "to": {
+              "row": 19,
+              "rowOff": 76200,
+              "col": 15,
+              "colOff": 622300
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "3",
+              "name": "Chart 2",
+              "chartId": "xl/charts/chart1.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 0,
+              "rowOff": 50800,
+              "col": 4,
+              "colOff": 171450
+            },
+            "to": {
+              "row": 19,
+              "rowOff": 69850,
+              "col": 9,
+              "colOff": 615950
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "4",
+              "name": "Chart 3",
+              "chartId": "xl/charts/chart2.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 21,
+              "rowOff": 101600,
+              "col": 10,
+              "colOff": 171450
+            },
+            "to": {
+              "row": 40,
+              "rowOff": 127000,
+              "col": 15,
+              "colOff": 615950
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "6",
+              "name": "Chart 5",
+              "chartId": "xl/charts/chart3.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 21,
+              "rowOff": 101600,
+              "col": 4,
+              "colOff": 165100
+            },
+            "to": {
+              "row": 40,
+              "rowOff": 120650,
+              "col": 9,
+              "colOff": 609600
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "7",
+              "name": "Chart 6",
+              "chartId": "xl/charts/chart4.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [],
+  "views": [
+    {}
+  ],
+  "formulas": [
+    "RANDBETWEEN(1,100)",
+    "RANDBETWEEN(1,1000)",
+    "RANDBETWEEN(1,10000)"
+  ]
+}

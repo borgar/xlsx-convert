@@ -6,7 +6,7 @@ import type { Rel } from './handler/rels.ts';
 import { COLOR_INDEX } from './constants.ts';
 import { getBlankTheme } from './handler/theme.ts';
 import type { RelativeFormula } from './RelativeFormula.ts';
-import type { External, Workbook } from '@jsfkit/types';
+import type { DefinedName, External, Workbook } from '@jsfkit/types';
 import type { ConversionOptions } from './index.ts';
 
 type SheetLink = {
@@ -51,6 +51,7 @@ export class ConversionContext {
   drawingRels: Rel[];
   theme: Theme;
   indexedColors: string[];
+  nameDefs: Map<string, DefinedName>;
   richStruct: RDStruct[];
   richValues: RDValue[];
   metadata: MetaData;
@@ -63,6 +64,7 @@ export class ConversionContext {
   _arrayFormula: string[];
   images: RefLink[];
   isLikelyGSExport: boolean;
+  charts: RefLink[];
 
   warn (message: string): void {
     this.options.warn?.(message);
@@ -74,6 +76,7 @@ export class ConversionContext {
     this.workbook = null;
     this.theme = getBlankTheme();
     this.indexedColors = [ ...COLOR_INDEX ];
+    this.nameDefs = new Map();
     this.richStruct = [];
     this.richValues = null;
     this.metadata = null;
@@ -86,5 +89,6 @@ export class ConversionContext {
     this._arrayFormula = [];
     this.images = [];
     this.isLikelyGSExport = false;
+    this.charts = [];
   }
 }

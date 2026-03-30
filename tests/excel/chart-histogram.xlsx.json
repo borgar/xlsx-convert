@@ -1,0 +1,53 @@
+{
+  "name": "chart-histogram.xlsx",
+  "sheets": [
+    {
+      "name": "Statistical",
+      "cells": {
+        "B1": { "v": "Foo" },
+        "C1": { "v": "Bar" },
+        "A2": { "v": "a" },
+        "B2": { "v": 22, "f": 0 },
+        "C2": { "v": 59, "f": 0 },
+        "A3": { "v": "b" },
+        "B3": { "v": 46, "f": 0 },
+        "C3": { "v": 45, "f": 0 },
+        "A4": { "v": "c" },
+        "B4": { "v": 14, "f": 0 },
+        "C4": { "v": 36, "f": 0 },
+        "A5": { "v": "d" },
+        "B5": { "v": 96, "f": 0 },
+        "C5": { "v": 94, "f": 0 },
+        "A6": { "v": "e" },
+        "B6": { "v": 96, "f": 0 },
+        "C6": { "v": 27, "f": 0 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "J23" }
+      ],
+      "drawing": []
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [],
+  "views": [
+    {}
+  ],
+  "formulas": [
+    "RANDBETWEEN(1,100)"
+  ]
+}

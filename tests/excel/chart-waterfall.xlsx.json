@@ -1,0 +1,53 @@
+{
+  "name": "chart-waterfall.xlsx",
+  "sheets": [
+    {
+      "name": "Waterfall",
+      "cells": {
+        "B1": { "v": "Foo" },
+        "C1": { "v": "Bar" },
+        "A2": { "v": "a" },
+        "B2": { "v": 88, "f": 0 },
+        "C2": { "v": 98, "f": 0 },
+        "A3": { "v": "b" },
+        "B3": { "v": 88, "f": 0 },
+        "C3": { "v": 36, "f": 0 },
+        "A4": { "v": "c" },
+        "B4": { "v": -10, "f": 0 },
+        "C4": { "v": -40, "f": 0 },
+        "A5": { "v": "d" },
+        "B5": { "v": -42, "f": 0 },
+        "C5": { "v": -19, "f": 0 },
+        "A6": { "v": "e" },
+        "B6": { "v": 89, "f": 0 },
+        "C6": { "v": -25, "f": 0 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "K12" }
+      ],
+      "drawing": []
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [],
+  "views": [
+    {}
+  ],
+  "formulas": [
+    "RANDBETWEEN(-50,100)"
+  ]
+}

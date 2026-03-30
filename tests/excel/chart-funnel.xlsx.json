@@ -1,0 +1,60 @@
+{
+  "name": "chart-funnel.xlsx",
+  "sheets": [
+    {
+      "name": "Waterfall",
+      "cells": {
+        "B1": { "v": "Foo" },
+        "C1": { "v": "Bar" },
+        "A2": { "v": "a" },
+        "B2": { "v": 27, "f": 0 },
+        "C2": { "v": 69, "f": 0 },
+        "A3": { "v": "b" },
+        "B3": { "v": 53, "f": 1 },
+        "C3": { "v": 104, "f": 1 },
+        "A4": { "v": "c" },
+        "B4": { "v": 149, "f": 1 },
+        "C4": { "v": 203, "f": 1 },
+        "A5": { "v": "d" },
+        "B5": { "v": 226, "f": 1 },
+        "C5": { "v": 236, "f": 1 },
+        "A6": { "v": "e" },
+        "B6": { "v": 265, "f": 1 },
+        "C6": { "v": 186, "f": 1 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [
+        {
+          "workbookView": 0,
+          "activeCell": "B2",
+          "activeRanges": [
+            "B2:C6"
+          ]
+        }
+      ],
+      "drawing": []
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [],
+  "views": [
+    {}
+  ],
+  "formulas": [
+    "RANDBETWEEN(1,100)",
+    "R[-1]C + RANDBETWEEN(-50,100)"
+  ]
+}

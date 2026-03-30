@@ -131,16 +131,30 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
 
       // Specifies a 2D transform to be applied to a Graphic Frame:
       addProp(out, 'xfrm', readTransforms(d.querySelector('xfrm')));
+      // XXX: can't we discard ext: { cx:0, cy:0 } here? Charts contain <ext cx="0" cy="0" />, but this seems wrong.
 
       // Chart data
       const chart = d.querySelector('graphicData > chart');
       if (chart) {
-        out.chartId = chart.getAttribute('r:id');
-        content.push(out);
+        const rId = chart.getAttribute('r:id');
+        if (rId) {
+          const rel = context.drawingRels.find(rel => rel.id === rId);
+          if (rel?.type === 'chart' || rel?.type === 'chartEx') {
+            out.chartId = rel.target; // or rId?
+            context.charts.push({ rel, type: rel?.type });
+            content.push(out);
+          }
+        }
       }
-      else {
-        // throw new Error('Support missing for Graphic Frame content');
-        return;
+    }
+    else if (d.tagName === 'AlternateContent') {
+      for (const x of d.children) {
+        if (x.tagName === 'Choice' && /^cx[1234]$/i.test(x.attr.Requires)) {
+          const ch = getFirstChild(x);
+          if (ch) {
+            content.push(...readGraphicContent(x, context));
+          }
+        }
       }
     }
   });

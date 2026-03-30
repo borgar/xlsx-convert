@@ -1,0 +1,53 @@
+{
+  "name": "chart-map.xlsx",
+  "sheets": [
+    {
+      "name": "Map",
+      "cells": {
+        "B1": { "v": "Foo" },
+        "C1": { "v": "Bar" },
+        "A2": { "v": "iceland" },
+        "B2": { "v": 20, "f": 0 },
+        "C2": { "v": 97, "f": 0 },
+        "A3": { "v": "norway" },
+        "B3": { "v": 69, "f": 0 },
+        "C3": { "v": 88, "f": 0 },
+        "A4": { "v": "sweden" },
+        "B4": { "v": 28, "f": 0 },
+        "C4": { "v": 56, "f": 0 },
+        "A5": { "v": "finland" },
+        "B5": { "v": 89, "f": 0 },
+        "C5": { "v": 46, "f": 0 },
+        "A6": { "v": "denmark" },
+        "B6": { "v": 89, "f": 0 },
+        "C6": { "v": 51, "f": 0 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [
+        { "workbookView": 0, "activeCell": "B9" }
+      ],
+      "drawing": []
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [],
+  "views": [
+    {}
+  ],
+  "formulas": [
+    "RANDBETWEEN(1,100)"
+  ]
+}

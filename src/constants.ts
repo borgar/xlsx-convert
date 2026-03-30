@@ -2,9 +2,11 @@
 
 export const REL_PREFIXES = [
   // standard
-  'http://schemas.microsoft.com/office/2017/10/relationships/',
-  'http://schemas.microsoft.com/office/2017/06/relationships/',
   'http://schemas.microsoft.com/office/2006/relationships/',
+  'http://schemas.microsoft.com/office/2011/relationships/',
+  'http://schemas.microsoft.com/office/2014/relationships/',
+  'http://schemas.microsoft.com/office/2017/06/relationships/',
+  'http://schemas.microsoft.com/office/2017/10/relationships/',
   'http://schemas.openxmlformats.org/officeDocument/2006/relationships/',
   'http://schemas.openxmlformats.org/package/2006/relationships/',
   // strict

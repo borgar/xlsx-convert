@@ -234,11 +234,6 @@
                   "path": "circle",
                   "flip": "none",
                   "rotWithShape": true
-                },
-                "line": {
-                  "width": 9525,
-                  "cap": "square",
-                  "fill": { "type": "none" }
                 }
               }
             }

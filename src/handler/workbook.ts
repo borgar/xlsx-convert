@@ -45,6 +45,7 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
         value: normalizeFormula(d.textContent, context),
       };
       const hidden = boolAttr(d, 'hidden');
+      context.nameDefs.set(name.name, name);
       if (hidden) {
         return;
       }

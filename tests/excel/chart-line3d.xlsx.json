@@ -1,0 +1,79 @@
+{
+  "name": "chart-line3d.xlsx",
+  "sheets": [
+    {
+      "name": "Line",
+      "cells": {
+        "B1": { "v": "Foo" },
+        "C1": { "v": "Bar" },
+        "A2": { "v": "a" },
+        "B2": { "v": 29, "f": 0 },
+        "C2": { "v": 70, "f": 0 },
+        "A3": { "v": "b" },
+        "B3": { "v": 71, "f": 0 },
+        "C3": { "v": 47, "f": 0 },
+        "A4": { "v": "c" },
+        "B4": { "v": 49, "f": 0 },
+        "C4": { "v": 16, "f": 0 },
+        "A5": { "v": "d" },
+        "B5": { "v": 79, "f": 0 },
+        "C5": { "v": 30, "f": 0 },
+        "A6": { "v": "e" },
+        "B6": { "v": 47, "f": 0 },
+        "C6": { "v": 65, "f": 0 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "drawing": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 0,
+              "rowOff": 114300,
+              "col": 3,
+              "colOff": 203200
+            },
+            "to": {
+              "row": 14,
+              "rowOff": 12700,
+              "col": 8,
+              "colOff": 647700
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "5",
+              "name": "Chart 4",
+              "chartId": "xl/charts/chart1.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+  ],
+  "tables": [],
+  "views": [
+    {}
+  ],
+  "formulas": [
+    "RANDBETWEEN(1,100)"
+  ]
+}
