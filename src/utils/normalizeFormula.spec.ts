@@ -114,10 +114,17 @@ describe('normalizeFormula', () => {
       expect(normalizeFormula('SUM(_xlpm.DataRange)', wb)).toBe('SUM(DataRange)');
     });
 
-    it('should handle case insensitive _xlpm removal', () => {
+    it('should remove _xlnm namespace from named references', () => {
+      const wb = { externalLinks: [] };
+      expect(normalizeFormula('_xlnm.Print_Area', wb)).toBe('Print_Area');
+      expect(normalizeFormula('_xlnm._FilterDatabase', wb)).toBe('_FilterDatabase');
+    });
+
+    it('should handle case insensitive _xlpm and _xlnm removal', () => {
       const wb = { externalLinks: [] };
       expect(normalizeFormula('_XLPM.MyName', wb)).toBe('MyName');
       expect(normalizeFormula('_XlPm.MyName', wb)).toBe('MyName');
+      expect(normalizeFormula('_XLNM.Print_Area', wb)).toBe('Print_Area');
     });
   });
 
