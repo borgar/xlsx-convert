@@ -1,0 +1,2 @@
+// XXX: !?!?!
+export type Aggregation = {};
