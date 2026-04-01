@@ -25,6 +25,9 @@ export function handlerExternal (dom: Document, fileName: string = '', preserveP
     });
 
   // read cells and their values
+  // Note: dummyContext does not carry preservePrefixes, but external link
+  // cells only contain cached values (no <f> nodes), so no formulas are
+  // normalized here.
   const dummyContext = new ConversionContext();
   dom.querySelectorAll('sheetDataSet > sheetData')
     .forEach(sheetData => {
