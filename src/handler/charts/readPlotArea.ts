@@ -78,6 +78,7 @@ export type Series = {
 
 function readPlot (element: Element, context: ConversionContext) {
   // console.log(element.tagName);
+
   const out: any = {
     type: element.tagName,
   };
@@ -209,14 +210,14 @@ export function readPlotArea (element: Element, context: ConversionContext, isCh
     }
     // Axes
     else if (!isChartx && child.tagName in AXIS_NAMES) {
-      console.log('V0');
-      console.log(String(child));
+      // console.log('V0');
+      // console.log(String(child));
       const axis = readAxis(child, context);
       if (axis) { out.axes.push(axis); }
     }
     else if (isChartx && child.tagName === 'axis') {
-      console.log('EX');
-      console.log(String(child));
+      // console.log('EX');
+      // console.log(String(child));
     }
     else {
       // console.log(child.tagName);

@@ -36,7 +36,7 @@
       "views": [
         { "workbookView": 0, "activeCell": "R18" }
       ],
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",
@@ -160,11 +160,494 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+    { "fontScheme": "minor", "fontSize": 12 }
   ],
   "tables": [],
   "views": [
     {}
+  ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "lt1": { "type": "system", "value": "window" },
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "dk2": { "type": "srgb", "value": "0E2841" },
+      "accent1": { "type": "srgb", "value": "156082" },
+      "accent2": { "type": "srgb", "value": "E97132" },
+      "accent3": { "type": "srgb", "value": "196B24" },
+      "accent4": { "type": "srgb", "value": "0F9ED5" },
+      "accent5": { "type": "srgb", "value": "A02B93" },
+      "accent6": { "type": "srgb", "value": "4EA72E" },
+      "hlink": { "type": "srgb", "value": "467886" },
+      "folHlink": { "type": "srgb", "value": "96607D" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Aptos Display" }
+      },
+      "minor": {
+        "latin": { "typeface": "Aptos Narrow" }
+      }
+    }
+  },
+  "charts": [
+    {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "bubbleChart",
+              "axId": [
+                "1282550863",
+                "1282538511"
+              ],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent1" }
+                    }
+                  }
+                },
+                {
+                  "idx": 1,
+                  "order": 1,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent2" }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "type": "valAx",
+              "axId": 1282550863,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "shape": {
+                "line": {
+                  "width": 9525,
+                  "fill": {
+                    "type": "solid",
+                    "bg": {
+                      "type": "theme",
+                      "value": "tx1",
+                      "transforms": [
+                        { "type": "lumMod", "value": 15 },
+                        { "type": "lumOff", "value": 85 }
+                      ]
+                    }
+                  },
+                  "join": "round"
+                }
+              },
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 1282538511,
+              "crosses": "autoZero",
+              "crossBetween": "midCat"
+            },
+            {
+              "type": "valAx",
+              "axId": 1282538511,
+              "axPos": "l",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 1282550863,
+              "crosses": "autoZero",
+              "crossBetween": "midCat"
+            }
+          ]
+        },
+        "legend": {
+          "legendPos": "b",
+          "overlay": false,
+          "textProps": { "anchor": "ctr" }
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    },
+    {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "bubbleChart",
+              "axId": [
+                "281871679",
+                "283462271"
+              ],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": {
+                        "type": "theme",
+                        "value": "accent1",
+                        "transforms": [
+                          { "type": "alpha", "value": 75 }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "type": "valAx",
+              "axId": 281871679,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "shape": {
+                "line": {
+                  "width": 9525,
+                  "fill": {
+                    "type": "solid",
+                    "bg": {
+                      "type": "theme",
+                      "value": "tx1",
+                      "transforms": [
+                        { "type": "lumMod", "value": 25 },
+                        { "type": "lumOff", "value": 75 }
+                      ]
+                    }
+                  },
+                  "join": "round"
+                }
+              },
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 283462271,
+              "crosses": "autoZero",
+              "crossBetween": "midCat"
+            },
+            {
+              "type": "valAx",
+              "axId": 283462271,
+              "axPos": "l",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "shape": {
+                "line": {
+                  "width": 9525,
+                  "fill": {
+                    "type": "solid",
+                    "bg": {
+                      "type": "theme",
+                      "value": "tx1",
+                      "transforms": [
+                        { "type": "lumMod", "value": 25 },
+                        { "type": "lumOff", "value": 75 }
+                      ]
+                    }
+                  },
+                  "join": "round"
+                }
+              },
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 281871679,
+              "crosses": "autoZero",
+              "crossBetween": "midCat"
+            }
+          ]
+        },
+        "legend": {
+          "legendPos": "b",
+          "overlay": false,
+          "textProps": { "anchor": "ctr" }
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    },
+    {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "bubbleChart",
+              "axId": [
+                "1282550863",
+                "1282538511"
+              ],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent1" }
+                    }
+                  }
+                },
+                {
+                  "idx": 1,
+                  "order": 1,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent2" }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "type": "valAx",
+              "axId": 1282550863,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "shape": {
+                "line": {
+                  "width": 9525,
+                  "fill": {
+                    "type": "solid",
+                    "bg": {
+                      "type": "theme",
+                      "value": "tx1",
+                      "transforms": [
+                        { "type": "lumMod", "value": 15 },
+                        { "type": "lumOff", "value": 85 }
+                      ]
+                    }
+                  },
+                  "join": "round"
+                }
+              },
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 1282538511,
+              "crosses": "autoZero",
+              "crossBetween": "midCat"
+            },
+            {
+              "type": "valAx",
+              "axId": 1282538511,
+              "axPos": "l",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 1282550863,
+              "crosses": "autoZero",
+              "crossBetween": "midCat"
+            }
+          ]
+        },
+        "legend": {
+          "legendPos": "b",
+          "overlay": false,
+          "textProps": { "anchor": "ctr" }
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    },
+    {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "bubbleChart",
+              "axId": [
+                "281871679",
+                "283462271"
+              ],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": {
+                        "type": "theme",
+                        "value": "accent1",
+                        "transforms": [
+                          { "type": "alpha", "value": 75 }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "type": "valAx",
+              "axId": 281871679,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "shape": {
+                "line": {
+                  "width": 9525,
+                  "fill": {
+                    "type": "solid",
+                    "bg": {
+                      "type": "theme",
+                      "value": "tx1",
+                      "transforms": [
+                        { "type": "lumMod", "value": 25 },
+                        { "type": "lumOff", "value": 75 }
+                      ]
+                    }
+                  },
+                  "join": "round"
+                }
+              },
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 283462271,
+              "crosses": "autoZero",
+              "crossBetween": "midCat"
+            },
+            {
+              "type": "valAx",
+              "axId": 283462271,
+              "axPos": "l",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "shape": {
+                "line": {
+                  "width": 9525,
+                  "fill": {
+                    "type": "solid",
+                    "bg": {
+                      "type": "theme",
+                      "value": "tx1",
+                      "transforms": [
+                        { "type": "lumMod", "value": 25 },
+                        { "type": "lumOff", "value": 75 }
+                      ]
+                    }
+                  },
+                  "join": "round"
+                }
+              },
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 281871679,
+              "crosses": "autoZero",
+              "crossBetween": "midCat"
+            }
+          ]
+        },
+        "legend": {
+          "legendPos": "b",
+          "overlay": false,
+          "textProps": { "anchor": "ctr" }
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    }
   ],
   "formulas": [
     "RANDBETWEEN(1,100)",

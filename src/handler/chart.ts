@@ -1,26 +1,13 @@
 import type { Document } from '@borgar/simple-xml';
 import type { ConversionContext } from '../ConversionContext.ts';
-import { attr, boolAttr } from '../utils/attr.ts';
+import { boolAttr } from '../utils/attr.ts';
 import { addProp } from '../utils/addProp.ts';
 import { readShapeProperties } from './drawings/readShapeProperties.ts';
-import type { Shape, TextBody } from '@jsfkit/types';
 import { readTextBody } from './drawings/readTextBody.ts';
 import { readChart } from './charts/readChart.ts';
-import type { CT_Chart } from './charts/types/CT_Chart.ts';
-import { niceJson } from '../../tests/niceJSON.ts';
-import type { ChartEx } from './charts/types/ChartEx.ts';
 import type { ChartSpaceEx } from './charts/types/ChartSpaceEx.ts';
 import type { ChartSpace } from './charts/types/ChartSpace.ts';
 import { readChartData } from './charts/readChartData.ts';
-
-type Chart = {
-  epoch?: 1904 | 1900, // 1900
-  lang?: string, // en-GB
-  roundedCorners?: boolean,
-  shape?: Shape,
-  text?: TextBody,
-  chart: CT_Chart
-};
 
 /*
 <complexType name="CT_ChartSpace">
@@ -62,7 +49,7 @@ type Chart = {
 export function handlerChart (dom: Document, context: ConversionContext, isChartx: true): ChartSpaceEx;
 export function handlerChart (dom: Document, context: ConversionContext, isChartx?: false): ChartSpace;
 export function handlerChart (dom: Document, context: ConversionContext, isChartx = false): ChartSpace | ChartSpaceEx {
-  const chartSpace: Partial<ChartSpace & ChartSpaceEx> = {};
+  const chartSpace: Partial<ChartSpace> | Partial<ChartSpaceEx> = {};
   // dom.root is assumed to be a <chartSpace> element (5.7.2.29)
   // console.log('// ~~' + '~'.repeat(80));
 
@@ -75,6 +62,7 @@ export function handlerChart (dom: Document, context: ConversionContext, isChart
     const { tagName } = elm;
     // ChartEx
     if (isChartx && tagName === 'chartData') {
+      // @ts-expect-error XXX: deal with the types
       addProp(chartSpace, 'chartData', readChartData(elm, context));
     }
     else if (isChartx && tagName === 'fmtOvrs') { // Format overrides
@@ -89,6 +77,7 @@ export function handlerChart (dom: Document, context: ConversionContext, isChart
       // addProp(chart, 'lang', attr(elm, 'val'), 'en-US');
     }
     else if (!isChartx && tagName === 'roundedCorners') {
+      // @ts-expect-error XXX: deal with the types
       addProp(chartSpace, 'roundedCorners', boolAttr(elm, 'val'), false);
     }
     else if (!isChartx && tagName === 'style') {
@@ -116,7 +105,7 @@ export function handlerChart (dom: Document, context: ConversionContext, isChart
       addProp(chartSpace, 'shape', readShapeProperties(elm, context));
     }
     else if (tagName === 'txPr') {
-      addProp(chartSpace, 'text', readTextBody(elm));
+      addProp(chartSpace, 'textProps', readTextBody(elm));
     }
     else if (tagName === 'clrMapOvr') { // Color map overrides
       // TODO
@@ -125,9 +114,6 @@ export function handlerChart (dom: Document, context: ConversionContext, isChart
       // TODO
     }
   });
-
-  // console.log(dom.toString());
-  // console.log(niceJson(chart, true));
 
   return chartSpace as ChartSpace | ChartSpaceEx;
 }

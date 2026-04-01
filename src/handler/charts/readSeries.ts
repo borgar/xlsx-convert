@@ -1,5 +1,4 @@
 /*
-
 <complexType name="CT_PlotArea">
   <sequence>
     <element name="layout" type="CT_Layout" minOccurs="0" maxOccurs="1" />
@@ -32,13 +31,11 @@
     <element name="extLst" type="CT_ExtensionList" minOccurs="0" maxOccurs="1" />
   </sequence>
 </complexType>
-
 */
 
 import { Element } from '@borgar/simple-xml';
 import type { ConversionContext } from '../../ConversionContext.ts';
-import type { CT_PlotArea } from './types/CT_PlotArea.ts';
-import { boolValElm, numValElm, strValElm } from './utils/valElm.ts';
+import { boolValElm, numValElm } from './utils/valElm.ts';
 import { addProp } from '../../utils/addProp.ts';
 import type { Shape } from '@jsfkit/types';
 import { readShapeProperties } from '../drawings/readShapeProperties.ts';
@@ -56,23 +53,23 @@ export type DataSourceRef<T extends string | number> = {
   },
 };
 
-export type Series = {
-  // shared...
-  idx: integer;
-  order: integer;
-  // tx?: CT_SerTx;
-  shape?: Shape;
-  // bar...
-  invertIfNegative?: boolean;
-  // pictureOptions?: CT_PictureOptions;
-  // dPt?: CT_DPt[];
-  // dLbls?: CT_DLbls;
-  // trendline?: CT_Trendline[];
-  // errBars?: CT_ErrBars;
-  cat?: DataSourceRef<number> | DataSourceRef<string>;
-  val?: DataSourceRef<number>;
-  // shape?: ST_Shape;
-};
+// export type Series = {
+//   // shared...
+//   idx: integer;
+//   order: integer;
+//   // tx?: CT_SerTx;
+//   shape?: Shape;
+//   // bar...
+//   invertIfNegative?: boolean;
+//   // pictureOptions?: CT_PictureOptions;
+//   // dPt?: CT_DPt[];
+//   // dLbls?: CT_DLbls;
+//   // trendline?: CT_Trendline[];
+//   // errBars?: CT_ErrBars;
+//   cat?: DataSourceRef<number> | DataSourceRef<string>;
+//   val?: DataSourceRef<number>;
+//   // shape?: ST_Shape;
+// };
 
 export function readDataSource (
   element: Element,
@@ -117,7 +114,7 @@ export function readDataSource (
     }
   }
   else {
-    console.log(ch.toString());
+    // console.log(ch.toString());
   }
 
   return data;

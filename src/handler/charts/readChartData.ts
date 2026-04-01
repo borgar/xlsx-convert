@@ -1,12 +1,6 @@
 import { Element } from '@borgar/simple-xml';
-import { addProp } from '../../utils/addProp.ts';
 import type { ConversionContext } from '../../ConversionContext.ts';
-import { readLegend } from './readLegend.ts';
-import { boolValElm, strValElm } from './utils/valElm.ts';
-import { readTitle } from './readTitle.ts';
-import { readPlotArea } from './readPlotArea.ts';
-import type { Chart } from './types/Chart.ts';
-import type { ChartEx } from './types/ChartEx.ts';
+import type { ChartData } from './types/dataEx/ChartData.ts';
 
 /**
  *

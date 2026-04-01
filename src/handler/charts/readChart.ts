@@ -1,5 +1,4 @@
 /*
-
 <complexType name="CT_Chart">
   <sequence>
     <element name="title" type="CT_Title" minOccurs="0" maxOccurs="1" />
@@ -17,7 +16,6 @@
     <element name="extLst" type="CT_ExtensionList" minOccurs="0" maxOccurs="1" />
   </sequence>
 </complexType>
-
 */
 
 import { Element } from '@borgar/simple-xml';
@@ -35,6 +33,8 @@ import type { ChartEx } from './types/ChartEx.ts';
  */
 export function readChart (element: Element, context: ConversionContext, isChartx: true): ChartEx | undefined;
 export function readChart (element: Element, context: ConversionContext, isChartx?: false): Chart | undefined;
+export function readChart (element: Element, context: ConversionContext, isChartx: boolean):
+  Chart | ChartEx | undefined;
 export function readChart (
   element: Element,
   context: ConversionContext,
@@ -68,6 +68,7 @@ export function readChart (
       addProp(out, 'plotArea', readPlotArea(child, context, isChartx));
     }
     else if (child.tagName === 'legend') {
+      // @ts-expect-error XXX: deal with the types
       addProp(out, 'legend', readLegend(child, context));
     }
     else if (child.tagName === 'plotVisOnly') {
@@ -81,5 +82,5 @@ export function readChart (
     }
   }
 
-  return out as CT_Chart;
+  return out as Chart | ChartEx | undefined;
 }

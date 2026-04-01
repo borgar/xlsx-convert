@@ -1,2 +1,4 @@
 // XXX: !?!?!
-export type Aggregation = {};
+export type Aggregation = {
+  type: 'aggregation'
+};

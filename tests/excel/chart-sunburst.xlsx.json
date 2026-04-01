@@ -36,7 +36,36 @@
           ]
         }
       ],
-      "drawing": []
+      "drawings": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 0,
+              "rowOff": 50800,
+              "col": 3,
+              "colOff": 152400
+            },
+            "to": {
+              "row": 13,
+              "rowOff": 152400,
+              "col": 8,
+              "colOff": 596900
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "3",
+              "name": "Chart 2",
+              "chartId": "xl/charts/chartEx1.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
     }
   ],
   "names": [],
@@ -47,11 +76,51 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+    { "fontScheme": "minor", "fontSize": 12 }
   ],
   "tables": [],
   "views": [
     {}
+  ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "lt1": { "type": "system", "value": "window" },
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "dk2": { "type": "srgb", "value": "0E2841" },
+      "accent1": { "type": "srgb", "value": "156082" },
+      "accent2": { "type": "srgb", "value": "E97132" },
+      "accent3": { "type": "srgb", "value": "196B24" },
+      "accent4": { "type": "srgb", "value": "0F9ED5" },
+      "accent5": { "type": "srgb", "value": "A02B93" },
+      "accent6": { "type": "srgb", "value": "4EA72E" },
+      "hlink": { "type": "srgb", "value": "467886" },
+      "folHlink": { "type": "srgb", "value": "96607D" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Aptos Display" }
+      },
+      "minor": {
+        "latin": { "typeface": "Aptos Narrow" }
+      }
+    }
+  },
+  "charts": [
+    {
+      "chartData": {},
+      "chart": {
+        "title": {},
+        "plotArea": {
+          "charts": [],
+          "axes": []
+        },
+        "legend": {}
+      }
+    }
   ],
   "formulas": [
     "RANDBETWEEN(1,100)"

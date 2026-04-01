@@ -46,6 +46,16 @@
                   "content": [
                     {
                       "type": "chart",
+                      "id": "13",
+                      "name": "Chart 12",
+                      "chartId": "xl/charts/chartEx1.xml",
+                      "xfrm": {
+                        "off": { "x": 7429500, "y": 2235200 },
+                        "ext": { "cx": 2882900, "cy": 2882900 }
+                      }
+                    },
+                    {
+                      "type": "chart",
                       "id": "14",
                       "name": "Chart 13",
                       "chartId": "xl/charts/chart1.xml",
@@ -126,5 +136,158 @@
       }
     }
   },
+  "charts": [
+    {
+      "chartData": {},
+      "chart": {
+        "title": {},
+        "plotArea": {
+          "charts": [],
+          "axes": []
+        }
+      }
+    },
+    {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "pieChart",
+              "varyColors": true,
+              "axId": [],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "cat": { "type": "strRef", "f": "Sheet1!$A$1:$A$3" },
+                  "val": { "type": "numRef", "f": "Sheet1!$B$1:$B$3" }
+                }
+              ]
+            }
+          ],
+          "axes": []
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    },
+    {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "radarChart",
+              "axId": [
+                "1460373216",
+                "1460638096"
+              ],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent1" }
+                    }
+                  },
+                  "cat": { "type": "strRef", "f": "Sheet1!$A$1:$A$3" },
+                  "val": { "type": "numRef", "f": "Sheet1!$B$1:$B$3" }
+                }
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "type": "catAx",
+              "axId": 1460373216,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "shape": {
+                "line": {
+                  "width": 9525,
+                  "fill": {
+                    "type": "solid",
+                    "bg": {
+                      "type": "theme",
+                      "value": "tx1",
+                      "transforms": [
+                        { "type": "lumMod", "value": 15 },
+                        { "type": "lumOff", "value": 85 }
+                      ]
+                    }
+                  },
+                  "join": "round"
+                }
+              },
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 1460638096,
+              "crosses": "autoZero",
+              "auto": true,
+              "lblAlgn": "ctr"
+            },
+            {
+              "type": "valAx",
+              "axId": 1460638096,
+              "axPos": "l",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 1460373216,
+              "crosses": "autoZero",
+              "crossBetween": "between"
+            }
+          ]
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    }
+  ],
   "formulas": []
 }

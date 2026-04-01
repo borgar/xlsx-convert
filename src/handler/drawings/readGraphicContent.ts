@@ -138,7 +138,7 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
       if (chart) {
         const rId = chart.getAttribute('r:id');
         if (rId) {
-          const rel = context.drawingRels.find(rel => rel.id === rId);
+          const rel = context.drawingRels.find(r => r.id === rId);
           if (rel?.type === 'chart' || rel?.type === 'chartEx') {
             out.chartId = rel.target; // or rId?
             context.charts.push({ rel, type: rel?.type });

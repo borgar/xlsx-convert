@@ -133,7 +133,7 @@
       "views": [
         { "workbookView": 0, "activeCell": "C15" }
       ],
-      "drawing": [
+      "drawings": [
         {
           "anchor": {
             "type": "twoCell",
@@ -237,11 +237,572 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontFamily": "Aptos Narrow", "fontSize": 12 }
+    { "fontScheme": "minor", "fontSize": 12 }
   ],
   "tables": [],
   "views": [
     {}
+  ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "lt1": { "type": "system", "value": "window" },
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "dk2": { "type": "srgb", "value": "0E2841" },
+      "accent1": { "type": "srgb", "value": "156082" },
+      "accent2": { "type": "srgb", "value": "E97132" },
+      "accent3": { "type": "srgb", "value": "196B24" },
+      "accent4": { "type": "srgb", "value": "0F9ED5" },
+      "accent5": { "type": "srgb", "value": "A02B93" },
+      "accent6": { "type": "srgb", "value": "4EA72E" },
+      "hlink": { "type": "srgb", "value": "467886" },
+      "folHlink": { "type": "srgb", "value": "96607D" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Aptos Display" }
+      },
+      "minor": {
+        "latin": { "typeface": "Aptos Narrow" }
+      }
+    }
+  },
+  "charts": [
+    {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "stockChart",
+              "axId": [
+                "786532464",
+                "2105975919"
+              ],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "cat": { "type": "strRef", "f": "Stock!$B$1:$F$1" },
+                  "val": { "type": "numRef", "f": "Stock!$B$2:$F$2" }
+                },
+                {
+                  "idx": 1,
+                  "order": 1,
+                  "cat": { "type": "strRef", "f": "Stock!$B$1:$F$1" },
+                  "val": { "type": "numRef", "f": "Stock!$B$3:$F$3" }
+                },
+                {
+                  "idx": 2,
+                  "order": 2,
+                  "cat": { "type": "strRef", "f": "Stock!$B$1:$F$1" },
+                  "val": { "type": "numRef", "f": "Stock!$B$4:$F$4" }
+                }
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "type": "catAx",
+              "axId": 786532464,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "shape": {
+                "line": {
+                  "width": 9525,
+                  "fill": {
+                    "type": "solid",
+                    "bg": {
+                      "type": "theme",
+                      "value": "tx1",
+                      "transforms": [
+                        { "type": "lumMod", "value": 15 },
+                        { "type": "lumOff", "value": 85 }
+                      ]
+                    }
+                  },
+                  "join": "round"
+                }
+              },
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 2105975919,
+              "crosses": "autoZero",
+              "auto": true,
+              "lblAlgn": "ctr"
+            },
+            {
+              "type": "valAx",
+              "axId": 2105975919,
+              "axPos": "l",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 786532464,
+              "crosses": "autoZero",
+              "crossBetween": "between"
+            }
+          ]
+        },
+        "legend": {
+          "legendPos": "b",
+          "overlay": false,
+          "textProps": { "anchor": "ctr" }
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    },
+    {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "stockChart",
+              "gapWidth": 150,
+              "axId": [
+                "412788880",
+                "681438703"
+              ],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "cat": { "type": "strRef", "f": "Stock!$B$16:$F$16" },
+                  "val": { "type": "numRef", "f": "Stock!$B$17:$F$17" }
+                },
+                {
+                  "idx": 1,
+                  "order": 1,
+                  "cat": { "type": "strRef", "f": "Stock!$B$16:$F$16" },
+                  "val": { "type": "numRef", "f": "Stock!$B$18:$F$18" }
+                },
+                {
+                  "idx": 2,
+                  "order": 2,
+                  "cat": { "type": "strRef", "f": "Stock!$B$16:$F$16" },
+                  "val": { "type": "numRef", "f": "Stock!$B$19:$F$19" }
+                },
+                {
+                  "idx": 3,
+                  "order": 3,
+                  "cat": { "type": "strRef", "f": "Stock!$B$16:$F$16" },
+                  "val": { "type": "numRef", "f": "Stock!$B$20:$F$20" }
+                }
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "type": "catAx",
+              "axId": 412788880,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "shape": {
+                "line": {
+                  "width": 9525,
+                  "fill": {
+                    "type": "solid",
+                    "bg": {
+                      "type": "theme",
+                      "value": "tx1",
+                      "transforms": [
+                        { "type": "lumMod", "value": 15 },
+                        { "type": "lumOff", "value": 85 }
+                      ]
+                    }
+                  },
+                  "join": "round"
+                }
+              },
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 681438703,
+              "crosses": "autoZero",
+              "auto": true,
+              "lblAlgn": "ctr"
+            },
+            {
+              "type": "valAx",
+              "axId": 681438703,
+              "axPos": "l",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 412788880,
+              "crosses": "autoZero",
+              "crossBetween": "between"
+            }
+          ]
+        },
+        "legend": {
+          "legendPos": "b",
+          "overlay": false,
+          "textProps": { "anchor": "ctr" }
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    },
+    {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "barChart",
+              "barDir": "col",
+              "grouping": "clustered",
+              "gapWidth": 150,
+              "axId": [
+                "525599904",
+                "981450240"
+              ],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent1" }
+                    }
+                  },
+                  "cat": { "type": "strRef", "f": "Stock!$B$31:$F$31" },
+                  "val": { "type": "numRef", "f": "Stock!$B$32:$F$32" }
+                }
+              ]
+            },
+            {
+              "type": "stockChart",
+              "axId": [
+                "526328032",
+                "280055104"
+              ],
+              "ser": [
+                {
+                  "idx": 1,
+                  "order": 1,
+                  "cat": { "type": "strRef", "f": "Stock!$B$31:$F$31" },
+                  "val": { "type": "numRef", "f": "Stock!$B$33:$F$33" }
+                },
+                {
+                  "idx": 2,
+                  "order": 2,
+                  "cat": { "type": "strRef", "f": "Stock!$B$31:$F$31" },
+                  "val": { "type": "numRef", "f": "Stock!$B$34:$F$34" }
+                },
+                {
+                  "idx": 3,
+                  "order": 3,
+                  "cat": { "type": "strRef", "f": "Stock!$B$31:$F$31" },
+                  "val": { "type": "numRef", "f": "Stock!$B$35:$F$35" }
+                }
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "type": "catAx",
+              "axId": 525599904,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "shape": {
+                "line": {
+                  "width": 9525,
+                  "fill": {
+                    "type": "solid",
+                    "bg": {
+                      "type": "theme",
+                      "value": "tx1",
+                      "transforms": [
+                        { "type": "lumMod", "value": 15 },
+                        { "type": "lumOff", "value": 85 }
+                      ]
+                    }
+                  },
+                  "join": "round"
+                }
+              },
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 981450240,
+              "crosses": "autoZero",
+              "auto": true,
+              "lblAlgn": "ctr"
+            },
+            {
+              "type": "valAx",
+              "axId": 981450240,
+              "axPos": "l",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 525599904,
+              "crosses": "autoZero",
+              "crossBetween": "between"
+            },
+            {
+              "type": "valAx",
+              "axId": 280055104,
+              "axPos": "r",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 526328032,
+              "crosses": "max",
+              "crossBetween": "between"
+            },
+            {
+              "type": "catAx",
+              "axId": 526328032,
+              "delete": true,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "crossAx": 280055104,
+              "crosses": "autoZero",
+              "auto": true,
+              "lblAlgn": "ctr"
+            }
+          ]
+        },
+        "legend": {
+          "legendPos": "b",
+          "overlay": false,
+          "textProps": { "anchor": "ctr" }
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    },
+    {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "barChart",
+              "barDir": "col",
+              "grouping": "clustered",
+              "gapWidth": 150,
+              "axId": [
+                "1282615567",
+                "1282617279"
+              ],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent1" }
+                    }
+                  },
+                  "cat": { "type": "strRef", "f": "Stock!$B$46:$F$46" },
+                  "val": { "type": "numRef", "f": "Stock!$B$47:$F$47" }
+                }
+              ]
+            },
+            {
+              "type": "stockChart",
+              "gapWidth": 150,
+              "axId": [
+                "385415520",
+                "787392448"
+              ],
+              "ser": [
+                {
+                  "idx": 1,
+                  "order": 1,
+                  "cat": { "type": "strRef", "f": "Stock!$B$46:$F$46" },
+                  "val": { "type": "numRef", "f": "Stock!$B$48:$F$48" }
+                },
+                {
+                  "idx": 2,
+                  "order": 2,
+                  "cat": { "type": "strRef", "f": "Stock!$B$46:$F$46" },
+                  "val": { "type": "numRef", "f": "Stock!$B$49:$F$49" }
+                },
+                {
+                  "idx": 3,
+                  "order": 3,
+                  "cat": { "type": "strRef", "f": "Stock!$B$46:$F$46" },
+                  "val": { "type": "numRef", "f": "Stock!$B$50:$F$50" }
+                },
+                {
+                  "idx": 4,
+                  "order": 4,
+                  "cat": { "type": "strRef", "f": "Stock!$B$46:$F$46" },
+                  "val": { "type": "numRef", "f": "Stock!$B$51:$F$51" }
+                }
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "type": "catAx",
+              "axId": 1282615567,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "shape": {
+                "line": {
+                  "width": 9525,
+                  "fill": {
+                    "type": "solid",
+                    "bg": {
+                      "type": "theme",
+                      "value": "tx1",
+                      "transforms": [
+                        { "type": "lumMod", "value": 15 },
+                        { "type": "lumOff", "value": 85 }
+                      ]
+                    }
+                  },
+                  "join": "round"
+                }
+              },
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 1282617279,
+              "crosses": "autoZero",
+              "auto": true,
+              "lblAlgn": "ctr"
+            },
+            {
+              "type": "valAx",
+              "axId": 1282617279,
+              "axPos": "l",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 1282615567,
+              "crosses": "autoZero",
+              "crossBetween": "between"
+            },
+            {
+              "type": "valAx",
+              "axId": 787392448,
+              "axPos": "r",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 385415520,
+              "crosses": "max",
+              "crossBetween": "between"
+            },
+            {
+              "type": "catAx",
+              "axId": 385415520,
+              "delete": true,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "crossAx": 787392448,
+              "crosses": "autoZero",
+              "auto": true,
+              "lblAlgn": "ctr"
+            }
+          ]
+        },
+        "legend": {
+          "legendPos": "b",
+          "overlay": false,
+          "textProps": { "anchor": "ctr" }
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    }
   ],
   "formulas": []
 }
