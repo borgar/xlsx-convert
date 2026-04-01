@@ -6,6 +6,7 @@ import { ConversionContext } from '../ConversionContext.ts';
 import type { External, ExternalDefinedName } from '@jsfkit/types';
 
 const NO_EXTERNALS = { externalLinks: [] };
+const NO_EXTERNALS_PRESERVE = { externalLinks: [], preservePrefixes: true };
 
 export function handlerExternal (dom: Document, fileName: string = '', preservePrefixes?: boolean): External {
   const external: External = {
@@ -54,7 +55,7 @@ export function handlerExternal (dom: Document, fileName: string = '', preserveP
       };
       const expr = attr(definedName, 'refersTo');
       if (expr) {
-        const ctx = preservePrefixes ? { externalLinks: [], preservePrefixes } : NO_EXTERNALS;
+        const ctx = preservePrefixes ? NO_EXTERNALS_PRESERVE : NO_EXTERNALS;
         nameDef.value = normalizeFormula(expr, ctx);
       }
       external.names.push(nameDef);
