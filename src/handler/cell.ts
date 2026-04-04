@@ -175,6 +175,13 @@ export function handlerCell (node: Element, context: ConversionContext): Cell {
         cell.F = cellsRange;
         context._arrayFormula.push(cellsRange);
       }
+      // cm="1" on the cell element indicates a dynamic array formula
+      // (referencing XLDAPR metadata). Its absence on an array formula
+      // means CSE (Ctrl+Shift+Enter). Preserving this distinction lets
+      // jsf2xlsx emit cm="1" only on dynamic arrays, not on CSE formulas.
+      if (!numAttr(node, 'cm')) {
+        cell.cse = true;
+      }
       cell.f = prepFormula(fNode.textContent, address, context);
     }
     // shared for shared formula

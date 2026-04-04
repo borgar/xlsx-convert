@@ -12,7 +12,7 @@
         "B3": { "v": false, "F": "A3:D3" },
         "C3": { "v": false, "F": "A3:D3" },
         "D3": { "v": true, "F": "A3:D3" },
-        "A4": { "v": true, "F": "A4:D4", "f": 1 },
+        "A4": { "v": true, "F": "A4:D4", "cse": true, "f": 1 },
         "B4": { "v": false, "F": "A4:D4" },
         "C4": { "v": false, "F": "A4:D4" },
         "D4": { "v": true, "F": "A4:D4" }

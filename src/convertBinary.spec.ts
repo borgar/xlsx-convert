@@ -172,4 +172,28 @@ describe('convertBinary', () => {
       'xl/media/image6.png',
     ]);
   });
+
+  describe('CSE vs dynamic array formula distinction', () => {
+    // cse.xlsx has two array formulas:
+    //   A3: dynamic array (cm="1" on cell element)
+    //   A4: CSE array (no cm attribute)
+    // The distinction matters for roundtrip: jsf2xlsx must emit cm="1"
+    // only on dynamic arrays, not on CSE formulas.
+
+    test('dynamic array formula does not get cse flag', async () => {
+      const bin = await readFile('./tests/excel/cse.xlsx');
+      const jsf = await convertBinary(bin, 'cse.xlsx');
+      const a3 = jsf.sheets[0].cells.A3;
+      expect(a3.F).toBe('A3:D3');
+      expect(a3.cse).toBeUndefined();
+    });
+
+    test('CSE array formula gets cse: true', async () => {
+      const bin = await readFile('./tests/excel/cse.xlsx');
+      const jsf = await convertBinary(bin, 'cse.xlsx');
+      const a4 = jsf.sheets[0].cells.A4;
+      expect(a4.F).toBe('A4:D4');
+      expect(a4.cse).toBe(true);
+    });
+  });
 });
