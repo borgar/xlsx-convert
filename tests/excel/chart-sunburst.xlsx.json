@@ -109,8 +109,8 @@
       }
     }
   },
-  "charts": [
-    {
+  "charts": {
+    "xl/charts/chartEx1.xml": {
       "chartData": {},
       "chart": {
         "title": {},
@@ -121,7 +121,7 @@
         "legend": {}
       }
     }
-  ],
+  },
   "formulas": [
     "RANDBETWEEN(1,100)"
   ]

@@ -100,8 +100,8 @@
       }
     }
   },
-  "charts": [
-    {
+  "charts": {
+    "xl/charts/chart1.xml": {
       "chart": {
         "title": { "overlay": false },
         "plotArea": {
@@ -225,7 +225,7 @@
         }
       }
     }
-  ],
+  },
   "formulas": [
     "RANDBETWEEN(1,100)"
   ]

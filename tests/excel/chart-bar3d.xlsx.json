@@ -271,8 +271,8 @@
       }
     }
   },
-  "charts": [
-    {
+  "charts": {
+    "xl/charts/chart1.xml": {
       "chart": {
         "title": { "overlay": false },
         "plotArea": {
@@ -371,7 +371,7 @@
         }
       }
     },
-    {
+    "xl/charts/chart2.xml": {
       "chart": {
         "title": { "overlay": false },
         "plotArea": {
@@ -470,7 +470,7 @@
         }
       }
     },
-    {
+    "xl/charts/chart3.xml": {
       "chart": {
         "title": { "overlay": false },
         "plotArea": {
@@ -570,7 +570,7 @@
         }
       }
     },
-    {
+    "xl/charts/chart4.xml": {
       "chart": {
         "title": { "overlay": false },
         "plotArea": {
@@ -696,7 +696,7 @@
         }
       }
     },
-    {
+    "xl/charts/chart5.xml": {
       "chart": {
         "title": { "overlay": false },
         "plotArea": {
@@ -812,7 +812,7 @@
         }
       }
     },
-    {
+    "xl/charts/chart6.xml": {
       "chart": {
         "title": { "overlay": false },
         "plotArea": {
@@ -928,7 +928,7 @@
         }
       }
     },
-    {
+    "xl/charts/chart7.xml": {
       "chart": {
         "title": { "overlay": false },
         "plotArea": {
@@ -1045,7 +1045,7 @@
         }
       }
     }
-  ],
+  },
   "formulas": [
     "RANDBETWEEN(1,100)"
   ]

@@ -131,8 +131,8 @@
       }
     }
   },
-  "charts": [
-    {
+  "charts": {
+    "xl/charts/chart1.xml": {
       "chart": {
         "title": { "overlay": false },
         "plotArea": {
@@ -237,7 +237,7 @@
         "dispBlanksAs": "gap"
       }
     },
-    {
+    "xl/charts/chart2.xml": {
       "chart": {
         "title": { "overlay": false },
         "plotArea": {
@@ -334,7 +334,7 @@
         "dispBlanksAs": "gap"
       }
     }
-  ],
+  },
   "formulas": [
     "RANDBETWEEN(1,100)"
   ]

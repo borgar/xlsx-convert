@@ -136,8 +136,8 @@
       }
     }
   },
-  "charts": [
-    {
+  "charts": {
+    "xl/charts/chartEx1.xml": {
       "chartData": {},
       "chart": {
         "title": {},
@@ -147,7 +147,7 @@
         }
       }
     },
-    {
+    "xl/charts/chart1.xml": {
       "chart": {
         "title": { "overlay": false },
         "plotArea": {
@@ -193,7 +193,7 @@
         }
       }
     },
-    {
+    "xl/charts/chart2.xml": {
       "chart": {
         "title": { "overlay": false },
         "plotArea": {
@@ -288,6 +288,6 @@
         }
       }
     }
-  ],
+  },
   "formulas": []
 }

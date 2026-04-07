@@ -30,6 +30,7 @@ import { arrayBufferToDataUri } from './utils/arrayBufferToDataUri.ts';
 import { getMimeType } from './utils/getMimeType.ts';
 import { isLikelyGSExport } from './utils/isLikelyGSExport.ts';
 import { handlerChart } from './handler/chart.ts';
+import { hasKeys } from './utils/hasKeys.ts';
 
 function toArrayBuffer (buffer: Buffer): ArrayBuffer {
   const arrayBuffer = new ArrayBuffer(buffer.length);
@@ -313,7 +314,7 @@ export async function convertBinary (
       wb.sheets[index] = sh;
 
       if (context.images.length) {
-        const charts = [];
+        const charts = {};
         // process drawings (these may contain either charts or images)
         for (const img of context.images) {
           if (img.type === 'drawing') {
@@ -330,10 +331,10 @@ export async function convertBinary (
             // read rel type: chartColorStyle
             // read rel type: chartStyle
             const chart = handlerChart(chartDom, context, img.type === 'chartEx');
-            charts.push(chart);
+            charts[img.rel.target] = chart;
           }
         }
-        if (charts.length) {
+        if (hasKeys(charts)) {
           wb.charts = charts;
         }
 
