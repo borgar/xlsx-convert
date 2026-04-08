@@ -132,14 +132,6 @@
       }
     }
   },
-  "namedStyles": [
-    {
-      "name": "Normal",
-      "fontScheme": "minor",
-      "fontSize": 12,
-      "builtinId": 0
-    }
-  ],
   "formulas": [
     "[names.xlsx]Sheet1!R1C1",
     "[names.xlsx]Sheet1!scoped",

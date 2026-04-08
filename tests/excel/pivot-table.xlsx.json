@@ -200,14 +200,6 @@
       }
     }
   },
-  "namedStyles": [
-    {
-      "name": "Normal",
-      "fontScheme": "minor",
-      "fontSize": 12,
-      "builtinId": 0
-    }
-  ],
   "pivotTables": [
     {
       "name": "PivotTable5",

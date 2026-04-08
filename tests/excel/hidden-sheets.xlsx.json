@@ -58,13 +58,5 @@
   ],
   "tables": [],
   "theme": null,
-  "namedStyles": [
-    {
-      "name": "Normal",
-      "fontFamily": "Aptos Narrow",
-      "fontSize": 12,
-      "builtinId": 0
-    }
-  ],
   "formulas": []
 }

@@ -102,14 +102,6 @@
       }
     }
   },
-  "namedStyles": [
-    {
-      "name": "Normal",
-      "fontScheme": "minor",
-      "fontSize": 12,
-      "builtinId": 0
-    }
-  ],
   "formulas": [
     "IF(RC[-2]<>\"\",IF(RC=\"\",NOW(),RC),\"\")",
     "R[-1]C*(1+R1C2)",

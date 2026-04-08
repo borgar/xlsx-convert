@@ -63,15 +63,6 @@
       }
     }
   },
-  "namedStyles": [
-    {
-      "name": "Normal",
-      "fontScheme": "minor",
-      "fontSize": 10,
-      "color": { "type": "srgb", "value": "000000" },
-      "builtinId": 0
-    }
-  ],
   "formulas": [
     "FOO()"
   ]

@@ -1,6 +1,6 @@
 import { Color } from '../color/Color.ts';
-import type { StyleDefs, CellStyleEntry } from '../handler/styles.ts';
-import type { CellStyle, Color as JSFColor, Style } from '@jsfkit/types';
+import type { StyleDefs, NamedStyleEntry } from '../handler/styles.ts';
+import type { NamedStyle, Color as JSFColor, Style } from '@jsfkit/types';
 
 /** Style values that can (potentially) be omitted. */
 type SkipValue = string | number | boolean | JSFColor | null;
@@ -101,15 +101,15 @@ function convertXf (xf: Xf, styleDefs: StyleDefs): Style {
   return s;
 }
 
-function convertNamedStyles (styleDefs: StyleDefs): { namedStyles: CellStyle[], xfIdToName: Map<number, string> } {
-  const namedStyles: CellStyle[] = [];
+function convertNamedStyles (styleDefs: StyleDefs): { namedStyles: NamedStyle[], xfIdToName: Map<number, string> } {
+  const namedStyles: NamedStyle[] = [];
   const xfIdToName = new Map<number, string>();
 
   for (let i = 0; i < styleDefs.cellStyles.length; i++) {
-    const entry: CellStyleEntry = styleDefs.cellStyles[i];
+    const entry: NamedStyleEntry = styleDefs.cellStyles[i];
     const baseStyle = convertXf(styleDefs.cellStyleXfs[entry.xfId], styleDefs);
 
-    const cellStyle: CellStyle = {
+    const cellStyle: NamedStyle = {
       name: entry.name,
       ...baseStyle,
     };
@@ -124,7 +124,7 @@ function convertNamedStyles (styleDefs: StyleDefs): { namedStyles: CellStyle[], 
   return { namedStyles, xfIdToName };
 }
 
-export function convertStyles (styleDefs: StyleDefs): { styles: Style[], namedStyles: CellStyle[] } {
+export function convertStyles (styleDefs: StyleDefs): { styles: Style[], namedStyles: NamedStyle[] } {
   const { namedStyles, xfIdToName } = convertNamedStyles(styleDefs);
 
   const styles: Style[] = [];
