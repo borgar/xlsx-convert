@@ -79,6 +79,14 @@
       }
     }
   },
+  "namedStyles": [
+    {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  ],
   "formulas": [
     "SUM('[Data.xlsx]Test >>'!R2C1:R10C1)"
   ]

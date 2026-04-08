@@ -42,7 +42,8 @@
     {
       "numberFormat": "0.0%",
       "fontScheme": "minor",
-      "fontSize": 12
+      "fontSize": 12,
+      "parentStyle": "Percent"
     }
   ],
   "tables": [],
@@ -76,5 +77,20 @@
       }
     }
   },
+  "namedStyles": [
+    {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    },
+    {
+      "name": "Percent",
+      "numberFormat": "0%",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 5
+    }
+  ],
   "formulas": []
 }

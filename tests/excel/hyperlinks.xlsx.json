@@ -45,7 +45,8 @@
       "fontScheme": "minor",
       "fontSize": 12,
       "color": { "type": "theme", "value": "hlink" },
-      "underline": "single"
+      "underline": "single",
+      "parentStyle": "Hyperlink"
     }
   ],
   "tables": [],
@@ -79,6 +80,22 @@
       }
     }
   },
+  "namedStyles": [
+    {
+      "name": "Hyperlink",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "color": { "type": "theme", "value": "hlink" },
+      "underline": "single",
+      "builtinId": 8
+    },
+    {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  ],
   "formulas": [
     "HYPERLINK(\"http://example.com/\")",
     "HYPERLINK(\"http://example.com/\",\"title text\")"

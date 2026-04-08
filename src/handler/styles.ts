@@ -32,9 +32,16 @@ type Font = {
   color?: Color,
 };
 
+export type CellStyleEntry = {
+  name: string;
+  xfId: number;
+  builtinId?: number;
+};
+
 export type StyleDefs = {
   cellStyleXfs: Xf[];
   cellXf: Xf[];
+  cellStyles: CellStyleEntry[];
   fill: Fill[];
   font: Font[];
   numFmts: Record<number, string>;
@@ -142,6 +149,7 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
   const styles: StyleDefs = {
     cellStyleXfs: [],
     cellXf: [],
+    cellStyles: [],
     fill: [],
     font: [],
     numFmts: Object.assign({}, BUILTIN_FORMATS),
@@ -203,6 +211,21 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
         }
       }
       styles.cellXf.push(xf);
+    });
+
+  // named cell styles (maps names + builtinId to cellStyleXf indices)
+  dom.querySelectorAll('cellStyles > cellStyle')
+    .forEach(d => {
+      const name = attr(d, 'name');
+      const xfId = attr(d, 'xfId');
+      if (name != null && xfId != null) {
+        const entry: CellStyleEntry = { name, xfId: +xfId };
+        const builtinId = attr(d, 'builtinId');
+        if (builtinId != null) {
+          entry.builtinId = +builtinId;
+        }
+        styles.cellStyles.push(entry);
+      }
     });
 
   return styles;

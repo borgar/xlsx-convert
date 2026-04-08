@@ -170,6 +170,9 @@
     { "fontScheme": "minor", "fontSize": 12 }
   ],
   "tables": [],
+  "views": [
+    { "activeSheet": 1 }
+  ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -197,8 +200,13 @@
       }
     }
   },
-  "views": [
-    { "activeSheet": 1 }
+  "namedStyles": [
+    {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
   ],
   "pivotTables": [
     {
@@ -246,8 +254,8 @@
       ],
       "dataFields": [
         {
-          "name": "Average of Salary",
           "fieldIndex": 3,
+          "name": "Average of Salary",
           "subtotal": "average",
           "baseField": 0,
           "baseItem": 0
@@ -331,7 +339,6 @@
       "outlineData": true,
       "itemPrintTitles": true,
       "multipleFieldFilters": false,
-      "uid": "{916D59D8-6143-8142-9B4B-F15BE71C47B7}",
       "useAutoFormatting": true,
       "applyNumberFormats": false,
       "applyBorderFormats": false,
@@ -341,10 +348,14 @@
       "applyWidthHeightFormats": true,
       "indent": 0,
       "dataCaption": "Values",
+      "uid": "{916D59D8-6143-8142-9B4B-F15BE71C47B7}",
       "cache": {
         "sourceType": "worksheet",
-        "uid": "{93AACE53-8F3A-A04A-893A-A439866B3165}",
-        "worksheetSource": { "type": "range", "ref": "A1:D16", "sheet": "Data" },
+        "worksheetSource": {
+          "type": "range",
+          "ref": "A1:D16",
+          "sheet": "Data"
+        },
         "fields": [
           {
             "name": "Dept",
@@ -381,6 +392,7 @@
         ],
         "refreshedBy": "Gunnlaugur Þór Briem",
         "refreshedDate": 45939.50231157408,
+        "uid": "{93AACE53-8F3A-A04A-893A-A439866B3165}",
         "records": [
           [
             { "t": "x", "v": 0 },
