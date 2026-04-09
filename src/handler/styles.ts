@@ -68,7 +68,7 @@ type Xf = Partial<{
 function readXf (d: Element, styles: StyleDefs) {
   const xf: Xf = {};
 
-  const xfId = attr(d, 'xfId'); // read from cellStyleXfs
+  const xfId = attr(d, 'xfId'); // index into cellStyleXfs
   if (xfId) { xf.xfId = xfId; }
 
   const numFmtId = attr(d, 'numFmtId');
