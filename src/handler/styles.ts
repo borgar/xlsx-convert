@@ -32,7 +32,7 @@ type Font = {
   color?: Color,
 };
 
-export type CellStyleEntry = {
+export type NamedStyleEntry = {
   name: string;
   xfId: number;
   builtinId?: number;
@@ -41,7 +41,7 @@ export type CellStyleEntry = {
 export type StyleDefs = {
   cellStyleXfs: Xf[];
   cellXf: Xf[];
-  cellStyles: CellStyleEntry[];
+  cellStyles: NamedStyleEntry[];
   fill: Fill[];
   font: Font[];
   numFmts: Record<number, string>;
@@ -219,7 +219,7 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
       const name = attr(d, 'name');
       const xfId = attr(d, 'xfId');
       if (name != null && xfId != null) {
-        const entry: CellStyleEntry = { name, xfId: +xfId };
+        const entry: NamedStyleEntry = { name, xfId: +xfId };
         const builtinId = attr(d, 'builtinId');
         if (builtinId != null) {
           entry.builtinId = +builtinId;

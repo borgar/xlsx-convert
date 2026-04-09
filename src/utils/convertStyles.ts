@@ -1,5 +1,5 @@
 import { Color } from '../color/Color.ts';
-import type { StyleDefs, NamedStyleEntry } from '../handler/styles.ts';
+import type { StyleDefs } from '../handler/styles.ts';
 import type { NamedStyle, Color as JSFColor, Style } from '@jsfkit/types';
 
 /** Style values that can (potentially) be omitted. */
@@ -101,12 +101,13 @@ function convertXf (xf: Xf, styleDefs: StyleDefs): Style {
   return s;
 }
 
-function convertNamedStyles (styleDefs: StyleDefs): { namedStyles: NamedStyle[], xfIdToName: Map<number, string> } {
-  const namedStyles: NamedStyle[] = [];
+type NamedStyleResult = { namedStyles: Record<string, NamedStyle>, xfIdToName: Map<number, string> };
+
+function convertNamedStyles (styleDefs: StyleDefs): NamedStyleResult {
+  const namedStyles: Record<string, NamedStyle> = {};
   const xfIdToName = new Map<number, string>();
 
-  for (let i = 0; i < styleDefs.cellStyles.length; i++) {
-    const entry: NamedStyleEntry = styleDefs.cellStyles[i];
+  for (const entry of styleDefs.cellStyles) {
     const baseStyle = convertXf(styleDefs.cellStyleXfs[entry.xfId], styleDefs);
 
     const cellStyle: NamedStyle = {
@@ -117,14 +118,14 @@ function convertNamedStyles (styleDefs: StyleDefs): { namedStyles: NamedStyle[],
       cellStyle.builtinId = entry.builtinId;
     }
 
-    namedStyles.push(cellStyle);
+    namedStyles[entry.name] = cellStyle;
     xfIdToName.set(entry.xfId, entry.name);
   }
 
   return { namedStyles, xfIdToName };
 }
 
-export function convertStyles (styleDefs: StyleDefs): { styles: Style[], namedStyles: NamedStyle[] } {
+export function convertStyles (styleDefs: StyleDefs): { styles: Style[], namedStyles: Record<string, NamedStyle> } {
   const { namedStyles, xfIdToName } = convertNamedStyles(styleDefs);
 
   const styles: Style[] = [];
@@ -134,7 +135,7 @@ export function convertStyles (styleDefs: StyleDefs): { styles: Style[], namedSt
     if (xf.xfId != null) {
       const name = xfIdToName.get(+xf.xfId);
       if (name != null && name !== 'Normal') {
-        s.parentStyle = name;
+        s.extendsStyle = name;
       }
     }
     styles[i] = s;
