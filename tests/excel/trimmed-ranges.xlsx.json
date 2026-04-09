@@ -84,6 +84,14 @@
       }
     }
   },
+  "namedStyles": [
+    {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  ],
   "formulas": [
     "R1C1:R4C3",
     "R1C1.:.R4C3",

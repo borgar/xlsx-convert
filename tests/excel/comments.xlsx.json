@@ -127,6 +127,14 @@
       }
     }
   },
+  "namedStyles": [
+    {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  ],
   "people": [
     {
       "id": "{3DB0C038-8ED0-334F-836F-17C97737837B}",

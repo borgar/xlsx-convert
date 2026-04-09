@@ -80,6 +80,14 @@
       }
     }
   },
+  "namedStyles": [
+    {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  ],
   "formulas": [
     "DATEVALUE(\"1/1/1\")",
     "1*\"1/1/1\""

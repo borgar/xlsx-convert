@@ -69,6 +69,14 @@
       }
     }
   },
+  "namedStyles": [
+    {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  ],
   "formulas": [
     "R[-2]C:R[-2]C[3]=1",
     "R[-3]C:R[-3]C[3]=1"

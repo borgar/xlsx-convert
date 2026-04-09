@@ -1974,6 +1974,14 @@
       }
     }
   },
+  "namedStyles": [
+    {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  ],
   "formulas": [
     "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)",
     "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)",
