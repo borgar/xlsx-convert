@@ -124,6 +124,7 @@
       "ref": "C1:D4",
       "headerRowCount": 1,
       "totalsRowCount": 0,
+      "totalsRowShown": false,
       "columns": [
         {
           "name": "a"
