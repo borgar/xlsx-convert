@@ -73,6 +73,7 @@
   "dependencies": {
     "@borgar/fx": "~5.0.3",
     "@borgar/simple-xml": "~2.2.2",
+    "@jsfkit/utils": "~1.0.2",
     "numfmt": "~3.2.6",
     "pako": "~2.1.0"
   },

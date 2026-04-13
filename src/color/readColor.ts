@@ -2,8 +2,9 @@ import type { Element } from '@borgar/simple-xml';
 import type { Color as JSFColor, Theme } from '@jsfkit/types';
 import { attr, numAttr } from '../utils/attr.ts';
 import { Color } from './Color.ts';
-import { SYSTEM_COLORS, PRESET_COLORS, SCHEME_COLORS, INDEX_TO_SCHEME } from '../constants.ts';
+import { SCHEME_COLORS, INDEX_TO_SCHEME } from '../constants.ts';
 import { readDrawingMLColor } from './readDrawingMLColor.ts';
+import { PRESET_COLORS, SYSTEM_COLORS } from '@jsfkit/utils';
 
 /**
  * Reads a color element and returns a Color container. This should handle any of the
