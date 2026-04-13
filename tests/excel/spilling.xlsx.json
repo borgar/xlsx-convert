@@ -4,42 +4,122 @@
     {
       "name": "Sheet1",
       "cells": {
-        "A1": { "v": "Data" },
-        "B1": { "v": "Spill copy" },
-        "C1": { "v": "Spill fx" },
-        "D1": { "v": "# ref" },
-        "A2": { "v": "X" },
-        "B2": { "v": "X", "F": "B2:B10", "f": 0 },
-        "C2": { "v": "Z", "F": "C2:C4", "f": 1 },
-        "D2": { "v": "Z", "F": "D2:D4", "f": 2 },
-        "A3": { "v": "Y" },
-        "B3": { "v": "Y", "F": "B2:B10" },
-        "C3": { "v": "Z", "F": "C2:C4" },
-        "D3": { "v": "Z", "F": "D2:D4" },
-        "A4": { "v": "Z" },
-        "B4": { "v": "Z", "F": "B2:B10" },
-        "C4": { "v": "Z", "F": "C2:C4" },
-        "D4": { "v": "Z", "F": "D2:D4" },
-        "A5": { "v": "X" },
-        "B5": { "v": "X", "F": "B2:B10" },
-        "A6": { "v": "Y" },
-        "B6": { "v": "Y", "F": "B2:B10" },
-        "A7": { "v": "Z" },
-        "B7": { "v": "Z", "F": "B2:B10" },
-        "A8": { "v": "X" },
-        "B8": { "v": "X", "F": "B2:B10" },
-        "A9": { "v": "Y" },
-        "B9": { "v": "Y", "F": "B2:B10" },
-        "A10": { "v": "Z" },
-        "B10": { "v": "Z", "F": "B2:B10" }
+        "A1": {
+          "v": "Data"
+        },
+        "B1": {
+          "v": "Spill copy"
+        },
+        "C1": {
+          "v": "Spill fx"
+        },
+        "D1": {
+          "v": "# ref"
+        },
+        "A2": {
+          "v": "X"
+        },
+        "B2": {
+          "v": "X",
+          "F": "B2:B10",
+          "f": 0
+        },
+        "C2": {
+          "v": "Z",
+          "F": "C2:C4",
+          "f": 1
+        },
+        "D2": {
+          "v": "Z",
+          "F": "D2:D4",
+          "f": 2
+        },
+        "A3": {
+          "v": "Y"
+        },
+        "B3": {
+          "v": "Y",
+          "F": "B2:B10"
+        },
+        "C3": {
+          "v": "Z",
+          "F": "C2:C4"
+        },
+        "D3": {
+          "v": "Z",
+          "F": "D2:D4"
+        },
+        "A4": {
+          "v": "Z"
+        },
+        "B4": {
+          "v": "Z",
+          "F": "B2:B10"
+        },
+        "C4": {
+          "v": "Z",
+          "F": "C2:C4"
+        },
+        "D4": {
+          "v": "Z",
+          "F": "D2:D4"
+        },
+        "A5": {
+          "v": "X"
+        },
+        "B5": {
+          "v": "X",
+          "F": "B2:B10"
+        },
+        "A6": {
+          "v": "Y"
+        },
+        "B6": {
+          "v": "Y",
+          "F": "B2:B10"
+        },
+        "A7": {
+          "v": "Z"
+        },
+        "B7": {
+          "v": "Z",
+          "F": "B2:B10"
+        },
+        "A8": {
+          "v": "X"
+        },
+        "B8": {
+          "v": "X",
+          "F": "B2:B10"
+        },
+        "A9": {
+          "v": "Y"
+        },
+        "B9": {
+          "v": "Y",
+          "F": "B2:B10"
+        },
+        "A10": {
+          "v": "Z"
+        },
+        "B10": {
+          "v": "Z",
+          "F": "B2:B10"
+        }
       },
       "columns": [],
       "rows": [],
       "merges": [],
-      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "defaults": {
+        "colWidth": 65,
+        "rowHeight": 16
+      },
       "hidden": 0,
       "views": [
-        { "workbookView": 0, "activeCell": "A2" }
+        {
+          "workbookView": 0,
+          "activeCell": "A2"
+        }
       ]
     }
   ],
@@ -51,7 +131,10 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
+    {
+      "fontScheme": "minor",
+      "fontSize": 12
+    }
   ],
   "tables": [],
   "views": [
@@ -61,27 +144,75 @@
     "name": "Office Theme",
     "colorScheme": {
       "name": "Office",
-      "lt1": { "type": "system", "value": "window" },
-      "dk1": { "type": "system", "value": "windowText" },
-      "lt2": { "type": "srgb", "value": "E7E6E6" },
-      "dk2": { "type": "srgb", "value": "44546A" },
-      "accent1": { "type": "srgb", "value": "4472C4" },
-      "accent2": { "type": "srgb", "value": "ED7D31" },
-      "accent3": { "type": "srgb", "value": "A5A5A5" },
-      "accent4": { "type": "srgb", "value": "FFC000" },
-      "accent5": { "type": "srgb", "value": "5B9BD5" },
-      "accent6": { "type": "srgb", "value": "70AD47" },
-      "hlink": { "type": "srgb", "value": "0563C1" },
-      "folHlink": { "type": "srgb", "value": "954F72" }
+      "lt1": {
+        "type": "system",
+        "value": "window"
+      },
+      "dk1": {
+        "type": "system",
+        "value": "windowText"
+      },
+      "lt2": {
+        "type": "srgb",
+        "value": "E7E6E6"
+      },
+      "dk2": {
+        "type": "srgb",
+        "value": "44546A"
+      },
+      "accent1": {
+        "type": "srgb",
+        "value": "4472C4"
+      },
+      "accent2": {
+        "type": "srgb",
+        "value": "ED7D31"
+      },
+      "accent3": {
+        "type": "srgb",
+        "value": "A5A5A5"
+      },
+      "accent4": {
+        "type": "srgb",
+        "value": "FFC000"
+      },
+      "accent5": {
+        "type": "srgb",
+        "value": "5B9BD5"
+      },
+      "accent6": {
+        "type": "srgb",
+        "value": "70AD47"
+      },
+      "hlink": {
+        "type": "srgb",
+        "value": "0563C1"
+      },
+      "folHlink": {
+        "type": "srgb",
+        "value": "954F72"
+      }
     },
     "fontScheme": {
       "name": "Office",
       "major": {
-        "latin": { "typeface": "Calibri Light" }
+        "latin": {
+          "typeface": "Calibri Light"
+        }
       },
       "minor": {
-        "latin": { "typeface": "Calibri" }
+        "latin": {
+          "typeface": "Calibri"
+        }
       }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
     }
   },
   "formulas": [

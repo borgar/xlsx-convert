@@ -4,28 +4,70 @@
     {
       "name": "some values",
       "cells": {
-        "A1": { "v": 0 },
-        "B1": { "v": 1 },
-        "C1": { "v": 2 },
-        "D1": { "v": 3 },
-        "A2": { "v": "aa" },
-        "B2": { "s": 1, "v": "" },
-        "C2": { "s": 1, "v": "true" },
-        "D2": { "s": 1, "v": "#VALUE!" },
-        "E2": { "v": "lorem ipsum dolor set amet" },
-        "A3": { "v": true },
-        "B3": { "v": false },
-        "A4": { "s": 1, "v": "#VALUE!", "t": "e" },
-        "B4": { "s": 1, "v": "#NUM!", "t": "e" },
-        "C4": { "v": "#DIV/0!", "t": "e" }
+        "A1": {
+          "v": 0
+        },
+        "B1": {
+          "v": 1
+        },
+        "C1": {
+          "v": 2
+        },
+        "D1": {
+          "v": 3
+        },
+        "A2": {
+          "v": "aa"
+        },
+        "B2": {
+          "s": 1,
+          "v": ""
+        },
+        "C2": {
+          "s": 1,
+          "v": "true"
+        },
+        "D2": {
+          "s": 1,
+          "v": "#VALUE!"
+        },
+        "E2": {
+          "v": "lorem ipsum dolor set amet"
+        },
+        "A3": {
+          "v": true
+        },
+        "B3": {
+          "v": false
+        },
+        "A4": {
+          "s": 1,
+          "v": "#VALUE!",
+          "t": "e"
+        },
+        "B4": {
+          "s": 1,
+          "v": "#NUM!",
+          "t": "e"
+        },
+        "C4": {
+          "v": "#DIV/0!",
+          "t": "e"
+        }
       },
       "columns": [],
       "rows": [],
       "merges": [],
-      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "defaults": {
+        "colWidth": 65,
+        "rowHeight": 16
+      },
       "hidden": 0,
       "views": [
-        { "workbookView": 0, "activeCell": "A5" }
+        {
+          "workbookView": 0,
+          "activeCell": "A5"
+        }
       ]
     }
   ],
@@ -37,8 +79,14 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontScheme": "minor", "fontSize": 12 },
-    { "fontScheme": "minor", "fontSize": 12 }
+    {
+      "fontScheme": "minor",
+      "fontSize": 12
+    },
+    {
+      "fontScheme": "minor",
+      "fontSize": 12
+    }
   ],
   "tables": [],
   "views": [
@@ -48,27 +96,75 @@
     "name": "Office Theme",
     "colorScheme": {
       "name": "Office",
-      "lt1": { "type": "system", "value": "window" },
-      "dk1": { "type": "system", "value": "windowText" },
-      "lt2": { "type": "srgb", "value": "E7E6E6" },
-      "dk2": { "type": "srgb", "value": "44546A" },
-      "accent1": { "type": "srgb", "value": "4472C4" },
-      "accent2": { "type": "srgb", "value": "ED7D31" },
-      "accent3": { "type": "srgb", "value": "A5A5A5" },
-      "accent4": { "type": "srgb", "value": "FFC000" },
-      "accent5": { "type": "srgb", "value": "5B9BD5" },
-      "accent6": { "type": "srgb", "value": "70AD47" },
-      "hlink": { "type": "srgb", "value": "0563C1" },
-      "folHlink": { "type": "srgb", "value": "954F72" }
+      "lt1": {
+        "type": "system",
+        "value": "window"
+      },
+      "dk1": {
+        "type": "system",
+        "value": "windowText"
+      },
+      "lt2": {
+        "type": "srgb",
+        "value": "E7E6E6"
+      },
+      "dk2": {
+        "type": "srgb",
+        "value": "44546A"
+      },
+      "accent1": {
+        "type": "srgb",
+        "value": "4472C4"
+      },
+      "accent2": {
+        "type": "srgb",
+        "value": "ED7D31"
+      },
+      "accent3": {
+        "type": "srgb",
+        "value": "A5A5A5"
+      },
+      "accent4": {
+        "type": "srgb",
+        "value": "FFC000"
+      },
+      "accent5": {
+        "type": "srgb",
+        "value": "5B9BD5"
+      },
+      "accent6": {
+        "type": "srgb",
+        "value": "70AD47"
+      },
+      "hlink": {
+        "type": "srgb",
+        "value": "0563C1"
+      },
+      "folHlink": {
+        "type": "srgb",
+        "value": "954F72"
+      }
     },
     "fontScheme": {
       "name": "Office",
       "major": {
-        "latin": { "typeface": "Calibri Light" }
+        "latin": {
+          "typeface": "Calibri Light"
+        }
       },
       "minor": {
-        "latin": { "typeface": "Calibri" }
+        "latin": {
+          "typeface": "Calibri"
+        }
       }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
     }
   },
   "formulas": []
