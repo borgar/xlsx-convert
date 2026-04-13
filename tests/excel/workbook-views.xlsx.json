@@ -4,30 +4,45 @@
     {
       "name": "Sheet1",
       "cells": {
-        "B5": { "v": "This sheet deliberately left blank." }
+        "B5": {
+          "v": "This sheet deliberately left blank."
+        }
       },
       "columns": [],
       "rows": [],
       "merges": [],
-      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "defaults": {
+        "colWidth": 65,
+        "rowHeight": 16
+      },
       "hidden": 0,
       "views": [
         {
           "workbookView": 0,
-          "layoutScales": { "normal": 100 }
+          "layoutScales": {
+            "normal": 100
+          }
         },
-        { "workbookView": 1, "activeCell": "C9" }
+        {
+          "workbookView": 1,
+          "activeCell": "C9"
+        }
       ]
     },
     {
       "name": "Sheet2",
       "cells": {
-        "D12": { "v": "This sheet deliberately left blank." }
+        "D12": {
+          "v": "This sheet deliberately left blank."
+        }
       },
       "columns": [],
       "rows": [],
       "merges": [],
-      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "defaults": {
+        "colWidth": 65,
+        "rowHeight": 16
+      },
       "hidden": 0,
       "views": [
         {
@@ -39,7 +54,10 @@
             "D12:G18"
           ]
         },
-        { "workbookView": 1, "activeCell": "D12" }
+        {
+          "workbookView": 1,
+          "activeCell": "D12"
+        }
       ]
     },
     {
@@ -48,10 +66,16 @@
       "columns": [],
       "rows": [],
       "merges": [],
-      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "defaults": {
+        "colWidth": 65,
+        "rowHeight": 16
+      },
       "hidden": 0,
       "views": [
-        { "workbookView": 1, "activeCell": "C25" }
+        {
+          "workbookView": 1,
+          "activeCell": "C25"
+        }
       ]
     }
   ],
@@ -63,38 +87,93 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
+    {
+      "fontScheme": "minor",
+      "fontSize": 12
+    }
   ],
   "tables": [],
   "views": [
-    { "activeSheet": 1 },
-    { "activeSheet": 2 }
+    {
+      "activeSheet": 1
+    },
+    {
+      "activeSheet": 2
+    }
   ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
       "name": "Office",
-      "lt1": { "type": "system", "value": "window" },
-      "dk1": { "type": "system", "value": "windowText" },
-      "lt2": { "type": "srgb", "value": "E8E8E8" },
-      "dk2": { "type": "srgb", "value": "0E2841" },
-      "accent1": { "type": "srgb", "value": "156082" },
-      "accent2": { "type": "srgb", "value": "E97132" },
-      "accent3": { "type": "srgb", "value": "196B24" },
-      "accent4": { "type": "srgb", "value": "0F9ED5" },
-      "accent5": { "type": "srgb", "value": "A02B93" },
-      "accent6": { "type": "srgb", "value": "4EA72E" },
-      "hlink": { "type": "srgb", "value": "467886" },
-      "folHlink": { "type": "srgb", "value": "96607D" }
+      "lt1": {
+        "type": "system",
+        "value": "window"
+      },
+      "dk1": {
+        "type": "system",
+        "value": "windowText"
+      },
+      "lt2": {
+        "type": "srgb",
+        "value": "E8E8E8"
+      },
+      "dk2": {
+        "type": "srgb",
+        "value": "0E2841"
+      },
+      "accent1": {
+        "type": "srgb",
+        "value": "156082"
+      },
+      "accent2": {
+        "type": "srgb",
+        "value": "E97132"
+      },
+      "accent3": {
+        "type": "srgb",
+        "value": "196B24"
+      },
+      "accent4": {
+        "type": "srgb",
+        "value": "0F9ED5"
+      },
+      "accent5": {
+        "type": "srgb",
+        "value": "A02B93"
+      },
+      "accent6": {
+        "type": "srgb",
+        "value": "4EA72E"
+      },
+      "hlink": {
+        "type": "srgb",
+        "value": "467886"
+      },
+      "folHlink": {
+        "type": "srgb",
+        "value": "96607D"
+      }
     },
     "fontScheme": {
       "name": "Office",
       "major": {
-        "latin": { "typeface": "Aptos Display" }
+        "latin": {
+          "typeface": "Aptos Display"
+        }
       },
       "minor": {
-        "latin": { "typeface": "Aptos Narrow" }
+        "latin": {
+          "typeface": "Aptos Narrow"
+        }
       }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
     }
   },
   "formulas": []

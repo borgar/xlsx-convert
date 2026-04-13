@@ -32,9 +32,16 @@ type Font = {
   color?: Color,
 };
 
+export type NamedStyleEntry = {
+  name: string;
+  xfId: number;
+  builtinId?: number;
+};
+
 export type StyleDefs = {
   cellStyleXfs: Xf[];
   cellXf: Xf[];
+  cellStyles: NamedStyleEntry[];
   fill: Fill[];
   font: Font[];
   numFmts: Record<number, string>;
@@ -61,7 +68,7 @@ type Xf = Partial<{
 function readXf (d: Element, styles: StyleDefs) {
   const xf: Xf = {};
 
-  const xfId = attr(d, 'xfId'); // read from cellStyleXfs
+  const xfId = attr(d, 'xfId'); // index into cellStyleXfs
   if (xfId) { xf.xfId = xfId; }
 
   const numFmtId = attr(d, 'numFmtId');
@@ -142,6 +149,7 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
   const styles: StyleDefs = {
     cellStyleXfs: [],
     cellXf: [],
+    cellStyles: [],
     fill: [],
     font: [],
     numFmts: Object.assign({}, BUILTIN_FORMATS),
@@ -203,6 +211,21 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
         }
       }
       styles.cellXf.push(xf);
+    });
+
+  // named cell styles (maps names + builtinId to cellStyleXf indices)
+  dom.querySelectorAll('cellStyles > cellStyle')
+    .forEach(d => {
+      const name = attr(d, 'name');
+      const xfId = attr(d, 'xfId');
+      if (name != null && xfId != null) {
+        const entry: NamedStyleEntry = { name, xfId: +xfId };
+        const builtinId = attr(d, 'builtinId');
+        if (builtinId != null) {
+          entry.builtinId = +builtinId;
+        }
+        styles.cellStyles.push(entry);
+      }
     });
 
   return styles;
