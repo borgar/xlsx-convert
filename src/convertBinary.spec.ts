@@ -43,10 +43,14 @@ describe('convertBinary', () => {
       names: [],
       tables: [],
       views: [ {} ],
+      namedStyles: {
+        Normal: { builtinId: 0, name: 'Normal', fontScheme: 'minor', fontSize: 12 },
+        Percent: { builtinId: 5, name: 'Percent', fontScheme: 'minor', fontSize: 12, numberFormat: '0%' },
+      },
       styles: [
         { fontScheme: 'minor', fontSize: 12 },
         { fontScheme: 'minor', fontSize: 12, numberFormat: '0.00E+00' },
-        { fontScheme: 'minor', fontSize: 12, numberFormat: '0.0%' },
+        { extendsStyle: 'Percent', fontScheme: 'minor', fontSize: 12, numberFormat: '0.0%' },
       ],
       theme: {
         name: 'Office Theme',

@@ -15,7 +15,8 @@ export function handlerTable (dom: Document, context: ConversionContext): Table 
     sheet: '',
     ref: attr(tableElm, 'ref'),
     headerRowCount: numAttr(tableElm, 'headerRowCount', 1),
-    totalsRowCount: numAttr(tableElm, 'totalsRowCount', 0), // totalsRowShown
+    totalsRowCount: numAttr(tableElm, 'totalsRowCount', 0),
+    totalsRowShown: boolAttr(tableElm, 'totalsRowShown', true) ? undefined : false,
     columns: [],
     // alt text: extLst>ext>table[altTextSummary]
   };
@@ -83,6 +84,9 @@ export function handlerTable (dom: Document, context: ConversionContext): Table 
       const f = node.getElementsByTagName('calculatedColumnFormula')[0];
       if (f) {
         column.formula = normalizeFormula(f.textContent, context);
+        if (attr(f, 'array') === '1') {
+          column.formulaIsArray = true;
+        }
       }
       table.columns.push(column);
     });
