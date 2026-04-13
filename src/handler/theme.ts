@@ -5,7 +5,8 @@ import { attr } from '../utils/attr.ts';
 import { getFirstChild } from '../utils/getFirstChild.ts';
 import type { ConversionContext } from '../ConversionContext.ts';
 
-export function getBlankTheme (): Theme {
+export function getBlankTheme (defaultThemeVersion: string): Theme {
+  const useAptosFont = defaultThemeVersion.startsWith('202');
   return {
     name: 'Office',
     colorScheme: {
@@ -25,8 +26,9 @@ export function getBlankTheme (): Theme {
     },
     fontScheme: {
       name: 'Office',
-      major: { latin: { typeface: 'Aptos Display' } },
-      minor: { latin: { typeface: 'Aptos Display' } },
+      // XXX: Confirm these are the correct fonts:
+      major: { latin: { typeface: useAptosFont ? 'Aptos Display' : 'Calibri' } },
+      minor: { latin: { typeface: useAptosFont ? 'Aptos Narrow' : 'Calibri' } },
     },
   };
 }
@@ -65,7 +67,7 @@ function extractFontCollection (fontCollection: XMLElement) {
 }
 
 export function handlerTheme (dom: Document, context: ConversionContext): Theme {
-  const theme: Theme = getBlankTheme();
+  const theme: Theme = getBlankTheme(context.defaultThemeVersion);
 
   // get a derivative of context but use our new theme
   const ctx = Object.create(context);

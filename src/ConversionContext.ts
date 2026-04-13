@@ -63,6 +63,17 @@ export class ConversionContext {
   _arrayFormula: string[];
   images: RefLink[];
   isLikelyGSExport: boolean;
+  /**
+   * Excel includes an undocumented number in the workbook properties that hints which
+   * default theme to use if a theme is not included. Values include:
+   * - 0 (or absent): no default theme override
+   * - 123820: Office 2007 theme (uses Calibri)
+   * - 124226: Office 2010 theme (uses Calibri)
+   * - 164011: Office 2013 theme (uses Calibri)
+   * - 166925: Office 2013–2022 theme (uses Calibri)
+   * - 202300: Microsoft 365 (2023+) theme (uses Aptos Narrow)
+   */
+  defaultThemeVersion: string;
 
   warn (message: string): void {
     this.options.warn?.(message);
@@ -72,7 +83,8 @@ export class ConversionContext {
     this.rels = [];
     this.options = {};
     this.workbook = null;
-    this.theme = getBlankTheme();
+    this.defaultThemeVersion = '202300';
+    this.theme = getBlankTheme(this.defaultThemeVersion);
     this.indexedColors = [ ...COLOR_INDEX ];
     this.richStruct = [];
     this.richValues = null;
