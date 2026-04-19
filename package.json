@@ -14,7 +14,7 @@
     }
   },
   "bin": {
-    "xlsx-convert": "./dist/cli.cjs"
+    "xlsx-convert": "./dist/cli.js"
   },
   "directories": {
     "test": "tests"
@@ -37,20 +37,6 @@
     "LICENSE",
     "README.md"
   ],
-  "tsup": {
-    "entry": [
-      "src/index.ts",
-      "src/cli.ts"
-    ],
-    "format": [
-      "esm",
-      "cjs"
-    ],
-    "splitting": false,
-    "sourcemap": true,
-    "clean": true,
-    "dts": true
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/borgar/xlsx-reader.git"
