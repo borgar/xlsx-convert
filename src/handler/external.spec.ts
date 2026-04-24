@@ -150,5 +150,39 @@ describe('handlerExternal', () => {
 
       expect(ext.alternateUrls).toBeUndefined();
     });
+
+    it('omits alternateUrls when the element is empty (no children, no attrs)', () => {
+      // A bare `<xxl21:alternateUrls/>` carries no URLs and no driveId/itemId;
+      // it shouldn't produce a semantics-free `alternateUrls: {}` on the output.
+      const xml = `<externalLink ${EXTERNAL_NS} ${XXL21_NS}>
+        <externalBook ${R_NS} r:id="rId1">
+          <xxl21:alternateUrls/>
+          <sheetNames><sheetName val="A"/></sheetNames>
+          <sheetDataSet><sheetData sheetId="0"/></sheetDataSet>
+        </externalBook>
+      </externalLink>`;
+
+      const ext = handlerExternal(parseExternal(xml), 'Book.xlsx', []);
+
+      expect(ext.alternateUrls).toBeUndefined();
+    });
+
+    it('omits alternateUrls when a child URL element has no r:id attribute', () => {
+      // A malformed `<absoluteUrl/>` with no r:id has nothing to resolve
+      // against rels --- skip it rather than record an invalid reference.
+      const xml = `<externalLink ${EXTERNAL_NS} ${XXL21_NS}>
+        <externalBook ${R_NS} r:id="rId1">
+          <xxl21:alternateUrls>
+            <xxl21:absoluteUrl/>
+          </xxl21:alternateUrls>
+          <sheetNames><sheetName val="A"/></sheetNames>
+          <sheetDataSet><sheetData sheetId="0"/></sheetDataSet>
+        </externalBook>
+      </externalLink>`;
+
+      const ext = handlerExternal(parseExternal(xml), 'Book.xlsx', []);
+
+      expect(ext.alternateUrls).toBeUndefined();
+    });
   });
 });
