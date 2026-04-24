@@ -142,6 +142,9 @@
   "externals": [
     {
       "name": "names.xlsx",
+      "alternateUrls": {
+        "absoluteUrl": "/Users/borgar/Sites/borgar-github/xlsx-convert/tests/files/names.xlsx"
+      },
       "sheets": [
         {
           "name": "Sheet1",
@@ -172,6 +175,9 @@
     },
     {
       "name": "literals.xlsx",
+      "alternateUrls": {
+        "absoluteUrl": "/Users/borgar/Sites/borgar-github/xlsx-convert/tests/files/literals.xlsx"
+      },
       "sheets": [
         {
           "name": "some values",

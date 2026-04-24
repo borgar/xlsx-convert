@@ -45,6 +45,9 @@
   "externals": [
     {
       "name": "Data.xlsx",
+      "alternateUrls": {
+        "absoluteUrl": "/Users/ses/Documents/xlsx-test-files/Data.xlsx"
+      },
       "sheets": [
         {
           "name": "Test >>",
