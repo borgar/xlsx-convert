@@ -82,6 +82,12 @@ describe('handlerExternal', () => {
       expect(ext.sheets[0].noSheetData).toBeUndefined();
       expect(ext.sheets[1].noSheetData).toBe(true);
       expect(ext.sheets[2].noSheetData).toBeUndefined();
+      // Invariant (per @jsfkit/types): when noSheetData is true, cells is
+      // empty and refreshError is unset. Pin it on the produced object so a
+      // future regression that starts leaving stale state on the "absent"
+      // sheet gets caught here rather than silently trashed on emit.
+      expect(ext.sheets[1].cells).toEqual({});
+      expect(ext.sheets[1].refreshError).toBeUndefined();
     });
 
     it('does not mark sheets whose sheetData is empty but present', () => {
