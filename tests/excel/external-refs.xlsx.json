@@ -4,90 +4,31 @@
     {
       "name": "Sheet1",
       "cells": {
-        "A1": {
-          "v": 12,
-          "f": 0
-        },
-        "C1": {
-          "v": "a"
-        },
-        "D1": {
-          "v": "b"
-        },
-        "A2": {
-          "v": "value",
-          "F": "A2",
-          "f": 1
-        },
-        "C2": {
-          "v": 1
-        },
-        "D2": {
-          "v": 12,
-          "f": 2
-        },
-        "A3": {
-          "v": "value",
-          "F": "A3",
-          "f": 3
-        },
-        "C3": {
-          "v": 2
-        },
-        "D3": {
-          "v": 24,
-          "f": 2
-        },
-        "A4": {
-          "v": 12300,
-          "F": "A4",
-          "f": 4
-        },
-        "C4": {
-          "v": 3
-        },
-        "D4": {
-          "v": 36,
-          "f": 2
-        },
-        "A5": {
-          "v": "value",
-          "F": "A5",
-          "f": 1
-        },
-        "A6": {
-          "v": 12,
-          "F": "A6",
-          "f": 5
-        },
-        "A7": {
-          "v": "value",
-          "F": "A7",
-          "f": 6
-        },
-        "A8": {
-          "v": "value",
-          "F": "A8",
-          "f": 7
-        },
-        "A9": {
-          "v": "lorem ipsum dolor set amet",
-          "f": 8
-        }
+        "A1": { "v": 12, "f": 0 },
+        "C1": { "v": "a" },
+        "D1": { "v": "b" },
+        "A2": { "v": "value", "F": "A2", "f": 1 },
+        "C2": { "v": 1 },
+        "D2": { "v": 12, "f": 2 },
+        "A3": { "v": "value", "F": "A3", "f": 3 },
+        "C3": { "v": 2 },
+        "D3": { "v": 24, "f": 2 },
+        "A4": { "v": 12300, "F": "A4", "f": 4 },
+        "C4": { "v": 3 },
+        "D4": { "v": 36, "f": 2 },
+        "A5": { "v": "value", "F": "A5", "f": 1 },
+        "A6": { "v": 12, "F": "A6", "f": 5 },
+        "A7": { "v": "value", "F": "A7", "f": 6 },
+        "A8": { "v": "value", "F": "A8", "f": 7 },
+        "A9": { "v": "lorem ipsum dolor set amet", "f": 8 }
       },
       "columns": [],
       "rows": [],
       "merges": [],
-      "defaults": {
-        "colWidth": 65,
-        "rowHeight": 16
-      },
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
       "views": [
-        {
-          "workbookView": 0,
-          "activeCell": "A9"
-        }
+        { "workbookView": 0, "activeCell": "A9" }
       ]
     }
   ],
@@ -112,10 +53,7 @@
     "epoch": 1900
   },
   "styles": [
-    {
-      "fontScheme": "minor",
-      "fontSize": 12
-    }
+    { "fontScheme": "minor", "fontSize": 12 }
   ],
   "tables": [
     {
@@ -126,9 +64,7 @@
       "totalsRowCount": 0,
       "totalsRowShown": false,
       "columns": [
-        {
-          "name": "a"
-        },
+        { "name": "a" },
         {
           "name": "b",
           "formula": "Table1[@a]*[names.xlsx]Sheet1!$A$1"
@@ -146,29 +82,19 @@
         {
           "name": "Sheet1",
           "cells": {
-            "A1": {
-              "v": 12
-            },
-            "A2": {
-              "v": "value"
-            }
+            "A1": { "v": 12 },
+            "A2": { "v": "value" }
           }
         }
       ],
       "names": [
-        {
-          "name": "formula",
-          "value": "#REF!"
-        },
-        {
-          "name": "scoped",
-          "value": "='Sheet1'!$A$2"
-        },
-        {
-          "name": "unscoped",
-          "value": "='Sheet1'!$A$2"
-        }
-      ]
+        { "name": "formula", "value": "#REF!" },
+        { "name": "scoped", "value": "='Sheet1'!$A$2" },
+        { "name": "unscoped", "value": "='Sheet1'!$A$2" }
+      ],
+      "alternateUrls": {
+        "absoluteUrl": "/Users/borgar/Sites/borgar-github/xlsx-convert/tests/files/names.xlsx"
+      }
     },
     {
       "name": "literals.xlsx",
@@ -176,79 +102,40 @@
         {
           "name": "some values",
           "cells": {
-            "E2": {
-              "v": "lorem ipsum dolor set amet"
-            }
+            "E2": { "v": "lorem ipsum dolor set amet" }
           }
         }
       ],
-      "names": []
+      "names": [],
+      "alternateUrls": {
+        "absoluteUrl": "/Users/borgar/Sites/borgar-github/xlsx-convert/tests/files/literals.xlsx"
+      }
     }
   ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
       "name": "Office",
-      "lt1": {
-        "type": "system",
-        "value": "window"
-      },
-      "dk1": {
-        "type": "system",
-        "value": "windowText"
-      },
-      "lt2": {
-        "type": "srgb",
-        "value": "E7E6E6"
-      },
-      "dk2": {
-        "type": "srgb",
-        "value": "44546A"
-      },
-      "accent1": {
-        "type": "srgb",
-        "value": "4472C4"
-      },
-      "accent2": {
-        "type": "srgb",
-        "value": "ED7D31"
-      },
-      "accent3": {
-        "type": "srgb",
-        "value": "A5A5A5"
-      },
-      "accent4": {
-        "type": "srgb",
-        "value": "FFC000"
-      },
-      "accent5": {
-        "type": "srgb",
-        "value": "5B9BD5"
-      },
-      "accent6": {
-        "type": "srgb",
-        "value": "70AD47"
-      },
-      "hlink": {
-        "type": "srgb",
-        "value": "0563C1"
-      },
-      "folHlink": {
-        "type": "srgb",
-        "value": "954F72"
-      }
+      "lt1": { "type": "system", "value": "window" },
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt2": { "type": "srgb", "value": "E7E6E6" },
+      "dk2": { "type": "srgb", "value": "44546A" },
+      "accent1": { "type": "srgb", "value": "4472C4" },
+      "accent2": { "type": "srgb", "value": "ED7D31" },
+      "accent3": { "type": "srgb", "value": "A5A5A5" },
+      "accent4": { "type": "srgb", "value": "FFC000" },
+      "accent5": { "type": "srgb", "value": "5B9BD5" },
+      "accent6": { "type": "srgb", "value": "70AD47" },
+      "hlink": { "type": "srgb", "value": "0563C1" },
+      "folHlink": { "type": "srgb", "value": "954F72" }
     },
     "fontScheme": {
       "name": "Office",
       "major": {
-        "latin": {
-          "typeface": "Calibri Light"
-        }
+        "latin": { "typeface": "Calibri Light" }
       },
       "minor": {
-        "latin": {
-          "typeface": "Calibri"
-        }
+        "latin": { "typeface": "Calibri" }
       }
     }
   },
