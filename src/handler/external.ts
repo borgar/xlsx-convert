@@ -5,9 +5,12 @@ import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { ConversionContext } from '../ConversionContext.ts';
 import type { External, ExternalDefinedName } from '@jsfkit/types';
 
-const NO_EXTERNALS = { externalLinks: [] };
+type FormulaOpts = {
+  preservePrefixes?: boolean;
+  preserveCompatibilityFunctions?: boolean;
+};
 
-export function handlerExternal (dom: Document, fileName: string = ''): External {
+export function handlerExternal (dom: Document, fileName: string = '', opts: FormulaOpts = {}): External {
   const external: External = {
     name: fileName,
     sheets: [],
@@ -24,6 +27,8 @@ export function handlerExternal (dom: Document, fileName: string = ''): External
     });
 
   // read cells and their values
+  // Note: dummyContext does not include preservePrefixes, but external link cells
+  // only contain cached values (no <f> nodes), so no formulas are normalized here.
   const dummyContext = new ConversionContext();
   dom.querySelectorAll('sheetDataSet > sheetData')
     .forEach(sheetData => {
@@ -47,6 +52,7 @@ export function handlerExternal (dom: Document, fileName: string = ''): External
     });
 
   // read defined names
+  const ctx = { externalLinks: [], ...opts };
   dom.querySelectorAll('definedNames > definedName')
     .forEach(definedName => {
       const nameDef: ExternalDefinedName = {
@@ -54,7 +60,7 @@ export function handlerExternal (dom: Document, fileName: string = ''): External
       };
       const expr = attr(definedName, 'refersTo');
       if (expr) {
-        nameDef.value = normalizeFormula(expr, NO_EXTERNALS);
+        nameDef.value = normalizeFormula(expr, ctx);
       }
       external.names.push(nameDef);
     });

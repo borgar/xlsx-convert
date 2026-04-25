@@ -161,6 +161,34 @@ describe('convertBinary', () => {
     });
   });
 
+  test('preservePrefixes keeps _xlfn and _xlpm prefixes in formulas and names', async () => {
+    const bin = await readFile('./tests/excel/prefixed-formulas.xlsx');
+    const wb = await convertBinary(bin, 'prefixed-formulas.xlsx', { preservePrefixes: true });
+    // Cell formulas (R1C1) retain _xlfn. and _xlpm. prefixes
+    expect(wb.formulas.some(f => f.includes('_xlfn.'))).toBe(true);
+    expect(wb.formulas.some(f => f.includes('_xlpm.'))).toBe(true);
+    // The LET c:r formula preserves the _xlpm. prefix on both names
+    const letCR = wb.formulas.find(f => f.includes('_xlpm.c') && f.includes('_xlpm.r'));
+    expect(letCR).toContain('_xlpm.c:_xlpm.r');
+    // Defined names also retain prefixes
+    expect(wb.names[0].value).toContain('_xlfn.LAMBDA');
+    expect(wb.names[0].value).toContain('_xlpm.x');
+
+    // cellFormulas mode also retains prefixes
+    const wbCF = await convertBinary(bin, 'prefixed-formulas.xlsx', {
+      preservePrefixes: true, cellFormulas: true,
+    });
+    const a1f = Object.values(wbCF.sheets[0].cells).map(c => c.f).filter((f): f is string => typeof f === 'string');
+    expect(a1f.some(f => f.includes('_xlfn.'))).toBe(true);
+    expect(a1f.some(f => f.includes('_xlpm.'))).toBe(true);
+
+    // Without the option, prefixes are stripped
+    const wbDefault = await convertBinary(bin, 'prefixed-formulas.xlsx');
+    expect(wbDefault.formulas.some(f => f.includes('_xlfn.'))).toBe(false);
+    expect(wbDefault.formulas.some(f => f.includes('_xlpm.'))).toBe(false);
+    expect(wbDefault.names[0].value).not.toContain('_xlfn.');
+  });
+
   test('images from all sheets are collected (not lost to concurrent processing)', async () => {
     // charts-and-images.xlsx has two sheets:
     //   Sheet1: background picture (image5.png) + drawing with 3 charts

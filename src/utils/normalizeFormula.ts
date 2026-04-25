@@ -21,7 +21,11 @@ import {
 } from '@borgar/fx';
 
 type ExternalSubset = { name: string };
-type ConversionContextSubset = { externalLinks: ExternalSubset[] };
+type ConversionContextSubset = {
+  externalLinks: ExternalSubset[];
+  preservePrefixes?: boolean;
+  preserveCompatibilityFunctions?: boolean;
+};
 
 /**
  * Updates a reference:
@@ -114,7 +118,11 @@ const TRIM_OPS = {
   '_TRO_TRAILING': 'tail',
 };
 
-export function normalizeFormulaTokens (tokens: Token[], wb?: ConversionContextSubset | null, r1c1 = false): Token[] {
+export function normalizeFormulaTokens (
+  tokens: Token[], wb?: ConversionContextSubset | null, r1c1 = false,
+): Token[] {
+  const preservePrefixes = wb?.preservePrefixes;
+  const preserveCompatFns = wb?.preserveCompatibilityFunctions;
   const outTokens = [];
 
   for (let i = 0; i < tokens.length; i++) {
@@ -124,7 +132,7 @@ export function normalizeFormulaTokens (tokens: Token[], wb?: ConversionContextS
       const isSingle = t.value === '_xlfn.SINGLE' || t.value === 'SINGLE';
       const isAnchorarray = t.value === '_xlfn.ANCHORARRAY' || t.value === 'ANCHORARRAY';
       // Excel stores # and @ operators as functions.
-      if (isSingle || isAnchorarray) {
+      if ((isSingle || isAnchorarray) && !preserveCompatFns) {
         const j = findSubExpressionEnd(tokens, i);
         if (j >= 0) {
           const subExpression = trimExpression(tokens.slice(i + 2, j));
@@ -139,7 +147,7 @@ export function normalizeFormulaTokens (tokens: Token[], wb?: ConversionContextS
         }
       }
       // Excel stores trim range operators as functions.
-      else if (t.value in TRIM_OPS) {
+      else if (t.value in TRIM_OPS && !preserveCompatFns) {
         const j = findSubExpressionEnd(tokens, i);
         // If this is a broken expression or we cannot determine
         // sub-expression, we preserve the token instead.
@@ -154,13 +162,16 @@ export function normalizeFormulaTokens (tokens: Token[], wb?: ConversionContextS
         outTokens.push(r);
       }
       // Remove Excel internal namespaces from functions.
-      else {
+      else if (!preservePrefixes) {
         t.value = t.value.replace(/^(?:_xlfn\.|_xludf\.|_xlws\.)+/i, '');
+        outTokens.push(t);
+      }
+      else {
         outTokens.push(t);
       }
     }
     else if (isReference(t)) {
-      if (t.type === tokenTypes.REF_NAMED) {
+      if (!preservePrefixes && t.type === tokenTypes.REF_NAMED) {
         t.value = t.value.replace(/^(?:_xl[pn]m\.)/ig, '');
       }
       // normalize external references
@@ -193,9 +204,27 @@ export function normalizeFormulaTokens (tokens: Token[], wb?: ConversionContextS
   return outTokens;
 }
 
-export function normalizeFormula (formula: string, wb?: ConversionContextSubset | null): string {
+// External references (`[N]Sheet!Ref` or `[wb]Sheet!Ref`) always need
+// normalization regardless of which preserve-* options are set, so this
+// pattern is checked first and unconditionally.
+const NEEDS_EXTREF = /(?:[^RC"]\[|^\[)/;
+// XLSX-internal prefixes — only need handling when `preservePrefixes` is off.
+const NEEDS_PREFIX = /_xl(?:fn|udf|ws|pm|nm)\./i;
+// Compatibility-function patterns that get rewritten to operators —
+// only need handling when `preserveCompatibilityFunctions` is off. The
+// `\.:` / `:\.` patterns trigger because fx emits range-trim ranges with
+// dot markers and we may need to canonicalize them.
+const NEEDS_COMPATFN = /(?:\.:|:\.)|ANCHORARRAY|SINGLE|_TRO_(?:ALL|LEADING|TRAILING)/i;
+
+export function normalizeFormula (
+  formula: string, wb?: ConversionContextSubset | null,
+): string {
   // quickly test if work is actually needed
-  if (!/_xl(?:fn|udf|ws|pm|nm)\.|(?:[^RC"]\[|^\[|\.:|:\.)|ANCHORARRAY|SINGLE|_TRO_(?:ALL|LEADING|TRAILING)/i.test(formula)) {
+  const needsWork =
+    NEEDS_EXTREF.test(formula) ||
+    (!wb?.preservePrefixes && NEEDS_PREFIX.test(formula)) ||
+    (!wb?.preserveCompatibilityFunctions && NEEDS_COMPATFN.test(formula));
+  if (!needsWork) {
     return formula;
   }
   const tokens = tokenize(formula.normalize());
