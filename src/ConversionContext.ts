@@ -64,10 +64,15 @@ export class ConversionContext {
   images: RefLink[];
   isLikelyGSExport: boolean;
 
-  // Delegates to options.preservePrefixes so that code receiving a ConversionContext
-  // as a ConversionContextSubset gets the actual option value rather than undefined.
+  // Delegate the formula-normalization options so code receiving a
+  // ConversionContext as a ConversionContextSubset sees the actual option
+  // values rather than undefined.
   get preservePrefixes (): boolean | undefined {
     return this.options.preservePrefixes;
+  }
+
+  get preserveCompatibilityFunctions (): boolean | undefined {
+    return this.options.preserveCompatibilityFunctions;
   }
 
   warn (message: string): void {

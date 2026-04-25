@@ -5,10 +5,12 @@ import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { ConversionContext } from '../ConversionContext.ts';
 import type { External, ExternalDefinedName } from '@jsfkit/types';
 
-const NO_EXTERNALS = { externalLinks: [] };
-const NO_EXTERNALS_PRESERVE = { externalLinks: [], preservePrefixes: true };
+type FormulaOpts = {
+  preservePrefixes?: boolean;
+  preserveCompatibilityFunctions?: boolean;
+};
 
-export function handlerExternal (dom: Document, fileName: string = '', preservePrefixes?: boolean): External {
+export function handlerExternal (dom: Document, fileName: string = '', opts: FormulaOpts = {}): External {
   const external: External = {
     name: fileName,
     sheets: [],
@@ -50,6 +52,7 @@ export function handlerExternal (dom: Document, fileName: string = '', preserveP
     });
 
   // read defined names
+  const ctx = { externalLinks: [], ...opts };
   dom.querySelectorAll('definedNames > definedName')
     .forEach(definedName => {
       const nameDef: ExternalDefinedName = {
@@ -57,7 +60,6 @@ export function handlerExternal (dom: Document, fileName: string = '', preserveP
       };
       const expr = attr(definedName, 'refersTo');
       if (expr) {
-        const ctx = preservePrefixes ? NO_EXTERNALS_PRESERVE : NO_EXTERNALS;
         nameDef.value = normalizeFormula(expr, ctx);
       }
       external.names.push(nameDef);

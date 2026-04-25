@@ -16,12 +16,22 @@ export type ConversionOptions = {
    */
   cellFormulas?: boolean;
   /**
-   * Preserve XLSX-internal prefixes (`_xlfn.`, `_xludf.`, `_xlws.`, `_xlpm.`, `_xlnm.`) in formula output
-   * instead of stripping them. Also preserves `SINGLE`, `ANCHORARRAY`, and `_TRO_*` (both `_xlfn.`-prefixed
-   * and bare forms) as function calls rather than converting them to operators.
+   * Preserve XLSX-internal prefixes in formula output instead of stripping them:
+   * `_xlfn.`, `_xludf.`, `_xlws.` on function names, and `_xlpm.`, `_xlnm.` on
+   * named references.
    * @defaultValue false
    */
   preservePrefixes?: boolean;
+  /**
+   * Keep `SINGLE`, `ANCHORARRAY`, and `_TRO_ALL`/`_TRO_LEADING`/`_TRO_TRAILING`
+   * (both `_xlfn.`-prefixed and bare forms) as function calls instead of
+   * rewriting them to the corresponding `@`, `#`, and range-trim operators.
+   *
+   * Independent of {@link preservePrefixes}; round-trip callers typically set
+   * both.
+   * @defaultValue false
+   */
+  preserveCompatibilityFunctions?: boolean;
   /**
    * Image reading callback. All read images are passed through this callback if it is provided.
    * This is useful, for example, for extracting the images to disk.
