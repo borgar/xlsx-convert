@@ -3,6 +3,7 @@ import { readFile, writeFile } from 'fs/promises';
 import { deepStrictEqual } from 'assert';
 import type { Workbook } from '@jsfkit/types';
 import { translateFormulaToA1 } from '@borgar/fx';
+import { niceJson } from './niceJson.ts';
 
 const UPDATE = !!process.env.UPDATE_TESTS;
 const VERIFY_FORMULAS = !!process.env.VERIFY_FORMULAS;
@@ -84,37 +85,6 @@ const tests = [
   'tests/csv/whitespace-nightmare.csv',
 ];
 
-function makeNiceJson (ent) {
-  let keyIdx = 1;
-  const _tempStore = new Map();
-  function formatJSON (obj) {
-    const keys = Object.keys(obj);
-    const pairs = keys.map(key => JSON.stringify(key) + ': ' + JSON.stringify(obj[key]));
-    return `{ ${pairs.join(', ')} }`;
-  }
-  function replacer (key, value) {
-    if (Array.isArray(value)) {
-      return value;
-    }
-    if (typeof value === 'object' && value !== null) {
-      const values = Object.values(value);
-      const hasNesting = values.some(d => typeof d === 'object');
-      if (values.length && !hasNesting) {
-        const str = formatJSON(value);
-        if (str.length < 50) {
-          const tkey = '~~xlsx-convert~~' + (keyIdx++);
-          _tempStore.set(tkey, str);
-          return tkey;
-        }
-      }
-    }
-    return value;
-  }
-  return JSON
-    .stringify(ent, replacer, 2)
-    .replace(/"(~~xlsx-convert~~\d+)"/g, (_, key) => _tempStore.get(key));
-}
-
 /**
  * Verify that formulas are the same between an R1C1 and A1
  * JSF workbook objects.
@@ -189,7 +159,7 @@ async function testFile (xlsxFilename: string, testFilename: string): Promise<st
     // save a new version of the converted file
     await writeFile(
       testFilename.replace(/(\.json)?$/, '.json'),
-      makeNiceJson(resultJson),
+      niceJson(resultJson),
       'utf8',
     );
     return '';
