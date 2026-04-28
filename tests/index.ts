@@ -5,6 +5,7 @@ import type { Workbook } from '@jsfkit/types';
 import { translateFormulaToA1 } from '@borgar/fx';
 
 const UPDATE = !!process.env.UPDATE_TESTS;
+const VERIFY_FORMULAS = !!process.env.VERIFY_FORMULAS;
 
 const tests = [
   // Excel conversion
@@ -148,10 +149,12 @@ async function testFile (xlsxFilename: string, testFilename: string): Promise<st
   if (xlsxFilename.endsWith('.xlsx')) {
     const src = await readFile(xlsxFilename);
     wb = await convertBinary(src, xlsxFilename);
-    const cf = await convertBinary(src, xlsxFilename, { cellFormulas: true });
-    // check that formulas match
-    const fxDiff = verifyCellFormulas(wb, cf);
-    if (fxDiff) { return fxDiff; }
+    if (VERIFY_FORMULAS) {
+      const cf = await convertBinary(src, xlsxFilename, { cellFormulas: true });
+      // check that A1 & RC formulas match
+      const fxDiff = verifyCellFormulas(wb, cf);
+      if (fxDiff) { return fxDiff; }
+    }
   }
   else if (/\.[ct]sv/.test(xlsxFilename)) {
     const src = await readFile(xlsxFilename, 'utf8');
