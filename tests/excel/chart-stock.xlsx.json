@@ -1,0 +1,792 @@
+{
+  "name": "chart-stock.xlsx",
+  "sheets": [
+    {
+      "name": "Stock",
+      "cells": {
+        "A1": { "v": "Date" },
+        "B1": { "v": "2015-01-01" },
+        "C1": { "v": "2015-01-02" },
+        "D1": { "v": "2015-01-03" },
+        "E1": { "v": "2015-01-04" },
+        "F1": { "v": "2015-01-05" },
+        "A2": { "v": "High" },
+        "B2": { "v": 27.2 },
+        "C2": { "v": 25.03 },
+        "D2": { "v": 24.46 },
+        "E2": { "v": 23.97 },
+        "F2": { "v": 23.65 },
+        "A3": { "v": "Low" },
+        "B3": { "v": 23.49 },
+        "C3": { "v": 19.55 },
+        "D3": { "v": 20.03 },
+        "E3": { "v": 20.07 },
+        "F3": { "v": 19.5 },
+        "A4": { "v": "Close" },
+        "B4": { "v": 25.45 },
+        "C4": { "v": 23.05 },
+        "D4": { "v": 22.42 },
+        "E4": { "v": 21.9 },
+        "F4": { "v": 21.51 },
+        "A16": { "v": "Date" },
+        "B16": { "v": "2015-01-01" },
+        "C16": { "v": "2015-01-02" },
+        "D16": { "v": "2015-01-03" },
+        "E16": { "v": "2015-01-04" },
+        "F16": { "v": "2015-01-05" },
+        "A17": { "v": "Open" },
+        "B17": { "v": 26.2 },
+        "C17": { "v": 25.45 },
+        "D17": { "v": 23.05 },
+        "E17": { "v": 22.42 },
+        "F17": { "v": 21.9 },
+        "A18": { "v": "High" },
+        "B18": { "v": 27.2 },
+        "C18": { "v": 25.03 },
+        "D18": { "v": 24.46 },
+        "E18": { "v": 23.97 },
+        "F18": { "v": 23.65 },
+        "A19": { "v": "Low" },
+        "B19": { "v": 23.49 },
+        "C19": { "v": 19.55 },
+        "D19": { "v": 20.03 },
+        "E19": { "v": 20.07 },
+        "F19": { "v": 19.5 },
+        "A20": { "v": "Close" },
+        "B20": { "v": 25.45 },
+        "C20": { "v": 23.05 },
+        "D20": { "v": 22.42 },
+        "E20": { "v": 21.9 },
+        "F20": { "v": 21.51 },
+        "A31": { "v": "Date" },
+        "B31": { "v": "2015-01-01" },
+        "C31": { "v": "2015-01-02" },
+        "D31": { "v": "2015-01-03" },
+        "E31": { "v": "2015-01-04" },
+        "F31": { "v": "2015-01-05" },
+        "A32": { "v": "Volume" },
+        "B32": { "v": 20000 },
+        "C32": { "v": 10000 },
+        "D32": { "v": 15000 },
+        "E32": { "v": 2000 },
+        "F32": { "v": 12000 },
+        "A33": { "v": "High" },
+        "B33": { "v": 27.2 },
+        "C33": { "v": 25.03 },
+        "D33": { "v": 24.46 },
+        "E33": { "v": 23.97 },
+        "F33": { "v": 23.65 },
+        "A34": { "v": "Low" },
+        "B34": { "v": 23.49 },
+        "C34": { "v": 19.55 },
+        "D34": { "v": 20.03 },
+        "E34": { "v": 20.07 },
+        "F34": { "v": 19.5 },
+        "A35": { "v": "Close" },
+        "B35": { "v": 25.45 },
+        "C35": { "v": 23.05 },
+        "D35": { "v": 22.42 },
+        "E35": { "v": 21.9 },
+        "F35": { "v": 21.51 },
+        "A46": { "v": "Date" },
+        "B46": { "v": "2015-01-01" },
+        "C46": { "v": "2015-01-02" },
+        "D46": { "v": "2015-01-03" },
+        "E46": { "v": "2015-01-04" },
+        "F46": { "v": "2015-01-05" },
+        "A47": { "v": "Volume" },
+        "B47": { "v": 20000 },
+        "C47": { "v": 10000 },
+        "D47": { "v": 15000 },
+        "E47": { "v": 2000 },
+        "F47": { "v": 12000 },
+        "A48": { "v": "Open" },
+        "B48": { "v": 26.2 },
+        "C48": { "v": 25.45 },
+        "D48": { "v": 23.05 },
+        "E48": { "v": 22.42 },
+        "F48": { "v": 21.9 },
+        "A49": { "v": "High" },
+        "B49": { "v": 27.2 },
+        "C49": { "v": 25.03 },
+        "D49": { "v": 24.46 },
+        "E49": { "v": 23.97 },
+        "F49": { "v": 23.65 },
+        "A50": { "v": "Low" },
+        "B50": { "v": 23.49 },
+        "C50": { "v": 19.55 },
+        "D50": { "v": 20.03 },
+        "E50": { "v": 20.07 },
+        "F50": { "v": 19.5 },
+        "A51": { "v": "Close" },
+        "B51": { "v": 25.45 },
+        "C51": { "v": 23.05 },
+        "D51": { "v": 22.42 },
+        "E51": { "v": 21.9 },
+        "F51": { "v": 21.51 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [ { "workbookView": 0, "activeCell": "C15" } ],
+      "drawings": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 7, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 12,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "2",
+              "name": "Chart 1",
+              "chartId": "xl/charts/chart1.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 15, "rowOff": 0, "col": 7, "colOff": 0 },
+            "to": {
+              "row": 28,
+              "rowOff": 101600,
+              "col": 12,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "3",
+              "name": "Chart 2",
+              "chartId": "xl/charts/chart2.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 30, "rowOff": 0, "col": 7, "colOff": 0 },
+            "to": {
+              "row": 43,
+              "rowOff": 101600,
+              "col": 12,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "4",
+              "name": "Chart 3",
+              "chartId": "xl/charts/chart3.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 45, "rowOff": 0, "col": 7, "colOff": 0 },
+            "to": {
+              "row": 58,
+              "rowOff": 101600,
+              "col": 12,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "5",
+              "name": "Chart 4",
+              "chartId": "xl/charts/chart4.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
+  "tables": [],
+  "views": [ {} ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "lt1": { "type": "system", "value": "window" },
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "dk2": { "type": "srgb", "value": "0E2841" },
+      "accent1": { "type": "srgb", "value": "156082" },
+      "accent2": { "type": "srgb", "value": "E97132" },
+      "accent3": { "type": "srgb", "value": "196B24" },
+      "accent4": { "type": "srgb", "value": "0F9ED5" },
+      "accent5": { "type": "srgb", "value": "A02B93" },
+      "accent6": { "type": "srgb", "value": "4EA72E" },
+      "hlink": { "type": "srgb", "value": "467886" },
+      "folHlink": { "type": "srgb", "value": "96607D" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Aptos Display" }
+      },
+      "minor": {
+        "latin": { "typeface": "Aptos Narrow" }
+      }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "charts": {
+    "xl/charts/chart1.xml": {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "stockChart",
+              "axId": [ "786532464", "2105975919" ],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "cat": { "type": "strRef", "f": "Stock!$B$1:$F$1" },
+                  "val": { "type": "numRef", "f": "Stock!$B$2:$F$2" }
+                },
+                {
+                  "idx": 1,
+                  "order": 1,
+                  "cat": { "type": "strRef", "f": "Stock!$B$1:$F$1" },
+                  "val": { "type": "numRef", "f": "Stock!$B$3:$F$3" }
+                },
+                {
+                  "idx": 2,
+                  "order": 2,
+                  "cat": { "type": "strRef", "f": "Stock!$B$1:$F$1" },
+                  "val": { "type": "numRef", "f": "Stock!$B$4:$F$4" }
+                }
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "type": "catAx",
+              "axId": 786532464,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "shape": {
+                "line": {
+                  "width": 9525,
+                  "fill": {
+                    "type": "solid",
+                    "bg": {
+                      "type": "theme",
+                      "value": "tx1",
+                      "transforms": [
+                        { "type": "lumMod", "value": 15 },
+                        { "type": "lumOff", "value": 85 }
+                      ]
+                    }
+                  },
+                  "join": "round"
+                }
+              },
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 2105975919,
+              "crosses": "autoZero",
+              "auto": true,
+              "lblAlgn": "ctr"
+            },
+            {
+              "type": "valAx",
+              "axId": 2105975919,
+              "axPos": "l",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 786532464,
+              "crosses": "autoZero",
+              "crossBetween": "between"
+            }
+          ]
+        },
+        "legend": {
+          "legendPos": "b",
+          "overlay": false,
+          "textProps": { "anchor": "ctr" }
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    },
+    "xl/charts/chart2.xml": {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "stockChart",
+              "gapWidth": 150,
+              "axId": [ "412788880", "681438703" ],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "cat": { "type": "strRef", "f": "Stock!$B$16:$F$16" },
+                  "val": { "type": "numRef", "f": "Stock!$B$17:$F$17" }
+                },
+                {
+                  "idx": 1,
+                  "order": 1,
+                  "cat": { "type": "strRef", "f": "Stock!$B$16:$F$16" },
+                  "val": { "type": "numRef", "f": "Stock!$B$18:$F$18" }
+                },
+                {
+                  "idx": 2,
+                  "order": 2,
+                  "cat": { "type": "strRef", "f": "Stock!$B$16:$F$16" },
+                  "val": { "type": "numRef", "f": "Stock!$B$19:$F$19" }
+                },
+                {
+                  "idx": 3,
+                  "order": 3,
+                  "cat": { "type": "strRef", "f": "Stock!$B$16:$F$16" },
+                  "val": { "type": "numRef", "f": "Stock!$B$20:$F$20" }
+                }
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "type": "catAx",
+              "axId": 412788880,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "shape": {
+                "line": {
+                  "width": 9525,
+                  "fill": {
+                    "type": "solid",
+                    "bg": {
+                      "type": "theme",
+                      "value": "tx1",
+                      "transforms": [
+                        { "type": "lumMod", "value": 15 },
+                        { "type": "lumOff", "value": 85 }
+                      ]
+                    }
+                  },
+                  "join": "round"
+                }
+              },
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 681438703,
+              "crosses": "autoZero",
+              "auto": true,
+              "lblAlgn": "ctr"
+            },
+            {
+              "type": "valAx",
+              "axId": 681438703,
+              "axPos": "l",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 412788880,
+              "crosses": "autoZero",
+              "crossBetween": "between"
+            }
+          ]
+        },
+        "legend": {
+          "legendPos": "b",
+          "overlay": false,
+          "textProps": { "anchor": "ctr" }
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    },
+    "xl/charts/chart3.xml": {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "barChart",
+              "barDir": "col",
+              "grouping": "clustered",
+              "gapWidth": 150,
+              "axId": [ "525599904", "981450240" ],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent1" }
+                    }
+                  },
+                  "cat": { "type": "strRef", "f": "Stock!$B$31:$F$31" },
+                  "val": { "type": "numRef", "f": "Stock!$B$32:$F$32" }
+                }
+              ]
+            },
+            {
+              "type": "stockChart",
+              "axId": [ "526328032", "280055104" ],
+              "ser": [
+                {
+                  "idx": 1,
+                  "order": 1,
+                  "cat": { "type": "strRef", "f": "Stock!$B$31:$F$31" },
+                  "val": { "type": "numRef", "f": "Stock!$B$33:$F$33" }
+                },
+                {
+                  "idx": 2,
+                  "order": 2,
+                  "cat": { "type": "strRef", "f": "Stock!$B$31:$F$31" },
+                  "val": { "type": "numRef", "f": "Stock!$B$34:$F$34" }
+                },
+                {
+                  "idx": 3,
+                  "order": 3,
+                  "cat": { "type": "strRef", "f": "Stock!$B$31:$F$31" },
+                  "val": { "type": "numRef", "f": "Stock!$B$35:$F$35" }
+                }
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "type": "catAx",
+              "axId": 525599904,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "shape": {
+                "line": {
+                  "width": 9525,
+                  "fill": {
+                    "type": "solid",
+                    "bg": {
+                      "type": "theme",
+                      "value": "tx1",
+                      "transforms": [
+                        { "type": "lumMod", "value": 15 },
+                        { "type": "lumOff", "value": 85 }
+                      ]
+                    }
+                  },
+                  "join": "round"
+                }
+              },
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 981450240,
+              "crosses": "autoZero",
+              "auto": true,
+              "lblAlgn": "ctr"
+            },
+            {
+              "type": "valAx",
+              "axId": 981450240,
+              "axPos": "l",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 525599904,
+              "crosses": "autoZero",
+              "crossBetween": "between"
+            },
+            {
+              "type": "valAx",
+              "axId": 280055104,
+              "axPos": "r",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 526328032,
+              "crosses": "max",
+              "crossBetween": "between"
+            },
+            {
+              "type": "catAx",
+              "axId": 526328032,
+              "delete": true,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "crossAx": 280055104,
+              "crosses": "autoZero",
+              "auto": true,
+              "lblAlgn": "ctr"
+            }
+          ]
+        },
+        "legend": {
+          "legendPos": "b",
+          "overlay": false,
+          "textProps": { "anchor": "ctr" }
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    },
+    "xl/charts/chart4.xml": {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "barChart",
+              "barDir": "col",
+              "grouping": "clustered",
+              "gapWidth": 150,
+              "axId": [ "1282615567", "1282617279" ],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent1" }
+                    }
+                  },
+                  "cat": { "type": "strRef", "f": "Stock!$B$46:$F$46" },
+                  "val": { "type": "numRef", "f": "Stock!$B$47:$F$47" }
+                }
+              ]
+            },
+            {
+              "type": "stockChart",
+              "gapWidth": 150,
+              "axId": [ "385415520", "787392448" ],
+              "ser": [
+                {
+                  "idx": 1,
+                  "order": 1,
+                  "cat": { "type": "strRef", "f": "Stock!$B$46:$F$46" },
+                  "val": { "type": "numRef", "f": "Stock!$B$48:$F$48" }
+                },
+                {
+                  "idx": 2,
+                  "order": 2,
+                  "cat": { "type": "strRef", "f": "Stock!$B$46:$F$46" },
+                  "val": { "type": "numRef", "f": "Stock!$B$49:$F$49" }
+                },
+                {
+                  "idx": 3,
+                  "order": 3,
+                  "cat": { "type": "strRef", "f": "Stock!$B$46:$F$46" },
+                  "val": { "type": "numRef", "f": "Stock!$B$50:$F$50" }
+                },
+                {
+                  "idx": 4,
+                  "order": 4,
+                  "cat": { "type": "strRef", "f": "Stock!$B$46:$F$46" },
+                  "val": { "type": "numRef", "f": "Stock!$B$51:$F$51" }
+                }
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "type": "catAx",
+              "axId": 1282615567,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "shape": {
+                "line": {
+                  "width": 9525,
+                  "fill": {
+                    "type": "solid",
+                    "bg": {
+                      "type": "theme",
+                      "value": "tx1",
+                      "transforms": [
+                        { "type": "lumMod", "value": 15 },
+                        { "type": "lumOff", "value": 85 }
+                      ]
+                    }
+                  },
+                  "join": "round"
+                }
+              },
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 1282617279,
+              "crosses": "autoZero",
+              "auto": true,
+              "lblAlgn": "ctr"
+            },
+            {
+              "type": "valAx",
+              "axId": 1282617279,
+              "axPos": "l",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 1282615567,
+              "crosses": "autoZero",
+              "crossBetween": "between"
+            },
+            {
+              "type": "valAx",
+              "axId": 787392448,
+              "axPos": "r",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 385415520,
+              "crosses": "max",
+              "crossBetween": "between"
+            },
+            {
+              "type": "catAx",
+              "axId": 385415520,
+              "delete": true,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "crossAx": 787392448,
+              "crosses": "autoZero",
+              "auto": true,
+              "lblAlgn": "ctr"
+            }
+          ]
+        },
+        "legend": {
+          "legendPos": "b",
+          "overlay": false,
+          "textProps": { "anchor": "ctr" }
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    }
+  },
+  "formulas": []
+}

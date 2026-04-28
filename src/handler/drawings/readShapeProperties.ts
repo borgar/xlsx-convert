@@ -9,6 +9,7 @@ import { SHAPE_TYPE } from '../../constants.ts';
 import { addProp } from '../../utils/addProp.ts';
 import { readFill } from './readFill.ts';
 import { readLineProps } from './readLineProps.ts';
+import { hasKeys } from '../../utils/hasKeys.ts';
 
 function readGuides (elm: Element | null): GuidePoint[] | undefined {
   if (!elm) return;
@@ -31,7 +32,7 @@ function readAdjustPoint (posElm: Element): AdjustPoint {
   };
 }
 
-export function readShapeProperties (elm: Element | null, context: ConversionContext): Shape {
+export function readShapeProperties (elm: Element | null, context: ConversionContext): Shape | undefined {
   const props: Shape = {};
 
   const bwMode = attr(elm, 'bwMode') as BlackWhiteMode | undefined;
@@ -175,5 +176,6 @@ export function readShapeProperties (elm: Element | null, context: ConversionCon
       // TBD
     }
   });
-  return props;
+
+  return hasKeys(props) ? props : undefined;
 }

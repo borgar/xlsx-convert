@@ -1,0 +1,994 @@
+{
+  "name": "chart-bar3d.xlsx",
+  "sheets": [
+    {
+      "name": "Bar",
+      "cells": {
+        "B1": { "v": "Foo" },
+        "C1": { "v": "Bar" },
+        "A2": { "v": "a" },
+        "B2": { "v": 37, "f": 0 },
+        "C2": { "v": 4, "f": 0 },
+        "A3": { "v": "b" },
+        "B3": { "v": 63, "f": 0 },
+        "C3": { "v": 13, "f": 0 },
+        "A4": { "v": "c" },
+        "B4": { "v": 72, "f": 0 },
+        "C4": { "v": 62, "f": 0 },
+        "A5": { "v": "d" },
+        "B5": { "v": 30, "f": 0 },
+        "C5": { "v": 68, "f": 0 },
+        "A6": { "v": "e" },
+        "B6": { "v": 37, "f": 0 },
+        "C6": { "v": 51, "f": 0 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [ { "workbookView": 0, "activeCell": "Y26" } ],
+      "drawings": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 88900, "col": 3, "colOff": 177800 },
+            "to": {
+              "row": 13,
+              "rowOff": 190500,
+              "col": 8,
+              "colOff": 622300
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "2",
+              "name": "Chart 1",
+              "chartId": "xl/charts/chart1.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 88900, "col": 9, "colOff": 177800 },
+            "to": {
+              "row": 13,
+              "rowOff": 190500,
+              "col": 14,
+              "colOff": 622300
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "3",
+              "name": "Chart 2",
+              "chartId": "xl/charts/chart2.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 88900, "col": 15, "colOff": 177800 },
+            "to": {
+              "row": 13,
+              "rowOff": 190500,
+              "col": 20,
+              "colOff": 622300
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "4",
+              "name": "Chart 3",
+              "chartId": "xl/charts/chart3.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 88900, "col": 21, "colOff": 177800 },
+            "to": {
+              "row": 13,
+              "rowOff": 190500,
+              "col": 26,
+              "colOff": 622300
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "5",
+              "name": "Chart 4",
+              "chartId": "xl/charts/chart4.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 15, "rowOff": 88900, "col": 3, "colOff": 177800 },
+            "to": {
+              "row": 28,
+              "rowOff": 190500,
+              "col": 8,
+              "colOff": 622300
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "6",
+              "name": "Chart 5",
+              "chartId": "xl/charts/chart5.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 15, "rowOff": 88900, "col": 9, "colOff": 177800 },
+            "to": {
+              "row": 28,
+              "rowOff": 190500,
+              "col": 14,
+              "colOff": 622300
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "7",
+              "name": "Chart 6",
+              "chartId": "xl/charts/chart6.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 15,
+              "rowOff": 88900,
+              "col": 15,
+              "colOff": 177800
+            },
+            "to": {
+              "row": 28,
+              "rowOff": 190500,
+              "col": 20,
+              "colOff": 622300
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "8",
+              "name": "Chart 7",
+              "chartId": "xl/charts/chart7.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
+  "tables": [],
+  "views": [ {} ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "lt1": { "type": "system", "value": "window" },
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "dk2": { "type": "srgb", "value": "0E2841" },
+      "accent1": { "type": "srgb", "value": "156082" },
+      "accent2": { "type": "srgb", "value": "E97132" },
+      "accent3": { "type": "srgb", "value": "196B24" },
+      "accent4": { "type": "srgb", "value": "0F9ED5" },
+      "accent5": { "type": "srgb", "value": "A02B93" },
+      "accent6": { "type": "srgb", "value": "4EA72E" },
+      "hlink": { "type": "srgb", "value": "467886" },
+      "folHlink": { "type": "srgb", "value": "96607D" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Aptos Display" }
+      },
+      "minor": {
+        "latin": { "typeface": "Aptos Narrow" }
+      }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "charts": {
+    "xl/charts/chart1.xml": {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "bar3DChart",
+              "barDir": "col",
+              "grouping": "clustered",
+              "gapWidth": 150,
+              "axId": [ "628665760", "2088247647", "0" ],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent1" }
+                    }
+                  },
+                  "cat": { "type": "strRef", "f": "Bar!$A$2:$A$6" },
+                  "val": { "type": "numRef", "f": "Bar!$B$2:$B$6" }
+                },
+                {
+                  "idx": 1,
+                  "order": 1,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent2" }
+                    }
+                  },
+                  "cat": { "type": "strRef", "f": "Bar!$A$2:$A$6" },
+                  "val": { "type": "numRef", "f": "Bar!$C$2:$C$6" }
+                }
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "type": "catAx",
+              "axId": 628665760,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 2088247647,
+              "crosses": "autoZero",
+              "auto": true,
+              "lblAlgn": "ctr"
+            },
+            {
+              "type": "valAx",
+              "axId": 2088247647,
+              "axPos": "l",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 628665760,
+              "crosses": "autoZero",
+              "crossBetween": "between"
+            }
+          ]
+        },
+        "legend": {
+          "legendPos": "b",
+          "overlay": false,
+          "textProps": { "anchor": "ctr" }
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    },
+    "xl/charts/chart2.xml": {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "bar3DChart",
+              "barDir": "col",
+              "grouping": "stacked",
+              "gapWidth": 150,
+              "axId": [ "628665760", "2088247647", "0" ],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent1" }
+                    }
+                  },
+                  "cat": { "type": "strRef", "f": "Bar!$A$2:$A$6" },
+                  "val": { "type": "numRef", "f": "Bar!$B$2:$B$6" }
+                },
+                {
+                  "idx": 1,
+                  "order": 1,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent2" }
+                    }
+                  },
+                  "cat": { "type": "strRef", "f": "Bar!$A$2:$A$6" },
+                  "val": { "type": "numRef", "f": "Bar!$C$2:$C$6" }
+                }
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "type": "catAx",
+              "axId": 628665760,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 2088247647,
+              "crosses": "autoZero",
+              "auto": true,
+              "lblAlgn": "ctr"
+            },
+            {
+              "type": "valAx",
+              "axId": 2088247647,
+              "axPos": "l",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 628665760,
+              "crosses": "autoZero",
+              "crossBetween": "between"
+            }
+          ]
+        },
+        "legend": {
+          "legendPos": "b",
+          "overlay": false,
+          "textProps": { "anchor": "ctr" }
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    },
+    "xl/charts/chart3.xml": {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "bar3DChart",
+              "barDir": "col",
+              "grouping": "percentStacked",
+              "gapWidth": 150,
+              "axId": [ "628665760", "2088247647", "0" ],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent1" }
+                    }
+                  },
+                  "cat": { "type": "strRef", "f": "Bar!$A$2:$A$6" },
+                  "val": { "type": "numRef", "f": "Bar!$B$2:$B$6" }
+                },
+                {
+                  "idx": 1,
+                  "order": 1,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent2" }
+                    }
+                  },
+                  "cat": { "type": "strRef", "f": "Bar!$A$2:$A$6" },
+                  "val": { "type": "numRef", "f": "Bar!$C$2:$C$6" }
+                }
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "type": "catAx",
+              "axId": 628665760,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 2088247647,
+              "crosses": "autoZero",
+              "auto": true,
+              "lblAlgn": "ctr"
+            },
+            {
+              "type": "valAx",
+              "axId": 2088247647,
+              "axPos": "l",
+              "numFmt": { "formatCode": "0%", "sourceLinked": false },
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 628665760,
+              "crosses": "autoZero",
+              "crossBetween": "between"
+            }
+          ]
+        },
+        "legend": {
+          "legendPos": "b",
+          "overlay": false,
+          "textProps": { "anchor": "ctr" }
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    },
+    "xl/charts/chart4.xml": {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "bar3DChart",
+              "barDir": "col",
+              "grouping": "standard",
+              "gapWidth": 219,
+              "axId": [ "1282550863", "1282538511", "1548201199" ],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent1" }
+                    }
+                  },
+                  "cat": { "type": "strRef", "f": "Bar!$A$2:$A$6" },
+                  "val": { "type": "numRef", "f": "Bar!$B$2:$B$6" }
+                },
+                {
+                  "idx": 1,
+                  "order": 1,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent2" }
+                    }
+                  },
+                  "cat": { "type": "strRef", "f": "Bar!$A$2:$A$6" },
+                  "val": { "type": "numRef", "f": "Bar!$C$2:$C$6" }
+                }
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "type": "catAx",
+              "axId": 1282550863,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "shape": {
+                "line": {
+                  "width": 9525,
+                  "fill": {
+                    "type": "solid",
+                    "bg": {
+                      "type": "theme",
+                      "value": "tx1",
+                      "transforms": [
+                        { "type": "lumMod", "value": 15 },
+                        { "type": "lumOff", "value": 85 }
+                      ]
+                    }
+                  },
+                  "join": "round"
+                }
+              },
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 1282538511,
+              "crosses": "autoZero",
+              "auto": true,
+              "lblAlgn": "ctr"
+            },
+            {
+              "type": "valAx",
+              "axId": 1282538511,
+              "axPos": "l",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 1282550863,
+              "crosses": "autoZero",
+              "crossBetween": "between"
+            },
+            {
+              "type": "serAx",
+              "axId": 1548201199,
+              "axPos": "b",
+              "majorTickMark": "out",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 1282538511,
+              "crosses": "autoZero"
+            }
+          ]
+        },
+        "legend": {
+          "legendPos": "b",
+          "overlay": false,
+          "textProps": { "anchor": "ctr" }
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    },
+    "xl/charts/chart5.xml": {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "bar3DChart",
+              "barDir": "bar",
+              "grouping": "clustered",
+              "gapWidth": 219,
+              "axId": [ "1282550863", "1282538511", "0" ],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent1" }
+                    }
+                  },
+                  "cat": { "type": "strRef", "f": "Bar!$A$2:$A$6" },
+                  "val": { "type": "numRef", "f": "Bar!$B$2:$B$6" }
+                },
+                {
+                  "idx": 1,
+                  "order": 1,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent2" }
+                    }
+                  },
+                  "cat": { "type": "strRef", "f": "Bar!$A$2:$A$6" },
+                  "val": { "type": "numRef", "f": "Bar!$C$2:$C$6" }
+                }
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "type": "catAx",
+              "axId": 1282550863,
+              "axPos": "l",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "shape": {
+                "line": {
+                  "width": 9525,
+                  "fill": {
+                    "type": "solid",
+                    "bg": {
+                      "type": "theme",
+                      "value": "tx1",
+                      "transforms": [
+                        { "type": "lumMod", "value": 15 },
+                        { "type": "lumOff", "value": 85 }
+                      ]
+                    }
+                  },
+                  "join": "round"
+                }
+              },
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 1282538511,
+              "crosses": "autoZero",
+              "auto": true,
+              "lblAlgn": "ctr"
+            },
+            {
+              "type": "valAx",
+              "axId": 1282538511,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 1282550863,
+              "crosses": "autoZero",
+              "crossBetween": "between"
+            }
+          ]
+        },
+        "legend": {
+          "legendPos": "b",
+          "overlay": false,
+          "textProps": { "anchor": "ctr" }
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    },
+    "xl/charts/chart6.xml": {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "bar3DChart",
+              "barDir": "bar",
+              "grouping": "stacked",
+              "gapWidth": 219,
+              "axId": [ "1282550863", "1282538511", "0" ],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent1" }
+                    }
+                  },
+                  "cat": { "type": "strRef", "f": "Bar!$A$2:$A$6" },
+                  "val": { "type": "numRef", "f": "Bar!$B$2:$B$6" }
+                },
+                {
+                  "idx": 1,
+                  "order": 1,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent2" }
+                    }
+                  },
+                  "cat": { "type": "strRef", "f": "Bar!$A$2:$A$6" },
+                  "val": { "type": "numRef", "f": "Bar!$C$2:$C$6" }
+                }
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "type": "catAx",
+              "axId": 1282550863,
+              "axPos": "l",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "shape": {
+                "line": {
+                  "width": 9525,
+                  "fill": {
+                    "type": "solid",
+                    "bg": {
+                      "type": "theme",
+                      "value": "tx1",
+                      "transforms": [
+                        { "type": "lumMod", "value": 15 },
+                        { "type": "lumOff", "value": 85 }
+                      ]
+                    }
+                  },
+                  "join": "round"
+                }
+              },
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 1282538511,
+              "crosses": "autoZero",
+              "auto": true,
+              "lblAlgn": "ctr"
+            },
+            {
+              "type": "valAx",
+              "axId": 1282538511,
+              "axPos": "b",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 1282550863,
+              "crosses": "autoZero",
+              "crossBetween": "between"
+            }
+          ]
+        },
+        "legend": {
+          "legendPos": "b",
+          "overlay": false,
+          "textProps": { "anchor": "ctr" }
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    },
+    "xl/charts/chart7.xml": {
+      "chart": {
+        "title": { "overlay": false },
+        "plotArea": {
+          "charts": [
+            {
+              "type": "bar3DChart",
+              "barDir": "bar",
+              "grouping": "percentStacked",
+              "gapWidth": 219,
+              "axId": [ "1282550863", "1282538511", "0" ],
+              "ser": [
+                {
+                  "idx": 0,
+                  "order": 0,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent1" }
+                    }
+                  },
+                  "cat": { "type": "strRef", "f": "Bar!$A$2:$A$6" },
+                  "val": { "type": "numRef", "f": "Bar!$B$2:$B$6" }
+                },
+                {
+                  "idx": 1,
+                  "order": 1,
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "theme", "value": "accent2" }
+                    }
+                  },
+                  "cat": { "type": "strRef", "f": "Bar!$A$2:$A$6" },
+                  "val": { "type": "numRef", "f": "Bar!$C$2:$C$6" }
+                }
+              ]
+            }
+          ],
+          "axes": [
+            {
+              "type": "catAx",
+              "axId": 1282550863,
+              "axPos": "l",
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "shape": {
+                "line": {
+                  "width": 9525,
+                  "fill": {
+                    "type": "solid",
+                    "bg": {
+                      "type": "theme",
+                      "value": "tx1",
+                      "transforms": [
+                        { "type": "lumMod", "value": 15 },
+                        { "type": "lumOff", "value": 85 }
+                      ]
+                    }
+                  },
+                  "join": "round"
+                }
+              },
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 1282538511,
+              "crosses": "autoZero",
+              "auto": true,
+              "lblAlgn": "ctr"
+            },
+            {
+              "type": "valAx",
+              "axId": 1282538511,
+              "axPos": "b",
+              "numFmt": { "formatCode": "0%", "sourceLinked": false },
+              "majorTickMark": "none",
+              "minorTickMark": "none",
+              "textProps": { "anchor": "ctr" },
+              "crossAx": 1282550863,
+              "crosses": "autoZero",
+              "crossBetween": "between"
+            }
+          ]
+        },
+        "legend": {
+          "legendPos": "b",
+          "overlay": false,
+          "textProps": { "anchor": "ctr" }
+        },
+        "plotVisOnly": true,
+        "dispBlanksAs": "gap"
+      },
+      "shape": {
+        "fill": {
+          "type": "solid",
+          "bg": { "type": "theme", "value": "bg1" }
+        },
+        "line": {
+          "width": 9525,
+          "fill": {
+            "type": "solid",
+            "bg": {
+              "type": "theme",
+              "value": "tx1",
+              "transforms": [
+                { "type": "lumMod", "value": 15 },
+                { "type": "lumOff", "value": 85 }
+              ]
+            }
+          },
+          "join": "round"
+        }
+      }
+    }
+  },
+  "formulas": [ "RANDBETWEEN(1,100)" ]
+}

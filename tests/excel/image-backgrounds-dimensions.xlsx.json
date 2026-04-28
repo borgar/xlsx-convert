@@ -7,27 +7,14 @@
       "columns": [],
       "rows": [],
       "merges": [],
-      "defaults": {
-        "colWidth": 65,
-        "rowHeight": 16
-      },
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        {
-          "workbookView": 0,
-          "activeCell": "I18"
-        }
-      ],
+      "views": [ { "workbookView": 0, "activeCell": "I18" } ],
       "drawings": [
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 0,
-              "col": 0,
-              "colOff": 0
-            },
+            "from": { "row": 0, "rowOff": 0, "col": 0, "colOff": 0 },
             "to": {
               "row": 10,
               "rowOff": 127000,
@@ -44,14 +31,8 @@
               "noChangeAspect": true,
               "shape": {
                 "xfrm": {
-                  "off": {
-                    "x": 3302000,
-                    "y": 4064000
-                  },
-                  "ext": {
-                    "cx": 2159000,
-                    "cy": 2159000
-                  }
+                  "off": { "x": 3302000, "y": 4064000 },
+                  "ext": { "cx": 2159000, "cy": 2159000 }
                 },
                 "preset": "rect"
               }
@@ -61,12 +42,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 0,
-              "col": 3,
-              "colOff": 0
-            },
+            "from": { "row": 0, "rowOff": 0, "col": 3, "colOff": 0 },
             "to": {
               "row": 10,
               "rowOff": 127000,
@@ -83,14 +59,8 @@
               "noChangeAspect": true,
               "shape": {
                 "xfrm": {
-                  "off": {
-                    "x": 5778500,
-                    "y": 4064000
-                  },
-                  "ext": {
-                    "cx": 2159000,
-                    "cy": 2159000
-                  }
+                  "off": { "x": 5778500, "y": 4064000 },
+                  "ext": { "cx": 2159000, "cy": 2159000 }
                 },
                 "preset": "rect",
                 "fill": {
@@ -99,14 +69,8 @@
                     "type": "theme",
                     "value": "accent5",
                     "transforms": [
-                      {
-                        "type": "lumMod",
-                        "value": 60
-                      },
-                      {
-                        "type": "lumOff",
-                        "value": 40
-                      }
+                      { "type": "lumMod", "value": 60 },
+                      { "type": "lumOff", "value": 40 }
                     ]
                   }
                 }
@@ -117,12 +81,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 0,
-              "col": 6,
-              "colOff": 0
-            },
+            "from": { "row": 0, "rowOff": 0, "col": 6, "colOff": 0 },
             "to": {
               "row": 10,
               "rowOff": 127000,
@@ -139,14 +98,8 @@
               "noChangeAspect": true,
               "shape": {
                 "xfrm": {
-                  "off": {
-                    "x": 8255000,
-                    "y": 4064000
-                  },
-                  "ext": {
-                    "cx": 2159000,
-                    "cy": 2159000
-                  }
+                  "off": { "x": 8255000, "y": 4064000 },
+                  "ext": { "cx": 2159000, "cy": 2159000 }
                 },
                 "preset": "rect",
                 "fill": {
@@ -156,25 +109,14 @@
                     "type": "theme",
                     "value": "accent3",
                     "transforms": [
-                      {
-                        "type": "lumMod",
-                        "value": 60
-                      },
-                      {
-                        "type": "lumOff",
-                        "value": 40
-                      }
+                      { "type": "lumMod", "value": 60 },
+                      { "type": "lumOff", "value": 40 }
                     ]
                   },
                   "bg": {
                     "type": "theme",
                     "value": "accent1",
-                    "transforms": [
-                      {
-                        "type": "lumMod",
-                        "value": 75
-                      }
-                    ]
+                    "transforms": [ { "type": "lumMod", "value": 75 } ]
                   }
                 }
               }
@@ -184,12 +126,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 12,
-              "rowOff": 0,
-              "col": 0,
-              "colOff": 0
-            },
+            "from": { "row": 12, "rowOff": 0, "col": 0, "colOff": 0 },
             "to": {
               "row": 22,
               "rowOff": 127000,
@@ -206,14 +143,8 @@
               "noChangeAspect": true,
               "shape": {
                 "xfrm": {
-                  "off": {
-                    "x": 0,
-                    "y": 2438400
-                  },
-                  "ext": {
-                    "cx": 2159000,
-                    "cy": 2159000
-                  }
+                  "off": { "x": 0, "y": 2438400 },
+                  "ext": { "cx": 2159000, "cy": 2159000 }
                 },
                 "preset": "rect",
                 "fill": {
@@ -225,18 +156,9 @@
                         "type": "srgb",
                         "value": "FFFF00",
                         "transforms": [
-                          {
-                            "type": "alpha",
-                            "value": 49.781
-                          },
-                          {
-                            "type": "lumMod",
-                            "value": 40.226
-                          },
-                          {
-                            "type": "lumOff",
-                            "value": 59.774
-                          }
+                          { "type": "alpha", "value": 49.781 },
+                          { "type": "lumMod", "value": 40.226 },
+                          { "type": "lumOff", "value": 59.774 }
                         ]
                       }
                     },
@@ -245,12 +167,7 @@
                       "color": {
                         "type": "theme",
                         "value": "accent2",
-                        "transforms": [
-                          {
-                            "type": "lumMod",
-                            "value": 50
-                          }
-                        ]
+                        "transforms": [ { "type": "lumMod", "value": 50 } ]
                       }
                     }
                   ],
@@ -264,12 +181,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 12,
-              "rowOff": 0,
-              "col": 3,
-              "colOff": 0
-            },
+            "from": { "row": 12, "rowOff": 0, "col": 3, "colOff": 0 },
             "to": {
               "row": 22,
               "rowOff": 127000,
@@ -293,14 +205,8 @@
               },
               "shape": {
                 "xfrm": {
-                  "off": {
-                    "x": 2476500,
-                    "y": 2438400
-                  },
-                  "ext": {
-                    "cx": 2159000,
-                    "cy": 2159000
-                  }
+                  "off": { "x": 2476500, "y": 2438400 },
+                  "ext": { "cx": 2159000, "cy": 2159000 }
                 },
                 "preset": "rect",
                 "fill": {
@@ -308,36 +214,20 @@
                   "colorStops": [
                     {
                       "offset": 49,
-                      "color": {
-                        "type": "srgb",
-                        "value": "FFC000"
-                      }
+                      "color": { "type": "srgb", "value": "FFC000" }
                     },
                     {
                       "offset": 100,
-                      "color": {
-                        "type": "srgb",
-                        "value": "FF0000"
-                      }
+                      "color": { "type": "srgb", "value": "FF0000" }
                     },
                     {
                       "offset": 0,
-                      "color": {
-                        "type": "srgb",
-                        "value": "FFFF00"
-                      }
+                      "color": { "type": "srgb", "value": "FFFF00" }
                     }
                   ],
                   "path": "circle",
                   "flip": "none",
                   "rotWithShape": true
-                },
-                "line": {
-                  "width": 9525,
-                  "cap": "square",
-                  "fill": {
-                    "type": "none"
-                  }
                 }
               }
             }
@@ -346,12 +236,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 24,
-              "rowOff": 0,
-              "col": 0,
-              "colOff": 0
-            },
+            "from": { "row": 24, "rowOff": 0, "col": 0, "colOff": 0 },
             "to": {
               "row": 34,
               "rowOff": 127000,
@@ -368,14 +253,8 @@
               "noChangeAspect": true,
               "shape": {
                 "xfrm": {
-                  "off": {
-                    "x": 0,
-                    "y": 4876800
-                  },
-                  "ext": {
-                    "cx": 2159000,
-                    "cy": 2159000
-                  }
+                  "off": { "x": 0, "y": 4876800 },
+                  "ext": { "cx": 2159000, "cy": 2159000 }
                 },
                 "preset": "rect",
                 "fill": {
@@ -399,12 +278,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 24,
-              "rowOff": 0,
-              "col": 3,
-              "colOff": 0
-            },
+            "from": { "row": 24, "rowOff": 0, "col": 3, "colOff": 0 },
             "to": {
               "row": 34,
               "rowOff": 127000,
@@ -421,26 +295,15 @@
               "noChangeAspect": true,
               "shape": {
                 "xfrm": {
-                  "off": {
-                    "x": 2476500,
-                    "y": 4876800
-                  },
-                  "ext": {
-                    "cx": 2159000,
-                    "cy": 2159000
-                  }
+                  "off": { "x": 2476500, "y": 4876800 },
+                  "ext": { "cx": 2159000, "cy": 2159000 }
                 },
                 "preset": "rect",
                 "fill": {
                   "type": "blip",
                   "mediaId": "xl/media/image1.png",
                   "alpha": 32,
-                  "stretchRect": {
-                    "t": -20,
-                    "l": -20,
-                    "b": -20,
-                    "r": -20
-                  }
+                  "stretchRect": { "t": -20, "l": -20, "b": -20, "r": -20 }
                 }
               }
             }
@@ -457,10 +320,7 @@
     "epoch": 1900
   },
   "styles": [
-    {
-      "fontScheme": "minor",
-      "fontSize": 12
-    },
+    { "fontScheme": "minor", "fontSize": 12 },
     {
       "numberFormat": "0%",
       "fontScheme": "minor",
@@ -468,73 +328,31 @@
     }
   ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
       "name": "Office",
-      "lt1": {
-        "type": "system",
-        "value": "window"
-      },
-      "dk1": {
-        "type": "system",
-        "value": "windowText"
-      },
-      "lt2": {
-        "type": "srgb",
-        "value": "E8E8E8"
-      },
-      "dk2": {
-        "type": "srgb",
-        "value": "0E2841"
-      },
-      "accent1": {
-        "type": "srgb",
-        "value": "156082"
-      },
-      "accent2": {
-        "type": "srgb",
-        "value": "E97132"
-      },
-      "accent3": {
-        "type": "srgb",
-        "value": "196B24"
-      },
-      "accent4": {
-        "type": "srgb",
-        "value": "0F9ED5"
-      },
-      "accent5": {
-        "type": "srgb",
-        "value": "A02B93"
-      },
-      "accent6": {
-        "type": "srgb",
-        "value": "4EA72E"
-      },
-      "hlink": {
-        "type": "srgb",
-        "value": "467886"
-      },
-      "folHlink": {
-        "type": "srgb",
-        "value": "96607D"
-      }
+      "lt1": { "type": "system", "value": "window" },
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "dk2": { "type": "srgb", "value": "0E2841" },
+      "accent1": { "type": "srgb", "value": "156082" },
+      "accent2": { "type": "srgb", "value": "E97132" },
+      "accent3": { "type": "srgb", "value": "196B24" },
+      "accent4": { "type": "srgb", "value": "0F9ED5" },
+      "accent5": { "type": "srgb", "value": "A02B93" },
+      "accent6": { "type": "srgb", "value": "4EA72E" },
+      "hlink": { "type": "srgb", "value": "467886" },
+      "folHlink": { "type": "srgb", "value": "96607D" }
     },
     "fontScheme": {
       "name": "Office",
       "major": {
-        "latin": {
-          "typeface": "Aptos Display"
-        }
+        "latin": { "typeface": "Aptos Display" }
       },
       "minor": {
-        "latin": {
-          "typeface": "Aptos Narrow"
-        }
+        "latin": { "typeface": "Aptos Narrow" }
       }
     }
   },
