@@ -1,6 +1,6 @@
 {
   "name": "@borgar/xlsx-convert",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "description": "Utility to convert Excel XLSX files to JSON",
   "type": "module",
   "source": "src/index.ts",
@@ -26,7 +26,7 @@
     "docs": "typedoc && concat-md tempdocs > docs/API.md && rm -rf tempdocs",
     "test:unit": "vitest run src/*.spec.ts src/**/*.spec.ts",
     "test:fixture": "node --experimental-transform-types tests/index.ts",
-    "test": "npm run test:unit && npm run test:fixture",
+    "test": "npm run test:unit && VERIFY_FORMULAS=1 npm run test:fixture",
     "updatetests": "UPDATE_TESTS=1 node --experimental-transform-types tests/index.ts",
     "check": "npm run test && npm run lint && npm run typecheck && node src/cli.ts tests/excel/fonts.xlsx -o /dev/null",
     "release": "git diff --exit-code && tsup && npm publish && V=$(jq -r .version package.json) && git tag -a $V -m $V && git push origin $V && gh release create $V --generate-notes"
@@ -71,25 +71,26 @@
   "author": "Borgar Þorsteinsson <borgar@borgar.net> (http://borgar.net/)",
   "license": "MIT",
   "dependencies": {
-    "@borgar/fx": "~5.0.2",
+    "@borgar/fx": "~5.0.3",
     "@borgar/simple-xml": "~2.2.2",
-    "numfmt": "~3.2.4",
+    "@jsfkit/utils": "~1.0.2",
+    "numfmt": "~3.2.6",
     "pako": "~2.1.0"
   },
   "devDependencies": {
     "@borgar/eslint-config": "~4.1.0",
     "@eslint/js": "~9.39.2",
-    "@jsfkit/types": "~2.0.0",
-    "@types/node": "~25.3.5",
+    "@jsfkit/types": "~2.1.0",
+    "@types/node": "~25.6.0",
     "concat-md": "~0.5.1",
     "eslint": "~9.39.2",
-    "globals": "~17.4.0",
+    "globals": "~17.5.0",
     "jszip": "^3.10.1",
     "tsup": "~8.5.1",
-    "typedoc": "~0.28.17",
-    "typedoc-plugin-markdown": "~4.10.0",
+    "typedoc": "~0.28.19",
+    "typedoc-plugin-markdown": "~4.11.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "~8.56.1",
-    "vitest": "~4.0.18"
+    "vitest": "~4.1.4"
   }
 }

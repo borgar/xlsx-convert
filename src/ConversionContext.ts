@@ -1,12 +1,11 @@
-import type { Theme } from '@jsfkit/types';
+import { INDEXED_COLORS } from '@jsfkit/utils';
+import type { Theme, DefinedName, External, Workbook } from '@jsfkit/types';
 import type { MetaData } from './handler/metadata.ts';
 import type { RDStruct } from './handler/rdstuct.ts';
 import type { RDValue } from './handler/rdvalue.ts';
 import type { Rel } from './handler/rels.ts';
-import { COLOR_INDEX } from './constants.ts';
 import { getBlankTheme } from './handler/theme.ts';
 import type { RelativeFormula } from './RelativeFormula.ts';
-import type { DefinedName, External, Workbook } from '@jsfkit/types';
 import type { ConversionOptions } from './index.ts';
 
 type SheetLink = {
@@ -75,8 +74,8 @@ export class ConversionContext {
     this.options = {};
     this.workbook = null;
     this.theme = getBlankTheme();
-    this.indexedColors = [ ...COLOR_INDEX ];
     this.nameDefs = new Map();
+    this.indexedColors = [ ...INDEXED_COLORS ];
     this.richStruct = [];
     this.richValues = null;
     this.metadata = null;

@@ -31,21 +31,14 @@
         {
           "workbookView": 0,
           "activeCell": "B2",
-          "activeRanges": [
-            "B2:C6"
-          ]
+          "activeRanges": [ "B2:C6" ]
         }
       ],
       "drawings": [
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 63500,
-              "col": 3,
-              "colOff": 190500
-            },
+            "from": { "row": 0, "rowOff": 63500, "col": 3, "colOff": 190500 },
             "to": {
               "row": 13,
               "rowOff": 165100,
@@ -75,13 +68,9 @@
     "iterateDelta": 0.001,
     "epoch": 1900
   },
-  "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
-  ],
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -107,6 +96,14 @@
       "minor": {
         "latin": { "typeface": "Aptos Narrow" }
       }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
     }
   },
   "charts": {

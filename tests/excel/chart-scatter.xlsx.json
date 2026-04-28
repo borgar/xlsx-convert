@@ -37,19 +37,12 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "F16" }
-      ],
+      "views": [ { "workbookView": 0, "activeCell": "F16" } ],
       "drawings": [
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 88900,
-              "col": 5,
-              "colOff": 203200
-            },
+            "from": { "row": 0, "rowOff": 88900, "col": 5, "colOff": 203200 },
             "to": {
               "row": 13,
               "rowOff": 190500,
@@ -72,12 +65,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 88900,
-              "col": 11,
-              "colOff": 203200
-            },
+            "from": { "row": 0, "rowOff": 88900, "col": 11, "colOff": 203200 },
             "to": {
               "row": 13,
               "rowOff": 190500,
@@ -100,12 +88,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 88900,
-              "col": 17,
-              "colOff": 203200
-            },
+            "from": { "row": 0, "rowOff": 88900, "col": 17, "colOff": 203200 },
             "to": {
               "row": 13,
               "rowOff": 190500,
@@ -191,13 +174,9 @@
     "iterateDelta": 0.001,
     "epoch": 1900
   },
-  "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
-  ],
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -225,6 +204,14 @@
       }
     }
   },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
   "charts": {
     "xl/charts/chart1.xml": {
       "chart": {
@@ -233,10 +220,7 @@
           "charts": [
             {
               "type": "scatterChart",
-              "axId": [
-                "1282550863",
-                "1282538511"
-              ],
+              "axId": [ "1282550863", "1282538511" ],
               "ser": [
                 { "idx": 0, "order": 0 },
                 { "idx": 1, "order": 1 }
@@ -322,10 +306,7 @@
           "charts": [
             {
               "type": "scatterChart",
-              "axId": [
-                "1282550863",
-                "1282538511"
-              ],
+              "axId": [ "1282550863", "1282538511" ],
               "ser": [
                 {
                   "idx": 0,
@@ -439,10 +420,7 @@
           "charts": [
             {
               "type": "scatterChart",
-              "axId": [
-                "1282550863",
-                "1282538511"
-              ],
+              "axId": [ "1282550863", "1282538511" ],
               "ser": [
                 {
                   "idx": 0,
@@ -556,10 +534,7 @@
           "charts": [
             {
               "type": "scatterChart",
-              "axId": [
-                "1282550863",
-                "1282538511"
-              ],
+              "axId": [ "1282550863", "1282538511" ],
               "ser": [
                 {
                   "idx": 0,
@@ -673,10 +648,7 @@
           "charts": [
             {
               "type": "scatterChart",
-              "axId": [
-                "1282550863",
-                "1282538511"
-              ],
+              "axId": [ "1282550863", "1282538511" ],
               "ser": [
                 {
                   "idx": 0,
@@ -784,8 +756,5 @@
       }
     }
   },
-  "formulas": [
-    "RANDBETWEEN(1,100)",
-    "RANDBETWEEN(1,1000)"
-  ]
+  "formulas": [ "RANDBETWEEN(1,100)", "RANDBETWEEN(1,1000)" ]
 }

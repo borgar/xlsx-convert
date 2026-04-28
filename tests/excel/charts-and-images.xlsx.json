@@ -73,9 +73,7 @@
         { "start": 1, "end": 1, "size": 30 },
         { "start": 2, "end": 16, "size": 29 }
       ],
-      "rows": [
-        { "start": 17, "end": 17, "size": 35 }
-      ],
+      "rows": [ { "start": 17, "end": 17, "size": 35 } ],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
@@ -91,18 +89,8 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 5,
-              "rowOff": 1,
-              "col": 0,
-              "colOff": 266701
-            },
-            "to": {
-              "row": 14,
-              "rowOff": 25400,
-              "col": 8,
-              "colOff": 160868
-            }
+            "from": { "row": 5, "rowOff": 1, "col": 0, "colOff": 266701 },
+            "to": { "row": 14, "rowOff": 25400, "col": 8, "colOff": 160868 }
           },
           "content": [
             {
@@ -119,12 +107,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 5,
-              "rowOff": 8465,
-              "col": 16,
-              "colOff": 491066
-            },
+            "from": { "row": 5, "rowOff": 8465, "col": 16, "colOff": 491066 },
             "to": {
               "row": 14,
               "rowOff": 59266,
@@ -147,12 +130,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 5,
-              "rowOff": 8467,
-              "col": 8,
-              "colOff": 423334
-            },
+            "from": { "row": 5, "rowOff": 8467, "col": 8, "colOff": 423334 },
             "to": {
               "row": 14,
               "rowOff": 160867,
@@ -216,12 +194,7 @@
         {
           "anchor": {
             "type": "oneCell",
-            "from": {
-              "row": 16,
-              "rowOff": 152466,
-              "col": 6,
-              "colOff": 73026
-            },
+            "from": { "row": 16, "rowOff": 152466, "col": 6, "colOff": 73026 },
             "ext": { "cx": 1640130, "cy": 296502 }
           },
           "content": [
@@ -238,9 +211,7 @@
                 "preset": "rect"
               },
               "text": {
-                "p": [
-                  { "text": "Image in a cell" }
-                ],
+                "p": [ { "text": "Image in a cell" } ],
                 "vertOverflow": "clip",
                 "horzOverflow": "clip",
                 "wrap": "none"
@@ -260,25 +231,16 @@
         { "start": 1, "end": 1, "size": 93 },
         { "start": 2, "end": 2, "size": 75 }
       ],
-      "rows": [
-        { "start": 1, "end": 1, "size": 87 }
-      ],
+      "rows": [ { "start": 1, "end": 1, "size": 87 } ],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "K23" }
-      ],
+      "views": [ { "workbookView": 0, "activeCell": "K23" } ],
       "drawings": [
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 4,
-              "rowOff": 32822,
-              "col": 1,
-              "colOff": 381000
-            },
+            "from": { "row": 4, "rowOff": 32822, "col": 1, "colOff": 381000 },
             "to": {
               "row": 23,
               "rowOff": 159822,
@@ -326,9 +288,7 @@
     }
   ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Integral",
     "colorScheme": {
@@ -356,6 +316,14 @@
       }
     }
   },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
   "charts": {
     "xl/charts/chart1.xml": {
       "chart": {
@@ -365,10 +333,7 @@
             {
               "type": "lineChart",
               "grouping": "standard",
-              "axId": [
-                "114034160",
-                "2108502752"
-              ],
+              "axId": [ "114034160", "2108502752" ],
               "ser": [
                 {
                   "idx": 0,
@@ -560,10 +525,7 @@
               "grouping": "clustered",
               "gapWidth": 219,
               "overlap": -27,
-              "axId": [
-                "850488128",
-                "573066864"
-              ],
+              "axId": [ "850488128", "573066864" ],
               "ser": [
                 {
                   "idx": 0,

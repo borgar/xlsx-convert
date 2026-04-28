@@ -12,7 +12,7 @@
         "B3": { "v": false, "F": "A3:D3" },
         "C3": { "v": false, "F": "A3:D3" },
         "D3": { "v": true, "F": "A3:D3" },
-        "A4": { "v": true, "F": "A4:D4", "f": 1 },
+        "A4": { "v": true, "F": "A4:D4", "cse": true, "f": 1 },
         "B4": { "v": false, "F": "A4:D4" },
         "C4": { "v": false, "F": "A4:D4" },
         "D4": { "v": true, "F": "A4:D4" }
@@ -20,10 +20,16 @@
       "columns": [],
       "rows": [],
       "merges": [],
-      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "defaults": {
+        "colWidth": 65,
+        "rowHeight": 16
+      },
       "hidden": 0,
       "views": [
-        { "workbookView": 0, "activeCell": "C1" }
+        {
+          "workbookView": 0,
+          "activeCell": "C1"
+        }
       ]
     }
   ],
@@ -35,8 +41,14 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontScheme": "minor", "fontSize": 12 },
-    { "fontScheme": "minor", "fontSize": 12 }
+    {
+      "fontScheme": "minor",
+      "fontSize": 12
+    },
+    {
+      "fontScheme": "minor",
+      "fontSize": 12
+    }
   ],
   "tables": [],
   "views": [
@@ -46,27 +58,75 @@
     "name": "Office Theme",
     "colorScheme": {
       "name": "Office",
-      "lt1": { "type": "system", "value": "window" },
-      "dk1": { "type": "system", "value": "windowText" },
-      "lt2": { "type": "srgb", "value": "E7E6E6" },
-      "dk2": { "type": "srgb", "value": "44546A" },
-      "accent1": { "type": "srgb", "value": "4472C4" },
-      "accent2": { "type": "srgb", "value": "ED7D31" },
-      "accent3": { "type": "srgb", "value": "A5A5A5" },
-      "accent4": { "type": "srgb", "value": "FFC000" },
-      "accent5": { "type": "srgb", "value": "5B9BD5" },
-      "accent6": { "type": "srgb", "value": "70AD47" },
-      "hlink": { "type": "srgb", "value": "0563C1" },
-      "folHlink": { "type": "srgb", "value": "954F72" }
+      "lt1": {
+        "type": "system",
+        "value": "window"
+      },
+      "dk1": {
+        "type": "system",
+        "value": "windowText"
+      },
+      "lt2": {
+        "type": "srgb",
+        "value": "E7E6E6"
+      },
+      "dk2": {
+        "type": "srgb",
+        "value": "44546A"
+      },
+      "accent1": {
+        "type": "srgb",
+        "value": "4472C4"
+      },
+      "accent2": {
+        "type": "srgb",
+        "value": "ED7D31"
+      },
+      "accent3": {
+        "type": "srgb",
+        "value": "A5A5A5"
+      },
+      "accent4": {
+        "type": "srgb",
+        "value": "FFC000"
+      },
+      "accent5": {
+        "type": "srgb",
+        "value": "5B9BD5"
+      },
+      "accent6": {
+        "type": "srgb",
+        "value": "70AD47"
+      },
+      "hlink": {
+        "type": "srgb",
+        "value": "0563C1"
+      },
+      "folHlink": {
+        "type": "srgb",
+        "value": "954F72"
+      }
     },
     "fontScheme": {
       "name": "Office",
       "major": {
-        "latin": { "typeface": "Calibri Light" }
+        "latin": {
+          "typeface": "Calibri Light"
+        }
       },
       "minor": {
-        "latin": { "typeface": "Calibri" }
+        "latin": {
+          "typeface": "Calibri"
+        }
       }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
     }
   },
   "formulas": [

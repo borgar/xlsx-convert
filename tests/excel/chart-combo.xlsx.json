@@ -27,19 +27,12 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "C9" }
-      ],
+      "views": [ { "workbookView": 0, "activeCell": "C9" } ],
       "drawings": [
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 76200,
-              "col": 3,
-              "colOff": 190500
-            },
+            "from": { "row": 0, "rowOff": 76200, "col": 3, "colOff": 190500 },
             "to": {
               "row": 13,
               "rowOff": 177800,
@@ -62,12 +55,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 76200,
-              "col": 9,
-              "colOff": 190500
-            },
+            "from": { "row": 0, "rowOff": 76200, "col": 9, "colOff": 190500 },
             "to": {
               "row": 13,
               "rowOff": 177800,
@@ -90,12 +78,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 76200,
-              "col": 15,
-              "colOff": 190500
-            },
+            "from": { "row": 0, "rowOff": 76200, "col": 15, "colOff": 190500 },
             "to": {
               "row": 13,
               "rowOff": 177800,
@@ -125,13 +108,9 @@
     "iterateDelta": 0.001,
     "epoch": 1900
   },
-  "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
-  ],
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -159,6 +138,14 @@
       }
     }
   },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
   "charts": {
     "xl/charts/chart1.xml": {
       "chart": {
@@ -170,10 +157,7 @@
               "barDir": "col",
               "grouping": "clustered",
               "gapWidth": 150,
-              "axId": [
-                "291969087",
-                "280025200"
-              ],
+              "axId": [ "291969087", "280025200" ],
               "ser": [
                 {
                   "idx": 0,
@@ -192,10 +176,7 @@
             {
               "type": "lineChart",
               "grouping": "standard",
-              "axId": [
-                "291969087",
-                "280025200"
-              ],
+              "axId": [ "291969087", "280025200" ],
               "ser": [
                 {
                   "idx": 1,
@@ -300,10 +281,7 @@
               "barDir": "col",
               "grouping": "clustered",
               "gapWidth": 150,
-              "axId": [
-                "291969087",
-                "280025200"
-              ],
+              "axId": [ "291969087", "280025200" ],
               "ser": [
                 {
                   "idx": 0,
@@ -322,10 +300,7 @@
             {
               "type": "lineChart",
               "grouping": "standard",
-              "axId": [
-                "1298875184",
-                "1298828992"
-              ],
+              "axId": [ "1298875184", "1298828992" ],
               "ser": [
                 {
                   "idx": 1,
@@ -451,10 +426,7 @@
             {
               "type": "areaChart",
               "grouping": "stacked",
-              "axId": [
-                "291969087",
-                "280025200"
-              ],
+              "axId": [ "291969087", "280025200" ],
               "ser": [
                 {
                   "idx": 0,
@@ -475,10 +447,7 @@
               "barDir": "col",
               "grouping": "clustered",
               "gapWidth": 150,
-              "axId": [
-                "291969087",
-                "280025200"
-              ],
+              "axId": [ "291969087", "280025200" ],
               "ser": [
                 {
                   "idx": 1,
@@ -569,7 +538,5 @@
       }
     }
   },
-  "formulas": [
-    "RANDBETWEEN(1,100)"
-  ]
+  "formulas": [ "RANDBETWEEN(1,100)" ]
 }

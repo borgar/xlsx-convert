@@ -27,19 +27,12 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "Y26" }
-      ],
+      "views": [ { "workbookView": 0, "activeCell": "Y26" } ],
       "drawings": [
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 88900,
-              "col": 3,
-              "colOff": 177800
-            },
+            "from": { "row": 0, "rowOff": 88900, "col": 3, "colOff": 177800 },
             "to": {
               "row": 13,
               "rowOff": 190500,
@@ -62,12 +55,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 88900,
-              "col": 9,
-              "colOff": 177800
-            },
+            "from": { "row": 0, "rowOff": 88900, "col": 9, "colOff": 177800 },
             "to": {
               "row": 13,
               "rowOff": 190500,
@@ -90,12 +78,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 88900,
-              "col": 15,
-              "colOff": 177800
-            },
+            "from": { "row": 0, "rowOff": 88900, "col": 15, "colOff": 177800 },
             "to": {
               "row": 13,
               "rowOff": 190500,
@@ -118,12 +101,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 88900,
-              "col": 21,
-              "colOff": 177800
-            },
+            "from": { "row": 0, "rowOff": 88900, "col": 21, "colOff": 177800 },
             "to": {
               "row": 13,
               "rowOff": 190500,
@@ -146,12 +124,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 15,
-              "rowOff": 88900,
-              "col": 3,
-              "colOff": 177800
-            },
+            "from": { "row": 15, "rowOff": 88900, "col": 3, "colOff": 177800 },
             "to": {
               "row": 28,
               "rowOff": 190500,
@@ -174,12 +147,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 15,
-              "rowOff": 88900,
-              "col": 9,
-              "colOff": 177800
-            },
+            "from": { "row": 15, "rowOff": 88900, "col": 9, "colOff": 177800 },
             "to": {
               "row": 28,
               "rowOff": 190500,
@@ -237,13 +205,9 @@
     "iterateDelta": 0.001,
     "epoch": 1900
   },
-  "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
-  ],
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -271,6 +235,14 @@
       }
     }
   },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
   "charts": {
     "xl/charts/chart1.xml": {
       "chart": {
@@ -282,11 +254,7 @@
               "barDir": "col",
               "grouping": "clustered",
               "gapWidth": 150,
-              "axId": [
-                "628665760",
-                "2088247647",
-                "0"
-              ],
+              "axId": [ "628665760", "2088247647", "0" ],
               "ser": [
                 {
                   "idx": 0,
@@ -381,11 +349,7 @@
               "barDir": "col",
               "grouping": "stacked",
               "gapWidth": 150,
-              "axId": [
-                "628665760",
-                "2088247647",
-                "0"
-              ],
+              "axId": [ "628665760", "2088247647", "0" ],
               "ser": [
                 {
                   "idx": 0,
@@ -480,11 +444,7 @@
               "barDir": "col",
               "grouping": "percentStacked",
               "gapWidth": 150,
-              "axId": [
-                "628665760",
-                "2088247647",
-                "0"
-              ],
+              "axId": [ "628665760", "2088247647", "0" ],
               "ser": [
                 {
                   "idx": 0,
@@ -580,11 +540,7 @@
               "barDir": "col",
               "grouping": "standard",
               "gapWidth": 219,
-              "axId": [
-                "1282550863",
-                "1282538511",
-                "1548201199"
-              ],
+              "axId": [ "1282550863", "1282538511", "1548201199" ],
               "ser": [
                 {
                   "idx": 0,
@@ -706,11 +662,7 @@
               "barDir": "bar",
               "grouping": "clustered",
               "gapWidth": 219,
-              "axId": [
-                "1282550863",
-                "1282538511",
-                "0"
-              ],
+              "axId": [ "1282550863", "1282538511", "0" ],
               "ser": [
                 {
                   "idx": 0,
@@ -822,11 +774,7 @@
               "barDir": "bar",
               "grouping": "stacked",
               "gapWidth": 219,
-              "axId": [
-                "1282550863",
-                "1282538511",
-                "0"
-              ],
+              "axId": [ "1282550863", "1282538511", "0" ],
               "ser": [
                 {
                   "idx": 0,
@@ -938,11 +886,7 @@
               "barDir": "bar",
               "grouping": "percentStacked",
               "gapWidth": 219,
-              "axId": [
-                "1282550863",
-                "1282538511",
-                "0"
-              ],
+              "axId": [ "1282550863", "1282538511", "0" ],
               "ser": [
                 {
                   "idx": 0,
@@ -1046,7 +990,5 @@
       }
     }
   },
-  "formulas": [
-    "RANDBETWEEN(1,100)"
-  ]
+  "formulas": [ "RANDBETWEEN(1,100)" ]
 }

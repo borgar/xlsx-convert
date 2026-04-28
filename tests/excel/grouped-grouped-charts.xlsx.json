@@ -11,16 +11,12 @@
         "A3": { "v": "c" },
         "B3": { "v": 3 }
       },
-      "columns": [
-        { "start": 9, "end": 9, "size": 57 }
-      ],
+      "columns": [ { "start": 9, "end": 9, "size": 57 } ],
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "K6" }
-      ],
+      "views": [ { "workbookView": 0, "activeCell": "K6" } ],
       "drawings": [
         {
           "anchor": {
@@ -102,13 +98,9 @@
     "iterateDelta": 0.001,
     "epoch": 1900
   },
-  "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
-  ],
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -134,6 +126,14 @@
       "minor": {
         "latin": { "typeface": "Aptos Narrow" }
       }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
     }
   },
   "charts": {
@@ -200,10 +200,7 @@
           "charts": [
             {
               "type": "radarChart",
-              "axId": [
-                "1460373216",
-                "1460638096"
-              ],
+              "axId": [ "1460373216", "1460638096" ],
               "ser": [
                 {
                   "idx": 0,

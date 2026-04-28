@@ -240,7 +240,11 @@ export async function convertBinary (
   wb.theme = context.theme;
 
   // convert styles to JSF format (styleDefs was read earlier for pivot numFmtId resolution)
-  wb.styles = convertStyles(styleDefs);
+  const { styles, namedStyles } = convertStyles(styleDefs);
+  wb.styles = styles;
+  if (Object.keys(namedStyles).length > 0) {
+    wb.namedStyles = namedStyles;
+  }
 
   const pivotTables: PivotTable[] = [];
 

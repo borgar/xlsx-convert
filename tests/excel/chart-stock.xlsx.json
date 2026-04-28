@@ -130,9 +130,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "C15" }
-      ],
+      "views": [ { "workbookView": 0, "activeCell": "C15" } ],
       "drawings": [
         {
           "anchor": {
@@ -236,13 +234,9 @@
     "iterateDelta": 0.001,
     "epoch": 1900
   },
-  "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
-  ],
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -270,6 +264,14 @@
       }
     }
   },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
   "charts": {
     "xl/charts/chart1.xml": {
       "chart": {
@@ -278,10 +280,7 @@
           "charts": [
             {
               "type": "stockChart",
-              "axId": [
-                "786532464",
-                "2105975919"
-              ],
+              "axId": [ "786532464", "2105975919" ],
               "ser": [
                 {
                   "idx": 0,
@@ -385,10 +384,7 @@
             {
               "type": "stockChart",
               "gapWidth": 150,
-              "axId": [
-                "412788880",
-                "681438703"
-              ],
+              "axId": [ "412788880", "681438703" ],
               "ser": [
                 {
                   "idx": 0,
@@ -500,10 +496,7 @@
               "barDir": "col",
               "grouping": "clustered",
               "gapWidth": 150,
-              "axId": [
-                "525599904",
-                "981450240"
-              ],
+              "axId": [ "525599904", "981450240" ],
               "ser": [
                 {
                   "idx": 0,
@@ -521,10 +514,7 @@
             },
             {
               "type": "stockChart",
-              "axId": [
-                "526328032",
-                "280055104"
-              ],
+              "axId": [ "526328032", "280055104" ],
               "ser": [
                 {
                   "idx": 1,
@@ -653,10 +643,7 @@
               "barDir": "col",
               "grouping": "clustered",
               "gapWidth": 150,
-              "axId": [
-                "1282615567",
-                "1282617279"
-              ],
+              "axId": [ "1282615567", "1282617279" ],
               "ser": [
                 {
                   "idx": 0,
@@ -675,10 +662,7 @@
             {
               "type": "stockChart",
               "gapWidth": 150,
-              "axId": [
-                "385415520",
-                "787392448"
-              ],
+              "axId": [ "385415520", "787392448" ],
               "ser": [
                 {
                   "idx": 1,

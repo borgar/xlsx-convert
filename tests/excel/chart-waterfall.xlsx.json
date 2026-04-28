@@ -27,19 +27,12 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "K12" }
-      ],
+      "views": [ { "workbookView": 0, "activeCell": "K12" } ],
       "drawings": [
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 38100,
-              "col": 3,
-              "colOff": 152400
-            },
+            "from": { "row": 0, "rowOff": 38100, "col": 3, "colOff": 152400 },
             "to": {
               "row": 13,
               "rowOff": 139700,
@@ -69,13 +62,9 @@
     "iterateDelta": 0.001,
     "epoch": 1900
   },
-  "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
-  ],
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -103,6 +92,14 @@
       }
     }
   },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
   "charts": {
     "xl/charts/chartEx1.xml": {
       "chartData": {},
@@ -116,7 +113,5 @@
       }
     }
   },
-  "formulas": [
-    "RANDBETWEEN(-50,100)"
-  ]
+  "formulas": [ "RANDBETWEEN(-50,100)" ]
 }

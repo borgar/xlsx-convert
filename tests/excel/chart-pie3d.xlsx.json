@@ -27,19 +27,12 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "M29" }
-      ],
+      "views": [ { "workbookView": 0, "activeCell": "M29" } ],
       "drawings": [
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 88900,
-              "col": 3,
-              "colOff": 139700
-            },
+            "from": { "row": 0, "rowOff": 88900, "col": 3, "colOff": 139700 },
             "to": {
               "row": 13,
               "rowOff": 190500,
@@ -69,13 +62,9 @@
     "iterateDelta": 0.001,
     "epoch": 1900
   },
-  "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
-  ],
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -101,6 +90,14 @@
       "minor": {
         "latin": { "typeface": "Aptos Narrow" }
       }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
     }
   },
   "charts": {
@@ -162,7 +159,5 @@
       }
     }
   },
-  "formulas": [
-    "RANDBETWEEN(1,100)"
-  ]
+  "formulas": [ "RANDBETWEEN(1,100)" ]
 }

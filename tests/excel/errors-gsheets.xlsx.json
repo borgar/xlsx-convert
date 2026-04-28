@@ -4,13 +4,24 @@
     {
       "name": "Sheet1",
       "cells": {
-        "A1": { "s": 1, "t": "e", "v": "#NAME?", "f": 0 },
-        "A2": { "s": 2, "v": "#NAME?" }
+        "A1": {
+          "s": 1,
+          "t": "e",
+          "v": "#NAME?",
+          "f": 0
+        },
+        "A2": {
+          "s": 2,
+          "v": "#NAME?"
+        }
       },
       "columns": [],
       "rows": [],
       "merges": [],
-      "defaults": { "colWidth": 76, "rowHeight": 16 },
+      "defaults": {
+        "colWidth": 76,
+        "rowHeight": 16
+      },
       "hidden": 0,
       "drawings": []
     }
@@ -26,41 +37,110 @@
     {
       "fontScheme": "minor",
       "fontSize": 10,
-      "color": { "type": "srgb", "value": "000000" }
+      "color": {
+        "type": "srgb",
+        "value": "000000"
+      }
     },
-    { "fontScheme": "minor", "fontSize": 0 },
-    { "fontScheme": "minor", "fontSize": 0 }
+    {
+      "fontScheme": "minor",
+      "fontSize": 0
+    },
+    {
+      "fontScheme": "minor",
+      "fontSize": 0
+    }
   ],
   "tables": [],
   "theme": {
     "name": "Sheets",
     "colorScheme": {
       "name": "Sheets",
-      "lt1": { "type": "srgb", "value": "FFFFFF" },
-      "dk1": { "type": "srgb", "value": "000000" },
-      "lt2": { "type": "srgb", "value": "FFFFFF" },
-      "dk2": { "type": "srgb", "value": "000000" },
-      "accent1": { "type": "srgb", "value": "4285F4" },
-      "accent2": { "type": "srgb", "value": "EA4335" },
-      "accent3": { "type": "srgb", "value": "FBBC04" },
-      "accent4": { "type": "srgb", "value": "34A853" },
-      "accent5": { "type": "srgb", "value": "FF6D01" },
-      "accent6": { "type": "srgb", "value": "46BDC6" },
-      "hlink": { "type": "srgb", "value": "1155CC" },
-      "folHlink": { "type": "srgb", "value": "1155CC" }
+      "lt1": {
+        "type": "srgb",
+        "value": "FFFFFF"
+      },
+      "dk1": {
+        "type": "srgb",
+        "value": "000000"
+      },
+      "lt2": {
+        "type": "srgb",
+        "value": "FFFFFF"
+      },
+      "dk2": {
+        "type": "srgb",
+        "value": "000000"
+      },
+      "accent1": {
+        "type": "srgb",
+        "value": "4285F4"
+      },
+      "accent2": {
+        "type": "srgb",
+        "value": "EA4335"
+      },
+      "accent3": {
+        "type": "srgb",
+        "value": "FBBC04"
+      },
+      "accent4": {
+        "type": "srgb",
+        "value": "34A853"
+      },
+      "accent5": {
+        "type": "srgb",
+        "value": "FF6D01"
+      },
+      "accent6": {
+        "type": "srgb",
+        "value": "46BDC6"
+      },
+      "hlink": {
+        "type": "srgb",
+        "value": "1155CC"
+      },
+      "folHlink": {
+        "type": "srgb",
+        "value": "1155CC"
+      }
     },
     "fontScheme": {
       "name": "Sheets",
       "major": {
-        "latin": { "typeface": "Arial" },
-        "eastAsian": { "typeface": "Arial" },
-        "complexScript": { "typeface": "Arial" }
+        "latin": {
+          "typeface": "Arial"
+        },
+        "eastAsian": {
+          "typeface": "Arial"
+        },
+        "complexScript": {
+          "typeface": "Arial"
+        }
       },
       "minor": {
-        "latin": { "typeface": "Arial" },
-        "eastAsian": { "typeface": "Arial" },
-        "complexScript": { "typeface": "Arial" }
+        "latin": {
+          "typeface": "Arial"
+        },
+        "eastAsian": {
+          "typeface": "Arial"
+        },
+        "complexScript": {
+          "typeface": "Arial"
+        }
       }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 10,
+      "color": {
+        "type": "srgb",
+        "value": "000000"
+      },
+      "builtinId": 0
     }
   },
   "formulas": [

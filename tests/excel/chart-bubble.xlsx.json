@@ -33,19 +33,12 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "R18" }
-      ],
+      "views": [ { "workbookView": 0, "activeCell": "R18" } ],
       "drawings": [
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 50800,
-              "col": 10,
-              "colOff": 177800
-            },
+            "from": { "row": 0, "rowOff": 50800, "col": 10, "colOff": 177800 },
             "to": {
               "row": 19,
               "rowOff": 76200,
@@ -68,18 +61,8 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 50800,
-              "col": 4,
-              "colOff": 171450
-            },
-            "to": {
-              "row": 19,
-              "rowOff": 69850,
-              "col": 9,
-              "colOff": 615950
-            }
+            "from": { "row": 0, "rowOff": 50800, "col": 4, "colOff": 171450 },
+            "to": { "row": 19, "rowOff": 69850, "col": 9, "colOff": 615950 }
           },
           "content": [
             {
@@ -159,13 +142,9 @@
     "iterateDelta": 0.001,
     "epoch": 1900
   },
-  "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
-  ],
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -193,6 +172,14 @@
       }
     }
   },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
   "charts": {
     "xl/charts/chart1.xml": {
       "chart": {
@@ -201,10 +188,7 @@
           "charts": [
             {
               "type": "bubbleChart",
-              "axId": [
-                "1282550863",
-                "1282538511"
-              ],
+              "axId": [ "1282550863", "1282538511" ],
               "ser": [
                 {
                   "idx": 0,
@@ -308,10 +292,7 @@
           "charts": [
             {
               "type": "bubbleChart",
-              "axId": [
-                "281871679",
-                "283462271"
-              ],
+              "axId": [ "281871679", "283462271" ],
               "ser": [
                 {
                   "idx": 0,
@@ -322,9 +303,7 @@
                       "bg": {
                         "type": "theme",
                         "value": "accent1",
-                        "transforms": [
-                          { "type": "alpha", "value": 75 }
-                        ]
+                        "transforms": [ { "type": "alpha", "value": 75 } ]
                       }
                     }
                   }
@@ -428,10 +407,7 @@
           "charts": [
             {
               "type": "bubbleChart",
-              "axId": [
-                "1282550863",
-                "1282538511"
-              ],
+              "axId": [ "1282550863", "1282538511" ],
               "ser": [
                 {
                   "idx": 0,
@@ -535,10 +511,7 @@
           "charts": [
             {
               "type": "bubbleChart",
-              "axId": [
-                "281871679",
-                "283462271"
-              ],
+              "axId": [ "281871679", "283462271" ],
               "ser": [
                 {
                   "idx": 0,
@@ -549,9 +522,7 @@
                       "bg": {
                         "type": "theme",
                         "value": "accent1",
-                        "transforms": [
-                          { "type": "alpha", "value": 75 }
-                        ]
+                        "transforms": [ { "type": "alpha", "value": 75 } ]
                       }
                     }
                   }

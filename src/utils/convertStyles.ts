@@ -1,6 +1,6 @@
 import { Color } from '../color/Color.ts';
 import type { StyleDefs } from '../handler/styles.ts';
-import type { Color as JSFColor, Style } from '@jsfkit/types';
+import type { NamedStyle, Color as JSFColor, Style } from '@jsfkit/types';
 
 /** Style values that can (potentially) be omitted. */
 type SkipValue = string | number | boolean | JSFColor | null;
@@ -39,25 +39,26 @@ const addStyle = (obj: Style, key: string, val: any, skip: SkipValue = null): nu
   return 1;
 };
 
-function convertStyle (styleDefs: StyleDefs, styleIndex: number): Style {
-  const style = styleDefs.cellXf[styleIndex];
+type Xf = StyleDefs['cellXf'][number];
+
+function convertXf (xf: Xf, styleDefs: StyleDefs): Style {
   const s: Style = {};
 
-  if (style.numFmtId) {
-    const numFmt = styleDefs.numFmts[style.numFmtId];
+  if (xf.numFmtId) {
+    const numFmt = styleDefs.numFmts[xf.numFmtId];
     if (typeof numFmt === 'string' && numFmt.toLowerCase() !== 'general') {
       s.numberFormat = numFmt;
     }
   }
 
-  addStyle(s, 'horizontalAlignment', style.hAlign);
-  addStyle(s, 'verticalAlignment', style.vAlign, 'bottom');
-  addStyle(s, 'wrapText', !!style.wrapText, false);
-  addStyle(s, 'shrinkToFit', !!style.shrinkToFit, false);
-  addStyle(s, 'textRotation', style.textRotation, 0);
+  addStyle(s, 'horizontalAlignment', xf.hAlign);
+  addStyle(s, 'verticalAlignment', xf.vAlign, 'bottom');
+  addStyle(s, 'wrapText', !!xf.wrapText, false);
+  addStyle(s, 'shrinkToFit', !!xf.shrinkToFit, false);
+  addStyle(s, 'textRotation', xf.textRotation, 0);
 
-  if (style.font) {
-    const font = style.font;
+  if (xf.font) {
+    const font = xf.font;
     if (font.scheme) {
       s.fontScheme = font.scheme;
     }
@@ -71,22 +72,22 @@ function convertStyle (styleDefs: StyleDefs, styleIndex: number): Style {
     addStyle(s, 'italic', font.italic, false);
   }
 
-  if (style.fill) {
-    if (style.fill.type && style.fill.type !== 'none') {
-      if (style.fill.type === 'solid') {
+  if (xf.fill) {
+    if (xf.fill.type && xf.fill.type !== 'none') {
+      if (xf.fill.type === 'solid') {
         // if it's a solid fill, flip the foreground to the background
-        addStyle(s, 'fillColor', style.fill.fg);
+        addStyle(s, 'fillColor', xf.fill.fg);
       }
       else {
-        addStyle(s, 'fillColor', style.fill.bg);
-        addStyle(s, 'patternColor', style.fill.fg);
-        addStyle(s, 'patternStyle', style.fill.type, 'none');
+        addStyle(s, 'fillColor', xf.fill.bg);
+        addStyle(s, 'patternColor', xf.fill.fg);
+        addStyle(s, 'patternStyle', xf.fill.type, 'none');
       }
     }
   }
 
-  if (style.border) {
-    const { top, bottom, left, right } = style.border;
+  if (xf.border) {
+    const { top, bottom, left, right } = xf.border;
     addStyle(s, 'borderTopStyle', top?.style);
     addStyle(s, 'borderTopColor', top?.color, { type: 'indexed', value: 64 });
     addStyle(s, 'borderBottomStyle', bottom?.style);
@@ -100,10 +101,45 @@ function convertStyle (styleDefs: StyleDefs, styleIndex: number): Style {
   return s;
 }
 
-export function convertStyles (styleDefs: StyleDefs): Style[] {
-  const styles = [];
-  for (let i = 0; i < styleDefs.cellXf.length; i++) {
-    styles[i] = convertStyle(styleDefs, i);
+type NamedStyleResult = { namedStyles: Record<string, NamedStyle>, xfIdToName: Map<number, string> };
+
+function convertNamedStyles (styleDefs: StyleDefs): NamedStyleResult {
+  const namedStyles: Record<string, NamedStyle> = {};
+  const xfIdToName = new Map<number, string>();
+
+  for (const entry of styleDefs.cellStyles) {
+    const baseStyle = convertXf(styleDefs.cellStyleXfs[entry.xfId], styleDefs);
+
+    const cellStyle: NamedStyle = {
+      name: entry.name,
+      ...baseStyle,
+    };
+    if (entry.builtinId != null) {
+      cellStyle.builtinId = entry.builtinId;
+    }
+
+    namedStyles[entry.name] = cellStyle;
+    xfIdToName.set(entry.xfId, entry.name);
   }
-  return styles;
+
+  return { namedStyles, xfIdToName };
+}
+
+export function convertStyles (styleDefs: StyleDefs): { styles: Style[], namedStyles: Record<string, NamedStyle> } {
+  const { namedStyles, xfIdToName } = convertNamedStyles(styleDefs);
+
+  const styles: Style[] = [];
+  for (let i = 0; i < styleDefs.cellXf.length; i++) {
+    const s = convertXf(styleDefs.cellXf[i], styleDefs);
+    const xf = styleDefs.cellXf[i];
+    if (xf.xfId != null) {
+      const name = xfIdToName.get(+xf.xfId);
+      if (name != null && name !== 'Normal') {
+        s.extendsStyle = name;
+      }
+    }
+    styles[i] = s;
+  }
+
+  return { styles, namedStyles };
 }

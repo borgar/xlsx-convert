@@ -31,12 +31,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 88900,
-              "col": 3,
-              "colOff": 190500
-            },
+            "from": { "row": 0, "rowOff": 88900, "col": 3, "colOff": 190500 },
             "to": {
               "row": 13,
               "rowOff": 190500,
@@ -59,12 +54,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 88900,
-              "col": 9,
-              "colOff": 190500
-            },
+            "from": { "row": 0, "rowOff": 88900, "col": 9, "colOff": 190500 },
             "to": {
               "row": 13,
               "rowOff": 190500,
@@ -87,12 +77,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 88900,
-              "col": 15,
-              "colOff": 190500
-            },
+            "from": { "row": 0, "rowOff": 88900, "col": 15, "colOff": 190500 },
             "to": {
               "row": 13,
               "rowOff": 190500,
@@ -115,12 +100,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 14,
-              "rowOff": 88900,
-              "col": 3,
-              "colOff": 190500
-            },
+            "from": { "row": 14, "rowOff": 88900, "col": 3, "colOff": 190500 },
             "to": {
               "row": 27,
               "rowOff": 190500,
@@ -143,12 +123,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 14,
-              "rowOff": 88900,
-              "col": 9,
-              "colOff": 190500
-            },
+            "from": { "row": 14, "rowOff": 88900, "col": 9, "colOff": 190500 },
             "to": {
               "row": 27,
               "rowOff": 190500,
@@ -206,13 +181,9 @@
     "iterateDelta": 0.001,
     "epoch": 1900
   },
-  "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
-  ],
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -240,6 +211,14 @@
       }
     }
   },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
   "charts": {
     "xl/charts/chart1.xml": {
       "chart": {
@@ -249,10 +228,7 @@
             {
               "type": "lineChart",
               "grouping": "standard",
-              "axId": [
-                "1282550863",
-                "1282538511"
-              ],
+              "axId": [ "1282550863", "1282538511" ],
               "ser": [
                 {
                   "idx": 0,
@@ -372,10 +348,7 @@
             {
               "type": "lineChart",
               "grouping": "stacked",
-              "axId": [
-                "2064130383",
-                "560735616"
-              ],
+              "axId": [ "2064130383", "560735616" ],
               "ser": [
                 {
                   "idx": 0,
@@ -495,10 +468,7 @@
             {
               "type": "lineChart",
               "grouping": "percentStacked",
-              "axId": [
-                "850362559",
-                "1327659408"
-              ],
+              "axId": [ "850362559", "1327659408" ],
               "ser": [
                 {
                   "idx": 0,
@@ -619,10 +589,7 @@
             {
               "type": "lineChart",
               "grouping": "standard",
-              "axId": [
-                "628665760",
-                "2088247647"
-              ],
+              "axId": [ "628665760", "2088247647" ],
               "ser": [
                 {
                   "idx": 0,
@@ -725,10 +692,7 @@
             {
               "type": "lineChart",
               "grouping": "stacked",
-              "axId": [
-                "628665760",
-                "2088247647"
-              ],
+              "axId": [ "628665760", "2088247647" ],
               "ser": [
                 {
                   "idx": 0,
@@ -831,10 +795,7 @@
             {
               "type": "lineChart",
               "grouping": "percentStacked",
-              "axId": [
-                "628665760",
-                "2088247647"
-              ],
+              "axId": [ "628665760", "2088247647" ],
               "ser": [
                 {
                   "idx": 0,
@@ -931,7 +892,5 @@
       }
     }
   },
-  "formulas": [
-    "RANDBETWEEN(1,100)"
-  ]
+  "formulas": [ "RANDBETWEEN(1,100)" ]
 }

@@ -9,9 +9,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "I18" }
-      ],
+      "views": [ { "workbookView": 0, "activeCell": "I18" } ],
       "drawings": [
         {
           "anchor": {
@@ -118,9 +116,7 @@
                   "bg": {
                     "type": "theme",
                     "value": "accent1",
-                    "transforms": [
-                      { "type": "lumMod", "value": 75 }
-                    ]
+                    "transforms": [ { "type": "lumMod", "value": 75 } ]
                   }
                 }
               }
@@ -171,9 +167,7 @@
                       "color": {
                         "type": "theme",
                         "value": "accent2",
-                        "transforms": [
-                          { "type": "lumMod", "value": 50 }
-                        ]
+                        "transforms": [ { "type": "lumMod", "value": 50 } ]
                       }
                     }
                   ],
@@ -334,9 +328,7 @@
     }
   ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -362,6 +354,14 @@
       "minor": {
         "latin": { "typeface": "Aptos Narrow" }
       }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
     }
   },
   "images": {

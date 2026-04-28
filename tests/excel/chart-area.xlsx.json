@@ -31,21 +31,14 @@
         {
           "workbookView": 0,
           "activeCell": "A10",
-          "activeRanges": [
-            "A1:XFD10"
-          ]
+          "activeRanges": [ "A1:XFD10" ]
         }
       ],
       "drawings": [
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 76200,
-              "col": 3,
-              "colOff": 203200
-            },
+            "from": { "row": 0, "rowOff": 76200, "col": 3, "colOff": 203200 },
             "to": {
               "row": 13,
               "rowOff": 177800,
@@ -68,12 +61,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 76200,
-              "col": 9,
-              "colOff": 203200
-            },
+            "from": { "row": 0, "rowOff": 76200, "col": 9, "colOff": 203200 },
             "to": {
               "row": 13,
               "rowOff": 177800,
@@ -96,12 +84,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 76200,
-              "col": 15,
-              "colOff": 203200
-            },
+            "from": { "row": 0, "rowOff": 76200, "col": 15, "colOff": 203200 },
             "to": {
               "row": 13,
               "rowOff": 177800,
@@ -131,13 +114,9 @@
     "iterateDelta": 0.001,
     "epoch": 1900
   },
-  "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
-  ],
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -165,6 +144,14 @@
       }
     }
   },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
   "charts": {
     "xl/charts/chart1.xml": {
       "chart": {
@@ -174,10 +161,7 @@
             {
               "type": "areaChart",
               "grouping": "standard",
-              "axId": [
-                "1282550863",
-                "1282538511"
-              ],
+              "axId": [ "1282550863", "1282538511" ],
               "ser": [
                 {
                   "idx": 0,
@@ -287,10 +271,7 @@
             {
               "type": "areaChart",
               "grouping": "stacked",
-              "axId": [
-                "1282550863",
-                "1282538511"
-              ],
+              "axId": [ "1282550863", "1282538511" ],
               "ser": [
                 {
                   "idx": 0,
@@ -400,10 +381,7 @@
             {
               "type": "areaChart",
               "grouping": "percentStacked",
-              "axId": [
-                "1282550863",
-                "1282538511"
-              ],
+              "axId": [ "1282550863", "1282538511" ],
               "ser": [
                 {
                   "idx": 0,
@@ -507,7 +485,5 @@
       }
     }
   },
-  "formulas": [
-    "RANDBETWEEN(1,100)"
-  ]
+  "formulas": [ "RANDBETWEEN(1,100)" ]
 }

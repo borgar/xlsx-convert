@@ -4,21 +4,44 @@
     {
       "name": "Sheet1",
       "cells": {
-        "D3": { "s": 3 },
-        "B6": { "s": 4 },
-        "D6": { "s": 5, "v": "xxxx" }
+        "D3": {
+          "s": 3
+        },
+        "B6": {
+          "s": 4
+        },
+        "D6": {
+          "s": 5,
+          "v": "xxxx"
+        }
       },
       "columns": [
-        { "start": 4, "end": 4, "size": 65, "s": 1 }
+        {
+          "start": 4,
+          "end": 4,
+          "size": 65,
+          "s": 1
+        }
       ],
       "rows": [
-        { "start": 6, "end": 6, "size": 16, "s": 2 }
+        {
+          "start": 6,
+          "end": 6,
+          "size": 16,
+          "s": 2
+        }
       ],
       "merges": [],
-      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "defaults": {
+        "colWidth": 65,
+        "rowHeight": 16
+      },
       "hidden": 0,
       "views": [
-        { "workbookView": 0, "activeCell": "D6" }
+        {
+          "workbookView": 0,
+          "activeCell": "D6"
+        }
       ]
     }
   ],
@@ -30,11 +53,17 @@
     "epoch": 1900
   },
   "styles": [
-    { "fontScheme": "minor", "fontSize": 12 },
+    {
+      "fontScheme": "minor",
+      "fontSize": 12
+    },
     {
       "fontScheme": "minor",
       "fontSize": 12,
-      "fillColor": { "type": "srgb", "value": "FFFF00" }
+      "fillColor": {
+        "type": "srgb",
+        "value": "FFFF00"
+      }
     },
     {
       "fontScheme": "minor",
@@ -43,7 +72,10 @@
         "type": "theme",
         "value": "accent3",
         "transforms": [
-          { "type": "tint", "value": 40.00061037018951 }
+          {
+            "type": "tint",
+            "value": 40.00061037018951
+          }
         ]
       }
     },
@@ -54,7 +86,10 @@
         "type": "theme",
         "value": "accent2",
         "transforms": [
-          { "type": "tint", "value": 40.00061037018951 }
+          {
+            "type": "tint",
+            "value": 40.00061037018951
+          }
         ]
       }
     },
@@ -65,19 +100,28 @@
         "type": "theme",
         "value": "accent3",
         "transforms": [
-          { "type": "tint", "value": 60.00244148075809 }
+          {
+            "type": "tint",
+            "value": 60.00244148075809
+          }
         ]
       }
     },
     {
       "fontScheme": "minor",
       "fontSize": 12,
-      "color": { "type": "srgb", "value": "FF0000" },
+      "color": {
+        "type": "srgb",
+        "value": "FF0000"
+      },
       "fillColor": {
         "type": "theme",
         "value": "accent3",
         "transforms": [
-          { "type": "tint", "value": 40.00061037018951 }
+          {
+            "type": "tint",
+            "value": 40.00061037018951
+          }
         ]
       }
     }
@@ -90,27 +134,75 @@
     "name": "Office Theme",
     "colorScheme": {
       "name": "Office",
-      "lt1": { "type": "system", "value": "window" },
-      "dk1": { "type": "system", "value": "windowText" },
-      "lt2": { "type": "srgb", "value": "E8E8E8" },
-      "dk2": { "type": "srgb", "value": "0E2841" },
-      "accent1": { "type": "srgb", "value": "156082" },
-      "accent2": { "type": "srgb", "value": "E97132" },
-      "accent3": { "type": "srgb", "value": "196B24" },
-      "accent4": { "type": "srgb", "value": "0F9ED5" },
-      "accent5": { "type": "srgb", "value": "A02B93" },
-      "accent6": { "type": "srgb", "value": "4EA72E" },
-      "hlink": { "type": "srgb", "value": "467886" },
-      "folHlink": { "type": "srgb", "value": "96607D" }
+      "lt1": {
+        "type": "system",
+        "value": "window"
+      },
+      "dk1": {
+        "type": "system",
+        "value": "windowText"
+      },
+      "lt2": {
+        "type": "srgb",
+        "value": "E8E8E8"
+      },
+      "dk2": {
+        "type": "srgb",
+        "value": "0E2841"
+      },
+      "accent1": {
+        "type": "srgb",
+        "value": "156082"
+      },
+      "accent2": {
+        "type": "srgb",
+        "value": "E97132"
+      },
+      "accent3": {
+        "type": "srgb",
+        "value": "196B24"
+      },
+      "accent4": {
+        "type": "srgb",
+        "value": "0F9ED5"
+      },
+      "accent5": {
+        "type": "srgb",
+        "value": "A02B93"
+      },
+      "accent6": {
+        "type": "srgb",
+        "value": "4EA72E"
+      },
+      "hlink": {
+        "type": "srgb",
+        "value": "467886"
+      },
+      "folHlink": {
+        "type": "srgb",
+        "value": "96607D"
+      }
     },
     "fontScheme": {
       "name": "Office",
       "major": {
-        "latin": { "typeface": "Aptos Display" }
+        "latin": {
+          "typeface": "Aptos Display"
+        }
       },
       "minor": {
-        "latin": { "typeface": "Aptos Narrow" }
+        "latin": {
+          "typeface": "Aptos Narrow"
+        }
       }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
     }
   },
   "formulas": []

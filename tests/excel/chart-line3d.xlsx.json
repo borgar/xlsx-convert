@@ -31,18 +31,8 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 0,
-              "rowOff": 114300,
-              "col": 3,
-              "colOff": 203200
-            },
-            "to": {
-              "row": 14,
-              "rowOff": 12700,
-              "col": 8,
-              "colOff": 647700
-            }
+            "from": { "row": 0, "rowOff": 114300, "col": 3, "colOff": 203200 },
+            "to": { "row": 14, "rowOff": 12700, "col": 8, "colOff": 647700 }
           },
           "content": [
             {
@@ -66,13 +56,9 @@
     "iterateDelta": 0.001,
     "epoch": 1900
   },
-  "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
-  ],
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -100,6 +86,14 @@
       }
     }
   },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
   "charts": {
     "xl/charts/chart1.xml": {
       "chart": {
@@ -109,11 +103,7 @@
             {
               "type": "line3DChart",
               "grouping": "standard",
-              "axId": [
-                "1282550863",
-                "1282538511",
-                "490199183"
-              ],
+              "axId": [ "1282550863", "1282538511", "490199183" ],
               "ser": [
                 {
                   "idx": 0,
@@ -226,7 +216,5 @@
       }
     }
   },
-  "formulas": [
-    "RANDBETWEEN(1,100)"
-  ]
+  "formulas": [ "RANDBETWEEN(1,100)" ]
 }
