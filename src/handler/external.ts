@@ -4,6 +4,8 @@ import { handlerCell } from './cell.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { ConversionContext } from '../ConversionContext.ts';
 import type { External, ExternalDefinedName } from '@jsfkit/types';
+import { fromA1 } from '../utils/fromA1.ts';
+import { toA1 } from '../utils/toA1.ts';
 
 const NO_EXTERNALS = { externalLinks: [] };
 
@@ -32,16 +34,26 @@ export function handlerExternal (dom: Document, fileName: string = ''): External
         external.sheets[sheetIndex].refreshError = true;
       }
       const externalCells = external.sheets[sheetIndex].cells;
+      let lastR = 0;
       for (const row of sheetData.childNodes) {
         if (row instanceof Element && row.tagName === 'row') {
+          let lastId = '';
+          const r = numAttr(row, 'r', lastR + 1);
           for (const cell of row.childNodes) {
             if (cell instanceof Element && cell.tagName === 'cell') {
-              const c = handlerCell(cell, dummyContext);
-              if (c) {
-                externalCells[attr(cell, 'r')] = c;
+              let id = attr(cell, 'r');
+              if (!id) {
+                const cellPos = fromA1(lastId ?? 'A' + r)!;
+                id = toA1((cellPos.left || 0) + 1, cellPos.top || 0);
               }
+              const c = handlerCell(cell, id, dummyContext);
+              if (c && id) {
+                externalCells[id] = c;
+              }
+              lastId = id;
             }
           }
+          lastR = r;
         }
       }
     });

@@ -3,7 +3,7 @@ import { type Token, tokenize, translateTokensToR1C1, translateTokensToA1, strin
 export class RelativeFormula {
   anchorA1: string;
   formula: string;
-  relative: Token[];
+  relative: Token[] | undefined;
 
   constructor (formula: string, anchorCell: string) {
     this.anchorA1 = anchorCell;

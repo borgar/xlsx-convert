@@ -115,7 +115,7 @@ describe('external references ordering', () => {
     // [1] should be first.xlsx (rId2 -> externalLink1.xml)
     // [2] should be second.xlsx (rId3 -> externalLink2.xml)
     expect(workbook.externals).toHaveLength(2);
-    expect(workbook.externals[0].name).toBe('first.xlsx');
-    expect(workbook.externals[1].name).toBe('second.xlsx');
+    expect(workbook.externals![0].name).toBe('first.xlsx');
+    expect(workbook.externals![1].name).toBe('second.xlsx');
   });
 });

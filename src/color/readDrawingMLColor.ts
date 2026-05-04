@@ -1,5 +1,5 @@
 import type { Element } from '@borgar/simple-xml';
-import type { Color as JSFColor, ColorTransform } from '@jsfkit/types';
+import type { Color, ColorTransform } from '@jsfkit/types';
 import { attr, numAttr } from '../utils/attr.ts';
 
 /**
@@ -38,14 +38,14 @@ function readTransforms (elm: Element): ColorTransform[] {
 /**
  * Converts a DrawingML colour element to a JSF Color.
  */
-export function readDrawingMLColor (elm: Element): JSFColor {
+export function readDrawingMLColor (elm: Element): Color | null {
   const tagName = elm?.tagName;
-  let color: JSFColor | null = null;
+  let color: Color | null = null;
 
   if (tagName === 'sysClr') {
     const val = attr(elm, 'val');
     if (val) {
-      color = { type: 'system', value: val } as JSFColor;
+      color = { type: 'system', value: val } as Color;
     }
   }
   else if (tagName === 'srgbClr') {
@@ -72,13 +72,13 @@ export function readDrawingMLColor (elm: Element): JSFColor {
   else if (tagName === 'prstClr') {
     const val = attr(elm, 'val');
     if (val) {
-      color = { type: 'preset', value: val } as JSFColor;
+      color = { type: 'preset', value: val } as Color;
     }
   }
   else if (tagName === 'schemeClr') {
     const val = attr(elm, 'val');
     if (val) {
-      color = { type: 'theme', value: val } as JSFColor;
+      color = { type: 'theme', value: val } as Color;
     }
   }
 

@@ -269,8 +269,8 @@ describe('CSVParser', () => {
       parser.parse(csv, ','); // Force comma delimiter
 
       // Should treat semicolons as part of the text since comma is forced
-      expect(parser.table.A1).toEqual({ v: 'a;b;c' });
-      expect(parser.table.A2).toEqual({ v: '1;2;3' });
+      expect(parser.table!.A1).toEqual({ v: 'a;b;c' });
+      expect(parser.table!.A2).toEqual({ v: '1;2;3' });
     });
 
     it('should handle complex quoted content', () => {
@@ -329,7 +329,7 @@ describe('CSVParser', () => {
       const csv = 'text,number,bool\nhello,123,TRUE\nworld,456,FALSE\ntest,789,TRUE';
       parser.parse(csv, ',');
 
-      expect(parser.columns[0]).toEqual({
+      expect(parser.columns![0]).toEqual({
         t: 4, // 'text' + 3 string values
         n: 0,
         b: 0,
@@ -337,7 +337,7 @@ describe('CSVParser', () => {
         total: 4,
       });
 
-      expect(parser.columns[1]).toEqual({
+      expect(parser.columns![1]).toEqual({
         t: 1, // 'number'
         n: 3, // 123, 456, 789
         b: 0,
@@ -345,7 +345,7 @@ describe('CSVParser', () => {
         total: 4,
       });
 
-      expect(parser.columns[2]).toEqual({
+      expect(parser.columns![2]).toEqual({
         t: 1, // 'bool'
         n: 0,
         b: 3, // TRUE, FALSE, TRUE
@@ -364,7 +364,7 @@ describe('CSVParser', () => {
       parser.column = 0;
       parser.countType('t');
 
-      expect(parser.columns[0]).toEqual({
+      expect(parser.columns![0]).toEqual({
         t: 1,
         n: 0,
         b: 0,
@@ -379,7 +379,7 @@ describe('CSVParser', () => {
       parser.countType('t');
       parser.countType('n');
 
-      expect(parser.columns[0]).toEqual({
+      expect(parser.columns![0]).toEqual({
         t: 2,
         n: 1,
         b: 0,
@@ -395,15 +395,15 @@ describe('CSVParser', () => {
       parser.column = 2;
       parser.countType('n');
 
-      expect(parser.columns[0]).toEqual({
+      expect(parser.columns![0]).toEqual({
         t: 1,
         n: 0,
         b: 0,
         d: 0,
         total: 1,
       });
-      expect(parser.columns[1]).toBeUndefined();
-      expect(parser.columns[2]).toEqual({
+      expect(parser.columns![1]).toBeUndefined();
+      expect(parser.columns![2]).toEqual({
         t: 0,
         n: 1,
         b: 0,
@@ -427,9 +427,9 @@ describe('CSVParser', () => {
     it('should parse string values when knownString is true', () => {
       parser.parseValue('hello world', true);
 
-      expect(parser.table.A1).toEqual({ v: 'hello world' });
-      expect(parser.columns[0].t).toBe(1);
-      expect(parser.columns[0].total).toBe(1);
+      expect(parser.table!.A1).toEqual({ v: 'hello world' });
+      expect(parser.columns![0].t).toBe(1);
+      expect(parser.columns![0].total).toBe(1);
       expect(parser.width).toBe(1);
       expect(parser.height).toBe(1);
     });
@@ -440,7 +440,7 @@ describe('CSVParser', () => {
       parser.parseValue('#N/A', true);
       parser.parseValue('NaN', true);
 
-      expect(parser.columns[0]?.total || 0).toBe(4);
+      expect(parser.columns![0]?.total || 0).toBe(4);
     });
 
     it('should parse numeric values', () => {
@@ -450,12 +450,12 @@ describe('CSVParser', () => {
       parser.column = 2;
       parser.parseValue('-42.5');
 
-      expect(parser.table.A1).toEqual({ v: 123 });
-      expect(parser.table.B1).toEqual({ v: 3.14 });
-      expect(parser.table.C1).toEqual({ v: -42.5 });
-      expect(parser.columns[0].n).toBe(1);
-      expect(parser.columns[1].n).toBe(1);
-      expect(parser.columns[2].n).toBe(1);
+      expect(parser.table!.A1).toEqual({ v: 123 });
+      expect(parser.table!.B1).toEqual({ v: 3.14 });
+      expect(parser.table!.C1).toEqual({ v: -42.5 });
+      expect(parser.columns![0].n).toBe(1);
+      expect(parser.columns![1].n).toBe(1);
+      expect(parser.columns![2].n).toBe(1);
     });
 
     it('should parse boolean values', () => {
@@ -463,34 +463,34 @@ describe('CSVParser', () => {
       parser.column = 1;
       parser.parseValue('FALSE');
 
-      expect(parser.table.A1).toEqual({ v: true });
-      expect(parser.table.B1).toEqual({ v: false });
-      expect(parser.columns[0].b).toBe(1);
-      expect(parser.columns[1].b).toBe(1);
+      expect(parser.table!.A1).toEqual({ v: true });
+      expect(parser.table!.B1).toEqual({ v: false });
+      expect(parser.columns![0].b).toBe(1);
+      expect(parser.columns![1].b).toBe(1);
     });
 
     it('should parse date values', () => {
       parser.parseValue('2023-12-25');
 
-      expect(parser.table.A1.v).toBe(45285); // Serial date number
-      expect(parser.table.A1.t).toBe('d');
-      expect(parser.columns[0].d).toBe(1);
-      expect(parser.formats[parser.table.A1.s]).toBe('yyyy-mm-dd');
+      expect(parser.table!.A1.v).toBe(45285); // Serial date number
+      expect(parser.table!.A1.t).toBe('d');
+      expect(parser.columns![0].d).toBe(1);
+      expect(parser.formats[parser.table!.A1.s!]).toBe('yyyy-mm-dd');
     });
 
     it('should parse time values', () => {
       parser.parseValue('14:30:00');
 
-      expect(parser.table.A1.v).toBe(0.6041666666666666); // Fractional day
-      expect(parser.table.A1.t).toBe('d');
-      expect(parser.table.A1.s).toBe(1); // Format index
-      expect(parser.formats[parser.table.A1.s]).toBe('hh:mm:ss');
+      expect(parser.table!.A1.v).toBe(0.6041666666666666); // Fractional day
+      expect(parser.table!.A1.t).toBe('d');
+      expect(parser.table!.A1.s).toBe(1); // Format index
+      expect(parser.formats[parser.table!.A1.s!]).toBe('hh:mm:ss');
     });
 
     it('should handle empty values', () => {
       parser.parseValue('');
 
-      expect(parser.table.A1).toBeUndefined();
+      expect(parser.table!.A1).toBeUndefined();
       expect(parser.width).toBe(0);
       expect(parser.height).toBe(0);
     });
@@ -498,8 +498,8 @@ describe('CSVParser', () => {
     it('should parse text values as fallback', () => {
       parser.parseValue('some text');
 
-      expect(parser.table.A1).toEqual({ v: 'some text' });
-      expect(parser.columns[0].t).toBe(1);
+      expect(parser.table!.A1).toEqual({ v: 'some text' });
+      expect(parser.columns![0].t).toBe(1);
     });
 
     it('should update table dimensions', () => {
@@ -519,7 +519,7 @@ describe('CSVParser', () => {
         parser.parseValue(value);
       });
 
-      const totalCounted = parser.columns.reduce((sum, col) => sum + (col?.total || 0), 0);
+      const totalCounted = parser.columns!.reduce((sum, col) => sum + (col?.total || 0), 0);
       expect(totalCounted).toBe(0);
     });
   });

@@ -6,8 +6,8 @@ import type { Table, TableColumn, TableStyle, TableStyleName } from '@jsfkit/typ
 
 const reTableStyleName = /^TableStyle(Dark(\d|10|11)|Light(1?\d|20|21)|Medium(1?\d|2[0-8]))$/;
 
-export function handlerTable (dom: Document, context: ConversionContext): Table | void {
-  const tableElm = dom.getElementsByTagName('table')[0];
+export function handlerTable (dom: Document | null | undefined, context: ConversionContext): Table | void {
+  const tableElm = dom?.getElementsByTagName('table')[0];
   if (!tableElm) { return; }
 
   const table: Table = {

@@ -1,7 +1,7 @@
 import type { Element } from '@borgar/simple-xml';
 import { dmlPercentAttr } from '../../utils/attr.ts';
 
-export function readRelRect (elm: Element) {
+export function readRelRect (elm?: Element | null) {
   if (elm) {
     const l = dmlPercentAttr(elm, 'l');
     const t = dmlPercentAttr(elm, 't');
