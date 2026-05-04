@@ -95,15 +95,17 @@ const tests = [
  * are happening.
  */
 function verifyCellFormulas (wbRC: Workbook, wbA1: Workbook) {
-  for (const [ sheetIndex, sheet ] of Object.entries(wbRC.sheets)) {
+  for (let sheetIndex = 0; sheetIndex < wbRC.sheets.length; sheetIndex++) {
+    const sheet = wbRC.sheets[sheetIndex];
     const a1Cells = wbA1.sheets[sheetIndex].cells;
     for (const [ cellId, cell ] of Object.entries(sheet.cells)) {
       if (cell.f != null) {
-        const expr = translateFormulaToA1(wbRC.formulas[cell.f], cellId, { mergeRefs: false });
+        const fxRc = wbRC.formulas![cell.f as number];
+        const expr = translateFormulaToA1(fxRc, cellId, { mergeRefs: false });
         if (expr !== a1Cells[cellId].f) {
           return [
             `  Formula mismatch in ${sheet.name}→${cellId}:`,
-            `    Original: ${wbRC.formulas[cell.f]}`,
+            `    Original: ${fxRc}`,
             `    Expected: ${a1Cells[cellId].f}`,
             `    Result:   ${String(expr)}`,
           ].join('\n');
@@ -115,7 +117,7 @@ function verifyCellFormulas (wbRC: Workbook, wbA1: Workbook) {
 }
 
 async function testFile (xlsxFilename: string, testFilename: string): Promise<string> {
-  let wb: Workbook;
+  let wb: Workbook = { name: '', sheets: [] };
   if (xlsxFilename.endsWith('.xlsx')) {
     const src = await readFile(xlsxFilename);
     wb = await convertBinary(src, xlsxFilename);
@@ -137,7 +139,7 @@ async function testFile (xlsxFilename: string, testFilename: string): Promise<st
     expectJson = JSON.parse(await readFile(testFilename, 'utf8'));
   }
   catch (err) {
-    if (err.code !== 'ENOENT') {
+    if (typeof err === 'object' && err && 'code' in err && err.code !== 'ENOENT') {
       throw err;
     }
   }
@@ -148,7 +150,7 @@ async function testFile (xlsxFilename: string, testFilename: string): Promise<st
   }
   catch (err) {
     // re-indent
-    diff = String(err.message)
+    diff = String((err && (err as any).message) || 'Unknown error')
       .replace(/\.\.\./g, '…') // "..." has significance in TAP
       .split('\n')
       .map(d => '  ' + d)
@@ -167,13 +169,21 @@ async function testFile (xlsxFilename: string, testFilename: string): Promise<st
   return diff;
 }
 
-function log (message = '') {
+function log (message: unknown = '') {
   // eslint-disable-next-line
   console.log(message);
 }
 
+type TestResult = {
+  ok: boolean,
+  error: unknown,
+  diff: string,
+  test: string,
+  index: number,
+};
+
 async function runTests (filterText: string = '') {
-  const results = [];
+  const results: TestResult[] = [];
 
   const testsToRun = tests.filter(fn => {
     return fn.toLowerCase().includes(filterText.toLowerCase());

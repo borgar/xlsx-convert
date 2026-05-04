@@ -58,9 +58,9 @@ export class ConversionContext {
   externalLinks: External[];
   filename: string;
   _formulasR1C1: FormulaList;
-  _shared: Map<number, RelativeFormula>;
-  _merged: Record<string, string>;
-  _arrayFormula: string[];
+  _shared?: Map<number, RelativeFormula>;
+  _merged?: Record<string, string>;
+  _arrayFormula?: string[];
   images: RefLink[];
   isLikelyGSExport: boolean;
 
@@ -75,15 +75,14 @@ export class ConversionContext {
     this.theme = getBlankTheme();
     this.indexedColors = [ ...INDEXED_COLORS ];
     this.richStruct = [];
-    this.richValues = null;
-    this.metadata = null;
+    this.richValues = [];
+    this.drawingRels = [];
+    this.sst = [];
+    this.metadata = { cells: [], values: [] };
     this.sheetLinks = [];
     this.externalLinks = [];
     this.filename = '';
     this._formulasR1C1 = new FormulaList();
-    this._shared = new Map();
-    this._merged = {};
-    this._arrayFormula = [];
     this.images = [];
     this.isLikelyGSExport = false;
   }

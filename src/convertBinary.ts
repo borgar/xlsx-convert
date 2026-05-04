@@ -1,9 +1,9 @@
 import { Document, parseXML } from '@borgar/simple-xml';
+import { ZipArchive } from '@borgar/zip';
 import { attr } from './utils/attr.ts';
 import { pathBasename, pathDirname, pathJoin } from './utils/path.ts';
 import { convertStyles } from './utils/convertStyles.ts';
-import { loadZip, type FileContainer } from './utils/zip.ts';
-import { CFBF, getBinaryFileType, ZIP } from './utils/getBinaryFileType.ts';
+import { FT_CFBF, FT_ZIP, getBinaryFileType } from './utils/getBinaryFileType.ts';
 import { ConversionContext } from './ConversionContext.ts';
 import { handlerRels, type Rel } from './handler/rels.ts';
 import { handlerWorkbook } from './handler/workbook.ts';
@@ -69,16 +69,16 @@ export async function convertBinary (
   options = Object.assign({}, DEFAULT_OPTIONS, options);
 
   const fileType = getBinaryFileType(buffer);
-  if (fileType === CFBF) {
+  if (fileType === FT_CFBF) {
     throw new EncryptionError('Input file is encrypted');
   }
-  else if (fileType !== ZIP) {
+  else if (fileType !== FT_ZIP) {
     throw new InvalidFileError('Input file type is unsupported');
   }
 
-  let zip: FileContainer;
+  let zip: ZipArchive;
   try {
-    zip = loadZip(buffer);
+    zip = new ZipArchive(buffer);
   }
   catch (err) {
     throw new InvalidFileError('Input file type is corrupted or unsupported');
@@ -86,9 +86,9 @@ export async function convertBinary (
 
   const getFile = async (f: string) => {
     try {
-      let fd = await zip.readFile(f, 'utf8');
+      let fd = await zip.readText(f);
       if (!fd && f.startsWith('xl/xl/')) {
-        fd = await zip.readFile(f.slice(3), 'utf8');
+        fd = await zip.readText(f.slice(3));
       }
       return fd ? parseXML(fd) : null;
     }
@@ -99,9 +99,9 @@ export async function convertBinary (
 
   const getBinaryFile = async (f: string) => {
     try {
-      let fd = await zip.readFile(f, 'binary');
+      let fd = await zip.read(f);
       if (!fd && f.startsWith('xl/xl/')) {
-        fd = await zip.readFile(f.slice(3), 'binary');
+        fd = await zip.read(f.slice(3));
       }
       return fd ?? null;
     }
@@ -140,6 +140,9 @@ export async function convertBinary (
   // manifest
   const baseRels = await getRels();
   const wbRel = baseRels.find(d => d.type === 'officeDocument');
+  if (!wbRel) {
+    throw new InvalidFileError('Input is missing a workbook definition');
+  }
 
   const context = new ConversionContext();
   context.rels = await getRels(wbRel.target);
@@ -149,11 +152,13 @@ export async function convertBinary (
 
   // workbook - read DOM first to get externalReferences order
   const wbDom = await getFile(wbRel.target);
+  if (!wbDom) {
+    throw new InvalidFileError('Input is missing a workbook');
+  }
 
   // external links - use order from <externalReferences> in workbook.xml,
   // not the document order in workbook.xml.rels (which can differ)
-  const extRefRIds = wbDom.getElementsByTagName('externalReference')
-    .map(d => attr(d, 'r:id'));
+  const extRefRIds = wbDom?.getElementsByTagName('externalReference').map(d => attr(d, 'r:id')) ?? [];
   for (const rId of extRefRIds) {
     const rel = context.rels.find(d => d.id === rId);
     if (rel) {
@@ -161,10 +166,13 @@ export async function convertBinary (
       const targetRel = extRels.find(d => d.id === 'rId1');
       const target = targetRel?.target;
       if (target) {
-        const exlink = handlerExternal(await getFile(rel.target), target);
-        context.externalLinks.push(exlink);
-        if (targetRel.type.endsWith('xlPathMissing')) {
-          exlink.pathMissing = true;
+        const exDoc = await getFile(rel.target);
+        if (exDoc) {
+          const exlink = handlerExternal(exDoc, target);
+          context.externalLinks.push(exlink);
+          if (targetRel.type.endsWith('xlPathMissing')) {
+            exlink.pathMissing = true;
+          }
         }
       }
       else {
@@ -261,7 +269,7 @@ export async function convertBinary (
         const table = handlerTable(tableDom, context);
         if (table) {
           table.sheet = sheetName;
-          wb.tables.push(table);
+          wb.tables!.push(table);
         }
       }
 
@@ -318,7 +326,7 @@ export async function convertBinary (
       // process images
       if (context.images.length) {
         let imageCount = 0;
-        const images = {};
+        const images: Record<string, string> = {};
         for (const img of context.images) {
           if (img.type === 'picture') {
             // sheet.background = ...

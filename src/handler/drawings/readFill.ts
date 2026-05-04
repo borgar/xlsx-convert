@@ -1,5 +1,5 @@
 import type { Element } from '@borgar/simple-xml';
-import type { NoFill, PatternFill, FillPatternStyle, SolidFill, GroupFill } from '@jsfkit/types';
+import type { NoFill, PatternFill, FillPatternStyle, SolidFill, GroupFill, Fill } from '@jsfkit/types';
 import { attr } from '../../utils/attr.ts';
 import { getFirstChild } from '../../utils/getFirstChild.ts';
 import { readColor } from '../../color/readColor.ts';
@@ -7,8 +7,9 @@ import { readFillGradient } from './readFillGradient.ts';
 import { readFillBlip } from './readFillBlip.ts';
 import type { ConversionContext } from '../../ConversionContext.ts';
 
-export function readFill (elm: Element | null | undefined, context: ConversionContext) {
-  const tagName = elm?.tagName;
+export function readFill (elm: Element | null | undefined, context: ConversionContext): Fill | undefined {
+  if (!elm) { return; }
+  const tagName = elm.tagName;
 
   // Picture Fill – §5.1.10.14
   if (tagName === 'blipFill') {
@@ -39,10 +40,10 @@ export function readFill (elm: Element | null | undefined, context: ConversionCo
     } as PatternFill;
     for (const ch of elm.children) {
       if (ch.tagName === 'fgClr') {
-        fill.fg = readColor(getFirstChild(ch), context.theme, context.indexedColors).getJSF();
+        fill.fg = readColor(getFirstChild(ch), context.theme);
       }
       if (ch.tagName === 'bgClr') {
-        fill.bg = readColor(getFirstChild(ch), context.theme, context.indexedColors).getJSF();
+        fill.bg = readColor(getFirstChild(ch), context.theme);
       }
     }
     return fill;
@@ -50,9 +51,12 @@ export function readFill (elm: Element | null | undefined, context: ConversionCo
 
   // Solid Fill – §5.1.10.54
   else if (tagName === 'solidFill') {
-    return {
-      type: 'solid',
-      bg: readColor(elm.children[0], context.theme, context.indexedColors).getJSF(),
-    } as SolidFill;
+    const child = elm.children[0];
+    if (child) {
+      return {
+        type: 'solid',
+        bg: readColor(child, context.theme),
+      } as SolidFill;
+    }
   }
 }

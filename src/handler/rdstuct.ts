@@ -12,7 +12,7 @@ export type RDStruct = {
 };
 
 export function handlerRDStruct (dom: Document): RDStruct[] {
-  const structures = [];
+  const structures: RDStruct[] = [];
 
   dom.querySelectorAll('rvStructures > s')
     .forEach(s => {

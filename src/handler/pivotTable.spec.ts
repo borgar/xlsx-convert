@@ -40,20 +40,20 @@ describe('handlerPivotTable', () => {
   });
 
   it('should parse a basic pivot table', () => {
-    const pt = parse(MINIMAL_PT);
+    const pt = parse(MINIMAL_PT)!;
     expect(pt).toBeDefined();
-    expect(pt!.name).toBe('PivotTable1');
-    expect(pt!.ref).toBe('A3:D20');
-    expect(pt!.location).toEqual({
+    expect(pt.name).toBe('PivotTable1');
+    expect(pt.ref).toBe('A3:D20');
+    expect(pt.location).toEqual({
       firstHeaderRow: 1,
       firstDataRow: 2,
       firstDataCol: 1,
     });
-    expect(pt!.fields).toHaveLength(2);
-    expect(pt!.rowFieldIndices).toEqual([ 0 ]);
-    expect(pt!.colFieldIndices).toEqual([ -2 ]);
-    expect(pt!.dataFields).toHaveLength(1);
-    expect(pt!.dataFields[0]).toEqual({ name: 'Sum of Amount', fieldIndex: 1 });
+    expect(pt.fields).toHaveLength(2);
+    expect(pt.rowFieldIndices).toEqual([ 0 ]);
+    expect(pt.colFieldIndices).toEqual([ -2 ]);
+    expect(pt.dataFields).toHaveLength(1);
+    expect(pt.dataFields![0]).toEqual({ name: 'Sum of Amount', fieldIndex: 1 });
   });
 
   it('should parse field axis values', () => {
@@ -256,7 +256,7 @@ describe('handlerPivotTable', () => {
       </dataFields>
     </pivotTableDefinition>`;
     const pt = parse(xml)!;
-    expect(pt.dataFields[0]).toEqual({
+    expect(pt.dataFields![0]).toEqual({
       name: '% of Total',
       fieldIndex: 0,
       subtotal: 'sum',
