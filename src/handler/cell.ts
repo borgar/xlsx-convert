@@ -141,7 +141,7 @@ export function handlerCell (node: Element, address: string, context: Conversion
         }
         else {
           const serialDate = dateToSerial(new Date(Date.parse(v)));
-          if (serialDate) {
+          if (serialDate != null) {
             cell.v = serialDate + (
               // adjust dates if the workbook uses 1904 data system
               context.workbook?.calculationProperties?.epoch === 1904 ? -1462 : 0

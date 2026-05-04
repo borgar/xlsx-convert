@@ -68,7 +68,7 @@ function readXf (d: Element, styles: StyleDefs) {
   const xf: Xf = {};
 
   const xfId = numAttr(d, 'xfId'); // index into cellStyleXfs
-  if (xfId) { xf.xfId = xfId; }
+  if (xfId != null) { xf.xfId = xfId; }
 
   const numFmtId = attr(d, 'numFmtId');
   if (numFmtId) {
@@ -122,7 +122,7 @@ function readBorder (
   if (b) {
     const color = readColor(b.querySelectorAll('color')[0], theme);
     const style = attr(b, 'style');
-    if (color && style) {
+    if (style) {
       return { style: style, color: color };
     }
   }
@@ -212,7 +212,7 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
   dom.querySelectorAll('cellXfs > xf')
     .forEach(d => {
       const xf = readXf(d, styles);
-      if (xf.xfId) {
+      if (xf.xfId != null) {
         const sxf: Xf = styles.cellStyleXfs[xf.xfId];
         for (const key in sxf) {
           const k = key as keyof Xf;
