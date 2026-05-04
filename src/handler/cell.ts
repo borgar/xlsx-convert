@@ -116,12 +116,12 @@ export function handlerCell (node: Element, address: string, context: Conversion
       // `t="str"` means the formula genuinely evaluated to a string — even
       // one that looks like an error name (e.g. `=A1` where A1 is "#VALUE!").
       if (context.isLikelyGSExport && fNode && v && ERROR_NAMES.includes(v)) {
-        valueType = 'e';
+        // valueType = 'e';
         cell.t = 'e';
         cell.v = v;
       }
       else {
-        valueType = 's';
+        // valueType = 's';
         cell.v = v || '';
       }
     }

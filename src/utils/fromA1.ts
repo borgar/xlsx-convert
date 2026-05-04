@@ -17,7 +17,7 @@ export function fromA1 (source: string): RangeA1 | null {
 
   const len = source.length;
   let pos = 0;
-  let check = 0;
+  let check: number;
 
   // skip dollar
   if (pos < len && source.charCodeAt(pos) === CHAR_DOLLAR) {
