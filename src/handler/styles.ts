@@ -11,7 +11,6 @@ function valOfSubNode (node: Element, subNodeName: string): string | undefined {
   if (subNode) {
     return attr(subNode, 'val') ?? undefined;
   }
-  return undefined;
 }
 
 type BorderSide = 'left' | 'right' | 'top' | 'bottom';

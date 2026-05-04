@@ -6,6 +6,8 @@ import { getFirstChild } from '../utils/getFirstChild.ts';
 import type { ConversionContext } from '../ConversionContext.ts';
 import { addProp } from '../utils/addProp.ts';
 
+const DEFAULT_FONT = 'Aptos Narrow';
+
 export function getBlankTheme (): Theme {
   return {
     name: 'Office',
@@ -27,7 +29,7 @@ export function getBlankTheme (): Theme {
     fontScheme: {
       name: 'Office',
       major: { latin: { typeface: 'Aptos Display' } },
-      minor: { latin: { typeface: 'Aptos Display' } },
+      minor: { latin: { typeface: 'Aptos Narrow' } },
     },
   };
 }
@@ -47,7 +49,7 @@ function extractFontCollection (fontCollection: XMLElement) {
 
   const font: ThemeFontCollection = {
     latin: {
-      typeface: latin ? attr(latin, 'typeface', 'Aptos Display') : 'Aptos Display',
+      typeface: latin ? attr(latin, 'typeface', DEFAULT_FONT) : DEFAULT_FONT,
     },
   };
   if (eastAsian) {
