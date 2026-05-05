@@ -4,65 +4,45 @@
     {
       "name": "Sheet1",
       "cells": {
-        "A1": {
-          "v": "visible sheet"
-        }
+        "A1": { "v": "visible sheet" }
       },
       "columns": [],
       "rows": [],
       "merges": [],
-      "defaults": {
-        "colWidth": 65,
-        "rowHeight": 16
-      },
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0
     },
     {
       "name": "Sheet3",
       "cells": {
-        "A1": {
-          "v": "where did Sheet2 go?"
-        }
+        "A1": { "v": "where did Sheet2 go?" }
       },
       "columns": [],
       "rows": [],
       "merges": [],
-      "defaults": {
-        "colWidth": 65,
-        "rowHeight": 16
-      },
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0
     },
     {
       "name": "Sheet2",
       "cells": {
-        "A1": {
-          "v": "hidden sheet"
-        }
+        "A1": { "v": "hidden sheet" }
       },
       "columns": [],
       "rows": [],
       "merges": [],
-      "defaults": {
-        "colWidth": 65,
-        "rowHeight": 16
-      },
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 1
     },
     {
       "name": "Sheet4",
       "cells": {
-        "A1": {
-          "v": "there is no sheet 4..."
-        }
+        "A1": { "v": "there is no sheet 4..." }
       },
       "columns": [],
       "rows": [],
       "merges": [],
-      "defaults": {
-        "colWidth": 65,
-        "rowHeight": 16
-      },
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 2
     }
   ],
@@ -73,12 +53,7 @@
     "iterateDelta": 0.001,
     "epoch": 1900
   },
-  "styles": [
-    {
-      "fontFamily": "Aptos Narrow",
-      "fontSize": 12
-    }
-  ],
+  "styles": [ { "fontFamily": "Aptos Narrow", "fontSize": 12 } ],
   "tables": [],
   "theme": null,
   "namedStyles": {
@@ -89,5 +64,8 @@
       "builtinId": 0
     }
   },
-  "formulas": []
+  "formulas": [],
+  "meta": {
+    "app": { "name": "GRID", "version": "16.0.300" }
+  }
 }

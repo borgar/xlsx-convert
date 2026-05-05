@@ -10,6 +10,7 @@ import { handlerWorkbook } from './handler/workbook.ts';
 import { handlerSharedStrings } from './handler/sharedstrings.ts';
 import { handlerPersons } from './handler/persons.ts';
 import { handlerTheme } from './handler/theme.ts';
+import { handlerAppdata } from './handler/appdata.ts';
 import { handlerStyles } from './handler/styles.ts';
 import { handlerRDStruct } from './handler/rdstuct.ts';
 import { handlerRDValue } from './handler/rdvalue.ts';
@@ -389,6 +390,12 @@ export async function convertBinary (
 
   if (!options.cellFormulas) {
     wb.formulas = [ ...context._formulasR1C1.list() ];
+  }
+
+  // appdata/meta
+  const appMeta = handlerAppdata(await getFile('docProps/app.xml'), context);
+  if (appMeta) {
+    wb.meta = appMeta;
   }
 
   return wb;

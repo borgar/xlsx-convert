@@ -52,6 +52,13 @@ describe('convertBinary', () => {
         { fontScheme: 'minor', fontSize: 12, numberFormat: '0.00E+00' },
         { extendsStyle: 'Percent', fontScheme: 'minor', fontSize: 12, numberFormat: '0.0%' },
       ],
+      meta: {
+        app: {
+          name: 'Microsoft Excel',
+          variant: 'Macintosh',
+          version: '16.0300',
+        },
+      },
       theme: {
         name: 'Office Theme',
         colorScheme: {
