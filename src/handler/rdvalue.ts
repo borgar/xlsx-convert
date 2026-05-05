@@ -5,7 +5,7 @@ import { ConversionContext } from '../ConversionContext.ts';
 export type RDValue = Record<string, string | number>;
 
 export function handlerRDValue (dom: Document, context: ConversionContext): RDValue[] {
-  const values = [];
+  const values: RDValue[] = [];
   const structures = context.richStruct || [];
 
   dom.querySelectorAll('rvData > rv')

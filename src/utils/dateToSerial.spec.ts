@@ -74,22 +74,22 @@ describe('dateToSerial', () => {
 
   describe('mathematical properties', () => {
     it('should be monotonic - later dates have higher serial numbers', () => {
-      const serial1 = dateToSerial(new Date(2000, 0, 1));
-      const serial2 = dateToSerial(new Date(2000, 0, 2));
-      const serial3 = dateToSerial(new Date(2000, 0, 3));
+      const serial1 = dateToSerial(new Date(2000, 0, 1))!;
+      const serial2 = dateToSerial(new Date(2000, 0, 2))!;
+      const serial3 = dateToSerial(new Date(2000, 0, 3))!;
       expect(serial2).toBeGreaterThan(serial1);
       expect(serial3).toBeGreaterThan(serial2);
     });
 
     it('should have consistent day differences', () => {
-      const serial1 = dateToSerial(new Date(2000, 0, 1));
-      const serial2 = dateToSerial(new Date(2000, 0, 2));
+      const serial1 = dateToSerial(new Date(2000, 0, 1))!;
+      const serial2 = dateToSerial(new Date(2000, 0, 2))!;
       expect(serial2 - serial1).toBe(1);
     });
 
     it('should handle time precision correctly', () => {
-      const baseSerial = dateToSerial(new Date(2000, 0, 1, 0, 0, 0, 0));
-      const hourSerial = dateToSerial(new Date(2000, 0, 1, 1, 0, 0, 0));
+      const baseSerial = dateToSerial(new Date(2000, 0, 1, 0, 0, 0, 0))!;
+      const hourSerial = dateToSerial(new Date(2000, 0, 1, 1, 0, 0, 0))!;
       // 1 hour = 1/24 of a day
       expect(hourSerial - baseSerial).toBeCloseTo(1 / 24, 10);
     });
@@ -106,8 +106,8 @@ describe('dateToSerial', () => {
     });
 
     it('should handle same local time across different dates', () => {
-      const serial1 = dateToSerial(new Date(2000, 0, 1, 15, 30, 0, 0));
-      const serial2 = dateToSerial(new Date(2000, 0, 2, 15, 30, 0, 0));
+      const serial1 = dateToSerial(new Date(2000, 0, 1, 15, 30, 0, 0))!;
+      const serial2 = dateToSerial(new Date(2000, 0, 2, 15, 30, 0, 0))!;
       expect(serial2 - serial1).toBe(1);
     });
   });

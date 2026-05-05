@@ -1,4 +1,4 @@
-import type { FileContainer } from './zip.ts';
+import type { ZipArchive } from '@borgar/zip';
 
 /**
  * Heuristic to detect whether an XLSX file was likely exported from Google
@@ -26,15 +26,15 @@ import type { FileContainer } from './zip.ts';
  *    positive for this heuristic's purpose (the `t="str"` error conversion
  *    is unlikely to cause harm on synthetic files).
  */
-export function isLikelyGSExport (zip: FileContainer): boolean {
+export function isLikelyGSExport (zip: ZipArchive): boolean {
   // The presence of docProps/app.xml is the strongest negative signal.
   // Every version of Excel and LibreOffice writes it; Google Sheets never does.
-  if (zip.hasFile('docProps/app.xml')) {
+  if (zip.has('docProps/app.xml')) {
     return false;
   }
   // Google Sheets also omits docProps/core.xml. Checking both gives extra
   // confidence, but app.xml alone is sufficient — core.xml just corroborates.
-  if (zip.hasFile('docProps/core.xml')) {
+  if (zip.has('docProps/core.xml')) {
     return false;
   }
   return true;

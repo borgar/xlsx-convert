@@ -15,7 +15,7 @@ export default tseslint.config(
     ],
     languageOptions: {
       globals: { ...globals.browser },
-      parserOptions: { projectService: { allowDefaultProject: [] } },
+      parserOptions: { projectService: { allowDefaultProject: [ 'eslint.config.js' ] } },
     },
   },
   eslint.configs.recommended,

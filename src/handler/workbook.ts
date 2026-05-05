@@ -5,7 +5,12 @@ import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { toInt } from '../utils/typecast.ts';
 import type { DefinedName, Workbook, WorkbookView } from '@jsfkit/types';
 
-const HIDDEN: Record<string, 1 | 2> = {
+function isSafeInt (n: number | null | undefined): n is number {
+  return Number.isSafeInteger(n);
+}
+
+const HIDDEN: Record<string, 0 | 1 | 2> = {
+  visible: 0,
   hidden: 1,
   veryHidden: 2,
 };
@@ -33,7 +38,7 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
         name: attr(d, 'name'),
         index: numAttr(d, 'sheetId'),
         rId: attr(d, 'r:id'),
-        hidden: HIDDEN[attr(d, 'state')] ?? 0,
+        hidden: HIDDEN[attr(d, 'state', 'visible')] ?? 0,
       });
     });
 
@@ -52,11 +57,11 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
       if (localSheetId) {
         name.scope = context.sheetLinks[+localSheetId].name;
       }
-      wb.names.push(name);
+      wb.names!.push(name);
     });
 
   const pr = dom.querySelectorAll('workbook > workbookPr')[0];
-  wb.calculationProperties.epoch = (pr && numAttr(pr, 'date1904')) ? 1904 : 1900;
+  const epoch = (pr && numAttr(pr, 'date1904')) ? 1904 : 1900;
 
   const calcPr = dom.getElementsByTagName('calcPr')[0];
   if (calcPr) {
@@ -66,21 +71,23 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
         iterate: true,
         iterateCount: toInt(numAttr(calcPr, 'iterateCount', 100)),
         iterateDelta: numAttr(calcPr, 'iterateDelta', 0.001),
-        epoch: wb.calculationProperties.epoch,
+        epoch: epoch,
       };
     }
     const calcMode = attr(calcPr, 'calcMode');
     if (calcMode === 'autoNoTable' || calcMode === 'manual') {
-      wb.calculationProperties.calcMode = calcMode;
+      wb.calculationProperties!.calcMode = calcMode;
     }
   }
+
+  wb.calculationProperties!.epoch = epoch;
 
   // Store "active sheet" (the last-used sheet at save) for each workbook view. Excel supports
   // multiple workbook views (window arrangements), though most files only have one.
   const workbookViews = dom.querySelectorAll('bookViews > workbookView');
   const views: WorkbookView[] = workbookViews.map(view => {
     const activeSheet = toInt(numAttr(view, 'activeTab'));
-    if (Number.isSafeInteger(activeSheet) && activeSheet >= 0) {
+    if (isSafeInt(activeSheet) && activeSheet >= 0) {
       return { activeSheet };
     }
     else {
