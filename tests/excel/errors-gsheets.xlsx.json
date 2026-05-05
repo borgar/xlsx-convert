@@ -72,5 +72,8 @@
       "builtinId": 0
     }
   },
-  "formulas": [ "FOO()" ]
+  "formulas": [ "FOO()" ],
+  "meta": {
+    "app": { "name": "Google Sheets", "confidence": 0.8 }
+  }
 }
