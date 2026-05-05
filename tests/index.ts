@@ -3,7 +3,7 @@ import { readFile, writeFile } from 'fs/promises';
 import { deepStrictEqual } from 'assert';
 import type { Workbook } from '@jsfkit/types';
 import { translateFormulaToA1 } from '@borgar/fx';
-import { niceJson } from './niceJson.ts';
+import { niceJson } from './utils/niceJson.ts';
 
 const UPDATE = !!process.env.UPDATE_TESTS;
 const VERIFY_FORMULAS = !!process.env.VERIFY_FORMULAS;
