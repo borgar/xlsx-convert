@@ -29,7 +29,9 @@
     "test": "npm run test:unit && VERIFY_FORMULAS=1 npm run test:fixture",
     "updatetests": "UPDATE_TESTS=1 node --experimental-transform-types tests/index.ts",
     "check": "npm run test && npm run lint && npm run typecheck && node src/cli.ts tests/excel/fonts.xlsx -o /dev/null",
-    "release": "git diff --exit-code && tsdown && npm publish && V=$(jq -r .version package.json) && git tag -a $V -m $V && git push origin $V && gh release create $V --generate-notes"
+    "release": "git diff --exit-code && tsdown && npm publish && V=$(jq -r .version package.json) && git tag -a $V -m $V && git push origin $V && gh release create $V --generate-notes",
+    "benchmark": "node --experimental-transform-types tests/benchmark.ts",
+    "benchmark:fixture": "npm run benchmark tests/excel"
   },
   "files": [
     "dist",
@@ -41,7 +43,10 @@
     {
       "entry": "src/index.ts",
       "platform": "neutral",
-      "format": [ "esm", "cjs" ],
+      "format": [
+        "esm",
+        "cjs"
+      ],
       "sourcemap": true
     },
     {
@@ -88,6 +93,7 @@
     "eslint": "~10.3.0",
     "globals": "~17.6.0",
     "jszip": "^3.10.1",
+    "tinybench": "~6.0.1",
     "tsdown": "~0.21.10",
     "tsup": "~8.5.1",
     "typedoc": "~0.28.19",
