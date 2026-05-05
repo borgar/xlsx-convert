@@ -78,6 +78,9 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
     if (calcMode === 'autoNoTable' || calcMode === 'manual') {
       wb.calculationProperties!.calcMode = calcMode;
     }
+    if (boolAttr(calcPr, 'fullCalcOnLoad')) {
+      wb.calculationProperties!.fullCalcOnLoad = true;
+    }
   }
 
   wb.calculationProperties!.epoch = epoch;

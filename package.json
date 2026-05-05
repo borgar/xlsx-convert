@@ -78,7 +78,7 @@
     "@borgar/fx": "~5.0.4",
     "@borgar/simple-xml": "~2.2.2",
     "@borgar/zip": "~1.0.0",
-    "@jsfkit/types": "~2.3.0",
+    "@jsfkit/types": "~2.4.0",
     "numfmt": "~3.2.6"
   },
   "peerDependencies": {

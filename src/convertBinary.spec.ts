@@ -207,4 +207,35 @@ describe('convertBinary', () => {
       expect(a4.cse).toBe(true);
     });
   });
+
+  describe('calcPr fullCalcOnLoad', () => {
+    async function withFullCalcOnLoad (value: string | null): Promise<ArrayBuffer> {
+      const bin = await readFile('./tests/excel/numbers.xlsx');
+      const zip = await JSZip.loadAsync(bin);
+      const wbXml = await zip.file('xl/workbook.xml')!.async('string');
+      const modified = value == null
+        ? wbXml.replace(/\s+fullCalcOnLoad="[^"]*"/g, '')
+        : wbXml.replace(
+          /<calcPr([^/]*)\/>/,
+          (_, attrs) => `<calcPr${attrs.replace(/\s+fullCalcOnLoad="[^"]*"/g, '')} fullCalcOnLoad="${value}"/>`,
+        );
+      zip.file('xl/workbook.xml', modified);
+      return zip.generateAsync({ type: 'arraybuffer' });
+    }
+
+    test('fullCalcOnLoad="1" sets calculationProperties.fullCalcOnLoad: true', async () => {
+      const wb = await convertBinary(await withFullCalcOnLoad('1'), 'numbers.xlsx');
+      expect(wb.calculationProperties?.fullCalcOnLoad).toBe(true);
+    });
+
+    test('fullCalcOnLoad="0" omits the field (boolAttr returns false)', async () => {
+      const wb = await convertBinary(await withFullCalcOnLoad('0'), 'numbers.xlsx');
+      expect(wb.calculationProperties?.fullCalcOnLoad).toBeUndefined();
+    });
+
+    test('absent fullCalcOnLoad omits the field', async () => {
+      const wb = await convertBinary(await withFullCalcOnLoad(null), 'numbers.xlsx');
+      expect(wb.calculationProperties?.fullCalcOnLoad).toBeUndefined();
+    });
+  });
 });
