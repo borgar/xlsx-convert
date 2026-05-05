@@ -26,21 +26,30 @@ export class CSVParser {
   column: number;
   height: number;
   width: number;
-  delimiter: string;
+  delimiter: string | undefined;
   escapeChar: string;
-  locale: string;
+  locale: string | undefined;
   skipEmptyLines: boolean;
   formats: string[];
-  table: Record<string, Cell>;
-  columns: ColumnData[];
+  table: Record<string, Cell> | undefined;
+  columns: ColumnData[] | undefined;
   numfmtOptions: { locale: string; };
 
   constructor () {
     this.escapeChar = '"';
     this.skipEmptyLines = true;
+    this.formats = [];
+    this.row = 0;
+    this.column = 0;
+    this.width = 0;
+    this.height = 0;
+    this.numfmtOptions = { locale: this.locale ?? 'en-US' };
   }
 
   countType (type: DataType) {
+    if (!this.columns) {
+      throw new Error('column have not been inititialized');
+    }
     const c = this.column;
     if (!this.columns[c]) {
       this.columns[c] = {
@@ -55,7 +64,7 @@ export class CSVParser {
     this.columns[c].total++;
   }
 
-  setFormatIndex (cell: Cell, formatPattern: string): number {
+  setFormatIndex (cell: Cell, formatPattern?: string): number {
     if (formatPattern) {
       let fmtIdx = this.formats.indexOf(formatPattern);
       if (fmtIdx === -1) {
@@ -72,7 +81,10 @@ export class CSVParser {
     valueString: string,
     knownString: boolean = false,
   ) {
-    let cell: ParseData;
+    if (!this.table) {
+      throw new Error('table has not been inititialized');
+    }
+    let cell: ParseData | null;
     const cellID = toA1(this.column, this.row);
     if (knownString) {
       this.table[cellID] = { v: valueString };
@@ -117,7 +129,7 @@ export class CSVParser {
     }
   }
 
-  parse (stream: string, delimiter?: string): Record<string, Cell> {
+  parse (stream: string, delimiter?: string | null): Record<string, Cell> {
     this.row = 0;
     this.table = {};
     this.height = 0;

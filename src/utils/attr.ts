@@ -6,7 +6,7 @@ export function attr<T = string | null> (
   fallBack: T = null as unknown as T,
 ): string | T {
   if (node.hasAttribute(name)) {
-    return node.getAttribute(name);
+    return node.getAttribute(name)!;
   }
   return fallBack;
 }
@@ -17,8 +17,7 @@ export function numAttr<T = number | null> (
   fallBack: T = null as unknown as T,
 ): number | T {
   const v = attr(node, name);
-  const n = +v;
-  return v != null && Number.isFinite(n) ? n : fallBack;
+  return v != null && Number.isFinite(+v) ? +v : fallBack;
 }
 
 export function boolAttr<T = boolean | null> (

@@ -1,4 +1,4 @@
-export function dateToSerial (date: Date): number {
+export function dateToSerial (date: Date): number | null {
   // Many timezones are offset in seconds but getTimezoneOffset() returns
   // time "rounded" to minutes so it is basically usable. 😿
   const dt = new Date();

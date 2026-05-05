@@ -52,6 +52,13 @@ describe('convertBinary', () => {
         { fontScheme: 'minor', fontSize: 12, numberFormat: '0.00E+00' },
         { extendsStyle: 'Percent', fontScheme: 'minor', fontSize: 12, numberFormat: '0.0%' },
       ],
+      meta: {
+        app: {
+          name: 'Microsoft Excel',
+          variant: 'Macintosh',
+          version: '16.0300',
+        },
+      },
       theme: {
         name: 'Office Theme',
         colorScheme: {
@@ -88,27 +95,27 @@ describe('convertBinary', () => {
 
     test('convert normally', async () => {
       const jsf = await convertBinary(bin, 'image-backgrounds-dimensions.xlsx');
-      expect(Object.keys(jsf.images)).toStrictEqual([ imgName ]);
-      expect(jsf.images[imgName].length).toBe(462658);
-      expect(jsf.images[imgName].slice(0, 32)).toBe('data:image/png;base64,iVBORw0KGg');
+      expect(Object.keys(jsf.images!)).toStrictEqual([ imgName ]);
+      expect(jsf.images![imgName].length).toBe(462658);
+      expect(jsf.images![imgName].slice(0, 32)).toBe('data:image/png;base64,iVBORw0KGg');
     });
 
     test('convert with altering image callback', async () => {
       const jsf = await convertBinary(bin, 'image-backgrounds-dimensions.xlsx', {
-        imageCallback: (_, name: string) => name,
+        imageCallback: (_, name?: string) => name,
       });
-      expect(Object.keys(jsf.images)).toStrictEqual([ imgName ]);
-      expect(jsf.images[imgName].length).toBe(19);
-      expect(jsf.images[imgName]).toBe(imgName);
+      expect(Object.keys(jsf.images!)).toStrictEqual([ imgName ]);
+      expect(jsf.images![imgName].length).toBe(19);
+      expect(jsf.images![imgName]).toBe(imgName);
     });
 
     test('convert with void image callback', async () => {
       const jsf = await convertBinary(bin, 'image-backgrounds-dimensions.xlsx', {
         imageCallback: () => {},
       });
-      expect(Object.keys(jsf.images)).toStrictEqual([ imgName ]);
-      expect(jsf.images[imgName].length).toBe(462658);
-      expect(jsf.images[imgName].slice(0, 32)).toBe('data:image/png;base64,iVBORw0KGg');
+      expect(Object.keys(jsf.images!)).toStrictEqual([ imgName ]);
+      expect(jsf.images![imgName].length).toBe(462658);
+      expect(jsf.images![imgName].slice(0, 32)).toBe('data:image/png;base64,iVBORw0KGg');
     });
   });
 

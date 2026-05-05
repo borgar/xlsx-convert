@@ -1,22 +1,21 @@
 import type { Document, Element } from '@borgar/simple-xml';
-import type { Theme } from '@jsfkit/types';
-import { type Color } from '../color/Color.ts';
-import { attr } from '../utils/attr.ts';
+import type { Color, Theme } from '@jsfkit/types';
+import { attr, numAttr } from '../utils/attr.ts';
 import { BUILTIN_FORMATS } from '../constants.ts';
 import type { ConversionContext } from '../ConversionContext.ts';
 import { readColor } from '../color/readColor.ts';
+import { addProp } from '../utils/addProp.ts';
 
-function valOfNode (node: Element, subNodeName: string, fallback: any = null): string | null {
+function valOfSubNode (node: Element, subNodeName: string): string | undefined {
   const subNode = node.querySelectorAll(subNodeName)[0];
   if (subNode) {
-    return attr(subNode, 'val', fallback);
+    return attr(subNode, 'val') ?? undefined;
   }
-  return fallback;
 }
 
 type BorderSide = 'left' | 'right' | 'top' | 'bottom';
 type Border = { style: string, color?: Color };
-type Borders = Record<BorderSide, Border>;
+type Borders = Record<BorderSide, Border | undefined>;
 type Fill = {
   type: string,
   fg?: Color
@@ -48,28 +47,28 @@ export type StyleDefs = {
   border: Borders[];
 };
 
-type Xf = Partial<{
-  xfId: string;
-  numFmtId: number;
-  numFmt: string;
-  fillId: number;
-  fill: Fill;
-  fontId: number;
-  font: Font;
-  borderId: number;
-  border: Borders;
-  hAlign: string;
-  vAlign: string;
-  wrapText: boolean;
-  shrinkToFit: boolean;
-  textRotation: number;
-}>;
+type Xf = {
+  xfId?: number;
+  numFmtId?: number;
+  numFmt?: string;
+  fillId?: number;
+  fill?: Fill;
+  fontId?: number;
+  font?: Font;
+  borderId?: number;
+  border?: Borders;
+  hAlign?: string;
+  vAlign?: string;
+  wrapText?: boolean;
+  shrinkToFit?: boolean;
+  textRotation?: number;
+};
 
 function readXf (d: Element, styles: StyleDefs) {
   const xf: Xf = {};
 
-  const xfId = attr(d, 'xfId'); // index into cellStyleXfs
-  if (xfId) { xf.xfId = xfId; }
+  const xfId = numAttr(d, 'xfId'); // index into cellStyleXfs
+  if (xfId != null) { xf.xfId = xfId; }
 
   const numFmtId = attr(d, 'numFmtId');
   if (numFmtId) {
@@ -114,34 +113,39 @@ function readXf (d: Element, styles: StyleDefs) {
   return xf;
 }
 
-function readBorder (node: Element, side: BorderSide | 'start' | 'end', theme: Theme, indexedColors: string[]) {
+function readBorder (
+  node: Element,
+  side: BorderSide | 'start' | 'end',
+  theme: Theme,
+): Border | undefined {
   const b = node.querySelectorAll(side)[0];
   if (b) {
-    const color = readColor(b.querySelectorAll('color')[0], theme, indexedColors);
+    const color = readColor(b.querySelectorAll('color')[0], theme);
     const style = attr(b, 'style');
-    if (color || style) {
+    if (style) {
       return { style: style, color: color };
     }
   }
 }
 
-function readFont (node: Element, theme: Theme, indexedColors: string[]): Font {
+function readFont (node: Element, theme: Theme): Font {
   const u = node.querySelectorAll('u')[0];
   const b = node.querySelectorAll('b')[0];
   const i = node.querySelectorAll('i')[0];
-  let name = valOfNode(node, 'name');
+  let name = valOfSubNode(node, 'name') ?? '';
   if (name === 'Calibri (Body)') {
     name = 'Calibri';
   }
-  const scheme = valOfNode(node, 'scheme');
+  const scheme = valOfSubNode(node, 'scheme');
+  const sz = valOfSubNode(node, 'sz');
   return {
-    size: +valOfNode(node, 'sz'),
+    size: sz ? +sz : undefined,
     name: name,
     scheme: (scheme === 'major' || scheme === 'minor') ? scheme : undefined,
     underline: u ? attr(u, 'val', 'single') : undefined,
     bold: !!b,
     italic: !!i,
-    color: readColor(node.querySelectorAll('color')[0], theme, indexedColors),
+    color: readColor(node.querySelectorAll('color')[0], theme),
   };
 }
 
@@ -164,12 +168,16 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
 
   dom.querySelectorAll('numFmts > numFmt')
     .forEach(node => {
-      styles.numFmts[attr(node, 'numFmtId')] = attr(node, 'formatCode');
+      const fId = numAttr(node, 'numFmtId');
+      const code = attr(node, 'formatCode');
+      if (fId != null && code != null) {
+        styles.numFmts[fId] = code;
+      }
     });
 
   dom.querySelectorAll('fonts > font')
     .forEach(node => {
-      styles.font.push(readFont(node, context.theme, context.indexedColors));
+      styles.font.push(readFont(node, context.theme));
     });
 
   dom.querySelectorAll('fills > fill > patternFill')
@@ -178,21 +186,21 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
       const bgColor = fp.querySelector('bgColor');
       const fill: Fill = { type: attr(fp, 'patternType', 'none') };
       if (fgColor) {
-        fill.fg = readColor(fgColor, context.theme, context.indexedColors);
+        fill.fg = readColor(fgColor, context.theme);
       }
       if (bgColor) {
-        fill.bg = readColor(bgColor, context.theme, context.indexedColors);
+        fill.bg = readColor(bgColor, context.theme);
       }
       styles.fill.push(fill);
     });
 
   dom.querySelectorAll('borders > border')
     .forEach(d => {
-      const borderDefs = {
-        left: readBorder(d, 'left', context.theme, context.indexedColors) || readBorder(d, 'start', context.theme, context.indexedColors),
-        right: readBorder(d, 'right', context.theme, context.indexedColors) || readBorder(d, 'end', context.theme, context.indexedColors),
-        top: readBorder(d, 'top', context.theme, context.indexedColors),
-        bottom: readBorder(d, 'bottom', context.theme, context.indexedColors),
+      const borderDefs: Borders = {
+        left: readBorder(d, 'left', context.theme) || readBorder(d, 'start', context.theme),
+        right: readBorder(d, 'right', context.theme) || readBorder(d, 'end', context.theme),
+        top: readBorder(d, 'top', context.theme),
+        bottom: readBorder(d, 'bottom', context.theme),
       };
       styles.border.push(borderDefs);
     });
@@ -204,10 +212,13 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
   dom.querySelectorAll('cellXfs > xf')
     .forEach(d => {
       const xf = readXf(d, styles);
-      const sxf: Xf = styles.cellStyleXfs[xf.xfId];
-      for (const key in sxf) {
-        if (xf[key] == null) {
-          xf[key] = sxf[key];
+      if (xf.xfId != null) {
+        const sxf: Xf = styles.cellStyleXfs[xf.xfId];
+        for (const key in sxf) {
+          const k = key as keyof Xf;
+          if (xf[k] == null) {
+            addProp(xf, k, sxf[k]);
+          }
         }
       }
       styles.cellXf.push(xf);

@@ -6,7 +6,7 @@ import { getFirstChild } from '../../utils/getFirstChild.ts';
 export function readPath (p?: Element | null): Path | undefined {
   if (p?.tagName !== 'path') return;
 
-  const path: Partial<Path> = { d: [] };
+  const path: Path = { d: [] };
 
   // if (boolAttr(p, 'extrusionOk')) { path.extrusionOk = true; }
   if (boolAttr(p, 'stroke') === false) { path.stroke = false; }
@@ -29,20 +29,24 @@ export function readPath (p?: Element | null): Path | undefined {
     // moveTo
     else if (elm.tagName === 'moveTo') {
       const pt = getFirstChild(elm, 'pt');
-      path.d.push([
-        'M',
-        numStrAttr(pt, 'x', 0),
-        numStrAttr(pt, 'y', 0),
-      ]);
+      if (pt) {
+        path.d.push([
+          'M',
+          numStrAttr(pt, 'x', 0),
+          numStrAttr(pt, 'y', 0),
+        ]);
+      }
     }
     // lnTo
     else if (elm.tagName === 'lnTo') {
       const pt = getFirstChild(elm, 'pt');
-      path.d.push([
-        'L',
-        numStrAttr(pt, 'x', 0),
-        numStrAttr(pt, 'y', 0),
-      ]);
+      if (pt) {
+        path.d.push([
+          'L',
+          numStrAttr(pt, 'x', 0),
+          numStrAttr(pt, 'y', 0),
+        ]);
+      }
     }
     // arcTo
     else if (elm.tagName === 'arcTo') {
