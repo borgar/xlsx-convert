@@ -51,8 +51,7 @@
     },
     {
       "entry": "src/cli.ts",
-      "platform": "node",
-      "format": "cjs"
+      "platform": "node"
     }
   ],
   "repository": {
