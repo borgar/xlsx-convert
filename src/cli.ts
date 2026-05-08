@@ -7,18 +7,21 @@ import type { Workbook } from '@jsfkit/types';
 type CliOptions = {
   input?: string;
   output?: string;
+  cellFormulas?: boolean;
 };
 
 function printUsage (): void {
   const usage = [
-    'Usage: xlsx-convert <input> [-o <output>]',
+    'Usage: xlsx-convert <input> [-o <output>] [-f]',
     '',
     'Converts .xlsx to JSON via convertBinary,',
     'and .csv to JSON via convertCSV.',
     '',
     'Options:',
-    '  -o, --output <file>  Write JSON output to a file (defaults to stdout)',
-    '  -h, --help           Show this help text',
+    '  -o, --output <file>    Write JSON output to a file (defaults to stdout)',
+    '  -f, --cell-formulas    Emit A1 formulas inline on cells instead of R1C1',
+    '                         index references into a shared formula list',
+    '  -h, --help             Show this help text',
   ].join('\n');
   process.stdout.write(usage + '\n');
 }
@@ -37,6 +40,10 @@ function parseArgs (args: string[]): CliOptions | null {
       }
       opts.output = next;
       i++;
+      continue;
+    }
+    if (arg === '-f' || arg === '--cell-formulas') {
+      opts.cellFormulas = true;
       continue;
     }
     if (arg.startsWith('-')) {
@@ -72,7 +79,7 @@ async function main (): Promise<void> {
   }
   else if (ext === '.xlsx' || ext === '.xlsm') {
     const bin = await readFile(input);
-    workbook = await convertBinary(bin, input);
+    workbook = await convertBinary(bin, input, { cellFormulas: !!parsed.cellFormulas });
   }
   else {
     throw new Error('Unsupported file type. Expected .xlsx, .xlsm, or .csv.');
