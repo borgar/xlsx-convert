@@ -56,7 +56,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/borgar/xlsx-reader.git"
+    "url": "https://github.com/borgar/xlsx-convert"
   },
   "bugs": {
     "url": "https://github.com/borgar/xlsx-reader/issues"
