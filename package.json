@@ -14,7 +14,7 @@
     }
   },
   "bin": {
-    "xlsx-convert": "./dist/cli.cjs"
+    "xlsx-convert": "./dist/cli.mjs"
   },
   "directories": {
     "test": "tests"
@@ -51,8 +51,7 @@
     },
     {
       "entry": "src/cli.ts",
-      "platform": "node",
-      "format": "cjs"
+      "platform": "node"
     }
   ],
   "repository": {
