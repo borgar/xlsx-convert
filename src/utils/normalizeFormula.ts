@@ -24,7 +24,6 @@ type ExternalSubset = { name: string };
 type ConversionContextSubset = {
   externalLinks: ExternalSubset[];
   preservePrefixes?: boolean;
-  preserveCompatibilityFunctions?: boolean;
 };
 
 /**
@@ -122,7 +121,6 @@ export function normalizeFormulaTokens (
   tokens: Token[], wb?: ConversionContextSubset | null, r1c1 = false,
 ): Token[] {
   const preservePrefixes = wb?.preservePrefixes;
-  const preserveCompatFns = wb?.preserveCompatibilityFunctions;
   const outTokens = [];
 
   for (let i = 0; i < tokens.length; i++) {
@@ -132,7 +130,7 @@ export function normalizeFormulaTokens (
       const isSingle = t.value === '_xlfn.SINGLE' || t.value === 'SINGLE';
       const isAnchorarray = t.value === '_xlfn.ANCHORARRAY' || t.value === 'ANCHORARRAY';
       // Excel stores # and @ operators as functions.
-      if ((isSingle || isAnchorarray) && !preserveCompatFns) {
+      if (isSingle || isAnchorarray) {
         const j = findSubExpressionEnd(tokens, i);
         if (j >= 0) {
           const subExpression = trimExpression(tokens.slice(i + 2, j));
@@ -147,7 +145,7 @@ export function normalizeFormulaTokens (
         }
       }
       // Excel stores trim range operators as functions.
-      else if (t.value in TRIM_OPS && !preserveCompatFns) {
+      else if (t.value in TRIM_OPS) {
         const j = findSubExpressionEnd(tokens, i);
         // If this is a broken expression or we cannot determine
         // sub-expression, we preserve the token instead.
@@ -205,13 +203,12 @@ export function normalizeFormulaTokens (
 }
 
 // External references (`[N]Sheet!Ref` or `[wb]Sheet!Ref`) always need
-// normalization regardless of which preserve-* options are set, so this
-// pattern is checked first and unconditionally.
+// normalization regardless of `preservePrefixes`, so this pattern is checked
+// first and unconditionally.
 const NEEDS_EXTREF = /(?:[^RC"]\[|^\[)/;
 // XLSX-internal prefixes — only need handling when `preservePrefixes` is off.
 const NEEDS_PREFIX = /_xl(?:fn|udf|ws|pm|nm)\./i;
-// Compatibility-function patterns that get rewritten to operators —
-// only need handling when `preserveCompatibilityFunctions` is off. The
+// Compatibility-function patterns that get rewritten to operators. The
 // `\.:` / `:\.` patterns trigger because fx emits range-trim ranges with
 // dot markers and we may need to canonicalize them.
 const NEEDS_COMPATFN = /(?:\.:|:\.)|ANCHORARRAY|SINGLE|_TRO_(?:ALL|LEADING|TRAILING)/i;
@@ -223,7 +220,7 @@ export function normalizeFormula (
   const needsWork =
     NEEDS_EXTREF.test(formula) ||
     (!wb?.preservePrefixes && NEEDS_PREFIX.test(formula)) ||
-    (!wb?.preserveCompatibilityFunctions && NEEDS_COMPATFN.test(formula));
+    NEEDS_COMPATFN.test(formula);
   if (!needsWork) {
     return formula;
   }

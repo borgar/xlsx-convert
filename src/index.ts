@@ -23,16 +23,6 @@ export type ConversionOptions = {
    */
   preservePrefixes?: boolean;
   /**
-   * Keep `SINGLE`, `ANCHORARRAY`, and `_TRO_ALL`/`_TRO_LEADING`/`_TRO_TRAILING`
-   * (both `_xlfn.`-prefixed and bare forms) as function calls instead of
-   * rewriting them to the corresponding `@`, `#`, and range-trim operators.
-   *
-   * Independent of {@link preservePrefixes}; round-trip callers typically set
-   * both.
-   * @defaultValue false
-   */
-  preserveCompatibilityFunctions?: boolean;
-  /**
    * Image reading callback. All read images are passed through this callback if it is provided.
    * This is useful, for example, for extracting the images to disk.
    *

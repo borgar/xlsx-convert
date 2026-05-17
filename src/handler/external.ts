@@ -7,7 +7,6 @@ import type { External, ExternalDefinedName } from '@jsfkit/types';
 
 type FormulaOpts = {
   preservePrefixes?: boolean;
-  preserveCompatibilityFunctions?: boolean;
 };
 
 export function handlerExternal (dom: Document, fileName: string = '', opts: FormulaOpts = {}): External {

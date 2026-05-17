@@ -71,10 +71,6 @@ export class ConversionContext {
     return this.options.preservePrefixes;
   }
 
-  get preserveCompatibilityFunctions (): boolean | undefined {
-    return this.options.preserveCompatibilityFunctions;
-  }
-
   warn (message: string): void {
     this.options.warn?.(message);
   }

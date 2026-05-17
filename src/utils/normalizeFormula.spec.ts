@@ -269,49 +269,12 @@ describe('normalizeFormula', () => {
       expect(result).toBe('_xlfn.IFERROR(_xlpm.x,0)');
     });
 
-    it('still rewrites SINGLE/ANCHORARRAY/_TRO_* to operators (compat-fns option not set)', () => {
-      // preservePrefixes alone doesn't suppress operator rewriting --- the
-      // companion option `preserveCompatibilityFunctions` controls that.
-      // But the _xlfn. prefix on the rewritten subexpression is preserved.
+    it('still rewrites SINGLE/ANCHORARRAY/_TRO_* to operators', () => {
+      // preservePrefixes only controls prefix stripping; operator rewriting
+      // of SINGLE / ANCHORARRAY / _TRO_* is unconditional. The _xlfn. prefix
+      // on the rewritten subexpression is preserved.
       expect(normalizeFormula('_xlfn.SINGLE(A1)', pp)).toBe('@A1');
       expect(normalizeFormula('_xlfn.ANCHORARRAY(D1)', pp)).toBe('D1#');
-    });
-  });
-
-  describe('preserveCompatibilityFunctions', () => {
-    const pcf = { externalLinks: [], preserveCompatibilityFunctions: true };
-
-    it('should preserve SINGLE as function call', () => {
-      expect(normalizeFormula('_xlfn.SINGLE(A1)', pcf)).toBe('SINGLE(A1)');
-      expect(normalizeFormula('SINGLE(A1)', pcf)).toBe('SINGLE(A1)');
-    });
-
-    it('should preserve ANCHORARRAY as function call', () => {
-      expect(normalizeFormula('_xlfn.ANCHORARRAY(D1)', pcf)).toBe('ANCHORARRAY(D1)');
-      expect(normalizeFormula('ANCHORARRAY(D1)', pcf)).toBe('ANCHORARRAY(D1)');
-    });
-
-    it('should preserve _TRO_* as function calls', () => {
-      expect(normalizeFormula('_xlfn._TRO_ALL(A1:B2)', pcf)).toBe('_TRO_ALL(A1:B2)');
-      expect(normalizeFormula('_xlfn._TRO_LEADING(A1:B2)', pcf)).toBe('_TRO_LEADING(A1:B2)');
-      expect(normalizeFormula('_xlfn._TRO_TRAILING(A1:B2)', pcf)).toBe('_TRO_TRAILING(A1:B2)');
-      // bare forms (without _xlfn. prefix)
-      expect(normalizeFormula('_TRO_ALL(A1:B2)', pcf)).toBe('_TRO_ALL(A1:B2)');
-      expect(normalizeFormula('_TRO_LEADING(A1:B2)', pcf)).toBe('_TRO_LEADING(A1:B2)');
-      expect(normalizeFormula('_TRO_TRAILING(A1:B2)', pcf)).toBe('_TRO_TRAILING(A1:B2)');
-    });
-
-    it('still strips prefixes (preservePrefixes not set)', () => {
-      expect(normalizeFormula('_xlfn.IFERROR(A1,0)', pcf)).toBe('IFERROR(A1,0)');
-      expect(normalizeFormula('_xlpm.MyName', pcf)).toBe('MyName');
-    });
-
-    it('combined with preservePrefixes round-trips both prefixes and compat-fns', () => {
-      const both = { externalLinks: [], preservePrefixes: true, preserveCompatibilityFunctions: true };
-      expect(normalizeFormula('_xlfn.SINGLE(A1)', both)).toBe('_xlfn.SINGLE(A1)');
-      expect(normalizeFormula('_xlfn.ANCHORARRAY(D1)', both)).toBe('_xlfn.ANCHORARRAY(D1)');
-      expect(normalizeFormula('_xlfn._TRO_ALL(A1:B2)', both)).toBe('_xlfn._TRO_ALL(A1:B2)');
-      expect(normalizeFormula('_xlfn.IFERROR(_xlpm.x,0)', both)).toBe('_xlfn.IFERROR(_xlpm.x,0)');
     });
   });
 });
