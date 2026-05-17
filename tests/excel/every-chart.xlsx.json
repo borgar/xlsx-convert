@@ -30,9 +30,7 @@
       "views": [
         {
           "workbookView": 0,
-          "activeRanges": [
-            "A1:XFD1048576"
-          ]
+          "activeRanges": [ "A1:XFD1048576" ]
         }
       ],
       "drawings": [
@@ -62,12 +60,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 42,
-              "rowOff": 0,
-              "col": 10,
-              "colOff": 0
-            },
+            "from": { "row": 42, "rowOff": 0, "col": 10, "colOff": 0 },
             "to": {
               "row": 55,
               "rowOff": 101600,
@@ -90,12 +83,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 42,
-              "rowOff": 0,
-              "col": 16,
-              "colOff": 0
-            },
+            "from": { "row": 42, "rowOff": 0, "col": 16, "colOff": 0 },
             "to": {
               "row": 55,
               "rowOff": 101600,
@@ -118,12 +106,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 28,
-              "rowOff": 0,
-              "col": 16,
-              "colOff": 0
-            },
+            "from": { "row": 28, "rowOff": 0, "col": 16, "colOff": 0 },
             "to": {
               "row": 41,
               "rowOff": 101600,
@@ -146,12 +129,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 28,
-              "rowOff": 0,
-              "col": 10,
-              "colOff": 0
-            },
+            "from": { "row": 28, "rowOff": 0, "col": 10, "colOff": 0 },
             "to": {
               "row": 41,
               "rowOff": 101600,
@@ -289,12 +267,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 14,
-              "rowOff": 0,
-              "col": 10,
-              "colOff": 0
-            },
+            "from": { "row": 14, "rowOff": 0, "col": 10, "colOff": 0 },
             "to": {
               "row": 27,
               "rowOff": 101600,
@@ -317,12 +290,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 14,
-              "rowOff": 0,
-              "col": 16,
-              "colOff": 0
-            },
+            "from": { "row": 14, "rowOff": 0, "col": 16, "colOff": 0 },
             "to": {
               "row": 27,
               "rowOff": 101600,
@@ -345,12 +313,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 14,
-              "rowOff": 0,
-              "col": 22,
-              "colOff": 0
-            },
+            "from": { "row": 14, "rowOff": 0, "col": 22, "colOff": 0 },
             "to": {
               "row": 27,
               "rowOff": 101600,
@@ -402,9 +365,7 @@
         {
           "workbookView": 0,
           "activeCell": "D23",
-          "activeRanges": [
-            "A1:XFD1048576"
-          ]
+          "activeRanges": [ "A1:XFD1048576" ]
         }
       ],
       "drawings": [
@@ -434,12 +395,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 42,
-              "rowOff": 0,
-              "col": 10,
-              "colOff": 0
-            },
+            "from": { "row": 42, "rowOff": 0, "col": 10, "colOff": 0 },
             "to": {
               "row": 55,
               "rowOff": 101600,
@@ -462,12 +418,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 42,
-              "rowOff": 0,
-              "col": 16,
-              "colOff": 0
-            },
+            "from": { "row": 42, "rowOff": 0, "col": 16, "colOff": 0 },
             "to": {
               "row": 55,
               "rowOff": 101600,
@@ -605,12 +556,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 14,
-              "rowOff": 0,
-              "col": 10,
-              "colOff": 0
-            },
+            "from": { "row": 14, "rowOff": 0, "col": 10, "colOff": 0 },
             "to": {
               "row": 27,
               "rowOff": 101600,
@@ -633,12 +579,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 14,
-              "rowOff": 0,
-              "col": 16,
-              "colOff": 0
-            },
+            "from": { "row": 14, "rowOff": 0, "col": 16, "colOff": 0 },
             "to": {
               "row": 27,
               "rowOff": 101600,
@@ -684,12 +625,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 56,
-              "rowOff": 0,
-              "col": 10,
-              "colOff": 0
-            },
+            "from": { "row": 56, "rowOff": 0, "col": 10, "colOff": 0 },
             "to": {
               "row": 69,
               "rowOff": 101600,
@@ -712,12 +648,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 56,
-              "rowOff": 0,
-              "col": 16,
-              "colOff": 0
-            },
+            "from": { "row": 56, "rowOff": 0, "col": 16, "colOff": 0 },
             "to": {
               "row": 69,
               "rowOff": 101600,
@@ -765,9 +696,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "K18" }
-      ],
+      "views": [ { "workbookView": 0, "activeCell": "K18" } ],
       "drawings": [
         {
           "anchor": {
@@ -972,12 +901,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 28,
-              "rowOff": 0,
-              "col": 10,
-              "colOff": 0
-            },
+            "from": { "row": 28, "rowOff": 0, "col": 10, "colOff": 0 },
             "to": {
               "row": 41,
               "rowOff": 101600,
@@ -1115,12 +1039,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 14,
-              "rowOff": 0,
-              "col": 10,
-              "colOff": 0
-            },
+            "from": { "row": 14, "rowOff": 0, "col": 10, "colOff": 0 },
             "to": {
               "row": 27,
               "rowOff": 101600,
@@ -1493,12 +1412,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 14,
-              "rowOff": 0,
-              "col": 10,
-              "colOff": 0
-            },
+            "from": { "row": 14, "rowOff": 0, "col": 10, "colOff": 0 },
             "to": {
               "row": 27,
               "rowOff": 101600,
@@ -1752,13 +1666,9 @@
     "iterateDelta": 0.001,
     "epoch": 1900
   },
-  "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
-  ],
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
   "tables": [],
-  "views": [
-    { "activeSheet": 2 }
-  ],
+  "views": [ { "activeSheet": 2 } ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -1786,7 +1696,20 @@
       }
     }
   },
-  "formulas": [
-    "RANDBETWEEN(1,100)"
-  ]
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "formulas": [ "RANDBETWEEN(1,100)" ],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
 }

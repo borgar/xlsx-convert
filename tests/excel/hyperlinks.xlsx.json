@@ -25,9 +25,7 @@
       "views": [
         {
           "workbookView": 0,
-          "activeRanges": [
-            "A1:A1048576"
-          ]
+          "activeRanges": [ "A1:A1048576" ]
         }
       ]
     }
@@ -45,13 +43,12 @@
       "fontScheme": "minor",
       "fontSize": 12,
       "color": { "type": "theme", "value": "hlink" },
-      "underline": "single"
+      "underline": "single",
+      "extendsStyle": "Hyperlink"
     }
   ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -79,8 +76,31 @@
       }
     }
   },
+  "namedStyles": {
+    "Hyperlink": {
+      "name": "Hyperlink",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "color": { "type": "theme", "value": "hlink" },
+      "underline": "single",
+      "builtinId": 8
+    },
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
   "formulas": [
     "HYPERLINK(\"http://example.com/\")",
     "HYPERLINK(\"http://example.com/\",\"title text\")"
-  ]
+  ],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
 }

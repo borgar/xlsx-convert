@@ -29,7 +29,7 @@ function getLayoutScales (sheetView: Element): WorksheetLayoutScales | null {
   return (normalScale ?? pageLayoutScale ?? pageBreakPreviewScale) != null ? scales : null;
 }
 
-function gridSize (start: number, end: number, size?: number, style?: number): GridSize {
+function gridSize (start: number, end: number, size?: number, style?: number | null): GridSize {
   const item: GridSize = { start, end };
   if (size != null) {
     item.size = size;
@@ -53,7 +53,7 @@ export function handlerWorksheet (
     rows: [],
     merges: [],
     defaults: {
-      colWidth: colWidth(10, 5),
+      colWidth: colWidth(10, 5)!,
       rowHeight: 16,
     },
     // drawings: [],
@@ -107,7 +107,7 @@ export function handlerWorksheet (
   dom.querySelectorAll('hyperlinks > hyperlink').forEach(d => {
     const relId = attr(d, 'r:id');
     const rel = rels.find(item => item.id === relId);
-    hyperLinks.set(attr(d, 'ref'), rel?.target);
+    hyperLinks.set(attr(d, 'ref'), rel?.target ?? '');
   });
 
   // find default col/row sizes
@@ -115,10 +115,10 @@ export function handlerWorksheet (
   if (sheetFormatPr) {
     const baseColWidthChars = numAttr(sheetFormatPr, 'baseColWidth', null);
     const defaultColWidthChars = numAttr(sheetFormatPr, 'defaultColWidth', null);
-    sheet.defaults.colWidth =
+    sheet.defaults!.colWidth =
       colWidth(defaultColWidthChars, 0) ??
       colWidth(baseColWidthChars, 5) ??
-      colWidth(10, 5);
+      colWidth(10, 5)!;
   }
 
   // decode column widths (3.3.1.12)
@@ -130,7 +130,7 @@ export function handlerWorksheet (
     const style = numAttr(d, 'style');
     const hidden = numAttr(d, 'hidden', 0);
     const size = colWidth(hidden ? 0 : numAttr(d, 'width'));
-    sheet.columns.push(gridSize(min, max, size, style));
+    sheet.columns!.push(gridSize(min, max, size, style));
   });
 
   context._shared = new Map();
@@ -141,25 +141,36 @@ export function handlerWorksheet (
   getFirstChild(dom.root, 'mergeCells')?.children.forEach(d => {
     if (d.tagName !== 'mergeCell') { return; }
     const ref = attr(d, 'ref');
-    const { top, left, bottom, right } = fromA1(ref);
-    const anchor = toA1(left, top);
-    for (let c = left; c <= right; c++) {
-      for (let r = top; r <= bottom; r++) {
-        context._merged[toA1(c, r)] = anchor;
+    if (ref) {
+      const pRef = fromA1(ref);
+      if (pRef) {
+        const top = pRef.top ?? 0;
+        const left = pRef.left ?? 0;
+        const bottom = pRef.bottom ?? top;
+        const right = pRef.right ?? left;
+        const anchor = toA1(left, top);
+        for (let c = left; c <= right; c++) {
+          for (let r = top; r <= bottom; r++) {
+            context._merged![toA1(c, r)] = anchor;
+          }
+        }
+        sheet.merges!.push(ref);
       }
     }
-    sheet.merges.push(ref);
   });
 
   // keep a list of row heights
   const rows: GridSize[] = [];
 
+  // row id number is optional so we keep track of last used and auto-increment when id is missing.
+  let lastR = 0;
+
   // parse cells
-  getFirstChild(dom.root, 'sheetData')?.children.forEach(row => {
-    if (row.tagName !== 'row') { return; }
+  getFirstChild(dom.root, 'sheetData')?.childNodes.forEach(row => {
+    if (!(row instanceof Element) || row.tagName !== 'row') { return; }
     // .r = Row index. Indicates to which row in the sheet this
     //                 <row> definition corresponds.
-    const r = attr(row, 'r');
+    const r = numAttr(row, 'r', lastR + 1);
 
     // .hidden = 1 if the row is hidden
     // .ht = Row height measured in point size
@@ -169,15 +180,15 @@ export function handlerWorksheet (
     const isHidden = numAttr(row, 'hidden');
     const rowStyle = numAttr(row, 's');
     if (isHidden) {
-      rows.push(gridSize(+r, +r, 0, rowStyle));
+      rows.push(gridSize(r, r, 0, rowStyle));
     }
     else {
       // Row height measured in point size
       const ht = attr(row, 'ht');
       if (ht != null || rowStyle != null) {
         // FIXME: GridSize.size should be optional: https://github.com/jsfkit/types/issues/14
-        const height = ht == null ? sheet.defaults.rowHeight : +ht;
-        rows.push(gridSize(+r, +r, height, rowStyle));
+        const height = ht == null ? sheet.defaults!.rowHeight : +ht;
+        rows.push(gridSize(r, r, height, rowStyle));
       }
     }
 
@@ -192,14 +203,14 @@ export function handlerWorksheet (
       if (!id) {
         // spec does not say what to do when the attribute is missing but
         // Excel will simply count from the last ID, so we do the same
-        const cellPos = fromA1(lastId ?? 'A' + r);
-        id = toA1(cellPos.left + 1, cellPos.top);
+        const cellPos = fromA1(lastId ?? 'A' + r)!;
+        id = toA1((cellPos.left || 0) + 1, cellPos.top || 0);
       }
-      const c = handlerCell(d, context);
+      const c = handlerCell(d, id, context);
       if (context.options.skipMerged && id) {
-        if (context._merged[id] && context._merged[id] !== id) {
+        if (context._merged![id] && context._merged![id] !== id) {
           // check if there are needed styles
-          if (!c || !('s' in c) || !relevantStyle(context.workbook.styles[c.s])) {
+          if (!c || !('s' in c) || (typeof c.s === 'number' && !relevantStyle(context.workbook!.styles![c.s]))) {
             // this cell is part of a merged range and has no required styles
             return;
           }
@@ -213,19 +224,26 @@ export function handlerWorksheet (
       }
       lastId = id;
     });
+    lastR = r;
   });
 
   // run-length encode the row heights
-  sheet.rows = rle(rows, sheet.defaults.rowHeight);
+  sheet.rows = rle(rows, sheet.defaults!.rowHeight);
 
   // add .F tags to array formula cells
   context._arrayFormula.forEach(arrayRef => {
-    const { top, left, bottom, right } = fromA1(arrayRef);
-    for (let r = top; r <= bottom; r++) {
-      for (let c = left; c <= right; c++) {
-        const ref = toA1(c, r);
-        if (sheet.cells[ref]) {
-          sheet.cells[ref].F = arrayRef;
+    const arrRef = fromA1(arrayRef);
+    if (arrRef) {
+      const top = arrRef.top ?? 0;
+      const left = arrRef.left ?? 0;
+      const bottom = arrRef.bottom ?? top;
+      const right = arrRef.right ?? left;
+      for (let r = top; r <= bottom; r++) {
+        for (let c = left; c <= right; c++) {
+          const ref = toA1(c, r);
+          if (sheet.cells[ref]) {
+            sheet.cells[ref].F = arrayRef;
+          }
         }
       }
     }

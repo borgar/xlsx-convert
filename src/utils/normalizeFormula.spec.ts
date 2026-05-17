@@ -257,7 +257,7 @@ describe('normalizeFormula', () => {
       const strippedTokens = tokenize(stripped);
       const beamToken = strippedTokens.find(t => t.value === 'c:r');
       expect(beamToken).toBeDefined();
-      expect(beamToken.type).toBe(tokenTypes.REF_BEAM);
+      expect(beamToken!.type).toBe(tokenTypes.REF_BEAM);
     });
 
     it('should preserve prefixes in R1C1 mode', () => {

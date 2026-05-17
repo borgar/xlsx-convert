@@ -180,9 +180,7 @@
       "fillColor": {
         "type": "theme",
         "value": "lt1",
-        "transforms": [
-          { "type": "shade", "value": 95.00106814783166 }
-        ]
+        "transforms": [ { "type": "shade", "value": 95.00106814783166 } ]
       }
     },
     {
@@ -191,9 +189,7 @@
       "fillColor": {
         "type": "theme",
         "value": "dk1",
-        "transforms": [
-          { "type": "tint", "value": 50.0015259254738 }
-        ]
+        "transforms": [ { "type": "tint", "value": 50.0015259254738 } ]
       }
     },
     {
@@ -202,9 +198,7 @@
       "fillColor": {
         "type": "theme",
         "value": "lt2",
-        "transforms": [
-          { "type": "shade", "value": 90.00213629566332 }
-        ]
+        "transforms": [ { "type": "shade", "value": 90.00213629566332 } ]
       }
     },
     {
@@ -213,9 +207,7 @@
       "fillColor": {
         "type": "theme",
         "value": "dk2",
-        "transforms": [
-          { "type": "tint", "value": 20.001831110568556 }
-        ]
+        "transforms": [ { "type": "tint", "value": 20.001831110568556 } ]
       }
     },
     {
@@ -224,9 +216,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent1",
-        "transforms": [
-          { "type": "tint", "value": 20.001831110568556 }
-        ]
+        "transforms": [ { "type": "tint", "value": 20.001831110568556 } ]
       }
     },
     {
@@ -235,9 +225,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent2",
-        "transforms": [
-          { "type": "tint", "value": 20.001831110568556 }
-        ]
+        "transforms": [ { "type": "tint", "value": 20.001831110568556 } ]
       }
     },
     {
@@ -246,9 +234,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent3",
-        "transforms": [
-          { "type": "tint", "value": 20.001831110568556 }
-        ]
+        "transforms": [ { "type": "tint", "value": 20.001831110568556 } ]
       }
     },
     {
@@ -257,9 +243,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent4",
-        "transforms": [
-          { "type": "tint", "value": 20.001831110568556 }
-        ]
+        "transforms": [ { "type": "tint", "value": 20.001831110568556 } ]
       }
     },
     {
@@ -268,9 +252,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent5",
-        "transforms": [
-          { "type": "tint", "value": 20.001831110568556 }
-        ]
+        "transforms": [ { "type": "tint", "value": 20.001831110568556 } ]
       }
     },
     {
@@ -279,9 +261,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent6",
-        "transforms": [
-          { "type": "tint", "value": 20.001831110568556 }
-        ]
+        "transforms": [ { "type": "tint", "value": 20.001831110568556 } ]
       }
     },
     {
@@ -290,9 +270,7 @@
       "fillColor": {
         "type": "theme",
         "value": "lt1",
-        "transforms": [
-          { "type": "shade", "value": 85.00015259254738 }
-        ]
+        "transforms": [ { "type": "shade", "value": 85.00015259254738 } ]
       }
     },
     {
@@ -301,9 +279,7 @@
       "fillColor": {
         "type": "theme",
         "value": "dk1",
-        "transforms": [
-          { "type": "tint", "value": 65.00137333292642 }
-        ]
+        "transforms": [ { "type": "tint", "value": 65.00137333292642 } ]
       }
     },
     {
@@ -312,9 +288,7 @@
       "fillColor": {
         "type": "theme",
         "value": "lt1",
-        "transforms": [
-          { "type": "shade", "value": 75.0022888882107 }
-        ]
+        "transforms": [ { "type": "shade", "value": 75.0022888882107 } ]
       }
     },
     {
@@ -323,9 +297,7 @@
       "fillColor": {
         "type": "theme",
         "value": "lt1",
-        "transforms": [
-          { "type": "shade", "value": 65.00137333292642 }
-        ]
+        "transforms": [ { "type": "shade", "value": 65.00137333292642 } ]
       }
     },
     {
@@ -334,9 +306,7 @@
       "fillColor": {
         "type": "theme",
         "value": "lt1",
-        "transforms": [
-          { "type": "shade", "value": 50.0015259254738 }
-        ]
+        "transforms": [ { "type": "shade", "value": 50.0015259254738 } ]
       }
     },
     {
@@ -395,9 +365,7 @@
       "fillColor": {
         "type": "theme",
         "value": "dk1",
-        "transforms": [
-          { "type": "tint", "value": 75.0022888882107 }
-        ]
+        "transforms": [ { "type": "tint", "value": 75.0022888882107 } ]
       }
     },
     {
@@ -406,9 +374,7 @@
       "fillColor": {
         "type": "theme",
         "value": "dk1",
-        "transforms": [
-          { "type": "tint", "value": 85.00015259254738 }
-        ]
+        "transforms": [ { "type": "tint", "value": 85.00015259254738 } ]
       }
     },
     {
@@ -417,9 +383,7 @@
       "fillColor": {
         "type": "theme",
         "value": "dk1",
-        "transforms": [
-          { "type": "tint", "value": 95.00106814783166 }
-        ]
+        "transforms": [ { "type": "tint", "value": 95.00106814783166 } ]
       }
     },
     {
@@ -428,9 +392,7 @@
       "fillColor": {
         "type": "theme",
         "value": "lt2",
-        "transforms": [
-          { "type": "shade", "value": 75.0022888882107 }
-        ]
+        "transforms": [ { "type": "shade", "value": 75.0022888882107 } ]
       }
     },
     {
@@ -439,9 +401,7 @@
       "fillColor": {
         "type": "theme",
         "value": "lt2",
-        "transforms": [
-          { "type": "shade", "value": 50.0015259254738 }
-        ]
+        "transforms": [ { "type": "shade", "value": 50.0015259254738 } ]
       }
     },
     {
@@ -450,9 +410,7 @@
       "fillColor": {
         "type": "theme",
         "value": "lt2",
-        "transforms": [
-          { "type": "shade", "value": 25.0007629627369 }
-        ]
+        "transforms": [ { "type": "shade", "value": 25.0007629627369 } ]
       }
     },
     {
@@ -461,9 +419,7 @@
       "fillColor": {
         "type": "theme",
         "value": "lt2",
-        "transforms": [
-          { "type": "shade", "value": 10.000915555284283 }
-        ]
+        "transforms": [ { "type": "shade", "value": 10.000915555284283 } ]
       }
     },
     {
@@ -472,9 +428,7 @@
       "fillColor": {
         "type": "theme",
         "value": "dk2",
-        "transforms": [
-          { "type": "tint", "value": 40.00061037018951 }
-        ]
+        "transforms": [ { "type": "tint", "value": 40.00061037018951 } ]
       }
     },
     {
@@ -483,9 +437,7 @@
       "fillColor": {
         "type": "theme",
         "value": "dk2",
-        "transforms": [
-          { "type": "tint", "value": 60.00244148075809 }
-        ]
+        "transforms": [ { "type": "tint", "value": 60.00244148075809 } ]
       }
     },
     {
@@ -494,9 +446,7 @@
       "fillColor": {
         "type": "theme",
         "value": "dk2",
-        "transforms": [
-          { "type": "shade", "value": 75.0022888882107 }
-        ]
+        "transforms": [ { "type": "shade", "value": 75.0022888882107 } ]
       }
     },
     {
@@ -505,9 +455,7 @@
       "fillColor": {
         "type": "theme",
         "value": "dk2",
-        "transforms": [
-          { "type": "shade", "value": 50.0015259254738 }
-        ]
+        "transforms": [ { "type": "shade", "value": 50.0015259254738 } ]
       }
     },
     {
@@ -516,9 +464,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent1",
-        "transforms": [
-          { "type": "tint", "value": 40.00061037018951 }
-        ]
+        "transforms": [ { "type": "tint", "value": 40.00061037018951 } ]
       }
     },
     {
@@ -527,9 +473,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent1",
-        "transforms": [
-          { "type": "tint", "value": 60.00244148075809 }
-        ]
+        "transforms": [ { "type": "tint", "value": 60.00244148075809 } ]
       }
     },
     {
@@ -538,9 +482,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent1",
-        "transforms": [
-          { "type": "shade", "value": 75.0022888882107 }
-        ]
+        "transforms": [ { "type": "shade", "value": 75.0022888882107 } ]
       }
     },
     {
@@ -549,9 +491,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent1",
-        "transforms": [
-          { "type": "shade", "value": 50.0015259254738 }
-        ]
+        "transforms": [ { "type": "shade", "value": 50.0015259254738 } ]
       }
     },
     {
@@ -560,9 +500,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent2",
-        "transforms": [
-          { "type": "tint", "value": 40.00061037018951 }
-        ]
+        "transforms": [ { "type": "tint", "value": 40.00061037018951 } ]
       }
     },
     {
@@ -571,9 +509,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent2",
-        "transforms": [
-          { "type": "tint", "value": 60.00244148075809 }
-        ]
+        "transforms": [ { "type": "tint", "value": 60.00244148075809 } ]
       }
     },
     {
@@ -582,9 +518,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent2",
-        "transforms": [
-          { "type": "shade", "value": 75.0022888882107 }
-        ]
+        "transforms": [ { "type": "shade", "value": 75.0022888882107 } ]
       }
     },
     {
@@ -593,9 +527,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent2",
-        "transforms": [
-          { "type": "shade", "value": 50.0015259254738 }
-        ]
+        "transforms": [ { "type": "shade", "value": 50.0015259254738 } ]
       }
     },
     {
@@ -604,9 +536,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent3",
-        "transforms": [
-          { "type": "tint", "value": 40.00061037018951 }
-        ]
+        "transforms": [ { "type": "tint", "value": 40.00061037018951 } ]
       }
     },
     {
@@ -615,9 +545,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent3",
-        "transforms": [
-          { "type": "tint", "value": 60.00244148075809 }
-        ]
+        "transforms": [ { "type": "tint", "value": 60.00244148075809 } ]
       }
     },
     {
@@ -626,9 +554,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent3",
-        "transforms": [
-          { "type": "shade", "value": 75.0022888882107 }
-        ]
+        "transforms": [ { "type": "shade", "value": 75.0022888882107 } ]
       }
     },
     {
@@ -637,9 +563,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent3",
-        "transforms": [
-          { "type": "shade", "value": 50.0015259254738 }
-        ]
+        "transforms": [ { "type": "shade", "value": 50.0015259254738 } ]
       }
     },
     {
@@ -648,9 +572,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent4",
-        "transforms": [
-          { "type": "tint", "value": 40.00061037018951 }
-        ]
+        "transforms": [ { "type": "tint", "value": 40.00061037018951 } ]
       }
     },
     {
@@ -659,9 +581,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent4",
-        "transforms": [
-          { "type": "tint", "value": 60.00244148075809 }
-        ]
+        "transforms": [ { "type": "tint", "value": 60.00244148075809 } ]
       }
     },
     {
@@ -670,9 +590,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent4",
-        "transforms": [
-          { "type": "shade", "value": 75.0022888882107 }
-        ]
+        "transforms": [ { "type": "shade", "value": 75.0022888882107 } ]
       }
     },
     {
@@ -681,9 +599,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent4",
-        "transforms": [
-          { "type": "shade", "value": 50.0015259254738 }
-        ]
+        "transforms": [ { "type": "shade", "value": 50.0015259254738 } ]
       }
     },
     {
@@ -692,9 +608,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent5",
-        "transforms": [
-          { "type": "tint", "value": 40.00061037018951 }
-        ]
+        "transforms": [ { "type": "tint", "value": 40.00061037018951 } ]
       }
     },
     {
@@ -703,9 +617,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent5",
-        "transforms": [
-          { "type": "tint", "value": 60.00244148075809 }
-        ]
+        "transforms": [ { "type": "tint", "value": 60.00244148075809 } ]
       }
     },
     {
@@ -714,9 +626,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent5",
-        "transforms": [
-          { "type": "shade", "value": 75.0022888882107 }
-        ]
+        "transforms": [ { "type": "shade", "value": 75.0022888882107 } ]
       }
     },
     {
@@ -725,9 +635,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent5",
-        "transforms": [
-          { "type": "shade", "value": 50.0015259254738 }
-        ]
+        "transforms": [ { "type": "shade", "value": 50.0015259254738 } ]
       }
     },
     {
@@ -736,9 +644,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent6",
-        "transforms": [
-          { "type": "tint", "value": 40.00061037018951 }
-        ]
+        "transforms": [ { "type": "tint", "value": 40.00061037018951 } ]
       }
     },
     {
@@ -747,9 +653,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent6",
-        "transforms": [
-          { "type": "tint", "value": 60.00244148075809 }
-        ]
+        "transforms": [ { "type": "tint", "value": 60.00244148075809 } ]
       }
     },
     {
@@ -758,9 +662,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent6",
-        "transforms": [
-          { "type": "shade", "value": 75.0022888882107 }
-        ]
+        "transforms": [ { "type": "shade", "value": 75.0022888882107 } ]
       }
     },
     {
@@ -769,9 +671,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent6",
-        "transforms": [
-          { "type": "shade", "value": 50.0015259254738 }
-        ]
+        "transforms": [ { "type": "shade", "value": 50.0015259254738 } ]
       }
     },
     {
@@ -894,9 +794,7 @@
     }
   ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -924,5 +822,20 @@
       }
     }
   },
-  "formulas": []
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "formulas": [],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
 }

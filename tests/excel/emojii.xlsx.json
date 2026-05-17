@@ -333,16 +333,12 @@
         "A31": { "v": "Sequnce" },
         "B31": { "v": "🏳️‍⚧️" }
       },
-      "columns": [
-        { "start": 2, "end": 17, "size": 30 }
-      ],
+      "columns": [ { "start": 2, "end": 17, "size": 30 } ],
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "B18" }
-      ]
+      "views": [ { "workbookView": 0, "activeCell": "B18" } ]
     }
   ],
   "names": [],
@@ -365,16 +361,10 @@
       "fontSize": 12,
       "bold": true
     },
-    {
-      "fontScheme": "minor",
-      "fontSize": 12,
-      "bold": true
-    }
+    { "fontScheme": "minor", "fontSize": 12, "bold": true }
   ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -402,5 +392,20 @@
       }
     }
   },
-  "formulas": []
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "formulas": [],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
 }

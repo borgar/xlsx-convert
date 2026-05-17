@@ -3,7 +3,7 @@ import { attr } from '../../utils/attr.ts';
 import { addProp } from '../../utils/addProp.ts';
 import type { Paragraph, TextAnchoring, TextBody, TextHorzOverflow, TextVertOverflow, TextWrapping } from '@jsfkit/types';
 
-export function readTextBody (elm: Element | null): TextBody | undefined {
+export function readTextBody (elm: Element | null | undefined): TextBody | undefined {
   if (elm?.tagName === 'txBody') {
     const text: TextBody = { p: [] };
 

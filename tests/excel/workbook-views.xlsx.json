@@ -33,11 +33,7 @@
         {
           "workbookView": 0,
           "activeCell": "D12",
-          "activeRanges": [
-            "J12",
-            "E25:I25",
-            "D12:G18"
-          ]
+          "activeRanges": [ "J12", "E25:I25", "D12:G18" ]
         },
         { "workbookView": 1, "activeCell": "D12" }
       ]
@@ -50,9 +46,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 1, "activeCell": "C25" }
-      ]
+      "views": [ { "workbookView": 1, "activeCell": "C25" } ]
     }
   ],
   "names": [],
@@ -62,9 +56,7 @@
     "iterateDelta": 0.001,
     "epoch": 1900
   },
-  "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
-  ],
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
   "tables": [],
   "views": [
     { "activeSheet": 1 },
@@ -97,5 +89,20 @@
       }
     }
   },
-  "formulas": []
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "formulas": [],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
 }

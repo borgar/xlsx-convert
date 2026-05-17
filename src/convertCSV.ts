@@ -80,7 +80,7 @@ export function convertCSV (
     let singleType = 0;
     for (let col = 0; col < parser.width; col++) {
       const headCell = cells[toA1(col, 0)] ?? { v: null };
-      const count = parser.columns[col] ?? EMPTY_COLUMN;
+      const count = parser.columns?.[col] ?? EMPTY_COLUMN;
       if (count.t === count.total) {
         // all text column
         // heading is sniffed by looking for for variations in text length, up to 20 rows
@@ -149,7 +149,7 @@ export function convertCSV (
           cells[cellRef] = { v: '' };
         }
         // use the cell's value as the column header as is possible
-        const numFormat = parser.formats[cells[cellRef].s] || 'General';
+        const numFormat = parser.formats[cells[cellRef].s ?? -1] || 'General';
         let newColName = format(numFormat, cells[cellRef].v ?? '') || columns[col].name;
         // name nust not be over 255 characters
         newColName = newColName.slice(0, 255);

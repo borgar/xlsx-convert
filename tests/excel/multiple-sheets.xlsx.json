@@ -22,9 +22,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "A2" }
-      ]
+      "views": [ { "workbookView": 0, "activeCell": "A2" } ]
     },
     {
       "name": "Sheet3",
@@ -36,9 +34,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "A2" }
-      ]
+      "views": [ { "workbookView": 0, "activeCell": "A2" } ]
     },
     {
       "name": "Sheet4",
@@ -50,9 +46,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "A2" }
-      ]
+      "views": [ { "workbookView": 0, "activeCell": "A2" } ]
     },
     {
       "name": "Sheet5",
@@ -73,13 +67,9 @@
     "iterateDelta": 0.001,
     "epoch": 1900
   },
-  "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
-  ],
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
   "tables": [],
-  "views": [
-    { "activeSheet": 3 }
-  ],
+  "views": [ { "activeSheet": 3 } ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -107,5 +97,20 @@
       }
     }
   },
-  "formulas": []
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "formulas": [],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
 }

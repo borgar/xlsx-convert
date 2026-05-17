@@ -43,11 +43,22 @@ describe('convertBinary', () => {
       names: [],
       tables: [],
       views: [ {} ],
+      namedStyles: {
+        Normal: { builtinId: 0, name: 'Normal', fontScheme: 'minor', fontSize: 12 },
+        Percent: { builtinId: 5, name: 'Percent', fontScheme: 'minor', fontSize: 12, numberFormat: '0%' },
+      },
       styles: [
         { fontScheme: 'minor', fontSize: 12 },
         { fontScheme: 'minor', fontSize: 12, numberFormat: '0.00E+00' },
-        { fontScheme: 'minor', fontSize: 12, numberFormat: '0.0%' },
+        { extendsStyle: 'Percent', fontScheme: 'minor', fontSize: 12, numberFormat: '0.0%' },
       ],
+      meta: {
+        app: {
+          name: 'Microsoft Excel',
+          variant: 'Macintosh',
+          version: '16.0300',
+        },
+      },
       theme: {
         name: 'Office Theme',
         colorScheme: {
@@ -84,27 +95,27 @@ describe('convertBinary', () => {
 
     test('convert normally', async () => {
       const jsf = await convertBinary(bin, 'image-backgrounds-dimensions.xlsx');
-      expect(Object.keys(jsf.images)).toStrictEqual([ imgName ]);
-      expect(jsf.images[imgName].length).toBe(462658);
-      expect(jsf.images[imgName].slice(0, 32)).toBe('data:image/png;base64,iVBORw0KGg');
+      expect(Object.keys(jsf.images!)).toStrictEqual([ imgName ]);
+      expect(jsf.images![imgName].length).toBe(462658);
+      expect(jsf.images![imgName].slice(0, 32)).toBe('data:image/png;base64,iVBORw0KGg');
     });
 
     test('convert with altering image callback', async () => {
       const jsf = await convertBinary(bin, 'image-backgrounds-dimensions.xlsx', {
-        imageCallback: (_, name: string) => name,
+        imageCallback: (_, name?: string) => name,
       });
-      expect(Object.keys(jsf.images)).toStrictEqual([ imgName ]);
-      expect(jsf.images[imgName].length).toBe(19);
-      expect(jsf.images[imgName]).toBe(imgName);
+      expect(Object.keys(jsf.images!)).toStrictEqual([ imgName ]);
+      expect(jsf.images![imgName].length).toBe(19);
+      expect(jsf.images![imgName]).toBe(imgName);
     });
 
     test('convert with void image callback', async () => {
       const jsf = await convertBinary(bin, 'image-backgrounds-dimensions.xlsx', {
         imageCallback: () => {},
       });
-      expect(Object.keys(jsf.images)).toStrictEqual([ imgName ]);
-      expect(jsf.images[imgName].length).toBe(462658);
-      expect(jsf.images[imgName].slice(0, 32)).toBe('data:image/png;base64,iVBORw0KGg');
+      expect(Object.keys(jsf.images!)).toStrictEqual([ imgName ]);
+      expect(jsf.images![imgName].length).toBe(462658);
+      expect(jsf.images![imgName].slice(0, 32)).toBe('data:image/png;base64,iVBORw0KGg');
     });
   });
 
@@ -161,14 +172,14 @@ describe('convertBinary', () => {
     const bin = await readFile('./tests/excel/prefixed-formulas.xlsx');
     const wb = await convertBinary(bin, 'prefixed-formulas.xlsx', { preservePrefixes: true });
     // Cell formulas (R1C1) retain _xlfn. and _xlpm. prefixes
-    expect(wb.formulas.some(f => f.includes('_xlfn.'))).toBe(true);
-    expect(wb.formulas.some(f => f.includes('_xlpm.'))).toBe(true);
+    expect(wb.formulas!.some(f => f.includes('_xlfn.'))).toBe(true);
+    expect(wb.formulas!.some(f => f.includes('_xlpm.'))).toBe(true);
     // The LET c:r formula preserves the _xlpm. prefix on both names
-    const letCR = wb.formulas.find(f => f.includes('_xlpm.c') && f.includes('_xlpm.r'));
+    const letCR = wb.formulas!.find(f => f.includes('_xlpm.c') && f.includes('_xlpm.r'));
     expect(letCR).toContain('_xlpm.c:_xlpm.r');
     // Defined names also retain prefixes
-    expect(wb.names[0].value).toContain('_xlfn.LAMBDA');
-    expect(wb.names[0].value).toContain('_xlpm.x');
+    expect(wb.names![0].value).toContain('_xlfn.LAMBDA');
+    expect(wb.names![0].value).toContain('_xlpm.x');
 
     // cellFormulas mode also retains prefixes
     const wbCF = await convertBinary(bin, 'prefixed-formulas.xlsx', {
@@ -180,9 +191,9 @@ describe('convertBinary', () => {
 
     // Without the option, prefixes are stripped
     const wbDefault = await convertBinary(bin, 'prefixed-formulas.xlsx');
-    expect(wbDefault.formulas.some(f => f.includes('_xlfn.'))).toBe(false);
-    expect(wbDefault.formulas.some(f => f.includes('_xlpm.'))).toBe(false);
-    expect(wbDefault.names[0].value).not.toContain('_xlfn.');
+    expect(wbDefault.formulas!.some(f => f.includes('_xlfn.'))).toBe(false);
+    expect(wbDefault.formulas!.some(f => f.includes('_xlpm.'))).toBe(false);
+    expect(wbDefault.names![0].value).not.toContain('_xlfn.');
   });
 
   test('images from all sheets are collected (not lost to concurrent processing)', async () => {
@@ -199,5 +210,29 @@ describe('convertBinary', () => {
       'xl/media/image5.png',
       'xl/media/image6.png',
     ]);
+  });
+
+  describe('CSE vs dynamic array formula distinction', () => {
+    // cse.xlsx has two array formulas:
+    //   A3: dynamic array (cm="1" on cell element)
+    //   A4: CSE array (no cm attribute)
+    // The distinction matters for roundtrip: jsf2xlsx must emit cm="1"
+    // only on dynamic arrays, not on CSE formulas.
+
+    test('dynamic array formula does not get cse flag', async () => {
+      const bin = await readFile('./tests/excel/cse.xlsx');
+      const jsf = await convertBinary(bin, 'cse.xlsx');
+      const a3 = jsf.sheets[0].cells.A3;
+      expect(a3.F).toBe('A3:D3');
+      expect(a3.cse).toBeUndefined();
+    });
+
+    test('CSE array formula gets cse: true', async () => {
+      const bin = await readFile('./tests/excel/cse.xlsx');
+      const jsf = await convertBinary(bin, 'cse.xlsx');
+      const a4 = jsf.sheets[0].cells.A4;
+      expect(a4.F).toBe('A4:D4');
+      expect(a4.cse).toBe(true);
+    });
   });
 });

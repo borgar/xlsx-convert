@@ -25,6 +25,7 @@ type ConversionContextSubset = {
   externalLinks: ExternalSubset[];
   preservePrefixes?: boolean;
 };
+type TrimTypes = 'both' | 'head' | 'tail';
 
 /**
  * Updates a reference:
@@ -87,19 +88,19 @@ function trimExpression (tokens: Token[]): Token[] {
 
 function updateRangeToken (
   token: Token,
-  trim: 'both' | 'head' | 'tail',
+  trim: TrimTypes | null,
   externalLinks?: ExternalSubset[],
   r1c1 = false,
 ): Token {
   if (r1c1) {
-    const ref = updateContext(parseR1C1Ref(token.value), externalLinks);
+    const ref = updateContext(parseR1C1Ref(token.value)!, externalLinks);
     if (trim && 'range' in ref) {
       ref.range.trim = trim;
     }
     token.value = stringifyR1C1RefCtx(ref as ReferenceR1C1 | ReferenceName);
   }
   else {
-    const ref = updateContext(parseA1Ref(token.value), externalLinks);
+    const ref = updateContext(parseA1Ref(token.value)!, externalLinks);
     if (trim && 'range' in ref) {
       ref.range.trim = trim;
     }
@@ -108,7 +109,7 @@ function updateRangeToken (
   return token;
 }
 
-const TRIM_OPS = {
+const TRIM_OPS: Record<string, TrimTypes> = {
   '_xlfn._TRO_ALL': 'both',
   '_TRO_ALL': 'both',
   '_xlfn._TRO_LEADING': 'head',
@@ -179,7 +180,7 @@ export function normalizeFormulaTokens (
       if (t.value.includes('[')) {
         try {
           if (t.type === tokenTypes.REF_STRUCT) {
-            const ref = parseStructRef(t.value);
+            const ref = parseStructRef(t.value)!;
             // if (ref.table && wb.tables?.length) {
             //   // TODO: omit the table prefix if current cell is within the table
             // }

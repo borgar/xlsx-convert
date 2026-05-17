@@ -35,9 +35,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "A13" }
-      ]
+      "views": [ { "workbookView": 0, "activeCell": "A13" } ]
     },
     {
       "name": "Column widths",
@@ -80,9 +78,7 @@
         {
           "workbookView": 0,
           "activeCell": "G1",
-          "activeRanges": [
-            "G1:J1"
-          ]
+          "activeRanges": [ "G1:J1" ]
         }
       ]
     },
@@ -195,9 +191,7 @@
         "F15": { "v": "visible" },
         "G15": { "v": "visible" }
       },
-      "columns": [
-        { "start": 4, "end": 5, "size": 0 }
-      ],
+      "columns": [ { "start": 4, "end": 5, "size": 0 } ],
       "rows": [
         { "start": 4, "end": 5, "size": 0 },
         { "start": 11, "end": 13, "size": 0 }
@@ -205,9 +199,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "H21" }
-      ]
+      "views": [ { "workbookView": 0, "activeCell": "H21" } ]
     },
     {
       "name": "Full sheet",
@@ -220,9 +212,7 @@
       "merges": [],
       "defaults": { "colWidth": 30, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "H7" }
-      ]
+      "views": [ { "workbookView": 0, "activeCell": "H7" } ]
     },
     {
       "name": "Long-repeats",
@@ -238,9 +228,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "G37" }
-      ]
+      "views": [ { "workbookView": 0, "activeCell": "G37" } ]
     }
   ],
   "names": [],
@@ -250,13 +238,9 @@
     "iterateDelta": 0.001,
     "epoch": 1900
   },
-  "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
-  ],
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
   "tables": [],
-  "views": [
-    { "activeSheet": 3 }
-  ],
+  "views": [ { "activeSheet": 3 } ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -284,5 +268,20 @@
       }
     }
   },
-  "formulas": []
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "formulas": [],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
 }

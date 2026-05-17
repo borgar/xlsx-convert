@@ -12,9 +12,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "L25" }
-      ],
+      "views": [ { "workbookView": 0, "activeCell": "L25" } ],
       "notes": [
         {
           "ref": "B2",
@@ -71,9 +69,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "D17" }
-      ],
+      "views": [ { "workbookView": 0, "activeCell": "D17" } ],
       "comments": [
         {
           "id": "{336863C7-7412-954B-B3B2-9EA0AC592F57}",
@@ -93,13 +89,9 @@
     "iterateDelta": 0.001,
     "epoch": 1900
   },
-  "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
-  ],
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -127,6 +119,14 @@
       }
     }
   },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
   "people": [
     {
       "id": "{3DB0C038-8ED0-334F-836F-17C97737837B}",
@@ -141,5 +141,12 @@
       "providerId": "None"
     }
   ],
-  "formulas": []
+  "formulas": [],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
 }

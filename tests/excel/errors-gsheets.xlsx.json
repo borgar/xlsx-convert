@@ -28,8 +28,8 @@
       "fontSize": 10,
       "color": { "type": "srgb", "value": "000000" }
     },
-    { "fontScheme": "minor", "fontSize": 0 },
-    { "fontScheme": "minor", "fontSize": 0 }
+    { "fontScheme": "minor" },
+    { "fontScheme": "minor" }
   ],
   "tables": [],
   "theme": {
@@ -63,7 +63,17 @@
       }
     }
   },
-  "formulas": [
-    "FOO()"
-  ]
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 10,
+      "color": { "type": "srgb", "value": "000000" },
+      "builtinId": 0
+    }
+  },
+  "formulas": [ "FOO()" ],
+  "meta": {
+    "app": { "name": "Google Sheets", "confidence": 0.8 }
+  }
 }

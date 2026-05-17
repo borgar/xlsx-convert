@@ -1,8 +1,8 @@
 import type { Element } from '@borgar/simple-xml';
-import type { Color as JSFColor, Theme } from '@jsfkit/types';
+import type { Color, Theme } from '@jsfkit/types';
+import { PRESET_COLORS, SYSTEM_COLORS } from '@jsfkit/utils';
 import { attr, numAttr } from '../utils/attr.ts';
-import { Color } from './Color.ts';
-import { SYSTEM_COLORS, PRESET_COLORS, SCHEME_COLORS, INDEX_TO_SCHEME } from '../constants.ts';
+import { SCHEME_COLORS, INDEX_TO_SCHEME } from '../constants.ts';
 import { readDrawingMLColor } from './readDrawingMLColor.ts';
 
 /**
@@ -22,8 +22,8 @@ import { readDrawingMLColor } from './readDrawingMLColor.ts';
  * - `<srgbClr>`
  * - `<sysClr>`
  */
-export function readColor (elm: Element, theme: Theme, indexedColors: string[]): Color | undefined {
-  if (!elm) { return undefined; }
+export function readColor (elm: Element | undefined | null, theme: Theme): Color | undefined {
+  if (!elm) { return; }
   const tagName = elm.tagName;
   // §3.8.3 - bgColor
   // §3.8.18 - fgColor
@@ -39,30 +39,30 @@ export function readColor (elm: Element, theme: Theme, indexedColors: string[]):
     // - [tint]    - Specifies the tint value applied to the color (-1.0 .. 1.0)
     const auto = attr(elm, 'auto');
     if (auto === '1' || auto === 'true') {
-      return new Color({ type: 'auto' }, theme, indexedColors);
+      return { type: 'auto' };
     }
 
-    let jsfColor: JSFColor | undefined;
+    let color: Color | undefined;
     const argb = attr(elm, 'rgb', ''); // ARGB
     if (argb) {
       // Convert ARGB to 6-digit sRGB hex. If the alpha byte is not fully opaque, preserve it as an
       // alpha transform since SrgbColor has no alpha field.
       const hex = argb.length === 8 ? argb.slice(2) : argb;
-      jsfColor = { type: 'srgb', value: hex.toUpperCase() };
+      color = { type: 'srgb', value: hex.toUpperCase() };
       if (argb.length === 8) {
         // NOTE: Yes, Excel removes this when it opens workbooks that have it, but we don't
         // have tested confirmation yet if this is [always] safe to remove, so we preserve it
         // leaving it up to consumers to discard the alpha channel at render-time.
         const alphaPct = parseInt(argb.slice(0, 2), 16) / 255 * 100;
         if (alphaPct < 100) {
-          jsfColor.transforms = [ { type: 'alpha', value: alphaPct } ];
+          color.transforms = [ { type: 'alpha', value: alphaPct } ];
         }
       }
     }
     else {
       const indexed = attr(elm, 'indexed', '');
       if (indexed) {
-        jsfColor = { type: 'indexed', value: +indexed };
+        color = { type: 'indexed', value: +indexed };
       }
       else {
         // theme: A zero-based index into the <clrScheme> collection (§20.1.6.2),
@@ -72,14 +72,14 @@ export function readColor (elm: Element, theme: Theme, indexedColors: string[]):
         if (themeIdx && theme) {
           const key = INDEX_TO_SCHEME[+themeIdx];
           if (key) {
-            jsfColor = { type: 'theme', value: key } as JSFColor;
+            color = { type: 'theme', value: key } as Color;
           }
         }
       }
     }
 
-    if (!jsfColor) {
-      return undefined;
+    if (!color) {
+      return;
     }
 
     // Convert the XLSX tint attribute to a shade or tint colour transform. XLSX tint is the
@@ -88,13 +88,13 @@ export function readColor (elm: Element, theme: Theme, indexedColors: string[]):
     // colour to retain. So XLSX tint=0.4 ("add 40% white") becomes value=60 ("retain 60%").
     const tint = numAttr(elm, 'tint', 0);
     if (tint < 0) {
-      jsfColor.transforms = [ { type: 'shade', value: (1 + tint) * 100 } ];
+      color.transforms = [ { type: 'shade', value: (1 + tint) * 100 } ];
     }
     else if (tint > 0) {
-      jsfColor.transforms = [ { type: 'tint', value: (1 - tint) * 100 } ];
+      color.transforms = [ { type: 'tint', value: (1 - tint) * 100 } ];
     }
 
-    return new Color(jsfColor, theme, indexedColors);
+    return color;
   }
 
   // DrawingML colour elements — validate, then delegate to readDrawingMLColor()
@@ -102,10 +102,10 @@ export function readColor (elm: Element, theme: Theme, indexedColors: string[]):
   // §5.1.2.2.29: Scheme Color - "specifies a color bound to a user's theme"
   else if (tagName === 'schemeClr') {
     const val = attr(elm, 'val');
-    if (val in SCHEME_COLORS) {
+    if (val && val in SCHEME_COLORS) {
       const jsfColor = readDrawingMLColor(elm);
       if (jsfColor) {
-        return new Color(jsfColor, theme, indexedColors);
+        return jsfColor;
       }
     }
   }
@@ -116,17 +116,17 @@ export function readColor (elm: Element, theme: Theme, indexedColors: string[]):
   else if (tagName === 'hslClr' || tagName === 'srgbClr' || tagName === 'scrgbClr') {
     const jsfColor = readDrawingMLColor(elm);
     if (jsfColor) {
-      return new Color(jsfColor, theme, indexedColors);
+      return jsfColor;
     }
   }
 
   // §5.1.2.2.22: Preset Color
   else if (tagName === 'prstClr') {
     const val = attr(elm, 'val');
-    if (val in PRESET_COLORS) {
+    if (val && val in PRESET_COLORS) {
       const jsfColor = readDrawingMLColor(elm);
       if (jsfColor) {
-        return new Color(jsfColor, theme, indexedColors);
+        return jsfColor;
       }
     }
   }
@@ -140,13 +140,11 @@ export function readColor (elm: Element, theme: Theme, indexedColors: string[]):
       // value that was last computed by the generating application).
       const jsfColor = readDrawingMLColor(elm);
       if (jsfColor) {
-        return new Color(jsfColor, theme, indexedColors);
+        return jsfColor;
       }
     }
   }
   else if (tagName) {
     throw new Error('Unknown color element: ' + tagName);
   }
-
-  return undefined;
 }

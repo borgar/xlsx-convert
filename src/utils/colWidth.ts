@@ -8,9 +8,9 @@
  *
  * Note: This yields integer pixel widths for stability.
  */
-export function colWidth (chars: number, padding = 0, mdw = 6): number {
+export function colWidth (chars: number | null | undefined, padding = 0, mdw = 6): number | undefined {
   if (chars == null || Number.isNaN(chars)) {
-    return null;
+    return undefined;
   }
   if (chars <= 0) {
     return 0;
