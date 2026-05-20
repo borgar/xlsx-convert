@@ -161,7 +161,7 @@
   },
   "styles": [
     { "fontScheme": "minor", "fontSize": 12 },
-    { "fontScheme": "minor", "fontSize": 12 },
+    { "fontScheme": "minor", "fontSize": 12, "pivotButton": true },
     {
       "horizontalAlignment": "left",
       "fontScheme": "minor",
