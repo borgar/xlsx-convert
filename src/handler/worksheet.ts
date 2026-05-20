@@ -1,4 +1,4 @@
-import type { GridSize, Worksheet, WorksheetLayoutScales, WorksheetView } from '@jsfkit/types';
+import type { GridSize, PageMargins, Worksheet, WorksheetLayoutScales, WorksheetView } from '@jsfkit/types';
 import { Document, Element } from '@borgar/simple-xml';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { rle } from '../utils/rle.ts';
@@ -11,6 +11,18 @@ import { toA1 } from '../utils/toA1.ts';
 import { getFirstChild } from '../utils/getFirstChild.ts';
 import { toInt } from '../utils/typecast.ts';
 import { addProp } from '../utils/addProp.ts';
+
+// Canonical default page margins (inches), per `Worksheet.pageMargins`'s `@default` in
+// `@jsfkit/types`. Must stay in sync with jsf2xlsx, which falls back to these when the JSF field
+// is absent. Duplicated here rather than imported because the types package is types-only.
+const DEFAULT_PAGE_MARGINS: PageMargins = {
+  left: 0.7,
+  right: 0.7,
+  top: 0.75,
+  bottom: 0.75,
+  header: 0.3,
+  footer: 0.3,
+};
 
 /**
  * Extracts zoom levels (layout scales) for the different view modes for a sheet.
@@ -248,6 +260,31 @@ export function handlerWorksheet (
       }
     }
   });
+
+  // OOXML requires every attribute when `<pageMargins>` is present; if any are missing or
+  // non-numeric, treat the element as absent rather than fabricating partial data. Normalise a
+  // canonical-default element to absent so the common case (every Excel-saved workbook carries
+  // explicit defaults) keeps the JSF compact.
+  const pageMarginsEl = getFirstChild(dom.root, 'pageMargins');
+  if (pageMarginsEl) {
+    const left = numAttr(pageMarginsEl, 'left');
+    const right = numAttr(pageMarginsEl, 'right');
+    const top = numAttr(pageMarginsEl, 'top');
+    const bottom = numAttr(pageMarginsEl, 'bottom');
+    const header = numAttr(pageMarginsEl, 'header');
+    const footer = numAttr(pageMarginsEl, 'footer');
+    if (
+      left != null && right != null && top != null &&
+      bottom != null && header != null && footer != null
+    ) {
+      const margins: PageMargins = { left, right, top, bottom, header, footer };
+      const matchesDefault = (Object.keys(DEFAULT_PAGE_MARGINS) as (keyof PageMargins)[])
+        .every(k => margins[k] === DEFAULT_PAGE_MARGINS[k]);
+      if (!matchesDefault) {
+        sheet.pageMargins = margins;
+      }
+    }
+  }
 
   // detect linked drawing (graphics within the sheet)
   const drawing = getFirstChild(dom.root, 'drawing');
