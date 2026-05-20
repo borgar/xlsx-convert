@@ -250,9 +250,7 @@
         {
           "fieldIndex": 3,
           "name": "Average of Salary",
-          "subtotal": "average",
-          "baseField": 0,
-          "baseItem": 0
+          "subtotal": "average"
         }
       ],
       "rowItems": [
