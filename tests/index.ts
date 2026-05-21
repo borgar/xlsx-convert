@@ -46,6 +46,7 @@ const tests = [
   'tests/excel/names.xlsx',
   'tests/excel/non-spilling-array-formula.xlsx',
   'tests/excel/numbers.xlsx',
+  'tests/excel/page-margins.xlsx',
   'tests/excel/patterns.xlsx',
   'tests/excel/pivot-table.xlsx',
   'tests/excel/rotated-groups-shapes.xlsx',
