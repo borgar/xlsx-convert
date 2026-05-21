@@ -4,8 +4,8 @@
     "tests/**/*",
     "eslint.config.js"
   ],
-  "types": [ "node" ],
   "compilerOptions": {
+    "types": [ "node" ],
     "rootDir": ".",
     "target": "ES2022",
     "module": "NodeNext",
