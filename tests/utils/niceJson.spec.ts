@@ -54,7 +54,7 @@ describe('niceJson', () => {
       );
     });
 
-    test.only('correctly deals with sparse arrays', () => {
+    test('correctly deals with sparse arrays', () => {
       // eslint-disable-next-line no-sparse-arrays
       expect(niceJson([ 1, , 1, 1, , ])).toBe(
         '[ 1, null, 1, 1, null ]',
