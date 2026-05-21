@@ -74,10 +74,10 @@
   "author": "Borgar Þorsteinsson <borgar@borgar.net> (http://borgar.net/)",
   "license": "MIT",
   "dependencies": {
-    "@borgar/fx": "~5.0.4",
+    "@borgar/fx": "~5.0.5",
     "@borgar/simple-xml": "~2.2.2",
     "@borgar/zip": "~1.0.0",
-    "@jsfkit/types": "~2.3.0",
+    "@jsfkit/types": "~2.4.0",
     "numfmt": "~3.2.6"
   },
   "peerDependencies": {
@@ -87,18 +87,18 @@
     "@borgar/eslint-config": "~4.1.0",
     "@eslint/js": "~10.0.1",
     "@jsfkit/utils": "~1.0.2",
-    "@types/node": "~25.7.0",
+    "@types/node": "~25.9.1",
     "concat-md": "~0.5.1",
-    "eslint": "~10.3.0",
+    "eslint": "~10.4.0",
     "globals": "~17.6.0",
     "jszip": "^3.10.1",
-    "tinybench": "~6.0.1",
+    "tinybench": "~6.0.2",
     "tsdown": "~0.22.0",
     "tsup": "~8.5.1",
     "typedoc": "~0.28.19",
     "typedoc-plugin-markdown": "~4.11.0",
     "typescript": "~6.0.3",
-    "typescript-eslint": "~8.59.3",
-    "vitest": "~4.1.6"
+    "typescript-eslint": "~8.59.4",
+    "vitest": "~4.1.7"
   }
 }
