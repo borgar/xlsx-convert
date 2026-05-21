@@ -78,6 +78,13 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
     if (calcMode === 'autoNoTable' || calcMode === 'manual') {
       wb.calculationProperties!.calcMode = calcMode;
     }
+    // ECMA-376 §18.2.2: `fullCalcOnLoad` is the writer's request to recalc on load;
+    // `forceFullCalc` is the same prescriptive signal (Excel sets it after a calc-engine version
+    // bump, distinct from fullCalcOnLoad). Either translates to the same consumer action, so
+    // collapse both onto the JSF's single `fullCalcOnLoad` flag.
+    if (boolAttr(calcPr, 'fullCalcOnLoad') || boolAttr(calcPr, 'forceFullCalc')) {
+      wb.calculationProperties!.fullCalcOnLoad = true;
+    }
   }
 
   wb.calculationProperties!.epoch = epoch;
