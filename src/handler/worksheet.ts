@@ -1,4 +1,4 @@
-import type { GridSize, Worksheet, WorksheetLayoutScales, WorksheetView } from '@jsfkit/types';
+import type { GridSize, PageMargins, Worksheet, WorksheetLayoutScales, WorksheetView } from '@jsfkit/types';
 import { Document, Element } from '@borgar/simple-xml';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { rle } from '../utils/rle.ts';
@@ -11,6 +11,7 @@ import { toA1 } from '../utils/toA1.ts';
 import { getFirstChild } from '../utils/getFirstChild.ts';
 import { toInt } from '../utils/typecast.ts';
 import { addProp } from '../utils/addProp.ts';
+import { DEFAULT_PAGE_MARGINS } from '../constants.ts';
 
 /**
  * Extracts zoom levels (layout scales) for the different view modes for a sheet.
@@ -248,6 +249,32 @@ export function handlerWorksheet (
       }
     }
   });
+
+  // read page print margins
+  const pm = getFirstChild(dom.root, 'pageMargins');
+  if (pm) {
+    const margins: PageMargins = {
+      left: numAttr(pm, 'left'),
+      right: numAttr(pm, 'right'),
+      top: numAttr(pm, 'top'),
+      bottom: numAttr(pm, 'bottom'),
+      header: numAttr(pm, 'header'),
+      footer: numAttr(pm, 'footer'),
+    };
+    if (
+      // OOXML requires every attribute when `<pageMargins>` is present; if any are missing or
+      // non-numeric, treat the element as absent rather than fabricating partial data.
+      (margins.top != null && margins.bottom != null &&
+      margins.left != null && margins.right != null &&
+      margins.header != null && margins.footer != null) &&
+      // Normalise a canonical-default element to absent so the common case keeps the JSF compact.
+      (margins.top != DEFAULT_PAGE_MARGINS.top || margins.bottom != DEFAULT_PAGE_MARGINS.bottom ||
+      margins.left != DEFAULT_PAGE_MARGINS.left || margins.right != DEFAULT_PAGE_MARGINS.right ||
+      margins.header != DEFAULT_PAGE_MARGINS.header || margins.footer != DEFAULT_PAGE_MARGINS.footer)
+    ) {
+      sheet.pageMargins = margins;
+    }
+  }
 
   // detect linked drawing (graphics within the sheet)
   const drawing = getFirstChild(dom.root, 'drawing');
