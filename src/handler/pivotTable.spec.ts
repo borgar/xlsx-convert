@@ -247,6 +247,9 @@ describe('handlerPivotTable', () => {
   });
 
   it('should parse data fields with subtotal, showDataAs, baseField/baseItem', () => {
+    // JSF stores non-default values; the OOXML-default `0` on
+    // `baseField`/`baseItem` is elided on parse. Non-default values still
+    // round-trip --- covered by the next test.
     const xml = `<pivotTableDefinition name="PT1" cacheId="0">
       <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
       <pivotFields count="1"><pivotField dataField="1" showAll="1"/></pivotFields>
@@ -261,9 +264,24 @@ describe('handlerPivotTable', () => {
       fieldIndex: 0,
       subtotal: 'sum',
       showDataAs: 'percentOfTotal',
-      baseField: 0,
-      baseItem: 0,
     });
+    expect(pt.dataFields![0]).not.toHaveProperty('baseField');
+    expect(pt.dataFields![0]).not.toHaveProperty('baseItem');
+  });
+
+  it('should parse non-default baseField/baseItem verbatim', () => {
+    // Only the OOXML default value (`0`) is elided; explicit non-defaults
+    // are still preserved so they round-trip cleanly.
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="1"><pivotField dataField="1" showAll="1"/></pivotFields>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="1">
+        <dataField name="Diff" fld="0" showDataAs="difference" baseField="2" baseItem="3"/>
+      </dataFields>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.dataFields![0]).toMatchObject({ baseField: 2, baseItem: 3 });
   });
 
   it('should parse page fields with selectedItem', () => {

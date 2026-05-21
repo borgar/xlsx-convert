@@ -49,8 +49,11 @@ export function parseDataFields (root: Element, numFmts?: NumFmtLookup): PivotDa
     addProp(dataField, 'name', attr(df, 'name'));
     addProp(dataField, 'subtotal', parseEnum(attr(df, 'subtotal'), DATA_FIELD_AGGREGATIONS));
     addProp(dataField, 'showDataAs', parseEnum(attr(df, 'showDataAs'), SHOW_DATA_AS_VALUES));
-    addProp(dataField, 'baseField', numAttr(df, 'baseField'));
-    addProp(dataField, 'baseItem', numAttr(df, 'baseItem'));
+    // JSF stores non-default values; defaults are implicit. `baseField`
+    // and `baseItem` default to `0` per OOXML, so the explicit `0` Excel
+    // emits is elided here to keep the parsed JSF canonically minimal.
+    addProp(dataField, 'baseField', numAttr(df, 'baseField'), 0);
+    addProp(dataField, 'baseItem', numAttr(df, 'baseItem'), 0);
     addProp(dataField, 'numFmt', resolveNumFmt(df, numFmts));
     dataFields.push(dataField);
   }
