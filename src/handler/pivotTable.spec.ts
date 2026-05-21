@@ -247,11 +247,9 @@ describe('handlerPivotTable', () => {
   });
 
   it('should parse data fields with subtotal, showDataAs, baseField/baseItem', () => {
-    // Default `baseField`/`baseItem` (both `0`) are elided from the parsed
-    // JSF --- Excel always emits the explicit `0` on dataField, so preserving
-    // the literal would force round-trip producers to either emit the
-    // attribute unconditionally or set it explicitly to `0` on every input.
-    // Non-default values still round-trip; covered by the next test.
+    // JSF stores non-default values; the OOXML-default `0` on
+    // `baseField`/`baseItem` is elided on parse. Non-default values still
+    // round-trip --- covered by the next test.
     const xml = `<pivotTableDefinition name="PT1" cacheId="0">
       <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
       <pivotFields count="1"><pivotField dataField="1" showAll="1"/></pivotFields>
