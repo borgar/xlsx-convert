@@ -62,6 +62,7 @@ type Xf = {
   wrapText?: boolean;
   shrinkToFit?: boolean;
   textRotation?: number;
+  pivotButton?: boolean;
 };
 
 function readXf (d: Element, styles: StyleDefs) {
@@ -109,6 +110,9 @@ function readXf (d: Element, styles: StyleDefs) {
     if (shrinkToFit) { xf.shrinkToFit = !!+shrinkToFit; }
     if (textRotation) { xf.textRotation = +textRotation; }
   }
+
+  const pivotButton = attr(d, 'pivotButton');
+  if (pivotButton) { xf.pivotButton = !!+pivotButton; }
 
   return xf;
 }

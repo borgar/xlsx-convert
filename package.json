@@ -14,7 +14,7 @@
     }
   },
   "bin": {
-    "xlsx-convert": "./dist/cli.cjs"
+    "xlsx-convert": "./dist/cli.mjs"
   },
   "directories": {
     "test": "tests"
@@ -29,7 +29,7 @@
     "test": "npm run test:unit && VERIFY_FORMULAS=1 npm run test:fixture",
     "updatetests": "UPDATE_TESTS=1 node --experimental-transform-types tests/index.ts",
     "check": "npm run test && npm run lint && npm run typecheck && node src/cli.ts tests/excel/fonts.xlsx -o /dev/null",
-    "release": "git diff --exit-code && tsdown && npm publish && V=$(jq -r .version package.json) && git tag -a $V -m $V && git push origin $V && gh release create $V --generate-notes",
+    "release": "git diff --exit-code && PACKAGE_VERSION=$(jq -r .version package.json) && echo \"About to tag and push v$PACKAGE_VERSION. Continue? (y/n)\" && read -r REPLY && [ \"$REPLY\" = \"y\" ] && git tag --annotate v$PACKAGE_VERSION --message=v$PACKAGE_VERSION && git push origin v$PACKAGE_VERSION",
     "benchmark": "node --experimental-transform-types tests/benchmark.ts",
     "benchmark:fixture": "npm run benchmark tests/excel"
   },
@@ -51,13 +51,12 @@
     },
     {
       "entry": "src/cli.ts",
-      "platform": "node",
-      "format": "cjs"
+      "platform": "node"
     }
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/borgar/xlsx-reader.git"
+    "url": "https://github.com/borgar/xlsx-convert"
   },
   "bugs": {
     "url": "https://github.com/borgar/xlsx-reader/issues"
@@ -75,7 +74,7 @@
   "author": "Borgar Þorsteinsson <borgar@borgar.net> (http://borgar.net/)",
   "license": "MIT",
   "dependencies": {
-    "@borgar/fx": "~5.0.4",
+    "@borgar/fx": "~5.0.5",
     "@borgar/simple-xml": "~2.2.2",
     "@borgar/zip": "~1.0.0",
     "@jsfkit/types": "~2.4.0",
@@ -88,18 +87,18 @@
     "@borgar/eslint-config": "~4.1.0",
     "@eslint/js": "~10.0.1",
     "@jsfkit/utils": "~1.0.2",
-    "@types/node": "~25.6.0",
+    "@types/node": "~25.9.1",
     "concat-md": "~0.5.1",
-    "eslint": "~10.3.0",
+    "eslint": "~10.4.0",
     "globals": "~17.6.0",
     "jszip": "^3.10.1",
-    "tinybench": "~6.0.1",
-    "tsdown": "~0.21.10",
+    "tinybench": "~6.0.2",
+    "tsdown": "~0.22.0",
     "tsup": "~8.5.1",
     "typedoc": "~0.28.19",
     "typedoc-plugin-markdown": "~4.11.0",
     "typescript": "~6.0.3",
-    "typescript-eslint": "~8.59.1",
-    "vitest": "~4.1.5"
+    "typescript-eslint": "~8.59.4",
+    "vitest": "~4.1.7"
   }
 }
