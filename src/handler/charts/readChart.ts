@@ -24,23 +24,32 @@ import type { ConversionContext } from '../../ConversionContext.ts';
 import { readLegend } from './readLegend.ts';
 import { boolValElm, strValElm } from './utils/valElm.ts';
 import { readTitle } from './readTitle.ts';
-import { readPlotArea } from './readPlotArea.ts';
+import { readPlotArea, type FmtOvrsMap } from './readPlotArea.ts';
 import type { Chart } from './types/Chart.ts';
 import type { ChartEx } from './types/ChartEx.ts';
+import type { ChartDataMap } from './readChartData.ts';
 
-/**
- *
- */
-export function readChart (element: Element, context: ConversionContext, isChartx: true): ChartEx | undefined;
-export function readChart (element: Element, context: ConversionContext, isChartx?: false): Chart | undefined;
-export function readChart (element: Element, context: ConversionContext, isChartx: boolean):
-  Chart | ChartEx | undefined;
+export function readChart (
+  element: Element, context: ConversionContext, isChartx: true, chartDataMap?: ChartDataMap, fmtOvrsMap?: FmtOvrsMap,
+): ChartEx | undefined;
+export function readChart (
+  element: Element, context: ConversionContext, isChartx?: false, chartDataMap?: ChartDataMap, fmtOvrsMap?: FmtOvrsMap,
+): Chart | undefined;
+export function readChart (
+  element: Element, context: ConversionContext, isChartx: boolean, chartDataMap?: ChartDataMap, fmtOvrsMap?: FmtOvrsMap,
+): Chart | ChartEx | undefined;
 export function readChart (
   element: Element,
   context: ConversionContext,
   isChartx = false,
+  chartDataMap?: ChartDataMap,
+  fmtOvrsMap?: FmtOvrsMap,
 ): Chart | ChartEx | undefined {
-  const out: Partial<Chart & ChartEx> = {};
+  const out: Partial<Omit<Chart, 'type'>> & Partial<Omit<ChartEx, 'type'>> & {
+    type: 'bc' | 'ex',
+  } = {
+    type: 'bc',
+  };
 
   for (const child of element.children) {
     if (child.tagName === 'title') {
@@ -65,17 +74,17 @@ export function readChart (
       // addProp(out, 'backWall', readSurface(child, context));
     }
     else if (child.tagName === 'plotArea') {
-      addProp(out, 'plotArea', readPlotArea(child, context, isChartx));
+      // @ts-expect-error -- need to untangle Chart & ChartEx
+      addProp(out, 'plotArea', readPlotArea(child, context, isChartx, chartDataMap, fmtOvrsMap));
     }
     else if (child.tagName === 'legend') {
-      // @ts-expect-error XXX: deal with the types
       addProp(out, 'legend', readLegend(child, context));
     }
     else if (child.tagName === 'plotVisOnly') {
       addProp(out, 'plotVisOnly', boolValElm(child), false);
     }
     else if (child.tagName === 'dispBlanksAs') {
-      addProp(out, 'dispBlanksAs', strValElm(child, 'zero'), 'zero');
+      addProp(out, 'dispBlanksAs', strValElm(child, 'gap'), 'gap');
     }
     else if (child.tagName === 'showDLblsOverMax') {
       addProp(out, 'showDLblsOverMax', boolValElm(child), false);

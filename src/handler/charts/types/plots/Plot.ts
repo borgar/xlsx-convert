@@ -7,6 +7,7 @@ import type { RadarChart } from './RadarChart.ts';
 import type { ScatterChart } from './ScatterChart.ts';
 import type { StockChart } from './StockChart.ts';
 import type { SurfaceChart3d, SurfaceChart } from './SurfaceChart.ts';
+import type { WaterfallChart } from './WaterfallChart.ts';
 
 export type Plot = (
   AreaChart |
@@ -24,8 +25,8 @@ export type Plot = (
   BarChart3d |
   SurfaceChart |
   SurfaceChart3d |
-  BubbleChart
-  // ... Waterfall
+  BubbleChart |
+  WaterfallChart
 );
 
 // Sunburst	TRUE	boxWhisker

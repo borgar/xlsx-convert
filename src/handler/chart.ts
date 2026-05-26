@@ -1,13 +1,14 @@
 import type { Document } from '@borgar/simple-xml';
 import type { ConversionContext } from '../ConversionContext.ts';
-import { boolAttr } from '../utils/attr.ts';
+import { boolAttr, numAttr } from '../utils/attr.ts';
 import { addProp } from '../utils/addProp.ts';
 import { readShapeProperties } from './drawings/readShapeProperties.ts';
 import { readTextBody } from './drawings/readTextBody.ts';
 import { readChart } from './charts/readChart.ts';
 import type { ChartSpaceEx } from './charts/types/ChartSpaceEx.ts';
 import type { ChartSpace } from './charts/types/ChartSpace.ts';
-import { readChartData } from './charts/readChartData.ts';
+import { readChartData, type ChartDataMap } from './charts/readChartData.ts';
+import { type FmtOvrsMap } from './charts/readPlotArea.ts';
 
 /*
 <complexType name="CT_ChartSpace">
@@ -46,27 +47,49 @@ import { readChartData } from './charts/readChartData.ts';
 </complexType>
 */
 
-export function handlerChart (dom: Document, context: ConversionContext, isChartx: true): ChartSpaceEx;
+export function handlerChart (dom: Document, context: ConversionContext, isChartx: true): ChartSpace | ChartSpaceEx;
 export function handlerChart (dom: Document, context: ConversionContext, isChartx?: false): ChartSpace;
 export function handlerChart (dom: Document, context: ConversionContext, isChartx = false): ChartSpace | ChartSpaceEx {
   const chartSpace: Partial<ChartSpace> | Partial<ChartSpaceEx> = {};
   // dom.root is assumed to be a <chartSpace> element (5.7.2.29)
-  // console.log('// ~~' + '~'.repeat(80));
 
   // ChartEx
   // <xsd:attribute name="version" type="xsd:string" use="optional" default="0.0"/>
   // <xsd:attribute name="featureList" type="xsd:string" use="optional" default=""/>
   // <xsd:attribute name="fallbackImg" type="xsd:string" use="optional" default=""/>
 
-  dom.root.children.forEach(elm => {
+  // For ChartEx, chartData and fmtOvrs must be parsed before chart so series can resolve data
+  // references and format overrides by id. Pre-scan for both here, then process children below.
+  let chartDataMap: ChartDataMap = new Map();
+  const fmtOvrsMap: FmtOvrsMap = new Map();
+  if (isChartx) {
+    const chartDataElm = dom.root!.children.find(c => c.tagName === 'chartData');
+    if (chartDataElm) {
+      chartDataMap = readChartData(chartDataElm, context);
+    }
+    const fmtOvrsElm = dom.root!.children.find(c => c.tagName === 'fmtOvrs');
+    if (fmtOvrsElm) {
+      for (const fmtOvr of fmtOvrsElm.children) {
+        if (fmtOvr.tagName !== 'fmtOvr') continue;
+        const idx = numAttr(fmtOvr, 'idx', null);
+        if (idx == null) continue;
+        const spPr = fmtOvr.children.find(c => c.tagName === 'spPr');
+        if (spPr) {
+          const shape = readShapeProperties(spPr, context);
+          if (shape) fmtOvrsMap.set(idx, shape);
+        }
+      }
+    }
+  }
+
+  dom.root!.children.forEach(elm => {
     const { tagName } = elm;
     // ChartEx
     if (isChartx && tagName === 'chartData') {
-      // @ts-expect-error XXX: deal with the types
-      addProp(chartSpace, 'chartData', readChartData(elm, context));
+      // Already parsed above; skip.
     }
-    else if (isChartx && tagName === 'fmtOvrs') { // Format overrides
-      // TODO
+    else if (isChartx && tagName === 'fmtOvrs') {
+      // Already pre-parsed above; skip.
     }
 
     // Chart
@@ -98,7 +121,7 @@ export function handlerChart (dom: Document, context: ConversionContext, isChart
 
     // Both
     else if (tagName === 'chart') {
-      chartSpace.chart = readChart(elm, context, isChartx);
+      chartSpace.chart = readChart(elm, context, isChartx, chartDataMap, fmtOvrsMap);
     }
     else if (tagName === 'spPr') {
       // XXX: ignore default? (white fill, black line, ...)

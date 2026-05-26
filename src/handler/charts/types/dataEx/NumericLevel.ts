@@ -4,5 +4,5 @@ export type NumericLevel = {
   ptCount: integer;
   formatCode: string;
   name: string;
-  pt?: integer[];
+  pt?: { idx: integer; v: string }[];
 };

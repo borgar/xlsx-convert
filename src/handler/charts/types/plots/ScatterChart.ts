@@ -1,15 +1,16 @@
 import type { DLbls } from '../datalabels/DLbls.ts';
 import type { integer } from '../integer.ts';
-import type { ScatterSer } from '../series/ScatterSer.ts';
+import type { Series } from '../series/Series.ts';
 import type { ScatterStyle } from './ScatterStyle.ts';
 
 /**
  *
  */
 export type ScatterChart = {
+  type: 'scatter';
   scatterStyle: ScatterStyle;
   varyColors?: boolean;
-  ser?: ScatterSer[];
+  ser?: Series[];
   dLbls?: DLbls;
   axId: [ integer, integer ];
 };

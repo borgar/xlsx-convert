@@ -1,4 +1,4 @@
-import type { DmlAngle, TextAnchoring, TextVerticalType } from '@jsfkit/types';
+import type { Color, DmlAngle, TextAnchoring, TextVerticalType/*, Underline*/ } from '@jsfkit/types';
 
 // This is a subset of TextBody properties
 
@@ -32,4 +32,16 @@ export type TextProps = {
    * @default "horz"
    */
   vert?: TextVerticalType,
+
+  /**
+   * Text colour.
+   */
+  color?: Color,
+
+  typeface?: string,
+  size?: number,
+  bold?: boolean,
+  italic?: boolean,
+  // underline?: Underline,
+  caps?: 'all' | 'none',
 };

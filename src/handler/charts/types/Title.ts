@@ -7,6 +7,10 @@ export type Title = {
   text?: Text;
   textProps?: TextProps;
   layout?: ManualLayout;
+  /**
+   * A true means that the title may overlap the chart
+   * @default false
+   */
   overlay?: boolean;
   shape?: Shape;
 };

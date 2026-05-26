@@ -3,12 +3,12 @@ import type { SplitType } from '../SplitType.ts';
 import type { ChartLines } from './ChartLines.ts';
 import type { CustSplit } from './CustSplit.ts';
 import type { integer } from '../integer.ts';
-import type { PieSer } from '../series/PieSer.ts';
 import type { DLbls } from '../datalabels/DLbls.ts';
+import type { Series } from '../series/Series.ts';
 
 export type PieChartShared = {
   varyColors?: boolean;
-  ser?: PieSer[];
+  ser?: Series[];
   dLbls?: DLbls;
 };
 

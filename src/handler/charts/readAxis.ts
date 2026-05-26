@@ -35,7 +35,7 @@ function readScaling (element: Element): Scaling | undefined {
       }
     }
     else if (child.tagName === 'orientation') {
-      addProp(out, 'orientation', strValElm(child, 'minMax') as Orientation | undefined, 'minMax');
+      addProp(out, 'orientation', strValElm(child) as Orientation | undefined);
     }
     else if (child.tagName === 'max') {
       addProp(out, 'max', numValElm(child));
@@ -48,9 +48,9 @@ function readScaling (element: Element): Scaling | undefined {
 }
 
 function readDispUnits (element: Element, context: ConversionContext): DispUnits | undefined {
-  let custUnit: number;
-  let builtInUnit: BuiltInUnit;
-  let dispUnitsLbl: DispUnitsLbl;
+  let custUnit: number | null = null;
+  let builtInUnit: BuiltInUnit | null = null;
+  let dispUnitsLbl: DispUnitsLbl | null = null;
 
   for (const child of element.children) {
     if (child.tagName === 'custUnit') {
@@ -72,17 +72,22 @@ function readDispUnits (element: Element, context: ConversionContext): DispUnits
           addProp(dispUnitsLbl, 'text', readText(grandchild));
         }
         else if (grandchild.tagName === 'txPr') {
-          addProp(dispUnitsLbl, 'textProps', readTextProps(grandchild));
+          addProp(dispUnitsLbl, 'textProps', readTextProps(grandchild, context));
         }
       }
     }
   }
+  let out: DispUnits | undefined = undefined;
   if (custUnit) {
-    return { custUnit, dispUnitsLbl };
+    out = { custUnit };
   }
   if (builtInUnit) {
-    return { builtInUnit, dispUnitsLbl };
+    return { builtInUnit };
   }
+  if (out && dispUnitsLbl) {
+    out.dispUnitsLbl = dispUnitsLbl;
+  }
+  return out;
 }
 
 export function readAxis (element: Element, context: ConversionContext): ValAx | DateAx | SerAx | CatAx | undefined {
@@ -103,7 +108,7 @@ export function readAxis (element: Element, context: ConversionContext): ValAx |
         addProp(out, 'majorUnit', numValElm(child));
       }
       else if (tag === 'minorUnit') {
-        addProp(out, 'majorUnit', numValElm(child));
+        addProp(out, 'minorUnit', numValElm(child));
       }
       else if (tag === 'dispUnits') {
         addProp(out, 'dispUnits', readDispUnits(child, context));
@@ -126,12 +131,12 @@ export function readAxis (element: Element, context: ConversionContext): ValAx |
       }
       else if (tag === 'tickLblSkip') {
         // 1-∞
-        const n = numValElm(child);
+        const n = numValElm(child) ?? 0;
         addProp(out, 'tickLblSkip', n < 1 ? null : n);
       }
       else if (tag === 'tickMarkSkip') {
         // 1-∞
-        const n = numValElm(child);
+        const n = numValElm(child) ?? 0;
         addProp(out, 'tickMarkSkip', n < 1 ? null : n);
       }
       else if (tag === 'noMultiLvlLbl') {
@@ -143,12 +148,12 @@ export function readAxis (element: Element, context: ConversionContext): ValAx |
     if (out.type === 'serAx') {
       if (tag === 'tickLblSkip') {
         // 1-∞
-        const n = numValElm(child);
+        const n = numValElm(child)!;
         addProp(out, 'tickLblSkip', n < 1 ? null : n);
       }
       else if (tag === 'tickMarkSkip') {
         // 1-∞
-        const n = numValElm(child);
+        const n = numValElm(child)!;
         addProp(out, 'tickMarkSkip', n < 1 ? null : n);
       }
     }
@@ -181,8 +186,7 @@ export function readAxis (element: Element, context: ConversionContext): ValAx |
 
     // shared by all axes
     if (tag === 'axId') { // required
-      // XXX: change type to str?
-      out.axId = numValElm(child);
+      out.axId = numValElm(child)!;
     }
     else if (tag === 'scaling') { // un-required
       addProp(out, 'scaling', readScaling(child));
@@ -197,17 +201,19 @@ export function readAxis (element: Element, context: ConversionContext): ValAx |
       addProp(out, 'delete', boolValElm(child), false);
     }
     else if (tag === 'majorGridlines') {
-      addProp(out, 'majorGridlines', readShapeProperties(child, context));
+      const spPr = child.children.find(c => c.tagName === 'spPr');
+      out.majorGridlines = spPr ? readShapeProperties(spPr, context) ?? {} : {};
     }
     else if (tag === 'minorGridlines') {
-      addProp(out, 'minorGridlines', readShapeProperties(child, context));
+      const spPr = child.children.find(c => c.tagName === 'spPr');
+      out.minorGridlines = spPr ? readShapeProperties(spPr, context) ?? {} : {};
     }
     else if (tag === 'spPr') {
       addProp(out, 'shape', readShapeProperties(child, context));
     }
     else if (tag === 'txPr') {
       // XXX: need a reader for TextProps
-      addProp(out, 'textProps', readTextProps(child));
+      addProp(out, 'textProps', readTextProps(child, context));
     }
     else if (tag === 'title') {
       addProp(out, 'title', readTitle(child, context));

@@ -7,6 +7,7 @@ import type { PlotArea } from './PlotArea.ts';
 import type { Title } from './Title.ts';
 
 export type Chart = {
+  type: 'bc';
   plotArea: PlotArea;
   autoTitleDeleted?: boolean;
   plotVisOnly?: boolean;

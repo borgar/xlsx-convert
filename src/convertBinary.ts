@@ -32,12 +32,18 @@ import { getMimeType } from './utils/getMimeType.ts';
 import { isLikelyGSExport } from './utils/isLikelyGSExport.ts';
 import { handlerChart } from './handler/chart.ts';
 import { hasKeys } from './utils/hasKeys.ts';
+import type { ChartSpaceEx } from './handler/charts/types/ChartSpaceEx.ts';
+import type { ChartSpace } from './handler/charts/types/ChartSpace.ts';
 
 function toArrayBuffer (buffer: Buffer): ArrayBuffer {
   const arrayBuffer = new ArrayBuffer(buffer.length);
   new Uint8Array(arrayBuffer).set(buffer);
   return arrayBuffer;
 }
+
+export type GDWorkbook = Workbook & {
+  charts?: Record<string, ChartSpace | ChartSpaceEx>
+};
 
 /**
  * Default conversion options
@@ -62,7 +68,7 @@ export async function convertBinary (
   buffer: Buffer | ArrayBuffer,
   filename: string,
   options?: ConversionOptions,
-): Promise<Workbook> {
+): Promise<GDWorkbook> {
   if (typeof Buffer !== 'undefined' && buffer instanceof Buffer) {
     buffer = toArrayBuffer(buffer);
   }
@@ -185,7 +191,7 @@ export async function convertBinary (
   }
 
   // workbook
-  const wb = handlerWorkbook(wbDom, context);
+  const wb = handlerWorkbook(wbDom, context) as GDWorkbook;
   context.workbook = wb;
   // copy external links in
   if (context.externalLinks.length) {

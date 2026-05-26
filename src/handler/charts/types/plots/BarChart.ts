@@ -4,14 +4,14 @@ import type { BarShape } from './BarShape.ts';
 import type { BarDir } from './BarDir.ts';
 import type { ChartLines } from './ChartLines.ts';
 import type { BarGrouping } from './BarGrouping.ts';
-import type { BarSer } from '../series/BarSer.ts';
+import type { Series } from '../series/Series.ts';
 
 export type BarChartShared = {
   barDir: BarDir;
   /** @default "clustered" */
   grouping?: BarGrouping;
   varyColors?: boolean;
-  ser?: BarSer[];
+  ser?: Series[];
   dLbls?: DLbls;
 };
 
