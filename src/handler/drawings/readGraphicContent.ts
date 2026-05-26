@@ -11,7 +11,7 @@ import { addProp } from '../../utils/addProp.ts';
 import { readFillBlip } from './readFillBlip.ts';
 
 export function readGraphicContent (parent: Element, context: ConversionContext): Graphic[] {
-  const content = [];
+  const content: Graphic[] = [];
 
   parent.children.forEach((d: Element) => {
     // Group Shape
@@ -28,8 +28,8 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
         if (child.tagName === 'nvGrpSpPr') {
           const cNvPr = child.querySelector('>cNvPr');
           if (cNvPr) {
-            out.id = cNvPr.getAttribute('id');
-            out.name = cNvPr.getAttribute('name');
+            out.id = cNvPr.getAttribute('id') ?? '';
+            out.name = cNvPr.getAttribute('name') ?? '';
           }
         }
         // Group Shape Properties
@@ -54,8 +54,8 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
       // Non-Visual Shape Properties
       const cNvPr = d.querySelector('> nvCxnSpPr > cNvPr');
       if (cNvPr) {
-        out.id = cNvPr.getAttribute('id');
-        out.name = cNvPr.getAttribute('name');
+        out.id = cNvPr.getAttribute('id') ?? '';
+        out.name = cNvPr.getAttribute('name') ?? '';
       }
       addProp(out, 'shape', readShapeProperties(getFirstChild(d, 'spPr'), context));
       addProp(out, 'text', readTextBody(getFirstChild(d, 'txBody')));
@@ -73,8 +73,8 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
       // Non-Visual Shape Properties
       const cNvPr = d.querySelector('cNvPr');
       if (cNvPr) {
-        out.id = cNvPr.getAttribute('id');
-        out.name = cNvPr.getAttribute('name');
+        out.id = cNvPr.getAttribute('id') ?? '';
+        out.name = cNvPr.getAttribute('name') ?? '';
       }
       addProp(out, 'shape', readShapeProperties(getFirstChild(d, 'spPr'), context));
       addProp(out, 'text', readTextBody(getFirstChild(d, 'txBody')));
@@ -94,8 +94,8 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
       // Non-Visual Properties
       const cNvPr = d.querySelector('cNvPr');
       if (cNvPr) {
-        out.id = cNvPr.getAttribute('id');
-        out.name = cNvPr.getAttribute('name');
+        out.id = cNvPr.getAttribute('id') ?? '';
+        out.name = cNvPr.getAttribute('name') ?? '';
         const desc = cNvPr.getAttribute('descr');
         if (desc) { out.desc = desc; }
       }
@@ -123,8 +123,8 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
       // Non-Visual Properties
       const cNvPr = d.querySelector('cNvPr');
       if (cNvPr) {
-        out.id = cNvPr.getAttribute('id');
-        out.name = cNvPr.getAttribute('name');
+        out.id = cNvPr.getAttribute('id') ?? '';
+        out.name = cNvPr.getAttribute('name') ?? '';
       }
       // const graphicFrameLocks = d.querySelector('graphicFrameLocks');
       // if (graphicFrameLocks) { out.locked = {}; }

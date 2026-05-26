@@ -286,5 +286,12 @@
       }
     }
   },
-  "formulas": []
+  "formulas": [],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
 }

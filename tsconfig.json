@@ -4,8 +4,8 @@
     "tests/**/*",
     "eslint.config.js"
   ],
-  "types": [ "node" ],
   "compilerOptions": {
+    "types": [ "node" ],
     "rootDir": ".",
     "target": "ES2022",
     "module": "NodeNext",
@@ -13,10 +13,11 @@
     "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": true,
     "forceConsistentCasingInFileNames": true,
+    "noImplicitOverride": true,
     "verbatimModuleSyntax": true,
     "erasableSyntaxOnly": true,
-    "allowJs": true,
-    "checkJs": true,
+    "allowJs": false,
+    "strict": true,
     "stripInternal": true,
     "noEmit": true,
     "noEmitOnError": true,

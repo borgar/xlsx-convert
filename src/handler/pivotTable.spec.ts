@@ -40,20 +40,20 @@ describe('handlerPivotTable', () => {
   });
 
   it('should parse a basic pivot table', () => {
-    const pt = parse(MINIMAL_PT);
+    const pt = parse(MINIMAL_PT)!;
     expect(pt).toBeDefined();
-    expect(pt!.name).toBe('PivotTable1');
-    expect(pt!.ref).toBe('A3:D20');
-    expect(pt!.location).toEqual({
+    expect(pt.name).toBe('PivotTable1');
+    expect(pt.ref).toBe('A3:D20');
+    expect(pt.location).toEqual({
       firstHeaderRow: 1,
       firstDataRow: 2,
       firstDataCol: 1,
     });
-    expect(pt!.fields).toHaveLength(2);
-    expect(pt!.rowFieldIndices).toEqual([ 0 ]);
-    expect(pt!.colFieldIndices).toEqual([ -2 ]);
-    expect(pt!.dataFields).toHaveLength(1);
-    expect(pt!.dataFields[0]).toEqual({ name: 'Sum of Amount', fieldIndex: 1 });
+    expect(pt.fields).toHaveLength(2);
+    expect(pt.rowFieldIndices).toEqual([ 0 ]);
+    expect(pt.colFieldIndices).toEqual([ -2 ]);
+    expect(pt.dataFields).toHaveLength(1);
+    expect(pt.dataFields![0]).toEqual({ name: 'Sum of Amount', fieldIndex: 1 });
   });
 
   it('should parse field axis values', () => {
@@ -247,6 +247,9 @@ describe('handlerPivotTable', () => {
   });
 
   it('should parse data fields with subtotal, showDataAs, baseField/baseItem', () => {
+    // JSF stores non-default values; the OOXML-default `0` on
+    // `baseField`/`baseItem` is elided on parse. Non-default values still
+    // round-trip --- covered by the next test.
     const xml = `<pivotTableDefinition name="PT1" cacheId="0">
       <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
       <pivotFields count="1"><pivotField dataField="1" showAll="1"/></pivotFields>
@@ -256,14 +259,29 @@ describe('handlerPivotTable', () => {
       </dataFields>
     </pivotTableDefinition>`;
     const pt = parse(xml)!;
-    expect(pt.dataFields[0]).toEqual({
+    expect(pt.dataFields![0]).toEqual({
       name: '% of Total',
       fieldIndex: 0,
       subtotal: 'sum',
       showDataAs: 'percentOfTotal',
-      baseField: 0,
-      baseItem: 0,
     });
+    expect(pt.dataFields![0]).not.toHaveProperty('baseField');
+    expect(pt.dataFields![0]).not.toHaveProperty('baseItem');
+  });
+
+  it('should parse non-default baseField/baseItem verbatim', () => {
+    // Only the OOXML default value (`0`) is elided; explicit non-defaults
+    // are still preserved so they round-trip cleanly.
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="1"><pivotField dataField="1" showAll="1"/></pivotFields>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="1">
+        <dataField name="Diff" fld="0" showDataAs="difference" baseField="2" baseItem="3"/>
+      </dataFields>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.dataFields![0]).toMatchObject({ baseField: 2, baseItem: 3 });
   });
 
   it('should parse page fields with selectedItem', () => {

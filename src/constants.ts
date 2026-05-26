@@ -1,5 +1,7 @@
 /* eslint-disable @stylistic/array-element-newline */
 
+import type { PageMargins } from '@jsfkit/types';
+
 export const REL_PREFIXES = [
   // standard
   'http://schemas.microsoft.com/office/2006/relationships/',
@@ -320,3 +322,13 @@ export const ERROR_NAMES = [
   '#UNKNOWN!',
   '#VALUE!',
 ];
+
+// Canonical default page margins (inches), per `Worksheet.pageMargins`'s defaults in JSF
+export const DEFAULT_PAGE_MARGINS: PageMargins = {
+  left: 0.7,
+  right: 0.7,
+  top: 0.75,
+  bottom: 0.75,
+  header: 0.3,
+  footer: 0.3,
+};

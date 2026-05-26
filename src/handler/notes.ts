@@ -25,7 +25,7 @@ export function handlerNotes (dom: Document): Note[] {
       const ref = attr(commentNode, 'ref');
       if (!ref) return;
 
-      const authorId = numAttr(commentNode, 'authorId');
+      const authorId = numAttr(commentNode, 'authorId') ?? -1;
       const author = authors[authorId] || '';
 
       // For backwards-compatibility, Excel duplicates threaded comments as notes. They have an

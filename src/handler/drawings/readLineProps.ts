@@ -2,14 +2,14 @@ import type { Element } from '@borgar/simple-xml';
 import { attr, numAttr } from '../../utils/attr.ts';
 import { readFill } from './readFill.ts';
 import { addProp } from '../../utils/addProp.ts';
-import type { LineEnd, LineEndType, Line, LineStyle } from '@jsfkit/types';
+import type { LineEnd, LineEndType, Line, LineStyle, LineEndSize, LineAlignment, LineCapType, LineCompoundType, LineJoinType } from '@jsfkit/types';
 import type { ConversionContext } from '../../ConversionContext.ts';
 
-const HEADSIZE = { lg: 'lg', med: 'med', sm: 'sm' };
-const LINEALIGN = { ctr: 'center', in: 'inner' }; // "outer" does not exist in DML
-const LINECAP = { flat: 'butt', rnd: 'round', square: 'square' };
-const LINECMPD = { dbl: 'dbl', sng: 'sng', thickThin: 'thickThin', thinThick: 'thinThick', tri: 'tri' };
-const LINEJOIN = { bevel: 'bevel', round: 'round', square: 'miter' };
+const HEADSIZE: Record<string, LineEndSize> = { lg: 'lg', med: 'med', sm: 'sm' };
+const LINEALIGN: Record<string, LineAlignment> = { ctr: 'center', in: 'inside' }; // "outer" does not exist in DML
+const LINECAP: Record<string, LineCapType> = { flat: 'butt', rnd: 'round', square: 'square' };
+const LINECMPD: Record<string, LineCompoundType> = { dbl: 'dbl', sng: 'sng', thickThin: 'thickThin', thinThick: 'thinThick', tri: 'tri' };
+const LINEJOIN: Record<string, LineJoinType> = { bevel: 'bevel', round: 'round', square: 'miter' };
 
 export function readLineProps (elm: Element, context: ConversionContext): Line | undefined {
   // If we're here, that means a line should be drawn.
@@ -45,16 +45,16 @@ export function readLineProps (elm: Element, context: ConversionContext): Line |
     else if (child.tagName === 'headEnd') {
       const head: LineEnd = { type: attr(child, 'type', 'none') as LineEndType };
       if (head.type !== 'none') {
-        addProp(head, 'width', HEADSIZE[attr(child, 'w')], 'med');
-        addProp(head, 'len', HEADSIZE[attr(child, 'len')], 'med');
+        addProp(head, 'width', HEADSIZE[attr(child, 'w') ?? ''], 'med');
+        addProp(head, 'len', HEADSIZE[attr(child, 'len') ?? ''], 'med');
         line.head = head;
       }
     }
     else if (child.tagName === 'tailEnd') {
       const tail: LineEnd = { type: attr(child, 'type', 'none') as LineEndType };
       if (tail.type !== 'none') {
-        addProp(tail, 'width', HEADSIZE[attr(child, 'w')], 'med');
-        addProp(tail, 'len', HEADSIZE[attr(child, 'len')], 'med');
+        addProp(tail, 'width', HEADSIZE[attr(child, 'w') ?? ''], 'med');
+        addProp(tail, 'len', HEADSIZE[attr(child, 'len') ?? ''], 'med');
         line.tail = tail;
       }
     }

@@ -1,4 +1,3 @@
-import { Color } from '../color/Color.ts';
 import type { StyleDefs } from '../handler/styles.ts';
 import type { NamedStyle, Color as JSFColor, Style } from '@jsfkit/types';
 
@@ -20,17 +19,15 @@ function isSkipValue (val: any, skip: SkipValue): boolean {
   // colour even if the base type and value are the same.
   if (val.transforms?.length) { return false; }
   for (const key in skip) {
+    // @ts-expect-error JSFColor is still a JS object at runtime
     if (val[key] !== skip[key]) { return false; }
   }
   return true;
 }
 
-const addStyle = (obj: Style, key: string, val: any, skip: SkipValue = null): number => {
+const addStyle = (obj: Style, key: keyof Style, val: any, skip: SkipValue = null): number => {
   if (val == null) {
     return 0;
-  }
-  if (val instanceof Color) {
-    val = val.getJSF();
   }
   if (skip != null && isSkipValue(val, skip)) {
     return 0;
@@ -56,6 +53,7 @@ function convertXf (xf: Xf, styleDefs: StyleDefs): Style {
   addStyle(s, 'wrapText', !!xf.wrapText, false);
   addStyle(s, 'shrinkToFit', !!xf.shrinkToFit, false);
   addStyle(s, 'textRotation', xf.textRotation, 0);
+  addStyle(s, 'pivotButton', !!xf.pivotButton, false);
 
   if (xf.font) {
     const font = xf.font;

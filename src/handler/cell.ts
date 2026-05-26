@@ -11,8 +11,12 @@ import { dateToSerial } from '../utils/dateToSerial.ts';
 import { UnsupportedError } from '../errors.ts';
 import { ERROR_NAMES } from '../constants.ts';
 import { getFirstChild } from '../utils/getFirstChild.ts';
+import { parseTimeToSerial } from '../utils/parseTimeToSerial.ts';
 
-export const relevantStyle = (obj: Record<string, any>): boolean => {
+export const relevantStyle = (obj?: Record<string, any>): boolean => {
+  if (!obj) {
+    return false;
+  }
   return !!(
     // obj['number-format'] ||
     obj.fillColor ||
@@ -23,13 +27,6 @@ export const relevantStyle = (obj: Record<string, any>): boolean => {
     obj.borderBottomStyle ||
     obj.borderRightStyle
   );
-};
-
-const parseTimeToSerial = (ts: string): number => {
-  const [ , h, m, s, f ] = /^(\d{1,2})(?::(\d{1,2}))?(?::(\d{1,2}))?(\.\d+)?$/.exec(ts);
-  return (+h / 24) + // hours
-         (Number(m) / 1440) + // minutes
-         (Number(s + (f || '')) / 86400); // seconds with fraction
 };
 
 function prepFormula (formula: string | RelativeFormula, cellId: string, context: ConversionContext) {
@@ -58,14 +55,12 @@ function prepFormula (formula: string | RelativeFormula, cellId: string, context
 }
 
 // ECMA - 18.3.1.4 (Cell)
-export function handlerCell (node: Element, context: ConversionContext): Cell {
+export function handlerCell (node: Element, address: string, context: ConversionContext): Cell | undefined {
   const cell: Cell = {};
   // FIXME: these props are scoped by the sheet but exist on the WB object
   //        during processing and are wiped per-sheet
-  const sharedF = context._shared;
+  const sharedF = context._shared!;
 
-  // .r = reference (cell address)
-  const address = attr(node, 'r');
   // .t = data type: The possible values for this attribute are defined by the
   //                 ST_CellType simple type (§18.18.11).
   let valueType = attr(node, 't', 'n');
@@ -112,7 +107,7 @@ export function handlerCell (node: Element, context: ConversionContext): Cell {
   const fNode = getFirstChild(node, 'f');
   if (v || valueType === 'str') {
     if (valueType === 's') {
-      cell.v = context.sst ? context.sst[toInt(v)] : '';
+      cell.v = context.sst && v != null ? context.sst[toInt(v)] : '';
     }
     else if (valueType === 'str') {
       // Excel marks formula errors with `t="e"`, but Google Sheets uses
@@ -121,12 +116,12 @@ export function handlerCell (node: Element, context: ConversionContext): Cell {
       // `t="str"` means the formula genuinely evaluated to a string — even
       // one that looks like an error name (e.g. `=A1` where A1 is "#VALUE!").
       if (context.isLikelyGSExport && fNode && v && ERROR_NAMES.includes(v)) {
-        valueType = 'e';
+        // valueType = 'e';
         cell.t = 'e';
         cell.v = v;
       }
       else {
-        valueType = 's';
+        // valueType = 's';
         cell.v = v || '';
       }
     }
@@ -140,14 +135,19 @@ export function handlerCell (node: Element, context: ConversionContext): Cell {
     }
     else if (valueType === 'd') {
       // cell.t = 'd';
-      if (!/[T ]/i.test(v) && v.includes(':')) {
-        cell.v = parseTimeToSerial(v);
-      }
-      else {
-        cell.v = dateToSerial(new Date(Date.parse(v))) + (
-          // adjust dates if the workbook uses 1904 data system
-          context.workbook?.calculationProperties?.epoch === 1904 ? -1462 : 0
-        );
+      if (v) {
+        if (!/[T ]/i.test(v) && v.includes(':')) {
+          cell.v = parseTimeToSerial(v);
+        }
+        else {
+          const serialDate = dateToSerial(new Date(Date.parse(v)));
+          if (serialDate != null) {
+            cell.v = serialDate + (
+              // adjust dates if the workbook uses 1904 data system
+              context.workbook?.calculationProperties?.epoch === 1904 ? -1462 : 0
+            );
+          }
+        }
       }
     }
     else if (valueType === 'n') {
@@ -173,7 +173,7 @@ export function handlerCell (node: Element, context: ConversionContext): Cell {
       const cellsRange = attr(fNode, 'ref');
       if (cellsRange) {
         cell.F = cellsRange;
-        context._arrayFormula.push(cellsRange);
+        context._arrayFormula!.push(cellsRange);
       }
       // cm="1" on the cell element indicates a dynamic array formula
       // (referencing XLDAPR metadata). Its absence on an array formula
@@ -192,13 +192,15 @@ export function handlerCell (node: Element, context: ConversionContext): Cell {
       //       considered to be the same when their respective representations
       //       in R1C1-reference notation, are the same.
       const shareGroupIndex = numAttr(fNode, 'si');
-      if (!sharedF.has(shareGroupIndex)) {
-        const relF = new RelativeFormula(fNode.textContent, address);
-        sharedF.set(shareGroupIndex, relF);
-        cell.f = prepFormula(relF, address, context);
-      }
-      else {
-        cell.f = prepFormula(sharedF.get(shareGroupIndex), address, context);
+      if (shareGroupIndex != null) {
+        if (!sharedF.has(shareGroupIndex)) {
+          const relF = new RelativeFormula(fNode.textContent, address);
+          sharedF.set(shareGroupIndex, relF);
+          cell.f = prepFormula(relF, address, context);
+        }
+        else {
+          cell.f = prepFormula(sharedF.get(shareGroupIndex)!, address, context);
+        }
       }
     }
     // dataTable for data table formula
@@ -238,9 +240,9 @@ export function handlerCell (node: Element, context: ConversionContext): Cell {
     cell.v == null &&
     cell.f == null &&
     cell.dt == null &&
-    (!cell.s || !relevantStyle(context.workbook.styles[styleIndex]))
+    (!cell.s || !relevantStyle(context.workbook!.styles?.[cell.s]))
   ) {
-    return null;
+    return;
   }
 
   return cell;

@@ -2,6 +2,10 @@ import type { Document } from '@borgar/simple-xml';
 import type { HyperlinkTextRun, MentionTextRun, ThreadedComment } from '@jsfkit/types';
 import { attr, numAttr } from '../utils/attr.ts';
 
+function isInt (v: unknown): v is number {
+  return Number.isInteger(v);
+}
+
 /**
  * Parse threaded comments from xl/threadedComments{n}.xml.
  *
@@ -59,14 +63,14 @@ export function handlerComments (dom: Document): ThreadedComment[] {
           const length = numAttr(mentionNode, 'length');
 
           // Skip mentions with invalid data (all fields required).
-          if (!mentionPersonId || !Number.isInteger(start) || !Number.isInteger(length)) return;
-
-          runs.push({
-            type: 'mention',
-            personId: mentionPersonId,
-            start: start,
-            end: start + length,
-          });
+          if (mentionPersonId && isInt(start) && isInt(length)) {
+            runs.push({
+              type: 'mention',
+              personId: mentionPersonId,
+              start: start,
+              end: start + length,
+            });
+          }
         });
 
       // Hyperlinks. From an extension to threaded comments, represents text in the comment that
@@ -83,14 +87,14 @@ export function handlerComments (dom: Document): ThreadedComment[] {
               const url = attr(hyperlinkNode, 'url');
 
               // Skip invalid hyperlinks (all fields required).
-              if (!Number.isInteger(start) || !Number.isInteger(length) || !url) return;
-
-              runs.push({
-                type: 'hyperlink',
-                url: url,
-                start: start,
-                end: start + length,
-              });
+              if (url && isInt(start) && isInt(length)) {
+                runs.push({
+                  type: 'hyperlink',
+                  url: url,
+                  start: start,
+                  end: start + length,
+                });
+              }
             });
         }
       }

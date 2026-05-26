@@ -31,7 +31,7 @@ export function handlerMetaData (dom: Document, context: ConversionContext): Met
   dom.getElementsByTagName('futureMetadata')
     .forEach(fMD => {
       const table: MetaTableValue[] = [];
-      const metaName = attr(fMD, 'name');
+      const metaName = attr(fMD, 'name') ?? '';
       tables.push({ name: metaName, values: table });
       fMD.querySelectorAll('bk ext')
         .forEach(ext => {

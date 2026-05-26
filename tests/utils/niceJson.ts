@@ -21,11 +21,12 @@ export function niceJson (item: unknown, colorize: boolean = false, depth = 0) {
     const hasNesting = item.some(d => typeof d === 'object');
     const collapse = (!hasNesting || item.length === 1) && JSON.stringify(item).length < 50;
     output += collapse ? op('[ ') : op('[\n');
-    {
-      const indent = collapse ? '' : '  '.repeat(depth + 1);
-      output += item
-        .map(d => indent + niceJson(d, colorize, depth + 1))
-        .join(collapse ? op(', ') : op(',\n'));
+    const indent = collapse ? '' : '  '.repeat(depth + 1);
+    for (let i = 0; i < item.length; i++) {
+      if (i) {
+        output += collapse ? op(', ') : op(',\n');
+      }
+      output += indent + niceJson(item[i], colorize, depth + 1);
     }
     output += (collapse ? ' ' : '\n' + '  '.repeat(depth)) + op(']');
   }
@@ -40,7 +41,9 @@ export function niceJson (item: unknown, colorize: boolean = false, depth = 0) {
     {
       const props = [];
       for (const [ key, val ] of Object.entries(item)) {
-        props[props.length] = str(key, 0) + op(': ') + niceJson(val, colorize, depth + 1);
+        if (val !== undefined) {
+          props[props.length] = str(key, 0) + op(': ') + niceJson(val, colorize, depth + 1);
+        }
       }
       const indent = collapse ? '' : '  '.repeat(depth + 1);
       output += indent + props.join(op(',') + (collapse ? ' ' : '\n' + indent));
@@ -54,7 +57,7 @@ export function niceJson (item: unknown, colorize: boolean = false, depth = 0) {
     return clr(JSON.stringify(item), 33);
   }
   else {
-    return JSON.stringify(item);
+    return JSON.stringify(item ?? null);
   }
 
   return output;
