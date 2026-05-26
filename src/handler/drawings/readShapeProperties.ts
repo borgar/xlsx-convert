@@ -55,6 +55,7 @@ export function readShapeProperties (elm: Element | null | undefined, context: C
       tagName === 'blipFill' ||
       tagName === 'gradFill' ||
       tagName === 'grpFill' ||
+      tagName === 'noFill' ||
       tagName === 'solidFill' ||
       tagName === 'pattFill'
     ) {

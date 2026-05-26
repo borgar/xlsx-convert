@@ -1,8 +1,8 @@
 import type { Element } from '@borgar/simple-xml';
-import { attr, numAttr } from '../../utils/attr.ts';
+import { attr, dmlPercentAttr, numAttr } from '../../utils/attr.ts';
 import { readFill } from './readFill.ts';
 import { addProp } from '../../utils/addProp.ts';
-import type { LineEnd, LineEndType, Line, LineStyle, LineEndSize, LineAlignment, LineCapType, LineCompoundType, LineJoinType } from '@jsfkit/types';
+import type { DashStop, LineEnd, LineEndType, Line, LineStyle, LineEndSize, LineAlignment, LineCapType, LineCompoundType, LineJoinType } from '@jsfkit/types';
 import type { ConversionContext } from '../../ConversionContext.ts';
 
 const HEADSIZE: Record<string, LineEndSize> = { lg: 'lg', med: 'med', sm: 'sm' };
@@ -41,6 +41,16 @@ export function readLineProps (elm: Element, context: ConversionContext): Line {
       // List of elements that specify two attributes:
       // - d for the length of the dash relative to line width, and
       // - sp for length of the space relative to line width.
+      const stops: DashStop[] = [];
+      for (const ds of child.children) {
+        if (ds.tagName !== 'ds') continue;
+        const d = dmlPercentAttr(ds, 'd', 0);
+        const sp = dmlPercentAttr(ds, 'sp', 0);
+        stops.push({ d, sp });
+      }
+      if (stops.length) {
+        line.style = stops;
+      }
     }
     else if (child.tagName === 'headEnd') {
       const head: LineEnd = { type: attr(child, 'type', 'none') as LineEndType };

@@ -34,7 +34,8 @@
                   "off": { "x": 3302000, "y": 4064000 },
                   "ext": { "cx": 2159000, "cy": 2159000 }
                 },
-                "preset": "rect"
+                "preset": "rect",
+                "fill": { "type": "none" }
               }
             }
           ]
@@ -225,6 +226,7 @@
                       "color": { "type": "srgb", "value": "FFFF00" }
                     }
                   ],
+                  "fillToRect": { "t": 50, "b": 50, "l": 50, "r": 50 },
                   "path": "circle",
                   "flip": "none",
                   "rotWithShape": true
