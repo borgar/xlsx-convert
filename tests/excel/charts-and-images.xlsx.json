@@ -208,7 +208,8 @@
                   "off": { "x": 2680759, "y": 3403666 },
                   "ext": { "cx": 1640130, "cy": 296502 }
                 },
-                "preset": "rect"
+                "preset": "rect",
+                "fill": { "type": "none" }
               },
               "text": {
                 "p": [ { "text": "Image in a cell" } ],

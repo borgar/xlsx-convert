@@ -36,8 +36,6 @@ export function readFillGradient (
     else if (child.tagName === 'path') {
       fillType = 'pathGradient';
       fillPath = attr(child, 'path') as PathFillType;
-    }
-    else if (child.tagName === 'tileRect') {
       const fr = getFirstChild(child, 'fillToRect');
       if (fr) {
         fillToRect = {
