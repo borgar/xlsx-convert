@@ -1,5 +1,6 @@
 import type { Workbook } from '@jsfkit/types';
 import { convertBinary } from './convertBinary.ts';
+import type { MdwResolver } from './utils/mdw.ts';
 
 export { InvalidFileError, EncryptionError, MissingSheetError, UnsupportedError } from './errors.ts';
 
@@ -27,7 +28,16 @@ export type ConversionOptions = {
    * Warning callback. If provided, warnings are passed to this function; otherwise they are silently discarded.
    */
   warn?: (message: string) => void;
+  /**
+   * Resolve the Max Digit Width (in pixels) for the workbook's Normal font, used to convert column
+   * widths from OOXML character units to pixels. Returning null/undefined defers to the built-in table
+   * (Aptos Narrow, Calibri, Arial); unknown fonts then fall back to MDW 6 (and warn). Supply this to
+   * size columns correctly for fonts outside the table.
+   */
+  resolveMdw?: MdwResolver;
 };
+
+export type { MdwResolver } from './utils/mdw.ts';
 
 /**
  * Load and convert an XLSX file into a JSON format.
