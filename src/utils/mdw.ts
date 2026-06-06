@@ -7,10 +7,11 @@
  * `pointSize` used directly as the em size (no 96/72 DPI factor) — the coordinate convention in which
  * Aptos Narrow 12 yields MDW 6.
  *
- * Metrics below are the digit advance / unitsPerEm read from Excel's bundled fonts, Excel-verified
- * across the MDW 6/7/8 boundaries (Aptos Narrow & Arial measured against live autofit; Calibri shares
- * Aptos Narrow's digit metrics). Unknown fonts fall back to {@link DEFAULT_MDW}; supply a resolver to
- * cover arbitrary fonts.
+ * Metrics below are the digit advance / unitsPerEm read straight from the font files Excel renders
+ * with (`scripts/extract-digit-metrics.py` regenerates them). The set mirrors @grid-is/glyph-widths,
+ * whose advances were measured from live Excel autofit; these constants were cross-checked against it
+ * and agree to within 1px at 12pt. Unknown fonts fall back to {@link DEFAULT_MDW}; supply a resolver
+ * to cover arbitrary fonts.
  */
 
 /** Resolve an MDW for an arbitrary font. Returning null/undefined defers to the built-in table. */
@@ -23,8 +24,14 @@ type DigitMetric = {
 
 const DIGIT_METRICS: Record<string, DigitMetric> = {
   'aptos narrow': { advance: 1038, upm: 2048 },
+  'aptos': { advance: 1094, upm: 2048 },
   'calibri': { advance: 1038, upm: 2048 },
+  'calibri light': { advance: 1038, upm: 2048 },
   'arial': { advance: 1139, upm: 2048 },
+  'times new roman': { advance: 1024, upm: 2048 },
+  'verdana': { advance: 1302, upm: 2048 },
+  'georgia': { advance: 1257, upm: 2048 },
+  'tahoma': { advance: 1118, upm: 2048 },
 };
 
 /** Fallback MDW (Aptos Narrow / Calibri 11–12), used when the Normal font is unknown. */

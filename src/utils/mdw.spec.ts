@@ -15,6 +15,18 @@ describe('maxDigitWidth', () => {
     expect(maxDigitWidth('Arial', 14)).toBe(8);
   });
 
+  it('covers the expanded glyph-widths font set', () => {
+    expect(maxDigitWidth('Aptos', 12)).toBe(6); // 1094/2048*12 = 6.41
+    expect(maxDigitWidth('Calibri Light', 11)).toBe(6); // shares Calibri's 1038
+    expect(maxDigitWidth('Times New Roman', 10)).toBe(5); // 1024/2048*10 = 5.0
+    expect(maxDigitWidth('Times New Roman', 11)).toBe(6); // 1024/2048*11 = 5.5
+    expect(maxDigitWidth('Verdana', 12)).toBe(8); // 1302/2048*12 = 7.63
+    expect(maxDigitWidth('Verdana', 14)).toBe(9); // 1302/2048*14 = 8.90
+    expect(maxDigitWidth('Georgia', 12)).toBe(7); // 1257/2048*12 = 7.36
+    expect(maxDigitWidth('Georgia', 14)).toBe(9); // 1257/2048*14 = 8.59
+    expect(maxDigitWidth('Tahoma', 12)).toBe(7); // 1118/2048*12 = 6.55
+  });
+
   it('is case- and whitespace-insensitive on the family name', () => {
     expect(maxDigitWidth('  ARIAL  ', 12)).toBe(7);
   });
