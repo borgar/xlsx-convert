@@ -15,7 +15,7 @@ describe('maxDigitWidth', () => {
     expect(maxDigitWidth('Arial', 14)).toBe(8);
   });
 
-  it('covers the expanded glyph-widths font set', () => {
+  it('covers the expanded font set', () => {
     expect(maxDigitWidth('Aptos', 12)).toBe(6); // 1094/2048*12 = 6.41
     expect(maxDigitWidth('Calibri Light', 11)).toBe(6); // shares Calibri's 1038
     expect(maxDigitWidth('Times New Roman', 10)).toBe(5); // 1024/2048*10 = 5.0

@@ -1,16 +1,9 @@
 #!/usr/bin/env python3
-"""Extract the digit-advance / unitsPerEm metrics behind src/utils/mdw.ts.
+"""Regenerate the DIGIT_METRICS literal in src/utils/mdw.ts.
 
-A workbook's Max Digit Width (MDW) is `round(maxDigitAdvance / unitsPerEm * pointSize)` in JSF's
-72-DPI grid (1px = 1pt). This script reads `unitsPerEm` (head) and the widest advance over digits
-0-9 (hmtx) straight from the font files Excel renders with, so the constants in mdw.ts can be
-re-derived and scrutinised rather than trusted as magic numbers.
-
-Font set mirrors @grid-is/glyph-widths, whose advances were measured from live Excel autofit; the
-values printed here were cross-checked against that package and agree to within 1px at 12pt. Eight
-families ship in Excel's DFonts; Georgia is not Office-bundled, so it is read from the macOS system
-copy. Georgia uses proportional (old-style) figures, but its `0` glyph is also its widest digit, so
-the spec-literal "maximum digit" is unambiguous for every family here.
+For each font in FONTS, reads unitsPerEm (head table) and the widest advance over digits 0-9
+(hmtx table) from the font file, and prints the TypeScript literal. See mdw.ts for the font set
+and how those metrics become an MDW.
 
 Requires macOS with Microsoft Excel installed and `fonttools` (`pip install fonttools`).
 Run:  python3 scripts/extract-digit-metrics.py
