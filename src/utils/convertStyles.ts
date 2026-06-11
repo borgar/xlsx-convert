@@ -37,6 +37,39 @@ const addStyle = (obj: Style, key: keyof Style, val: any, skip: SkipValue = null
 };
 
 type Xf = StyleDefs['cellXf'][number];
+type FontProps = NonNullable<Xf['font'] | Dxf['font']>;
+
+/**
+ * Map font members onto Style properties. `skipDefaults` elides values matching the workbook
+ * defaults (the xf path); the dxf path passes false, since a dxf value is explicit even when it
+ * coincides with a default.
+ */
+function addFontStyles (s: Style, font: FontProps, skipDefaults: boolean): void {
+  if (font.scheme) {
+    s.fontScheme = font.scheme;
+  }
+  else {
+    addStyle(s, 'fontFamily', font.name);
+  }
+  addStyle(s, 'fontSize', font.size);
+  addStyle(s, 'color', font.color, skipDefaults ? { type: 'theme', value: 'dk1' } : null);
+  addStyle(s, 'underline', font.underline);
+  addStyle(s, 'bold', font.bold, skipDefaults ? false : null);
+  addStyle(s, 'italic', font.italic, skipDefaults ? false : null);
+}
+
+/** Map border members onto Style properties, skipping colours that match `skipColor` (if given). */
+function addBorderStyles (s: Style, border: NonNullable<Xf['border']>, skipColor: SkipValue = null): void {
+  const { top, bottom, left, right } = border;
+  addStyle(s, 'borderTopStyle', top?.style);
+  addStyle(s, 'borderTopColor', top?.color, skipColor);
+  addStyle(s, 'borderBottomStyle', bottom?.style);
+  addStyle(s, 'borderBottomColor', bottom?.color, skipColor);
+  addStyle(s, 'borderLeftStyle', left?.style);
+  addStyle(s, 'borderLeftColor', left?.color, skipColor);
+  addStyle(s, 'borderRightStyle', right?.style);
+  addStyle(s, 'borderRightColor', right?.color, skipColor);
+}
 
 function convertXf (xf: Xf, styleDefs: StyleDefs): Style {
   const s: Style = {};
@@ -56,18 +89,7 @@ function convertXf (xf: Xf, styleDefs: StyleDefs): Style {
   addStyle(s, 'pivotButton', !!xf.pivotButton, false);
 
   if (xf.font) {
-    const font = xf.font;
-    if (font.scheme) {
-      s.fontScheme = font.scheme;
-    }
-    else {
-      addStyle(s, 'fontFamily', font.name);
-    }
-    addStyle(s, 'fontSize', font.size);
-    addStyle(s, 'color', font.color, { type: 'theme', value: 'dk1' });
-    addStyle(s, 'underline', font.underline);
-    addStyle(s, 'bold', font.bold, false);
-    addStyle(s, 'italic', font.italic, false);
+    addFontStyles(s, xf.font, true);
   }
 
   if (xf.fill) {
@@ -85,15 +107,7 @@ function convertXf (xf: Xf, styleDefs: StyleDefs): Style {
   }
 
   if (xf.border) {
-    const { top, bottom, left, right } = xf.border;
-    addStyle(s, 'borderTopStyle', top?.style);
-    addStyle(s, 'borderTopColor', top?.color, { type: 'indexed', value: 64 });
-    addStyle(s, 'borderBottomStyle', bottom?.style);
-    addStyle(s, 'borderBottomColor', bottom?.color, { type: 'indexed', value: 64 });
-    addStyle(s, 'borderLeftStyle', left?.style);
-    addStyle(s, 'borderLeftColor', left?.color, { type: 'indexed', value: 64 });
-    addStyle(s, 'borderRightStyle', right?.style);
-    addStyle(s, 'borderRightColor', right?.color, { type: 'indexed', value: 64 });
+    addBorderStyles(s, xf.border, { type: 'indexed', value: 64 });
   }
 
   return s;
@@ -138,18 +152,7 @@ function convertDxf (dxf: Dxf): Style {
   addStyle(s, 'verticalAlignment', dxf.vAlign);
   addStyle(s, 'wrapText', dxf.wrapText);
   if (dxf.font) {
-    const font = dxf.font;
-    if (font.scheme) {
-      s.fontScheme = font.scheme;
-    }
-    else {
-      addStyle(s, 'fontFamily', font.name);
-    }
-    addStyle(s, 'fontSize', font.size);
-    addStyle(s, 'color', font.color);
-    addStyle(s, 'underline', font.underline);
-    addStyle(s, 'bold', font.bold);
-    addStyle(s, 'italic', font.italic);
+    addFontStyles(s, dxf.font, false);
   }
   if (dxf.fill) {
     if (dxf.fill.type === 'solid' || dxf.fill.type === 'none') {
@@ -166,15 +169,7 @@ function convertDxf (dxf: Dxf): Style {
     }
   }
   if (dxf.border) {
-    const { top, bottom, left, right } = dxf.border;
-    addStyle(s, 'borderTopStyle', top?.style);
-    addStyle(s, 'borderTopColor', top?.color);
-    addStyle(s, 'borderBottomStyle', bottom?.style);
-    addStyle(s, 'borderBottomColor', bottom?.color);
-    addStyle(s, 'borderLeftStyle', left?.style);
-    addStyle(s, 'borderLeftColor', left?.color);
-    addStyle(s, 'borderRightStyle', right?.style);
-    addStyle(s, 'borderRightColor', right?.color);
+    addBorderStyles(s, dxf.border);
   }
   return s;
 }
