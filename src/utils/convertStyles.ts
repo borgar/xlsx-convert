@@ -140,8 +140,9 @@ function convertNamedStyles (styleDefs: StyleDefs): NamedStyleResult {
 /**
  * Convert a differential format (dxf) to a JSF Style. A dxf overlays onto existing formatting,
  * which matches JSF Style's all-properties-optional semantics: only those properties set in the
- * dxf are present in the result. Unlike {@link convertXf}, nothing is skipped as a default; a
- * dxf value is explicit even when it coincides with a workbook default (`<b val="0"/>` un-bolds).
+ * dxf are present in the result. Unlike {@link convertXf}, workbook defaults are not skipped; a
+ * dxf value is explicit even when it coincides with one (`<b val="0"/>` un-bolds). A `General`
+ * number format is still dropped, though: JSF expresses General as the absence of numberFormat.
  */
 function convertDxf (dxf: Dxf): Style {
   const s: Style = {};
