@@ -54,7 +54,7 @@ export function handlerWorksheet (
     rows: [],
     merges: [],
     defaults: {
-      colWidth: colWidth(10, 5)!,
+      colWidth: colWidth(10, 5, context.normalMdw)!,
       rowHeight: 16,
     },
     // drawings: [],
@@ -117,9 +117,9 @@ export function handlerWorksheet (
     const baseColWidthChars = numAttr(sheetFormatPr, 'baseColWidth', null);
     const defaultColWidthChars = numAttr(sheetFormatPr, 'defaultColWidth', null);
     sheet.defaults!.colWidth =
-      colWidth(defaultColWidthChars, 0) ??
-      colWidth(baseColWidthChars, 5) ??
-      colWidth(10, 5)!;
+      colWidth(defaultColWidthChars, 0, context.normalMdw) ??
+      colWidth(baseColWidthChars, 5, context.normalMdw) ??
+      colWidth(10, 5, context.normalMdw)!;
   }
 
   // decode column widths (3.3.1.12)
@@ -130,7 +130,7 @@ export function handlerWorksheet (
     if (min == null || max == null) { return; }
     const style = numAttr(d, 'style');
     const hidden = numAttr(d, 'hidden', 0);
-    const size = colWidth(hidden ? 0 : numAttr(d, 'width'));
+    const size = colWidth(hidden ? 0 : numAttr(d, 'width'), 0, context.normalMdw);
     sheet.columns!.push(gridSize(min, max, size, style));
   });
 
