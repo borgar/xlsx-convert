@@ -1,5 +1,5 @@
 import type { Element } from '@borgar/simple-xml';
-import type { PivotTableStyle, PivotTableStyleName } from '@jsfkit/types';
+import type { PivotTableStyle } from '@jsfkit/types';
 import { attr, boolAttr } from '../../utils/attr.ts';
 
 // NB: readBoolAttrs can't be used here because the OOXML attribute names
@@ -11,10 +11,11 @@ export function parseStyle (root: Element): PivotTableStyle | undefined {
   const style: PivotTableStyle = {};
   const styleName = attr(styleInfo, 'name');
   if (styleName) {
-    // Cast is intentional: Excel allows user-defined custom pivot styles whose
-    // names aren't in the PivotTableStyleName union. We preserve whatever name
-    // the file contains rather than validating against the built-in list.
-    style.name = styleName as PivotTableStyleName;
+    // Excel allows user-defined custom pivot styles whose names aren't in the
+    // PivotTableStyleName union; such a name refers to a definition in
+    // Workbook.tableStyles. Whatever name the file contains is preserved
+    // rather than validated against the built-in list.
+    style.name = styleName;
   }
   const showRowHeaders = boolAttr(styleInfo, 'showRowHeaders');
   if (showRowHeaders != null) {

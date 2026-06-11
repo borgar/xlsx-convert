@@ -2,9 +2,7 @@ import type { Document } from '@borgar/simple-xml';
 import type { ConversionContext } from '../ConversionContext.ts';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
-import type { Table, TableColumn, TableStyle, TableStyleName } from '@jsfkit/types';
-
-const reTableStyleName = /^TableStyle(Dark(\d|10|11)|Light(1?\d|20|21)|Medium(1?\d|2[0-8]))$/;
+import type { Table, TableColumn, TableStyle } from '@jsfkit/types';
 
 export function handlerTable (dom: Document | null | undefined, context: ConversionContext): Table | void {
   const tableElm = dom?.getElementsByTagName('table')[0];
@@ -36,9 +34,11 @@ export function handlerTable (dom: Document | null | undefined, context: Convers
       showFirstColumn: false,
       showLastColumn: false,
     };
+    // Any name is preserved as-is, not just the built-in TableStyleName union: a custom
+    // (workbook-defined) style name refers to a definition in Workbook.tableStyles.
     const name = attr(tableStyleInfo, 'name');
-    if (name && reTableStyleName.test(name)) {
-      tableStyle.name = name as TableStyleName;
+    if (name) {
+      tableStyle.name = name;
     }
     tableStyle.showRowStripes = boolAttr(tableStyleInfo, 'showRowStripes', true);
     tableStyle.showColumnStripes = boolAttr(tableStyleInfo, 'showColumnStripes', false);

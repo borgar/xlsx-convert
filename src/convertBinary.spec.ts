@@ -310,5 +310,15 @@ describe('convertBinary', () => {
       const wb = await convertBinary(bin, 'numbers.xlsx');
       expect(wb.tableStyles).toBeUndefined();
     });
+
+    test('a custom style name on a table is preserved', async () => {
+      const bin = await readFileAsArrayBuffer('./tests/excel/table.xlsx');
+      const zip = new ZipArchive(bin);
+      const tableXml = await zip.readText('xl/tables/table1.xml');
+      await zip.write('xl/tables/table1.xml',
+        tableXml!.replace('name="TableStyleMedium2"', 'name="My Table Style"'));
+      const wb = await convertBinary(zip.toArrayBuffer(), 'table.xlsx');
+      expect(wb.tables![0].style!.name).toBe('My Table Style');
+    });
   });
 });
