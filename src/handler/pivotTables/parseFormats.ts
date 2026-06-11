@@ -11,17 +11,14 @@ import { parsePivotArea } from './parsePivotArea.ts';
 export function parseFormats (root: Element, dxfStyles?: readonly Style[]): PivotFormat[] {
   const formats: PivotFormat[] = [];
   for (const fmtEl of root.querySelectorAll('formats > format')) {
+    const pivotAreaEl = fmtEl.querySelector('pivotArea');
     const fmt: PivotFormat = {
-      pivotArea: {},
+      pivotArea: pivotAreaEl ? parsePivotArea(pivotAreaEl) : {},
     };
     if (attr(fmtEl, 'action') === 'blank') {
       fmt.action = 'blank';
     }
-    const pivotAreaEl = fmtEl.getElementsByTagName('pivotArea')[0];
-    if (pivotAreaEl) {
-      fmt.pivotArea = parsePivotArea(pivotAreaEl);
-    }
-    if (fmt.action !== 'blank') {
+    else {
       const dxfId = numAttr(fmtEl, 'dxfId');
       const style = dxfId != null ? dxfStyles?.[dxfId] : undefined;
       if (style != null && Object.keys(style).length > 0) {
