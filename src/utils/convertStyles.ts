@@ -1,4 +1,4 @@
-import type { StyleDefs } from '../handler/styles.ts';
+import type { Dxf, StyleDefs } from '../handler/styles.ts';
 import type { NamedStyle, Color as JSFColor, Style } from '@jsfkit/types';
 
 /** Style values that can (potentially) be omitted. */
@@ -121,6 +121,67 @@ function convertNamedStyles (styleDefs: StyleDefs): NamedStyleResult {
   }
 
   return { namedStyles, xfIdToName };
+}
+
+/**
+ * Convert a differential format (dxf) to a JSF Style. A dxf overlays onto existing formatting,
+ * which matches JSF Style's all-properties-optional semantics: only those properties set in the
+ * dxf are present in the result. Unlike {@link convertXf}, nothing is skipped as a default; a
+ * dxf value is explicit even when it coincides with a workbook default (`<b val="0"/>` un-bolds).
+ */
+function convertDxf (dxf: Dxf): Style {
+  const s: Style = {};
+  if (dxf.numFmt && dxf.numFmt.toLowerCase() !== 'general') {
+    s.numberFormat = dxf.numFmt;
+  }
+  addStyle(s, 'horizontalAlignment', dxf.hAlign);
+  addStyle(s, 'verticalAlignment', dxf.vAlign);
+  addStyle(s, 'wrapText', dxf.wrapText);
+  if (dxf.font) {
+    const font = dxf.font;
+    if (font.scheme) {
+      s.fontScheme = font.scheme;
+    }
+    else {
+      addStyle(s, 'fontFamily', font.name);
+    }
+    addStyle(s, 'fontSize', font.size);
+    addStyle(s, 'color', font.color);
+    addStyle(s, 'underline', font.underline);
+    addStyle(s, 'bold', font.bold);
+    addStyle(s, 'italic', font.italic);
+  }
+  if (dxf.fill) {
+    if (dxf.fill.type === 'solid' || dxf.fill.type === 'none') {
+      // In a dxf, the visible colour of a solid fill is the BACKGROUND colour (the opposite of
+      // cell xfs, where it is the foreground): Excel writes e.g.
+      // `<patternFill patternType="solid"><bgColor rgb="FFFFFF00"/></patternFill>` for a plain
+      // yellow fill, sometimes omitting patternType entirely (parsed here as 'none').
+      addStyle(s, 'fillColor', dxf.fill.bg ?? dxf.fill.fg);
+    }
+    else {
+      addStyle(s, 'fillColor', dxf.fill.bg);
+      addStyle(s, 'patternColor', dxf.fill.fg);
+      addStyle(s, 'patternStyle', dxf.fill.type);
+    }
+  }
+  if (dxf.border) {
+    const { top, bottom, left, right } = dxf.border;
+    addStyle(s, 'borderTopStyle', top?.style);
+    addStyle(s, 'borderTopColor', top?.color);
+    addStyle(s, 'borderBottomStyle', bottom?.style);
+    addStyle(s, 'borderBottomColor', bottom?.color);
+    addStyle(s, 'borderLeftStyle', left?.style);
+    addStyle(s, 'borderLeftColor', left?.color);
+    addStyle(s, 'borderRightStyle', right?.style);
+    addStyle(s, 'borderRightColor', right?.color);
+  }
+  return s;
+}
+
+/** Convert the styles part's dxf table to JSF Styles, indexed by dxfId. */
+export function convertDxfs (styleDefs: StyleDefs): Style[] {
+  return styleDefs.dxfs.map(convertDxf);
 }
 
 export function convertStyles (styleDefs: StyleDefs): { styles: Style[], namedStyles: Record<string, NamedStyle> } {

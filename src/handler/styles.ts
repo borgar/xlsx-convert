@@ -45,6 +45,30 @@ export type StyleDefs = {
   font: Font[];
   numFmts: Record<number, string>;
   border: Borders[];
+  dxfs: Dxf[];
+};
+
+/**
+ * A differential format (`<dxf>`): each member is present only when the dxf sets it, since a
+ * dxf overlays onto existing formatting rather than fully describing it. Unlike {@link Font},
+ * the font members are all optional, so e.g. `<font><b/></font>` sets bold and nothing else.
+ */
+export type Dxf = {
+  font?: {
+    bold?: boolean,
+    italic?: boolean,
+    underline?: string,
+    size?: number,
+    name?: string,
+    scheme?: 'major' | 'minor',
+    color?: Color,
+  };
+  fill?: Fill;
+  border?: Borders;
+  numFmt?: string;
+  hAlign?: string;
+  vAlign?: string;
+  wrapText?: boolean;
 };
 
 type Xf = {
@@ -153,6 +177,75 @@ function readFont (node: Element, theme: Theme): Font {
   };
 }
 
+function readPatternFill (fp: Element, theme: Theme): Fill {
+  const fgColor = fp.querySelector('fgColor');
+  const bgColor = fp.querySelector('bgColor');
+  const fill: Fill = { type: attr(fp, 'patternType', 'none') };
+  if (fgColor) {
+    fill.fg = readColor(fgColor, theme);
+  }
+  if (bgColor) {
+    fill.bg = readColor(bgColor, theme);
+  }
+  return fill;
+}
+
+/**
+ * Read a `<dxf>` (differential format) element. Each member of the result is present only when
+ * the dxf sets it: `<font><b/></font>` sets bold and nothing else, while `<b val="0"/>`
+ * explicitly un-bolds. So this does not reuse {@link readFont}, where absent means false.
+ */
+function readDxf (d: Element, theme: Theme): Dxf {
+  const dxf: Dxf = {};
+  const fontEl = d.querySelectorAll('font')[0];
+  if (fontEl) {
+    const font: Dxf['font'] = {};
+    const b = fontEl.querySelectorAll('b')[0];
+    if (b) { font.bold = attr(b, 'val', '1') !== '0'; }
+    const i = fontEl.querySelectorAll('i')[0];
+    if (i) { font.italic = attr(i, 'val', '1') !== '0'; }
+    const u = fontEl.querySelectorAll('u')[0];
+    if (u) { font.underline = attr(u, 'val', 'single'); }
+    const sz = valOfSubNode(fontEl, 'sz');
+    if (sz) { font.size = +sz; }
+    const name = valOfSubNode(fontEl, 'name');
+    if (name) { font.name = name === 'Calibri (Body)' ? 'Calibri' : name; }
+    const scheme = valOfSubNode(fontEl, 'scheme');
+    if (scheme === 'major' || scheme === 'minor') { font.scheme = scheme; }
+    const colorEl = fontEl.querySelectorAll('color')[0];
+    if (colorEl) { font.color = readColor(colorEl, theme); }
+    dxf.font = font;
+  }
+  const fillEl = d.querySelectorAll('fill > patternFill')[0];
+  if (fillEl) {
+    dxf.fill = readPatternFill(fillEl, theme);
+  }
+  const borderEl = d.querySelectorAll('border')[0];
+  if (borderEl) {
+    dxf.border = {
+      left: readBorder(borderEl, 'left', theme) || readBorder(borderEl, 'start', theme),
+      right: readBorder(borderEl, 'right', theme) || readBorder(borderEl, 'end', theme),
+      top: readBorder(borderEl, 'top', theme),
+      bottom: readBorder(borderEl, 'bottom', theme),
+    };
+  }
+  const numFmtEl = d.querySelectorAll('numFmt')[0];
+  if (numFmtEl) {
+    const code = attr(numFmtEl, 'formatCode');
+    if (code != null) { dxf.numFmt = code; }
+  }
+  const align = d.querySelectorAll('alignment')[0];
+  if (align) {
+    const hAlign = attr(align, 'horizontal');
+    if (hAlign) { dxf.hAlign = hAlign; }
+    const vAlign = attr(align, 'vertical');
+    if (vAlign) { dxf.vAlign = vAlign; }
+    const wrapText = attr(align, 'wrapText');
+    if (wrapText) { dxf.wrapText = !!+wrapText; }
+  }
+  return dxf;
+}
+
 export function handlerStyles (dom: Document, context: ConversionContext): StyleDefs {
   const styles: StyleDefs = {
     cellStyleXfs: [],
@@ -162,6 +255,7 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
     font: [],
     numFmts: Object.assign({}, BUILTIN_FORMATS),
     border: [],
+    dxfs: [],
   };
 
   // update indexed colors for this conversion
@@ -186,16 +280,12 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
 
   dom.querySelectorAll('fills > fill > patternFill')
     .forEach(fp => {
-      const fgColor = fp.querySelector('fgColor');
-      const bgColor = fp.querySelector('bgColor');
-      const fill: Fill = { type: attr(fp, 'patternType', 'none') };
-      if (fgColor) {
-        fill.fg = readColor(fgColor, context.theme);
-      }
-      if (bgColor) {
-        fill.bg = readColor(bgColor, context.theme);
-      }
-      styles.fill.push(fill);
+      styles.fill.push(readPatternFill(fp, context.theme));
+    });
+
+  dom.querySelectorAll('dxfs > dxf')
+    .forEach(d => {
+      styles.dxfs.push(readDxf(d, context.theme));
     });
 
   dom.querySelectorAll('borders > border')

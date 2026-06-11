@@ -1,18 +1,23 @@
 import type { Document } from '@borgar/simple-xml';
-import type { PivotTable } from '@jsfkit/types';
+import type { PivotTable, Style } from '@jsfkit/types';
 import { addProp } from '../utils/addProp.ts';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import type { NumFmtLookup } from './pivotTables/NumFmtLookup.ts';
 import type { PivotTableWithOptionalCache } from './pivotTables/PivotTableWithOptionalCache.ts';
 import { parseDataFields } from './pivotTables/parseDataFields.ts';
 import { parseFilters } from './pivotTables/parseFilters.ts';
+import { parseFormats } from './pivotTables/parseFormats.ts';
 import { parsePageFields } from './pivotTables/parsePageFields.ts';
 import { parsePivotFields } from './pivotTables/parsePivotFields.ts';
 import { parseRowColItems } from './pivotTables/parseRowColItems.ts';
 import { parseStyle } from './pivotTables/parseStyle.ts';
 import { readBoolAttrs } from './pivotTables/readBoolAttrs.ts';
 
-export function handlerPivotTable (dom: Document, numFmts?: NumFmtLookup): PivotTableWithOptionalCache | undefined {
+export function handlerPivotTable (
+  dom: Document,
+  numFmts?: NumFmtLookup,
+  dxfStyles?: readonly Style[],
+): PivotTableWithOptionalCache | undefined {
   const root = dom.querySelector('pivotTableDefinition');
   if (!root) {
     return;
@@ -95,6 +100,10 @@ export function handlerPivotTable (dom: Document, numFmts?: NumFmtLookup): Pivot
   }
   if (style) {
     pt.style = style;
+  }
+  const formats = parseFormats(root, dxfStyles);
+  if (formats.length > 0) {
+    pt.formats = formats;
   }
   addProp(pt, 'rowGrandTotals', rowGrandTotals, true);   // OOXML default: true
   addProp(pt, 'colGrandTotals', colGrandTotals, true);  // OOXML default: true
