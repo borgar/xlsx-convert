@@ -175,8 +175,8 @@ function convertDxf (dxf: Dxf): Style {
 }
 
 /** Convert the styles part's dxf table to JSF Styles, indexed by dxfId. */
-export function convertDxfs (styleDefs: StyleDefs): Style[] {
-  return styleDefs.dxfs.map(convertDxf);
+export function convertDxfs (dxfs: readonly Dxf[]): Style[] {
+  return dxfs.map(convertDxf);
 }
 
 export function convertStyles (styleDefs: StyleDefs): { styles: Style[], namedStyles: Record<string, NamedStyle> } {

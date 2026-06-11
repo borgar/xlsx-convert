@@ -80,7 +80,7 @@ describe('dxf parsing end to end (handlerStyles + convertDxfs)', () => {
       </dxfs>
     </styleSheet>`);
     const styleDefs = handlerStyles(dom, new ConversionContext());
-    expect(convertDxfs(styleDefs)).toEqual([
+    expect(convertDxfs(styleDefs.dxfs)).toEqual([
       { bold: true },
       { fillColor: { type: 'srgb', value: 'FFFF00' } },
     ]);
@@ -98,7 +98,7 @@ describe('dxf parsing end to end (handlerStyles + convertDxfs)', () => {
       </dxfs>
     </styleSheet>`);
     const styleDefs = handlerStyles(dom, new ConversionContext());
-    expect(convertDxfs(styleDefs)).toEqual([
+    expect(convertDxfs(styleDefs.dxfs)).toEqual([
       {
         numberFormat: '0.00%',
         horizontalAlignment: 'center',

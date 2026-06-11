@@ -249,7 +249,7 @@ export async function convertBinary (
 
   // convert styles to JSF format (styleDefs was read earlier for pivot numFmtId resolution)
   const { styles, namedStyles } = convertStyles(styleDefs);
-  const dxfStyles = styleDefs ? convertDxfs(styleDefs) : undefined;
+  const dxfStyles = convertDxfs(styleDefs?.dxfs ?? []);
   wb.styles = styles;
   if (Object.keys(namedStyles).length > 0) {
     wb.namedStyles = namedStyles;
