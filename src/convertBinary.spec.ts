@@ -247,4 +247,68 @@ describe('convertBinary', () => {
       expect(wb.calculationProperties?.fullCalcOnLoad).toBe(true);
     });
   });
+
+  describe('custom table styles', () => {
+    // Replace the empty <dxfs/> and <tableStyles/> of numbers.xlsx with populated ones.
+    // Returns a fresh xlsx ArrayBuffer.
+    async function withTableStyles (dxfs: string, tableStyles: string): Promise<ArrayBuffer> {
+      const bin = await readFileAsArrayBuffer('./tests/excel/numbers.xlsx');
+      const zip = new ZipArchive(bin);
+      const xml = await zip.readText('xl/styles.xml');
+      const modified = xml!
+        .replace(/<dxfs[^>]*\/>/, dxfs)
+        .replace(/<tableStyles[^>]*\/>/, tableStyles);
+      await zip.write('xl/styles.xml', modified);
+      return zip.toArrayBuffer();
+    }
+
+    const DXFS =
+      '<dxfs count="3">' +
+      '<dxf><font><b/></font>' +
+      '<fill><patternFill patternType="solid"><bgColor rgb="FFFFFF00"/></patternFill></fill></dxf>' +
+      '<dxf><font><i/></font></dxf>' +
+      '<dxf><fill><patternFill patternType="solid"><bgColor rgb="FFEEEEEE"/></patternFill></fill></dxf>' +
+      '</dxfs>';
+
+    test('custom styles convert to Workbook.tableStyles with inlined element styles', async () => {
+      const tableStyles =
+        '<tableStyles count="2" defaultTableStyle="TableStyleMedium2" defaultPivotStyle="My Pivot Style">' +
+        '<tableStyle name="My Pivot Style" table="0" pivot="1" count="4">' +
+        '<tableStyleElement type="wholeTable" dxfId="0"/>' +
+        '<tableStyleElement type="headerRow" dxfId="1"/>' +
+        '<tableStyleElement type="firstRowStripe" size="2" dxfId="2"/>' +
+        '<tableStyleElement type="lastColumn"/>' +
+        '</tableStyle>' +
+        '<tableStyle name="My Table Style" pivot="0" count="1">' +
+        '<tableStyleElement type="wholeTable" dxfId="0"/>' +
+        '</tableStyle>' +
+        '</tableStyles>';
+      const wb = await convertBinary(await withTableStyles(DXFS, tableStyles), 'numbers.xlsx');
+      expect(wb.tableStyles).toEqual({
+        'My Pivot Style': {
+          name: 'My Pivot Style',
+          table: false,
+          elements: [
+            { type: 'wholeTable', style: { bold: true, fillColor: { type: 'srgb', value: 'FFFF00' } } },
+            { type: 'headerRow', style: { italic: true } },
+            { type: 'firstRowStripe', size: 2, style: { fillColor: { type: 'srgb', value: 'EEEEEE' } } },
+            { type: 'lastColumn' },
+          ],
+        },
+        'My Table Style': {
+          name: 'My Table Style',
+          pivot: false,
+          elements: [
+            { type: 'wholeTable', style: { bold: true, fillColor: { type: 'srgb', value: 'FFFF00' } } },
+          ],
+        },
+      });
+    });
+
+    test('an empty tableStyles element omits Workbook.tableStyles', async () => {
+      const bin = await readFileAsArrayBuffer('./tests/excel/numbers.xlsx');
+      const wb = await convertBinary(bin, 'numbers.xlsx');
+      expect(wb.tableStyles).toBeUndefined();
+    });
+  });
 });

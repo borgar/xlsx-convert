@@ -2,7 +2,7 @@ import { Document, parseXML } from '@borgar/simple-xml';
 import { ZipArchive } from '@borgar/zip';
 import { attr } from './utils/attr.ts';
 import { pathBasename, pathDirname, pathJoin } from './utils/path.ts';
-import { convertStyles } from './utils/convertStyles.ts';
+import { convertDxfs, convertStyles, convertTableStyles } from './utils/convertStyles.ts';
 import { resolveColumnMdw } from './utils/mdw.ts';
 import { FT_CFBF, FT_ZIP, getBinaryFileType } from './utils/getBinaryFileType.ts';
 import { ConversionContext } from './ConversionContext.ts';
@@ -252,6 +252,10 @@ export async function convertBinary (
   wb.styles = styles;
   if (Object.keys(namedStyles).length > 0) {
     wb.namedStyles = namedStyles;
+  }
+  if (styleDefs && styleDefs.tableStyles.length > 0) {
+    const dxfStyles = convertDxfs(styleDefs.dxfs);
+    wb.tableStyles = convertTableStyles(styleDefs.tableStyles, dxfStyles);
   }
 
   // The Normal font (cellStyleXfs[0], defaulting to the theme minor typeface) sets the MDW that every

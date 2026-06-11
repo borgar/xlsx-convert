@@ -1,6 +1,6 @@
 import type { Document, Element } from '@borgar/simple-xml';
 import type { Color, Theme } from '@jsfkit/types';
-import { attr, numAttr } from '../utils/attr.ts';
+import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { BUILTIN_FORMATS } from '../constants.ts';
 import type { ConversionContext } from '../ConversionContext.ts';
 import { readColor } from '../color/readColor.ts';
@@ -46,6 +46,25 @@ export type StyleDefs = {
   numFmts: Record<number, string>;
   border: Borders[];
   dxfs: Dxf[];
+  tableStyles: TableStyleEntry[];
+};
+
+/** One `<tableStyleElement>` of a custom table style: a region and its dxf reference. */
+export type TableStyleElementEntry = {
+  type: string;
+  size?: number;
+  dxfId?: number;
+};
+
+/**
+ * A custom (workbook-defined) table or pivot table style (`<tableStyle>`), with its per-region
+ * formatting still as references into the {@link StyleDefs.dxfs} table.
+ */
+export type TableStyleEntry = {
+  name: string;
+  pivot?: boolean;
+  table?: boolean;
+  elements: TableStyleElementEntry[];
 };
 
 /**
@@ -260,6 +279,7 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
     numFmts: Object.assign({}, BUILTIN_FORMATS),
     border: [],
     dxfs: [],
+    tableStyles: [],
   };
 
   // update indexed colors for this conversion
@@ -295,6 +315,29 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
   dom.querySelectorAll('borders > border')
     .forEach(d => {
       styles.border.push(readBorders(d, context.theme));
+    });
+
+  // custom (workbook-defined) table and pivot table styles
+  dom.querySelectorAll('tableStyles > tableStyle')
+    .forEach(d => {
+      const name = attr(d, 'name');
+      if (name == null) { return; }
+      const entry: TableStyleEntry = { name: name, elements: [] };
+      const pivot = boolAttr(d, 'pivot');
+      if (pivot != null) { entry.pivot = pivot; }
+      const table = boolAttr(d, 'table');
+      if (table != null) { entry.table = table; }
+      d.querySelectorAll('tableStyleElement').forEach(el => {
+        const type = attr(el, 'type');
+        if (type == null) { return; }
+        const element: TableStyleElementEntry = { type: type };
+        const size = numAttr(el, 'size');
+        if (size != null) { element.size = size; }
+        const dxfId = numAttr(el, 'dxfId');
+        if (dxfId != null) { element.dxfId = dxfId; }
+        entry.elements.push(element);
+      });
+      styles.tableStyles.push(entry);
     });
 
   // level 1 (named cell styles)
