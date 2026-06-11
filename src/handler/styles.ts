@@ -177,6 +177,15 @@ function readFont (node: Element, theme: Theme): Font {
   };
 }
 
+function readBorders (node: Element, theme: Theme): Borders {
+  return {
+    left: readBorder(node, 'left', theme) || readBorder(node, 'start', theme),
+    right: readBorder(node, 'right', theme) || readBorder(node, 'end', theme),
+    top: readBorder(node, 'top', theme),
+    bottom: readBorder(node, 'bottom', theme),
+  };
+}
+
 function readPatternFill (fp: Element, theme: Theme): Fill {
   const fgColor = fp.querySelector('fgColor');
   const bgColor = fp.querySelector('bgColor');
@@ -222,12 +231,7 @@ function readDxf (d: Element, theme: Theme): Dxf {
   }
   const borderEl = d.querySelectorAll('border')[0];
   if (borderEl) {
-    dxf.border = {
-      left: readBorder(borderEl, 'left', theme) || readBorder(borderEl, 'start', theme),
-      right: readBorder(borderEl, 'right', theme) || readBorder(borderEl, 'end', theme),
-      top: readBorder(borderEl, 'top', theme),
-      bottom: readBorder(borderEl, 'bottom', theme),
-    };
+    dxf.border = readBorders(borderEl, theme);
   }
   const numFmtEl = d.querySelectorAll('numFmt')[0];
   if (numFmtEl) {
@@ -290,13 +294,7 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
 
   dom.querySelectorAll('borders > border')
     .forEach(d => {
-      const borderDefs: Borders = {
-        left: readBorder(d, 'left', context.theme) || readBorder(d, 'start', context.theme),
-        right: readBorder(d, 'right', context.theme) || readBorder(d, 'end', context.theme),
-        top: readBorder(d, 'top', context.theme),
-        bottom: readBorder(d, 'bottom', context.theme),
-      };
-      styles.border.push(borderDefs);
+      styles.border.push(readBorders(d, context.theme));
     });
 
   // level 1 (named cell styles)
