@@ -224,7 +224,8 @@ const TABLE_STYLE_ELEMENT_TYPES = new Set<TableStyleElementType>([
  * name, inlining each element's formatting from the converted dxf table (the result of
  * {@link convertDxfs}). Values matching the JSF defaults are dropped: the pivot/table
  * applicability flags when true and a stripe size of 1. Elements with an unrecognized region
- * type are dropped entirely, as are dangling or empty dxf references.
+ * type are dropped entirely; a dangling or empty dxf reference yields an element without a
+ * style (which keeps its region type and stripe size).
  */
 export function convertTableStyles (
   tableStyles: readonly TableStyleEntry[],
