@@ -30,7 +30,7 @@ function getLayoutScales (sheetView: Element): WorksheetLayoutScales | null {
   return (normalScale ?? pageLayoutScale ?? pageBreakPreviewScale) != null ? scales : null;
 }
 
-function gridSize (start: number, end: number, size?: number, style?: number | null): GridSize {
+function gridSize (start: number, end: number, size?: number | null, style?: number | null): GridSize {
   const item: GridSize = { start, end };
   if (size != null) {
     item.size = size;
@@ -120,6 +120,10 @@ export function handlerWorksheet (
       colWidth(defaultColWidthChars, 0, context.normalMdw) ??
       colWidth(baseColWidthChars, 5, context.normalMdw) ??
       colWidth(10, 5, context.normalMdw)!;
+    const rowHt = numAttr(sheetFormatPr, 'defaultRowHeight', null);
+    if (rowHt != null) {
+      sheet.defaults!.rowHeight = rowHt;
+    }
   }
 
   // decode column widths (3.3.1.12)
@@ -187,9 +191,7 @@ export function handlerWorksheet (
       // Row height measured in point size
       const ht = attr(row, 'ht');
       if (ht != null || rowStyle != null) {
-        // FIXME: GridSize.size should be optional: https://github.com/jsfkit/types/issues/14
-        const height = ht == null ? sheet.defaults!.rowHeight : +ht;
-        rows.push(gridSize(r, r, height, rowStyle));
+        rows.push(gridSize(r, r, ht == null ? null : +ht, rowStyle));
       }
     }
 
