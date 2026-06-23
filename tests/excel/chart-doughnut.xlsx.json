@@ -100,64 +100,12 @@
       "builtinId": 0
     }
   },
-  "charts": {
-    "xl/charts/chart1.xml": {
-      "chart": {
-        "title": { "overlay": false },
-        "plotArea": {
-          "charts": [
-            {
-              "type": "doughnutChart",
-              "varyColors": true,
-              "axId": [],
-              "ser": [
-                {
-                  "idx": 0,
-                  "order": 0,
-                  "cat": { "type": "strRef", "f": "Pie!$A$2:$A$6" },
-                  "val": { "type": "numRef", "f": "Pie!$B$2:$B$6" }
-                },
-                {
-                  "idx": 1,
-                  "order": 1,
-                  "cat": { "type": "strRef", "f": "Pie!$A$2:$A$6" },
-                  "val": { "type": "numRef", "f": "Pie!$C$2:$C$6" }
-                }
-              ]
-            }
-          ],
-          "axes": []
-        },
-        "legend": {
-          "legendPos": "b",
-          "overlay": false,
-          "textProps": { "anchor": "ctr" }
-        },
-        "plotVisOnly": true,
-        "dispBlanksAs": "gap"
-      },
-      "shape": {
-        "fill": {
-          "type": "solid",
-          "bg": { "type": "theme", "value": "bg1" }
-        },
-        "line": {
-          "width": 9525,
-          "fill": {
-            "type": "solid",
-            "bg": {
-              "type": "theme",
-              "value": "tx1",
-              "transforms": [
-                { "type": "lumMod", "value": 15 },
-                { "type": "lumOff", "value": 85 }
-              ]
-            }
-          },
-          "join": "round"
-        }
-      }
+  "formulas": [ "RANDBETWEEN(1,100)" ],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
     }
-  },
-  "formulas": [ "RANDBETWEEN(1,100)" ]
+  }
 }

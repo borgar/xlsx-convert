@@ -106,21 +106,15 @@
       "builtinId": 0
     }
   },
-  "charts": {
-    "xl/charts/chartEx1.xml": {
-      "chartData": {},
-      "chart": {
-        "title": {},
-        "plotArea": {
-          "charts": [],
-          "axes": []
-        },
-        "legend": {}
-      }
-    }
-  },
   "formulas": [
     "RANDBETWEEN(1,100)",
     "R[-1]C + RANDBETWEEN(-50,100)"
-  ]
+  ],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
 }

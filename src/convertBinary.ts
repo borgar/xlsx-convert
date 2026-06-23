@@ -32,7 +32,6 @@ import { getMimeType } from './utils/getMimeType.ts';
 import { isLikelyGSExport } from './utils/isLikelyGSExport.ts';
 import { handlerChart } from './handler/chart.ts';
 import { hasKeys } from './utils/hasKeys.ts';
-import type { ChartSpaceEx } from './handler/charts/types/ChartSpaceEx.ts';
 import type { ChartSpace } from './handler/charts/types/ChartSpace.ts';
 
 function toArrayBuffer (buffer: Buffer): ArrayBuffer {
@@ -41,9 +40,8 @@ function toArrayBuffer (buffer: Buffer): ArrayBuffer {
   return arrayBuffer;
 }
 
-export type GDWorkbook = Workbook & {
-  charts?: Record<string, ChartSpace | ChartSpaceEx>
-};
+let CHARTS_ENABLED = false;
+export type ExtendedWorkbook = Workbook & { charts?: Record<string, ChartSpace> };
 
 /**
  * Default conversion options
@@ -68,7 +66,7 @@ export async function convertBinary (
   buffer: Buffer | ArrayBuffer,
   filename: string,
   options?: ConversionOptions,
-): Promise<GDWorkbook> {
+): Promise<Workbook> {
   if (typeof Buffer !== 'undefined' && buffer instanceof Buffer) {
     buffer = toArrayBuffer(buffer);
   }
@@ -191,7 +189,7 @@ export async function convertBinary (
   }
 
   // workbook
-  const wb = handlerWorkbook(wbDom, context) as GDWorkbook;
+  const wb = handlerWorkbook(wbDom, context);
   context.workbook = wb;
   // copy external links in
   if (context.externalLinks.length) {
@@ -333,7 +331,6 @@ export async function convertBinary (
       wb.sheets[index] = sh;
 
       if (context.images.length) {
-        const charts = {};
         // process drawings (these may contain either charts or images)
         for (const img of context.images) {
           if (img.type === 'drawing') {
@@ -343,18 +340,23 @@ export async function convertBinary (
           }
         }
         // process charts
-        for (const img of context.charts) {
-          if (img.type === 'chart' || img.type === 'chartEx') {
-            // const chartRels = await getRels(img.rel.target);
-            const chartDom = await getFile(img.rel.target);
-            // read rel type: chartColorStyle
-            // read rel type: chartStyle
-            const chart = handlerChart(chartDom, context, img.type === 'chartEx');
-            charts[img.rel.target] = chart;
+        if (CHARTS_ENABLED) {
+          const charts: Record<string, ChartSpace> = {};
+          for (const img of context.charts) {
+            if (img.type === 'chart' || img.type === 'chartEx') {
+              // const chartRels = await getRels(img.rel.target);
+              const chartDom = await getFile(img.rel.target);
+              if (chartDom) {
+                // read rel type: chartColorStyle
+                // read rel type: chartStyle
+                const chart = handlerChart(chartDom, context);
+                charts[img.rel.target] = chart;
+              }
+            }
           }
-        }
-        if (hasKeys(charts)) {
-          wb.charts = charts;
+          if (hasKeys(charts)) {
+            (wb as ExtendedWorkbook).charts = charts;
+          }
         }
 
         // process images
@@ -430,5 +432,24 @@ export async function convertBinary (
     wb.meta = appMeta;
   }
 
+  CHARTS_ENABLED = false;
   return wb;
+}
+
+/**
+ * @ignore
+ * An experimental version of convertBinary that includes charts the workbook payload.
+ *
+ * @param buffer Buffer containing the file to convert
+ * @param filename Name of the file being converted
+ * @param [options] Conversion options
+ * @return A JSON spreadsheet formatted object.
+ */
+export async function convertBinaryFuture (
+  buffer: Buffer | ArrayBuffer,
+  filename: string,
+  options?: ConversionOptions,
+): Promise<ExtendedWorkbook> {
+  CHARTS_ENABLED = true;
+  return convertBinary(buffer, filename, options);
 }
