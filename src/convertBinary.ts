@@ -41,6 +41,7 @@ function toArrayBuffer (buffer: Buffer): ArrayBuffer {
 }
 
 let CHARTS_ENABLED = false;
+/** @ignore */
 export type ExtendedWorkbook = Workbook & { charts?: Record<string, ChartSpace> };
 
 /**
@@ -437,13 +438,13 @@ export async function convertBinary (
 }
 
 /**
- * @ignore
  * An experimental version of convertBinary that includes charts the workbook payload.
  *
  * @param buffer Buffer containing the file to convert
  * @param filename Name of the file being converted
  * @param [options] Conversion options
  * @return A JSON spreadsheet formatted object.
+ * @ignore
  */
 export async function convertBinaryFuture (
   buffer: Buffer | ArrayBuffer,

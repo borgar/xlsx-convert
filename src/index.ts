@@ -58,6 +58,5 @@ export async function convert (
 }
 
 export { convertCSV, type CSVConversionOptions } from './convertCSV.ts';
-export { convertBinary } from './convertBinary.ts';
-
-export type { GDWorkbook } from './convertBinary.ts';
+export { convertBinary, convertBinaryFuture } from './convertBinary.ts';
+export type { ExtendedWorkbook } from './convertBinary.ts';

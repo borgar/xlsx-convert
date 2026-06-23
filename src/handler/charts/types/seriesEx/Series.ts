@@ -1,6 +1,10 @@
 import type { Shape } from '@jsfkit/types';
 import type { integer } from '../integer.ts';
 import type { SeriesLayout } from './SeriesLayout.ts';
+import type { SeriesLayoutProperties } from './SeriesLayoutProperties.ts';
+import type { DataLabels } from './DataLabels.ts';
+import type { DataPoint } from './DataPoint.ts';
+import type { ValueColorPositions, ValueColors } from './ValueColor.ts';
 
 export type Series = {
   layoutId: SeriesLayout;
