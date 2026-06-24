@@ -208,9 +208,12 @@
         { "start": 7, "end": 8, "size": 17 },
         { "start": 11, "end": 12, "size": 65 }
       ],
-      "rows": [],
+      "rows": [
+        { "start": 7, "end": 8, "size": 16 },
+        { "start": 10, "end": 11, "size": 16 }
+      ],
       "merges": [],
-      "defaults": { "colWidth": 30, "rowHeight": 16 },
+      "defaults": { "colWidth": 30, "rowHeight": 30 },
       "hidden": 0,
       "views": [ { "workbookView": 0, "activeCell": "H7" } ]
     },
