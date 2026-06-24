@@ -175,7 +175,11 @@ function convertDxf (dxf: Dxf): Style {
   return s;
 }
 
-/** Convert the styles part's dxf table to JSF Styles, indexed by dxfId. */
+/**
+ * Convert the styles part's dxf table to JSF Styles, producing the workbook's `diffStyles` table.
+ * The result is 1:1 with the `<dxfs>` table: each entry's array index equals its OOXML dxfId, so
+ * a `PivotFormat.diffStyleId` (carried straight through from `dxfId`) indexes the right entry.
+ */
 export function convertDxfs (dxfs: readonly Dxf[]): Style[] {
   return dxfs.map(convertDxf);
 }

@@ -254,6 +254,9 @@ export async function convertBinary (
   if (Object.keys(namedStyles).length > 0) {
     wb.namedStyles = namedStyles;
   }
+  if (dxfStyles.length > 0) {
+    wb.diffStyles = dxfStyles;
+  }
 
   // The Normal font (cellStyleXfs[0], defaulting to the theme minor typeface) sets the MDW that every
   // column width is recorded against; resolve it once for the worksheet handlers.
@@ -294,7 +297,7 @@ export async function convertBinary (
           getRels(ptRel.target),
         ]);
         if (ptDom) {
-          const pt = handlerPivotTable(ptDom, styleDefs?.numFmts, dxfStyles);
+          const pt = handlerPivotTable(ptDom, styleDefs?.numFmts);
           if (pt) {
             pt.sheet = sheetName;
             // resolve cache from pivot table's rels -> pivotCacheDefinition

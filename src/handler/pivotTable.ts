@@ -1,5 +1,5 @@
 import type { Document } from '@borgar/simple-xml';
-import type { PivotTable, Style } from '@jsfkit/types';
+import type { PivotTable } from '@jsfkit/types';
 import { addProp } from '../utils/addProp.ts';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import type { NumFmtLookup } from './pivotTables/NumFmtLookup.ts';
@@ -17,7 +17,6 @@ import { readBoolAttrs } from './pivotTables/readBoolAttrs.ts';
 export function handlerPivotTable (
   dom: Document,
   numFmts?: NumFmtLookup,
-  dxfStyles?: readonly Style[],
 ): PivotTableWithOptionalCache | undefined {
   const root = dom.querySelector('pivotTableDefinition');
   if (!root) {
@@ -102,7 +101,7 @@ export function handlerPivotTable (
   if (style) {
     pt.style = style;
   }
-  const formats = parseFormats(root, dxfStyles);
+  const formats = parseFormats(root);
   if (formats.length > 0) {
     pt.formats = formats;
   }
