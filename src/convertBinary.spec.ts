@@ -287,7 +287,7 @@ describe('convertBinary', () => {
       expect(wb.tableStyles).toEqual({
         'My Pivot Style': {
           name: 'My Pivot Style',
-          table: false,
+          table: 'pivot',
           elements: [
             { type: 'wholeTable', style: { bold: true, fillColor: { type: 'srgb', value: 'FFFF00' } } },
             { type: 'headerRow', style: { italic: true } },
@@ -297,7 +297,7 @@ describe('convertBinary', () => {
         },
         'My Table Style': {
           name: 'My Table Style',
-          pivot: false,
+          table: 'table',
           elements: [
             { type: 'wholeTable', style: { bold: true, fillColor: { type: 'srgb', value: 'FFFF00' } } },
           ],

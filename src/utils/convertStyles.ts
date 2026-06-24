@@ -222,10 +222,15 @@ const TABLE_STYLE_ELEMENT_TYPES = new Set<TableStyleElementType>([
 /**
  * Convert the styles part's custom table styles to JSF TableStyleDefinitions keyed by style
  * name, inlining each element's formatting from the converted dxf table (the result of
- * {@link convertDxfs}). Values matching the JSF defaults are dropped: the pivot/table
- * applicability flags when true and a stripe size of 1. Elements with an unrecognized region
+ * {@link convertDxfs}). Values matching the JSF defaults are dropped: the `table` applicability
+ * when it is the default `'all'`, and a stripe size of 1. Elements with an unrecognized region
  * type are dropped entirely; a dangling or empty dxf reference yields an element without a
  * style (which keeps its region type and stripe size).
+ *
+ * OOXML carries applicability as two boolean attributes (`table` and `pivot`, both defaulting to
+ * true); JSF collapses that to the tristate {@link TableStyleDefinition.table} (`'all'` by
+ * default). Excel can write `table="0" pivot="0"` (applies to neither), which JSF can't express;
+ * it is treated as the default `'all'`.
  */
 export function convertTableStyles (
   tableStyles: readonly TableStyleEntry[],
@@ -234,8 +239,8 @@ export function convertTableStyles (
   const result: Record<string, TableStyleDefinition> = {};
   for (const entry of tableStyles) {
     const def: TableStyleDefinition = { name: entry.name };
-    if (entry.pivot === false) { def.pivot = false; }
-    if (entry.table === false) { def.table = false; }
+    if (entry.table !== false && entry.pivot === false) { def.table = 'table'; }
+    else if (entry.pivot !== false && entry.table === false) { def.table = 'pivot'; }
     const elements: TableStyleElement[] = [];
     for (const el of entry.elements) {
       if (!TABLE_STYLE_ELEMENT_TYPES.has(el.type as TableStyleElementType)) { continue; }
