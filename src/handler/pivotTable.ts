@@ -7,13 +7,17 @@ import type { PivotTableWithOptionalCache } from './pivotTables/PivotTableWithOp
 import { parseDataFields } from './pivotTables/parseDataFields.ts';
 import { parseExtensions } from './pivotTables/parseExtensions.ts';
 import { parseFilters } from './pivotTables/parseFilters.ts';
+import { parseFormats } from './pivotTables/parseFormats.ts';
 import { parsePageFields } from './pivotTables/parsePageFields.ts';
 import { parsePivotFields } from './pivotTables/parsePivotFields.ts';
 import { parseRowColItems } from './pivotTables/parseRowColItems.ts';
 import { parseStyle } from './pivotTables/parseStyle.ts';
 import { readBoolAttrs } from './pivotTables/readBoolAttrs.ts';
 
-export function handlerPivotTable (dom: Document, numFmts?: NumFmtLookup): PivotTableWithOptionalCache | undefined {
+export function handlerPivotTable (
+  dom: Document,
+  numFmts?: NumFmtLookup,
+): PivotTableWithOptionalCache | undefined {
   const root = dom.querySelector('pivotTableDefinition');
   if (!root) {
     return;
@@ -96,6 +100,10 @@ export function handlerPivotTable (dom: Document, numFmts?: NumFmtLookup): Pivot
   }
   if (style) {
     pt.style = style;
+  }
+  const formats = parseFormats(root);
+  if (formats.length > 0) {
+    pt.formats = formats;
   }
   addProp(pt, 'rowGrandTotals', rowGrandTotals, true);   // OOXML default: true
   addProp(pt, 'colGrandTotals', colGrandTotals, true);  // OOXML default: true

@@ -141,6 +141,7 @@
       "builtinId": 0
     }
   },
+  "diffStyles": [ {} ],
   "formulas": [
     "[names.xlsx]Sheet1!R1C1",
     "[names.xlsx]Sheet1!scoped",

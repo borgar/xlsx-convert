@@ -249,13 +249,16 @@ export async function convertBinary (
 
   // convert styles to JSF format (styleDefs was read earlier for pivot numFmtId resolution)
   const { styles, namedStyles } = convertStyles(styleDefs);
+  const dxfStyles = convertDxfs(styleDefs?.dxfs ?? []);
   wb.styles = styles;
   if (Object.keys(namedStyles).length > 0) {
     wb.namedStyles = namedStyles;
   }
+  if (dxfStyles.length > 0) {
+    wb.diffStyles = dxfStyles;
+  }
   if (styleDefs && styleDefs.tableStyles.length > 0) {
-    const dxfStyles = convertDxfs(styleDefs.dxfs);
-    wb.tableStyles = convertTableStyles(styleDefs.tableStyles, dxfStyles);
+    wb.tableStyles = convertTableStyles(styleDefs.tableStyles);
   }
 
   // The Normal font (cellStyleXfs[0], defaulting to the theme minor typeface) sets the MDW that every

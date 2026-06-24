@@ -182,7 +182,12 @@ function convertDxf (dxf: Dxf): Style {
   return s;
 }
 
-/** Convert the styles part's dxf table to JSF Styles, indexed by dxfId. */
+/**
+ * Convert the styles part's dxf table to JSF Styles, producing the workbook's `diffStyles` table.
+ * The result is 1:1 with the `<dxfs>` table: each entry's array index equals its OOXML dxfId, so a
+ * `PivotFormat.diffStyleId` or `TableStyleElement.diffStyleId` (carried straight through from
+ * `dxfId`) indexes the right entry.
+ */
 export function convertDxfs (dxfs: readonly Dxf[]): Style[] {
   return dxfs.map(convertDxf);
 }
@@ -220,12 +225,13 @@ const TABLE_STYLE_ELEMENT_TYPES = new Set<TableStyleElementType>([
 ]);
 
 /**
- * Convert the styles part's custom table styles to JSF TableStyleDefinitions keyed by style
- * name, inlining each element's formatting from the converted dxf table (the result of
- * {@link convertDxfs}). Values matching the JSF defaults are dropped: the `table` applicability
- * when it is the default `'all'`, and a stripe size of 1. Elements with an unrecognized region
- * type are dropped entirely; a dangling or empty dxf reference yields an element without a
- * style (which keeps its region type and stripe size).
+ * Convert the styles part's custom table styles to JSF TableStyleDefinitions keyed by style name.
+ * Each element references the workbook's shared differential-style table by index
+ * ({@link TableStyleElement.diffStyleId} into {@link Workbook.diffStyles}), carried straight
+ * through from the OOXML `dxfId` (the same table {@link convertDxfs} produces). Values matching the
+ * JSF defaults are dropped: the `table` applicability when it is the default `'all'`, and a stripe
+ * size of 1. Elements with an unrecognized region type are dropped entirely; an element with no
+ * `dxfId` keeps its region type and stripe size but carries no `diffStyleId`.
  *
  * OOXML carries applicability as two boolean attributes (`table` and `pivot`, both defaulting to
  * true); JSF collapses that to the tristate {@link TableStyleDefinition.table} (`'all'` by
@@ -234,7 +240,6 @@ const TABLE_STYLE_ELEMENT_TYPES = new Set<TableStyleElementType>([
  */
 export function convertTableStyles (
   tableStyles: readonly TableStyleEntry[],
-  dxfStyles: readonly Style[],
 ): Record<string, TableStyleDefinition> {
   const result: Record<string, TableStyleDefinition> = {};
   for (const entry of tableStyles) {
@@ -246,8 +251,7 @@ export function convertTableStyles (
       if (!TABLE_STYLE_ELEMENT_TYPES.has(el.type as TableStyleElementType)) { continue; }
       const element: TableStyleElement = { type: el.type as TableStyleElementType };
       if (el.size != null && el.size !== 1) { element.size = el.size; }
-      const style = el.dxfId != null ? dxfStyles[el.dxfId] : null;
-      if (style != null && Object.keys(style).length > 0) { element.style = style; }
+      if (el.dxfId != null) { element.diffStyleId = el.dxfId; }
       elements.push(element);
     }
     if (elements.length > 0) { def.elements = elements; }

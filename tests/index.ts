@@ -49,6 +49,7 @@ const tests = [
   'tests/excel/numbers.xlsx',
   'tests/excel/page-margins.xlsx',
   'tests/excel/patterns.xlsx',
+  'tests/excel/pivot-format-records.xlsx',
   'tests/excel/pivot-table.xlsx',
   'tests/excel/rotated-groups-shapes.xlsx',
   'tests/excel/row-col-styles.xlsx',
