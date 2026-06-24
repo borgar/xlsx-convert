@@ -96,6 +96,20 @@
       "builtinId": 0
     }
   },
+  "diffStyles": [
+    {
+      "fillColor": { "type": "srgb", "value": "FFFF00" }
+    },
+    {
+      "fillColor": { "type": "srgb", "value": "FFFF00" }
+    },
+    { "bold": true },
+    { "bold": true },
+    {
+      "fillColor": { "type": "srgb", "value": "FFFF00" }
+    },
+    { "bold": true }
+  ],
   "pivotTables": [
     {
       "name": "PT1",
@@ -160,7 +174,7 @@
                 "itemIndices": [ 1 ]
               } ]
           },
-          "style": { "bold": true }
+          "diffStyleId": 5
         },
         {
           "pivotArea": {
@@ -171,9 +185,7 @@
                 "itemIndices": [ 1 ]
               } ]
           },
-          "style": {
-            "fillColor": { "type": "srgb", "value": "FFFF00" }
-          }
+          "diffStyleId": 4
         },
         {
           "pivotArea": {
@@ -182,7 +194,7 @@
             "collapsedLevelsAreSubtotals": true,
             "fieldPosition": 0
           },
-          "style": { "bold": true }
+          "diffStyleId": 3
         },
         {
           "pivotArea": {
@@ -192,7 +204,7 @@
             "outline": false,
             "fieldPosition": 0
           },
-          "style": { "bold": true }
+          "diffStyleId": 2
         },
         {
           "pivotArea": {
@@ -201,9 +213,7 @@
             "collapsedLevelsAreSubtotals": true,
             "fieldPosition": 0
           },
-          "style": {
-            "fillColor": { "type": "srgb", "value": "FFFF00" }
-          }
+          "diffStyleId": 1
         },
         {
           "pivotArea": {
@@ -213,9 +223,7 @@
             "outline": false,
             "fieldPosition": 0
           },
-          "style": {
-            "fillColor": { "type": "srgb", "value": "FFFF00" }
-          }
+          "diffStyleId": 0
         }
       ],
       "outline": true,
