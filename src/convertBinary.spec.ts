@@ -270,7 +270,7 @@ describe('convertBinary', () => {
       '<dxf><fill><patternFill patternType="solid"><bgColor rgb="FFEEEEEE"/></patternFill></fill></dxf>' +
       '</dxfs>';
 
-    test('custom styles convert to Workbook.tableStyles with inlined element styles', async () => {
+    test('custom styles convert to Workbook.tableStyles referencing the shared diffStyles table', async () => {
       const tableStyles =
         '<tableStyles count="2" defaultTableStyle="TableStyleMedium2" defaultPivotStyle="My Pivot Style">' +
         '<tableStyle name="My Pivot Style" table="0" pivot="1" count="4">' +
@@ -284,14 +284,21 @@ describe('convertBinary', () => {
         '</tableStyle>' +
         '</tableStyles>';
       const wb = await convertBinary(await withTableStyles(DXFS, tableStyles), 'numbers.xlsx');
+      // The <dxfs> table becomes the shared Workbook.diffStyles; elements reference it by index
+      // (diffStyleId = the OOXML dxfId), the same table pivot-table formats index into.
+      expect(wb.diffStyles).toEqual([
+        { bold: true, fillColor: { type: 'srgb', value: 'FFFF00' } },
+        { italic: true },
+        { fillColor: { type: 'srgb', value: 'EEEEEE' } },
+      ]);
       expect(wb.tableStyles).toEqual({
         'My Pivot Style': {
           name: 'My Pivot Style',
           table: 'pivot',
           elements: [
-            { type: 'wholeTable', style: { bold: true, fillColor: { type: 'srgb', value: 'FFFF00' } } },
-            { type: 'headerRow', style: { italic: true } },
-            { type: 'firstRowStripe', size: 2, style: { fillColor: { type: 'srgb', value: 'EEEEEE' } } },
+            { type: 'wholeTable', diffStyleId: 0 },
+            { type: 'headerRow', diffStyleId: 1 },
+            { type: 'firstRowStripe', size: 2, diffStyleId: 2 },
             { type: 'lastColumn' },
           ],
         },
@@ -299,7 +306,7 @@ describe('convertBinary', () => {
           name: 'My Table Style',
           table: 'table',
           elements: [
-            { type: 'wholeTable', style: { bold: true, fillColor: { type: 'srgb', value: 'FFFF00' } } },
+            { type: 'wholeTable', diffStyleId: 0 },
           ],
         },
       });
