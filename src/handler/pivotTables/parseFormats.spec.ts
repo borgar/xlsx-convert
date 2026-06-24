@@ -1,14 +1,13 @@
 import { describe, it, expect } from 'vitest';
 import { parseXML } from '@borgar/simple-xml';
-import type { Style } from '@jsfkit/types';
 import { ConversionContext } from '../../ConversionContext.ts';
 import { handlerStyles } from '../styles.ts';
 import { convertDxfs } from '../../utils/convertStyles.ts';
 import { parseFormats } from './parseFormats.ts';
 
-function parse (xml: string, dxfStyles?: readonly Style[]) {
+function parse (xml: string) {
   const root = parseXML(xml).querySelector('pivotTableDefinition')!;
-  return parseFormats(root, dxfStyles);
+  return parseFormats(root);
 }
 
 // What Excel writes for user formatting on pivot output cells: bold + yellow
@@ -24,45 +23,39 @@ const EXCEL_FORMATS = `<pivotTableDefinition name="PT1">
 </pivotTableDefinition>`;
 
 describe('parseFormats', () => {
-  it('parses Excel-authored item-reference and grand-row records, resolving dxf styles', () => {
-    const dxfStyles: Style[] = [
-      { bold: true },
-      { fillColor: { type: 'srgb', value: 'FFFF00' } },
-      { bold: true, fillColor: { type: 'srgb', value: 'FFFF00' } },
-    ];
-    expect(parse(EXCEL_FORMATS, dxfStyles)).toEqual([
+  it('parses Excel-authored item-reference and grand-row records, carrying the dxfId as diffStyleId', () => {
+    expect(parse(EXCEL_FORMATS)).toEqual([
       {
         pivotArea: {
           collapsedLevelsAreSubtotals: true,
           fieldPosition: 0,
           references: [ { field: 0, itemIndices: [ 1 ] } ],
         },
-        style: { bold: true, fillColor: { type: 'srgb', value: 'FFFF00' } },
+        diffStyleId: 2,
       },
       {
         pivotArea: { grandRow: true, outline: false, collapsedLevelsAreSubtotals: true, fieldPosition: 0 },
-        style: { fillColor: { type: 'srgb', value: 'FFFF00' } },
+        diffStyleId: 1,
       },
       {
         pivotArea: { dataOnly: false, labelOnly: true, grandRow: true, outline: false, fieldPosition: 0 },
-        style: { bold: true },
+        diffStyleId: 0,
       },
     ]);
   });
 
-  it('omits the style for blank-action records and for missing or empty dxfs', () => {
+  it('omits diffStyleId for blank-action and no-dxfId records but keeps it for an empty dxf', () => {
     const formats = parse(
       `<pivotTableDefinition name="PT1"><formats count="3">
         <format dxfId="0" action="blank"><pivotArea grandRow="1"/></format>
         <format><pivotArea grandCol="1"/></format>
         <format dxfId="1"><pivotArea type="all"/></format>
       </formats></pivotTableDefinition>`,
-      [ { bold: true }, {} ],
     );
     expect(formats).toEqual([
       { action: 'blank', pivotArea: { grandRow: true } },
       { pivotArea: { grandCol: true } },
-      { pivotArea: { type: 'all' } },
+      { pivotArea: { type: 'all' }, diffStyleId: 1 },
     ]);
   });
 
