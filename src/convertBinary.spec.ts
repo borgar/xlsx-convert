@@ -318,6 +318,34 @@ describe('convertBinary', () => {
       expect(wb.tableStyles).toBeUndefined();
     });
 
+    test('edge cases: default applicability, unknown region, default stripe size, dangling dxfId', async () => {
+      const tableStyles =
+        '<tableStyles count="1" defaultTableStyle="TableStyleMedium2" defaultPivotStyle="PivotStyleLight16">' +
+        // table="0" pivot="0" applies to neither — JSF can't express that, so it falls back to
+        // the default 'all' (the `table` field is omitted).
+        '<tableStyle name="Neither" table="0" pivot="0" count="4">' +
+        '<tableStyleElement type="wholeTable" dxfId="0"/>' +
+        // An unrecognized region type is dropped entirely.
+        '<tableStyleElement type="notARegion" dxfId="1"/>' +
+        // A stripe size of 1 is the default and is dropped.
+        '<tableStyleElement type="firstRowStripe" size="1" dxfId="1"/>' +
+        // A dxfId past the end of the dxfs table is passed straight through (kept faithful).
+        '<tableStyleElement type="headerRow" dxfId="9"/>' +
+        '</tableStyle>' +
+        '</tableStyles>';
+      const wb = await convertBinary(await withTableStyles(DXFS, tableStyles), 'numbers.xlsx');
+      expect(wb.tableStyles).toEqual({
+        Neither: {
+          name: 'Neither',
+          elements: [
+            { type: 'wholeTable', diffStyleId: 0 },
+            { type: 'firstRowStripe', diffStyleId: 1 },
+            { type: 'headerRow', diffStyleId: 9 },
+          ],
+        },
+      });
+    });
+
     test('a custom style name on a table is preserved', async () => {
       const bin = await readFileAsArrayBuffer('./tests/excel/table.xlsx');
       const zip = new ZipArchive(bin);
