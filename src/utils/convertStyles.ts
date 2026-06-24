@@ -157,10 +157,10 @@ function convertDxf (dxf: Dxf): Style {
   }
   if (dxf.fill) {
     if (dxf.fill.type === 'solid' || dxf.fill.type === 'none') {
-      // In a dxf, the visible colour of a solid fill is the BACKGROUND colour (the opposite of
-      // cell xfs, where it is the foreground): Excel writes e.g.
-      // `<patternFill patternType="solid"><bgColor rgb="FFFFFF00"/></patternFill>` for a plain
-      // yellow fill, sometimes omitting patternType entirely (parsed here as 'none').
+      // In a dxf, a solid fill's visible colour comes from the background, not the foreground
+      // as in cell xfs. The bundled `pivot-format-records.xlsx` fixture writes a plain yellow
+      // fill as `<patternFill patternType="solid"><bgColor rgb="FFFFFF00"/></patternFill>`. The
+      // `'none'` branch handles a `patternFill` with the patternType attribute absent.
       addStyle(s, 'fillColor', dxf.fill.bg ?? dxf.fill.fg);
     }
     else {
