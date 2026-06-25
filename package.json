@@ -92,7 +92,6 @@
   "devDependencies": {
     "@borgar/eslint-config": "~4.1.0",
     "@eslint/js": "~10.0.1",
-    "@jsfkit/utils": "~1.2.0",
     "@types/node": "~25.9.3",
     "concat-md": "~0.5.1",
     "eslint": "~10.5.0",
