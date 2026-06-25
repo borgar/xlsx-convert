@@ -5,36 +5,9 @@ import { attr } from '../utils/attr.ts';
 import { getFirstChild } from '../utils/getFirstChild.ts';
 import type { ConversionContext } from '../ConversionContext.ts';
 import { addProp } from '../utils/addProp.ts';
+import { THEMES } from '@jsfkit/utils';
 
 const DEFAULT_FONT = 'Aptos Narrow';
-
-export function getBlankTheme (defaultThemeVersion: string): Theme {
-  const useAptosFont = defaultThemeVersion.startsWith('202');
-  return {
-    name: 'Office',
-    colorScheme: {
-      name: 'Office',
-      lt1: { type: 'system', value: 'window' },
-      dk1: { type: 'system', value: 'windowText' },
-      lt2: { type: 'srgb', value: 'E8E8E8' },
-      dk2: { type: 'srgb', value: '0E2841' },
-      accent1: { type: 'srgb', value: '156082' },
-      accent2: { type: 'srgb', value: 'E97132' },
-      accent3: { type: 'srgb', value: '196B24' },
-      accent4: { type: 'srgb', value: '0F9ED5' },
-      accent5: { type: 'srgb', value: 'A02B93' },
-      accent6: { type: 'srgb', value: '4EA72E' },
-      hlink: { type: 'srgb', value: '467886' },
-      folHlink: { type: 'srgb', value: '96607D' },
-    },
-    fontScheme: {
-      name: 'Office',
-      // XXX: Confirm these are the correct fonts:
-      major: { latin: { typeface: useAptosFont ? 'Aptos Display' : 'Calibri' } },
-      minor: { latin: { typeface: useAptosFont ? 'Aptos Narrow' : 'Calibri' } },
-    },
-  };
-}
 
 /**
  * Extracts a font collection from the given OOXML element, which should be either a `majorFont` or
@@ -70,7 +43,7 @@ function extractFontCollection (fontCollection: XMLElement) {
 }
 
 export function handlerTheme (dom: Document, context: ConversionContext): Theme {
-  const theme: Theme = getBlankTheme(context.defaultThemeVersion);
+  const theme: Theme = structuredClone(THEMES[context.defaultThemeVersion] ?? THEMES.default);
 
   // get a derivative of context but use our new theme
   const ctx = Object.create(context);

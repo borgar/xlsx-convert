@@ -1,10 +1,9 @@
-import { INDEXED_COLORS } from '@jsfkit/utils';
+import { INDEXED_COLORS, THEMES } from '@jsfkit/utils';
 import type { Theme, DefinedName, External, Workbook } from '@jsfkit/types';
 import type { MetaData } from './handler/metadata.ts';
 import type { RDStruct } from './handler/rdstuct.ts';
 import type { RDValue } from './handler/rdvalue.ts';
 import type { Rel } from './handler/rels.ts';
-import { getBlankTheme } from './handler/theme.ts';
 import { DEFAULT_MDW } from './utils/mdw.ts';
 import type { RelativeFormula } from './RelativeFormula.ts';
 import type { ConversionOptions } from './index.ts';
@@ -88,9 +87,8 @@ export class ConversionContext {
     this.options = {};
     this.workbook = null;
     this.defaultThemeVersion = '202300';
-    this.theme = getBlankTheme(this.defaultThemeVersion);
+    this.theme = THEMES.default;
     this.indexedColors = [ ...INDEXED_COLORS ];
-    this.theme = getBlankTheme();
     this.nameDefs = new Map();
     this.richStruct = [];
     this.richValues = [];

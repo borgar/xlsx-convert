@@ -86,15 +86,13 @@
     "@borgar/simple-xml": "~2.2.2",
     "@borgar/zip": "~1.0.0",
     "@jsfkit/types": "~2.5.0",
+    "@jsfkit/utils": "~1.2.0",
     "numfmt": "~3.2.6"
-  },
-  "peerDependencies": {
-    "@jsfkit/utils": "~1.0.2"
   },
   "devDependencies": {
     "@borgar/eslint-config": "~4.1.0",
     "@eslint/js": "~10.0.1",
-    "@jsfkit/utils": "~1.0.2",
+    "@jsfkit/utils": "~1.2.0",
     "@types/node": "~25.9.3",
     "concat-md": "~0.5.1",
     "eslint": "~10.5.0",
