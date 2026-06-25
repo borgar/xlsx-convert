@@ -88,8 +88,8 @@ export class ConversionContext {
     this.workbook = null;
     this.defaultThemeVersion = '202300';
     this.theme = THEMES.default;
-    this.indexedColors = [ ...INDEXED_COLORS ];
     this.nameDefs = new Map();
+    this.indexedColors = [ ...INDEXED_COLORS ];
     this.richStruct = [];
     this.richValues = [];
     this.drawingRels = [];
