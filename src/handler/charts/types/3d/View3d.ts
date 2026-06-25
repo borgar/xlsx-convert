@@ -1,5 +1,4 @@
-import type { Percentage } from '@jsfkit/types';
-import type { integer } from '../integer.ts';
+import type { integer, Percentage } from '@jsfkit/types';
 
 export type View3d = {
   /**

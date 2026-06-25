@@ -1,10 +1,9 @@
-import type { Shape } from '@jsfkit/types';
+import type { integer, Shape } from '@jsfkit/types';
 import type { TextProps } from '../TextProps.ts';
 import type { NumFmt } from '../NumFmt.ts';
 import type { Text } from '../Text.ts';
 import type { TickMark } from './TickMark.ts';
 import type { BuiltInUnit } from './BuiltInUnit.ts';
-import type { integer } from '../integer.ts';
 
 export type AxisEx = {
   id: integer;

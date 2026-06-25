@@ -1,5 +1,5 @@
+import type { integer } from '@jsfkit/types';
 import type { AxShared } from './AxShared.ts';
-type integer = number;
 
 export type SerAx = AxShared & {
   type: 'serAx';

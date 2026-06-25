@@ -11,6 +11,11 @@
       "require": "./dist/index.cjs",
       "types": "./dist/index.d.cts",
       "default": "./dist/index.js"
+    },
+    "./future": {
+      "require": "./dist/index-future.cjs",
+      "types": "./dist/index-future.d.cts",
+      "default": "./dist/index-future.js"
     }
   },
   "bin": {
@@ -41,7 +46,10 @@
   ],
   "tsdown": [
     {
-      "entry": "src/index.ts",
+      "entry": [
+        "src/index.ts",
+        "src/index-future.ts"
+      ],
       "platform": "neutral",
       "format": [
         "esm",

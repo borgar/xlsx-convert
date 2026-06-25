@@ -1,7 +1,6 @@
-import type { Shape } from '@jsfkit/types';
+import type { Shape, integer } from '@jsfkit/types';
 import type { TextProps } from './TextProps.ts';
 import type { Chart } from './Chart.ts';
-import type { integer } from './integer.ts';
 
 export type ChartSpace = {
   date1904?: boolean;

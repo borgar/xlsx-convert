@@ -1,10 +1,10 @@
-import type { integer } from '../integer.ts';
 import type { DLbls } from '../datalabels/DLbls.ts';
 import type { BarShape } from './BarShape.ts';
 import type { BarDir } from './BarDir.ts';
 import type { ChartLines } from './ChartLines.ts';
 import type { BarGrouping } from './BarGrouping.ts';
 import type { Series } from '../series/Series.ts';
+import type { integer } from '@jsfkit/types';
 
 export type BarChartShared = {
   barDir: BarDir;

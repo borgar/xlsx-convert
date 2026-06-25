@@ -1,9 +1,9 @@
 import type { Grouping } from './Grouping.ts';
 import type { ChartLines } from './ChartLines.ts';
-import type { integer } from '../integer.ts';
 import type { UpDownBars } from './UpDownBars.ts';
 import type { DLbls } from '../datalabels/DLbls.ts';
 import type { Series } from '../series/Series.ts';
+import type { integer } from '@jsfkit/types';
 
 export type LineChartShared = {
   /** @default "standard" */

@@ -1,5 +1,5 @@
+import type { integer } from '@jsfkit/types';
 import type { DLbls } from '../datalabels/DLbls.ts';
-import type { integer } from '../integer.ts';
 import type { Series } from '../series/Series.ts';
 import type { RadarStyle } from './RadarStyle.ts';
 

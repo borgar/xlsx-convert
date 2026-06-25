@@ -1,6 +1,5 @@
-import type { Shape } from '@jsfkit/types';
+import type { integer, Shape } from '@jsfkit/types';
 import type { MarkerStyle } from './MarkerStyle.ts';
-import type { integer } from '../integer.ts';
 
 /**
  *

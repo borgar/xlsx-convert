@@ -1,7 +1,6 @@
-import type { Shape } from '@jsfkit/types';
+import type { integer, Shape } from '@jsfkit/types';
 import type { TrendlineType } from './TrendlineType.ts';
 import type { TrendlineLbl } from './TrendlineLbl.ts';
-type integer = number;
 
 /**
  *

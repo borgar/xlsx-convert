@@ -1,5 +1,4 @@
-import type { Shape } from '@jsfkit/types';
-import type { integer } from '../integer.ts';
+import type { integer, Shape } from '@jsfkit/types';
 import type { SeriesLayout } from './SeriesLayout.ts';
 import type { ValueColorPositions, ValueColors } from './ValueColor.ts';
 import type { DataPoint } from './DataPoint.ts';

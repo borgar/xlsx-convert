@@ -1,7 +1,6 @@
-import type { Percentage } from '@jsfkit/types';
+import type { integer, Percentage } from '@jsfkit/types';
 import type { LblAlgn } from './LblAlgn.ts';
 import type { AxShared } from './AxShared.ts';
-type integer = number;
 
 // extends SerAx?
 export type CatAx = AxShared & {

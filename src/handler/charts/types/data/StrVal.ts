@@ -1,4 +1,4 @@
-type integer = number;
+import type { integer } from '@jsfkit/types';
 
 /**
  *

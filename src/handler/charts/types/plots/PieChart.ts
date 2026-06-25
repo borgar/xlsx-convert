@@ -2,9 +2,9 @@ import type { OfPieType } from './OfPieType.ts';
 import type { SplitType } from '../SplitType.ts';
 import type { ChartLines } from './ChartLines.ts';
 import type { CustSplit } from './CustSplit.ts';
-import type { integer } from '../integer.ts';
 import type { DLbls } from '../datalabels/DLbls.ts';
 import type { Series } from '../series/Series.ts';
+import type { integer } from '@jsfkit/types';
 
 export type PieChartShared = {
   varyColors?: boolean;

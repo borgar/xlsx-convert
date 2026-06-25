@@ -1,8 +1,9 @@
+import type { integer } from '@jsfkit/types';
 import type { DLbls } from '../datalabels/DLbls.ts';
 import type { Series } from '../series/Series.ts';
 import type { ChartLines } from './ChartLines.ts';
 import type { UpDownBars } from './UpDownBars.ts';
-type integer = number;
+
 /**
  *
  */

@@ -1,8 +1,8 @@
-import type { integer } from '../integer.ts';
+import type { integer } from '@jsfkit/types';
 import type { BandFmts } from '../series/BandFmts.ts';
 import type { Series } from '../series/Series.ts';
 
-type SurfaceChartShared = {
+export type SurfaceChartShared = {
   wireframe?: boolean;
   ser?: Series[];
   // XXX: unroll?

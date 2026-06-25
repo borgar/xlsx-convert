@@ -1,10 +1,10 @@
-import type { integer } from '../integer.ts';
 import type { ChartLines } from './ChartLines.ts';
 import type { Grouping } from './Grouping.ts';
 import type { DLbls } from '../datalabels/DLbls.ts';
 import type { Series } from '../series/Series.ts';
+import type { integer } from '@jsfkit/types';
 
-type AreaChartShared = {
+export type AreaChartShared = {
   axId: [ integer, integer ];
   grouping?: Grouping; // default is "standard"
   varyColors?: boolean;

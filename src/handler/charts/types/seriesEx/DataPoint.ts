@@ -1,5 +1,4 @@
-import type { Shape } from '@jsfkit/types';
-import type { integer } from '../integer.ts';
+import type { integer, Shape } from '@jsfkit/types';
 
 export type DataPoint = {
   idx: integer;

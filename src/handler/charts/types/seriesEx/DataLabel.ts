@@ -1,5 +1,4 @@
-import type { Shape } from '@jsfkit/types';
-import type { integer } from '../integer.ts';
+import type { integer, Shape } from '@jsfkit/types';
 import type { NumFmt } from '../NumFmt.ts';
 import type { DataLabelPos } from './DataLabelPos.ts';
 import type { TextProps } from '../TextProps.ts';

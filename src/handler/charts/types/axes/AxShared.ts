@@ -1,4 +1,4 @@
-import type { Shape } from '@jsfkit/types';
+import type { integer, Shape } from '@jsfkit/types';
 import type { AxPos } from './AxPos.ts';
 import type { Scaling } from './Scaling.ts';
 import type { Title } from '../Title.ts';
@@ -7,8 +7,6 @@ import type { TickMark } from './TickMark.ts';
 import type { TickLblPos } from './TickLblPos.ts';
 import type { Crosses } from './Crosses.ts';
 import type { TextProps } from '../TextProps.ts';
-
-type integer = number;
 
 export type AxShared = {
   axId: integer; // string?

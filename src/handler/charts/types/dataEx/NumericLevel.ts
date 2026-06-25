@@ -1,4 +1,4 @@
-import type { integer } from '../integer.ts';
+import type { integer } from '@jsfkit/types';
 
 export type NumericLevel = {
   ptCount: integer;
