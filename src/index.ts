@@ -67,5 +67,5 @@ export async function convert (
   return convertBinary(await fs.readFile(filename), filename, options);
 }
 
-export { convertBinary } from './convertBinary.ts';
 export { convertCSV, type CSVConversionOptions } from './convertCSV.ts';
+export { convertBinary } from './convertBinary.ts';

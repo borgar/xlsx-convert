@@ -11,7 +11,7 @@ const LINECAP: Record<string, LineCapType> = { flat: 'butt', rnd: 'round', squar
 const LINECMPD: Record<string, LineCompoundType> = { dbl: 'dbl', sng: 'sng', thickThin: 'thickThin', thinThick: 'thinThick', tri: 'tri' };
 const LINEJOIN: Record<string, LineJoinType> = { bevel: 'bevel', round: 'round', square: 'miter' };
 
-export function readLineProps (elm: Element, context: ConversionContext): Line {
+export function readLineProps (elm: Element, context: ConversionContext): Line | undefined {
   // If we're here, that means a line should be drawn.
   // - When <a:ln> is absent → no line is rendered
   // - When <a:ln> is present but w is omitted → line should be (0.75 pt = 9525 EMUs)
@@ -72,6 +72,10 @@ export function readLineProps (elm: Element, context: ConversionContext): Line {
       line.join = LINEJOIN[child.tagName];
     }
   });
+
+  if (line.fill?.type === 'none') {
+    return undefined;
+  }
 
   return line;
 }

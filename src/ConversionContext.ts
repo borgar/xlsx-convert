@@ -1,4 +1,5 @@
-import type { Theme } from '@jsfkit/types';
+import { INDEXED_COLORS } from '@jsfkit/utils';
+import type { Theme, DefinedName, External, Workbook } from '@jsfkit/types';
 import type { MetaData } from './handler/metadata.ts';
 import type { RDStruct } from './handler/rdstuct.ts';
 import type { RDValue } from './handler/rdvalue.ts';
@@ -6,9 +7,7 @@ import type { Rel } from './handler/rels.ts';
 import { getBlankTheme } from './handler/theme.ts';
 import { DEFAULT_MDW } from './utils/mdw.ts';
 import type { RelativeFormula } from './RelativeFormula.ts';
-import type { External, Workbook } from '@jsfkit/types';
 import type { ConversionOptions } from './index.ts';
-import { INDEXED_COLORS } from '@jsfkit/utils';
 
 type SheetLink = {
   name: string;
@@ -52,6 +51,7 @@ export class ConversionContext {
   drawingRels: Rel[];
   theme: Theme;
   indexedColors: string[];
+  nameDefs: Map<string, DefinedName>;
   richStruct: RDStruct[];
   richValues: RDValue[];
   metadata: MetaData;
@@ -64,6 +64,7 @@ export class ConversionContext {
   _arrayFormula?: string[];
   images: RefLink[];
   isLikelyGSExport: boolean;
+  charts: RefLink[];
   /** Max Digit Width of the workbook Normal font, used to convert column widths to pixels. */
   normalMdw: number;
 
@@ -76,6 +77,7 @@ export class ConversionContext {
     this.options = {};
     this.workbook = null;
     this.theme = getBlankTheme();
+    this.nameDefs = new Map();
     this.indexedColors = [ ...INDEXED_COLORS ];
     this.richStruct = [];
     this.richValues = [];
@@ -88,6 +90,7 @@ export class ConversionContext {
     this._formulasR1C1 = new FormulaList();
     this.images = [];
     this.isLikelyGSExport = false;
+    this.charts = [];
     this.normalMdw = DEFAULT_MDW;
   }
 }
