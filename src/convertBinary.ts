@@ -1,15 +1,17 @@
 import { Document, parseXML } from '@borgar/simple-xml';
+import { ZipArchive } from '@borgar/zip';
 import { attr } from './utils/attr.ts';
 import { pathBasename, pathDirname, pathJoin } from './utils/path.ts';
 import { convertStyles } from './utils/convertStyles.ts';
-import { loadZip, type FileContainer } from './utils/zip.ts';
-import { CFBF, getBinaryFileType, ZIP } from './utils/getBinaryFileType.ts';
+import { resolveColumnMdw } from './utils/mdw.ts';
+import { FT_CFBF, FT_ZIP, getBinaryFileType } from './utils/getBinaryFileType.ts';
 import { ConversionContext } from './ConversionContext.ts';
 import { handlerRels, type Rel } from './handler/rels.ts';
 import { handlerWorkbook } from './handler/workbook.ts';
 import { handlerSharedStrings } from './handler/sharedstrings.ts';
 import { handlerPersons } from './handler/persons.ts';
 import { handlerTheme } from './handler/theme.ts';
+import { handlerAppdata } from './handler/appdata.ts';
 import { handlerStyles } from './handler/styles.ts';
 import { handlerRDStruct } from './handler/rdstuct.ts';
 import { handlerRDValue } from './handler/rdvalue.ts';
@@ -29,12 +31,19 @@ import { handlerDrawing } from './handler/drawing.ts';
 import { arrayBufferToDataUri } from './utils/arrayBufferToDataUri.ts';
 import { getMimeType } from './utils/getMimeType.ts';
 import { isLikelyGSExport } from './utils/isLikelyGSExport.ts';
+import { handlerChart } from './handler/chart.ts';
+import { hasKeys } from './utils/hasKeys.ts';
+import type { ChartSpace } from './handler/charts/types/ChartSpace.ts';
 
 function toArrayBuffer (buffer: Buffer): ArrayBuffer {
   const arrayBuffer = new ArrayBuffer(buffer.length);
   new Uint8Array(arrayBuffer).set(buffer);
   return arrayBuffer;
 }
+
+let CHARTS_ENABLED = false;
+/** @ignore */
+export type ExtendedWorkbook = Workbook & { charts?: Record<string, ChartSpace> };
 
 /**
  * Default conversion options
@@ -69,16 +78,16 @@ export async function convertBinary (
   options = Object.assign({}, DEFAULT_OPTIONS, options);
 
   const fileType = getBinaryFileType(buffer);
-  if (fileType === CFBF) {
+  if (fileType === FT_CFBF) {
     throw new EncryptionError('Input file is encrypted');
   }
-  else if (fileType !== ZIP) {
+  else if (fileType !== FT_ZIP) {
     throw new InvalidFileError('Input file type is unsupported');
   }
 
-  let zip: FileContainer;
+  let zip: ZipArchive;
   try {
-    zip = loadZip(buffer);
+    zip = new ZipArchive(buffer);
   }
   catch (err) {
     throw new InvalidFileError('Input file type is corrupted or unsupported');
@@ -86,9 +95,9 @@ export async function convertBinary (
 
   const getFile = async (f: string) => {
     try {
-      let fd = await zip.readFile(f, 'utf8');
+      let fd = await zip.readText(f);
       if (!fd && f.startsWith('xl/xl/')) {
-        fd = await zip.readFile(f.slice(3), 'utf8');
+        fd = await zip.readText(f.slice(3));
       }
       return fd ? parseXML(fd) : null;
     }
@@ -99,9 +108,9 @@ export async function convertBinary (
 
   const getBinaryFile = async (f: string) => {
     try {
-      let fd = await zip.readFile(f, 'binary');
+      let fd = await zip.read(f);
       if (!fd && f.startsWith('xl/xl/')) {
-        fd = await zip.readFile(f.slice(3), 'binary');
+        fd = await zip.read(f.slice(3));
       }
       return fd ?? null;
     }
@@ -140,6 +149,9 @@ export async function convertBinary (
   // manifest
   const baseRels = await getRels();
   const wbRel = baseRels.find(d => d.type === 'officeDocument');
+  if (!wbRel) {
+    throw new InvalidFileError('Input is missing a workbook definition');
+  }
 
   const context = new ConversionContext();
   context.rels = await getRels(wbRel.target);
@@ -149,11 +161,13 @@ export async function convertBinary (
 
   // workbook - read DOM first to get externalReferences order
   const wbDom = await getFile(wbRel.target);
+  if (!wbDom) {
+    throw new InvalidFileError('Input is missing a workbook');
+  }
 
   // external links - use order from <externalReferences> in workbook.xml,
   // not the document order in workbook.xml.rels (which can differ)
-  const extRefRIds = wbDom.getElementsByTagName('externalReference')
-    .map(d => attr(d, 'r:id'));
+  const extRefRIds = wbDom?.getElementsByTagName('externalReference').map(d => attr(d, 'r:id')) ?? [];
   for (const rId of extRefRIds) {
     const rel = context.rels.find(d => d.id === rId);
     if (rel) {
@@ -161,10 +175,13 @@ export async function convertBinary (
       const targetRel = extRels.find(d => d.id === 'rId1');
       const target = targetRel?.target;
       if (target) {
-        const exlink = handlerExternal(await getFile(rel.target), target);
-        context.externalLinks.push(exlink);
-        if (targetRel.type.endsWith('xlPathMissing')) {
-          exlink.pathMissing = true;
+        const exDoc = await getFile(rel.target);
+        if (exDoc) {
+          const exlink = handlerExternal(exDoc, target, extRels);
+          context.externalLinks.push(exlink);
+          if (targetRel.type.endsWith('xlPathMissing')) {
+            exlink.pathMissing = true;
+          }
         }
       }
       else {
@@ -238,7 +255,22 @@ export async function convertBinary (
   wb.theme = context.theme;
 
   // convert styles to JSF format (styleDefs was read earlier for pivot numFmtId resolution)
-  wb.styles = convertStyles(styleDefs);
+  const { styles, namedStyles } = convertStyles(styleDefs);
+  wb.styles = styles;
+  if (Object.keys(namedStyles).length > 0) {
+    wb.namedStyles = namedStyles;
+  }
+
+  // The Normal font (cellStyleXfs[0], defaulting to the theme minor typeface) sets the MDW that every
+  // column width is recorded against; resolve it once for the worksheet handlers.
+  const normalFont = styleDefs?.cellStyleXfs[0]?.font ?? styleDefs?.font[0];
+  const fontScheme = context.theme?.fontScheme;
+  const normalFamily = (normalFont?.name ||
+    (normalFont?.scheme === 'major'
+      ? fontScheme?.major.latin.typeface
+      : fontScheme?.minor.latin.typeface) ||
+    'Aptos Narrow');
+  context.normalMdw = resolveColumnMdw(normalFamily, normalFont?.size ?? 11, context.options);
 
   const pivotTables: PivotTable[] = [];
 
@@ -257,7 +289,7 @@ export async function convertBinary (
         const table = handlerTable(tableDom, context);
         if (table) {
           table.sheet = sheetName;
-          wb.tables.push(table);
+          wb.tables!.push(table);
         }
       }
 
@@ -311,10 +343,38 @@ export async function convertBinary (
 
       wb.sheets[index] = sh;
 
-      // process images
       if (context.images.length) {
+        // process drawings (these may contain either charts or images)
+        for (const img of context.images) {
+          if (img.type === 'drawing') {
+            const drawingDom = await getFile(img.rel.target);
+            context.drawingRels = await getRels(img.rel.target);
+            sh.drawings = handlerDrawing(drawingDom, context);
+          }
+        }
+        // process charts
+        if (CHARTS_ENABLED) {
+          const charts: Record<string, ChartSpace> = {};
+          for (const img of context.charts) {
+            if (img.type === 'chart' || img.type === 'chartEx') {
+              // const chartRels = await getRels(img.rel.target);
+              const chartDom = await getFile(img.rel.target);
+              if (chartDom) {
+                // read rel type: chartColorStyle
+                // read rel type: chartStyle
+                const chart = handlerChart(chartDom, context);
+                charts[img.rel.target] = chart;
+              }
+            }
+          }
+          if (hasKeys(charts)) {
+            (wb as ExtendedWorkbook).charts = charts;
+          }
+        }
+
+        // process images
         let imageCount = 0;
-        const images = {};
+        const images: Record<string, string> = {};
         for (const img of context.images) {
           if (img.type === 'picture') {
             // sheet.background = ...
@@ -324,13 +384,13 @@ export async function convertBinary (
               // img.rel.type should be "image"
               const fileData = await getBinaryFile(img.rel.target);
               if (fileData) {
-                const mime = getMimeType(img.rel.target);
                 let imageValue: string | null = null;
                 if (options.imageCallback) {
                   const ret = await options.imageCallback(fileData, img.rel.target);
                   if (typeof ret === 'string') { imageValue = ret; }
                 }
                 if (typeof imageValue !== 'string') {
+                  const mime = getMimeType(img.rel.target);
                   imageValue = await arrayBufferToDataUri(fileData, mime);
                 }
                 images[img.rel.target] = imageValue;
@@ -379,5 +439,30 @@ export async function convertBinary (
     wb.formulas = [ ...context._formulasR1C1.list() ];
   }
 
+  // appdata/meta
+  const appMeta = handlerAppdata(await getFile('docProps/app.xml'), context);
+  if (appMeta) {
+    wb.meta = appMeta;
+  }
+
+  CHARTS_ENABLED = false;
   return wb;
+}
+
+/**
+ * An experimental version of convertBinary that includes charts the workbook payload.
+ *
+ * @param buffer Buffer containing the file to convert
+ * @param filename Name of the file being converted
+ * @param [options] Conversion options
+ * @return A JSON spreadsheet formatted object.
+ * @ignore
+ */
+export async function convertBinaryFuture (
+  buffer: Buffer | ArrayBuffer,
+  filename: string,
+  options?: ConversionOptions,
+): Promise<ExtendedWorkbook> {
+  CHARTS_ENABLED = true;
+  return convertBinary(buffer, filename, options);
 }

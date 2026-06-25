@@ -161,7 +161,7 @@
   },
   "styles": [
     { "fontScheme": "minor", "fontSize": 12 },
-    { "fontScheme": "minor", "fontSize": 12 },
+    { "fontScheme": "minor", "fontSize": 12, "pivotButton": true },
     {
       "horizontalAlignment": "left",
       "fontScheme": "minor",
@@ -170,6 +170,7 @@
     { "fontScheme": "minor", "fontSize": 12 }
   ],
   "tables": [],
+  "views": [ { "activeSheet": 1 } ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -197,9 +198,14 @@
       }
     }
   },
-  "views": [
-    { "activeSheet": 1 }
-  ],
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
   "pivotTables": [
     {
       "name": "PivotTable5",
@@ -238,84 +244,55 @@
         { "showAll": false },
         { "dataField": true, "showAll": false }
       ],
-      "rowFieldIndices": [
-        0
-      ],
-      "colFieldIndices": [
-        1
-      ],
+      "rowFieldIndices": [ 0 ],
+      "colFieldIndices": [ 1 ],
       "dataFields": [
         {
-          "name": "Average of Salary",
           "fieldIndex": 3,
+          "name": "Average of Salary",
           "subtotal": "average",
-          "baseField": 0,
           "baseItem": 0
         }
       ],
       "rowItems": [
         {
-          "itemIndices": [
-            0
-          ]
+          "itemIndices": [ 0 ]
         },
         {
-          "itemIndices": [
-            1
-          ]
+          "itemIndices": [ 1 ]
         },
         {
-          "itemIndices": [
-            2
-          ]
+          "itemIndices": [ 2 ]
         },
         {
-          "itemIndices": [
-            3
-          ]
+          "itemIndices": [ 3 ]
         },
         {
-          "itemIndices": [
-            0
-          ],
+          "itemIndices": [ 0 ],
           "itemType": "grand"
         }
       ],
       "colItems": [
         {
-          "itemIndices": [
-            0
-          ]
+          "itemIndices": [ 0 ]
         },
         {
-          "itemIndices": [
-            1
-          ]
+          "itemIndices": [ 1 ]
         },
         {
-          "itemIndices": [
-            2
-          ]
+          "itemIndices": [ 2 ]
         },
         {
-          "itemIndices": [
-            3
-          ]
+          "itemIndices": [ 3 ]
         },
         {
-          "itemIndices": [
-            4
-          ]
+          "itemIndices": [ 4 ]
         },
         {
-          "itemIndices": [
-            5
-          ]
+          "itemIndices": [ 5 ]
         },
         {
-          "itemIndices": [
-            0
-          ],
+          "itemIndices": [ 0 ],
           "itemType": "grand"
         }
       ],
@@ -331,7 +308,6 @@
       "outlineData": true,
       "itemPrintTitles": true,
       "multipleFieldFilters": false,
-      "uid": "{916D59D8-6143-8142-9B4B-F15BE71C47B7}",
       "useAutoFormatting": true,
       "applyNumberFormats": false,
       "applyBorderFormats": false,
@@ -341,9 +317,10 @@
       "applyWidthHeightFormats": true,
       "indent": 0,
       "dataCaption": "Values",
+      "uid": "{916D59D8-6143-8142-9B4B-F15BE71C47B7}",
+      "hideValuesRow": true,
       "cache": {
         "sourceType": "worksheet",
-        "uid": "{93AACE53-8F3A-A04A-893A-A439866B3165}",
         "worksheetSource": { "type": "range", "ref": "A1:D16", "sheet": "Data" },
         "fields": [
           {
@@ -381,6 +358,7 @@
         ],
         "refreshedBy": "Gunnlaugur Þór Briem",
         "refreshedDate": 45939.50231157408,
+        "uid": "{93AACE53-8F3A-A04A-893A-A439866B3165}",
         "records": [
           [
             { "t": "x", "v": 0 },
@@ -476,7 +454,12 @@
       }
     }
   ],
-  "formulas": [
-    "R[-10]C[-1]"
-  ]
+  "formulas": [ "R[-10]C[-1]" ],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
 }

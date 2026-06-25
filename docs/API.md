@@ -21,12 +21,6 @@
 - [convertBinary](#functionsconvertbinarymd)
 - [convertCSV](#functionsconvertcsvmd)
 
-## References
-
-### default
-
-Renames and re-exports [convert](#functionsconvertmd)
-
 
 <a name="classesencryptionerrormd"></a>
 

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import JSZip from 'jszip';
 import { convertBinary } from './index.ts';
+import { ZipArchive } from '@borgar/zip';
 
 describe('external references ordering', () => {
   it('should order externals by externalReferences, not by rels document order', async () => {
@@ -17,10 +17,10 @@ describe('external references ordering', () => {
     // Expected: externals[0].name = "first.xlsx", externals[1].name = "second.xlsx"
     // Buggy:    externals[0].name = "second.xlsx", externals[1].name = "first.xlsx"
 
-    const zip = new JSZip();
+    const zip = new ZipArchive();
 
     // Content types (minimal)
-    zip.file('[Content_Types].xml', `<?xml version="1.0" encoding="UTF-8"?>
+    await zip.write('[Content_Types].xml', `<?xml version="1.0" encoding="UTF-8"?>
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
   <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
   <Default Extension="xml" ContentType="application/xml"/>
@@ -31,14 +31,14 @@ describe('external references ordering', () => {
 </Types>`);
 
     // Root rels
-    zip.file('_rels/.rels', `<?xml version="1.0" encoding="UTF-8"?>
+    await zip.write('_rels/.rels', `<?xml version="1.0" encoding="UTF-8"?>
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
   <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>
 </Relationships>`);
 
     // Workbook with externalReferences in order: rId2, rId3
     // This means [1] = rId2, [2] = rId3
-    zip.file('xl/workbook.xml', `<?xml version="1.0" encoding="UTF-8"?>
+    await zip.write('xl/workbook.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"
           xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
   <sheets>
@@ -51,7 +51,7 @@ describe('external references ordering', () => {
 </workbook>`);
 
     // Workbook rels with rId3 BEFORE rId2 in document order (the bug trigger)
-    zip.file('xl/_rels/workbook.xml.rels', `<?xml version="1.0" encoding="UTF-8"?>
+    await zip.write('xl/_rels/workbook.xml.rels', `<?xml version="1.0" encoding="UTF-8"?>
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
   <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/>
   <Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/externalLink" Target="externalLinks/externalLink2.xml"/>
@@ -60,7 +60,7 @@ describe('external references ordering', () => {
 </Relationships>`);
 
     // Minimal styles
-    zip.file('xl/styles.xml', `<?xml version="1.0" encoding="UTF-8"?>
+    await zip.write('xl/styles.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
   <fonts count="1"><font/></fonts>
   <fills count="1"><fill/></fills>
@@ -69,13 +69,13 @@ describe('external references ordering', () => {
 </styleSheet>`);
 
     // Minimal worksheet
-    zip.file('xl/worksheets/sheet1.xml', `<?xml version="1.0" encoding="UTF-8"?>
+    await zip.write('xl/worksheets/sheet1.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
   <sheetData/>
 </worksheet>`);
 
     // External link 1 (rId2) - should be [1] - points to first.xlsx
-    zip.file('xl/externalLinks/externalLink1.xml', `<?xml version="1.0" encoding="UTF-8"?>
+    await zip.write('xl/externalLinks/externalLink1.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <externalLink xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"
               xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
   <externalBook r:id="rId1">
@@ -85,13 +85,13 @@ describe('external references ordering', () => {
   </externalBook>
 </externalLink>`);
 
-    zip.file('xl/externalLinks/_rels/externalLink1.xml.rels', `<?xml version="1.0" encoding="UTF-8"?>
+    await zip.write('xl/externalLinks/_rels/externalLink1.xml.rels', `<?xml version="1.0" encoding="UTF-8"?>
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
   <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/externalLinkPath" Target="first.xlsx" TargetMode="External"/>
 </Relationships>`);
 
     // External link 2 (rId3) - should be [2] - points to second.xlsx
-    zip.file('xl/externalLinks/externalLink2.xml', `<?xml version="1.0" encoding="UTF-8"?>
+    await zip.write('xl/externalLinks/externalLink2.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <externalLink xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"
               xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
   <externalBook r:id="rId1">
@@ -101,12 +101,12 @@ describe('external references ordering', () => {
   </externalBook>
 </externalLink>`);
 
-    zip.file('xl/externalLinks/_rels/externalLink2.xml.rels', `<?xml version="1.0" encoding="UTF-8"?>
+    await zip.write('xl/externalLinks/_rels/externalLink2.xml.rels', `<?xml version="1.0" encoding="UTF-8"?>
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
   <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/externalLinkPath" Target="second.xlsx" TargetMode="External"/>
 </Relationships>`);
 
-    const buffer = await zip.generateAsync({ type: 'arraybuffer' });
+    const buffer = zip.toArrayBuffer();
 
     // Act
     const workbook = await convertBinary(Buffer.from(buffer), 'test.xlsx');
@@ -115,7 +115,7 @@ describe('external references ordering', () => {
     // [1] should be first.xlsx (rId2 -> externalLink1.xml)
     // [2] should be second.xlsx (rId3 -> externalLink2.xml)
     expect(workbook.externals).toHaveLength(2);
-    expect(workbook.externals[0].name).toBe('first.xlsx');
-    expect(workbook.externals[1].name).toBe('second.xlsx');
+    expect(workbook.externals![0].name).toBe('first.xlsx');
+    expect(workbook.externals![1].name).toBe('second.xlsx');
   });
 });

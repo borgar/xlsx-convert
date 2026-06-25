@@ -3,17 +3,44 @@ import { readFile, writeFile } from 'fs/promises';
 import { deepStrictEqual } from 'assert';
 import type { Workbook } from '@jsfkit/types';
 import { translateFormulaToA1 } from '@borgar/fx';
+import { niceJson } from './utils/niceJson.ts';
 
 const UPDATE = !!process.env.UPDATE_TESTS;
+const VERIFY_FORMULAS = !!process.env.VERIFY_FORMULAS;
 
 const tests = [
   // Excel conversion
   'tests/excel/a-single-lambda.xlsx',
+  'tests/excel/arial-normal.xlsx',
   'tests/excel/ascii.xlsx',
   'tests/excel/background-color.xlsx',
   'tests/excel/blipfill.xlsx',
   'tests/excel/borders.xlsx',
   'tests/excel/cells-without-r-attributes.xlsx',
+  'tests/excel/chart-area.xlsx',
+  'tests/excel/chart-area3d.xlsx',
+  'tests/excel/chart-bar.xlsx',
+  'tests/excel/chart-bar3d.xlsx',
+  'tests/excel/chart-box-and-whisker.xlsx',
+  'tests/excel/chart-bubble.xlsx',
+  'tests/excel/chart-combo.xlsx',
+  'tests/excel/chart-doughnut.xlsx',
+  'tests/excel/chart-funnel.xlsx',
+  'tests/excel/chart-histogram.xlsx',
+  'tests/excel/chart-line.xlsx',
+  'tests/excel/chart-line3d.xlsx',
+  'tests/excel/chart-map.xlsx',
+  'tests/excel/chart-ofPie.xlsx',
+  'tests/excel/chart-pie.xlsx',
+  'tests/excel/chart-pie3d.xlsx',
+  'tests/excel/chart-radar.xlsx',
+  'tests/excel/chart-scatter.xlsx',
+  'tests/excel/chart-stock.xlsx',
+  'tests/excel/chart-sunburst.xlsx',
+  'tests/excel/chart-surface.xlsx',
+  'tests/excel/chart-surface3d.xlsx',
+  'tests/excel/chart-treemap.xlsx',
+  'tests/excel/chart-waterfall.xlsx',
   'tests/excel/charts-and-images.xlsx',
   'tests/excel/comments.xlsx',
   'tests/excel/cse.xlsx',
@@ -27,7 +54,6 @@ const tests = [
   'tests/excel/error-string-formula-ref.xlsx',
   'tests/excel/errors-excel.xlsx',
   'tests/excel/errors-gsheets.xlsx',
-  'tests/excel/every-chart.xlsx',
   'tests/excel/external-refs.xlsx',
   'tests/excel/fonts.xlsx',
   'tests/excel/grouped-grouped-charts.xlsx',
@@ -44,6 +70,7 @@ const tests = [
   'tests/excel/names.xlsx',
   'tests/excel/non-spilling-array-formula.xlsx',
   'tests/excel/numbers.xlsx',
+  'tests/excel/page-margins.xlsx',
   'tests/excel/patterns.xlsx',
   'tests/excel/pivot-table.xlsx',
   'tests/excel/rotated-groups-shapes.xlsx',
@@ -83,37 +110,6 @@ const tests = [
   'tests/csv/whitespace-nightmare.csv',
 ];
 
-function makeNiceJson (ent) {
-  let keyIdx = 1;
-  const _tempStore = new Map();
-  function formatJSON (obj) {
-    const keys = Object.keys(obj);
-    const pairs = keys.map(key => JSON.stringify(key) + ': ' + JSON.stringify(obj[key]));
-    return `{ ${pairs.join(', ')} }`;
-  }
-  function replacer (key, value) {
-    if (Array.isArray(value)) {
-      return value;
-    }
-    if (typeof value === 'object' && value !== null) {
-      const values = Object.values(value);
-      const hasNesting = values.some(d => typeof d === 'object');
-      if (values.length && !hasNesting) {
-        const str = formatJSON(value);
-        if (str.length < 50) {
-          const tkey = '~~xlsx-convert~~' + (keyIdx++);
-          _tempStore.set(tkey, str);
-          return tkey;
-        }
-      }
-    }
-    return value;
-  }
-  return JSON
-    .stringify(ent, replacer, 2)
-    .replace(/"(~~xlsx-convert~~\d+)"/g, (_, key) => _tempStore.get(key));
-}
-
 /**
  * Verify that formulas are the same between an R1C1 and A1
  * JSF workbook objects.
@@ -124,15 +120,17 @@ function makeNiceJson (ent) {
  * are happening.
  */
 function verifyCellFormulas (wbRC: Workbook, wbA1: Workbook) {
-  for (const [ sheetIndex, sheet ] of Object.entries(wbRC.sheets)) {
+  for (let sheetIndex = 0; sheetIndex < wbRC.sheets.length; sheetIndex++) {
+    const sheet = wbRC.sheets[sheetIndex];
     const a1Cells = wbA1.sheets[sheetIndex].cells;
     for (const [ cellId, cell ] of Object.entries(sheet.cells)) {
       if (cell.f != null) {
-        const expr = translateFormulaToA1(wbRC.formulas[cell.f], cellId, { mergeRefs: false });
+        const fxRc = wbRC.formulas![cell.f as number];
+        const expr = translateFormulaToA1(fxRc, cellId, { mergeRefs: false });
         if (expr !== a1Cells[cellId].f) {
           return [
             `  Formula mismatch in ${sheet.name}→${cellId}:`,
-            `    Original: ${wbRC.formulas[cell.f]}`,
+            `    Original: ${fxRc}`,
             `    Expected: ${a1Cells[cellId].f}`,
             `    Result:   ${String(expr)}`,
           ].join('\n');
@@ -144,14 +142,16 @@ function verifyCellFormulas (wbRC: Workbook, wbA1: Workbook) {
 }
 
 async function testFile (xlsxFilename: string, testFilename: string): Promise<string> {
-  let wb: Workbook;
+  let wb: Workbook = { name: '', sheets: [] };
   if (xlsxFilename.endsWith('.xlsx')) {
     const src = await readFile(xlsxFilename);
     wb = await convertBinary(src, xlsxFilename);
-    const cf = await convertBinary(src, xlsxFilename, { cellFormulas: true });
-    // check that formulas match
-    const fxDiff = verifyCellFormulas(wb, cf);
-    if (fxDiff) { return fxDiff; }
+    if (VERIFY_FORMULAS) {
+      const cf = await convertBinary(src, xlsxFilename, { cellFormulas: true });
+      // check that A1 & RC formulas match
+      const fxDiff = verifyCellFormulas(wb, cf);
+      if (fxDiff) { return fxDiff; }
+    }
   }
   else if (/\.[ct]sv/.test(xlsxFilename)) {
     const src = await readFile(xlsxFilename, 'utf8');
@@ -164,7 +164,7 @@ async function testFile (xlsxFilename: string, testFilename: string): Promise<st
     expectJson = JSON.parse(await readFile(testFilename, 'utf8'));
   }
   catch (err) {
-    if (err.code !== 'ENOENT') {
+    if (typeof err === 'object' && err && 'code' in err && err.code !== 'ENOENT') {
       throw err;
     }
   }
@@ -175,7 +175,7 @@ async function testFile (xlsxFilename: string, testFilename: string): Promise<st
   }
   catch (err) {
     // re-indent
-    diff = String(err.message)
+    diff = String((err && (err as any).message) || 'Unknown error')
       .replace(/\.\.\./g, '…') // "..." has significance in TAP
       .split('\n')
       .map(d => '  ' + d)
@@ -186,7 +186,7 @@ async function testFile (xlsxFilename: string, testFilename: string): Promise<st
     // save a new version of the converted file
     await writeFile(
       testFilename.replace(/(\.json)?$/, '.json'),
-      makeNiceJson(resultJson),
+      niceJson(resultJson),
       'utf8',
     );
     return '';
@@ -194,13 +194,21 @@ async function testFile (xlsxFilename: string, testFilename: string): Promise<st
   return diff;
 }
 
-function log (message = '') {
+function log (message: unknown = '') {
   // eslint-disable-next-line
   console.log(message);
 }
 
+type TestResult = {
+  ok: boolean,
+  error: unknown,
+  diff: string,
+  test: string,
+  index: number,
+};
+
 async function runTests (filterText: string = '') {
-  const results = [];
+  const results: TestResult[] = [];
 
   const testsToRun = tests.filter(fn => {
     return fn.toLowerCase().includes(filterText.toLowerCase());

@@ -1,5 +1,5 @@
 import type { Element } from '@borgar/simple-xml';
-import type { Path, Shape, GuidePoint, BlackWhiteMode, ConnectionPoint, AdjustPoint } from '@jsfkit/types';
+import type { Path, Shape, GuidePoint, BlackWhiteMode, ConnectionPoint, AdjustPoint, AdjustValueHandleXY, AdjustValueHandlePolar, ShapeRect } from '@jsfkit/types';
 import { readTransforms } from './readTransforms.ts';
 import { readPath } from './readPath.ts';
 import { attr, numAttr, numStrAttr } from '../../utils/attr.ts';
@@ -9,10 +9,11 @@ import { SHAPE_TYPE } from '../../constants.ts';
 import { addProp } from '../../utils/addProp.ts';
 import { readFill } from './readFill.ts';
 import { readLineProps } from './readLineProps.ts';
+import { hasKeys } from '../../utils/hasKeys.ts';
 
 function readGuides (elm: Element | null): GuidePoint[] | undefined {
-  if (!elm) return;
-  const gds = [];
+  if (!elm) { return; }
+  const gds: GuidePoint[] = [];
   elm.children.forEach(gd => {
     if (gd.tagName === 'gd') {
       gds.push({
@@ -25,14 +26,21 @@ function readGuides (elm: Element | null): GuidePoint[] | undefined {
 }
 
 function readAdjustPoint (posElm: Element): AdjustPoint {
+  if (!posElm) {
+    return { x: 0, y: 0 };
+  }
   return {
     x: numStrAttr(posElm, 'x', 0),
     y: numStrAttr(posElm, 'y', 0),
   };
 }
 
-export function readShapeProperties (elm: Element | null, context: ConversionContext): Shape {
+export function readShapeProperties (elm: Element | null | undefined, context: ConversionContext): Shape | undefined {
   const props: Shape = {};
+
+  if (!elm) {
+    return undefined;
+  }
 
   const bwMode = attr(elm, 'bwMode') as BlackWhiteMode | undefined;
   if (bwMode && bwMode !== 'auto') { props.bwMode = bwMode; }
@@ -48,6 +56,7 @@ export function readShapeProperties (elm: Element | null, context: ConversionCon
       tagName === 'blipFill' ||
       tagName === 'gradFill' ||
       tagName === 'grpFill' ||
+      tagName === 'noFill' ||
       tagName === 'solidFill' ||
       tagName === 'pattFill'
     ) {
@@ -58,33 +67,39 @@ export function readShapeProperties (elm: Element | null, context: ConversionCon
     else if (tagName === 'custGeom') {
       // ahLst (List of Shape Adjust Handles) §5.1.11.1
       const ahLst = getFirstChild(d, 'ahLst');
-      const ahs = [];
+      const ahs: (AdjustValueHandleXY | AdjustValueHandlePolar)[] = [];
       ahLst?.children.forEach(ah => {
         if (ah.tagName === 'ahPolar') {
-          ahs.push({
-            type: 'polar',
-            // name of guide that will update with the angle from this
-            gdRefAng: attr(ah, 'gdRefAng'),
-            maxAng: numStrAttr(ah, 'maxAng'),
-            minAng: numStrAttr(ah, 'minAng'),
-            // name of guide that will update with the radius from this
-            gdRefR: attr(ah, 'gdRefR'),
-            maxR: numStrAttr(ah, 'maxR'),
-            minR: numStrAttr(ah, 'minR'),
-            pos: readAdjustPoint(getFirstChild(ah, 'pos')),
-          });
+          const posElm = getFirstChild(ah, 'pos');
+          if (posElm) {
+            ahs.push({
+              type: 'polar',
+              // name of guide that will update with the angle from this
+              gdRefAng: attr(ah, 'gdRefAng'),
+              maxAng: numStrAttr(ah, 'maxAng'),
+              minAng: numStrAttr(ah, 'minAng'),
+              // name of guide that will update with the radius from this
+              gdRefR: attr(ah, 'gdRefR'),
+              maxR: numStrAttr(ah, 'maxR'),
+              minR: numStrAttr(ah, 'minR'),
+              pos: readAdjustPoint(posElm),
+            });
+          }
         }
         else if (ah.tagName === 'ahXY') {
-          ahs.push({
-            type: 'xy',
-            gdRefX: attr(ah, 'gdRefX'),
-            maxX: numAttr(ah, 'maxX'),
-            minX: numAttr(ah, 'minX'),
-            gdRefY: attr(ah, 'gdRefY'),
-            maxY: numAttr(ah, 'maxY'),
-            minY: numAttr(ah, 'minY'),
-            pos: readAdjustPoint(getFirstChild(ah, 'pos')),
-          });
+          const posElm = getFirstChild(ah, 'pos');
+          if (posElm) {
+            ahs.push({
+              type: 'xy',
+              gdRefX: attr(ah, 'gdRefX'),
+              maxX: numAttr(ah, 'maxX'),
+              minX: numAttr(ah, 'minX'),
+              gdRefY: attr(ah, 'gdRefY'),
+              maxY: numAttr(ah, 'maxY'),
+              minY: numAttr(ah, 'minY'),
+              pos: readAdjustPoint(posElm),
+            });
+          }
         }
       });
       if (ahs.length) { props.ah = ahs; }
@@ -98,7 +113,8 @@ export function readShapeProperties (elm: Element | null, context: ConversionCon
       if (cxnList.length) {
         const cxns: ConnectionPoint[] = [];
         cxnList.forEach(cElm => {
-          const pos = readAdjustPoint(getFirstChild(cElm, 'pos'));
+          const posElm = getFirstChild(cElm, 'pos');
+          const pos = posElm && readAdjustPoint(posElm);
           if (pos) {
             const pt: ConnectionPoint = { pos };
             const ang = numStrAttr(cElm, 'ang');
@@ -126,7 +142,7 @@ export function readShapeProperties (elm: Element | null, context: ConversionCon
       const rectElm = d.querySelector('rect');
       if (rectElm) {
         // all attr are required
-        const rect = {
+        const rect: ShapeRect = {
           t: attr(rectElm, 't'),
           b: attr(rectElm, 'b'),
           l: attr(rectElm, 'l'),
@@ -146,7 +162,7 @@ export function readShapeProperties (elm: Element | null, context: ConversionCon
 
     // Preset geometry – §5.1.11.18
     else if (tagName === 'prstGeom') {
-      const prst = attr(d, 'prst');
+      const prst = attr(d, 'prst') ?? '';
       if (SHAPE_TYPE.includes(prst)) {
         props.preset = prst;
       }
@@ -175,5 +191,6 @@ export function readShapeProperties (elm: Element | null, context: ConversionCon
       // TBD
     }
   });
-  return props;
+
+  return hasKeys(props) ? props : undefined;
 }

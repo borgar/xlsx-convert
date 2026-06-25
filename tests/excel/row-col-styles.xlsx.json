@@ -8,18 +8,12 @@
         "B6": { "s": 4 },
         "D6": { "s": 5, "v": "xxxx" }
       },
-      "columns": [
-        { "start": 4, "end": 4, "size": 65, "s": 1 }
-      ],
-      "rows": [
-        { "start": 6, "end": 6, "size": 16, "s": 2 }
-      ],
+      "columns": [ { "start": 4, "end": 4, "size": 65, "s": 1 } ],
+      "rows": [ { "start": 6, "end": 6, "s": 2 } ],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "D6" }
-      ]
+      "views": [ { "workbookView": 0, "activeCell": "D6" } ]
     }
   ],
   "names": [],
@@ -42,9 +36,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent3",
-        "transforms": [
-          { "type": "tint", "value": 40.00061037018951 }
-        ]
+        "transforms": [ { "type": "tint", "value": 40.00061037018951 } ]
       }
     },
     {
@@ -53,9 +45,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent2",
-        "transforms": [
-          { "type": "tint", "value": 40.00061037018951 }
-        ]
+        "transforms": [ { "type": "tint", "value": 40.00061037018951 } ]
       }
     },
     {
@@ -64,9 +54,7 @@
       "fillColor": {
         "type": "theme",
         "value": "accent3",
-        "transforms": [
-          { "type": "tint", "value": 60.00244148075809 }
-        ]
+        "transforms": [ { "type": "tint", "value": 60.00244148075809 } ]
       }
     },
     {
@@ -76,16 +64,12 @@
       "fillColor": {
         "type": "theme",
         "value": "accent3",
-        "transforms": [
-          { "type": "tint", "value": 40.00061037018951 }
-        ]
+        "transforms": [ { "type": "tint", "value": 40.00061037018951 } ]
       }
     }
   ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -113,5 +97,20 @@
       }
     }
   },
-  "formulas": []
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "formulas": [],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
 }

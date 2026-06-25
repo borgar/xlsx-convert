@@ -36,15 +36,15 @@ describe('colWidth', () => {
 
   describe('edge cases', () => {
     it('should return null for null input', () => {
-      expect(colWidth(null)).toBe(null);
+      expect(colWidth(null)).toBe(undefined);
     });
 
     it('should return null for undefined input', () => {
-      expect(colWidth(undefined)).toBe(null);
+      expect(colWidth(undefined)).toBe(undefined);
     });
 
     it('should return null for NaN input', () => {
-      expect(colWidth(NaN)).toBe(null);
+      expect(colWidth(NaN)).toBe(undefined);
     });
 
     it('should return 0 for zero input', () => {
@@ -69,17 +69,17 @@ describe('colWidth', () => {
     });
 
     it('should be monotonically increasing for positive inputs', () => {
-      const prev = colWidth(1);
+      const prev = colWidth(1) ?? NaN;
       for (let chars = 1.1; chars <= 20; chars += 0.1) {
-        const current = colWidth(chars);
+        const current = colWidth(chars) ?? NaN;
         expect(current).toBeGreaterThanOrEqual(prev);
       }
     });
 
     it('should scale approximately linearly', () => {
-      const width1 = colWidth(1);
-      const width10 = colWidth(10);
-      const width20 = colWidth(20);
+      const width1 = colWidth(1) ?? NaN;
+      const width10 = colWidth(10) ?? NaN;
+      const width20 = colWidth(20) ?? NaN;
 
       // Should be roughly proportional (allowing for rounding differences)
       expect(width10).toBeGreaterThan(width1 * 8);

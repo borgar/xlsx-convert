@@ -5,21 +5,27 @@ import { attr, boolAttr, dmlPercentAttr, numAttr } from '../../utils/attr.ts';
 import { readColor } from '../../color/readColor.ts';
 import type { ConversionContext } from '../../ConversionContext.ts';
 
-export function readFillGradient (elm: Element, context: ConversionContext) {
+export function readFillGradient (
+  elm: Element | null | undefined,
+  context: ConversionContext,
+): GradientPathFill | GradientLinearFill | undefined {
+  if (!elm) { return; }
   let colorStops: GradientColorStop[] = [];
   let fillType: 'linearGradient' | 'pathGradient' = 'linearGradient';
   let fillAngle = 0;
   let fillScaled = false;
-  let fillPath: PathFillType;
-  let fillToRect: RelativeRect;
+  let fillPath: PathFillType = 'circle';
+  let fillToRect: RelativeRect | undefined;
 
   for (const child of elm.children) {
     if (child.tagName === 'gsLst') {
       colorStops = [];
       child.querySelectorAll('>gs').forEach(gs => {
         const offset = dmlPercentAttr(gs, 'pos');
-        const color = readColor(getFirstChild(gs), context.theme, context.indexedColors).getJSF();
-        colorStops.push({ offset, color });
+        const color = readColor(getFirstChild(gs), context.theme);
+        if (offset != null && color != null) {
+          colorStops.push({ offset, color });
+        }
       });
     }
     else if (child.tagName === 'lin') {
@@ -30,8 +36,6 @@ export function readFillGradient (elm: Element, context: ConversionContext) {
     else if (child.tagName === 'path') {
       fillType = 'pathGradient';
       fillPath = attr(child, 'path') as PathFillType;
-    }
-    else if (child.tagName === 'tileRect') {
       const fr = getFirstChild(child, 'fillToRect');
       if (fr) {
         fillToRect = {

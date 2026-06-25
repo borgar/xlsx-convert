@@ -17,7 +17,7 @@ export function fromA1 (source: string): RangeA1 | null {
 
   const len = source.length;
   let pos = 0;
-  let check = 0;
+  let check: number;
 
   // skip dollar
   if (pos < len && source.charCodeAt(pos) === CHAR_DOLLAR) {
@@ -135,8 +135,8 @@ export function fromA1 (source: string): RangeA1 | null {
 
   return {
     top: Math.min(top, bottom) - 1,
-    left: Math.min(left, right) - 1,
+    left: Math.min(left, right ?? left) - 1,
     bottom: Math.max(top, bottom) - 1,
-    right: Math.max(left, right) - 1,
+    right: Math.max(left, right ?? left) - 1,
   };
 }

@@ -1,9 +1,12 @@
 import type { Document, Element as XMLElement } from '@borgar/simple-xml';
-import type { Theme, ThemeCustomColor, ThemeFontCollection } from '@jsfkit/types';
+import type { Theme, ThemeColorScheme, ThemeCustomColor, ThemeFontCollection } from '@jsfkit/types';
 import { readDrawingMLColor } from '../color/readDrawingMLColor.ts';
 import { attr } from '../utils/attr.ts';
 import { getFirstChild } from '../utils/getFirstChild.ts';
 import type { ConversionContext } from '../ConversionContext.ts';
+import { addProp } from '../utils/addProp.ts';
+
+const DEFAULT_FONT = 'Aptos Narrow';
 
 export function getBlankTheme (defaultThemeVersion: string): Theme {
   const useAptosFont = defaultThemeVersion.startsWith('202');
@@ -48,7 +51,7 @@ function extractFontCollection (fontCollection: XMLElement) {
 
   const font: ThemeFontCollection = {
     latin: {
-      typeface: attr(latin, 'typeface', 'Aptos Display'),
+      typeface: latin ? attr(latin, 'typeface', DEFAULT_FONT) : DEFAULT_FONT,
     },
   };
   if (eastAsian) {
@@ -74,6 +77,10 @@ export function handlerTheme (dom: Document, context: ConversionContext): Theme 
   ctx.theme = theme;
 
   const themeElement = dom.querySelector('theme');
+  if (!themeElement) {
+    // exit early if we have no theme
+    return theme;
+  }
   const themeName = attr(themeElement, 'name');
   if (themeName) {
     theme.name = themeName;
@@ -82,7 +89,7 @@ export function handlerTheme (dom: Document, context: ConversionContext): Theme 
   const themeElements = themeElement.querySelector('themeElements');
 
   const clrScheme = getFirstChild(themeElements, 'clrScheme');
-  const clrSchemeName = attr(clrScheme, 'name');
+  const clrSchemeName = clrScheme ? attr(clrScheme, 'name') : '';
   if (clrSchemeName) {
     theme.colorScheme.name = clrSchemeName;
   }
@@ -92,13 +99,13 @@ export function handlerTheme (dom: Document, context: ConversionContext): Theme 
     if (key in theme.colorScheme && colorElm) {
       const color = readDrawingMLColor(colorElm);
       if (color) {
-        theme.colorScheme[key] = color;
+        addProp(theme.colorScheme, key as keyof ThemeColorScheme, color);
       }
     }
   });
 
   const fontScheme = getFirstChild(themeElements, 'fontScheme');
-  const fontSchemeName = attr(fontScheme, 'name');
+  const fontSchemeName = fontScheme ? attr(fontScheme, 'name') : '';
   if (fontSchemeName) {
     theme.fontScheme.name = fontSchemeName;
   }

@@ -1,17 +1,17 @@
 import type { Element } from '@borgar/simple-xml';
-import { attr, numAttr } from '../../utils/attr.ts';
+import { attr, dmlPercentAttr, numAttr } from '../../utils/attr.ts';
 import { readFill } from './readFill.ts';
 import { addProp } from '../../utils/addProp.ts';
-import type { LineEnd, LineEndType, Line, LineStyle } from '@jsfkit/types';
+import type { DashStop, LineEnd, LineEndType, Line, LineStyle, LineEndSize, LineAlignment, LineCapType, LineCompoundType, LineJoinType } from '@jsfkit/types';
 import type { ConversionContext } from '../../ConversionContext.ts';
 
-const HEADSIZE = { lg: 'lg', med: 'med', sm: 'sm' };
-const LINEALIGN = { ctr: 'center', in: 'inner' }; // "outer" does not exist in DML
-const LINECAP = { flat: 'butt', rnd: 'round', square: 'square' };
-const LINECMPD = { dbl: 'dbl', sng: 'sng', thickThin: 'thickThin', thinThick: 'thinThick', tri: 'tri' };
-const LINEJOIN = { bevel: 'bevel', round: 'round', square: 'miter' };
+const HEADSIZE: Record<string, LineEndSize> = { lg: 'lg', med: 'med', sm: 'sm' };
+const LINEALIGN: Record<string, LineAlignment> = { ctr: 'center', in: 'inside' }; // "outer" does not exist in DML
+const LINECAP: Record<string, LineCapType> = { flat: 'butt', rnd: 'round', square: 'square' };
+const LINECMPD: Record<string, LineCompoundType> = { dbl: 'dbl', sng: 'sng', thickThin: 'thickThin', thinThick: 'thinThick', tri: 'tri' };
+const LINEJOIN: Record<string, LineJoinType> = { bevel: 'bevel', round: 'round', square: 'miter' };
 
-export function readLineProps (elm: Element, context: ConversionContext): Line {
+export function readLineProps (elm: Element, context: ConversionContext): Line | undefined {
   // If we're here, that means a line should be drawn.
   // - When <a:ln> is absent → no line is rendered
   // - When <a:ln> is present but w is omitted → line should be (0.75 pt = 9525 EMUs)
@@ -41,20 +41,30 @@ export function readLineProps (elm: Element, context: ConversionContext): Line {
       // List of elements that specify two attributes:
       // - d for the length of the dash relative to line width, and
       // - sp for length of the space relative to line width.
+      const stops: DashStop[] = [];
+      for (const ds of child.children) {
+        if (ds.tagName !== 'ds') continue;
+        const d = dmlPercentAttr(ds, 'd', 0);
+        const sp = dmlPercentAttr(ds, 'sp', 0);
+        stops.push({ d, sp });
+      }
+      if (stops.length) {
+        line.style = stops;
+      }
     }
     else if (child.tagName === 'headEnd') {
       const head: LineEnd = { type: attr(child, 'type', 'none') as LineEndType };
       if (head.type !== 'none') {
-        addProp(head, 'width', HEADSIZE[attr(child, 'w')], 'med');
-        addProp(head, 'len', HEADSIZE[attr(child, 'len')], 'med');
+        addProp(head, 'width', HEADSIZE[attr(child, 'w') ?? ''], 'med');
+        addProp(head, 'len', HEADSIZE[attr(child, 'len') ?? ''], 'med');
         line.head = head;
       }
     }
     else if (child.tagName === 'tailEnd') {
       const tail: LineEnd = { type: attr(child, 'type', 'none') as LineEndType };
       if (tail.type !== 'none') {
-        addProp(tail, 'width', HEADSIZE[attr(child, 'w')], 'med');
-        addProp(tail, 'len', HEADSIZE[attr(child, 'len')], 'med');
+        addProp(tail, 'width', HEADSIZE[attr(child, 'w') ?? ''], 'med');
+        addProp(tail, 'len', HEADSIZE[attr(child, 'len') ?? ''], 'med');
         line.tail = tail;
       }
     }
@@ -62,6 +72,10 @@ export function readLineProps (elm: Element, context: ConversionContext): Line {
       line.join = LINEJOIN[child.tagName];
     }
   });
+
+  if (line.fill?.type === 'none') {
+    return undefined;
+  }
 
   return line;
 }

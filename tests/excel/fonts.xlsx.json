@@ -89,16 +89,10 @@
     { "fontScheme": "minor", "fontSize": 20 },
     { "fontFamily": "Georgia", "fontSize": 20 },
     { "fontFamily": "Helvetica", "fontSize": 20 },
-    {
-      "fontScheme": "minor",
-      "fontSize": 12,
-      "bold": true
-    }
+    { "fontScheme": "minor", "fontSize": 12, "bold": true }
   ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -126,5 +120,20 @@
       }
     }
   },
-  "formulas": []
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "formulas": [],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
 }

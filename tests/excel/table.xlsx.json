@@ -1768,9 +1768,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "D4" }
-      ]
+      "views": [ { "workbookView": 0, "activeCell": "D4" } ]
     },
     {
       "name": "BMI",
@@ -1840,16 +1838,12 @@
         "B26": { "v": 10000 },
         "C26": { "v": "Obesity class 3" }
       },
-      "columns": [
-        { "start": 3, "end": 3, "size": 96 }
-      ],
+      "columns": [ { "start": 3, "end": 3, "size": 96 } ],
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "G10" }
-      ]
+      "views": [ { "workbookView": 0, "activeCell": "G10" } ]
     }
   ],
   "names": [],
@@ -1944,9 +1938,7 @@
       ]
     }
   ],
-  "views": [
-    { "activeSheet": 1 }
-  ],
+  "views": [ { "activeSheet": 1 } ],
   "theme": {
     "name": "Office 2013 - 2022 Theme",
     "colorScheme": {
@@ -1974,6 +1966,14 @@
       }
     }
   },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
   "formulas": [
     "Table1[@[Weight (k)]]/((Table1[@[Height (cm)]]/100)^2)",
     "XLOOKUP(Table1[@BMI],BMI[Min],BMI[Status],,-1,1)",
@@ -1986,5 +1986,12 @@
     "SUBTOTAL(101,Table1[Height (cm)])",
     "SUBTOTAL(110,BMI[Max])",
     "SUBTOTAL(103,BMI[Status])"
-  ]
+  ],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
 }

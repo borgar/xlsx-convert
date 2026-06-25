@@ -89,18 +89,8 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 1,
-              "rowOff": 12700,
-              "col": 1,
-              "colOff": 4273
-            },
-            "to": {
-              "row": 5,
-              "rowOff": 194732,
-              "col": 2,
-              "colOff": 821266
-            }
+            "from": { "row": 1, "rowOff": 12700, "col": 1, "colOff": 4273 },
+            "to": { "row": 5, "rowOff": 194732, "col": 2, "colOff": 821266 }
           },
           "content": [
             {
@@ -157,12 +147,7 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 8,
-              "rowOff": 12699,
-              "col": 1,
-              "colOff": 4273
-            },
+            "from": { "row": 8, "rowOff": 12699, "col": 1, "colOff": 4273 },
             "to": {
               "row": 12,
               "rowOff": 194731,
@@ -226,18 +211,8 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 1,
-              "rowOff": 12699,
-              "col": 4,
-              "colOff": 4273
-            },
-            "to": {
-              "row": 5,
-              "rowOff": 194731,
-              "col": 5,
-              "colOff": 821266
-            }
+            "from": { "row": 1, "rowOff": 12699, "col": 4, "colOff": 4273 },
+            "to": { "row": 5, "rowOff": 194731, "col": 5, "colOff": 821266 }
           },
           "content": [
             {
@@ -297,18 +272,8 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": {
-              "row": 8,
-              "rowOff": 29632,
-              "col": 3,
-              "colOff": 825539
-            },
-            "to": {
-              "row": 13,
-              "rowOff": 8464,
-              "col": 5,
-              "colOff": 812799
-            }
+            "from": { "row": 8, "rowOff": 29632, "col": 3, "colOff": 825539 },
+            "to": { "row": 13, "rowOff": 8464, "col": 5, "colOff": 812799 }
           },
           "content": [
             {
@@ -428,9 +393,7 @@
     }
   ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -458,5 +421,20 @@
       }
     }
   },
-  "formulas": []
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "formulas": [],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
 }

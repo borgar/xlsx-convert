@@ -1,6 +1,6 @@
 {
   "name": "@borgar/xlsx-convert",
-  "version": "5.0.0",
+  "version": "5.4.0",
   "description": "Utility to convert Excel XLSX files to JSON",
   "type": "module",
   "source": "src/index.ts",
@@ -11,25 +11,32 @@
       "require": "./dist/index.cjs",
       "types": "./dist/index.d.cts",
       "default": "./dist/index.js"
+    },
+    "./future": {
+      "require": "./dist/index-future.cjs",
+      "types": "./dist/index-future.d.cts",
+      "default": "./dist/index-future.js"
     }
   },
   "bin": {
-    "xlsx-convert": "./dist/cli.cjs"
+    "xlsx-convert": "./dist/cli.mjs"
   },
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "build": "tsup",
+    "build": "tsdown",
     "lint": "eslint *.js tests/ src/",
     "typecheck": "tsc --noEmit",
     "docs": "typedoc && concat-md tempdocs > docs/API.md && rm -rf tempdocs",
-    "test:unit": "vitest run src/*.spec.ts src/**/*.spec.ts",
+    "test:unit": "vitest run src/*.spec.ts src/**/*.spec.ts tests/**/*.spec.ts",
     "test:fixture": "node --experimental-transform-types tests/index.ts",
-    "test": "npm run test:unit && npm run test:fixture",
+    "test": "npm run test:unit && VERIFY_FORMULAS=1 npm run test:fixture",
     "updatetests": "UPDATE_TESTS=1 node --experimental-transform-types tests/index.ts",
     "check": "npm run test && npm run lint && npm run typecheck && node src/cli.ts tests/excel/fonts.xlsx -o /dev/null",
-    "release": "git diff --exit-code && tsup && npm publish && V=$(jq -r .version package.json) && git tag -a $V -m $V && git push origin $V && gh release create $V --generate-notes"
+    "release": "git diff --exit-code && PACKAGE_VERSION=$(jq -r .version package.json) && echo \"About to tag and push v$PACKAGE_VERSION. Continue? (y/n)\" && read -r REPLY && [ \"$REPLY\" = \"y\" ] && git tag --annotate v$PACKAGE_VERSION --message=v$PACKAGE_VERSION && git push origin v$PACKAGE_VERSION",
+    "benchmark": "node --experimental-transform-types tests/benchmark.ts",
+    "benchmark:fixture": "npm run benchmark tests/excel"
   },
   "files": [
     "dist",
@@ -37,23 +44,27 @@
     "LICENSE",
     "README.md"
   ],
-  "tsup": {
-    "entry": [
-      "src/index.ts",
-      "src/cli.ts"
-    ],
-    "format": [
-      "esm",
-      "cjs"
-    ],
-    "splitting": false,
-    "sourcemap": true,
-    "clean": true,
-    "dts": true
-  },
+  "tsdown": [
+    {
+      "entry": [
+        "src/index.ts",
+        "src/index-future.ts"
+      ],
+      "platform": "neutral",
+      "format": [
+        "esm",
+        "cjs"
+      ],
+      "sourcemap": true
+    },
+    {
+      "entry": "src/cli.ts",
+      "platform": "node"
+    }
+  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/borgar/xlsx-reader.git"
+    "url": "https://github.com/borgar/xlsx-convert"
   },
   "bugs": {
     "url": "https://github.com/borgar/xlsx-reader/issues"
@@ -71,25 +82,30 @@
   "author": "Borgar Þorsteinsson <borgar@borgar.net> (http://borgar.net/)",
   "license": "MIT",
   "dependencies": {
-    "@borgar/fx": "~5.0.2",
+    "@borgar/fx": "~5.0.5",
     "@borgar/simple-xml": "~2.2.2",
-    "numfmt": "~3.2.4",
-    "pako": "~2.1.0"
+    "@borgar/zip": "~1.0.0",
+    "@jsfkit/types": "~2.5.0",
+    "numfmt": "~3.2.6"
+  },
+  "peerDependencies": {
+    "@jsfkit/utils": "~1.0.2"
   },
   "devDependencies": {
     "@borgar/eslint-config": "~4.1.0",
-    "@eslint/js": "~9.39.2",
-    "@jsfkit/types": "~2.0.0",
-    "@types/node": "~25.3.5",
+    "@eslint/js": "~10.0.1",
+    "@jsfkit/utils": "~1.0.2",
+    "@types/node": "~25.9.3",
     "concat-md": "~0.5.1",
-    "eslint": "~9.39.2",
-    "globals": "~17.4.0",
-    "jszip": "^3.10.1",
+    "eslint": "~10.5.0",
+    "globals": "~17.6.0",
+    "tinybench": "~6.0.2",
+    "tsdown": "~0.22.3",
     "tsup": "~8.5.1",
-    "typedoc": "~0.28.17",
-    "typedoc-plugin-markdown": "~4.10.0",
-    "typescript": "~5.9.3",
-    "typescript-eslint": "~8.56.1",
-    "vitest": "~4.0.18"
+    "typedoc": "~0.28.19",
+    "typedoc-plugin-markdown": "~4.12.0",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "~8.61.1",
+    "vitest": "~4.1.9"
   }
 }

@@ -1,4 +1,4 @@
-const IMAGE_MIME_TYPES = {
+const IMAGE_MIME_TYPES: Record<string, string> = {
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',

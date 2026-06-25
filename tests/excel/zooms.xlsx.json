@@ -29,13 +29,9 @@
     "iterateDelta": 0.001,
     "epoch": 1900
   },
-  "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
-  ],
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -63,5 +59,20 @@
       }
     }
   },
-  "formulas": []
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "formulas": [],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
 }

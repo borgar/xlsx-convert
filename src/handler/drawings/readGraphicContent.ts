@@ -11,7 +11,7 @@ import { addProp } from '../../utils/addProp.ts';
 import { readFillBlip } from './readFillBlip.ts';
 
 export function readGraphicContent (parent: Element, context: ConversionContext): Graphic[] {
-  const content = [];
+  const content: Graphic[] = [];
 
   parent.children.forEach((d: Element) => {
     // Group Shape
@@ -28,8 +28,8 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
         if (child.tagName === 'nvGrpSpPr') {
           const cNvPr = child.querySelector('>cNvPr');
           if (cNvPr) {
-            out.id = cNvPr.getAttribute('id');
-            out.name = cNvPr.getAttribute('name');
+            out.id = cNvPr.getAttribute('id') ?? '';
+            out.name = cNvPr.getAttribute('name') ?? '';
           }
         }
         // Group Shape Properties
@@ -54,8 +54,8 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
       // Non-Visual Shape Properties
       const cNvPr = d.querySelector('> nvCxnSpPr > cNvPr');
       if (cNvPr) {
-        out.id = cNvPr.getAttribute('id');
-        out.name = cNvPr.getAttribute('name');
+        out.id = cNvPr.getAttribute('id') ?? '';
+        out.name = cNvPr.getAttribute('name') ?? '';
       }
       addProp(out, 'shape', readShapeProperties(getFirstChild(d, 'spPr'), context));
       addProp(out, 'text', readTextBody(getFirstChild(d, 'txBody')));
@@ -73,8 +73,8 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
       // Non-Visual Shape Properties
       const cNvPr = d.querySelector('cNvPr');
       if (cNvPr) {
-        out.id = cNvPr.getAttribute('id');
-        out.name = cNvPr.getAttribute('name');
+        out.id = cNvPr.getAttribute('id') ?? '';
+        out.name = cNvPr.getAttribute('name') ?? '';
       }
       addProp(out, 'shape', readShapeProperties(getFirstChild(d, 'spPr'), context));
       addProp(out, 'text', readTextBody(getFirstChild(d, 'txBody')));
@@ -94,8 +94,8 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
       // Non-Visual Properties
       const cNvPr = d.querySelector('cNvPr');
       if (cNvPr) {
-        out.id = cNvPr.getAttribute('id');
-        out.name = cNvPr.getAttribute('name');
+        out.id = cNvPr.getAttribute('id') ?? '';
+        out.name = cNvPr.getAttribute('name') ?? '';
         const desc = cNvPr.getAttribute('descr');
         if (desc) { out.desc = desc; }
       }
@@ -123,24 +123,38 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
       // Non-Visual Properties
       const cNvPr = d.querySelector('cNvPr');
       if (cNvPr) {
-        out.id = cNvPr.getAttribute('id');
-        out.name = cNvPr.getAttribute('name');
+        out.id = cNvPr.getAttribute('id') ?? '';
+        out.name = cNvPr.getAttribute('name') ?? '';
       }
       // const graphicFrameLocks = d.querySelector('graphicFrameLocks');
       // if (graphicFrameLocks) { out.locked = {}; }
 
       // Specifies a 2D transform to be applied to a Graphic Frame:
       addProp(out, 'xfrm', readTransforms(d.querySelector('xfrm')));
+      // XXX: can't we discard ext: { cx:0, cy:0 } here? Charts contain <ext cx="0" cy="0" />, but this seems wrong.
 
       // Chart data
       const chart = d.querySelector('graphicData > chart');
       if (chart) {
-        out.chartId = chart.getAttribute('r:id');
-        content.push(out);
+        const rId = chart.getAttribute('r:id');
+        if (rId) {
+          const rel = context.drawingRels.find(r => r.id === rId);
+          if (rel?.type === 'chart' || rel?.type === 'chartEx') {
+            out.chartId = rel.target; // or rId?
+            context.charts.push({ rel, type: rel?.type });
+            content.push(out);
+          }
+        }
       }
-      else {
-        // throw new Error('Support missing for Graphic Frame content');
-        return;
+    }
+    else if (d.tagName === 'AlternateContent') {
+      for (const x of d.children) {
+        if (x.tagName === 'Choice' && /^cx[1234]$/i.test(x.attr.Requires)) {
+          const ch = getFirstChild(x);
+          if (ch) {
+            content.push(...readGraphicContent(x, context));
+          }
+        }
       }
     }
   });

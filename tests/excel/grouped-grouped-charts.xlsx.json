@@ -11,16 +11,12 @@
         "A3": { "v": "c" },
         "B3": { "v": 3 }
       },
-      "columns": [
-        { "start": 9, "end": 9, "size": 57 }
-      ],
+      "columns": [ { "start": 9, "end": 9, "size": 57 } ],
       "rows": [],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "K6" }
-      ],
+      "views": [ { "workbookView": 0, "activeCell": "K6" } ],
       "drawings": [
         {
           "anchor": {
@@ -46,9 +42,19 @@
                   "content": [
                     {
                       "type": "chart",
+                      "id": "13",
+                      "name": "Chart 12",
+                      "chartId": "xl/charts/chartEx1.xml",
+                      "xfrm": {
+                        "off": { "x": 7429500, "y": 2235200 },
+                        "ext": { "cx": 2882900, "cy": 2882900 }
+                      }
+                    },
+                    {
+                      "type": "chart",
                       "id": "14",
                       "name": "Chart 13",
-                      "chartId": "rId2",
+                      "chartId": "xl/charts/chart1.xml",
                       "xfrm": {
                         "off": { "x": 4127500, "y": 2235200 },
                         "ext": { "cx": 2882900, "cy": 2882900 }
@@ -66,7 +72,7 @@
                   "type": "chart",
                   "id": "15",
                   "name": "Chart 14",
-                  "chartId": "rId3",
+                  "chartId": "xl/charts/chart2.xml",
                   "xfrm": {
                     "off": { "x": 8153400, "y": 1016000 },
                     "ext": { "cx": 2429142, "cy": 2476500 }
@@ -92,13 +98,9 @@
     "iterateDelta": 0.001,
     "epoch": 1900
   },
-  "styles": [
-    { "fontScheme": "minor", "fontSize": 12 }
-  ],
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -126,5 +128,20 @@
       }
     }
   },
-  "formulas": []
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "formulas": [],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
 }

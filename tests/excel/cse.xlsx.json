@@ -12,7 +12,7 @@
         "B3": { "v": false, "F": "A3:D3" },
         "C3": { "v": false, "F": "A3:D3" },
         "D3": { "v": true, "F": "A3:D3" },
-        "A4": { "v": true, "F": "A4:D4", "f": 1 },
+        "A4": { "v": true, "F": "A4:D4", "cse": true, "f": 1 },
         "B4": { "v": false, "F": "A4:D4" },
         "C4": { "v": false, "F": "A4:D4" },
         "D4": { "v": true, "F": "A4:D4" }
@@ -22,9 +22,7 @@
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
-      "views": [
-        { "workbookView": 0, "activeCell": "C1" }
-      ]
+      "views": [ { "workbookView": 0, "activeCell": "C1" } ]
     }
   ],
   "names": [],
@@ -39,9 +37,7 @@
     { "fontScheme": "minor", "fontSize": 12 }
   ],
   "tables": [],
-  "views": [
-    {}
-  ],
+  "views": [ {} ],
   "theme": {
     "name": "Office Theme",
     "colorScheme": {
@@ -69,8 +65,20 @@
       }
     }
   },
-  "formulas": [
-    "R[-2]C:R[-2]C[3]=1",
-    "R[-3]C:R[-3]C[3]=1"
-  ]
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "formulas": [ "R[-2]C:R[-2]C[3]=1", "R[-3]C:R[-3]C[3]=1" ],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
 }

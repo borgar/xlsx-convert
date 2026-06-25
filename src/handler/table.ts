@@ -6,8 +6,8 @@ import type { Table, TableColumn, TableStyle, TableStyleName } from '@jsfkit/typ
 
 const reTableStyleName = /^TableStyle(Dark(\d|10|11)|Light(1?\d|20|21)|Medium(1?\d|2[0-8]))$/;
 
-export function handlerTable (dom: Document, context: ConversionContext): Table | void {
-  const tableElm = dom.getElementsByTagName('table')[0];
+export function handlerTable (dom: Document | null | undefined, context: ConversionContext): Table | void {
+  const tableElm = dom?.getElementsByTagName('table')[0];
   if (!tableElm) { return; }
 
   const table: Table = {
@@ -15,7 +15,8 @@ export function handlerTable (dom: Document, context: ConversionContext): Table 
     sheet: '',
     ref: attr(tableElm, 'ref'),
     headerRowCount: numAttr(tableElm, 'headerRowCount', 1),
-    totalsRowCount: numAttr(tableElm, 'totalsRowCount', 0), // totalsRowShown
+    totalsRowCount: numAttr(tableElm, 'totalsRowCount', 0),
+    totalsRowShown: boolAttr(tableElm, 'totalsRowShown', true) ? undefined : false,
     columns: [],
     // alt text: extLst>ext>table[altTextSummary]
   };
@@ -83,6 +84,9 @@ export function handlerTable (dom: Document, context: ConversionContext): Table 
       const f = node.getElementsByTagName('calculatedColumnFormula')[0];
       if (f) {
         column.formula = normalizeFormula(f.textContent, context);
+        if (attr(f, 'array') === '1') {
+          column.formulaIsArray = true;
+        }
       }
       table.columns.push(column);
     });
