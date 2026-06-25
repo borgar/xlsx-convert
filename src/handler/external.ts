@@ -8,9 +8,16 @@ import type { External, ExternalDefinedName } from '@jsfkit/types';
 import { fromA1 } from '../utils/fromA1.ts';
 import { toA1 } from '../utils/toA1.ts';
 
-const NO_EXTERNALS = { externalLinks: [] };
+type FormulaOpts = {
+  preservePrefixes?: boolean;
+};
 
-export function handlerExternal (dom: Document, fileName: string = '', rels: Rel[] = []): External {
+export function handlerExternal (
+  dom: Document,
+  fileName: string = '',
+  rels: Rel[] = [],
+  opts: FormulaOpts = {},
+): External {
   const external: External = {
     name: fileName,
     sheets: [],
@@ -69,10 +76,14 @@ export function handlerExternal (dom: Document, fileName: string = '', rels: Rel
 
   // read cells and their values
   //
-  // A sheet named in `<sheetNames>` but missing from `<sheetDataSet>` is distinct
-  // from one with an empty `<sheetData sheetId="N"/>`; track which sheetIds
-  // actually had a `<sheetData>` element so the emitter can tell them apart
-  // when round-tripping.
+  // Note: dummyContext does not include preservePrefixes, but external link
+  // cells only contain cached values (no <f> nodes), so no formulas are
+  // normalized here.
+  //
+  // A sheet named in `<sheetNames>` but missing from `<sheetDataSet>` is
+  // distinct from one with an empty `<sheetData sheetId="N"/>`; track which
+  // sheetIds actually had a `<sheetData>` element so the emitter can tell
+  // them apart when round-tripping.
   const sheetDataSeen = new Set<number>();
   const dummyContext = new ConversionContext();
   dom.querySelectorAll('sheetDataSet > sheetData')
@@ -118,6 +129,7 @@ export function handlerExternal (dom: Document, fileName: string = '', rels: Rel
   });
 
   // read defined names
+  const ctx = { externalLinks: [], ...opts };
   dom.querySelectorAll('definedNames > definedName')
     .forEach(definedName => {
       const nameDef: ExternalDefinedName = {
@@ -125,7 +137,7 @@ export function handlerExternal (dom: Document, fileName: string = '', rels: Rel
       };
       const expr = attr(definedName, 'refersTo');
       if (expr) {
-        nameDef.value = normalizeFormula(expr, NO_EXTERNALS);
+        nameDef.value = normalizeFormula(expr, ctx);
       }
       external.names.push(nameDef);
     });

@@ -21,7 +21,10 @@ import {
 } from '@borgar/fx';
 
 type ExternalSubset = { name: string };
-type ConversionContextSubset = { externalLinks: ExternalSubset[] };
+type ConversionContextSubset = {
+  externalLinks: ExternalSubset[];
+  preservePrefixes?: boolean;
+};
 type TrimTypes = 'both' | 'head' | 'tail';
 
 /**
@@ -115,7 +118,10 @@ const TRIM_OPS: Record<string, TrimTypes> = {
   '_TRO_TRAILING': 'tail',
 };
 
-export function normalizeFormulaTokens (tokens: Token[], wb?: ConversionContextSubset | null, r1c1 = false): Token[] {
+export function normalizeFormulaTokens (
+  tokens: Token[], wb?: ConversionContextSubset | null, r1c1 = false,
+): Token[] {
+  const preservePrefixes = wb?.preservePrefixes;
   const outTokens = [];
 
   for (let i = 0; i < tokens.length; i++) {
@@ -155,13 +161,16 @@ export function normalizeFormulaTokens (tokens: Token[], wb?: ConversionContextS
         outTokens.push(r);
       }
       // Remove Excel internal namespaces from functions.
-      else {
+      else if (!preservePrefixes) {
         t.value = t.value.replace(/^(?:_xlfn\.|_xludf\.|_xlws\.)+/i, '');
+        outTokens.push(t);
+      }
+      else {
         outTokens.push(t);
       }
     }
     else if (isReference(t)) {
-      if (t.type === tokenTypes.REF_NAMED) {
+      if (!preservePrefixes && t.type === tokenTypes.REF_NAMED) {
         t.value = t.value.replace(/^(?:_xl[pn]m\.)/ig, '');
       }
       // normalize external references
@@ -194,9 +203,26 @@ export function normalizeFormulaTokens (tokens: Token[], wb?: ConversionContextS
   return outTokens;
 }
 
-export function normalizeFormula (formula: string, wb?: ConversionContextSubset | null): string {
+// External references (`[N]Sheet!Ref` or `[wb]Sheet!Ref`) always need
+// normalization regardless of `preservePrefixes`, so this pattern is checked
+// first and unconditionally.
+const NEEDS_EXTREF = /(?:[^RC"]\[|^\[)/;
+// XLSX-internal prefixes — only need handling when `preservePrefixes` is off.
+const NEEDS_PREFIX = /_xl(?:fn|udf|ws|pm|nm)\./i;
+// Compatibility-function patterns that get rewritten to operators. The
+// `\.:` / `:\.` patterns trigger because fx emits range-trim ranges with
+// dot markers and we may need to canonicalize them.
+const NEEDS_COMPATFN = /(?:\.:|:\.)|ANCHORARRAY|SINGLE|_TRO_(?:ALL|LEADING|TRAILING)/i;
+
+export function normalizeFormula (
+  formula: string, wb?: ConversionContextSubset | null,
+): string {
   // quickly test if work is actually needed
-  if (!/_xl(?:fn|udf|ws|pm|nm)\.|(?:[^RC"]\[|^\[|\.:|:\.)|ANCHORARRAY|SINGLE|_TRO_(?:ALL|LEADING|TRAILING)/i.test(formula)) {
+  const needsWork =
+    NEEDS_EXTREF.test(formula) ||
+    (!wb?.preservePrefixes && NEEDS_PREFIX.test(formula)) ||
+    NEEDS_COMPATFN.test(formula);
+  if (!needsWork) {
     return formula;
   }
   const tokens = tokenize(formula.normalize());

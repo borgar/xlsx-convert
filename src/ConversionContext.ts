@@ -68,6 +68,13 @@ export class ConversionContext {
   /** Max Digit Width of the workbook Normal font, used to convert column widths to pixels. */
   normalMdw: number;
 
+  // Delegate the formula-normalization options so code receiving a
+  // ConversionContext as a ConversionContextSubset sees the actual option
+  // values rather than undefined.
+  get preservePrefixes (): boolean | undefined {
+    return this.options.preservePrefixes;
+  }
+
   warn (message: string): void {
     this.options.warn?.(message);
   }
