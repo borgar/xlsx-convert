@@ -250,7 +250,8 @@
         {
           "fieldIndex": 3,
           "name": "Average of Salary",
-          "subtotal": "average"
+          "subtotal": "average",
+          "baseItem": 0
         }
       ],
       "rowItems": [
@@ -317,6 +318,7 @@
       "indent": 0,
       "dataCaption": "Values",
       "uid": "{916D59D8-6143-8142-9B4B-F15BE71C47B7}",
+      "hideValuesRow": true,
       "cache": {
         "sourceType": "worksheet",
         "worksheetSource": { "type": "range", "ref": "A1:D16", "sheet": "Data" },

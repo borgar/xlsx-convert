@@ -5,6 +5,7 @@ import type { RDStruct } from './handler/rdstuct.ts';
 import type { RDValue } from './handler/rdvalue.ts';
 import type { Rel } from './handler/rels.ts';
 import { getBlankTheme } from './handler/theme.ts';
+import { DEFAULT_MDW } from './utils/mdw.ts';
 import type { RelativeFormula } from './RelativeFormula.ts';
 import type { ConversionOptions } from './index.ts';
 
@@ -64,6 +65,8 @@ export class ConversionContext {
   images: RefLink[];
   isLikelyGSExport: boolean;
   charts: RefLink[];
+  /** Max Digit Width of the workbook Normal font, used to convert column widths to pixels. */
+  normalMdw: number;
 
   warn (message: string): void {
     this.options.warn?.(message);
@@ -88,5 +91,6 @@ export class ConversionContext {
     this.images = [];
     this.isLikelyGSExport = false;
     this.charts = [];
+    this.normalMdw = DEFAULT_MDW;
   }
 }

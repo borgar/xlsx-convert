@@ -9,7 +9,7 @@
         "D6": { "s": 5, "v": "xxxx" }
       },
       "columns": [ { "start": 4, "end": 4, "size": 65, "s": 1 } ],
-      "rows": [ { "start": 6, "end": 6, "size": 16, "s": 2 } ],
+      "rows": [ { "start": 6, "end": 6, "s": 2 } ],
       "merges": [],
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,

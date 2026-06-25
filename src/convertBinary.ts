@@ -3,6 +3,7 @@ import { ZipArchive } from '@borgar/zip';
 import { attr } from './utils/attr.ts';
 import { pathBasename, pathDirname, pathJoin } from './utils/path.ts';
 import { convertStyles } from './utils/convertStyles.ts';
+import { resolveColumnMdw } from './utils/mdw.ts';
 import { FT_CFBF, FT_ZIP, getBinaryFileType } from './utils/getBinaryFileType.ts';
 import { ConversionContext } from './ConversionContext.ts';
 import { handlerRels, type Rel } from './handler/rels.ts';
@@ -259,6 +260,17 @@ export async function convertBinary (
   if (Object.keys(namedStyles).length > 0) {
     wb.namedStyles = namedStyles;
   }
+
+  // The Normal font (cellStyleXfs[0], defaulting to the theme minor typeface) sets the MDW that every
+  // column width is recorded against; resolve it once for the worksheet handlers.
+  const normalFont = styleDefs?.cellStyleXfs[0]?.font ?? styleDefs?.font[0];
+  const fontScheme = context.theme?.fontScheme;
+  const normalFamily = (normalFont?.name ||
+    (normalFont?.scheme === 'major'
+      ? fontScheme?.major.latin.typeface
+      : fontScheme?.minor.latin.typeface) ||
+    'Aptos Narrow');
+  context.normalMdw = resolveColumnMdw(normalFamily, normalFont?.size ?? 11, context.options);
 
   const pivotTables: PivotTable[] = [];
 

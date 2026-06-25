@@ -11,6 +11,7 @@ const VERIFY_FORMULAS = !!process.env.VERIFY_FORMULAS;
 const tests = [
   // Excel conversion
   'tests/excel/a-single-lambda.xlsx',
+  'tests/excel/arial-normal.xlsx',
   'tests/excel/ascii.xlsx',
   'tests/excel/background-color.xlsx',
   'tests/excel/blipfill.xlsx',

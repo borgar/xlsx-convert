@@ -1,6 +1,6 @@
 {
   "name": "@borgar/xlsx-convert",
-  "version": "5.3.0",
+  "version": "5.4.0",
   "description": "Utility to convert Excel XLSX files to JSON",
   "type": "module",
   "source": "src/index.ts",
@@ -85,7 +85,7 @@
     "@borgar/fx": "~5.0.5",
     "@borgar/simple-xml": "~2.2.2",
     "@borgar/zip": "~1.0.0",
-    "@jsfkit/types": "~2.4.0",
+    "@jsfkit/types": "~2.5.0",
     "numfmt": "~3.2.6"
   },
   "peerDependencies": {
@@ -95,17 +95,17 @@
     "@borgar/eslint-config": "~4.1.0",
     "@eslint/js": "~10.0.1",
     "@jsfkit/utils": "~1.0.2",
-    "@types/node": "~25.9.1",
+    "@types/node": "~25.9.3",
     "concat-md": "~0.5.1",
-    "eslint": "~10.4.0",
+    "eslint": "~10.5.0",
     "globals": "~17.6.0",
     "tinybench": "~6.0.2",
-    "tsdown": "~0.22.0",
+    "tsdown": "~0.22.3",
     "tsup": "~8.5.1",
     "typedoc": "~0.28.19",
-    "typedoc-plugin-markdown": "~4.11.0",
+    "typedoc-plugin-markdown": "~4.12.0",
     "typescript": "~6.0.3",
-    "typescript-eslint": "~8.59.4",
-    "vitest": "~4.1.7"
+    "typescript-eslint": "~8.61.1",
+    "vitest": "~4.1.9"
   }
 }
