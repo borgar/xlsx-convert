@@ -247,4 +247,32 @@ describe('convertBinary', () => {
       expect(wb.calculationProperties?.fullCalcOnLoad).toBe(true);
     });
   });
+
+  describe('keepStyledEmptyCells', () => {
+    // numbers.xlsx style index 1 is a numFmt-only style (numberFormat "0.00E+00", no
+    // fill/border), i.e. a style with no "visible" formatting. Inject a value-less
+    // <c r="B1" s="1"/> cell into row 1 to get a style-only cell of the kind that is
+    // otherwise dropped: <c r="C2" s="1"/> with a date number format, no <v>/<f>.
+    async function withStyleOnlyCell (): Promise<ArrayBuffer> {
+      const bin = await readFileAsArrayBuffer('./tests/excel/numbers.xlsx');
+      const zip = new ZipArchive(bin);
+      const sheetXml = await zip.readText('xl/worksheets/sheet1.xml');
+      const modified = sheetXml!.replace(
+        '<c r="A1"><v>0</v></c></row>',
+        '<c r="A1"><v>0</v></c><c r="B1" s="1"/></row>',
+      );
+      await zip.write('xl/worksheets/sheet1.xml', modified);
+      return zip.toArrayBuffer();
+    }
+
+    test('style-only cell is dropped by default', async () => {
+      const wb = await convertBinary(await withStyleOnlyCell(), 'numbers.xlsx');
+      expect(wb.sheets[0].cells.B1).toBeUndefined();
+    });
+
+    test('style-only cell is retained with keepStyledEmptyCells: true', async () => {
+      const wb = await convertBinary(await withStyleOnlyCell(), 'numbers.xlsx', { keepStyledEmptyCells: true });
+      expect(wb.sheets[0].cells.B1).toEqual({ s: 1 });
+    });
+  });
 });
