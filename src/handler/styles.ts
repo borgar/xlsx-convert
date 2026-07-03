@@ -23,7 +23,7 @@ type Fill = {
 };
 type Font = {
   size?: number,
-  name: string,
+  name?: string,
   scheme?: 'major' | 'minor',
   underline?: string,
   bold: boolean,
@@ -136,15 +136,12 @@ function readFont (node: Element, theme: Theme): Font {
   const u = node.querySelectorAll('u')[0];
   const b = node.querySelectorAll('b')[0];
   const i = node.querySelectorAll('i')[0];
-  let name = valOfSubNode(node, 'name') ?? '';
-  if (name === 'Calibri (Body)') {
-    name = 'Calibri';
-  }
+  const name = valOfSubNode(node, 'name');
   const scheme = valOfSubNode(node, 'scheme');
   const sz = valOfSubNode(node, 'sz');
   return {
     size: sz ? +sz : undefined,
-    name: name,
+    name: name === 'Calibri (Body)' ? 'Calibri' : name,
     scheme: (scheme === 'major' || scheme === 'minor') ? scheme : undefined,
     underline: u ? attr(u, 'val', 'single') : undefined,
     bold: !!b,

@@ -67,6 +67,7 @@ const tests = [
   'tests/excel/merged-cells.xlsx',
   'tests/excel/missing-external.xlsx',
   'tests/excel/multiple-sheets.xlsx',
+  'tests/excel/nameless-font.xlsx',
   'tests/excel/names.xlsx',
   'tests/excel/non-spilling-array-formula.xlsx',
   'tests/excel/numbers.xlsx',
