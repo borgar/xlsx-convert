@@ -3,7 +3,9 @@
   "sheets": [
     {
       "name": "Sheet1",
-      "cells": {},
+      "cells": {
+        "A25": { "s": 1 }
+      },
       "columns": [],
       "rows": [],
       "merges": [],

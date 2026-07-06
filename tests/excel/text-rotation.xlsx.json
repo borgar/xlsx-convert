@@ -17,6 +17,7 @@
         "D4": { "s": 9, "v": "Lorem ipsum dolor set amet" },
         "E4": { "s": 10, "v": "Lorem ipsum dolor set amet" },
         "F4": { "s": 11, "v": "Lorem ipsum dolor set amet" },
+        "G4": { "s": 12 },
         "A7": { "s": 5, "v": "Lorem ipsum" },
         "B7": { "s": 6, "v": "Lorem ipsum" },
         "C7": { "s": 13, "v": "Lorem ipsum" },
