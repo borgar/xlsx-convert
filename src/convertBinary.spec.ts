@@ -249,10 +249,8 @@ describe('convertBinary', () => {
   });
 
   describe('skipStyledEmptyCells', () => {
-    // numbers.xlsx style index 1 is a numFmt-only style (numberFormat "0.00E+00", no
-    // fill/border), i.e. a style with no "visible" formatting. Inject a value-less
-    // <c r="B1" s="1"/> cell into row 1 to get a style-only cell of the kind that is
-    // dropped only when skipStyledEmptyCells is enabled.
+    // Style 1 in numbers.xlsx is numFmt-only (no fill/border), i.e. not "visible".
+    // Inject a value-less <c r="B1" s="1"/> to make a style-only cell.
     async function withStyleOnlyCell (): Promise<ArrayBuffer> {
       const bin = await readFileAsArrayBuffer('./tests/excel/numbers.xlsx');
       const zip = new ZipArchive(bin);

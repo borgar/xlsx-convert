@@ -17,10 +17,7 @@ export type ConversionOptions = {
    */
   cellFormulas?: boolean;
   /**
-   * Drop cells that carry a style but no value, formula, or data table (e.g. a blank cell
-   * pre-formatted with a date number format), unless their style has "visible" formatting
-   * (fill, border, etc.). By default such style-only cells are retained so the style/number
-   * format is preserved; enable this to drop them.
+   * Drop cells that have a style but no value or formula, unless the style is visible (fill, border, etc.).
    * @defaultValue false
    */
   skipStyledEmptyCells?: boolean;

@@ -16,8 +16,7 @@ function contextWithStyles (styles: Style[]): ConversionContext {
 }
 
 describe('handlerCell style-only cells', () => {
-  // <c r="C2" s="1"/> -- a cell with a style index but no <v>/<f>/<is>, e.g. a
-  // blank cell pre-formatted with a date number format.
+  // Style-only cell: <c r="C2" s="1"/> -- a style index, no <v>/<f>/<is>.
 
   it('retains a style-only cell with a non-visible style (e.g. a number format) by default', () => {
     const ctx = contextWithStyles([ {}, { numberFormat: 'mm-dd-yy' } ]);
