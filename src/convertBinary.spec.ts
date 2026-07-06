@@ -247,4 +247,113 @@ describe('convertBinary', () => {
       expect(wb.calculationProperties?.fullCalcOnLoad).toBe(true);
     });
   });
+
+  describe('custom table styles', () => {
+    // Replace the empty <dxfs/> and <tableStyles/> of numbers.xlsx with populated ones.
+    // Returns a fresh xlsx ArrayBuffer.
+    async function withTableStyles (dxfs: string, tableStyles: string): Promise<ArrayBuffer> {
+      const bin = await readFileAsArrayBuffer('./tests/excel/numbers.xlsx');
+      const zip = new ZipArchive(bin);
+      const xml = await zip.readText('xl/styles.xml');
+      const modified = xml!
+        .replace(/<dxfs[^>]*\/>/, dxfs)
+        .replace(/<tableStyles[^>]*\/>/, tableStyles);
+      await zip.write('xl/styles.xml', modified);
+      return zip.toArrayBuffer();
+    }
+
+    const DXFS =
+      '<dxfs count="3">' +
+      '<dxf><font><b/></font>' +
+      '<fill><patternFill patternType="solid"><bgColor rgb="FFFFFF00"/></patternFill></fill></dxf>' +
+      '<dxf><font><i/></font></dxf>' +
+      '<dxf><fill><patternFill patternType="solid"><bgColor rgb="FFEEEEEE"/></patternFill></fill></dxf>' +
+      '</dxfs>';
+
+    test('custom styles convert to Workbook.tableStyles referencing the shared diffStyles table', async () => {
+      const tableStyles =
+        '<tableStyles count="2" defaultTableStyle="TableStyleMedium2" defaultPivotStyle="My Pivot Style">' +
+        '<tableStyle name="My Pivot Style" table="0" pivot="1" count="4">' +
+        '<tableStyleElement type="wholeTable" dxfId="0"/>' +
+        '<tableStyleElement type="headerRow" dxfId="1"/>' +
+        '<tableStyleElement type="firstRowStripe" size="2" dxfId="2"/>' +
+        '<tableStyleElement type="lastColumn"/>' +
+        '</tableStyle>' +
+        '<tableStyle name="My Table Style" pivot="0" count="1">' +
+        '<tableStyleElement type="wholeTable" dxfId="0"/>' +
+        '</tableStyle>' +
+        '</tableStyles>';
+      const wb = await convertBinary(await withTableStyles(DXFS, tableStyles), 'numbers.xlsx');
+      // The <dxfs> table becomes the shared Workbook.diffStyles; elements reference it by index
+      // (diffStyleId = the OOXML dxfId), the same table pivot-table formats index into.
+      expect(wb.diffStyles).toEqual([
+        { bold: true, fillColor: { type: 'srgb', value: 'FFFF00' } },
+        { italic: true },
+        { fillColor: { type: 'srgb', value: 'EEEEEE' } },
+      ]);
+      expect(wb.tableStyles).toEqual({
+        'My Pivot Style': {
+          name: 'My Pivot Style',
+          table: 'pivot',
+          elements: [
+            { type: 'wholeTable', diffStyleId: 0 },
+            { type: 'headerRow', diffStyleId: 1 },
+            { type: 'firstRowStripe', size: 2, diffStyleId: 2 },
+            { type: 'lastColumn' },
+          ],
+        },
+        'My Table Style': {
+          name: 'My Table Style',
+          table: 'table',
+          elements: [
+            { type: 'wholeTable', diffStyleId: 0 },
+          ],
+        },
+      });
+    });
+
+    test('an empty tableStyles element omits Workbook.tableStyles', async () => {
+      const bin = await readFileAsArrayBuffer('./tests/excel/numbers.xlsx');
+      const wb = await convertBinary(bin, 'numbers.xlsx');
+      expect(wb.tableStyles).toBeUndefined();
+    });
+
+    test('edge cases: default applicability, unknown region, default stripe size, dangling dxfId', async () => {
+      const tableStyles =
+        '<tableStyles count="1" defaultTableStyle="TableStyleMedium2" defaultPivotStyle="PivotStyleLight16">' +
+        // table="0" pivot="0" applies to neither — JSF can't express that, so it falls back to
+        // the default 'all' (the `table` field is omitted).
+        '<tableStyle name="Neither" table="0" pivot="0" count="4">' +
+        '<tableStyleElement type="wholeTable" dxfId="0"/>' +
+        // An unrecognized region type is dropped entirely.
+        '<tableStyleElement type="notARegion" dxfId="1"/>' +
+        // A stripe size of 1 is the default and is dropped.
+        '<tableStyleElement type="firstRowStripe" size="1" dxfId="1"/>' +
+        // A dxfId past the end of the dxfs table is passed straight through (kept faithful).
+        '<tableStyleElement type="headerRow" dxfId="9"/>' +
+        '</tableStyle>' +
+        '</tableStyles>';
+      const wb = await convertBinary(await withTableStyles(DXFS, tableStyles), 'numbers.xlsx');
+      expect(wb.tableStyles).toEqual({
+        Neither: {
+          name: 'Neither',
+          elements: [
+            { type: 'wholeTable', diffStyleId: 0 },
+            { type: 'firstRowStripe', diffStyleId: 1 },
+            { type: 'headerRow', diffStyleId: 9 },
+          ],
+        },
+      });
+    });
+
+    test('a custom style name on a table is preserved', async () => {
+      const bin = await readFileAsArrayBuffer('./tests/excel/table.xlsx');
+      const zip = new ZipArchive(bin);
+      const tableXml = await zip.readText('xl/tables/table1.xml');
+      await zip.write('xl/tables/table1.xml',
+        tableXml!.replace('name="TableStyleMedium2"', 'name="My Table Style"'));
+      const wb = await convertBinary(zip.toArrayBuffer(), 'table.xlsx');
+      expect(wb.tables![0].style!.name).toBe('My Table Style');
+    });
+  });
 });

@@ -1,5 +1,12 @@
-import type { StyleDefs } from '../handler/styles.ts';
-import type { NamedStyle, Color as JSFColor, Style } from '@jsfkit/types';
+import type { Dxf, StyleDefs, TableStyleEntry } from '../handler/styles.ts';
+import type {
+  NamedStyle,
+  Color as JSFColor,
+  Style,
+  TableStyleDefinition,
+  TableStyleElement,
+  TableStyleElementType,
+} from '@jsfkit/types';
 
 /** Style values that can (potentially) be omitted. */
 type SkipValue = string | number | boolean | JSFColor | null;
@@ -37,6 +44,39 @@ const addStyle = (obj: Style, key: keyof Style, val: any, skip: SkipValue = null
 };
 
 type Xf = StyleDefs['cellXf'][number];
+type FontProps = NonNullable<Xf['font'] | Dxf['font']>;
+
+/**
+ * Map font members onto Style properties. `skipDefaults` elides values matching the workbook
+ * defaults (the xf path); the dxf path passes false, since a dxf value is explicit even when it
+ * coincides with a default.
+ */
+function addFontStyles (s: Style, font: FontProps, skipDefaults: boolean): void {
+  if (font.scheme) {
+    s.fontScheme = font.scheme;
+  }
+  else {
+    addStyle(s, 'fontFamily', font.name);
+  }
+  addStyle(s, 'fontSize', font.size);
+  addStyle(s, 'color', font.color, skipDefaults ? { type: 'theme', value: 'dk1' } : null);
+  addStyle(s, 'underline', font.underline);
+  addStyle(s, 'bold', font.bold, skipDefaults ? false : null);
+  addStyle(s, 'italic', font.italic, skipDefaults ? false : null);
+}
+
+/** Map border members onto Style properties, skipping colours that match `skipColor` (if given). */
+function addBorderStyles (s: Style, border: NonNullable<Xf['border']>, skipColor: SkipValue = null): void {
+  const { top, bottom, left, right } = border;
+  addStyle(s, 'borderTopStyle', top?.style);
+  addStyle(s, 'borderTopColor', top?.color, skipColor);
+  addStyle(s, 'borderBottomStyle', bottom?.style);
+  addStyle(s, 'borderBottomColor', bottom?.color, skipColor);
+  addStyle(s, 'borderLeftStyle', left?.style);
+  addStyle(s, 'borderLeftColor', left?.color, skipColor);
+  addStyle(s, 'borderRightStyle', right?.style);
+  addStyle(s, 'borderRightColor', right?.color, skipColor);
+}
 
 function convertXf (xf: Xf, styleDefs: StyleDefs): Style {
   const s: Style = {};
@@ -56,18 +96,7 @@ function convertXf (xf: Xf, styleDefs: StyleDefs): Style {
   addStyle(s, 'pivotButton', !!xf.pivotButton, false);
 
   if (xf.font) {
-    const font = xf.font;
-    if (font.scheme) {
-      s.fontScheme = font.scheme;
-    }
-    else {
-      addStyle(s, 'fontFamily', font.name);
-    }
-    addStyle(s, 'fontSize', font.size);
-    addStyle(s, 'color', font.color, { type: 'theme', value: 'dk1' });
-    addStyle(s, 'underline', font.underline);
-    addStyle(s, 'bold', font.bold, false);
-    addStyle(s, 'italic', font.italic, false);
+    addFontStyles(s, xf.font, true);
   }
 
   if (xf.fill) {
@@ -85,15 +114,7 @@ function convertXf (xf: Xf, styleDefs: StyleDefs): Style {
   }
 
   if (xf.border) {
-    const { top, bottom, left, right } = xf.border;
-    addStyle(s, 'borderTopStyle', top?.style);
-    addStyle(s, 'borderTopColor', top?.color, { type: 'indexed', value: 64 });
-    addStyle(s, 'borderBottomStyle', bottom?.style);
-    addStyle(s, 'borderBottomColor', bottom?.color, { type: 'indexed', value: 64 });
-    addStyle(s, 'borderLeftStyle', left?.style);
-    addStyle(s, 'borderLeftColor', left?.color, { type: 'indexed', value: 64 });
-    addStyle(s, 'borderRightStyle', right?.style);
-    addStyle(s, 'borderRightColor', right?.color, { type: 'indexed', value: 64 });
+    addBorderStyles(s, xf.border, { type: 'indexed', value: 64 });
   }
 
   return s;
@@ -121,6 +142,122 @@ function convertNamedStyles (styleDefs: StyleDefs): NamedStyleResult {
   }
 
   return { namedStyles, xfIdToName };
+}
+
+/**
+ * Convert a differential format (dxf) to a JSF Style. A dxf overlays onto existing formatting,
+ * which matches JSF Style's all-properties-optional semantics: only those properties set in the
+ * dxf are present in the result. Unlike {@link convertXf}, workbook defaults are not skipped; a
+ * dxf value is explicit even when it coincides with one (`<b val="0"/>` un-bolds). A `General`
+ * number format is still dropped, though: JSF expresses General as the absence of numberFormat.
+ */
+function convertDxf (dxf: Dxf): Style {
+  const s: Style = {};
+  if (dxf.numFmt && dxf.numFmt.toLowerCase() !== 'general') {
+    s.numberFormat = dxf.numFmt;
+  }
+  addStyle(s, 'horizontalAlignment', dxf.hAlign);
+  addStyle(s, 'verticalAlignment', dxf.vAlign);
+  addStyle(s, 'wrapText', dxf.wrapText);
+  if (dxf.font) {
+    addFontStyles(s, dxf.font, false);
+  }
+  if (dxf.fill) {
+    if (dxf.fill.type === 'solid' || dxf.fill.type === 'none') {
+      // In a dxf, a solid fill's visible colour comes from the background, not the foreground
+      // as in cell xfs. The bundled `pivot-format-records.xlsx` fixture writes a plain yellow
+      // fill as `<patternFill patternType="solid"><bgColor rgb="FFFFFF00"/></patternFill>`. The
+      // `'none'` branch handles a `patternFill` with the patternType attribute absent.
+      addStyle(s, 'fillColor', dxf.fill.bg ?? dxf.fill.fg);
+    }
+    else {
+      addStyle(s, 'fillColor', dxf.fill.bg);
+      addStyle(s, 'patternColor', dxf.fill.fg);
+      addStyle(s, 'patternStyle', dxf.fill.type);
+    }
+  }
+  if (dxf.border) {
+    addBorderStyles(s, dxf.border);
+  }
+  return s;
+}
+
+/**
+ * Convert the styles part's dxf table to JSF Styles, producing the workbook's `diffStyles` table.
+ * The result is 1:1 with the `<dxfs>` table: each entry's array index equals its OOXML dxfId, so a
+ * `PivotFormat.diffStyleId` or `TableStyleElement.diffStyleId` (carried straight through from
+ * `dxfId`) indexes the right entry.
+ */
+export function convertDxfs (dxfs: readonly Dxf[]): Style[] {
+  return dxfs.map(convertDxf);
+}
+
+/** The table region kinds a tableStyleElement may target (OOXML's ST_TableStyleType). */
+const TABLE_STYLE_ELEMENT_TYPES = new Set<TableStyleElementType>([
+  'wholeTable',
+  'headerRow',
+  'totalRow',
+  'firstColumn',
+  'lastColumn',
+  'firstRowStripe',
+  'secondRowStripe',
+  'firstColumnStripe',
+  'secondColumnStripe',
+  'firstHeaderCell',
+  'lastHeaderCell',
+  'firstTotalCell',
+  'lastTotalCell',
+  'firstSubtotalColumn',
+  'secondSubtotalColumn',
+  'thirdSubtotalColumn',
+  'firstSubtotalRow',
+  'secondSubtotalRow',
+  'thirdSubtotalRow',
+  'blankRow',
+  'firstColumnSubheading',
+  'secondColumnSubheading',
+  'thirdColumnSubheading',
+  'firstRowSubheading',
+  'secondRowSubheading',
+  'thirdRowSubheading',
+  'pageFieldLabels',
+  'pageFieldValues',
+]);
+
+/**
+ * Convert the styles part's custom table styles to JSF TableStyleDefinitions keyed by style name.
+ * Each element references the workbook's shared differential-style table by index
+ * ({@link TableStyleElement.diffStyleId} into {@link Workbook.diffStyles}), carried straight
+ * through from the OOXML `dxfId` (the same table {@link convertDxfs} produces). Values matching the
+ * JSF defaults are dropped: the `table` applicability when it is the default `'all'`, and a stripe
+ * size of 1. Elements with an unrecognized region type are dropped entirely; an element with no
+ * `dxfId` keeps its region type and stripe size but carries no `diffStyleId`.
+ *
+ * OOXML carries applicability as two boolean attributes (`table` and `pivot`, both defaulting to
+ * true); JSF collapses that to the tristate {@link TableStyleDefinition.table} (`'all'` by
+ * default). Excel can write `table="0" pivot="0"` (applies to neither), which JSF can't express;
+ * it is treated as the default `'all'`.
+ */
+export function convertTableStyles (
+  tableStyles: readonly TableStyleEntry[],
+): Record<string, TableStyleDefinition> {
+  const result: Record<string, TableStyleDefinition> = {};
+  for (const entry of tableStyles) {
+    const def: TableStyleDefinition = { name: entry.name };
+    if (entry.table !== false && entry.pivot === false) { def.table = 'table'; }
+    else if (entry.pivot !== false && entry.table === false) { def.table = 'pivot'; }
+    const elements: TableStyleElement[] = [];
+    for (const el of entry.elements) {
+      if (!TABLE_STYLE_ELEMENT_TYPES.has(el.type as TableStyleElementType)) { continue; }
+      const element: TableStyleElement = { type: el.type as TableStyleElementType };
+      if (el.size != null && el.size !== 1) { element.size = el.size; }
+      if (el.dxfId != null) { element.diffStyleId = el.dxfId; }
+      elements.push(element);
+    }
+    if (elements.length > 0) { def.elements = elements; }
+    result[entry.name] = def;
+  }
+  return result;
 }
 
 export function convertStyles (styleDefs: StyleDefs): { styles: Style[], namedStyles: Record<string, NamedStyle> } {

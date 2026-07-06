@@ -1,0 +1,294 @@
+{
+  "name": "pivot-format-records.xlsx",
+  "sheets": [
+    {
+      "name": "Data",
+      "cells": {
+        "A1": { "v": "Region" },
+        "B1": { "v": "Sales" },
+        "A2": { "v": "North" },
+        "B2": { "v": 100 },
+        "A3": { "v": "South" },
+        "B3": { "v": 200 },
+        "A4": { "v": "West" },
+        "B4": { "v": 50 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0
+    },
+    {
+      "name": "Pivot",
+      "cells": {
+        "A1": { "v": "Row Labels" },
+        "B1": { "v": "Sum of Sales" },
+        "A2": { "v": "North" },
+        "B2": { "v": 100 },
+        "A3": { "v": "South" },
+        "B3": { "s": 1, "v": 200 },
+        "A4": { "v": "West" },
+        "B4": { "v": 50 },
+        "A5": { "s": 1, "v": "Grand Total" },
+        "B5": { "s": 1, "v": 350 }
+      },
+      "columns": [
+        { "start": 1, "end": 1, "size": 78 },
+        { "start": 2, "end": 2, "size": 84 }
+      ],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontScheme": "minor", "fontSize": 12 },
+    {
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "bold": true,
+      "fillColor": { "type": "srgb", "value": "FFFF00" }
+    }
+  ],
+  "tables": [],
+  "views": [ {} ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "lt1": { "type": "system", "value": "window" },
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "dk2": { "type": "srgb", "value": "0E2841" },
+      "accent1": { "type": "srgb", "value": "156082" },
+      "accent2": { "type": "srgb", "value": "E97132" },
+      "accent3": { "type": "srgb", "value": "196B24" },
+      "accent4": { "type": "srgb", "value": "0F9ED5" },
+      "accent5": { "type": "srgb", "value": "A02B93" },
+      "accent6": { "type": "srgb", "value": "4EA72E" },
+      "hlink": { "type": "srgb", "value": "467886" },
+      "folHlink": { "type": "srgb", "value": "96607D" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Aptos Display" }
+      },
+      "minor": {
+        "latin": { "typeface": "Aptos Narrow" }
+      }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "diffStyles": [
+    {
+      "fillColor": { "type": "srgb", "value": "FFFF00" }
+    },
+    {
+      "fillColor": { "type": "srgb", "value": "FFFF00" }
+    },
+    { "bold": true },
+    { "bold": true },
+    {
+      "fillColor": { "type": "srgb", "value": "FFFF00" }
+    },
+    { "bold": true }
+  ],
+  "pivotTables": [
+    {
+      "name": "PT1",
+      "sheet": "Pivot",
+      "ref": "A1:B5",
+      "location": {
+        "firstHeaderRow": 1,
+        "firstDataRow": 1,
+        "firstDataCol": 1
+      },
+      "fields": [
+        {
+          "axis": "row",
+          "items": [
+            { "itemIndex": 0 },
+            { "itemIndex": 1 },
+            { "itemIndex": 2 },
+            { "itemType": "default" }
+          ]
+        },
+        { "dataField": true }
+      ],
+      "rowFieldIndices": [ 0 ],
+      "dataFields": [
+        {
+          "fieldIndex": 1,
+          "name": "Sum of Sales",
+          "baseItem": 0
+        }
+      ],
+      "rowItems": [
+        {
+          "itemIndices": [ 0 ]
+        },
+        {
+          "itemIndices": [ 1 ]
+        },
+        {
+          "itemIndices": [ 2 ]
+        },
+        {
+          "itemIndices": [ 0 ],
+          "itemType": "grand"
+        }
+      ],
+      "colItems": [ {} ],
+      "style": {
+        "name": "PivotStyleLight16",
+        "showRowHeaders": true,
+        "showColumnHeaders": true,
+        "showRowStripes": false,
+        "showColumnStripes": false,
+        "showLastColumn": true
+      },
+      "formats": [
+        {
+          "pivotArea": {
+            "collapsedLevelsAreSubtotals": true,
+            "fieldPosition": 0,
+            "references": [ {
+                "field": 0,
+                "itemIndices": [ 1 ]
+              } ]
+          },
+          "diffStyleId": 5
+        },
+        {
+          "pivotArea": {
+            "collapsedLevelsAreSubtotals": true,
+            "fieldPosition": 0,
+            "references": [ {
+                "field": 0,
+                "itemIndices": [ 1 ]
+              } ]
+          },
+          "diffStyleId": 4
+        },
+        {
+          "pivotArea": {
+            "grandRow": true,
+            "outline": false,
+            "collapsedLevelsAreSubtotals": true,
+            "fieldPosition": 0
+          },
+          "diffStyleId": 3
+        },
+        {
+          "pivotArea": {
+            "dataOnly": false,
+            "labelOnly": true,
+            "grandRow": true,
+            "outline": false,
+            "fieldPosition": 0
+          },
+          "diffStyleId": 2
+        },
+        {
+          "pivotArea": {
+            "grandRow": true,
+            "outline": false,
+            "collapsedLevelsAreSubtotals": true,
+            "fieldPosition": 0
+          },
+          "diffStyleId": 1
+        },
+        {
+          "pivotArea": {
+            "dataOnly": false,
+            "labelOnly": true,
+            "grandRow": true,
+            "outline": false,
+            "fieldPosition": 0
+          },
+          "diffStyleId": 0
+        }
+      ],
+      "outline": true,
+      "outlineData": true,
+      "itemPrintTitles": true,
+      "multipleFieldFilters": false,
+      "useAutoFormatting": true,
+      "applyNumberFormats": false,
+      "applyBorderFormats": false,
+      "applyFontFormats": false,
+      "applyPatternFormats": false,
+      "applyAlignmentFormats": false,
+      "applyWidthHeightFormats": true,
+      "indent": 0,
+      "dataCaption": "Values",
+      "uid": "{00000000-0007-0000-0100-000000000000}",
+      "cache": {
+        "sourceType": "worksheet",
+        "worksheetSource": { "type": "range", "ref": "A1:B4", "sheet": "Data" },
+        "fields": [
+          {
+            "name": "Region",
+            "sharedItems": [
+              { "t": "s", "v": "North" },
+              { "t": "s", "v": "South" },
+              { "t": "s", "v": "West" }
+            ]
+          },
+          {
+            "name": "Sales",
+            "sharedItemsMeta": {
+              "containsSemiMixedTypes": false,
+              "containsString": false,
+              "containsNumber": true,
+              "containsInteger": true,
+              "minValue": 50,
+              "maxValue": 200
+            }
+          }
+        ],
+        "refreshedDate": 0,
+        "uid": "{00000000-000A-0000-FFFF-FFFF00000000}",
+        "records": [
+          [
+            { "t": "x", "v": 0 },
+            { "t": "n", "v": 100 }
+          ],
+          [
+            { "t": "x", "v": 1 },
+            { "t": "n", "v": 200 }
+          ],
+          [
+            { "t": "x", "v": 2 },
+            { "t": "n", "v": 50 }
+          ]
+        ]
+      }
+    }
+  ],
+  "formulas": [],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
+}
