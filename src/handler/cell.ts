@@ -240,7 +240,7 @@ export function handlerCell (node: Element, address: string, context: Conversion
     cell.v == null &&
     cell.f == null &&
     cell.dt == null &&
-    (!cell.s || (!context.options.keepStyledEmptyCells && !relevantStyle(context.workbook!.styles?.[cell.s])))
+    (!cell.s || (context.options.skipStyledEmptyCells && !relevantStyle(context.workbook!.styles?.[cell.s])))
   ) {
     return;
   }

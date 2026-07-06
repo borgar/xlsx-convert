@@ -44,7 +44,7 @@ function toArrayBuffer (buffer: Buffer): ArrayBuffer {
 const DEFAULT_OPTIONS: ConversionOptions = {
   skipMerged: true,
   cellFormulas: false,
-  keepStyledEmptyCells: false,
+  skipStyledEmptyCells: false,
 };
 
 /**

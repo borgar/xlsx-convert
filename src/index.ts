@@ -17,13 +17,13 @@ export type ConversionOptions = {
    */
   cellFormulas?: boolean;
   /**
-   * Keep cells that carry a style but no value, formula, or data table (e.g. a blank cell
-   * pre-formatted with a date number format). By default such cells are dropped unless their
-   * style has "visible" formatting (fill, border, etc.); enable this to retain the style/number
-   * format on otherwise empty cells too.
+   * Drop cells that carry a style but no value, formula, or data table (e.g. a blank cell
+   * pre-formatted with a date number format), unless their style has "visible" formatting
+   * (fill, border, etc.). By default such style-only cells are retained so the style/number
+   * format is preserved; enable this to drop them.
    * @defaultValue false
    */
-  keepStyledEmptyCells?: boolean;
+  skipStyledEmptyCells?: boolean;
   /**
    * Image reading callback. All read images are passed through this callback if it is provided.
    * This is useful, for example, for extracting the images to disk.
@@ -57,7 +57,7 @@ export type { MdwResolver } from './utils/mdw.ts';
  * @param options Conversion options
  * @param [options.skipMerged] Skip any redundant cells that are a part of merges.
  * @param [options.cellFormulas] Formulas are attached to cells rather than being included separately.
- * @param [options.keepStyledEmptyCells] Keep cells that carry a style but no value/formula/data table.
+ * @param [options.skipStyledEmptyCells] Drop cells that carry a style but no value/formula/data table.
  * @return A JSON spreadsheet object.
  */
 export async function convert (

@@ -248,11 +248,11 @@ describe('convertBinary', () => {
     });
   });
 
-  describe('keepStyledEmptyCells', () => {
+  describe('skipStyledEmptyCells', () => {
     // numbers.xlsx style index 1 is a numFmt-only style (numberFormat "0.00E+00", no
     // fill/border), i.e. a style with no "visible" formatting. Inject a value-less
     // <c r="B1" s="1"/> cell into row 1 to get a style-only cell of the kind that is
-    // otherwise dropped: <c r="C2" s="1"/> with a date number format, no <v>/<f>.
+    // dropped only when skipStyledEmptyCells is enabled.
     async function withStyleOnlyCell (): Promise<ArrayBuffer> {
       const bin = await readFileAsArrayBuffer('./tests/excel/numbers.xlsx');
       const zip = new ZipArchive(bin);
@@ -265,14 +265,14 @@ describe('convertBinary', () => {
       return zip.toArrayBuffer();
     }
 
-    test('style-only cell is dropped by default', async () => {
+    test('style-only cell is retained by default', async () => {
       const wb = await convertBinary(await withStyleOnlyCell(), 'numbers.xlsx');
-      expect(wb.sheets[0].cells.B1).toBeUndefined();
+      expect(wb.sheets[0].cells.B1).toEqual({ s: 1 });
     });
 
-    test('style-only cell is retained with keepStyledEmptyCells: true', async () => {
-      const wb = await convertBinary(await withStyleOnlyCell(), 'numbers.xlsx', { keepStyledEmptyCells: true });
-      expect(wb.sheets[0].cells.B1).toEqual({ s: 1 });
+    test('style-only cell is dropped with skipStyledEmptyCells: true', async () => {
+      const wb = await convertBinary(await withStyleOnlyCell(), 'numbers.xlsx', { skipStyledEmptyCells: true });
+      expect(wb.sheets[0].cells.B1).toBeUndefined();
     });
   });
 });

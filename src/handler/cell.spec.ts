@@ -19,26 +19,25 @@ describe('handlerCell style-only cells', () => {
   // <c r="C2" s="1"/> -- a cell with a style index but no <v>/<f>/<is>, e.g. a
   // blank cell pre-formatted with a date number format.
 
-  it('drops a style-only cell with a non-visible style (e.g. a number format) by default', () => {
+  it('retains a style-only cell with a non-visible style (e.g. a number format) by default', () => {
     const ctx = contextWithStyles([ {}, { numberFormat: 'mm-dd-yy' } ]);
-
-    const cell = parseCell('<c r="C2" s="1"/>', 'C2', ctx);
-
-    expect(cell).toBeUndefined();
-  });
-
-  it('retains a style-only cell and its style when keepStyledEmptyCells is enabled', () => {
-    const ctx = contextWithStyles([ {}, { numberFormat: 'mm-dd-yy' } ]);
-    ctx.options.keepStyledEmptyCells = true;
 
     const cell = parseCell('<c r="C2" s="1"/>', 'C2', ctx);
 
     expect(cell).toEqual({ s: 1 });
   });
 
-  it('still drops a fully blank cell (no style) when keepStyledEmptyCells is enabled', () => {
+  it('drops a style-only cell with a non-visible style when skipStyledEmptyCells is enabled', () => {
+    const ctx = contextWithStyles([ {}, { numberFormat: 'mm-dd-yy' } ]);
+    ctx.options.skipStyledEmptyCells = true;
+
+    const cell = parseCell('<c r="C2" s="1"/>', 'C2', ctx);
+
+    expect(cell).toBeUndefined();
+  });
+
+  it('drops a fully blank cell (no style)', () => {
     const ctx = contextWithStyles([ {} ]);
-    ctx.options.keepStyledEmptyCells = true;
 
     const cell = parseCell('<c r="C2"/>', 'C2', ctx);
 
