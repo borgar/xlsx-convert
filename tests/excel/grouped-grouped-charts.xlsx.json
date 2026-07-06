@@ -42,9 +42,19 @@
                   "content": [
                     {
                       "type": "chart",
+                      "id": "13",
+                      "name": "Chart 12",
+                      "chartId": "xl/charts/chartEx1.xml",
+                      "xfrm": {
+                        "off": { "x": 7429500, "y": 2235200 },
+                        "ext": { "cx": 2882900, "cy": 2882900 }
+                      }
+                    },
+                    {
+                      "type": "chart",
                       "id": "14",
                       "name": "Chart 13",
-                      "chartId": "rId2",
+                      "chartId": "xl/charts/chart1.xml",
                       "xfrm": {
                         "off": { "x": 4127500, "y": 2235200 },
                         "ext": { "cx": 2882900, "cy": 2882900 }
@@ -62,7 +72,7 @@
                   "type": "chart",
                   "id": "15",
                   "name": "Chart 14",
-                  "chartId": "rId3",
+                  "chartId": "xl/charts/chart2.xml",
                   "xfrm": {
                     "off": { "x": 8153400, "y": 1016000 },
                     "ext": { "cx": 2429142, "cy": 2476500 }

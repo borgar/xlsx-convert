@@ -50,6 +50,7 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
         value: normalizeFormula(d.textContent, context),
       };
       const hidden = boolAttr(d, 'hidden');
+      context.nameDefs.set(name.name, name);
       if (hidden) {
         return;
       }
@@ -62,6 +63,9 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
 
   const pr = dom.querySelectorAll('workbook > workbookPr')[0];
   const epoch = (pr && numAttr(pr, 'date1904')) ? 1904 : 1900;
+
+  // if theme is missing later, we can use this to determine which defaults to use
+  context.defaultThemeVersion = pr?.getAttribute('defaultThemeVersion') || '0';
 
   const calcPr = dom.getElementsByTagName('calcPr')[0];
   if (calcPr) {

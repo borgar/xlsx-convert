@@ -1,6 +1,6 @@
 {
   "name": "@borgar/xlsx-convert",
-  "version": "5.4.0",
+  "version": "5.5.0",
   "description": "Utility to convert Excel XLSX files to JSON",
   "type": "module",
   "source": "src/index.ts",
@@ -11,6 +11,11 @@
       "require": "./dist/index.cjs",
       "types": "./dist/index.d.cts",
       "default": "./dist/index.js"
+    },
+    "./future": {
+      "require": "./dist/index-future.cjs",
+      "types": "./dist/index-future.d.cts",
+      "default": "./dist/index-future.js"
     }
   },
   "bin": {
@@ -41,7 +46,10 @@
   ],
   "tsdown": [
     {
-      "entry": "src/index.ts",
+      "entry": [
+        "src/index.ts",
+        "src/index-future.ts"
+      ],
       "platform": "neutral",
       "format": [
         "esm",
@@ -78,26 +86,23 @@
     "@borgar/simple-xml": "~2.2.2",
     "@borgar/zip": "~1.0.0",
     "@jsfkit/types": "~2.5.0",
+    "@jsfkit/utils": "~1.2.0",
     "numfmt": "~3.2.6"
-  },
-  "peerDependencies": {
-    "@jsfkit/utils": "~1.0.2"
   },
   "devDependencies": {
     "@borgar/eslint-config": "~4.1.0",
     "@eslint/js": "~10.0.1",
-    "@jsfkit/utils": "~1.0.2",
-    "@types/node": "~25.9.3",
+    "@types/node": "~26.0.1",
     "concat-md": "~0.5.1",
     "eslint": "~10.5.0",
-    "globals": "~17.6.0",
+    "globals": "~17.7.0",
     "tinybench": "~6.0.2",
     "tsdown": "~0.22.3",
     "tsup": "~8.5.1",
     "typedoc": "~0.28.19",
     "typedoc-plugin-markdown": "~4.12.0",
     "typescript": "~6.0.3",
-    "typescript-eslint": "~8.61.1",
+    "typescript-eslint": "~8.62.0",
     "vitest": "~4.1.9"
   }
 }
