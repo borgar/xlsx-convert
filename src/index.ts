@@ -17,6 +17,11 @@ export type ConversionOptions = {
    */
   cellFormulas?: boolean;
   /**
+   * Drop cells that have a style but no value or formula, unless the style is visible (fill, border, etc.).
+   * @defaultValue false
+   */
+  skipStyledEmptyCells?: boolean;
+  /**
    * Image reading callback. All read images are passed through this callback if it is provided.
    * This is useful, for example, for extracting the images to disk.
    *
@@ -49,6 +54,7 @@ export type { MdwResolver } from './utils/mdw.ts';
  * @param options Conversion options
  * @param [options.skipMerged] Skip any redundant cells that are a part of merges.
  * @param [options.cellFormulas] Formulas are attached to cells rather than being included separately.
+ * @param [options.skipStyledEmptyCells] Drop cells that carry a style but no value/formula/data table.
  * @return A JSON spreadsheet object.
  */
 export async function convert (

@@ -51,6 +51,7 @@ export type ExtendedWorkbook = Workbook & { charts?: Record<string, ChartSpace> 
 const DEFAULT_OPTIONS: ConversionOptions = {
   skipMerged: true,
   cellFormulas: false,
+  skipStyledEmptyCells: false,
 };
 
 /**

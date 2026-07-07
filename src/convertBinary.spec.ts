@@ -247,4 +247,30 @@ describe('convertBinary', () => {
       expect(wb.calculationProperties?.fullCalcOnLoad).toBe(true);
     });
   });
+
+  describe('skipStyledEmptyCells', () => {
+    // Style 1 in numbers.xlsx is numFmt-only (no fill/border), i.e. not "visible".
+    // Inject a value-less <c r="B1" s="1"/> to make a style-only cell.
+    async function withStyleOnlyCell (): Promise<ArrayBuffer> {
+      const bin = await readFileAsArrayBuffer('./tests/excel/numbers.xlsx');
+      const zip = new ZipArchive(bin);
+      const sheetXml = await zip.readText('xl/worksheets/sheet1.xml');
+      const modified = sheetXml!.replace(
+        '<c r="A1"><v>0</v></c></row>',
+        '<c r="A1"><v>0</v></c><c r="B1" s="1"/></row>',
+      );
+      await zip.write('xl/worksheets/sheet1.xml', modified);
+      return zip.toArrayBuffer();
+    }
+
+    test('style-only cell is retained by default', async () => {
+      const wb = await convertBinary(await withStyleOnlyCell(), 'numbers.xlsx');
+      expect(wb.sheets[0].cells.B1).toEqual({ s: 1 });
+    });
+
+    test('style-only cell is dropped with skipStyledEmptyCells: true', async () => {
+      const wb = await convertBinary(await withStyleOnlyCell(), 'numbers.xlsx', { skipStyledEmptyCells: true });
+      expect(wb.sheets[0].cells.B1).toBeUndefined();
+    });
+  });
 });
