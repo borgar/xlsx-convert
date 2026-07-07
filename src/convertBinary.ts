@@ -20,6 +20,7 @@ import { handlerComments } from './handler/comments.ts';
 import { handlerNotes } from './handler/notes.ts';
 import { handlerWorksheet } from './handler/worksheet.ts';
 import { handlerExternal } from './handler/external.ts';
+import { handlerConnections } from './handler/connections.ts';
 import { handlerTable } from './handler/table.ts';
 import { handlerPivotCacheDefinition } from './handler/pivotTables/pivotCacheDefinition.ts';
 import { handlerPivotCacheRecords } from './handler/pivotTables/pivotCacheRecords.ts';
@@ -197,6 +198,12 @@ export async function convertBinary (
   // copy external links in
   if (context.externalLinks.length) {
     wb.externals = context.externalLinks;
+  }
+
+  // data connections (xl/connections.xml) — the external sources pivot caches point at
+  const connections = await maybeRead(context, 'connections', handlerConnections, null);
+  if (connections?.length) {
+    wb.connections = connections;
   }
 
   // strings
