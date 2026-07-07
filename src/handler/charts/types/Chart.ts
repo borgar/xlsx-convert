@@ -19,5 +19,8 @@ export type Chart = {
   sideWall?: Surface;
   backWall?: Surface;
   legend?: Legend;
+  /**
+   * @default "zero"
+   */
   dispBlanksAs?: DispBlanksAs;
 };
