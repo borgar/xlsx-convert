@@ -171,7 +171,7 @@ export function readAxis (element: Element, context: ConversionContext): ValAx |
         addProp(out, 'majorUnit', numValElm(child));
       }
       else if (tag === 'minorUnit') {
-        addProp(out, 'majorUnit', numValElm(child));
+        addProp(out, 'minorUnit', numValElm(child));
       }
       else if (tag === 'baseTimeUnit') {
         addProp(out, 'baseTimeUnit', strValElm<TimeUnit>(child, 'days'), 'days');
