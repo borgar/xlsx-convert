@@ -807,6 +807,7 @@ type ConversionOptions = {
   imageCallback?: (data?: ArrayBuffer, filename?: string) => Promise<string | void> | string | void;
   resolveMdw?: MdwResolver;
   skipMerged?: boolean;
+  skipStyledEmptyCells?: boolean;
   warn?: (message: string) => void;
 };
 ```
@@ -821,6 +822,7 @@ Convertion options
 | <a id="imagecallback"></a> `imageCallback?` | (`data?`: `ArrayBuffer`, `filename?`: `string`) => `Promise`\<`string` \| `void`\> \| `string` \| `void` | `undefined` | Image reading callback. All read images are passed through this callback if it is provided. This is useful, for example, for extracting the images to disk. If the return value is a string, the value will be used in the images record on the workbook instead of the standard data-URI conversion. |
 | <a id="resolvemdw"></a> `resolveMdw?` | [`MdwResolver`](#type-aliasesmdwresolvermd) | `undefined` | Resolve the Max Digit Width (in pixels) for the workbook's Normal font, used to convert column widths from OOXML character units to pixels. Returning null/undefined defers to the built-in table (Aptos Narrow, Calibri, Arial); unknown fonts then fall back to MDW 6 (and warn). Supply this to size columns correctly for fonts outside the table. |
 | <a id="skipmerged"></a> `skipMerged?` | `boolean` | `true` | Skip cells that are a part of merges. |
+| <a id="skipstyledemptycells"></a> `skipStyledEmptyCells?` | `boolean` | `false` | Drop cells that have a style but no value or formula, unless the style is visible (fill, border, etc.). |
 | <a id="warn"></a> `warn?` | (`message`: `string`) => `void` | `undefined` | Warning callback. If provided, warnings are passed to this function; otherwise they are silently discarded. |
 
 
