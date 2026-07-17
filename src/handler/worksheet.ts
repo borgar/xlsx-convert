@@ -54,7 +54,7 @@ export function handlerWorksheet (
     rows: [],
     merges: [],
     defaults: {
-      colWidth: colWidth(10, 5, context.normalMdw)!,
+      colWidth: colWidth(8, 5, context.normalMdw)!,
       rowHeight: 16,
     },
     // drawings: [],
@@ -119,7 +119,7 @@ export function handlerWorksheet (
     sheet.defaults!.colWidth =
       colWidth(defaultColWidthChars, 0, context.normalMdw) ??
       colWidth(baseColWidthChars, 5, context.normalMdw) ??
-      colWidth(10, 5, context.normalMdw)!;
+      colWidth(8, 5, context.normalMdw)!;
     const rowHt = numAttr(sheetFormatPr, 'defaultRowHeight', null);
     if (rowHt != null) {
       sheet.defaults!.rowHeight = rowHt;
@@ -231,7 +231,7 @@ export function handlerWorksheet (
   });
 
   // run-length encode the row heights
-  sheet.rows = rle(rows, sheet.defaults!.rowHeight);
+  sheet.rows = rle(rows);
 
   // add .F tags to array formula cells
   context._arrayFormula.forEach(arrayRef => {
