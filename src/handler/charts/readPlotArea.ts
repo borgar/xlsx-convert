@@ -40,6 +40,7 @@ import { addProp } from '../../utils/addProp.ts';
 import { readShapeProperties } from '../drawings/readShapeProperties.ts';
 import { readSeries } from './readSeries.ts';
 import { readAxis } from './readAxis.ts';
+import { readLayout } from './readLayout.ts';
 import { readDLbls } from './readDLbls.ts';
 import { readNumFmt } from './readNumFmt.ts';
 import { readTextProps } from './readTextProps.ts';
@@ -90,8 +91,18 @@ function readPlot (element: Element, context: ConversionContext) {
   addProp(out, 'barDir', strValElm(element.querySelector('barDir')!)); // col | row
   addProp(out, 'grouping', strValElm(element.querySelector('grouping')!)); // clustered
 
+  // Excel's "vary colors by point" default when c:varyColors is ABSENT: ON for pie-likes and
+  // bar charts -- the val attribute defaults to 1 and Excel applies that to the omitted element
+  // (Excel-authored files always write an explicit val="0"; non-Excel producers omit it: both a
+  // Google-Sheets export and an openpyxl single-series bar render vary-by-point in Excel, with
+  // category legends). Other chart types stay OFF until evidenced. Note that Excel's per-point
+  // LEGEND does not key on this flag alone -- a single series with per-point dPt formats gets a
+  // category legend even with an explicit varyColors=0 -- so renderers should not treat false
+  // as "series legend". Emit the resolved value so consumers never have to guess.
   const varyColorsElm = element.querySelector('varyColors');
-  addProp(out, 'varyColors', varyColorsElm ? boolValElm(varyColorsElm, true) : true, false);
+  const varyDefault = out.type === 'pie' || out.type === 'pie3d' || out.type === 'doughnut' ||
+    out.type === 'ofPie' || out.type === 'bar' || out.type === 'bar3d';
+  out.varyColors = varyColorsElm ? boolValElm(varyColorsElm, true) : varyDefault;
   addProp(out, 'gapWidth', numValElm(element.querySelector('gapWidth')!));
   addProp(out, 'overlap', numValElm(element.querySelector('overlap')!));
   // Use getFirstChild instead of querySelector to avoid matching series-level <marker> elements.
@@ -408,7 +419,9 @@ export function readPlotArea (
 
   for (const child of element.children) {
     if (!isChartx && child.tagName === 'layout') {
-      // addProp(out, 'layout', readLayout(child, context));
+      // Manual plot-area placement (c:manualLayout, incl. layoutTarget inner/outer). Excel
+      // honors this rect directly; renderers should prefer it over automatic layout.
+      addProp(out, 'layout', readLayout(child));
     }
     else if (child.tagName === 'spPr') {
       addProp(out, 'shape', readShapeProperties(child, context));

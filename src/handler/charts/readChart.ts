@@ -24,6 +24,7 @@ import type { ConversionContext } from '../../ConversionContext.ts';
 import { readLegend } from './readLegend.ts';
 import { boolValElm, strValElm } from './utils/valElm.ts';
 import { readTitle } from './readTitle.ts';
+import { readPivotFmts } from './readPivotFmts.ts';
 import { readPlotArea, type FmtOvrsMap } from './readPlotArea.ts';
 import type { Chart } from './types/Chart.ts';
 import type { ChartEx } from './types/ChartEx.ts';
@@ -59,7 +60,7 @@ export function readChart (
       addProp(out, 'autoTitleDeleted', boolValElm(child), false);
     }
     else if (child.tagName === 'pivotFmts') {
-      // addProp(out, 'pivotFmts', readPivotFmts(child, context));
+      addProp(out, 'pivotFmts', readPivotFmts(child, context));
     }
     else if (child.tagName === 'view3D') {
       // addProp(out, 'view3D', readView3D(child, context));
@@ -84,7 +85,10 @@ export function readChart (
       addProp(out, 'plotVisOnly', boolValElm(child), false);
     }
     else if (child.tagName === 'dispBlanksAs') {
-      addProp(out, 'dispBlanksAs', strValElm(child, 'gap'), 'gap');
+      // Keeping an explicit "gap": presence matters. The ECMA-376 default for an ABSENT
+      // dispBlanksAs element is "zero" (legacy charts omit it and Excel plots blanks at 0),
+      // while modern Excel writes "gap" explicitly and suppressing it would erase the distinction.
+      addProp(out, 'dispBlanksAs', strValElm(child, 'gap'));
     }
     else if (child.tagName === 'showDLblsOverMax') {
       addProp(out, 'showDLblsOverMax', boolValElm(child), false);

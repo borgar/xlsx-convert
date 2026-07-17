@@ -41,21 +41,24 @@ export function readDataSource (element: Element): DataSource | undefined {
   //   <element name="strLit" type="CT_StrData" minOccurs="1" maxOccurs="1" />
   const ch = getFirstChild(element);
   if (ch?.tagName === 'numRef') {
-    data = { type: 'numRef', f: '' } as NumRef;
+    data = { type: 'numRef', f: '' };
     data.f = getFirstChild(ch, 'f')?.textContent ?? '';
     // if (context.options.includeCacheData) {
     //   readCacheData(ch, data);
     // }
   }
-  if (ch?.tagName === 'strRef') {
-    data = { type: 'strRef', f: '' } as StrRef;
+  else if (ch?.tagName === 'strRef') {
+    data = { type: 'strRef', f: '' };
     data.f = getFirstChild(ch, 'f')?.textContent ?? '';
     // if (context.options.includeCacheData) {
     //   readCacheData(ch, data);
     // }
   }
-  else {
-    // console.log(ch.toString());
+  else if (ch?.tagName === 'multiLvlStrRef') {
+    // Multi-level (grouped) category/x references span several columns. Consumers resolve the
+    // cells through `f` like the other ref types; dropping the element would lose the series'
+    // category or x data entirely.
+    data = { type: 'mlStrRef', f: getFirstChild(ch, 'f')?.textContent ?? '' };
   }
 
   return data;

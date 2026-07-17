@@ -18,7 +18,9 @@ const DML_ROT_UNSET = -60000000;
 
 // XXX: add more props
 export function readTextProps (elm: Element | null, context: ConversionContext): TextProps | undefined {
-  if (elm?.tagName === 'txPr') {
+  // A rich text block (c:tx/c:rich) shares txPr's internal shape (bodyPr + a:p/a:pPr/defRPr) and
+  // is where titles usually carry their font styling.
+  if (elm?.tagName === 'txPr' || elm?.tagName === 'rich') {
     const text: TextProps = {};
     elm.children.forEach(child => {
       if (child.tagName === 'bodyPr') {
