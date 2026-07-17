@@ -1,6 +1,12 @@
 import type { GridSize } from '@jsfkit/types';
 
-export function rle (list: GridSize[], defaultSize: number): GridSize[] {
+/**
+ * Run-length encode a list of grid sizes. When `defaultSize` is given, entries whose size equals
+ * it (and that carry no style) are dropped as redundant. Omit it to keep every explicit size: an
+ * explicit row height is a PINNED height even when it happens to equal the sheet default, and
+ * Excel renders pinned and auto heights differently (auto rows derive from the font).
+ */
+export function rle (list: GridSize[], defaultSize?: number): GridSize[] {
   let lastItem: GridSize = {
     start: NaN,
     end: NaN,
@@ -34,7 +40,7 @@ export function rle (list: GridSize[], defaultSize: number): GridSize[] {
       return newList;
     }, [])
     .filter(d => {
-      const hasSize = d.size != null && d.size !== defaultSize;
+      const hasSize = d.size != null && (defaultSize == null || d.size !== defaultSize);
       const hasStyle = d.s != null;
       return hasSize || hasStyle;
     });

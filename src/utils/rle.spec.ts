@@ -93,6 +93,17 @@ describe('rle', () => {
   });
 
   describe('default value filtering', () => {
+    it('keeps sizes equal to the default when no default is given (pinned heights)', () => {
+      // An explicit row height equal to the sheet default is still a PINNED height; consumers
+      // that render pinned and auto rows differently need the entry preserved.
+      const input: GridSize[] = [
+        { start: 1, end: 1, size: 20 },
+        { start: 2, end: 2, size: 20 },
+      ];
+      expect(rle(input)).toEqual([ { start: 1, end: 2, size: 20 } ]);
+    });
+
+
     it('should filter out items with default value', () => {
       const input: GridSize[] = [
         { start: 1, end: 1, size: 30 },
