@@ -402,7 +402,12 @@ export async function convertBinary (
           if (img.type === 'drawing' && img.rel.type === 'drawing') {
             const drawingDom = await getFile(img.rel.target);
             context.drawingRels = await getRels(img.rel.target);
-            sh.drawings = handlerDrawing(drawingDom, context);
+            let drawings = handlerDrawing(drawingDom, context);
+            // don't emit charts unless we're in "chart mode"
+            if (!CHARTS_ENABLED) {
+              drawings = drawings.filter(d => d.content[0]?.type !== 'chart');
+            }
+            sh.drawings = drawings;
           }
         }
         if (imageCount) {
