@@ -89,70 +89,6 @@
         {
           "anchor": {
             "type": "twoCell",
-            "from": { "row": 5, "rowOff": 1, "col": 0, "colOff": 266701 },
-            "to": { "row": 14, "rowOff": 25400, "col": 8, "colOff": 160868 }
-          },
-          "content": [
-            {
-              "type": "chart",
-              "id": "2",
-              "name": "Chart 1",
-              "chartId": "xl/charts/chart1.xml",
-              "xfrm": {
-                "ext": { "cx": 0, "cy": 0 }
-              }
-            }
-          ]
-        },
-        {
-          "anchor": {
-            "type": "twoCell",
-            "from": { "row": 5, "rowOff": 8465, "col": 16, "colOff": 491066 },
-            "to": {
-              "row": 14,
-              "rowOff": 59266,
-              "col": 18,
-              "colOff": 753532
-            }
-          },
-          "content": [
-            {
-              "type": "chart",
-              "id": "5",
-              "name": "Chart 4",
-              "chartId": "xl/charts/chart2.xml",
-              "xfrm": {
-                "ext": { "cx": 0, "cy": 0 }
-              }
-            }
-          ]
-        },
-        {
-          "anchor": {
-            "type": "twoCell",
-            "from": { "row": 5, "rowOff": 8467, "col": 8, "colOff": 423334 },
-            "to": {
-              "row": 14,
-              "rowOff": 160867,
-              "col": 16,
-              "colOff": 313268
-            }
-          },
-          "content": [
-            {
-              "type": "chart",
-              "id": "6",
-              "name": "Chart 5",
-              "chartId": "xl/charts/chart3.xml",
-              "xfrm": {
-                "ext": { "cx": 0, "cy": 0 }
-              }
-            }
-          ]
-        },
-        {
-          "anchor": {
-            "type": "twoCell",
             "from": {
               "row": 16,
               "rowOff": 245533,
@@ -294,10 +230,10 @@
     "name": "Integral",
     "colorScheme": {
       "name": "Integral",
-      "lt1": { "type": "system", "value": "window" },
       "dk1": { "type": "system", "value": "windowText" },
-      "lt2": { "type": "srgb", "value": "DFE3E5" },
+      "lt1": { "type": "system", "value": "window" },
       "dk2": { "type": "srgb", "value": "335B74" },
+      "lt2": { "type": "srgb", "value": "DFE3E5" },
       "accent1": { "type": "srgb", "value": "1CADE4" },
       "accent2": { "type": "srgb", "value": "2683C6" },
       "accent3": { "type": "srgb", "value": "27CED7" },

@@ -38,133 +38,7 @@
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
       "views": [ { "workbookView": 0, "activeCell": "F16" } ],
-      "drawings": [
-        {
-          "anchor": {
-            "type": "twoCell",
-            "from": { "row": 0, "rowOff": 88900, "col": 5, "colOff": 203200 },
-            "to": {
-              "row": 13,
-              "rowOff": 190500,
-              "col": 10,
-              "colOff": 647700
-            }
-          },
-          "content": [
-            {
-              "type": "chart",
-              "id": "3",
-              "name": "Chart 2",
-              "chartId": "xl/charts/chart1.xml",
-              "xfrm": {
-                "ext": { "cx": 0, "cy": 0 }
-              }
-            }
-          ]
-        },
-        {
-          "anchor": {
-            "type": "twoCell",
-            "from": { "row": 0, "rowOff": 88900, "col": 11, "colOff": 203200 },
-            "to": {
-              "row": 13,
-              "rowOff": 190500,
-              "col": 16,
-              "colOff": 647700
-            }
-          },
-          "content": [
-            {
-              "type": "chart",
-              "id": "9",
-              "name": "Chart 8",
-              "chartId": "xl/charts/chart2.xml",
-              "xfrm": {
-                "ext": { "cx": 0, "cy": 0 }
-              }
-            }
-          ]
-        },
-        {
-          "anchor": {
-            "type": "twoCell",
-            "from": { "row": 0, "rowOff": 88900, "col": 17, "colOff": 203200 },
-            "to": {
-              "row": 13,
-              "rowOff": 190500,
-              "col": 22,
-              "colOff": 647700
-            }
-          },
-          "content": [
-            {
-              "type": "chart",
-              "id": "11",
-              "name": "Chart 10",
-              "chartId": "xl/charts/chart3.xml",
-              "xfrm": {
-                "ext": { "cx": 0, "cy": 0 }
-              }
-            }
-          ]
-        },
-        {
-          "anchor": {
-            "type": "twoCell",
-            "from": {
-              "row": 15,
-              "rowOff": 88900,
-              "col": 11,
-              "colOff": 203200
-            },
-            "to": {
-              "row": 28,
-              "rowOff": 190500,
-              "col": 16,
-              "colOff": 647700
-            }
-          },
-          "content": [
-            {
-              "type": "chart",
-              "id": "13",
-              "name": "Chart 12",
-              "chartId": "xl/charts/chart4.xml",
-              "xfrm": {
-                "ext": { "cx": 0, "cy": 0 }
-              }
-            }
-          ]
-        },
-        {
-          "anchor": {
-            "type": "twoCell",
-            "from": {
-              "row": 15,
-              "rowOff": 88900,
-              "col": 17,
-              "colOff": 203200
-            },
-            "to": {
-              "row": 28,
-              "rowOff": 190500,
-              "col": 22,
-              "colOff": 647700
-            }
-          },
-          "content": [
-            {
-              "type": "chart",
-              "id": "14",
-              "name": "Chart 13",
-              "chartId": "xl/charts/chart5.xml",
-              "xfrm": {
-                "ext": { "cx": 0, "cy": 0 }
-              }
-            }
-          ]
-        }
-      ]
+      "drawings": []
     }
   ],
   "names": [],
@@ -181,10 +55,10 @@
     "name": "Office Theme",
     "colorScheme": {
       "name": "Office",
-      "lt1": { "type": "system", "value": "window" },
       "dk1": { "type": "system", "value": "windowText" },
-      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "lt1": { "type": "system", "value": "window" },
       "dk2": { "type": "srgb", "value": "0E2841" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
       "accent1": { "type": "srgb", "value": "156082" },
       "accent2": { "type": "srgb", "value": "E97132" },
       "accent3": { "type": "srgb", "value": "196B24" },
