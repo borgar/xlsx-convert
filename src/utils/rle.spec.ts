@@ -103,7 +103,6 @@ describe('rle', () => {
       expect(rle(input)).toEqual([ { start: 1, end: 2, size: 20 } ]);
     });
 
-
     it('should filter out items with default value', () => {
       const input: GridSize[] = [
         { start: 1, end: 1, size: 30 },
