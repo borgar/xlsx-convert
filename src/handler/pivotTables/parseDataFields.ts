@@ -10,6 +10,11 @@ import { resolveNumFmt } from './resolveNumFmt.ts';
 // sentinel. Distinct from `0`, which selects the first base item.
 const BASE_ITEM_DEFAULT = 1048832;
 
+// URI of the x14 dataField extension (CT_X14DataField, MS-XLSX). Excel strips
+// the post-2010 `showDataAs` modes from the main `dataField/@showDataAs`
+// attribute and stores them here instead, as `pivotShowAs`.
+const X14_DATA_FIELD_EXT_URI = '{E15A36E0-9728-4e99-A89B-3F7291B0FE68}';
+
 const DATA_FIELD_AGGREGATIONS: ReadonlySet<PivotDataFieldAggregation> =
   new Set<PivotDataFieldAggregation>([
     'average',
@@ -44,6 +49,25 @@ const SHOW_DATA_AS_VALUES: ReadonlySet<PivotShowDataAs> =
     'rankDescending',
   ]);
 
+/**
+ * Read the post-2010 `showDataAs` mode from a `<dataField>`'s x14 extension.
+ *
+ * The mode is carried as `pivotShowAs` on the `<x14:dataField>` child of the
+ * `<ext>` keyed by {@link X14_DATA_FIELD_EXT_URI} inside the field's `<extLst>`.
+ * Returns `undefined` when the extension is absent or its value is unknown, so
+ * callers fall back to the main `@showDataAs` attribute.
+ */
+function parsePivotShowAs (df: Element): PivotShowDataAs | undefined {
+  const ext = df
+    .getElementsByTagName('extLst')[0]
+    ?.children.find(e => e.getAttribute('uri') === X14_DATA_FIELD_EXT_URI);
+  const x14 = ext?.children[0];
+  if (!x14) {
+    return undefined;
+  }
+  return parseEnum(attr(x14, 'pivotShowAs'), SHOW_DATA_AS_VALUES);
+}
+
 export function parseDataFields (root: Element, numFmts?: NumFmtLookup): PivotDataField[] {
   const dataFields: PivotDataField[] = [];
   for (const df of root.querySelectorAll('dataFields > dataField')) {
@@ -52,7 +76,15 @@ export function parseDataFields (root: Element, numFmts?: NumFmtLookup): PivotDa
     };
     addProp(dataField, 'name', attr(df, 'name'));
     addProp(dataField, 'subtotal', parseEnum(attr(df, 'subtotal'), DATA_FIELD_AGGREGATIONS));
-    addProp(dataField, 'showDataAs', parseEnum(attr(df, 'showDataAs'), SHOW_DATA_AS_VALUES));
+    // Post-2010 `showDataAs` modes (`percentOfParent*`, `percentOfRunningTotal`,
+    // `rank*`) are not legal values of the main `@showDataAs` attribute; Excel
+    // carries them in the x14 dataField extension as `pivotShowAs`. When present,
+    // the extension value wins; otherwise fall back to the main attribute (which
+    // still holds the pre-2010 modes). The associated `baseField`/`baseItem` stay
+    // on the main attributes and are read below regardless of mode.
+    const showDataAs =
+      parsePivotShowAs(df) ?? parseEnum(attr(df, 'showDataAs'), SHOW_DATA_AS_VALUES);
+    addProp(dataField, 'showDataAs', showDataAs);
     // JSF stores non-default values; defaults are implicit. `baseField`
     // defaults to `0` per OOXML, so the explicit `0` Excel emits is elided.
     // `baseItem` defaults to `1048832` (the "(not set)" sentinel), NOT `0` ---

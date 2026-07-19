@@ -295,6 +295,72 @@ describe('handlerPivotTable', () => {
     expect(pt.dataFields![0]).not.toHaveProperty('baseItem');
   });
 
+  it('should parse post-2010 showDataAs from the x14 dataField extension', () => {
+    // `percentOfParent` and friends are illegal on the main `@showDataAs`
+    // attribute; Excel stores them in the x14 dataField extension as
+    // `pivotShowAs`. The base field stays on the main attribute.
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="1"><pivotField dataField="1" showAll="1"/></pivotFields>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="1">
+        <dataField name="% of Parent" fld="0" baseField="1" baseItem="0">
+          <extLst>
+            <ext uri="{E15A36E0-9728-4e99-A89B-3F7291B0FE68}" xmlns:x14="http://schemas.microsoft.com/office/spreadsheetml/2009/9/main">
+              <x14:dataField pivotShowAs="percentOfParent"/>
+            </ext>
+          </extLst>
+        </dataField>
+      </dataFields>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.dataFields![0]).toMatchObject({
+      name: '% of Parent',
+      fieldIndex: 0,
+      showDataAs: 'percentOfParent',
+      baseField: 1,
+      baseItem: 0,
+    });
+  });
+
+  it('should parse the rankDescending x14 showDataAs mode', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="1"><pivotField dataField="1" showAll="1"/></pivotFields>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="1">
+        <dataField name="Rank" fld="0" baseField="2">
+          <extLst>
+            <ext uri="{E15A36E0-9728-4e99-A89B-3F7291B0FE68}" xmlns:x14="http://schemas.microsoft.com/office/spreadsheetml/2009/9/main">
+              <x14:dataField pivotShowAs="rankDescending"/>
+            </ext>
+          </extLst>
+        </dataField>
+      </dataFields>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.dataFields![0].showDataAs).toBe('rankDescending');
+  });
+
+  it('should ignore an unknown pivotShowAs and fall back to the main attribute', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="1"><pivotField dataField="1" showAll="1"/></pivotFields>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="1">
+        <dataField name="Val" fld="0" showDataAs="percentOfTotal">
+          <extLst>
+            <ext uri="{E15A36E0-9728-4e99-A89B-3F7291B0FE68}" xmlns:x14="http://schemas.microsoft.com/office/spreadsheetml/2009/9/main">
+              <x14:dataField pivotShowAs="bogusMode"/>
+            </ext>
+          </extLst>
+        </dataField>
+      </dataFields>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.dataFields![0].showDataAs).toBe('percentOfTotal');
+  });
+
   it('should parse page fields with selectedItem', () => {
     const xml = `<pivotTableDefinition name="PT1" cacheId="0">
       <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
