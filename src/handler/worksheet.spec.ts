@@ -52,3 +52,47 @@ describe('handlerWorksheet pageMargins', () => {
     expect(sheet.pageMargins).toBeUndefined();
   });
 });
+
+describe('handlerWorksheet selection', () => {
+  it('can have a single cell selection', () => {
+    const sheet = parseSheet(
+      SHEET_OPEN +
+      `<sheetViews>
+        <sheetView tabSelected="1" workbookViewId="0">
+          <selection activeCell="I20" sqref="I20"/>
+        </sheetView>
+      </sheetViews>` +
+      SHEET_CLOSE,
+    );
+    expect(sheet.views![0]?.activeCell).toBe('I20');
+    expect(sheet.views![0]?.activeRanges).toBeUndefined();
+  });
+
+  it('can have a single range selection', () => {
+    const sheet = parseSheet(
+      SHEET_OPEN +
+      `<sheetViews>
+        <sheetView tabSelected="1" workbookViewId="0">
+          <selection activeCell="D11" sqref="C9:F17"/>
+        </sheetView>
+      </sheetViews>` +
+      SHEET_CLOSE,
+    );
+    expect(sheet.views![0]?.activeCell).toBe('D11');
+    expect(sheet.views![0]?.activeRanges).toEqual([ 'C9:F17' ]);
+  });
+
+  it('can have a multi-range selection', () => {
+    const sheet = parseSheet(
+      SHEET_OPEN +
+      `<sheetViews>
+        <sheetView tabSelected="1" workbookViewId="0">
+          <selection activeCell="D3" sqref="A1:D4 C3:G8"/>
+        </sheetView>
+      </sheetViews>` +
+      SHEET_CLOSE,
+    );
+    expect(sheet.views![0]?.activeCell).toBe('D3');
+    expect(sheet.views![0]?.activeRanges).toEqual([ 'A1:D4', 'C3:G8' ]);
+  });
+});
