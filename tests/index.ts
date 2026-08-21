@@ -16,6 +16,7 @@ const tests = [
   'tests/excel/background-color.xlsx',
   'tests/excel/blipfill.xlsx',
   'tests/excel/borders.xlsx',
+  'tests/excel/builtin-date-formats.xlsx',
   'tests/excel/cells-without-r-attributes.xlsx',
   'tests/excel/chart-area.xlsx',
   'tests/excel/chart-area3d.xlsx',
