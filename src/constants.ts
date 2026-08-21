@@ -43,6 +43,7 @@ export const BUILTIN_FORMATS: Record<number, string> = {
   19: 'h:mm:ss AM/PM',
   20: 'h:mm',
   21: 'h:mm:ss',
+  22: 'm/d/yy h:mm',
   37: '#,##0_);(#,##0)',
   38: '#,##0_);[Red](#,##0)',
   39: '#,##0.00_);(#,##0.00)',
@@ -60,7 +61,7 @@ export const BUILTIN_FORMATS: Record<number, string> = {
 };
 
 // formats IDs that point to other IDs
-[ [ 22, 21 ], [ 23, 21 ], [ 24, 21 ], [ 25, 21 ], [ 26, 14 ],
+[ [ 23, 21 ], [ 24, 21 ], [ 25, 21 ], [ 26, 14 ],
   [ 27, 37 ], [ 28, 38 ], [ 29, 39 ], [ 30, 40 ], [ 31, 41 ],
   [ 32, 42 ], [ 33, 43 ], [ 34, 44 ], [ 35, 45 ], [ 36, 46 ] ]
   .forEach(([ to, from ]) => {
