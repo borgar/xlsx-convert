@@ -269,6 +269,25 @@ describe('handlerPivotTable', () => {
     expect(pt.dataFields![0]).not.toHaveProperty('baseField');
   });
 
+  it('should parse the deviation and variance aggregations Excel writes', () => {
+    // ST_DataConsolidateFunction spells the population variants with a lowercase
+    // trailing `p`; the `stdDevP`/`varP` spelling belongs to ST_ItemType, which
+    // drives `subtotalFunctions` and the `stdDevPSubtotal` attributes instead.
+    // Real Excel output: `<dataField name="StdDevp of Sales" fld="1" subtotal="stdDevp" .../>`.
+    for (const subtotal of [ 'stdDev', 'stdDevp', 'var', 'varp' ]) {
+      const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+        <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+        <pivotFields count="1"><pivotField dataField="1" showAll="1"/></pivotFields>
+        <rowFields count="0"/><colFields count="0"/>
+        <dataFields count="1">
+          <dataField name="Measure" fld="0" subtotal="${subtotal}"/>
+        </dataFields>
+      </pivotTableDefinition>`;
+      const pt = parse(xml)!;
+      expect(pt.dataFields![0]).toEqual({ name: 'Measure', fieldIndex: 0, subtotal });
+    }
+  });
+
   it('should parse non-default baseField/baseItem verbatim', () => {
     const xml = `<pivotTableDefinition name="PT1" cacheId="0">
       <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>

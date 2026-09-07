@@ -19,10 +19,10 @@ const DATA_FIELD_AGGREGATIONS: ReadonlySet<PivotDataFieldAggregation> =
     'min',
     'product',
     'stdDev',
-    'stdDevP',
+    'stdDevp',
     'sum',
     'var',
-    'varP',
+    'varp',
   ]);
 
 const SHOW_DATA_AS_VALUES: ReadonlySet<PivotShowDataAs> =
