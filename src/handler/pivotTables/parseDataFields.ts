@@ -11,19 +11,19 @@ import { resolveNumFmt } from './resolveNumFmt.ts';
 const BASE_ITEM_DEFAULT = 1048832;
 
 // Maps OOXML data-field aggregation values to their JSF equivalents.
-const DATA_FIELD_AGGREGATIONS: Readonly<Record<string, PivotDataFieldAggregation>> = {
-  average: 'average',
-  count: 'count',
-  countNums: 'countNums',
-  max: 'max',
-  min: 'min',
-  product: 'product',
-  stdDev: 'stdDev',
-  stdDevp: 'stdDevP',
-  sum: 'sum',
-  var: 'var',
-  varp: 'varP',
-};
+const DATA_FIELD_AGGREGATIONS: ReadonlyMap<string, PivotDataFieldAggregation> = new Map([
+  [ 'average', 'average' ],
+  [ 'count', 'count' ],
+  [ 'countNums', 'countNums' ],
+  [ 'max', 'max' ],
+  [ 'min', 'min' ],
+  [ 'product', 'product' ],
+  [ 'stdDev', 'stdDev' ],
+  [ 'stdDevp', 'stdDevP' ],
+  [ 'sum', 'sum' ],
+  [ 'var', 'var' ],
+  [ 'varp', 'varP' ],
+]);
 
 const SHOW_DATA_AS_VALUES: ReadonlySet<PivotShowDataAs> =
   new Set<PivotShowDataAs>([
@@ -44,13 +44,6 @@ const SHOW_DATA_AS_VALUES: ReadonlySet<PivotShowDataAs> =
     'rankDescending',
   ]);
 
-function mapDataFieldAggregation (value: string | null): PivotDataFieldAggregation | undefined {
-  if (value == null) {
-    return undefined;
-  }
-  return Object.hasOwn(DATA_FIELD_AGGREGATIONS, value) ? DATA_FIELD_AGGREGATIONS[value] : undefined;
-}
-
 export function parseDataFields (root: Element, numFmts?: NumFmtLookup): PivotDataField[] {
   const dataFields: PivotDataField[] = [];
   for (const df of root.querySelectorAll('dataFields > dataField')) {
@@ -58,7 +51,7 @@ export function parseDataFields (root: Element, numFmts?: NumFmtLookup): PivotDa
       fieldIndex: numAttr(df, 'fld', 0),
     };
     addProp(dataField, 'name', attr(df, 'name'));
-    addProp(dataField, 'subtotal', mapDataFieldAggregation(attr(df, 'subtotal')));
+    addProp(dataField, 'subtotal', parseEnum(attr(df, 'subtotal'), DATA_FIELD_AGGREGATIONS));
     addProp(dataField, 'showDataAs', parseEnum(attr(df, 'showDataAs'), SHOW_DATA_AS_VALUES));
     // JSF stores non-default values; defaults are implicit. `baseField`
     // defaults to `0` per OOXML, so the explicit `0` Excel emits is elided.
