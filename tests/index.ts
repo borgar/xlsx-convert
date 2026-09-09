@@ -17,6 +17,7 @@ const tests = [
   'tests/excel/blipfill.xlsx',
   'tests/excel/borders.xlsx',
   'tests/excel/builtin-date-formats.xlsx',
+  'tests/excel/calcpr-iterate-true.xlsx',
   'tests/excel/cells-without-r-attributes.xlsx',
   'tests/excel/chart-area.xlsx',
   'tests/excel/chart-area3d.xlsx',

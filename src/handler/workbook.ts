@@ -69,8 +69,7 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
 
   const calcPr = dom.getElementsByTagName('calcPr')[0];
   if (calcPr) {
-    const iterate = toInt(attr(calcPr, 'iterate'));
-    if (iterate && isFinite(iterate)) {
+    if (boolAttr(calcPr, 'iterate')) {
       wb.calculationProperties = {
         iterate: true,
         iterateCount: toInt(numAttr(calcPr, 'iterateCount', 100)),
