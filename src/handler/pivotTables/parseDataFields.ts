@@ -10,20 +10,20 @@ import { resolveNumFmt } from './resolveNumFmt.ts';
 // sentinel. Distinct from `0`, which selects the first base item.
 const BASE_ITEM_DEFAULT = 1048832;
 
-const DATA_FIELD_AGGREGATIONS: ReadonlySet<PivotDataFieldAggregation> =
-  new Set<PivotDataFieldAggregation>([
-    'average',
-    'count',
-    'countNums',
-    'max',
-    'min',
-    'product',
-    'stdDev',
-    'stdDevP',
-    'sum',
-    'var',
-    'varP',
-  ]);
+// Maps OOXML data-field aggregation values to their JSF equivalents.
+const DATA_FIELD_AGGREGATIONS: ReadonlyMap<string, PivotDataFieldAggregation> = new Map([
+  [ 'average', 'average' ],
+  [ 'count', 'count' ],
+  [ 'countNums', 'countNums' ],
+  [ 'max', 'max' ],
+  [ 'min', 'min' ],
+  [ 'product', 'product' ],
+  [ 'stdDev', 'stdDev' ],
+  [ 'stdDevp', 'stdDevP' ],
+  [ 'sum', 'sum' ],
+  [ 'var', 'var' ],
+  [ 'varp', 'varP' ],
+]);
 
 const SHOW_DATA_AS_VALUES: ReadonlySet<PivotShowDataAs> =
   new Set<PivotShowDataAs>([
