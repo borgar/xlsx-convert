@@ -270,11 +270,6 @@ describe('handlerPivotTable', () => {
   });
 
   it('should map the population aggregation tokens OOXML writes onto their JSF spelling', () => {
-    // `dataField/@subtotal` is ST_DataConsolidateFunction, which spells the population variants
-    // with a lowercase trailing `p`. JSF spells them `stdDevP`/`varP`, the same spelling
-    // ST_ItemType uses for `subtotalFunctions`. Excel's own output, from the merged
-    // excel-fidelity `duplicate-measure` oracle (`pivotTable2.xml`):
-    // `<dataField name="StdDevp of Sales" fld="1" subtotal="stdDevp" .../>`.
     const cases: [ string, string ][] = [
       [ 'stdDevp', 'stdDevP' ],
       [ 'varp', 'varP' ],
@@ -294,8 +289,6 @@ describe('handlerPivotTable', () => {
   });
 
   it('should keep the sample deviation and variance tokens as they are', () => {
-    // The sample variants are spelled the same either side of the boundary, so they are the
-    // control for the mapping above.
     for (const subtotal of [ 'stdDev', 'var' ]) {
       const xml = `<pivotTableDefinition name="PT1" cacheId="0">
         <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
@@ -311,8 +304,6 @@ describe('handlerPivotTable', () => {
   });
 
   it('should drop a subtotal token that is not an OOXML data-field aggregation', () => {
-    // `stdDevP` is the ST_ItemType spelling. It is not a legal `dataField/@subtotal` value, so
-    // reading it back must not be mistaken for the mapped input.
     for (const subtotal of [ 'stdDevP', 'varP', 'countA', 'avg', 'nonsense' ]) {
       const xml = `<pivotTableDefinition name="PT1" cacheId="0">
         <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>

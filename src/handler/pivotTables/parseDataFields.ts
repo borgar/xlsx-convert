@@ -10,11 +10,7 @@ import { resolveNumFmt } from './resolveNumFmt.ts';
 // sentinel. Distinct from `0`, which selects the first base item.
 const BASE_ITEM_DEFAULT = 1048832;
 
-// `dataField/@subtotal` is ST_DataConsolidateFunction, which spells the population variants
-// with a lowercase trailing `p`. JSF spells them `stdDevP`/`varP`, the spelling ST_ItemType
-// uses and which `subtotalFunctions` keeps. Every other token is identical either side, so
-// only those two are mapped. Keys are the OOXML tokens: `stdDevP` and `varP` are not legal
-// here, and are rejected like any other unknown value.
+// Maps OOXML data-field aggregation values to their JSF equivalents.
 const DATA_FIELD_AGGREGATIONS: Readonly<Record<string, PivotDataFieldAggregation>> = {
   average: 'average',
   count: 'count',
