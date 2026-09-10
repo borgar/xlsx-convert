@@ -43,7 +43,9 @@ export function parsePivotArea (elm: Element): PivotArea {
     const axis = AXIS_VALUES.get(axisStr);
     if (axis) { area.axis = axis; }
   }
-  addProp(area, 'fieldPosition', numAttr(elm, 'fieldPosition'), 0);
+  // fieldPosition has no OOXML schema default, so 0 is preserved (absent and 0 are distinct;
+  // Excel writes fieldPosition="0" explicitly in its format records).
+  addProp(area, 'fieldPosition', numAttr(elm, 'fieldPosition'));
 
   // references
   const refsContainer = elm.querySelector('references');
