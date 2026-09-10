@@ -27,13 +27,13 @@ export function readErrBars (element: Element, context: ConversionContext): ErrB
       addProp(errBars, 'noEndCap', boolValElm(child));
     }
     else if (child.tagName === 'plus') {
-      const ds = readDataSource(child);
+      const ds = readDataSource(child, context);
       if (isNumDataSource(ds)) {
         addProp(errBars, 'plus', ds);
       }
     }
     else if (child.tagName === 'minus') {
-      const ds = readDataSource(child);
+      const ds = readDataSource(child, context);
       if (isNumDataSource(ds)) {
         addProp(errBars, 'minus', ds);
       }

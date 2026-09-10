@@ -67,7 +67,7 @@ function readDLbl (element: Element, context: ConversionContext): DLbl | undefin
       addProp(label, 'layout', readLayout(child));
     }
     else if (child.tagName === 'tx') {
-      addProp(label, 'text', readText(child));
+      addProp(label, 'text', readText(child, context));
     }
   }
 

@@ -5,6 +5,8 @@ import type { StrRef } from './types/data/StrRef.ts';
 import type { StrData } from './types/data/StrData.ts';
 import type { MultiLvlStrRef } from './types/data/MultiLvlStrRef.ts';
 import type { NumData } from './types/data/NumData.ts';
+import { normalizeFormula } from '../../utils/normalizeFormula.ts';
+import type { ConversionContext } from '../../ConversionContext.ts';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function readCacheData (ch: Element, data: NumRef | StrRef) {
@@ -31,7 +33,7 @@ function readCacheData (ch: Element, data: NumRef | StrRef) {
 
 type DataSource = NumRef | NumData | StrRef | StrData | MultiLvlStrRef;
 
-export function readDataSource (element: Element): DataSource | undefined {
+export function readDataSource (element: Element, context: ConversionContext): DataSource | undefined {
   let data: DataSource | undefined = undefined;
   // One of:
   //   <element name="multiLvlStrRef" type="CT_MultiLvlStrRef" minOccurs="1" maxOccurs="1" />
@@ -42,14 +44,14 @@ export function readDataSource (element: Element): DataSource | undefined {
   const ch = getFirstChild(element);
   if (ch?.tagName === 'numRef') {
     data = { type: 'numRef', f: '' };
-    data.f = getFirstChild(ch, 'f')?.textContent ?? '';
+    data.f = normalizeFormula(getFirstChild(ch, 'f')?.textContent ?? '', context);
     // if (context.options.includeCacheData) {
     //   readCacheData(ch, data);
     // }
   }
   else if (ch?.tagName === 'strRef') {
     data = { type: 'strRef', f: '' };
-    data.f = getFirstChild(ch, 'f')?.textContent ?? '';
+    data.f = normalizeFormula(getFirstChild(ch, 'f')?.textContent ?? '', context);
     // if (context.options.includeCacheData) {
     //   readCacheData(ch, data);
     // }
@@ -58,7 +60,10 @@ export function readDataSource (element: Element): DataSource | undefined {
     // Multi-level (grouped) category/x references span several columns. Consumers resolve the
     // cells through `f` like the other ref types; dropping the element would lose the series'
     // category or x data entirely.
-    data = { type: 'mlStrRef', f: getFirstChild(ch, 'f')?.textContent ?? '' };
+    data = {
+      type: 'mlStrRef',
+      f: normalizeFormula(getFirstChild(ch, 'f')?.textContent ?? '', context),
+    };
   }
 
   return data;

@@ -13,7 +13,7 @@ export function readTitle (element: Element, context: ConversionContext): Title 
   const out: Title = {};
   for (const child of element.children) {
     if (child.tagName === 'tx') {
-      addProp(out, 'text', readText(child));
+      addProp(out, 'text', readText(child, context));
       // Title font styling usually lives on the rich text block rather than a title-level txPr
       // (which, per schema order, comes later and overwrites this when present).
       const rich = getFirstChild(child, 'rich');

@@ -5,6 +5,7 @@ import type { StrData } from './types/data/StrData.ts';
 import type { NumRef } from './types/data/NumRef.ts';
 import type { NumData } from './types/data/NumData.ts';
 import { attr, numAttr } from '../../utils/attr.ts';
+import { normalizeFormula } from '../../utils/normalizeFormula.ts';
 
 export type ResolvedChartData = {
   cat?: StrRef | StrData;
@@ -18,7 +19,7 @@ export type ChartDataMap = Map<number, ResolvedChartData>;
  * range formula it maps to (e.g. "Sheet1!$A$2:$A$6").
  */
 function resolveNamedRange (formula: string, context: ConversionContext): string {
-  return context.nameDefs.get(formula)?.value ?? formula;
+  return normalizeFormula(context.nameDefs.get(formula)?.value ?? formula, context);
 }
 
 function readStrDim (element: Element, context: ConversionContext): StrRef | StrData {

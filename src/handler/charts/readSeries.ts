@@ -27,7 +27,7 @@ export function readSeries (element: Element, context: ConversionContext): Serie
       addProp(out, 'explosion', numValElm(child), 0);
     }
     else if (child.tagName === 'tx') {
-      const ds = readDataSource(child);
+      const ds = readDataSource(child, context);
       if (ds?.type === 'strRef') {
         addProp(out, 'text', ds);
       }
@@ -81,10 +81,10 @@ export function readSeries (element: Element, context: ConversionContext): Serie
     // - cat/xVal: [ MultiLvlStrRef, NumRef, StrRef, NumData, StrData ]
     // - val/yVal: [ NumRef, NumData ]
     else if (child.tagName === 'cat' || child.tagName === 'xVal') {
-      addProp(out, 'cat', readDataSource(child));
+      addProp(out, 'cat', readDataSource(child, context));
     }
     else if (child.tagName === 'val' || child.tagName === 'yVal') {
-      const ds = readDataSource(child);
+      const ds = readDataSource(child, context);
       if (isNumDataSource(ds)) {
         addProp(out, 'val', ds);
       }
@@ -96,7 +96,7 @@ export function readSeries (element: Element, context: ConversionContext): Serie
 
     // Bubble series add a third numeric dimension carrying the bubble size.
     else if (child.tagName === 'bubbleSize') {
-      const ds = readDataSource(child);
+      const ds = readDataSource(child, context);
       if (isNumDataSource(ds)) {
         addProp(out, 'bubbleSize', ds);
       }

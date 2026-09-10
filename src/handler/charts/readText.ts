@@ -2,6 +2,7 @@ import { CDataNode, Element, TextNode } from '@borgar/simple-xml';
 import type { Text } from './types/Text.ts';
 import { getFirstChild } from '../../utils/getFirstChild.ts';
 import { readDataSource } from './readDataSource.ts';
+import type { ConversionContext } from '../../ConversionContext.ts';
 
 function getTextContent (elm: Element | null | undefined) {
   let text = '';
@@ -18,7 +19,7 @@ function getTextContent (elm: Element | null | undefined) {
   return text;
 }
 
-export function readText (elm: Element | null): Text | undefined {
+export function readText (elm: Element | null, context: ConversionContext): Text | undefined {
   if (elm?.tagName === 'tx') {
     const child = getFirstChild(elm);
     if (child?.tagName === 'rich') {
@@ -38,7 +39,7 @@ export function readText (elm: Element | null): Text | undefined {
       return text;
     }
     else if (child?.tagName === 'strRef') {
-      const ds = readDataSource(elm);
+      const ds = readDataSource(elm, context);
       if (ds?.type === 'strRef') {
         return ds;
       }

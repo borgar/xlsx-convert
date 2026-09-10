@@ -69,7 +69,7 @@ function readDispUnits (element: Element, context: ConversionContext): DispUnits
           addProp(dispUnitsLbl, 'shape', readShapeProperties(grandchild, context));
         }
         else if (grandchild.tagName === 'tx') {
-          addProp(dispUnitsLbl, 'text', readText(grandchild));
+          addProp(dispUnitsLbl, 'text', readText(grandchild, context));
         }
         else if (grandchild.tagName === 'txPr') {
           addProp(dispUnitsLbl, 'textProps', readTextProps(grandchild, context));
