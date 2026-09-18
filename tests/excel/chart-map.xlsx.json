@@ -28,7 +28,31 @@
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
       "views": [ { "workbookView": 0, "activeCell": "B9" } ],
-      "drawings": []
+      "drawings": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 76200, "col": 3, "colOff": 177800 },
+            "to": {
+              "row": 13,
+              "rowOff": 177800,
+              "col": 8,
+              "colOff": 622300
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "2",
+              "name": "Chart 1",
+              "chartId": "xl/charts/chartEx1.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
     }
   ],
   "names": [],

@@ -34,7 +34,31 @@
           "activeRanges": [ "A1:XFD10" ]
         }
       ],
-      "drawings": []
+      "drawings": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 88900, "col": 3, "colOff": 165100 },
+            "to": {
+              "row": 13,
+              "rowOff": 190500,
+              "col": 8,
+              "colOff": 609600
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "2",
+              "name": "Chart 1",
+              "chartId": "xl/charts/chartEx1.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
     }
   ],
   "names": [],
