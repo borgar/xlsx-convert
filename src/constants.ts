@@ -1,10 +1,14 @@
 /* eslint-disable @stylistic/array-element-newline */
 
+import type { PageMargins } from '@jsfkit/types';
+
 export const REL_PREFIXES = [
   // standard
-  'http://schemas.microsoft.com/office/2017/10/relationships/',
-  'http://schemas.microsoft.com/office/2017/06/relationships/',
   'http://schemas.microsoft.com/office/2006/relationships/',
+  'http://schemas.microsoft.com/office/2011/relationships/',
+  'http://schemas.microsoft.com/office/2014/relationships/',
+  'http://schemas.microsoft.com/office/2017/06/relationships/',
+  'http://schemas.microsoft.com/office/2017/10/relationships/',
   'http://schemas.openxmlformats.org/officeDocument/2006/relationships/',
   'http://schemas.openxmlformats.org/package/2006/relationships/',
   // strict
@@ -39,6 +43,7 @@ export const BUILTIN_FORMATS: Record<number, string> = {
   19: 'h:mm:ss AM/PM',
   20: 'h:mm',
   21: 'h:mm:ss',
+  22: 'm/d/yy h:mm',
   37: '#,##0_);(#,##0)',
   38: '#,##0_);[Red](#,##0)',
   39: '#,##0.00_);(#,##0.00)',
@@ -56,7 +61,7 @@ export const BUILTIN_FORMATS: Record<number, string> = {
 };
 
 // formats IDs that point to other IDs
-[ [ 22, 21 ], [ 23, 21 ], [ 24, 21 ], [ 25, 21 ], [ 26, 14 ],
+[ [ 23, 21 ], [ 24, 21 ], [ 25, 21 ], [ 26, 14 ],
   [ 27, 37 ], [ 28, 38 ], [ 29, 39 ], [ 30, 40 ], [ 31, 41 ],
   [ 32, 42 ], [ 33, 43 ], [ 34, 44 ], [ 35, 45 ], [ 36, 46 ] ]
   .forEach(([ to, from ]) => {
@@ -318,3 +323,13 @@ export const ERROR_NAMES = [
   '#UNKNOWN!',
   '#VALUE!',
 ];
+
+// Canonical default page margins (inches), per `Worksheet.pageMargins`'s defaults in JSF
+export const DEFAULT_PAGE_MARGINS: PageMargins = {
+  left: 0.7,
+  right: 0.7,
+  top: 0.75,
+  bottom: 0.75,
+  header: 0.3,
+  footer: 0.3,
+};

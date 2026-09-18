@@ -26,7 +26,7 @@ export function boolAttr<T = boolean | null> (
   fallBack: T = null as unknown as T,
 ): boolean | T {
   const v = attr(node, name, fallBack);
-  return v == null ? fallBack : !!+v;
+  return v == null ? fallBack : v === 'true' || !!+v;
 }
 
 export function dmlPercentAttr<T = number | null> (

@@ -97,7 +97,7 @@
               "type": "chart",
               "id": "2",
               "name": "Chart 1",
-              "chartId": "rId1",
+              "chartId": "xl/charts/chart1.xml",
               "xfrm": {
                 "ext": { "cx": 0, "cy": 0 }
               }
@@ -120,7 +120,7 @@
               "type": "chart",
               "id": "5",
               "name": "Chart 4",
-              "chartId": "rId2",
+              "chartId": "xl/charts/chart2.xml",
               "xfrm": {
                 "ext": { "cx": 0, "cy": 0 }
               }
@@ -143,7 +143,7 @@
               "type": "chart",
               "id": "6",
               "name": "Chart 5",
-              "chartId": "rId3",
+              "chartId": "xl/charts/chart3.xml",
               "xfrm": {
                 "ext": { "cx": 0, "cy": 0 }
               }
@@ -208,7 +208,8 @@
                   "off": { "x": 2680759, "y": 3403666 },
                   "ext": { "cx": 1640130, "cy": 296502 }
                 },
-                "preset": "rect"
+                "preset": "rect",
+                "fill": { "type": "none" }
               },
               "text": {
                 "p": [ { "text": "Image in a cell" } ],
@@ -293,10 +294,10 @@
     "name": "Integral",
     "colorScheme": {
       "name": "Integral",
-      "lt1": { "type": "system", "value": "window" },
       "dk1": { "type": "system", "value": "windowText" },
-      "lt2": { "type": "srgb", "value": "DFE3E5" },
+      "lt1": { "type": "system", "value": "window" },
       "dk2": { "type": "srgb", "value": "335B74" },
+      "lt2": { "type": "srgb", "value": "DFE3E5" },
       "accent1": { "type": "srgb", "value": "1CADE4" },
       "accent2": { "type": "srgb", "value": "2683C6" },
       "accent3": { "type": "srgb", "value": "27CED7" },

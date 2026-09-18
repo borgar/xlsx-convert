@@ -5,6 +5,7 @@ import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import type { NumFmtLookup } from './pivotTables/NumFmtLookup.ts';
 import type { PivotTableWithOptionalCache } from './pivotTables/PivotTableWithOptionalCache.ts';
 import { parseDataFields } from './pivotTables/parseDataFields.ts';
+import { parseExtensions } from './pivotTables/parseExtensions.ts';
 import { parseFilters } from './pivotTables/parseFilters.ts';
 import { parsePageFields } from './pivotTables/parsePageFields.ts';
 import { parsePivotFields } from './pivotTables/parsePivotFields.ts';
@@ -167,6 +168,9 @@ export function handlerPivotTable (dom: Document, numFmts?: NumFmtLookup): Pivot
     }
   }
   if (calculatedFields.length > 0) { pt.calculatedFields = calculatedFields; }
+
+  // x14 pivotTableDefinition extension (e.g. hideValuesRow), carried in the table's <extLst>.
+  Object.assign(pt, parseExtensions(root));
 
   return pt;
 }

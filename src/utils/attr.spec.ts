@@ -185,6 +185,26 @@ describe('numAttr', () => {
   });
 });
 
+describe('boolAttr with xsd:boolean spellings', () => {
+  it('reads "true" and "false" as written by LibreOffice', () => {
+    // Arrange
+    const element = createMockElement({ iterate: 'true', fullCalcOnLoad: 'false' });
+
+    // Act & Assert
+    expect(boolAttr(element as any, 'iterate')).toBe(true);
+    expect(boolAttr(element as any, 'fullCalcOnLoad')).toBe(false);
+  });
+
+  it('still reads "1" and "0" as written by Excel', () => {
+    // Arrange
+    const element = createMockElement({ a: '1', b: '0' });
+
+    // Act & Assert
+    expect(boolAttr(element as any, 'a')).toBe(true);
+    expect(boolAttr(element as any, 'b')).toBe(false);
+  });
+});
+
 describe('boolAttr', () => {
   describe('basic functionality', () => {
     it('should convert numeric strings to booleans', () => {
@@ -225,8 +245,8 @@ describe('boolAttr', () => {
         spaces: '   ',
       });
 
-      // Non-numeric strings convert to NaN, which is falsy when converted to boolean
-      expect(boolAttr(element as any, 'text')).toBe(false);
+      // "true" is an xsd:boolean spelling; other non-numeric strings convert to NaN, which is falsy
+      expect(boolAttr(element as any, 'text')).toBe(true);
       expect(boolAttr(element as any, 'empty')).toBe(false); // '' converts to 0, which is false
       expect(boolAttr(element as any, 'spaces')).toBe(false); // whitespace converts to 0
     });

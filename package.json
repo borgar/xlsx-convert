@@ -1,6 +1,6 @@
 {
   "name": "@borgar/xlsx-convert",
-  "version": "5.2.0",
+  "version": "5.7.3",
   "description": "Utility to convert Excel XLSX files to JSON",
   "type": "module",
   "source": "src/index.ts",
@@ -11,6 +11,11 @@
       "require": "./dist/index.cjs",
       "types": "./dist/index.d.cts",
       "default": "./dist/index.js"
+    },
+    "./future": {
+      "require": "./dist/index-future.cjs",
+      "types": "./dist/index-future.d.cts",
+      "default": "./dist/index-future.js"
     }
   },
   "bin": {
@@ -24,7 +29,7 @@
     "lint": "eslint *.js tests/ src/",
     "typecheck": "tsc --noEmit",
     "docs": "typedoc && concat-md tempdocs > docs/API.md && rm -rf tempdocs",
-    "test:unit": "vitest run src/*.spec.ts src/**/*.spec.ts",
+    "test:unit": "vitest run src/*.spec.ts src/**/*.spec.ts tests/**/*.spec.ts",
     "test:fixture": "node --experimental-transform-types tests/index.ts",
     "test": "npm run test:unit && VERIFY_FORMULAS=1 npm run test:fixture",
     "updatetests": "UPDATE_TESTS=1 node --experimental-transform-types tests/index.ts",
@@ -41,7 +46,10 @@
   ],
   "tsdown": [
     {
-      "entry": "src/index.ts",
+      "entry": [
+        "src/index.ts",
+        "src/index-future.ts"
+      ],
       "platform": "neutral",
       "format": [
         "esm",
@@ -74,31 +82,31 @@
   "author": "Borgar Þorsteinsson <borgar@borgar.net> (http://borgar.net/)",
   "license": "MIT",
   "dependencies": {
-    "@borgar/fx": "~5.0.4",
+    "@borgar/fx": "~5.1.0",
     "@borgar/simple-xml": "~2.2.2",
     "@borgar/zip": "~1.0.0",
-    "@jsfkit/types": "~2.3.0",
+    "@jsfkit/types": "~2.6.0",
+    "@jsfkit/utils": "~1.2.0",
     "numfmt": "~3.2.6"
-  },
-  "peerDependencies": {
-    "@jsfkit/utils": "~1.0.2"
   },
   "devDependencies": {
     "@borgar/eslint-config": "~4.1.0",
     "@eslint/js": "~10.0.1",
-    "@jsfkit/utils": "~1.0.2",
-    "@types/node": "~25.7.0",
+    "@types/node": "~26.2.0",
     "concat-md": "~0.5.1",
-    "eslint": "~10.3.0",
-    "globals": "~17.6.0",
-    "jszip": "^3.10.1",
-    "tinybench": "~6.0.1",
-    "tsdown": "~0.22.0",
+    "eslint": "~10.9.0",
+    "globals": "~17.11.0",
+    "tinybench": "~6.1.3",
+    "tsdown": "~0.22.14",
     "tsup": "~8.5.1",
-    "typedoc": "~0.28.19",
-    "typedoc-plugin-markdown": "~4.11.0",
+    "typedoc": "~0.28.20",
+    "typedoc-plugin-markdown": "~4.12.0",
     "typescript": "~6.0.3",
-    "typescript-eslint": "~8.59.3",
-    "vitest": "~4.1.6"
+    "typescript-eslint": "~8.67.0",
+    "vitest": "~4.1.11"
+  },
+  "allowScripts": {
+    "esbuild@0.27.2": true,
+    "fsevents@2.3.3": true
   }
 }

@@ -1,5 +1,6 @@
 import type { Workbook } from '@jsfkit/types';
 import { convertBinary } from './convertBinary.ts';
+import type { MdwResolver } from './utils/mdw.ts';
 
 export { InvalidFileError, EncryptionError, MissingSheetError, UnsupportedError } from './errors.ts';
 
@@ -23,6 +24,11 @@ export type ConversionOptions = {
    */
   preservePrefixes?: boolean;
   /**
+   * Drop cells that have a style but no value or formula, unless the style is visible (fill, border, etc.).
+   * @defaultValue false
+   */
+  skipStyledEmptyCells?: boolean;
+  /**
    * Image reading callback. All read images are passed through this callback if it is provided.
    * This is useful, for example, for extracting the images to disk.
    *
@@ -34,7 +40,16 @@ export type ConversionOptions = {
    * Warning callback. If provided, warnings are passed to this function; otherwise they are silently discarded.
    */
   warn?: (message: string) => void;
+  /**
+   * Resolve the Max Digit Width (in pixels) for the workbook's Normal font, used to convert column
+   * widths from OOXML character units to pixels. Returning null/undefined defers to the built-in table
+   * (Aptos Narrow, Calibri, Arial); unknown fonts then fall back to MDW 6 (and warn). Supply this to
+   * size columns correctly for fonts outside the table.
+   */
+  resolveMdw?: MdwResolver;
 };
+
+export type { MdwResolver } from './utils/mdw.ts';
 
 /**
  * Load and convert an XLSX file into a JSON format.
@@ -46,6 +61,7 @@ export type ConversionOptions = {
  * @param options Conversion options
  * @param [options.skipMerged] Skip any redundant cells that are a part of merges.
  * @param [options.cellFormulas] Formulas are attached to cells rather than being included separately.
+ * @param [options.skipStyledEmptyCells] Drop cells that carry a style but no value/formula/data table.
  * @return A JSON spreadsheet object.
  */
 export async function convert (
@@ -64,5 +80,5 @@ export async function convert (
   return convertBinary(await fs.readFile(filename), filename, options);
 }
 
-export { convertBinary } from './convertBinary.ts';
 export { convertCSV, type CSVConversionOptions } from './convertCSV.ts';
+export { convertBinary } from './convertBinary.ts';

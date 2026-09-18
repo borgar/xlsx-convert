@@ -50,6 +50,7 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
         value: normalizeFormula(d.textContent, context),
       };
       const hidden = boolAttr(d, 'hidden');
+      context.nameDefs.set(name.name, name);
       if (hidden) {
         return;
       }
@@ -63,10 +64,12 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
   const pr = dom.querySelectorAll('workbook > workbookPr')[0];
   const epoch = (pr && numAttr(pr, 'date1904')) ? 1904 : 1900;
 
+  // if theme is missing later, we can use this to determine which defaults to use
+  context.defaultThemeVersion = pr?.getAttribute('defaultThemeVersion') || '0';
+
   const calcPr = dom.getElementsByTagName('calcPr')[0];
   if (calcPr) {
-    const iterate = toInt(attr(calcPr, 'iterate'));
-    if (iterate && isFinite(iterate)) {
+    if (boolAttr(calcPr, 'iterate')) {
       wb.calculationProperties = {
         iterate: true,
         iterateCount: toInt(numAttr(calcPr, 'iterateCount', 100)),
@@ -77,6 +80,13 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
     const calcMode = attr(calcPr, 'calcMode');
     if (calcMode === 'autoNoTable' || calcMode === 'manual') {
       wb.calculationProperties!.calcMode = calcMode;
+    }
+    // ECMA-376 §18.2.2: `fullCalcOnLoad` is the writer's request to recalc on load;
+    // `forceFullCalc` is the same prescriptive signal (Excel sets it after a calc-engine version
+    // bump, distinct from fullCalcOnLoad). Either translates to the same consumer action, so
+    // collapse both onto the JSF's single `fullCalcOnLoad` flag.
+    if (boolAttr(calcPr, 'fullCalcOnLoad') || boolAttr(calcPr, 'forceFullCalc')) {
+      wb.calculationProperties!.fullCalcOnLoad = true;
     }
   }
 

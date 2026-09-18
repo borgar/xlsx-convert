@@ -1,0 +1,85 @@
+{
+  "name": "page-margins.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "B2": { "v": "This sheet has print margins" }
+      },
+      "columns": [ { "start": 7, "end": 7, "size": 65 } ],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [
+        {
+          "workbookView": 0,
+          "activeLayout": "pageLayout",
+          "activeCell": "C6",
+          "layoutScales": { "normal": 100 }
+        }
+      ],
+      "pageMargins": {
+        "left": 1.1811023622047245,
+        "right": 1.1811023622047245,
+        "top": 1.1811023622047245,
+        "bottom": 1.1811023622047245,
+        "header": 1.1811023622047245,
+        "footer": 1.1811023622047245
+      }
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
+  "tables": [],
+  "views": [ {} ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "lt1": { "type": "system", "value": "window" },
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "dk2": { "type": "srgb", "value": "0E2841" },
+      "accent1": { "type": "srgb", "value": "156082" },
+      "accent2": { "type": "srgb", "value": "E97132" },
+      "accent3": { "type": "srgb", "value": "196B24" },
+      "accent4": { "type": "srgb", "value": "0F9ED5" },
+      "accent5": { "type": "srgb", "value": "A02B93" },
+      "accent6": { "type": "srgb", "value": "4EA72E" },
+      "hlink": { "type": "srgb", "value": "467886" },
+      "folHlink": { "type": "srgb", "value": "96607D" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Aptos Display" }
+      },
+      "minor": {
+        "latin": { "typeface": "Aptos Narrow" }
+      }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "formulas": [],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
+}

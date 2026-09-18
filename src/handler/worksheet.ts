@@ -1,4 +1,4 @@
-import type { GridSize, Worksheet, WorksheetLayoutScales, WorksheetView } from '@jsfkit/types';
+import type { GridSize, PageMargins, Worksheet, WorksheetLayoutScales, WorksheetView, WorksheetViewFrozenPanes } from '@jsfkit/types';
 import { Document, Element } from '@borgar/simple-xml';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { rle } from '../utils/rle.ts';
@@ -11,6 +11,16 @@ import { toA1 } from '../utils/toA1.ts';
 import { getFirstChild } from '../utils/getFirstChild.ts';
 import { toInt } from '../utils/typecast.ts';
 import { addProp } from '../utils/addProp.ts';
+import { DEFAULT_PAGE_MARGINS } from '../constants.ts';
+
+type ExcelFrozenPaneLocation = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
+type JSFFrozenPaneLocation = NonNullable<WorksheetViewFrozenPanes['activePane']>;
+const FROZEN_PANE_LOCATIONS: Record<ExcelFrozenPaneLocation, JSFFrozenPaneLocation> = {
+  topLeft: 'topStart',
+  topRight: 'topEnd',
+  bottomLeft: 'bottomStart',
+  bottomRight: 'bottomEnd',
+};
 
 /**
  * Extracts zoom levels (layout scales) for the different view modes for a sheet.
@@ -29,7 +39,7 @@ function getLayoutScales (sheetView: Element): WorksheetLayoutScales | null {
   return (normalScale ?? pageLayoutScale ?? pageBreakPreviewScale) != null ? scales : null;
 }
 
-function gridSize (start: number, end: number, size?: number, style?: number | null): GridSize {
+function gridSize (start: number, end: number, size?: number | null, style?: number | null): GridSize {
   const item: GridSize = { start, end };
   if (size != null) {
     item.size = size;
@@ -53,7 +63,7 @@ export function handlerWorksheet (
     rows: [],
     merges: [],
     defaults: {
-      colWidth: colWidth(10, 5)!,
+      colWidth: colWidth(8, 5, context.normalMdw)!,
       rowHeight: 16,
     },
     // drawings: [],
@@ -61,10 +71,7 @@ export function handlerWorksheet (
     hidden: context.sheetLinks.find(link => link.name === sheetName)?.hidden ?? 0,
   };
 
-  // Store last selected cell and/or range (both optional) for each of the sheet's view. A sheet
-  // view may be split into four panes, although of course most aren't. But to cover that case we
-  // need to find the active pane then find its active cell. When there's only one pane (i.e. almost
-  // all spreadsheets), you look for the default pane, "topLeft".
+  // Store the sheet's views (layout, zoom level, selected cell/range, frozen panes).
   const views: WorksheetView[] = [];
   const sheetViews = dom.querySelectorAll('sheetViews > sheetView');
   sheetViews.forEach(sheetView => {
@@ -73,8 +80,34 @@ export function handlerWorksheet (
     if (activeLayout === 'normal' || activeLayout === 'pageLayout' || activeLayout === 'pageBreakPreview') {
       view.activeLayout = activeLayout;
     }
+
+    // Sheet views can be split into two panes (horizontally or vertically), or four panes
+    // (quadrants). When they're split, they can be "split panes" (four different views of the full
+    // sheet) or "frozen panes" (one view of the sheet but with fixed header rows and/or columns).
+    // Split panes have been around forever, but frozen panes are more common. Only frozen panes are
+    // supported here.
     const pane = getFirstChild(sheetView, 'pane');
-    const activePane = pane ? attr(pane, 'activePane', 'topLeft') : 'topLeft';
+    const activePane = (
+      pane ? attr(pane, 'activePane', 'topLeft') : 'topLeft'
+    ) as ExcelFrozenPaneLocation;
+    if (pane && (attr(pane, 'state') === 'frozen' || attr(pane, 'state') === 'frozenSplit')) {
+      const columnSplit = numAttr(pane, 'xSplit', 0);
+      const rowSplit = numAttr(pane, 'ySplit', 0);
+      const firstVisibleCell = attr(pane, 'topLeftCell');
+
+      // If a view contains frozen panes, find which row and column they're split on, where the
+      // non-frozen pane is scrolled to, and which pane is active.
+      if (columnSplit !== 0 || rowSplit !== 0) {
+        view.panes = { type: 'frozen' };
+        addProp(view.panes, 'columns', columnSplit, 0);
+        addProp(view.panes, 'rows', rowSplit, 0);
+        addProp(view.panes, 'firstVisibleCell', firstVisibleCell, '');
+        addProp(view.panes, 'activePane', FROZEN_PANE_LOCATIONS[activePane], 'topStart');
+      }
+    }
+
+    // Which cell/range is selected within which pane? If there are no frozen panes, OOXML pretends
+    // there's a single "topLeft" pane that defines the selection.
     const selection = sheetView.children
       .find(el => el.tagName === 'selection' && attr(el, 'pane', 'topLeft') === activePane);
     if (selection) {
@@ -87,6 +120,7 @@ export function handlerWorksheet (
         view.activeRanges = activeRanges;
       }
     }
+
     addProp(view, 'showGridLines', boolAttr(sheetView, 'showGridLines'), true);
     addProp(view, 'layoutScales', getLayoutScales(sheetView));
 
@@ -116,9 +150,13 @@ export function handlerWorksheet (
     const baseColWidthChars = numAttr(sheetFormatPr, 'baseColWidth', null);
     const defaultColWidthChars = numAttr(sheetFormatPr, 'defaultColWidth', null);
     sheet.defaults!.colWidth =
-      colWidth(defaultColWidthChars, 0) ??
-      colWidth(baseColWidthChars, 5) ??
-      colWidth(10, 5)!;
+      colWidth(defaultColWidthChars, 0, context.normalMdw) ??
+      colWidth(baseColWidthChars, 5, context.normalMdw) ??
+      colWidth(8, 5, context.normalMdw)!;
+    const rowHt = numAttr(sheetFormatPr, 'defaultRowHeight', null);
+    if (rowHt != null) {
+      sheet.defaults!.rowHeight = rowHt;
+    }
   }
 
   // decode column widths (3.3.1.12)
@@ -129,7 +167,7 @@ export function handlerWorksheet (
     if (min == null || max == null) { return; }
     const style = numAttr(d, 'style');
     const hidden = numAttr(d, 'hidden', 0);
-    const size = colWidth(hidden ? 0 : numAttr(d, 'width'));
+    const size = colWidth(hidden ? 0 : numAttr(d, 'width'), 0, context.normalMdw);
     sheet.columns!.push(gridSize(min, max, size, style));
   });
 
@@ -186,9 +224,7 @@ export function handlerWorksheet (
       // Row height measured in point size
       const ht = attr(row, 'ht');
       if (ht != null || rowStyle != null) {
-        // FIXME: GridSize.size should be optional: https://github.com/jsfkit/types/issues/14
-        const height = ht == null ? sheet.defaults!.rowHeight : +ht;
-        rows.push(gridSize(r, r, height, rowStyle));
+        rows.push(gridSize(r, r, ht == null ? null : +ht, rowStyle));
       }
     }
 
@@ -228,7 +264,7 @@ export function handlerWorksheet (
   });
 
   // run-length encode the row heights
-  sheet.rows = rle(rows, sheet.defaults!.rowHeight);
+  sheet.rows = rle(rows);
 
   // add .F tags to array formula cells
   context._arrayFormula.forEach(arrayRef => {
@@ -248,6 +284,32 @@ export function handlerWorksheet (
       }
     }
   });
+
+  // read page print margins
+  const pm = getFirstChild(dom.root, 'pageMargins');
+  if (pm) {
+    const margins: PageMargins = {
+      left: numAttr(pm, 'left'),
+      right: numAttr(pm, 'right'),
+      top: numAttr(pm, 'top'),
+      bottom: numAttr(pm, 'bottom'),
+      header: numAttr(pm, 'header'),
+      footer: numAttr(pm, 'footer'),
+    };
+    if (
+      // OOXML requires every attribute when `<pageMargins>` is present; if any are missing or
+      // non-numeric, treat the element as absent rather than fabricating partial data.
+      (margins.top != null && margins.bottom != null &&
+      margins.left != null && margins.right != null &&
+      margins.header != null && margins.footer != null) &&
+      // Normalise a canonical-default element to absent so the common case keeps the JSF compact.
+      (margins.top != DEFAULT_PAGE_MARGINS.top || margins.bottom != DEFAULT_PAGE_MARGINS.bottom ||
+      margins.left != DEFAULT_PAGE_MARGINS.left || margins.right != DEFAULT_PAGE_MARGINS.right ||
+      margins.header != DEFAULT_PAGE_MARGINS.header || margins.footer != DEFAULT_PAGE_MARGINS.footer)
+    ) {
+      sheet.pageMargins = margins;
+    }
+  }
 
   // detect linked drawing (graphics within the sheet)
   const drawing = getFirstChild(dom.root, 'drawing');

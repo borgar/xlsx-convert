@@ -23,7 +23,7 @@
   "styles": [
     { "fontScheme": "minor", "fontSize": 12 },
     {
-      "numberFormat": "h:mm:ss",
+      "numberFormat": "m/d/yy h:mm",
       "fontScheme": "minor",
       "fontSize": 12
     }

@@ -1,0 +1,39 @@
+{
+  "name": "calcpr-iterate-true.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": 1, "f": 0 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 53, "rowHeight": 16 },
+      "hidden": 0
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": true,
+    "iterateCount": 100,
+    "iterateDelta": 0.0001,
+    "epoch": 1900,
+    "fullCalcOnLoad": true
+  },
+  "styles": [ { "fontFamily": "Calibri", "fontSize": 11 } ],
+  "tables": [],
+  "theme": null,
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontFamily": "Calibri",
+      "fontSize": 11,
+      "builtinId": 0
+    }
+  },
+  "formulas": [ "RC+1" ],
+  "meta": {
+    "app": { "name": "Google Sheets", "confidence": 0.8 }
+  }
+}

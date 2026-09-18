@@ -1,7 +1,12 @@
 import { describe, expect, test, vi } from 'vitest';
 import { convertBinary } from './convertBinary.ts';
 import { readFile } from 'node:fs/promises';
-import JSZip from 'jszip';
+import { ZipArchive } from '@borgar/zip';
+
+async function readFileAsArrayBuffer (path: string): Promise<ArrayBuffer> {
+  const buf = await readFile(path);
+  return buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength);
+}
 
 describe('convertBinary', () => {
   test('convertBinary should be exported', () => {
@@ -123,12 +128,12 @@ describe('convertBinary', () => {
     // Returns an xlsx ArrayBuffer with a bad uniqueCount in the shared
     // strings table, which triggers a warning from handlerSharedStrings.
     async function makeBadSharedStringsXlsx () {
-      const bin = await readFile('./tests/excel/strings.xlsx');
-      const zip = await JSZip.loadAsync(bin);
-      const sstXml = await zip.file('xl/sharedStrings.xml')!.async('string');
+      const bin = await readFileAsArrayBuffer('./tests/excel/strings.xlsx');
+      const zip = new ZipArchive(bin);
+      const sstXml = (await zip.readText('xl/sharedStrings.xml'))!;
       const modified = sstXml.replace(/uniqueCount="\d+"/, 'uniqueCount="0"');
-      zip.file('xl/sharedStrings.xml', modified);
-      return zip.generateAsync({ type: 'arraybuffer' });
+      await zip.write('xl/sharedStrings.xml', modified);
+      return zip.toArrayBuffer();
     }
 
     test('warn callback is not called when there are no warnings', async () => {
@@ -155,11 +160,11 @@ describe('convertBinary', () => {
     });
 
     test('warns when pivot table cache definition is missing', async () => {
-      const bin = await readFile('./tests/excel/pivot-table.xlsx');
-      const zip = await JSZip.loadAsync(bin);
+      const bin = await readFileAsArrayBuffer('./tests/excel/pivot-table.xlsx');
+      const zip = new ZipArchive(bin);
       // Remove the pivot cache definition file so the cache can't be resolved
-      zip.remove('xl/pivotCache/pivotCacheDefinition1.xml');
-      const modifiedBin = await zip.generateAsync({ type: 'arraybuffer' });
+      zip.delete('xl/pivotCache/pivotCacheDefinition1.xml');
+      const modifiedBin = zip.toArrayBuffer();
       const warn = vi.fn();
       const wb = await convertBinary(modifiedBin, 'pivot-table.xlsx', { warn });
       expect(warn).toHaveBeenCalledOnce();
@@ -233,6 +238,67 @@ describe('convertBinary', () => {
       const a4 = jsf.sheets[0].cells.A4;
       expect(a4.F).toBe('A4:D4');
       expect(a4.cse).toBe(true);
+    });
+  });
+
+  describe('calcPr fullCalcOnLoad / forceFullCalc', () => {
+    // Set or remove a single boolean attribute on <calcPr>. Returns a fresh xlsx ArrayBuffer.
+    async function withCalcPrAttr (attr: string, value: string | null): Promise<ArrayBuffer> {
+      const bin = await readFileAsArrayBuffer('./tests/excel/numbers.xlsx');
+      const zip = new ZipArchive(bin);
+      const wbXml = await zip.readText('xl/workbook.xml');
+      const stripped = wbXml!.replace(new RegExp(`\\s+${attr}="[^"]*"`, 'g'), '');
+      const modified = value == null
+        ? stripped
+        : stripped.replace(/<calcPr([^/]*)\/>/, (_, attrs) => `<calcPr${attrs} ${attr}="${value}"/>`);
+      await zip.write('xl/workbook.xml', modified);
+      return zip.toArrayBuffer();
+    }
+
+    test('fullCalcOnLoad="1" sets calculationProperties.fullCalcOnLoad: true', async () => {
+      const wb = await convertBinary(await withCalcPrAttr('fullCalcOnLoad', '1'), 'numbers.xlsx');
+      expect(wb.calculationProperties?.fullCalcOnLoad).toBe(true);
+    });
+
+    test('fullCalcOnLoad="0" omits the field', async () => {
+      const wb = await convertBinary(await withCalcPrAttr('fullCalcOnLoad', '0'), 'numbers.xlsx');
+      expect(wb.calculationProperties?.fullCalcOnLoad).toBeUndefined();
+    });
+
+    test('absent fullCalcOnLoad omits the field', async () => {
+      const wb = await convertBinary(await withCalcPrAttr('fullCalcOnLoad', null), 'numbers.xlsx');
+      expect(wb.calculationProperties?.fullCalcOnLoad).toBeUndefined();
+    });
+
+    test('forceFullCalc="1" also sets calculationProperties.fullCalcOnLoad: true', async () => {
+      const wb = await convertBinary(await withCalcPrAttr('forceFullCalc', '1'), 'numbers.xlsx');
+      expect(wb.calculationProperties?.fullCalcOnLoad).toBe(true);
+    });
+  });
+
+  describe('skipStyledEmptyCells', () => {
+    // Style 1 in numbers.xlsx is numFmt-only (no fill/border), i.e. not "visible".
+    // Inject a value-less <c r="B1" s="1"/> to make a style-only cell.
+    async function withStyleOnlyCell (): Promise<ArrayBuffer> {
+      const bin = await readFileAsArrayBuffer('./tests/excel/numbers.xlsx');
+      const zip = new ZipArchive(bin);
+      const sheetXml = await zip.readText('xl/worksheets/sheet1.xml');
+      const modified = sheetXml!.replace(
+        '<c r="A1"><v>0</v></c></row>',
+        '<c r="A1"><v>0</v></c><c r="B1" s="1"/></row>',
+      );
+      await zip.write('xl/worksheets/sheet1.xml', modified);
+      return zip.toArrayBuffer();
+    }
+
+    test('style-only cell is retained by default', async () => {
+      const wb = await convertBinary(await withStyleOnlyCell(), 'numbers.xlsx');
+      expect(wb.sheets[0].cells.B1).toEqual({ s: 1 });
+    });
+
+    test('style-only cell is dropped with skipStyledEmptyCells: true', async () => {
+      const wb = await convertBinary(await withStyleOnlyCell(), 'numbers.xlsx', { skipStyledEmptyCells: true });
+      expect(wb.sheets[0].cells.B1).toBeUndefined();
     });
   });
 });

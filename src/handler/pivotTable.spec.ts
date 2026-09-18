@@ -247,6 +247,9 @@ describe('handlerPivotTable', () => {
   });
 
   it('should parse data fields with subtotal, showDataAs, baseField/baseItem', () => {
+    // `baseField` defaults to `0`, so the explicit `0` is elided. `baseItem="0"`
+    // is NOT the default (which is the `1048832` sentinel) --- it selects the
+    // first base item and is preserved.
     const xml = `<pivotTableDefinition name="PT1" cacheId="0">
       <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
       <pivotFields count="1"><pivotField dataField="1" showAll="1"/></pivotFields>
@@ -261,9 +264,71 @@ describe('handlerPivotTable', () => {
       fieldIndex: 0,
       subtotal: 'sum',
       showDataAs: 'percentOfTotal',
-      baseField: 0,
       baseItem: 0,
     });
+    expect(pt.dataFields![0]).not.toHaveProperty('baseField');
+  });
+
+  it('should map OOXML data-field aggregations to JSF', () => {
+    const cases: [ string, string ][] = [
+      [ 'stdDevp', 'stdDevP' ],
+      [ 'varp', 'varP' ],
+      [ 'stdDev', 'stdDev' ],
+      [ 'var', 'var' ],
+    ];
+    for (const [ ooxml, jsf ] of cases) {
+      const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+        <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+        <pivotFields count="1"><pivotField dataField="1" showAll="1"/></pivotFields>
+        <rowFields count="0"/><colFields count="0"/>
+        <dataFields count="1">
+          <dataField name="Measure" fld="0" subtotal="${ooxml}"/>
+        </dataFields>
+      </pivotTableDefinition>`;
+      const pt = parse(xml)!;
+      expect(pt.dataFields![0]).toEqual({ name: 'Measure', fieldIndex: 0, subtotal: jsf });
+    }
+  });
+
+  it('should drop a subtotal token that is not an OOXML data-field aggregation', () => {
+    for (const subtotal of [ 'stdDevP', 'varP', 'countA', 'avg', 'nonsense' ]) {
+      const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+        <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+        <pivotFields count="1"><pivotField dataField="1" showAll="1"/></pivotFields>
+        <rowFields count="0"/><colFields count="0"/>
+        <dataFields count="1">
+          <dataField name="Measure" fld="0" subtotal="${subtotal}"/>
+        </dataFields>
+      </pivotTableDefinition>`;
+      const pt = parse(xml)!;
+      expect(pt.dataFields![0]).not.toHaveProperty('subtotal');
+    }
+  });
+
+  it('should parse non-default baseField/baseItem verbatim', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="1"><pivotField dataField="1" showAll="1"/></pivotFields>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="1">
+        <dataField name="Diff" fld="0" showDataAs="difference" baseField="2" baseItem="3"/>
+      </dataFields>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.dataFields![0]).toMatchObject({ baseField: 2, baseItem: 3 });
+  });
+
+  it('should elide the baseItem "(not set)" sentinel (1048832)', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="1"><pivotField dataField="1" showAll="1"/></pivotFields>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="1">
+        <dataField name="Sum" fld="0" subtotal="sum" baseItem="1048832"/>
+      </dataFields>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.dataFields![0]).not.toHaveProperty('baseItem');
   });
 
   it('should parse page fields with selectedItem', () => {
@@ -735,7 +800,42 @@ describe('handlerPivotTable', () => {
     ]);
   });
 
-  // extensions are no longer on PivotTable; extLst parsing was removed.
+  it('parses hideValuesRow from the x14 pivotTableDefinition extension', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="0"/>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="0"/>
+      <extLst>
+        <ext uri="{962EF5D1-5CA2-4c93-8EF4-DBF5C05439D2}" xmlns:x14="http://schemas.microsoft.com/office/spreadsheetml/2009/9/main">
+          <x14:pivotTableDefinition hideValuesRow="1"/>
+        </ext>
+      </extLst>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.hideValuesRow).toBe(true);
+  });
+
+  it('omits hideValuesRow when the x14 extension is absent', () => {
+    const pt = parse(MINIMAL_PT)!;
+    expect(pt.hideValuesRow).toBeUndefined();
+  });
+
+  it('omits hideValuesRow when the x14 attribute is "0"', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="0"/>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="0"/>
+      <extLst>
+        <ext uri="{962EF5D1-5CA2-4c93-8EF4-DBF5C05439D2}" xmlns:x14="http://schemas.microsoft.com/office/spreadsheetml/2009/9/main">
+          <x14:pivotTableDefinition hideValuesRow="0"/>
+        </ext>
+      </extLst>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.hideValuesRow).toBeUndefined();
+  });
 
   it('should omit calculatedFields when absent', () => {
     const pt = parse(MINIMAL_PT)!;

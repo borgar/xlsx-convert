@@ -1,0 +1,64 @@
+{
+  "name": "arial-normal.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": 1234567890 }
+      },
+      "columns": [ { "start": 1, "end": 1, "size": 70 } ],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 75, "rowHeight": 16 },
+      "hidden": 0
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [ { "fontFamily": "Arial", "fontSize": 12 } ],
+  "tables": [],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "lt1": { "type": "system", "value": "window" },
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "dk2": { "type": "srgb", "value": "0E2841" },
+      "accent1": { "type": "srgb", "value": "156082" },
+      "accent2": { "type": "srgb", "value": "E97132" },
+      "accent3": { "type": "srgb", "value": "196B24" },
+      "accent4": { "type": "srgb", "value": "0F9ED5" },
+      "accent5": { "type": "srgb", "value": "A02B93" },
+      "accent6": { "type": "srgb", "value": "4EA72E" },
+      "hlink": { "type": "srgb", "value": "467886" },
+      "folHlink": { "type": "srgb", "value": "96607D" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Aptos Display" }
+      },
+      "minor": {
+        "latin": { "typeface": "Aptos Narrow" }
+      }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontFamily": "Arial",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "formulas": [],
+  "meta": {
+    "app": { "name": "GRID", "version": "16.0.300" }
+  }
+}

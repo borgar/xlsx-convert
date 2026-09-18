@@ -53,6 +53,7 @@ function convertXf (xf: Xf, styleDefs: StyleDefs): Style {
   addStyle(s, 'wrapText', !!xf.wrapText, false);
   addStyle(s, 'shrinkToFit', !!xf.shrinkToFit, false);
   addStyle(s, 'textRotation', xf.textRotation, 0);
+  addStyle(s, 'pivotButton', !!xf.pivotButton, false);
 
   if (xf.font) {
     const font = xf.font;

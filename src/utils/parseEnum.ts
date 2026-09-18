@@ -1,13 +1,19 @@
 /**
- * Validate a string against a set of allowed enum values.
- * Returns the value narrowed to `T` if it's in the set, otherwise `undefined`.
+ * Validate a string against enum values, optionally mapping it to a different spelling.
+ * Returns the recognized or mapped value, otherwise `undefined`.
  */
 export function parseEnum<T extends string> (
   value: string | null | undefined,
-  allowed: ReadonlySet<T>,
+  allowed: ReadonlySet<T> | ReadonlyMap<string, T>,
 ): T | undefined {
   if (value == null) {
     return undefined;
   }
-  return allowed.has(value as T) ? (value as T) : undefined;
+  if (allowed instanceof Set) {
+    return allowed.has(value as T) ? (value as T) : undefined;
+  }
+  if (allowed instanceof Map) {
+    return allowed.get(value);
+  }
+  throw new TypeError('Expected a Set or Map');
 }
