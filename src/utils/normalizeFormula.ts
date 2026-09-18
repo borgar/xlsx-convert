@@ -23,7 +23,7 @@ import {
 type ExternalSubset = { name: string };
 type ConversionContextSubset = {
   externalLinks: ExternalSubset[];
-  preservePrefixes?: boolean;
+  preserveXlPrefixes?: boolean;
 };
 type TrimTypes = 'both' | 'head' | 'tail';
 
@@ -121,7 +121,7 @@ const TRIM_OPS: Record<string, TrimTypes> = {
 export function normalizeFormulaTokens (
   tokens: Token[], wb?: ConversionContextSubset | null, r1c1 = false,
 ): Token[] {
-  const preservePrefixes = wb?.preservePrefixes;
+  const preserveXlPrefixes = wb?.preserveXlPrefixes;
   const outTokens = [];
 
   for (let i = 0; i < tokens.length; i++) {
@@ -161,7 +161,7 @@ export function normalizeFormulaTokens (
         outTokens.push(r);
       }
       // Remove Excel internal namespaces from functions.
-      else if (!preservePrefixes) {
+      else if (!preserveXlPrefixes) {
         t.value = t.value.replace(/^(?:_xlfn\.|_xludf\.|_xlws\.)+/i, '');
         outTokens.push(t);
       }
@@ -170,7 +170,7 @@ export function normalizeFormulaTokens (
       }
     }
     else if (isReference(t)) {
-      if (!preservePrefixes && t.type === tokenTypes.REF_NAMED) {
+      if (!preserveXlPrefixes && t.type === tokenTypes.REF_NAMED) {
         t.value = t.value.replace(/^(?:_xl[pn]m\.)/ig, '');
       }
       // normalize external references
@@ -204,10 +204,10 @@ export function normalizeFormulaTokens (
 }
 
 // External references (`[N]Sheet!Ref` or `[wb]Sheet!Ref`) always need
-// normalization regardless of `preservePrefixes`, so this pattern is checked
+// normalization regardless of `preserveXlPrefixes`, so this pattern is checked
 // first and unconditionally.
 const NEEDS_EXTREF = /(?:[^RC"]\[|^\[)/;
-// XLSX-internal prefixes — only need handling when `preservePrefixes` is off.
+// XLSX-internal prefixes — only need handling when `preserveXlPrefixes` is off.
 const NEEDS_PREFIX = /_xl(?:fn|udf|ws|pm|nm)\./i;
 // Compatibility-function patterns that get rewritten to operators. The
 // `\.:` / `:\.` patterns trigger because fx emits range-trim ranges with
@@ -220,7 +220,7 @@ export function normalizeFormula (
   // quickly test if work is actually needed
   const needsWork =
     NEEDS_EXTREF.test(formula) ||
-    (!wb?.preservePrefixes && NEEDS_PREFIX.test(formula)) ||
+    (!wb?.preserveXlPrefixes && NEEDS_PREFIX.test(formula)) ||
     NEEDS_COMPATFN.test(formula);
   if (!needsWork) {
     return formula;

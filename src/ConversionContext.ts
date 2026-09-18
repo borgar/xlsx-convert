@@ -81,8 +81,8 @@ export class ConversionContext {
   // Delegate the formula-normalization options so code receiving a
   // ConversionContext as a ConversionContextSubset sees the actual option
   // values rather than undefined.
-  get preservePrefixes (): boolean | undefined {
-    return this.options.preservePrefixes;
+  get preserveXlPrefixes (): boolean | undefined {
+    return this.options.preserveXlPrefixes;
   }
 
   warn (message: string): void {

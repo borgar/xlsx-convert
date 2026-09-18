@@ -173,9 +173,9 @@ describe('convertBinary', () => {
     });
   });
 
-  test('preservePrefixes keeps _xlfn and _xlpm prefixes in formulas and names', async () => {
+  test('preserveXlPrefixes keeps _xlfn and _xlpm prefixes in formulas and names', async () => {
     const bin = await readFile('./tests/excel/prefixed-formulas.xlsx');
-    const wb = await convertBinary(bin, 'prefixed-formulas.xlsx', { preservePrefixes: true });
+    const wb = await convertBinary(bin, 'prefixed-formulas.xlsx', { preserveXlPrefixes: true });
     // Cell formulas (R1C1) retain _xlfn. and _xlpm. prefixes
     expect(wb.formulas!.some(f => f.includes('_xlfn.'))).toBe(true);
     expect(wb.formulas!.some(f => f.includes('_xlpm.'))).toBe(true);
@@ -188,7 +188,7 @@ describe('convertBinary', () => {
 
     // cellFormulas mode also retains prefixes
     const wbCF = await convertBinary(bin, 'prefixed-formulas.xlsx', {
-      preservePrefixes: true, cellFormulas: true,
+      preserveXlPrefixes: true, cellFormulas: true,
     });
     const a1f = Object.values(wbCF.sheets[0].cells).map(c => c.f).filter((f): f is string => typeof f === 'string');
     expect(a1f.some(f => f.includes('_xlfn.'))).toBe(true);

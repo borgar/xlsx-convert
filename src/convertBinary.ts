@@ -182,7 +182,7 @@ export async function convertBinary (
             exDoc,
             target,
             extRels,
-            { preservePrefixes: context.options.preservePrefixes },
+            { preserveXlPrefixes: context.options.preserveXlPrefixes },
           );
           context.externalLinks.push(exlink);
           if (targetRel.type.endsWith('xlPathMissing')) {

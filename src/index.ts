@@ -17,12 +17,13 @@ export type ConversionOptions = {
    */
   cellFormulas?: boolean;
   /**
-   * Preserve XLSX-internal prefixes in formula output instead of stripping them:
-   * `_xlfn.`, `_xludf.`, `_xlws.` on function names, and `_xlpm.`, `_xlnm.` on
-   * named references.
+   * Keep the `_xl...` prefixes that XLSX writes on names in formulas, instead of stripping them:
+   * `_xlfn.`, `_xludf.` and `_xlws.` on function names, and `_xlpm.` and `_xlnm.` on other names
+   * (LET and LAMBDA parameters, and built-in names like `_xlnm.Print_Area`). Reference prefixes
+   * are not affected.
    * @defaultValue false
    */
-  preservePrefixes?: boolean;
+  preserveXlPrefixes?: boolean;
   /**
    * Drop cells that have a style but no value or formula, unless the style is visible (fill, border, etc.).
    * @defaultValue false

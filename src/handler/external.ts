@@ -9,7 +9,7 @@ import { fromA1 } from '../utils/fromA1.ts';
 import { toA1 } from '../utils/toA1.ts';
 
 type FormulaOpts = {
-  preservePrefixes?: boolean;
+  preserveXlPrefixes?: boolean;
 };
 
 export function handlerExternal (
@@ -76,7 +76,7 @@ export function handlerExternal (
 
   // read cells and their values
   //
-  // Note: dummyContext does not include preservePrefixes, but external link
+  // Note: dummyContext does not include preserveXlPrefixes, but external link
   // cells only contain cached values (no <f> nodes), so no formulas are
   // normalized here.
   //
