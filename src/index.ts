@@ -17,10 +17,9 @@ export type ConversionOptions = {
    */
   cellFormulas?: boolean;
   /**
-   * Keep the `_xl...` prefixes that XLSX writes on names in formulas, instead of stripping them:
-   * `_xlfn.`, `_xludf.` and `_xlws.` on function names, and `_xlpm.` and `_xlnm.` on other names
-   * (LET and LAMBDA parameters, and built-in names like `_xlnm.Print_Area`). Reference prefixes
-   * are not affected.
+   * Keep the `_xl...` prefixes XLSX writes on names in formulas, instead of stripping them:
+   * `_xlfn.`, `_xludf.` and `_xlws.` on function names, `_xlpm.` and `_xlnm.` on other names
+   * (LET/LAMBDA parameters, `_xlnm.Print_Area`). Reference prefixes are not affected.
    * @defaultValue false
    */
   preserveXlPrefixes?: boolean;
