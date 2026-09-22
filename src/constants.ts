@@ -11,6 +11,7 @@ export const REL_PREFIXES = [
   'http://schemas.microsoft.com/office/2017/10/relationships/',
   'http://schemas.openxmlformats.org/officeDocument/2006/relationships/',
   'http://schemas.openxmlformats.org/package/2006/relationships/',
+  'http://schemas.microsoft.com/office/2023/09/relationships/',
   // strict
   'http://purl.oclc.org/ooxml/officeDocument/relationships/',
 ];

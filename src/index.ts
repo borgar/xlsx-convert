@@ -8,17 +8,17 @@ export { InvalidFileError, EncryptionError, MissingSheetError, UnsupportedError 
 export type ConversionOptions = {
   /**
    * Skip cells that are a part of merges.
-   * @defaultValue true
+   * @default true
    */
   skipMerged?: boolean;
   /**
    * Formulas are attached to cells rather than being included as a separate list.
-   * @defaultValue false
+   * @default false
    */
   cellFormulas?: boolean;
   /**
    * Drop cells that have a style but no value or formula, unless the style is visible (fill, border, etc.).
-   * @defaultValue false
+   * @default false
    */
   skipStyledEmptyCells?: boolean;
   /**
@@ -28,7 +28,12 @@ export type ConversionOptions = {
    * If the return value is a string, the value will be used in the images record on
    * the workbook instead of the standard data-URI conversion.
    */
-  imageCallback?: (data?: ArrayBuffer, filename?: string) => Promise<string | void> | string | void
+  imageCallback?: (data?: ArrayBuffer, filename?: string) => Promise<string | void> | string | void;
+  /**
+   * Include a list of features found on the workbook that the application did not convert to JSF
+   * @default true
+   */
+  reportUnsupported?: boolean;
   /**
    * Warning callback. If provided, warnings are passed to this function; otherwise they are silently discarded.
    */

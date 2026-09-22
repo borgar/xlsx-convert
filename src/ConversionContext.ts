@@ -77,6 +77,8 @@ export class ConversionContext {
   charts: RefLink[];
   /** Max Digit Width of the workbook Normal font, used to convert column widths to pixels. */
   normalMdw: number;
+  unsupported: Set<string>;
+  selectedTabs: Set<string>;
 
   warn (message: string): void {
     this.options.warn?.(message);
@@ -103,5 +105,7 @@ export class ConversionContext {
     this.isLikelyGSExport = false;
     this.charts = [];
     this.normalMdw = DEFAULT_MDW;
+    this.unsupported = new Set();
+    this.selectedTabs = new Set();
   }
 }

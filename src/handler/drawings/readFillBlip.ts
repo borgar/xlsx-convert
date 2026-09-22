@@ -56,6 +56,9 @@ export function readFillBlip (elm: Element | undefined | null, context: Conversi
       out.tile = tile;
     }
 
+    const svgBlip = elm.querySelector('svgBlip');
+    if (svgBlip) { context.unsupported.add('asset-svg'); }
+
     return out;
   }
 }

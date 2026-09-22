@@ -70,6 +70,8 @@ export function handlerWorksheet (
     // showGridLines: true,
     hidden: context.sheetLinks.find(link => link.name === sheetName)?.hidden ?? 0,
   };
+  let groupedCols = false;
+  let groupedRows = false;
 
   // Store the sheet's views (layout, zoom level, selected cell/range, frozen panes).
   const views: WorksheetView[] = [];
@@ -81,28 +83,57 @@ export function handlerWorksheet (
       view.activeLayout = activeLayout;
     }
 
+    if (!boolAttr(sheetView, 'showZeros', true)) {
+      context.unsupported.add('view-zeros');
+    }
+    if (!boolAttr(sheetView, 'showRowColHeaders', true)) {
+      context.unsupported.add('view-headings');
+    }
+    if (boolAttr(sheetView, 'tabSelected')) {
+      context.selectedTabs.add(sheetName);
+    }
+    if (boolAttr(sheetView, 'rightToLeft')) {
+      context.unsupported.add('sheet-rtl');
+    }
+    if (boolAttr(sheetView, 'showFormulas')) {
+      context.unsupported.add('view-formulas');
+    }
+    if (attr(sheetView, 'colorId') || attr(sheetView, 'defaultGridColor')) {
+      context.unsupported.add('view-gridlines-color');
+    }
+    if (
+      numAttr(sheetView, 'outlineLevelRow', 0) > 0 ||
+      numAttr(sheetView, 'outlineLevelCol', 0) > 0
+    ) {
+      context.unsupported.add('view-outline-symbols');
+    }
+
     // Sheet views can be split into two panes (horizontally or vertically), or four panes
     // (quadrants). When they're split, they can be "split panes" (four different views of the full
     // sheet) or "frozen panes" (one view of the sheet but with fixed header rows and/or columns).
     // Split panes have been around forever, but frozen panes are more common. Only frozen panes are
     // supported here.
     const pane = getFirstChild(sheetView, 'pane');
-    const activePane = (
-      pane ? attr(pane, 'activePane', 'topLeft') : 'topLeft'
-    ) as ExcelFrozenPaneLocation;
-    if (pane && (attr(pane, 'state') === 'frozen' || attr(pane, 'state') === 'frozenSplit')) {
-      const columnSplit = numAttr(pane, 'xSplit', 0);
-      const rowSplit = numAttr(pane, 'ySplit', 0);
-      const firstVisibleCell = attr(pane, 'topLeftCell');
+    const activePane = (pane ? attr(pane, 'activePane', 'topLeft') : 'topLeft') as ExcelFrozenPaneLocation;
+    if (pane) {
+      const state = attr(pane, 'state');
+      if (state === 'frozen' || state === 'frozenSplit') {
+        const columnSplit = numAttr(pane, 'xSplit', 0);
+        const rowSplit = numAttr(pane, 'ySplit', 0);
+        const firstVisibleCell = attr(pane, 'topLeftCell');
 
-      // If a view contains frozen panes, find which row and column they're split on, where the
-      // non-frozen pane is scrolled to, and which pane is active.
-      if (columnSplit !== 0 || rowSplit !== 0) {
-        view.panes = { type: 'frozen' };
-        addProp(view.panes, 'columns', columnSplit, 0);
-        addProp(view.panes, 'rows', rowSplit, 0);
-        addProp(view.panes, 'firstVisibleCell', firstVisibleCell, '');
-        addProp(view.panes, 'activePane', FROZEN_PANE_LOCATIONS[activePane], 'topStart');
+        // If a view contains frozen panes, find which row and column they're split on, where the
+        // non-frozen pane is scrolled to, and which pane is active.
+        if (columnSplit !== 0 || rowSplit !== 0) {
+          view.panes = { type: 'frozen' };
+          addProp(view.panes, 'columns', columnSplit, 0);
+          addProp(view.panes, 'rows', rowSplit, 0);
+          addProp(view.panes, 'firstVisibleCell', firstVisibleCell, '');
+          addProp(view.panes, 'activePane', FROZEN_PANE_LOCATIONS[activePane], 'topStart');
+        }
+      }
+      else {
+        context.unsupported.add('view-pane-split');
       }
     }
 
@@ -162,6 +193,9 @@ export function handlerWorksheet (
   // decode column widths (3.3.1.12)
   getFirstChild(dom.root, 'cols')?.children.forEach(d => {
     if (d.tagName !== 'col') { return; }
+    if (numAttr(d, 'outlineLevel', 0) > 0) {
+      groupedCols = true;
+    }
     const min = numAttr(d, 'min');
     const max = numAttr(d, 'max');
     if (min == null || max == null) { return; }
@@ -226,6 +260,10 @@ export function handlerWorksheet (
       if (ht != null || rowStyle != null) {
         rows.push(gridSize(r, r, ht == null ? null : +ht, rowStyle));
       }
+    }
+
+    if (numAttr(row, 'outlineLevel', 0) > 0) {
+      groupedRows = true;
     }
 
     // cells: 3.3.1.3
@@ -329,8 +367,66 @@ export function handlerWorksheet (
     if (rel) {
       context.images.push({ sheetName, rel, type: 'picture' });
     }
+    context.unsupported.add('sheet-background');
     // TODO: set a property on the sheet to link to this image
   }
+
+  // flag unsupported features
+  const conditionalFormatting = getFirstChild(dom.root, 'conditionalFormatting');
+  if (conditionalFormatting) { context.unsupported.add('dynamic-style'); }
+
+  const oleObjects = getFirstChild(dom.root, 'oleObjects');
+  if (oleObjects) { context.unsupported.add('asset-oo'); }
+
+  const legacyDrawing = getFirstChild(dom.root, 'legacyDrawing');
+  if (legacyDrawing) { context.unsupported.add('asset-vml'); }
+
+  const scenarios = getFirstChild(dom.root, 'scenarios');
+  if (scenarios) { context.unsupported.add('scenario'); }
+
+  const dataValidations = getFirstChild(dom.root, 'dataValidations');
+  if (dataValidations) { context.unsupported.add('data-validation'); }
+
+  const extLst = getFirstChild(dom.root, 'extLst');
+  if (extLst?.querySelector('sparkline')) {
+    context.unsupported.add('sparkline');
+  }
+
+  const sheetProtection = getFirstChild(dom.root, 'sheetProtection');
+  if (sheetProtection) { context.unsupported.add('sheet-lock'); }
+
+  const sheetPr = getFirstChild(dom.root, 'sheetPr');
+  if (sheetPr) {
+    if (getFirstChild(sheetPr, 'tabColor')) {
+      context.unsupported.add('sheet-tabcolor');
+    }
+  }
+
+  const autoFilter = getFirstChild(dom.root, 'autoFilter');
+  if (autoFilter) { context.unsupported.add('sheet-autofilter'); }
+
+  const printOptions = getFirstChild(dom.root, 'printOptions');
+  if (printOptions) {
+    if (boolAttr(printOptions, 'gridLines')) { context.unsupported.add('print-gridlines'); }
+    if (boolAttr(printOptions, 'gridLinesSet')) { context.unsupported.add('print-gridlines'); }
+    if (boolAttr(printOptions, 'headings')) { context.unsupported.add('print-headings'); }
+    if (boolAttr(printOptions, 'verticalCentered')) { context.unsupported.add('print-setup'); }
+    if (boolAttr(printOptions, 'horizontalCentered')) { context.unsupported.add('print-setup'); }
+  }
+  const pageSetup = getFirstChild(dom.root, 'pageSetup');
+  if (pageSetup) {
+    let ignoreProps = 0;
+    if (pageSetup.getAttribute('paperSize') === '9') { ignoreProps++; }
+    if (pageSetup.getAttribute('orientation') === 'portrait') { ignoreProps++; }
+    if (pageSetup.getAttribute('horizontalDpi') === '0') { ignoreProps++; }
+    if (pageSetup.getAttribute('verticalDpi') === '0') { ignoreProps++; }
+    if (Object.keys(pageSetup.attr).length > ignoreProps) {
+      context.unsupported.add('print-setup');
+    }
+  }
+
+  if (groupedCols) { context.unsupported.add('col-group'); }
+  if (groupedRows) { context.unsupported.add('row-group'); }
 
   delete context._shared;
   delete context._arrayFormula;

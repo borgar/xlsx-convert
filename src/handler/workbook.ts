@@ -4,6 +4,7 @@ import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { toInt } from '../utils/typecast.ts';
 import type { DefinedName, Workbook, WorkbookView } from '@jsfkit/types';
+import { getFirstChild } from '../utils/getFirstChild.ts';
 
 function isSafeInt (n: number | null | undefined): n is number {
   return Number.isSafeInteger(n);
@@ -88,9 +89,22 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
     if (boolAttr(calcPr, 'fullCalcOnLoad') || boolAttr(calcPr, 'forceFullCalc')) {
       wb.calculationProperties!.fullCalcOnLoad = true;
     }
+    // precision as displayed is still unsupported
+    if (!boolAttr(calcPr, 'fullPrecision', true)) {
+      context.unsupported.add('calc-precision');
+    }
   }
 
   wb.calculationProperties!.epoch = epoch;
+
+  const workbookProtection = getFirstChild(dom.root, 'workbookProtection');
+  if (workbookProtection) {
+    context.unsupported.add('workbook-lock');
+  }
+  const customWorkbookViews = getFirstChild(dom.root, 'customWorkbookViews');
+  if (customWorkbookViews) {
+    context.unsupported.add('view-custom');
+  }
 
   // Store "active sheet" (the last-used sheet at save) for each workbook view. Excel supports
   // multiple workbook views (window arrangements), though most files only have one.

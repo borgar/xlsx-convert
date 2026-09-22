@@ -2,8 +2,9 @@ import type { Element } from '@borgar/simple-xml';
 import { attr } from '../../utils/attr.ts';
 import { addProp } from '../../utils/addProp.ts';
 import type { Paragraph, TextAnchoring, TextBody, TextHorzOverflow, TextVertOverflow, TextWrapping } from '@jsfkit/types';
+import type { ConversionContext } from '../../ConversionContext.ts';
 
-export function readTextBody (elm: Element | null | undefined): TextBody | undefined {
+export function readTextBody (elm: Element | null | undefined, context: ConversionContext): TextBody | undefined {
   if (elm?.tagName === 'txBody') {
     const text: TextBody = { p: [] };
 
@@ -26,6 +27,9 @@ export function readTextBody (elm: Element | null | undefined): TextBody | undef
       else if (child.tagName === 'p') {
         const para: Paragraph = { text: child.textContent };
         text.p.push(para);
+        if (child.querySelector('effectLst')) {
+          context.unsupported.add('text-effect');
+        }
         // TODO: rich text
         // <p>
         //   <pPr algn="ctr" />

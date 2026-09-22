@@ -1,4 +1,4 @@
-import type { Element } from '@borgar/simple-xml';
+import { Element } from '@borgar/simple-xml';
 import type { Graphic, GraphicBitmap, GraphicChart, GraphicConnectionShape, GraphicGroup, GraphicShape } from '@jsfkit/types';
 import { boolAttr } from '../../utils/attr.ts';
 import { readTransforms } from './readTransforms.ts';
@@ -9,6 +9,18 @@ import { readTextBody } from './readTextBody.ts';
 import type { ConversionContext } from '../../ConversionContext.ts';
 import { addProp } from '../../utils/addProp.ts';
 import { readFillBlip } from './readFillBlip.ts';
+
+function seekXmlNs (node: Element, prefix: string): string | null {
+  let c: Element | null = node;
+  do {
+    const uri = c.getAttribute('xmlns:' + prefix);
+    if (uri) {
+      return uri;
+    }
+    c = node.parentNode;
+  } while (c instanceof Element);
+  return null;
+}
 
 export function readGraphicContent (parent: Element, context: ConversionContext): Graphic[] {
   const content: Graphic[] = [];
@@ -58,7 +70,7 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
         out.name = cNvPr.getAttribute('name') ?? '';
       }
       addProp(out, 'shape', readShapeProperties(getFirstChild(d, 'spPr'), context));
-      addProp(out, 'text', readTextBody(getFirstChild(d, 'txBody')));
+      addProp(out, 'text', readTextBody(getFirstChild(d, 'txBody'), context));
       // addProp(out, 'style', readShapeStyle(getFirstChild(d, 'style'), context));
       content.push(out);
     }
@@ -77,7 +89,7 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
         out.name = cNvPr.getAttribute('name') ?? '';
       }
       addProp(out, 'shape', readShapeProperties(getFirstChild(d, 'spPr'), context));
-      addProp(out, 'text', readTextBody(getFirstChild(d, 'txBody')));
+      addProp(out, 'text', readTextBody(getFirstChild(d, 'txBody'), context));
       // addProp(out, 'style', readShapeStyle(getFirstChild(d, 'style'), context));
       content.push(out);
     }
@@ -146,14 +158,87 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
           }
         }
       }
+      else {
+        const graphicData = d.querySelector('graphicData');
+        // http://schemas.openxmlformats.org/drawingml/2006/diagram
+        if (graphicData?.getAttribute('uri')?.endsWith('/diagram')) {
+          context.unsupported.add('shape-smartart');
+        }
+        else {
+          // is this a slicer?
+          const slicer = d.querySelector('graphicData > slicer');
+          if (slicer) {
+            context.unsupported.add('table-slicer');
+          }
+        }
+      }
     }
     else if (d.tagName === 'AlternateContent') {
       for (const x of d.children) {
-        if (x.tagName === 'Choice' && /^cx[1234]$/i.test(x.attr.Requires)) {
-          const ch = getFirstChild(x);
-          if (ch) {
-            content.push(...readGraphicContent(x, context));
+        if (x.tagName === 'Choice') {
+          const req = x.attr.Requires.trim().split(/\s+/);
+          if (req.length) {
+            for (const prefix of req) {
+              const ns = seekXmlNs(x, prefix);
+              if (ns?.endsWith('/slicer')) {
+                context.unsupported.add('table-slicer');
+              }
+              else if (ns?.endsWith('/timeslicer')) {
+                // XXX: add a test for this
+                context.unsupported.add('time-slicer');
+              }
+              else if (ns?.endsWith('/model3d')) {
+                context.unsupported.add('asset-3d');
+              }
+              // else if (ns?.endsWith('/SVG/main')) {
+              //   context.unsupported.add('asset-svg');
+              // }
+              else if (ns?.endsWith('/chartex')) {
+                const ch = getFirstChild(x);
+                if (ch) {
+                  content.push(...readGraphicContent(x, context));
+                }
+              }
+              else if (ns?.endsWith('/drawing/2010/main')) {
+                if (x.querySelector('oMath')) {
+                  context.unsupported.add('math');
+                }
+              }
+              else {
+                console.log(prefix, ns);
+                console.log(x.toString());
+                process.exit(1);
+              }
+            }
           }
+          /*
+          | Namespace URI | Common prefix | Capability |
+          |---|---|---|
+          | `http://schemas.microsoft.com/office/drawing/2010/main`                | Office 2010 extended DrawingML |
+          | `http://schemas.microsoft.com/office/drawing/2010/slicer`              | Excel slicer drawing |
+          | `http://schemas.microsoft.com/office/drawing/2012/slicer`              | Excel 2013+ slicer drawing |
+          | `http://schemas.microsoft.com/office/drawing/2012/timeslicer`          | Excel Timeline (time slicer) drawing |
+          | `http://schemas.microsoft.com/office/excel/2010/spreadsheetDrawing`    | Extended Excel spreadsheet-drawing content |
+          | `http://schemas.microsoft.com/office/drawing/2010/compatibility`       | Compatibility shapes for legacy controls / OLE / ActiveX |
+          | `http://schemas.microsoft.com/office/drawing/2007/8/2/chart`           | Office 2010 extended chart functionality |
+          | `http://schemas.microsoft.com/office/drawing/2012/chart`               | Office 2013 extended chart functionality |
+          | `http://schemas.microsoft.com/office/drawing/2014/chart`               | Office 2016 extended chart functionality |
+          | `http://schemas.microsoft.com/office/drawing/2014/chartex`             | Extended/new chart model (Waterfall, Histogram, etc.) |
+          | `http://schemas.microsoft.com/office/drawing/2014/chart/ac`            | Compatibility extensions for the extended chart model |
+          | `http://schemas.microsoft.com/office/drawing/2015/06/chart`            | Later Office 2016 chart extensions |
+          | `http://schemas.microsoft.com/office/drawing/2017/03/chart`            | Later-generation chart extensions |
+          | `http://schemas.microsoft.com/office/drawing/2016/SVG/main`            | SVG image representation |
+          | `http://schemas.microsoft.com/office/drawing/2017/model3d`             | 3D model drawing |
+          | `http://schemas.microsoft.com/office/drawing/2016/ink`                 | Ink drawing |
+          | `http://schemas.microsoft.com/office/drawing/2017/decorative`          | Decorative-object accessibility metadata |
+          | `http://schemas.microsoft.com/office/drawing/2018/sketchyshapes`       | Sketch / hand-drawn shape rendering |
+          | `http://schemas.microsoft.com/office/drawing/2018/animation`           | Drawing animation |
+          | `http://schemas.microsoft.com/office/drawing/2018/animation/model3d`   | 3D-model animation |
+          | `http://schemas.microsoft.com/office/drawing/2020/classificationShape` | Classification / sensitivity-label shapes |
+          | `http://schemas.microsoft.com/office/drawing/2021/livefeed`            | Live-feed drawing objects |
+          | `http://schemas.microsoft.com/office/drawing/2021/scriptlink`          | Script-linked drawing content |
+          | `http://schemas.microsoft.com/office/drawing/2022/imageformula`        | Formula-backed image content |
+          */
         }
       }
     }

@@ -3,6 +3,7 @@ import type { ConversionContext } from '../ConversionContext.ts';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import type { Table, TableColumn, TableStyle, TableStyleName } from '@jsfkit/types';
+import { getFirstChild } from '../utils/getFirstChild.ts';
 
 const reTableStyleName = /^TableStyle(Dark(\d|10|11)|Light(1?\d|20|21)|Medium(1?\d|2[0-8]))$/;
 
@@ -21,9 +22,24 @@ export function handlerTable (dom: Document | null | undefined, context: Convers
     // alt text: extLst>ext>table[altTextSummary]
   };
 
-  // todo: table can have a sortState
+  if (boolAttr(tableElm, 'insertRow', false)) {
+    context.unsupported.add('table-insertrow');
+  }
 
-  const tableStyleInfo = tableElm.getElementsByTagName('tableStyleInfo')[0];
+  // todo: table can have a sortState
+  const sortState = getFirstChild(tableElm, 'sortState');
+  if (sortState) { context.unsupported.add('table-sortstate'); }
+
+  const autoFilter = getFirstChild(tableElm, 'autoFilter');
+  if (autoFilter) {
+    for (const child of autoFilter.children) {
+      if (boolAttr(child, 'hiddenButton')) {
+        context.unsupported.add('table-filter-button');
+      }
+    }
+  }
+
+  const tableStyleInfo = getFirstChild(tableElm, 'tableStyleInfo');
   if (tableStyleInfo) {
     // This may be a bit confusing, but here is is:
     // 1. When there is no <tableStyleInfo /> in the file, the table should be rendered using "TableStyleMedium2"
@@ -37,8 +53,13 @@ export function handlerTable (dom: Document | null | undefined, context: Convers
       showLastColumn: false,
     };
     const name = attr(tableStyleInfo, 'name');
-    if (name && reTableStyleName.test(name)) {
-      tableStyle.name = name as TableStyleName;
+    if (name) {
+      if (reTableStyleName.test(name)) {
+        tableStyle.name = name as TableStyleName;
+      }
+      else {
+        context.unsupported.add('table-style-custom');
+      }
     }
     tableStyle.showRowStripes = boolAttr(tableStyleInfo, 'showRowStripes', true);
     tableStyle.showColumnStripes = boolAttr(tableStyleInfo, 'showColumnStripes', false);

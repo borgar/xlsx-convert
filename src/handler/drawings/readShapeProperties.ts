@@ -174,21 +174,25 @@ export function readShapeProperties (elm: Element | null | undefined, context: C
     // 3D Scene Properties – §5.1.4.1.26
     else if (tagName === 'scene3d') {
       // TBD
+      context.unsupported.add('shape-effect');
     }
 
     // Apply 3D shape properties – §5.1.7.12
     else if (tagName === 'sp3d') {
       // TBD
+      context.unsupported.add('shape-effect');
     }
 
     // Effect Container – §5.1.10.25
     else if (tagName === 'effectDag') {
       // TBD
+      context.unsupported.add('shape-effect');
     }
 
     // Effect Container – §5.1.10.26
     else if (tagName === 'effectLst') {
       // TBD
+      context.unsupported.add('shape-effect');
     }
   });
 
