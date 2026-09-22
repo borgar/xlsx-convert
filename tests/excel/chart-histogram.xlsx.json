@@ -130,5 +130,6 @@
       "variant": "Macintosh",
       "version": "16.0300"
     }
-  }
+  },
+  "unsupported": [ "chart-chartex" ]
 }

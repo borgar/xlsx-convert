@@ -28,7 +28,7 @@ export function readTextBody (elm: Element | null | undefined, context: Conversi
         const para: Paragraph = { text: child.textContent };
         text.p.push(para);
         if (child.querySelector('effectLst')) {
-          context.unsupported.add('text-effect');
+          context.unsupported.add('shape-texteffect');
         }
         // TODO: rich text
         // <p>

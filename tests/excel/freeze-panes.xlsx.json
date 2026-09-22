@@ -1055,5 +1055,6 @@
       "variant": "Macintosh",
       "version": "16.0300"
     }
-  }
+  },
+  "unsupported": [ "asset-vml", "note-rtf" ]
 }

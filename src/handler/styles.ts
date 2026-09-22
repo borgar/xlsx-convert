@@ -281,7 +281,7 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
   }
   for (const xf of styles.cellXf) {
     if (xf.textIndent) {
-      context.unsupported.add('text-indent');
+      context.unsupported.add('cell-indent');
     }
     if (xf.hidden) {
       context.unsupported.add('cell-hide');

@@ -162,7 +162,7 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
         const graphicData = d.querySelector('graphicData');
         // http://schemas.openxmlformats.org/drawingml/2006/diagram
         if (graphicData?.getAttribute('uri')?.endsWith('/diagram')) {
-          context.unsupported.add('shape-smartart');
+          context.unsupported.add('shape-diagram');
         }
         else {
           // is this a slicer?
@@ -201,7 +201,7 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
               }
               else if (ns?.endsWith('/drawing/2010/main')) {
                 if (x.querySelector('oMath')) {
-                  context.unsupported.add('math');
+                  context.unsupported.add('shape-math');
                 }
               }
               else {
