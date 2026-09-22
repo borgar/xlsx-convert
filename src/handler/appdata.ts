@@ -44,16 +44,16 @@ const META_HANDLERS: Record<string, MHandler> = {
       ctx.unsupported.add('workbook-meta');
     }
   },
-  // int
-  DocSecurity: () => {},
-  // bool
-  HyperlinksChanged: () => {},
-  LinksUpToDate: () => {},
-  ScaleCrop: () => {},
-  SharedDoc: () => {},
-  // struct
-  HeadingPairs: () => {},
-  TitlesOfParts: () => {},
+  // // int
+  // DocSecurity: () => {},
+  // // bool
+  // HyperlinksChanged: () => {},
+  // LinksUpToDate: () => {},
+  // ScaleCrop: () => {},
+  // SharedDoc: () => {},
+  // // struct
+  // HeadingPairs: () => {},
+  // TitlesOfParts: () => {},
 };
 
 /**
@@ -67,9 +67,6 @@ export function handlerAppdata (dom: Document | null | undefined, context: Conve
     for (const child of dom.root.children) {
       if (child.tagName in META_HANDLERS) {
         META_HANDLERS[child.tagName](child, appMeta, context);
-      }
-      else {
-        console.log(child.tagName);
       }
     }
     return { app: appMeta };

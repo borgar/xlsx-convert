@@ -193,7 +193,7 @@ export function handlerWorksheet (
   // decode column widths (3.3.1.12)
   getFirstChild(dom.root, 'cols')?.children.forEach(d => {
     if (d.tagName !== 'col') { return; }
-    if (numAttr(d, 'outlineLevel', 0) > 0) {
+    if (!groupedCols && numAttr(d, 'outlineLevel', 0) > 0) {
       groupedCols = true;
     }
     const min = numAttr(d, 'min');
@@ -262,7 +262,7 @@ export function handlerWorksheet (
       }
     }
 
-    if (numAttr(row, 'outlineLevel', 0) > 0) {
+    if (!groupedRows && numAttr(row, 'outlineLevel', 0) > 0) {
       groupedRows = true;
     }
 
