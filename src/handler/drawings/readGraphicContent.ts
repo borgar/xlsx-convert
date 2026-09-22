@@ -9,6 +9,10 @@ import { readTextBody } from './readTextBody.ts';
 import type { ConversionContext } from '../../ConversionContext.ts';
 import { addProp } from '../../utils/addProp.ts';
 import { readFillBlip } from './readFillBlip.ts';
+import {
+  MISSING_ASSET_3D, MISSING_SHAPE_DIAGRAM, MISSING_SHAPE_MATH, MISSING_TABLE_SLICER,
+  MISSING_TIME_SLICER,
+} from '../../constants.ts';
 
 function seekXmlNs (node: Element, prefix: string): string | null {
   let c: Element | null = node;
@@ -162,13 +166,13 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
         const graphicData = d.querySelector('graphicData');
         // http://schemas.openxmlformats.org/drawingml/2006/diagram
         if (graphicData?.getAttribute('uri')?.endsWith('/diagram')) {
-          context.unsupported.add('shape-diagram');
+          context.unsupported.add(MISSING_SHAPE_DIAGRAM);
         }
         else {
           // is this a slicer?
           const slicer = d.querySelector('graphicData > slicer');
           if (slicer) {
-            context.unsupported.add('table-slicer');
+            context.unsupported.add(MISSING_TABLE_SLICER);
           }
         }
       }
@@ -181,18 +185,14 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
             for (const prefix of req) {
               const ns = seekXmlNs(x, prefix);
               if (ns?.endsWith('/slicer')) {
-                context.unsupported.add('table-slicer');
+                context.unsupported.add(MISSING_TABLE_SLICER);
               }
               else if (ns?.endsWith('/timeslicer')) {
-                // XXX: add a test for this
-                context.unsupported.add('time-slicer');
+                context.unsupported.add(MISSING_TIME_SLICER);
               }
               else if (ns?.endsWith('/model3d')) {
-                context.unsupported.add('asset-3d');
+                context.unsupported.add(MISSING_ASSET_3D);
               }
-              // else if (ns?.endsWith('/SVG/main')) {
-              //   context.unsupported.add('asset-svg');
-              // }
               else if (ns?.endsWith('/chartex')) {
                 const ch = getFirstChild(x);
                 if (ch) {
@@ -201,13 +201,8 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
               }
               else if (ns?.endsWith('/drawing/2010/main')) {
                 if (x.querySelector('oMath')) {
-                  context.unsupported.add('shape-math');
+                  context.unsupported.add(MISSING_SHAPE_MATH);
                 }
-              }
-              else {
-                console.log(prefix, ns);
-                console.log(x.toString());
-                process.exit(1);
               }
             }
           }

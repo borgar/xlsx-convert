@@ -3,6 +3,7 @@ import { attr } from '../../utils/attr.ts';
 import { addProp } from '../../utils/addProp.ts';
 import type { Paragraph, TextAnchoring, TextBody, TextHorzOverflow, TextVertOverflow, TextWrapping } from '@jsfkit/types';
 import type { ConversionContext } from '../../ConversionContext.ts';
+import { MISSING_SHAPE_TEXTEFFECT } from '../../constants.ts';
 
 export function readTextBody (elm: Element | null | undefined, context: ConversionContext): TextBody | undefined {
   if (elm?.tagName === 'txBody') {
@@ -28,7 +29,7 @@ export function readTextBody (elm: Element | null | undefined, context: Conversi
         const para: Paragraph = { text: child.textContent };
         text.p.push(para);
         if (child.querySelector('effectLst')) {
-          context.unsupported.add('shape-texteffect');
+          context.unsupported.add(MISSING_SHAPE_TEXTEFFECT);
         }
         // TODO: rich text
         // <p>

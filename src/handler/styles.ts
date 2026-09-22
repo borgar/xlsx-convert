@@ -1,7 +1,10 @@
 import type { Document, Element } from '@borgar/simple-xml';
 import type { Color, Theme } from '@jsfkit/types';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
-import { BUILTIN_FORMATS } from '../constants.ts';
+import {
+  BUILTIN_FORMATS, MISSING_BORDER_DIAGONAL, MISSING_CELL_CHECKBOX, MISSING_CELL_HIDE,
+  MISSING_CELL_INDENT, MISSING_CELL_LOCK,
+} from '../constants.ts';
 import type { ConversionContext } from '../ConversionContext.ts';
 import { readColor } from '../color/readColor.ts';
 import { addProp } from '../utils/addProp.ts';
@@ -277,20 +280,20 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
     });
 
   if (styles.border.find(d => d.diagonalDown || d.diagonalUp)) {
-    context.unsupported.add('border-diagonal');
+    context.unsupported.add(MISSING_BORDER_DIAGONAL);
   }
   for (const xf of styles.cellXf) {
     if (xf.textIndent) {
-      context.unsupported.add('cell-indent');
+      context.unsupported.add(MISSING_CELL_INDENT);
     }
     if (xf.hidden) {
-      context.unsupported.add('cell-hide');
+      context.unsupported.add(MISSING_CELL_HIDE);
     }
     if (xf.unlocked) {
-      context.unsupported.add('cell-lock');
+      context.unsupported.add(MISSING_CELL_LOCK);
     }
     if (xf.checkbox) {
-      context.unsupported.add('cell-checkbox');
+      context.unsupported.add(MISSING_CELL_CHECKBOX);
     }
   }
 

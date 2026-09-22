@@ -34,6 +34,10 @@ import type { ChartSpace } from './handler/charts/types/ChartSpace.ts';
 import { XlsxArchive } from './XlsxArchive.ts';
 import { getFirstChild } from './utils/getFirstChild.ts';
 import { handlerCustomdata } from './handler/customdata.ts';
+import {
+  MISSING_ASSET_EXT, MISSING_ASSET_PQ, MISSING_ASSET_PY, MISSING_ASSET_VBA, MISSING_CHART,
+  MISSING_CHART_CHARTEX, MISSING_CHART_PIVOT, MISSING_VIEW_TABSELECTED,
+} from './constants.ts';
 
 let CHARTS_ENABLED = false;
 /** @ignore */
@@ -284,7 +288,7 @@ export async function convertBinary (
               const chartDom = await xlsx.readXML(img.rel.target);
               if (chartDom) {
                 if (getFirstChild(chartDom.root, 'pivotSource')) {
-                  context.unsupported.add('chart-pivot');
+                  context.unsupported.add(MISSING_CHART_PIVOT);
                 }
                 // read rel type: chartColorStyle
                 // read rel type: chartStyle
@@ -300,10 +304,10 @@ export async function convertBinary (
         else {
           for (const img of context.charts) {
             if (img.type === 'chart') {
-              context.unsupported.add('chart');
+              context.unsupported.add(MISSING_CHART);
             }
             else if (img.type === 'chartEx') {
-              context.unsupported.add('chart-chartex');
+              context.unsupported.add(MISSING_CHART_CHARTEX);
             }
           }
         }
@@ -393,12 +397,12 @@ export async function convertBinary (
               const schemaRef = itemProps.querySelector('schemaRef');
               const uri = schemaRef ? attr(schemaRef, 'uri') ?? attr(schemaRef, 'ds:uri') : null;
               if (uri === 'http://schemas.microsoft.com/DataMashup') {
-                context.unsupported.add('asset-pq');
+                context.unsupported.add(MISSING_ASSET_PQ);
               }
               else {
                 // Best guess is that this is an Office Script, but we'd have to look in the accompanying
                 // item file, which is a bunch of steps for something we don't support.
-                context.unsupported.add('asset-ext');
+                context.unsupported.add(MISSING_ASSET_EXT);
               }
             }
           }
@@ -410,14 +414,14 @@ export async function convertBinary (
   // list any unsupported things found in this workbook
   if (options.reportUnsupported) {
     if (context.rels.find(d => d.type === 'Python')) {
-      context.unsupported.add('asset-py');
+      context.unsupported.add(MISSING_ASSET_PY);
     }
     if (context.rels.find(d => d.type === 'vbaProject')) {
-      context.unsupported.add('asset-vba');
+      context.unsupported.add(MISSING_ASSET_VBA);
     }
     // this really only matters when there are 2+ tabs selected
     if (context.selectedTabs.size > 1) {
-      context.unsupported.add('view-tabselected');
+      context.unsupported.add(MISSING_VIEW_TABSELECTED);
     }
     const taglist: string[] = Array.from(context.unsupported).sort();
     if (taglist.length) { wb.unsupported = taglist; }

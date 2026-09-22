@@ -2,6 +2,7 @@ import { Document } from '@borgar/simple-xml';
 import type { ConversionContext } from '../ConversionContext.ts';
 import { numAttr } from '../utils/attr.ts';
 import { RichText } from '../utils/RichText.ts';
+import { MISSING_CELL_RTF } from '../constants.ts';
 
 export function handlerSharedStrings (dom: Document, context: ConversionContext): string[] {
   const stringTable = [];
@@ -27,7 +28,7 @@ export function handlerSharedStrings (dom: Document, context: ConversionContext)
   }
 
   if (rtf) {
-    context.unsupported.add('cell-rtf');
+    context.unsupported.add(MISSING_CELL_RTF);
   }
 
   return stringTable;

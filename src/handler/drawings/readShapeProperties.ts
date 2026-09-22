@@ -5,7 +5,7 @@ import { readPath } from './readPath.ts';
 import { attr, numAttr, numStrAttr } from '../../utils/attr.ts';
 import type { ConversionContext } from '../../ConversionContext.ts';
 import { getFirstChild } from '../../utils/getFirstChild.ts';
-import { SHAPE_TYPE } from '../../constants.ts';
+import { MISSING_SHAPE_EFFECT, SHAPE_TYPE } from '../../constants.ts';
 import { addProp } from '../../utils/addProp.ts';
 import { readFill } from './readFill.ts';
 import { readLineProps } from './readLineProps.ts';
@@ -174,25 +174,25 @@ export function readShapeProperties (elm: Element | null | undefined, context: C
     // 3D Scene Properties – §5.1.4.1.26
     else if (tagName === 'scene3d') {
       // TBD
-      context.unsupported.add('shape-effect');
+      context.unsupported.add(MISSING_SHAPE_EFFECT);
     }
 
     // Apply 3D shape properties – §5.1.7.12
     else if (tagName === 'sp3d') {
       // TBD
-      context.unsupported.add('shape-effect');
+      context.unsupported.add(MISSING_SHAPE_EFFECT);
     }
 
     // Effect Container – §5.1.10.25
     else if (tagName === 'effectDag') {
       // TBD
-      context.unsupported.add('shape-effect');
+      context.unsupported.add(MISSING_SHAPE_EFFECT);
     }
 
     // Effect Container – §5.1.10.26
     else if (tagName === 'effectLst') {
       // TBD
-      context.unsupported.add('shape-effect');
+      context.unsupported.add(MISSING_SHAPE_EFFECT);
     }
   });
 

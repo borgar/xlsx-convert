@@ -11,7 +11,15 @@ import { toA1 } from '../utils/toA1.ts';
 import { getFirstChild } from '../utils/getFirstChild.ts';
 import { toInt } from '../utils/typecast.ts';
 import { addProp } from '../utils/addProp.ts';
-import { DEFAULT_PAGE_MARGINS } from '../constants.ts';
+import {
+  DEFAULT_PAGE_MARGINS, MISSING_ASSET_OO, MISSING_ASSET_VML, MISSING_COL_GROUP,
+  MISSING_DATA_VALIDATION, MISSING_DYNAMIC_STYLE, MISSING_PRINT_GRIDLINES,
+  MISSING_PRINT_HEADINGS, MISSING_PRINT_SETUP, MISSING_ROW_GROUP, MISSING_SCENARIO,
+  MISSING_SHEET_AUTOFILTER, MISSING_SHEET_BACKGROUND, MISSING_SHEET_LOCK, MISSING_SHEET_RTL,
+  MISSING_SHEET_TABCOLOR, MISSING_SPARKLINE, MISSING_VIEW_FORMULAS,
+  MISSING_VIEW_GRIDLINES_COLOR, MISSING_VIEW_HEADINGS, MISSING_VIEW_OUTLINE_SYMBOLS,
+  MISSING_VIEW_PANE_SPLIT, MISSING_VIEW_ZEROS,
+} from '../constants.ts';
 
 type ExcelFrozenPaneLocation = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
 type JSFFrozenPaneLocation = NonNullable<WorksheetViewFrozenPanes['activePane']>;
@@ -84,28 +92,28 @@ export function handlerWorksheet (
     }
 
     if (!boolAttr(sheetView, 'showZeros', true)) {
-      context.unsupported.add('view-zeros');
+      context.unsupported.add(MISSING_VIEW_ZEROS);
     }
     if (!boolAttr(sheetView, 'showRowColHeaders', true)) {
-      context.unsupported.add('view-headings');
+      context.unsupported.add(MISSING_VIEW_HEADINGS);
     }
     if (boolAttr(sheetView, 'tabSelected')) {
       context.selectedTabs.add(sheetName);
     }
     if (boolAttr(sheetView, 'rightToLeft')) {
-      context.unsupported.add('sheet-rtl');
+      context.unsupported.add(MISSING_SHEET_RTL);
     }
     if (boolAttr(sheetView, 'showFormulas')) {
-      context.unsupported.add('view-formulas');
+      context.unsupported.add(MISSING_VIEW_FORMULAS);
     }
     if (attr(sheetView, 'colorId') || attr(sheetView, 'defaultGridColor')) {
-      context.unsupported.add('view-gridlines-color');
+      context.unsupported.add(MISSING_VIEW_GRIDLINES_COLOR);
     }
     if (
       numAttr(sheetView, 'outlineLevelRow', 0) > 0 ||
       numAttr(sheetView, 'outlineLevelCol', 0) > 0
     ) {
-      context.unsupported.add('view-outline-symbols');
+      context.unsupported.add(MISSING_VIEW_OUTLINE_SYMBOLS);
     }
 
     // Sheet views can be split into two panes (horizontally or vertically), or four panes
@@ -133,7 +141,7 @@ export function handlerWorksheet (
         }
       }
       else {
-        context.unsupported.add('view-pane-split');
+        context.unsupported.add(MISSING_VIEW_PANE_SPLIT);
       }
     }
 
@@ -367,51 +375,51 @@ export function handlerWorksheet (
     if (rel) {
       context.images.push({ sheetName, rel, type: 'picture' });
     }
-    context.unsupported.add('sheet-background');
+    context.unsupported.add(MISSING_SHEET_BACKGROUND);
     // TODO: set a property on the sheet to link to this image
   }
 
   // flag unsupported features
   const conditionalFormatting = getFirstChild(dom.root, 'conditionalFormatting');
-  if (conditionalFormatting) { context.unsupported.add('dynamic-style'); }
+  if (conditionalFormatting) { context.unsupported.add(MISSING_DYNAMIC_STYLE); }
 
   const oleObjects = getFirstChild(dom.root, 'oleObjects');
-  if (oleObjects) { context.unsupported.add('asset-oo'); }
+  if (oleObjects) { context.unsupported.add(MISSING_ASSET_OO); }
 
   const legacyDrawing = getFirstChild(dom.root, 'legacyDrawing');
-  if (legacyDrawing) { context.unsupported.add('asset-vml'); }
+  if (legacyDrawing) { context.unsupported.add(MISSING_ASSET_VML); }
 
   const scenarios = getFirstChild(dom.root, 'scenarios');
-  if (scenarios) { context.unsupported.add('scenario'); }
+  if (scenarios) { context.unsupported.add(MISSING_SCENARIO); }
 
   const dataValidations = getFirstChild(dom.root, 'dataValidations');
-  if (dataValidations) { context.unsupported.add('data-validation'); }
+  if (dataValidations) { context.unsupported.add(MISSING_DATA_VALIDATION); }
 
   const extLst = getFirstChild(dom.root, 'extLst');
   if (extLst?.querySelector('sparkline')) {
-    context.unsupported.add('sparkline');
+    context.unsupported.add(MISSING_SPARKLINE);
   }
 
   const sheetProtection = getFirstChild(dom.root, 'sheetProtection');
-  if (sheetProtection) { context.unsupported.add('sheet-lock'); }
+  if (sheetProtection) { context.unsupported.add(MISSING_SHEET_LOCK); }
 
   const sheetPr = getFirstChild(dom.root, 'sheetPr');
   if (sheetPr) {
     if (getFirstChild(sheetPr, 'tabColor')) {
-      context.unsupported.add('sheet-tabcolor');
+      context.unsupported.add(MISSING_SHEET_TABCOLOR);
     }
   }
 
   const autoFilter = getFirstChild(dom.root, 'autoFilter');
-  if (autoFilter) { context.unsupported.add('sheet-autofilter'); }
+  if (autoFilter) { context.unsupported.add(MISSING_SHEET_AUTOFILTER); }
 
   const printOptions = getFirstChild(dom.root, 'printOptions');
   if (printOptions) {
-    if (boolAttr(printOptions, 'gridLines')) { context.unsupported.add('print-gridlines'); }
-    if (boolAttr(printOptions, 'gridLinesSet')) { context.unsupported.add('print-gridlines'); }
-    if (boolAttr(printOptions, 'headings')) { context.unsupported.add('print-headings'); }
-    if (boolAttr(printOptions, 'verticalCentered')) { context.unsupported.add('print-setup'); }
-    if (boolAttr(printOptions, 'horizontalCentered')) { context.unsupported.add('print-setup'); }
+    if (boolAttr(printOptions, 'gridLines')) { context.unsupported.add(MISSING_PRINT_GRIDLINES); }
+    if (boolAttr(printOptions, 'gridLinesSet')) { context.unsupported.add(MISSING_PRINT_GRIDLINES); }
+    if (boolAttr(printOptions, 'headings')) { context.unsupported.add(MISSING_PRINT_HEADINGS); }
+    if (boolAttr(printOptions, 'verticalCentered')) { context.unsupported.add(MISSING_PRINT_SETUP); }
+    if (boolAttr(printOptions, 'horizontalCentered')) { context.unsupported.add(MISSING_PRINT_SETUP); }
   }
   const pageSetup = getFirstChild(dom.root, 'pageSetup');
   if (pageSetup) {
@@ -421,12 +429,12 @@ export function handlerWorksheet (
     if (pageSetup.getAttribute('horizontalDpi') === '0') { ignoreProps++; }
     if (pageSetup.getAttribute('verticalDpi') === '0') { ignoreProps++; }
     if (Object.keys(pageSetup.attr).length > ignoreProps) {
-      context.unsupported.add('print-setup');
+      context.unsupported.add(MISSING_PRINT_SETUP);
     }
   }
 
-  if (groupedCols) { context.unsupported.add('col-group'); }
-  if (groupedRows) { context.unsupported.add('row-group'); }
+  if (groupedCols) { context.unsupported.add(MISSING_COL_GROUP); }
+  if (groupedRows) { context.unsupported.add(MISSING_ROW_GROUP); }
 
   delete context._shared;
   delete context._arrayFormula;

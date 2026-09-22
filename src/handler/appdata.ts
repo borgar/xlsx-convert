@@ -1,6 +1,7 @@
 import type { Document, Element } from '@borgar/simple-xml';
 import type { Workbook } from '@jsfkit/types';
 import type { ConversionContext } from '../ConversionContext.ts';
+import { MISSING_WORKBOOK_META } from '../constants.ts';
 
 // This doesn't exist as a standalone type in JSF, and Workbook['meta']['app'] can't be accessed
 type AppMeta = {
@@ -31,17 +32,17 @@ const META_HANDLERS: Record<string, MHandler> = {
   },
   Company: (elm, _, ctx) => {
     if (elm.textContent) {
-      ctx.unsupported.add('workbook-meta');
+      ctx.unsupported.add(MISSING_WORKBOOK_META);
     }
   },
   Manager: (elm, _, ctx) => {
     if (elm.textContent) {
-      ctx.unsupported.add('workbook-meta');
+      ctx.unsupported.add(MISSING_WORKBOOK_META);
     }
   },
   HyperlinkBase: (elm, _, ctx) => {
     if (elm.textContent) {
-      ctx.unsupported.add('workbook-meta');
+      ctx.unsupported.add(MISSING_WORKBOOK_META);
     }
   },
   // // int

@@ -4,6 +4,7 @@ import { attr, numAttr } from '../utils/attr.ts';
 import { getFirstChild } from '../utils/getFirstChild.ts';
 import { RichText } from '../utils/RichText.ts';
 import type { ConversionContext } from '../ConversionContext.ts';
+import { MISSING_NOTE_RTF } from '../constants.ts';
 
 /**
  * Parse notes from xl/comments{n}.xml.
@@ -39,7 +40,7 @@ export function handlerNotes (dom: Document, context: ConversionContext): Note[]
       // text runs). All the rich text is discarded, only the plain text is stored.
       const rt = RichText.from(getFirstChild(commentNode, 'text'));
       if (rt.isRich) {
-        context.unsupported.add('note-rtf');
+        context.unsupported.add(MISSING_NOTE_RTF);
       }
       notes.push({ ref, author, ...rt.toJSF() });
     });

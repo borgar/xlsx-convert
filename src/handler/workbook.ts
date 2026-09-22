@@ -5,6 +5,9 @@ import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { toInt } from '../utils/typecast.ts';
 import type { DefinedName, Workbook, WorkbookView } from '@jsfkit/types';
 import { getFirstChild } from '../utils/getFirstChild.ts';
+import {
+  MISSING_CALC_PRECISION, MISSING_VIEW_CUSTOM, MISSING_WORKBOOK_LOCK,
+} from '../constants.ts';
 
 function isSafeInt (n: number | null | undefined): n is number {
   return Number.isSafeInteger(n);
@@ -91,7 +94,7 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
     }
     // precision as displayed is still unsupported
     if (!boolAttr(calcPr, 'fullPrecision', true)) {
-      context.unsupported.add('calc-precision');
+      context.unsupported.add(MISSING_CALC_PRECISION);
     }
   }
 
@@ -99,11 +102,11 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
 
   const workbookProtection = getFirstChild(dom.root, 'workbookProtection');
   if (workbookProtection) {
-    context.unsupported.add('workbook-lock');
+    context.unsupported.add(MISSING_WORKBOOK_LOCK);
   }
   const customWorkbookViews = getFirstChild(dom.root, 'customWorkbookViews');
   if (customWorkbookViews) {
-    context.unsupported.add('view-custom');
+    context.unsupported.add(MISSING_VIEW_CUSTOM);
   }
 
   // Store "active sheet" (the last-used sheet at save) for each workbook view. Excel supports

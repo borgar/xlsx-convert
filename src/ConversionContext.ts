@@ -7,6 +7,7 @@ import type { Rel } from './handler/rels.ts';
 import { DEFAULT_MDW } from './utils/mdw.ts';
 import type { RelativeFormula } from './RelativeFormula.ts';
 import type { ConversionOptions } from './index.ts';
+import type { MissingFeature } from './constants.ts';
 
 type SheetLink = {
   name: string;
@@ -77,7 +78,7 @@ export class ConversionContext {
   charts: RefLink[];
   /** Max Digit Width of the workbook Normal font, used to convert column widths to pixels. */
   normalMdw: number;
-  unsupported: Set<string>;
+  unsupported: Set<MissingFeature>;
   selectedTabs: Set<string>;
 
   warn (message: string): void {

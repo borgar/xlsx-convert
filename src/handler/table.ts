@@ -4,6 +4,10 @@ import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import type { Table, TableColumn, TableStyle, TableStyleName } from '@jsfkit/types';
 import { getFirstChild } from '../utils/getFirstChild.ts';
+import {
+  MISSING_TABLE_FILTER_BUTTON, MISSING_TABLE_INSERTROW, MISSING_TABLE_SORTSTATE,
+  MISSING_TABLE_STYLE_CUSTOM,
+} from '../constants.ts';
 
 const reTableStyleName = /^TableStyle(Dark(\d|10|11)|Light(1?\d|20|21)|Medium(1?\d|2[0-8]))$/;
 
@@ -23,18 +27,18 @@ export function handlerTable (dom: Document | null | undefined, context: Convers
   };
 
   if (boolAttr(tableElm, 'insertRow', false)) {
-    context.unsupported.add('table-insertrow');
+    context.unsupported.add(MISSING_TABLE_INSERTROW);
   }
 
   // todo: table can have a sortState
   const sortState = getFirstChild(tableElm, 'sortState');
-  if (sortState) { context.unsupported.add('table-sortstate'); }
+  if (sortState) { context.unsupported.add(MISSING_TABLE_SORTSTATE); }
 
   const autoFilter = getFirstChild(tableElm, 'autoFilter');
   if (autoFilter) {
     for (const child of autoFilter.children) {
       if (boolAttr(child, 'hiddenButton')) {
-        context.unsupported.add('table-filter-button');
+        context.unsupported.add(MISSING_TABLE_FILTER_BUTTON);
       }
     }
   }
@@ -58,7 +62,7 @@ export function handlerTable (dom: Document | null | undefined, context: Convers
         tableStyle.name = name as TableStyleName;
       }
       else {
-        context.unsupported.add('table-style-custom');
+        context.unsupported.add(MISSING_TABLE_STYLE_CUSTOM);
       }
     }
     tableStyle.showRowStripes = boolAttr(tableStyleInfo, 'showRowStripes', true);
