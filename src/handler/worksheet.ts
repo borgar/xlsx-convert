@@ -110,6 +110,7 @@ export function handlerWorksheet (
       context.unsupported.add(MISSING_VIEW_GRIDLINES_COLOR);
     }
     if (
+      !boolAttr(sheetView, 'showOutlineSymbols', true) ||
       numAttr(sheetView, 'outlineLevelRow', 0) > 0 ||
       numAttr(sheetView, 'outlineLevelCol', 0) > 0
     ) {

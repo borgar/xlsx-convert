@@ -71,5 +71,5 @@
       "version": "16.0300"
     }
   },
-  "unsupported": [ "col-group", "row-group" ]
+  "unsupported": [ "col-group", "row-group", "view-outline-symbols" ]
 }
