@@ -42,7 +42,80 @@ import {
 let CHARTS_ENABLED = false;
 /** @ignore */
 export type ExtendedWorkbook = Workbook & { charts?: Record<string, ChartSpace> };
-export type Workbook = JSFWorkbook & { unsupported?: string[] };
+
+/**
+ * This is the same structure as a {@link https://jsfkit.github.io/types/Workbook/ JSF Workbook} but
+ * with a property added: `unsupported`. It is a list of tags for feature that the converter encountered
+ * during the reading process but did not handle.
+ *
+ * The tags emitted are as follows:
+ *
+ * | Tag | Feature
+ * |--- |---
+ * | `asset-3d` | 3D image
+ * | `asset-ext` | Extension object (likely Office Script)
+ * | `asset-oo` | Office Object
+ * | `asset-pq` | Power Query
+ * | `asset-py` | Python
+ * | `asset-svg` | SVG image
+ * | `asset-vba` | VBA project
+ * | `asset-vml` | VML drawing
+ * | `border-diagonal` | Diagonal border
+ * | `calc-precision` | "Set precision as displayed" setting
+ * | `cell-checkbox` | Cell checkbox
+ * | `cell-hide` | Hidden cell (formula)
+ * | `cell-indent` | Cell indentation
+ * | `cell-lock` | Protected cells
+ * | `cell-rtf` | Rich text in cells
+ * | `chart` | Basic charts
+ * | `chart-chartex` | Extended charts
+ * | `chart-pivot` | Pivot charts
+ * | `col-group` | Grouped columns
+ * | `data-validation` | Data validation
+ * | `dynamic-style` | Conditional formatting of cells
+ * | `note-rtf` | Rich text in notes
+ * | `print-gridlines` | Print sheet gridlines
+ * | `print-headings` | Print sheet headings
+ * | `print-setup` | Print page setup
+ * | `row-group` | Grouped rows
+ * | `scenario` | Scenarios
+ * | `shape-diagram` | Diagram / SmartArt
+ * | `shape-effect` | Shadow, Reflection, 3D effects, ...
+ * | `shape-math` | Equations
+ * | `shape-texteffect` | Shadow, Reflection, 3D effects, ...
+ * | `sheet-autofilter` | Sheet autofilter
+ * | `sheet-background` | Sheet background image
+ * | `sheet-lock` | Protected sheets
+ * | `sheet-rtl` | Right-to-left sheet view
+ * | `sheet-tabcolor` | Sheet tab color
+ * | `sparkline` | Sparklines
+ * | `table-filter-button` | Hide/show table filter buttons
+ * | `table-insertrow` | Table insert row
+ * | `table-slicer` | Table slicer
+ * | `table-sortstate` | Table sort-state
+ * | `table-style-custom` | Custom table style
+ * | `time-slicer` | Time slicer
+ * | `view-custom` | Custom views
+ * | `view-formulas` | Show formulas in a sheet
+ * | `view-gridlines-color` | Changed gridlines color
+ * | `view-headings` | Hide/show headings on sheet
+ * | `view-outline-symbols` | Hide/Show grouped row/col UI
+ * | `view-pane-split` | Split panes
+ * | `view-tabselected` | Selected tabs
+ * | `view-zeros` | Hide zero results
+ * | `workbook-lock` | Protected workbook
+ * | `workbook-meta` | Workbook properties
+ * | `workbook-meta-custom` | Workbook custom properties
+ *
+ * As the capabilities of xlsx-convert grow, this list is expected to get smaller and eventually disappear.
+ */
+export type Workbook = JSFWorkbook & {
+  /**
+   * A list of tags idenifying xlsx features that the converter encountered in a workbook
+   * but did not handle.
+   */
+  unsupported?: string[]
+};
 
 /**
  * Default conversion options

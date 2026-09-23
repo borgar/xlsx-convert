@@ -21,6 +21,7 @@
 	"notRenderedTags": ["@pattern", "@min", "@max"],
 	"excludeInternal": true,
 	"excludePrivate": true,
+	"excludeExternals": true,
 	"excludeProtected": true,
 	"pageTitleTemplates": {
 		"member": "{name}"

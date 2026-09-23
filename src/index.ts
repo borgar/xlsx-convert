@@ -1,5 +1,4 @@
-import type { Workbook } from '@jsfkit/types';
-import { convertBinary } from './convertBinary.ts';
+import { convertBinary, type Workbook } from './convertBinary.ts';
 import type { MdwResolver } from './utils/mdw.ts';
 
 export { InvalidFileError, EncryptionError, MissingSheetError, UnsupportedError } from './errors.ts';
@@ -8,17 +7,17 @@ export { InvalidFileError, EncryptionError, MissingSheetError, UnsupportedError 
 export type ConversionOptions = {
   /**
    * Skip cells that are a part of merges.
-   * @default true
+   * @defaultValue true
    */
   skipMerged?: boolean;
   /**
    * Formulas are attached to cells rather than being included as a separate list.
-   * @default false
+   * @defaultValue false
    */
   cellFormulas?: boolean;
   /**
    * Drop cells that have a style but no value or formula, unless the style is visible (fill, border, etc.).
-   * @default false
+   * @defaultValue false
    */
   skipStyledEmptyCells?: boolean;
   /**
@@ -31,7 +30,7 @@ export type ConversionOptions = {
   imageCallback?: (data?: ArrayBuffer, filename?: string) => Promise<string | void> | string | void;
   /**
    * Include a list of features found on the workbook that the application did not convert to JSF
-   * @default true
+   * @defaultValue true
    */
   reportUnsupported?: boolean;
   /**
@@ -80,3 +79,4 @@ export async function convert (
 
 export { convertCSV, type CSVConversionOptions } from './convertCSV.ts';
 export { convertBinary } from './convertBinary.ts';
+export type { Workbook };
