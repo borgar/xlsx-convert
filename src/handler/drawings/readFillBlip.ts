@@ -4,6 +4,7 @@ import type { ConversionContext } from '../../ConversionContext.ts';
 import { attr, boolAttr, dmlPercentAttr, numAttr } from '../../utils/attr.ts';
 import { readRelRect } from './readRelRect.ts';
 import { addProp } from '../../utils/addProp.ts';
+import { MISSING_ASSET_SVG } from '../../constants.ts';
 
 export function readFillBlip (elm: Element | undefined | null, context: ConversionContext) {
   if (elm?.tagName === 'blipFill') {
@@ -55,6 +56,9 @@ export function readFillBlip (elm: Element | undefined | null, context: Conversi
       addProp(tile, 'align', attr(tileElm, 'algn') as RectAlignment | undefined);
       out.tile = tile;
     }
+
+    const svgBlip = elm.querySelector('svgBlip');
+    if (svgBlip) { context.unsupported.add(MISSING_ASSET_SVG); }
 
     return out;
   }

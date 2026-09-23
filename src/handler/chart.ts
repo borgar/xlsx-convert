@@ -52,7 +52,6 @@ export function handlerChart (dom: Document, context: ConversionContext, isChart
 export function handlerChart (dom: Document, context: ConversionContext, isChartx = false): ChartSpace | ChartSpaceEx {
   const chartSpace: Partial<ChartSpace> | Partial<ChartSpaceEx> = {};
   // dom.root is assumed to be a <chartSpace> element (5.7.2.29)
-
   // ChartEx
   // <xsd:attribute name="version" type="xsd:string" use="optional" default="0.0"/>
   // <xsd:attribute name="featureList" type="xsd:string" use="optional" default=""/>
@@ -128,7 +127,7 @@ export function handlerChart (dom: Document, context: ConversionContext, isChart
       addProp(chartSpace, 'shape', readShapeProperties(elm, context));
     }
     else if (tagName === 'txPr') {
-      addProp(chartSpace, 'textProps', readTextBody(elm));
+      addProp(chartSpace, 'textProps', readTextBody(elm, context));
     }
     else if (tagName === 'clrMapOvr') { // Color map overrides
       // TODO

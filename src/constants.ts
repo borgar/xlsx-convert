@@ -11,6 +11,7 @@ export const REL_PREFIXES = [
   'http://schemas.microsoft.com/office/2017/10/relationships/',
   'http://schemas.openxmlformats.org/officeDocument/2006/relationships/',
   'http://schemas.openxmlformats.org/package/2006/relationships/',
+  'http://schemas.microsoft.com/office/2023/09/relationships/',
   // strict
   'http://purl.oclc.org/ooxml/officeDocument/relationships/',
 ];
@@ -333,3 +334,115 @@ export const DEFAULT_PAGE_MARGINS: PageMargins = {
   header: 0.3,
   footer: 0.3,
 };
+
+// Tags for features that the converter recognizes but does not convert.
+export const MISSING_ASSET_3D = 'asset-3d';
+export const MISSING_ASSET_EXT = 'asset-ext';
+export const MISSING_ASSET_OO = 'asset-oo';
+export const MISSING_ASSET_PQ = 'asset-pq';
+export const MISSING_ASSET_PY = 'asset-py';
+export const MISSING_ASSET_SVG = 'asset-svg';
+export const MISSING_ASSET_VBA = 'asset-vba';
+export const MISSING_ASSET_VML = 'asset-vml';
+export const MISSING_BORDER_DIAGONAL = 'border-diagonal';
+export const MISSING_CALC_PRECISION = 'calc-precision';
+export const MISSING_CELL_CHECKBOX = 'cell-checkbox';
+export const MISSING_CELL_HIDE = 'cell-hide';
+export const MISSING_CELL_INDENT = 'cell-indent';
+export const MISSING_CELL_LOCK = 'cell-lock';
+export const MISSING_CELL_RTF = 'cell-rtf';
+export const MISSING_CHART = 'chart';
+export const MISSING_CHART_CHARTEX = 'chart-chartex';
+export const MISSING_CHART_PIVOT = 'chart-pivot';
+export const MISSING_COL_GROUP = 'col-group';
+export const MISSING_DATA_VALIDATION = 'data-validation';
+export const MISSING_DYNAMIC_STYLE = 'dynamic-style';
+export const MISSING_NOTE_RTF = 'note-rtf';
+export const MISSING_PRINT_GRIDLINES = 'print-gridlines';
+export const MISSING_PRINT_HEADINGS = 'print-headings';
+export const MISSING_PRINT_SETUP = 'print-setup';
+export const MISSING_ROW_GROUP = 'row-group';
+export const MISSING_SCENARIO = 'scenario';
+export const MISSING_SHAPE_DIAGRAM = 'shape-diagram';
+export const MISSING_SHAPE_EFFECT = 'shape-effect';
+export const MISSING_SHAPE_MATH = 'shape-math';
+export const MISSING_SHAPE_TEXTEFFECT = 'shape-texteffect';
+export const MISSING_SHEET_AUTOFILTER = 'sheet-autofilter';
+export const MISSING_SHEET_BACKGROUND = 'sheet-background';
+export const MISSING_SHEET_LOCK = 'sheet-lock';
+export const MISSING_SHEET_RTL = 'sheet-rtl';
+export const MISSING_SHEET_TABCOLOR = 'sheet-tabcolor';
+export const MISSING_SPARKLINE = 'sparkline';
+export const MISSING_TABLE_FILTER_BUTTON = 'table-filter-button';
+export const MISSING_TABLE_INSERTROW = 'table-insertrow';
+export const MISSING_TABLE_SLICER = 'table-slicer';
+export const MISSING_TABLE_SORTSTATE = 'table-sortstate';
+export const MISSING_TABLE_STYLE_CUSTOM = 'table-style-custom';
+export const MISSING_TIME_SLICER = 'time-slicer';
+export const MISSING_VIEW_CUSTOM = 'view-custom';
+export const MISSING_VIEW_FORMULAS = 'view-formulas';
+export const MISSING_VIEW_GRIDLINES_COLOR = 'view-gridlines-color';
+export const MISSING_VIEW_HEADINGS = 'view-headings';
+export const MISSING_VIEW_OUTLINE_SYMBOLS = 'view-outline-symbols';
+export const MISSING_VIEW_PANE_SPLIT = 'view-pane-split';
+export const MISSING_VIEW_TABSELECTED = 'view-tabselected';
+export const MISSING_VIEW_ZEROS = 'view-zeros';
+export const MISSING_WORKBOOK_LOCK = 'workbook-lock';
+export const MISSING_WORKBOOK_META = 'workbook-meta';
+export const MISSING_WORKBOOK_META_CUSTOM = 'workbook-meta-custom';
+
+export type MissingFeature =
+  typeof MISSING_ASSET_3D |
+  typeof MISSING_ASSET_EXT |
+  typeof MISSING_ASSET_OO |
+  typeof MISSING_ASSET_PQ |
+  typeof MISSING_ASSET_PY |
+  typeof MISSING_ASSET_SVG |
+  typeof MISSING_ASSET_VBA |
+  typeof MISSING_ASSET_VML |
+  typeof MISSING_BORDER_DIAGONAL |
+  typeof MISSING_CALC_PRECISION |
+  typeof MISSING_CELL_CHECKBOX |
+  typeof MISSING_CELL_HIDE |
+  typeof MISSING_CELL_INDENT |
+  typeof MISSING_CELL_LOCK |
+  typeof MISSING_CELL_RTF |
+  typeof MISSING_CHART |
+  typeof MISSING_CHART_CHARTEX |
+  typeof MISSING_CHART_PIVOT |
+  typeof MISSING_COL_GROUP |
+  typeof MISSING_DATA_VALIDATION |
+  typeof MISSING_DYNAMIC_STYLE |
+  typeof MISSING_NOTE_RTF |
+  typeof MISSING_PRINT_GRIDLINES |
+  typeof MISSING_PRINT_HEADINGS |
+  typeof MISSING_PRINT_SETUP |
+  typeof MISSING_ROW_GROUP |
+  typeof MISSING_SCENARIO |
+  typeof MISSING_SHAPE_DIAGRAM |
+  typeof MISSING_SHAPE_EFFECT |
+  typeof MISSING_SHAPE_MATH |
+  typeof MISSING_SHAPE_TEXTEFFECT |
+  typeof MISSING_SHEET_AUTOFILTER |
+  typeof MISSING_SHEET_BACKGROUND |
+  typeof MISSING_SHEET_LOCK |
+  typeof MISSING_SHEET_RTL |
+  typeof MISSING_SHEET_TABCOLOR |
+  typeof MISSING_SPARKLINE |
+  typeof MISSING_TABLE_FILTER_BUTTON |
+  typeof MISSING_TABLE_INSERTROW |
+  typeof MISSING_TABLE_SLICER |
+  typeof MISSING_TABLE_SORTSTATE |
+  typeof MISSING_TABLE_STYLE_CUSTOM |
+  typeof MISSING_TIME_SLICER |
+  typeof MISSING_VIEW_CUSTOM |
+  typeof MISSING_VIEW_FORMULAS |
+  typeof MISSING_VIEW_GRIDLINES_COLOR |
+  typeof MISSING_VIEW_HEADINGS |
+  typeof MISSING_VIEW_OUTLINE_SYMBOLS |
+  typeof MISSING_VIEW_PANE_SPLIT |
+  typeof MISSING_VIEW_TABSELECTED |
+  typeof MISSING_VIEW_ZEROS |
+  typeof MISSING_WORKBOOK_LOCK |
+  typeof MISSING_WORKBOOK_META |
+  typeof MISSING_WORKBOOK_META_CUSTOM;

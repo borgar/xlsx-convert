@@ -1,12 +1,9 @@
-import { Document, parseXML } from '@borgar/simple-xml';
-import { ZipArchive } from '@borgar/zip';
 import { attr } from './utils/attr.ts';
-import { pathBasename, pathDirname, pathJoin } from './utils/path.ts';
+import { pathBasename } from './utils/path.ts';
 import { convertStyles } from './utils/convertStyles.ts';
 import { resolveColumnMdw } from './utils/mdw.ts';
-import { FT_CFBF, FT_ZIP, getBinaryFileType } from './utils/getBinaryFileType.ts';
 import { ConversionContext } from './ConversionContext.ts';
-import { handlerRels, type Rel } from './handler/rels.ts';
+import type { Rel } from './handler/rels.ts';
 import { handlerWorkbook } from './handler/workbook.ts';
 import { handlerSharedStrings } from './handler/sharedstrings.ts';
 import { handlerPersons } from './handler/persons.ts';
@@ -24,9 +21,9 @@ import { handlerTable } from './handler/table.ts';
 import { handlerPivotCacheDefinition } from './handler/pivotTables/pivotCacheDefinition.ts';
 import { handlerPivotCacheRecords } from './handler/pivotTables/pivotCacheRecords.ts';
 import { handlerPivotTable } from './handler/pivotTable.ts';
-import type { Workbook, PivotTable, PivotCache } from '@jsfkit/types';
+import type { Workbook as JSFWorkbook, PivotTable, PivotCache } from '@jsfkit/types';
 import type { ConversionOptions } from './index.ts';
-import { EncryptionError, InvalidFileError, MissingSheetError } from './errors.ts';
+import { InvalidFileError, MissingSheetError } from './errors.ts';
 import { handlerDrawing } from './handler/drawing.ts';
 import { arrayBufferToDataUri } from './utils/arrayBufferToDataUri.ts';
 import { getMimeType } from './utils/getMimeType.ts';
@@ -34,16 +31,91 @@ import { isLikelyGSExport } from './utils/isLikelyGSExport.ts';
 import { handlerChart } from './handler/chart.ts';
 import { hasKeys } from './utils/hasKeys.ts';
 import type { ChartSpace } from './handler/charts/types/ChartSpace.ts';
-
-function toArrayBuffer (buffer: Buffer): ArrayBuffer {
-  const arrayBuffer = new ArrayBuffer(buffer.length);
-  new Uint8Array(arrayBuffer).set(buffer);
-  return arrayBuffer;
-}
+import { XlsxArchive } from './XlsxArchive.ts';
+import { getFirstChild } from './utils/getFirstChild.ts';
+import { handlerCustomdata } from './handler/customdata.ts';
+import {
+  MISSING_ASSET_EXT, MISSING_ASSET_PQ, MISSING_ASSET_PY, MISSING_ASSET_VBA, MISSING_CHART,
+  MISSING_CHART_CHARTEX, MISSING_CHART_PIVOT, MISSING_VIEW_TABSELECTED,
+} from './constants.ts';
 
 let CHARTS_ENABLED = false;
 /** @ignore */
 export type ExtendedWorkbook = Workbook & { charts?: Record<string, ChartSpace> };
+
+/**
+ * This is the same structure as a {@link https://jsfkit.github.io/types/Workbook/ JSF Workbook} but
+ * with a property added: `unsupported`. It is a list of tags for feature that the converter encountered
+ * during the reading process but did not handle.
+ *
+ * The tags emitted are as follows:
+ *
+ * | Tag | Feature
+ * |--- |---
+ * | `asset-3d` | 3D image
+ * | `asset-ext` | Extension object (likely Office Script)
+ * | `asset-oo` | Office Object
+ * | `asset-pq` | Power Query
+ * | `asset-py` | Python
+ * | `asset-svg` | SVG image
+ * | `asset-vba` | VBA project
+ * | `asset-vml` | VML drawing
+ * | `border-diagonal` | Diagonal border
+ * | `calc-precision` | "Set precision as displayed" setting
+ * | `cell-checkbox` | Cell checkbox
+ * | `cell-hide` | Hidden cell (formula)
+ * | `cell-indent` | Cell indentation
+ * | `cell-lock` | Protected cells
+ * | `cell-rtf` | Rich text in cells
+ * | `chart` | Basic charts
+ * | `chart-chartex` | Extended charts
+ * | `chart-pivot` | Pivot charts
+ * | `col-group` | Grouped columns
+ * | `data-validation` | Data validation
+ * | `dynamic-style` | Conditional formatting of cells
+ * | `note-rtf` | Rich text in notes
+ * | `print-gridlines` | Print sheet gridlines
+ * | `print-headings` | Print sheet headings
+ * | `print-setup` | Print page setup
+ * | `row-group` | Grouped rows
+ * | `scenario` | Scenarios
+ * | `shape-diagram` | Diagram / SmartArt
+ * | `shape-effect` | Shadow, Reflection, 3D effects, ...
+ * | `shape-math` | Equations
+ * | `shape-texteffect` | Shadow, Reflection, 3D effects, ...
+ * | `sheet-autofilter` | Sheet autofilter
+ * | `sheet-background` | Sheet background image
+ * | `sheet-lock` | Protected sheets
+ * | `sheet-rtl` | Right-to-left sheet view
+ * | `sheet-tabcolor` | Sheet tab color
+ * | `sparkline` | Sparklines
+ * | `table-filter-button` | Hide/show table filter buttons
+ * | `table-insertrow` | Table insert row
+ * | `table-slicer` | Table slicer
+ * | `table-sortstate` | Table sort-state
+ * | `table-style-custom` | Custom table style
+ * | `time-slicer` | Time slicer
+ * | `view-custom` | Custom views
+ * | `view-formulas` | Show formulas in a sheet
+ * | `view-gridlines-color` | Changed gridlines color
+ * | `view-headings` | Hide/show headings on sheet
+ * | `view-outline-symbols` | Hide/Show grouped row/col UI
+ * | `view-pane-split` | Split panes
+ * | `view-tabselected` | Selected tabs
+ * | `view-zeros` | Hide zero results
+ * | `workbook-lock` | Protected workbook
+ * | `workbook-meta` | Workbook properties
+ * | `workbook-meta-custom` | Workbook custom properties
+ *
+ * As the capabilities of xlsx-convert grow, this list is expected to get smaller and eventually disappear.
+ */
+export type Workbook = JSFWorkbook & {
+  /**
+   * A list of tags idenifying xlsx features that the converter encountered in a workbook
+   * but did not handle.
+   */
+  unsupported?: string[]
+};
 
 /**
  * Default conversion options
@@ -52,6 +124,7 @@ const DEFAULT_OPTIONS: ConversionOptions = {
   skipMerged: true,
   cellFormulas: false,
   skipStyledEmptyCells: false,
+  reportUnsupported: true,
 };
 
 /**
@@ -70,98 +143,24 @@ export async function convertBinary (
   filename: string,
   options?: ConversionOptions,
 ): Promise<Workbook> {
-  if (typeof Buffer !== 'undefined' && buffer instanceof Buffer) {
-    buffer = toArrayBuffer(buffer);
-  }
-  if (!(buffer instanceof ArrayBuffer)) {
-    throw new InvalidFileError('Input is not a valid binary');
-  }
   options = Object.assign({}, DEFAULT_OPTIONS, options);
-
-  const fileType = getBinaryFileType(buffer);
-  if (fileType === FT_CFBF) {
-    throw new EncryptionError('Input file is encrypted');
-  }
-  else if (fileType !== FT_ZIP) {
-    throw new InvalidFileError('Input file type is unsupported');
-  }
-
-  let zip: ZipArchive;
-  try {
-    zip = new ZipArchive(buffer);
-  }
-  catch (err) {
-    throw new InvalidFileError('Input file type is corrupted or unsupported');
-  }
-
-  const getFile = async (f: string) => {
-    try {
-      let fd = await zip.readText(f);
-      if (!fd && f.startsWith('xl/xl/')) {
-        fd = await zip.readText(f.slice(3));
-      }
-      return fd ? parseXML(fd) : null;
-    }
-    catch (err) {
-      throw new InvalidFileError('Input file type is corrupted');
-    }
-  };
-
-  const getBinaryFile = async (f: string) => {
-    try {
-      let fd = await zip.read(f);
-      if (!fd && f.startsWith('xl/xl/')) {
-        fd = await zip.read(f.slice(3));
-      }
-      return fd ?? null;
-    }
-    catch (err) {
-      throw new InvalidFileError('Input file type is corrupted');
-    }
-  };
-
-  const getRels = async (f = '') => {
-    const fDir = pathDirname(f);
-    const fBfn = pathBasename(f);
-    const relsPath = pathJoin(fDir, '_rels', `${fBfn}.rels`);
-    return handlerRels(await getFile(relsPath), f);
-  };
-
-  async function maybeRead<T extends (dom: Document, context: ConversionContext) => any> (
-    context: ConversionContext,
-    type: string,
-    handler: T,
-    fallback: any = null,
-    rels: Rel[] | null = null,
-  ): Promise<ReturnType<T>> {
-    const rel = (rels || context.rels).find(d => d.type === type);
-    if (rel) {
-      const dom = await getFile(rel.target);
-      if (dom) {
-        return handler(dom, context);
-      }
-      else {
-        throw new ReferenceError('Invalid file reference: ' + rel.target);
-      }
-    }
-    return fallback;
-  }
+  const xlsx = new XlsxArchive(buffer);
 
   // manifest
-  const baseRels = await getRels();
+  const baseRels = await xlsx.readRels();
   const wbRel = baseRels.find(d => d.type === 'officeDocument');
   if (!wbRel) {
     throw new InvalidFileError('Input is missing a workbook definition');
   }
 
   const context = new ConversionContext();
-  context.rels = await getRels(wbRel.target);
+  context.rels = await xlsx.readRels(wbRel.target);
   context.options = options;
   context.filename = pathBasename(filename);
-  context.isLikelyGSExport = isLikelyGSExport(zip);
+  context.isLikelyGSExport = isLikelyGSExport(xlsx.zip);
 
   // workbook - read DOM first to get externalReferences order
-  const wbDom = await getFile(wbRel.target);
+  const wbDom = await xlsx.readXML(wbRel.target);
   if (!wbDom) {
     throw new InvalidFileError('Input is missing a workbook');
   }
@@ -172,11 +171,11 @@ export async function convertBinary (
   for (const rId of extRefRIds) {
     const rel = context.rels.find(d => d.id === rId);
     if (rel) {
-      const extRels = await getRels(rel.target);
+      const extRels = await xlsx.readRels(rel.target);
       const targetRel = extRels.find(d => d.id === 'rId1');
       const target = targetRel?.target;
       if (target) {
-        const exDoc = await getFile(rel.target);
+        const exDoc = await xlsx.readXML(rel.target);
         if (exDoc) {
           const exlink = handlerExternal(exDoc, target, extRels);
           context.externalLinks.push(exlink);
@@ -192,7 +191,7 @@ export async function convertBinary (
   }
 
   // workbook
-  const wb = handlerWorkbook(wbDom, context);
+  const wb: Workbook = handlerWorkbook(wbDom, context);
   context.workbook = wb;
   // copy external links in
   if (context.externalLinks.length) {
@@ -200,20 +199,20 @@ export async function convertBinary (
   }
 
   // strings
-  context.sst = await maybeRead(context, 'sharedStrings', handlerSharedStrings, []);
+  context.sst = await xlsx.readRel(context, 'sharedStrings', handlerSharedStrings, []);
 
   // persons
-  const people = await maybeRead(context, 'person', handlerPersons, []);
+  const people = await xlsx.readRel(context, 'person', handlerPersons, []);
 
   // richData
-  context.richStruct = await maybeRead(context, 'rdRichValueStructure', handlerRDStruct);
-  context.richValues = await maybeRead(context, 'rdRichValue', handlerRDValue);
+  context.richStruct = await xlsx.readRel(context, 'rdRichValueStructure', handlerRDStruct);
+  context.richValues = await xlsx.readRel(context, 'rdRichValue', handlerRDValue);
 
   // metadata
-  context.metadata = await maybeRead(context, 'sheetMetadata', handlerMetaData);
+  context.metadata = await xlsx.readRel(context, 'sheetMetadata', handlerMetaData);
 
   // styles — read early so numFmts are available for pivot cache/table parsing
-  const styleDefs = await maybeRead(context, 'styles', handlerStyles);
+  const styleDefs = await xlsx.readRel(context, 'styles', handlerStyles);
 
   // pivot caches (workbook-level) — prefer order from <pivotCaches> in workbook.xml
   // over the document order in workbook.xml.rels (which can differ)
@@ -225,8 +224,8 @@ export async function convertBinary (
 
   const cacheResults = await Promise.all(pivotCacheRels.map(async cacheRel => {
     const [ cacheDom, cacheDefRels ] = await Promise.all([
-      getFile(cacheRel.target),
-      getRels(cacheRel.target),
+      xlsx.readXML(cacheRel.target),
+      xlsx.readRels(cacheRel.target),
     ]);
     if (!cacheDom) { return null; }
     const cache = handlerPivotCacheDefinition(cacheDom, styleDefs?.numFmts);
@@ -234,7 +233,7 @@ export async function convertBinary (
     // read the cache records via the cache definition's rels
     const recordsRel = cacheDefRels.find(d => d.type === 'pivotCacheRecords');
     if (recordsRel) {
-      const recordsDom = await getFile(recordsRel.target);
+      const recordsDom = await xlsx.readXML(recordsRel.target);
       if (recordsDom) {
         const records = handlerPivotCacheRecords(recordsDom);
         if (records.length > 0) {
@@ -252,7 +251,7 @@ export async function convertBinary (
   }
 
   // theme
-  context.theme = await maybeRead(context, 'theme', handlerTheme);
+  context.theme = await xlsx.readRel(context, 'theme', handlerTheme);
   wb.theme = context.theme;
 
   // convert styles to JSF format (styleDefs was read earlier for pivot numFmtId resolution)
@@ -280,13 +279,13 @@ export async function convertBinary (
     const sheetRel = context.rels.find(d => d.id === sheetLink.rId);
     if (sheetRel) {
       const sheetName = sheetLink.name || `Sheet${sheetLink.index}`;
-      const sheetRels = await getRels(sheetRel.target);
+      const sheetRels = await xlsx.readRels(sheetRel.target);
 
       // tables are accessed when external refs are normalized, so they have
       // to be read before that happens
       const tableRels = sheetRels.filter(rel => rel.type === 'table');
       for (const tableRel of tableRels) {
-        const tableDom = await getFile(tableRel.target);
+        const tableDom = await xlsx.readXML(tableRel.target);
         const table = handlerTable(tableDom, context);
         if (table) {
           table.sheet = sheetName;
@@ -297,8 +296,8 @@ export async function convertBinary (
       const pivotTableRels = sheetRels.filter(rel => rel.type === 'pivotTable');
       await Promise.all(pivotTableRels.map(async ptRel => {
         const [ ptDom, ptRels ] = await Promise.all([
-          getFile(ptRel.target),
-          getRels(ptRel.target),
+          xlsx.readXML(ptRel.target),
+          xlsx.readRels(ptRel.target),
         ]);
         if (ptDom) {
           const pt = handlerPivotTable(ptDom, styleDefs?.numFmts);
@@ -322,7 +321,7 @@ export async function convertBinary (
       }));
 
       // convert the sheet
-      const sheetFile = await getFile(sheetRel.target);
+      const sheetFile = await xlsx.readXML(sheetRel.target);
       if (!sheetFile) {
         throw new MissingSheetError('Missing sheet file: ' + sheetRel.target);
       }
@@ -331,13 +330,13 @@ export async function convertBinary (
       const sh = handlerWorksheet(sheetFile, context, sheetRels, sheetName);
 
       // Notes (old school, 90s, sticky notes).
-      const notes = await maybeRead(context, 'comments', handlerNotes, [], sheetRels);
+      const notes = await xlsx.readRel(context, 'comments', handlerNotes, [], sheetRels);
       if (notes.length > 0) {
         sh.notes = notes;
       }
 
       // Threaded comments (since Excel 2019).
-      const comments = await maybeRead(context, 'threadedComment', handlerComments, [], sheetRels);
+      const comments = await xlsx.readRel(context, 'threadedComment', handlerComments, [], sheetRels);
       if (comments.length > 0) {
         sh.comments = comments;
       }
@@ -348,8 +347,8 @@ export async function convertBinary (
         // process drawings (these may contain either charts or images)
         for (const img of context.images) {
           if (img.type === 'drawing') {
-            const drawingDom = await getFile(img.rel.target);
-            context.drawingRels = await getRels(img.rel.target);
+            const drawingDom = await xlsx.readXML(img.rel.target);
+            context.drawingRels = await xlsx.readRels(img.rel.target);
             sh.drawings = handlerDrawing(drawingDom, context);
           }
         }
@@ -358,9 +357,12 @@ export async function convertBinary (
           const charts: Record<string, ChartSpace> = {};
           for (const img of context.charts) {
             if (img.type === 'chart' || img.type === 'chartEx') {
-              // const chartRels = await getRels(img.rel.target);
-              const chartDom = await getFile(img.rel.target);
+              // const chartRels = await archive.readRels(img.rel.target);
+              const chartDom = await xlsx.readXML(img.rel.target);
               if (chartDom) {
+                if (getFirstChild(chartDom.root, 'pivotSource')) {
+                  context.unsupported.add(MISSING_CHART_PIVOT);
+                }
                 // read rel type: chartColorStyle
                 // read rel type: chartStyle
                 const chart = handlerChart(chartDom, context);
@@ -370,6 +372,16 @@ export async function convertBinary (
           }
           if (hasKeys(charts)) {
             (wb as ExtendedWorkbook).charts = charts;
+          }
+        }
+        else {
+          for (const img of context.charts) {
+            if (img.type === 'chart') {
+              context.unsupported.add(MISSING_CHART);
+            }
+            else if (img.type === 'chartEx') {
+              context.unsupported.add(MISSING_CHART_CHARTEX);
+            }
           }
         }
 
@@ -383,7 +395,7 @@ export async function convertBinary (
             // only do this once per image file
             if (!images[img.rel.target]) {
               // img.rel.type should be "image"
-              const fileData = await getBinaryFile(img.rel.target);
+              const fileData = await xlsx.readBinary(img.rel.target);
               if (fileData) {
                 let imageValue: string | null = null;
                 if (options.imageCallback) {
@@ -436,9 +448,56 @@ export async function convertBinary (
   }
 
   // appdata/meta
-  const appMeta = handlerAppdata(await getFile('docProps/app.xml'), context);
+  const appMeta = handlerAppdata(await xlsx.readXML('docProps/app.xml'), context);
   if (appMeta) {
     wb.meta = appMeta;
+  }
+  handlerCustomdata(await xlsx.readXML('docProps/custom.xml'), context);
+
+  // custom XML -- JS or PQ most likely
+  const fileList = xlsx.zip.files.filter(d => /^customXml\//i.test(d));
+  if (fileList.length) {
+    // load content types
+    const ctypes = await xlsx.readXML('[Content_Types].xml');
+    if (ctypes?.root) {
+      for (const child of ctypes.root.children) {
+        const ct = child.getAttribute('ContentType');
+        if (ct === 'application/vnd.openxmlformats-officedocument.customXmlProperties+xml') {
+          const part = child.getAttribute('PartName');
+          if (part) {
+            const itemProps = await xlsx.readXML(part.replace(/^\//, ''));
+            if (itemProps) {
+              const schemaRef = itemProps.querySelector('schemaRef');
+              const uri = schemaRef ? attr(schemaRef, 'uri') ?? attr(schemaRef, 'ds:uri') : null;
+              if (uri === 'http://schemas.microsoft.com/DataMashup') {
+                context.unsupported.add(MISSING_ASSET_PQ);
+              }
+              else {
+                // Best guess is that this is an Office Script, but we'd have to look in the accompanying
+                // item file, which is a bunch of steps for something we don't support.
+                context.unsupported.add(MISSING_ASSET_EXT);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // list any unsupported things found in this workbook
+  if (options.reportUnsupported) {
+    if (context.rels.find(d => d.type === 'Python')) {
+      context.unsupported.add(MISSING_ASSET_PY);
+    }
+    if (context.rels.find(d => d.type === 'vbaProject')) {
+      context.unsupported.add(MISSING_ASSET_VBA);
+    }
+    // this really only matters when there are 2+ tabs selected
+    if (context.selectedTabs.size > 1) {
+      context.unsupported.add(MISSING_VIEW_TABSELECTED);
+    }
+    const taglist: string[] = Array.from(context.unsupported).sort();
+    if (taglist.length) { wb.unsupported = taglist; }
   }
 
   CHARTS_ENABLED = false;

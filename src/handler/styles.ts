@@ -1,7 +1,10 @@
 import type { Document, Element } from '@borgar/simple-xml';
 import type { Color, Theme } from '@jsfkit/types';
-import { attr, numAttr } from '../utils/attr.ts';
-import { BUILTIN_FORMATS } from '../constants.ts';
+import { attr, boolAttr, numAttr } from '../utils/attr.ts';
+import {
+  BUILTIN_FORMATS, MISSING_BORDER_DIAGONAL, MISSING_CELL_CHECKBOX, MISSING_CELL_HIDE,
+  MISSING_CELL_INDENT, MISSING_CELL_LOCK,
+} from '../constants.ts';
 import type { ConversionContext } from '../ConversionContext.ts';
 import { readColor } from '../color/readColor.ts';
 import { addProp } from '../utils/addProp.ts';
@@ -13,7 +16,7 @@ function valOfSubNode (node: Element, subNodeName: string): string | undefined {
   }
 }
 
-type BorderSide = 'left' | 'right' | 'top' | 'bottom';
+type BorderSide = 'left' | 'right' | 'top' | 'bottom' | 'diagonalUp' | 'diagonalDown';
 type Border = { style: string, color?: Color };
 type Borders = Record<BorderSide, Border | undefined>;
 type Fill = {
@@ -62,7 +65,14 @@ type Xf = {
   wrapText?: boolean;
   shrinkToFit?: boolean;
   textRotation?: number;
+  textIndent?: number;
   pivotButton?: boolean;
+  // cells are locked by default but can be formatted as unlocked which
+  // takes effect when sheet-protection is on
+  unlocked?: boolean;
+  // hidden affects locked cells and prevents their formula from being shown
+  hidden?: boolean;
+  checkbox?: boolean;
 };
 
 function readXf (d: Element, styles: StyleDefs) {
@@ -97,18 +107,43 @@ function readXf (d: Element, styles: StyleDefs) {
     xf.border = styles.border[+borderId];
   }
 
-  const align = d.querySelectorAll('alignment')[0];
+  // The correct thing to do here would be to read all FeaturePropertyBags into context
+  // and look up which is being referred to (similar to how we treat rich content).
+  // However, in Excel checkboxes are currently the only actual Cell Control using the
+  // FeaturePropertyBag system.
+  const xfComplement = d.querySelector('xfComplement');
+  if (xfComplement) {
+    xf.checkbox = true;
+  }
+
+  const protection = d.querySelector('protection');
+  if (protection) {
+    const locked = boolAttr(protection, 'locked', true);
+    if (!locked) {
+      xf.unlocked = true;
+    }
+    const hidden = boolAttr(protection, 'hidden', false);
+    if (hidden) {
+      xf.hidden = true;
+    }
+  }
+
+  const align = d.querySelector('alignment');
   if (align) {
     const hAlign = attr(align, 'horizontal');
     const vAlign = attr(align, 'vertical');
     const wrapText = attr(align, 'wrapText');
     const shrinkToFit = attr(align, 'shrinkToFit');
     const textRotation = attr(align, 'textRotation');
+    const textIndent = numAttr(align, 'indent');
     if (hAlign) { xf.hAlign = hAlign; }
     if (vAlign) { xf.vAlign = vAlign; }
     if (wrapText) { xf.wrapText = !!+wrapText; }
     if (shrinkToFit) { xf.shrinkToFit = !!+shrinkToFit; }
     if (textRotation) { xf.textRotation = +textRotation; }
+    if (textIndent) {
+      xf.textIndent = textIndent;
+    }
   }
 
   const pivotButton = attr(d, 'pivotButton');
@@ -119,7 +154,7 @@ function readXf (d: Element, styles: StyleDefs) {
 
 function readBorder (
   node: Element,
-  side: BorderSide | 'start' | 'end',
+  side: 'left' | 'right' | 'top' | 'bottom' | 'start' | 'end' | 'diagonal',
   theme: Theme,
 ): Border | undefined {
   const b = node.querySelectorAll(side)[0];
@@ -197,11 +232,15 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
 
   dom.querySelectorAll('borders > border')
     .forEach(d => {
+      const diagonalUp = boolAttr(d, 'diagonalUp');
+      const diagonalDown = boolAttr(d, 'diagonalDown');
       const borderDefs: Borders = {
         left: readBorder(d, 'left', context.theme) || readBorder(d, 'start', context.theme),
         right: readBorder(d, 'right', context.theme) || readBorder(d, 'end', context.theme),
         top: readBorder(d, 'top', context.theme),
         bottom: readBorder(d, 'bottom', context.theme),
+        diagonalUp: diagonalUp ? readBorder(d, 'diagonal', context.theme) : undefined,
+        diagonalDown: diagonalDown ? readBorder(d, 'diagonal', context.theme) : undefined,
       };
       styles.border.push(borderDefs);
     });
@@ -239,6 +278,24 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
         styles.cellStyles.push(entry);
       }
     });
+
+  if (styles.border.find(d => d.diagonalDown || d.diagonalUp)) {
+    context.unsupported.add(MISSING_BORDER_DIAGONAL);
+  }
+  for (const xf of styles.cellXf) {
+    if (xf.textIndent) {
+      context.unsupported.add(MISSING_CELL_INDENT);
+    }
+    if (xf.hidden) {
+      context.unsupported.add(MISSING_CELL_HIDE);
+    }
+    if (xf.unlocked) {
+      context.unsupported.add(MISSING_CELL_LOCK);
+    }
+    if (xf.checkbox) {
+      context.unsupported.add(MISSING_CELL_CHECKBOX);
+    }
+  }
 
   return styles;
 }

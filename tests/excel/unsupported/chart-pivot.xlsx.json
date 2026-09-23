@@ -1,0 +1,259 @@
+{
+  "name": "chart-pivot.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet2",
+      "cells": {
+        "A3": { "s": 1, "v": "Row Labels" },
+        "B3": { "v": "Sum of Sales" },
+        "A4": { "s": 2, "v": "North" },
+        "B4": { "s": 3, "v": 220 },
+        "A5": { "s": 2, "v": "South" },
+        "B5": { "s": 3, "v": 330 },
+        "A6": { "s": 2, "v": "Grand Total" },
+        "B6": { "s": 3, "v": 550 }
+      },
+      "columns": [
+        { "start": 1, "end": 1, "size": 78 },
+        { "start": 2, "end": 2, "size": 70 }
+      ],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [ { "workbookView": 0, "activeCell": "J8" } ],
+      "drawings": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 1, "rowOff": 152400, "col": 3, "colOff": 317500 },
+            "to": { "row": 13, "rowOff": 38100, "col": 7, "colOff": 317500 }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "2",
+              "name": "Chart 1",
+              "chartId": "xl/charts/chart1.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": "Region" },
+        "B1": { "v": "Product" },
+        "C1": { "v": "Sales" },
+        "A2": { "v": "North" },
+        "B2": { "v": "A" },
+        "C2": { "v": 100 },
+        "A3": { "v": "South" },
+        "B3": { "v": "A" },
+        "C3": { "v": 150 },
+        "A4": { "v": "North" },
+        "B4": { "v": "B" },
+        "C4": { "v": 120 },
+        "A5": { "v": "South" },
+        "B5": { "v": "B" },
+        "C5": { "v": 180 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [ { "workbookView": 0, "activeCell": "B4" } ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontScheme": "minor", "fontSize": 12 },
+    {
+      "pivotButton": true,
+      "fontScheme": "minor",
+      "fontSize": 12
+    },
+    {
+      "horizontalAlignment": "left",
+      "fontScheme": "minor",
+      "fontSize": 12
+    },
+    { "fontScheme": "minor", "fontSize": 12 }
+  ],
+  "tables": [],
+  "views": [ {} ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt1": { "type": "system", "value": "window" },
+      "dk2": { "type": "srgb", "value": "0E2841" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "accent1": { "type": "srgb", "value": "156082" },
+      "accent2": { "type": "srgb", "value": "E97132" },
+      "accent3": { "type": "srgb", "value": "196B24" },
+      "accent4": { "type": "srgb", "value": "0F9ED5" },
+      "accent5": { "type": "srgb", "value": "A02B93" },
+      "accent6": { "type": "srgb", "value": "4EA72E" },
+      "hlink": { "type": "srgb", "value": "467886" },
+      "folHlink": { "type": "srgb", "value": "96607D" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Aptos Display" }
+      },
+      "minor": {
+        "latin": { "typeface": "Aptos Narrow" }
+      }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "pivotTables": [
+    {
+      "name": "PivotTable1",
+      "sheet": "Sheet2",
+      "ref": "A3:B6",
+      "location": {
+        "firstHeaderRow": 1,
+        "firstDataRow": 1,
+        "firstDataCol": 1
+      },
+      "fields": [
+        {
+          "axis": "row",
+          "items": [
+            { "itemIndex": 0 },
+            { "itemIndex": 1 },
+            { "itemType": "default" }
+          ],
+          "showAll": false
+        },
+        { "showAll": false },
+        { "dataField": true, "showAll": false }
+      ],
+      "rowFieldIndices": [ 0 ],
+      "dataFields": [
+        {
+          "fieldIndex": 2,
+          "name": "Sum of Sales",
+          "baseItem": 0
+        }
+      ],
+      "rowItems": [
+        {
+          "itemIndices": [ 0 ]
+        },
+        {
+          "itemIndices": [ 1 ]
+        },
+        {
+          "itemIndices": [ 0 ],
+          "itemType": "grand"
+        }
+      ],
+      "colItems": [ {} ],
+      "style": {
+        "name": "PivotStyleLight16",
+        "showRowHeaders": true,
+        "showColumnHeaders": true,
+        "showRowStripes": false,
+        "showColumnStripes": false,
+        "showLastColumn": true
+      },
+      "outline": true,
+      "outlineData": true,
+      "itemPrintTitles": true,
+      "multipleFieldFilters": false,
+      "useAutoFormatting": true,
+      "applyNumberFormats": false,
+      "applyBorderFormats": false,
+      "applyFontFormats": false,
+      "applyPatternFormats": false,
+      "applyAlignmentFormats": false,
+      "applyWidthHeightFormats": true,
+      "indent": 0,
+      "dataCaption": "Values",
+      "uid": "{BD98D320-5B9B-3B46-8937-6FE9EEAF060A}",
+      "hideValuesRow": true,
+      "cache": {
+        "sourceType": "worksheet",
+        "worksheetSource": { "type": "range", "ref": "A1:C5", "sheet": "Sheet1" },
+        "fields": [
+          {
+            "name": "Region",
+            "sharedItems": [
+              { "t": "s", "v": "North" },
+              { "t": "s", "v": "South" }
+            ]
+          },
+          { "name": "Product" },
+          {
+            "name": "Sales",
+            "sharedItemsMeta": {
+              "containsSemiMixedTypes": false,
+              "containsString": false,
+              "containsNumber": true,
+              "containsInteger": true,
+              "minValue": 100,
+              "maxValue": 180
+            }
+          }
+        ],
+        "refreshedBy": "Borgar",
+        "refreshedDate": 46274.57321296296,
+        "uid": "{3391045F-F563-434D-8051-D322EB6A789D}",
+        "records": [
+          [
+            { "t": "x", "v": 0 },
+            { "t": "s", "v": "A" },
+            { "t": "n", "v": 100 }
+          ],
+          [
+            { "t": "x", "v": 1 },
+            { "t": "s", "v": "A" },
+            { "t": "n", "v": 150 }
+          ],
+          [
+            { "t": "x", "v": 0 },
+            { "t": "s", "v": "B" },
+            { "t": "n", "v": 120 }
+          ],
+          [
+            { "t": "x", "v": 1 },
+            { "t": "s", "v": "B" },
+            { "t": "n", "v": 180 }
+          ]
+        ]
+      }
+    }
+  ],
+  "formulas": [],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  },
+  "unsupported": [ "chart" ]
+}

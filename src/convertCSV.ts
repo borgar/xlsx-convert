@@ -3,7 +3,7 @@ import { CSVParser } from './CSVParser.ts';
 import type { Style, TableColumn, Workbook } from '@jsfkit/types';
 import { toA1 } from './utils/toA1.ts';
 
-/** CSV convertion options */
+/** CSV convertion options. */
 export type CSVConversionOptions = {
   /**
    * The delimiter to use to parse the CSV. Normally this is auto-detected.
