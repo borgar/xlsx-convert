@@ -115,7 +115,6 @@ const tests = [
   'tests/excel/unsupported/data-validation.xlsx',
   'tests/excel/unsupported/dynamic-style.xlsx',
   'tests/excel/unsupported/note-rtf.xlsx',
-  'tests/excel/unsupported/note-size.xlsx',
   'tests/excel/unsupported/print-gridlines.xlsx',
   'tests/excel/unsupported/print-headings.xlsx',
   'tests/excel/unsupported/print-setup.xlsx',
