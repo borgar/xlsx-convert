@@ -81,6 +81,13 @@ export class ConversionContext {
   unsupported: Set<MissingFeature>;
   selectedTabs: Set<string>;
 
+  // Delegate the formula-normalization options so code receiving a
+  // ConversionContext as a ConversionContextSubset sees the actual option
+  // values rather than undefined.
+  get preserveXlPrefixes (): boolean | undefined {
+    return this.options.preserveXlPrefixes;
+  }
+
   warn (message: string): void {
     this.options.warn?.(message);
   }

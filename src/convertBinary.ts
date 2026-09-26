@@ -177,7 +177,12 @@ export async function convertBinary (
       if (target) {
         const exDoc = await xlsx.readXML(rel.target);
         if (exDoc) {
-          const exlink = handlerExternal(exDoc, target, extRels);
+          const exlink = handlerExternal(
+            exDoc,
+            target,
+            extRels,
+            { preserveXlPrefixes: context.options.preserveXlPrefixes },
+          );
           context.externalLinks.push(exlink);
           if (targetRel.type.endsWith('xlPathMissing')) {
             exlink.pathMissing = true;
