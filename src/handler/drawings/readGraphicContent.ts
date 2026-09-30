@@ -21,7 +21,7 @@ function seekXmlNs (node: Element, prefix: string): string | null {
     if (uri) {
       return uri;
     }
-    c = node.parentNode;
+    c = c.parentNode;
   } while (c instanceof Element);
   return null;
 }
