@@ -14,7 +14,7 @@ import {
   MISSING_TIME_SLICER,
 } from '../../constants.ts';
 
-function seekXmlNs (node: Element, prefix: string): string | null {
+export function seekXmlNs (node: Element, prefix: string): string | null {
   let c: Element | null = node;
   do {
     const uri = c.getAttribute('xmlns:' + prefix);
