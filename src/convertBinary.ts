@@ -66,6 +66,7 @@ export type ExtendedWorkbook = Workbook & { charts?: Record<string, ChartSpace> 
  * | `cell-hide` | Hidden cell (formula)
  * | `cell-indent` | Cell indentation
  * | `cell-lock` | Protected cells
+ * | `cell-mdx` | OLAP cube (MDX) metadata on cell values
  * | `cell-rtf` | Rich text in cells
  * | `chart` | Basic charts
  * | `chart-chartex` | Extended charts

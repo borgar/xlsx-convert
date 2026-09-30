@@ -107,6 +107,7 @@ const tests = [
   'tests/excel/unsupported/cell-hide.xlsx',
   'tests/excel/unsupported/cell-indent.xlsx',
   'tests/excel/unsupported/cell-lock.xlsx',
+  'tests/excel/unsupported/cell-mdx.xlsx',
   'tests/excel/unsupported/cell-rtf.xlsx',
   'tests/excel/unsupported/chart-chartex.xlsx',
   'tests/excel/unsupported/chart-pivot.xlsx',

@@ -21,16 +21,28 @@ const mdxOnlyXml = `<metadata xmlns="${NS}">
 </metadata>`;
 
 describe('handlerMetaData', () => {
-  it('reads metadata of an unparsed type (XLMDX) as null entries', () => {
+  it('reads XLMDX metadata as entries tagged with their type', () => {
     // Arrange
     const ctx = new ConversionContext();
-    const expected = { cells: [], values: [ null, null ] };
+    const expected = { cells: [], values: [ { _type: 'XLMDX' }, { _type: 'XLMDX' } ] };
 
     // Act
     const metadata = handlerMetaData(parseXML(mdxOnlyXml), ctx);
 
     // Assert
     expect(metadata).toEqual(expected);
+  });
+
+  it('reports XLMDX metadata as unsupported', () => {
+    // Arrange
+    const ctx = new ConversionContext();
+    const expected = [ 'cell-mdx' ];
+
+    // Act
+    handlerMetaData(parseXML(mdxOnlyXml), ctx);
+
+    // Assert
+    expect([ ...ctx.unsupported ]).toEqual(expected);
   });
 
   it('resolves rc/@t against metadataTypes, not futureMetadata order', () => {
@@ -54,7 +66,7 @@ describe('handlerMetaData', () => {
     expect(metadata.cells).toEqual([ expected ]);
   });
 
-  it('converts a cell whose vm points at unparsed metadata', () => {
+  it('converts a cell whose vm points at XLMDX metadata', () => {
     // Arrange
     const ctx = new ConversionContext();
     ctx.workbook = { name: 'test.xlsx', sheets: [], styles: [ {} ] };
