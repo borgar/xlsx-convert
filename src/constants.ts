@@ -350,6 +350,7 @@ export const MISSING_CELL_CHECKBOX = 'cell-checkbox';
 export const MISSING_CELL_HIDE = 'cell-hide';
 export const MISSING_CELL_INDENT = 'cell-indent';
 export const MISSING_CELL_LOCK = 'cell-lock';
+export const MISSING_CELL_MDX = 'cell-mdx';
 export const MISSING_CELL_RTF = 'cell-rtf';
 export const MISSING_CHART = 'chart';
 export const MISSING_CHART_CHARTEX = 'chart-chartex';
@@ -406,6 +407,7 @@ export type MissingFeature =
   typeof MISSING_CELL_HIDE |
   typeof MISSING_CELL_INDENT |
   typeof MISSING_CELL_LOCK |
+  typeof MISSING_CELL_MDX |
   typeof MISSING_CELL_RTF |
   typeof MISSING_CHART |
   typeof MISSING_CHART_CHARTEX |
