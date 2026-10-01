@@ -14,14 +14,14 @@ import {
   MISSING_TIME_SLICER,
 } from '../../constants.ts';
 
-function seekXmlNs (node: Element, prefix: string): string | null {
+export function seekXmlNs (node: Element, prefix: string): string | null {
   let c: Element | null = node;
   do {
     const uri = c.getAttribute('xmlns:' + prefix);
     if (uri) {
       return uri;
     }
-    c = node.parentNode;
+    c = c.parentNode;
   } while (c instanceof Element);
   return null;
 }
