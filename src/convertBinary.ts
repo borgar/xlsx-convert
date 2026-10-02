@@ -166,6 +166,13 @@ export async function convertBinary (
     throw new InvalidFileError('Input is missing a workbook');
   }
 
+  // richData
+  context.richStruct = await xlsx.readRel(context, 'rdRichValueStructure', handlerRDStruct);
+  context.richValues = await xlsx.readRel(context, 'rdRichValue', handlerRDValue);
+
+  // metadata
+  context.metadata = await xlsx.readRel(context, 'sheetMetadata', handlerMetaData);
+
   // external links - use order from <externalReferences> in workbook.xml,
   // not the document order in workbook.xml.rels (which can differ)
   const extRefRIds = wbDom?.getElementsByTagName('externalReference').map(d => attr(d, 'r:id')) ?? [];
@@ -178,7 +185,7 @@ export async function convertBinary (
       if (target) {
         const exDoc = await xlsx.readXML(rel.target);
         if (exDoc) {
-          const exlink = handlerExternal(exDoc, target, extRels);
+          const exlink = handlerExternal(exDoc, target, extRels, context.metadata);
           context.externalLinks.push(exlink);
           if (targetRel.type.endsWith('xlPathMissing')) {
             exlink.pathMissing = true;
@@ -204,13 +211,6 @@ export async function convertBinary (
 
   // persons
   const people = await xlsx.readRel(context, 'person', handlerPersons, []);
-
-  // richData
-  context.richStruct = await xlsx.readRel(context, 'rdRichValueStructure', handlerRDStruct);
-  context.richValues = await xlsx.readRel(context, 'rdRichValue', handlerRDValue);
-
-  // metadata
-  context.metadata = await xlsx.readRel(context, 'sheetMetadata', handlerMetaData);
 
   // styles — read early so numFmts are available for pivot cache/table parsing
   const styleDefs = await xlsx.readRel(context, 'styles', handlerStyles);

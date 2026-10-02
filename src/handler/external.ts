@@ -4,13 +4,19 @@ import { handlerCell } from './cell.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { ConversionContext } from '../ConversionContext.ts';
 import type { Rel } from './rels.ts';
+import type { MetaData } from './metadata.ts';
 import type { External, ExternalDefinedName } from '@jsfkit/types';
 import { fromA1 } from '../utils/fromA1.ts';
 import { toA1 } from '../utils/toA1.ts';
 
 const NO_EXTERNALS = { externalLinks: [] };
 
-export function handlerExternal (dom: Document, fileName: string = '', rels: Rel[] = []): External {
+export function handlerExternal (
+  dom: Document,
+  fileName: string = '',
+  rels: Rel[] = [],
+  metadata: MetaData = { cells: [], values: [] },
+): External {
   const external: External = {
     name: fileName,
     sheets: [],
@@ -75,6 +81,7 @@ export function handlerExternal (dom: Document, fileName: string = '', rels: Rel
   // when round-tripping.
   const sheetDataSeen = new Set<number>();
   const dummyContext = new ConversionContext();
+  dummyContext.metadata = metadata;
   dom.querySelectorAll('sheetDataSet > sheetData')
     .forEach(sheetData => {
       const sheetIndex = numAttr(sheetData, 'sheetId', 0);
