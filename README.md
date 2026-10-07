@@ -80,3 +80,7 @@ Documentation can be found under [docs/](./docs/):
 
 * The API is documented in [docs/API.md](./docs/API.md).
 * The JSF output is documented at [jsfkit.github.io](https://jsfkit.github.io/types/).
+
+---
+
+Development of @borgar/xlsx-convert is sponsored by [GRID](https://grid.is/), the spreadsheet engine for AI agents.
