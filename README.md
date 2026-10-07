@@ -4,9 +4,6 @@ This is a utility to convert Excel XLSX files to JSON format. It supports only X
 
 The library will run in a browser as well as in server environments (Node, Deno, Bun, etc.).
 
-This utility was developed as tooling for [GRID – The new face of spreadsheets](https://grid.is/), to which it owes a debt of gratitude.
-
-
 ## Installing
 
 The library is also provided as an NPM package:
