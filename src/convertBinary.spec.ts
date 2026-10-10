@@ -302,5 +302,12 @@ describe('convertBinary', () => {
       expect(wb.names?.find(d => d.name === 'n')?.value).toBe('numbers.xlsx!x');
       expect(wb.formulas?.[wb.sheets[0].cells.B1.f as number]).toBe('Sheet1!x');
     });
+
+    test('in a sheet-scoped defined name, it reads as the workbook-scoped name only', async () => {
+      const names = '<definedName name="n" localSheetId="0">[0]!x</definedName>' +
+        '<definedName name="x" localSheetId="0">5</definedName>';
+      const wb = await convertBinary(await withNamesAndFormula(names, '[0]!x'), 'numbers.xlsx');
+      expect(wb.names?.find(d => d.name === 'n')?.value).toBe('numbers.xlsx!x');
+    });
   });
 });
