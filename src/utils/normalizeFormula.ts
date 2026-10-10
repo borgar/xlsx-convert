@@ -28,13 +28,17 @@ type TrimTypes = 'both' | 'head' | 'tail';
  * Updates a reference:
  * - Translates from xlsx reference notation to context notation: [wb1]!A1 => wb!A1
  * - Handles rewriting external ref numbers to names: [1]!A1 => [wb.xlsx]!A1
+ * - Drops the [0] of a workbook-scoped name in this workbook: [0]!name => name
  */
 function updateContext (
   ref: ReferenceStructXlsx | ReferenceR1C1Xlsx | ReferenceA1Xlsx | ReferenceNameXlsx,
   externalLinks?: ExternalSubset[] | null,
 ): ReferenceStruct | ReferenceR1C1 | ReferenceA1 | ReferenceName {
   const context: string[] = [];
-  if (ref.workbookName && isFinite(+ref.workbookName)) {
+  // Excel writes [0]!name for a workbook-scoped name in this workbook, e.g. when the sheet in
+  // =Sheet1!name is deleted
+  const isOwnWorkbookName = ref.workbookName === '0' && 'name' in ref && !ref.sheetName;
+  if (ref.workbookName && isFinite(+ref.workbookName) && !isOwnWorkbookName) {
     const wbIndex = +ref.workbookName - 1;
     if (externalLinks?.[wbIndex]) {
       context.push(externalLinks[wbIndex].name);
