@@ -133,6 +133,49 @@ describe('normalizeFormula', () => {
       expect(normalizeFormula('[2]Sheet1!A1', wb)).toBe('[Data.xlsx]Sheet1!A1');
     });
 
+    it('should read [0]! before a name as the workbook-scoped name in this workbook', () => {
+      const wb = { externalLinks: [ { name: 'External.xlsx' } ], filename: 'Book 1.xlsx' };
+      expect(normalizeFormula('[0]!MyName', wb)).toBe("'Book 1.xlsx'!MyName");
+      expect(normalizeFormula('SUM([0]!MyName,A1)', wb)).toBe("SUM('Book 1.xlsx'!MyName,A1)");
+      expect(normalizeFormula('[0]!MyName', { externalLinks: [] })).toBe('MyName');
+    });
+
+    it('should read [0]! before a name as a sheet-scoped name when no workbook-scoped one exists', () => {
+      const names = [
+        { name: 'x', scope: 'Beta' },
+        { name: 'X', scope: 'alpha' },
+        { name: 'y', scope: 'Beta' },
+        { name: 'z' },
+        { name: 'z', scope: 'Alpha' },
+      ];
+      const wb = { externalLinks: [], filename: 'Book.xlsx', definedNames: names };
+      expect(normalizeFormula('[0]!x', wb)).toBe('alpha!x');
+      expect(normalizeFormula('[0]!y', wb)).toBe('Beta!y');
+      expect(normalizeFormula('[0]!z', wb)).toBe('Book.xlsx!z');
+      expect(normalizeFormula('[0]!w', wb)).toBe('Book.xlsx!w');
+    });
+
+    it('should order sheet names for [0]! as Excel does', () => {
+      const names = [
+        { name: 'p', scope: 'B' },
+        { name: 'p', scope: '_a' },
+        { name: 'q', scope: 'fa' },
+        { name: 'q', scope: 'éa' },
+        { name: 's', scope: 'Sheet9' },
+        { name: 's', scope: 'Sheet10' },
+        { name: 'u', scope: 'éa' },
+        { name: 'u', scope: 'ea' },
+        { name: 'v', scope: 'Éa' },
+        { name: 'v', scope: 'ea' },
+      ];
+      const wb = { externalLinks: [], filename: 'Book.xlsx', definedNames: names };
+      expect(normalizeFormula('[0]!p', wb)).toBe('_a!p');
+      expect(normalizeFormula('[0]!q', wb)).toBe('éa!q');
+      expect(normalizeFormula('[0]!s', wb)).toBe('Sheet10!s');
+      expect(normalizeFormula('[0]!u', wb)).toBe('ea!u');
+      expect(normalizeFormula('[0]!v', wb)).toBe('ea!v');
+    });
+
     it('should handle formulas without external links when wb has no externalLinks', () => {
       const wb = { externalLinks: [] };
       expect(normalizeFormula('[1]Sheet1!A1', wb)).toBe('#REF!');

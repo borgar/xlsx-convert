@@ -21,20 +21,59 @@ import {
 } from '@borgar/fx';
 
 type ExternalSubset = { name: string };
-type ConversionContextSubset = { externalLinks: ExternalSubset[] };
+type NameSubset = { name: string, scope?: string };
+type ConversionContextSubset = {
+  externalLinks: ExternalSubset[],
+  filename?: string,
+  definedNames?: NameSubset[],
+};
 type TrimTypes = 'both' | 'head' | 'tail';
+
+// Excel's order for sheet names: case-insensitive and by collation rather than code unit (éa before
+// fa, _a before B), with digits compared one at a time (Sheet10 before Sheet9), and an unaccented
+// letter before its accented form (ea before éa and Éa).
+const sheetNameCollator = new Intl.Collator('en-US', { sensitivity: 'accent' });
+
+/**
+ * The context for [0]!name, which Excel writes for a name in the workbook itself. Excel reads it as
+ * the workbook-scoped name; failing that, as the sheet-scoped name on the sheet whose name sorts
+ * first in Excel's order (see `sheetNameCollator`); failing that, as a missing workbook-scoped name.
+ */
+function ownWorkbookNameContext (name: string, wb?: ConversionContextSubset | null): string[] {
+  const wbName = wb?.filename ? [ wb.filename ] : [];
+  const lcName = name.toLowerCase();
+  const scopes: string[] = [];
+  for (const d of wb?.definedNames ?? []) {
+    if (d.name.toLowerCase() !== lcName) {
+      continue;
+    }
+    if (d.scope == null) {
+      return wbName;
+    }
+    scopes.push(d.scope);
+  }
+  return scopes.length ? [ scopes.sort(sheetNameCollator.compare)[0] ] : wbName;
+}
 
 /**
  * Updates a reference:
  * - Translates from xlsx reference notation to context notation: [wb1]!A1 => wb!A1
  * - Handles rewriting external ref numbers to names: [1]!A1 => [wb.xlsx]!A1
+ * - Resolves [0], this workbook, on a name: see ownWorkbookNameContext
  */
 function updateContext (
   ref: ReferenceStructXlsx | ReferenceR1C1Xlsx | ReferenceA1Xlsx | ReferenceNameXlsx,
-  externalLinks?: ExternalSubset[] | null,
+  wb?: ConversionContextSubset | null,
 ): ReferenceStruct | ReferenceR1C1 | ReferenceA1 | ReferenceName {
+  const externalLinks = wb?.externalLinks;
   const context: string[] = [];
-  if (ref.workbookName && isFinite(+ref.workbookName)) {
+  // Excel writes [0]!name for a name in this workbook, e.g. when the sheet in =Sheet1!name is
+  // deleted. Naming the workbook keeps a sheet-scoped name of the same name from shadowing it;
+  // without a filename, the plain name is the closest form.
+  if (ref.workbookName === '0' && 'name' in ref && !ref.sheetName) {
+    context.push(...ownWorkbookNameContext(ref.name, wb));
+  }
+  else if (ref.workbookName && isFinite(+ref.workbookName)) {
     const wbIndex = +ref.workbookName - 1;
     if (externalLinks?.[wbIndex]) {
       context.push(externalLinks[wbIndex].name);
@@ -86,18 +125,18 @@ function trimExpression (tokens: Token[]): Token[] {
 function updateRangeToken (
   token: Token,
   trim: TrimTypes | null,
-  externalLinks?: ExternalSubset[],
+  wb?: ConversionContextSubset | null,
   r1c1 = false,
 ): Token {
   if (r1c1) {
-    const ref = updateContext(parseR1C1Ref(token.value)!, externalLinks);
+    const ref = updateContext(parseR1C1Ref(token.value)!, wb);
     if (trim && 'range' in ref) {
       ref.range.trim = trim;
     }
     token.value = stringifyR1C1RefCtx(ref as ReferenceR1C1 | ReferenceName);
   }
   else {
-    const ref = updateContext(parseA1Ref(token.value)!, externalLinks);
+    const ref = updateContext(parseA1Ref(token.value)!, wb);
     if (trim && 'range' in ref) {
       ref.range.trim = trim;
     }
@@ -148,7 +187,7 @@ export function normalizeFormulaTokens (tokens: Token[], wb?: ConversionContextS
         if (j >= 0) {
           const subExpression = trimExpression(tokens.slice(i + 2, j));
           if (subExpression.length === 1 && isRange(subExpression[0])) {
-            r = updateRangeToken(subExpression[0], TRIM_OPS[t.value], wb?.externalLinks, r1c1);
+            r = updateRangeToken(subExpression[0], TRIM_OPS[t.value], wb, r1c1);
             i = j;
           }
         }
@@ -175,10 +214,10 @@ export function normalizeFormulaTokens (tokens: Token[], wb?: ConversionContextS
             // if (ref.table && wb.tables?.length) {
             //   // TODO: omit the table prefix if current cell is within the table
             // }
-            t.value = stringifyStructRefCtx(updateContext(ref, wb?.externalLinks));
+            t.value = stringifyStructRefCtx(updateContext(ref, wb));
           }
           else {
-            updateRangeToken(t, null, wb?.externalLinks, r1c1);
+            updateRangeToken(t, null, wb, r1c1);
           }
         }
         catch (err) {
