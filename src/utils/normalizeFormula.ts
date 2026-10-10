@@ -29,10 +29,14 @@ type ConversionContextSubset = {
 };
 type TrimTypes = 'both' | 'head' | 'tail';
 
+// Excel's order for sheet names: case-insensitive, accented letters beside their base letter, and
+// digits compared one at a time (Sheet10 before Sheet9).
+const sheetNameCollator = new Intl.Collator('en-US', { sensitivity: 'base' });
+
 /**
  * The context for [0]!name, which Excel writes for a name in the workbook itself. Excel reads it as
  * the workbook-scoped name; failing that, as the sheet-scoped name on the sheet whose name sorts
- * first, ignoring case; failing that, as a missing workbook-scoped name.
+ * first in Excel's order (see `sheetNameCollator`); failing that, as a missing workbook-scoped name.
  */
 function ownWorkbookNameContext (name: string, wb?: ConversionContextSubset | null): string[] {
   const wbName = wb?.filename ? [ wb.filename ] : [];
@@ -45,11 +49,9 @@ function ownWorkbookNameContext (name: string, wb?: ConversionContextSubset | nu
   if (matching.some(d => d.scope == null)) {
     return wbName;
   }
-  const scopes = matching.flatMap(d => (d.scope == null ? [] : [ d.scope ])).sort((a, b) => {
-    const la = a.toLowerCase();
-    const lb = b.toLowerCase();
-    return la < lb ? -1 : la > lb ? 1 : 0;
-  });
+  const scopes = matching
+    .flatMap(d => (d.scope == null ? [] : [ d.scope ]))
+    .sort(sheetNameCollator.compare);
   return scopes.length ? [ scopes[0] ] : wbName;
 }
 

@@ -155,6 +155,21 @@ describe('normalizeFormula', () => {
       expect(normalizeFormula('[0]!w', wb)).toBe('Book.xlsx!w');
     });
 
+    it('should order sheet names for [0]! as Excel does', () => {
+      const names = [
+        { name: 'p', scope: 'B' },
+        { name: 'p', scope: '_a' },
+        { name: 'q', scope: 'fa' },
+        { name: 'q', scope: 'éa' },
+        { name: 's', scope: 'Sheet9' },
+        { name: 's', scope: 'Sheet10' },
+      ];
+      const wb = { externalLinks: [], filename: 'Book.xlsx', workbook: { names } };
+      expect(normalizeFormula('[0]!p', wb)).toBe('_a!p');
+      expect(normalizeFormula('[0]!q', wb)).toBe('éa!q');
+      expect(normalizeFormula('[0]!s', wb)).toBe('Sheet10!s');
+    });
+
     it('should handle formulas without external links when wb has no externalLinks', () => {
       const wb = { externalLinks: [] };
       expect(normalizeFormula('[1]Sheet1!A1', wb)).toBe('#REF!');
