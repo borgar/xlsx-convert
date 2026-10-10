@@ -21,14 +21,43 @@ import {
 } from '@borgar/fx';
 
 type ExternalSubset = { name: string };
-type ConversionContextSubset = { externalLinks: ExternalSubset[], filename?: string };
+type NameSubset = { name: string, scope?: string };
+type ConversionContextSubset = {
+  externalLinks: ExternalSubset[],
+  filename?: string,
+  workbook?: { names?: NameSubset[] } | null,
+};
 type TrimTypes = 'both' | 'head' | 'tail';
+
+/**
+ * The context for [0]!name, which Excel writes for a name in the workbook itself. Excel reads it as
+ * the workbook-scoped name; failing that, as the sheet-scoped name on the sheet whose name sorts
+ * first, ignoring case; failing that, as a missing workbook-scoped name.
+ */
+function ownWorkbookNameContext (name: string, wb?: ConversionContextSubset | null): string[] {
+  const wbName = wb?.filename ? [ wb.filename ] : [];
+  const names = wb?.workbook?.names;
+  if (!names) {
+    return wbName;
+  }
+  const lcName = name.toLowerCase();
+  const matching = names.filter(d => d.name.toLowerCase() === lcName);
+  if (matching.some(d => d.scope == null)) {
+    return wbName;
+  }
+  const scopes = matching.flatMap(d => (d.scope == null ? [] : [ d.scope ])).sort((a, b) => {
+    const la = a.toLowerCase();
+    const lb = b.toLowerCase();
+    return la < lb ? -1 : la > lb ? 1 : 0;
+  });
+  return scopes.length ? [ scopes[0] ] : wbName;
+}
 
 /**
  * Updates a reference:
  * - Translates from xlsx reference notation to context notation: [wb1]!A1 => wb!A1
  * - Handles rewriting external ref numbers to names: [1]!A1 => [wb.xlsx]!A1
- * - Rewrites [0], this workbook, to its filename on a workbook-scoped name: [0]!x => [wb.xlsx]!x
+ * - Resolves [0], this workbook, on a name: see ownWorkbookNameContext
  */
 function updateContext (
   ref: ReferenceStructXlsx | ReferenceR1C1Xlsx | ReferenceA1Xlsx | ReferenceNameXlsx,
@@ -36,14 +65,11 @@ function updateContext (
 ): ReferenceStruct | ReferenceR1C1 | ReferenceA1 | ReferenceName {
   const externalLinks = wb?.externalLinks;
   const context: string[] = [];
-  // Excel writes [0]!name for a workbook-scoped name in this workbook, e.g. when the sheet in
-  // =Sheet1!name is deleted. Naming the workbook keeps a sheet-scoped name of the same name from
-  // shadowing it; without a filename, the plain name is the closest form.
-  const isOwnWorkbookName = ref.workbookName === '0' && 'name' in ref && !ref.sheetName;
-  if (isOwnWorkbookName) {
-    if (wb?.filename) {
-      context.push(wb.filename);
-    }
+  // Excel writes [0]!name for a name in this workbook, e.g. when the sheet in =Sheet1!name is
+  // deleted. Naming the workbook keeps a sheet-scoped name of the same name from shadowing it;
+  // without a filename, the plain name is the closest form.
+  if (ref.workbookName === '0' && 'name' in ref && !ref.sheetName) {
+    context.push(...ownWorkbookNameContext(ref.name, wb));
   }
   else if (ref.workbookName && isFinite(+ref.workbookName)) {
     const wbIndex = +ref.workbookName - 1;

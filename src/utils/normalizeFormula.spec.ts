@@ -140,6 +140,21 @@ describe('normalizeFormula', () => {
       expect(normalizeFormula('[0]!MyName', { externalLinks: [] })).toBe('MyName');
     });
 
+    it('should read [0]! before a name as a sheet-scoped name when no workbook-scoped one exists', () => {
+      const names = [
+        { name: 'x', scope: 'Beta' },
+        { name: 'X', scope: 'alpha' },
+        { name: 'y', scope: 'Beta' },
+        { name: 'z' },
+        { name: 'z', scope: 'Alpha' },
+      ];
+      const wb = { externalLinks: [], filename: 'Book.xlsx', workbook: { names } };
+      expect(normalizeFormula('[0]!x', wb)).toBe('alpha!x');
+      expect(normalizeFormula('[0]!y', wb)).toBe('Beta!y');
+      expect(normalizeFormula('[0]!z', wb)).toBe('Book.xlsx!z');
+      expect(normalizeFormula('[0]!w', wb)).toBe('Book.xlsx!w');
+    });
+
     it('should handle formulas without external links when wb has no externalLinks', () => {
       const wb = { externalLinks: [] };
       expect(normalizeFormula('[1]Sheet1!A1', wb)).toBe('#REF!');
