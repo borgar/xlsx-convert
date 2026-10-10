@@ -40,19 +40,18 @@ const sheetNameCollator = new Intl.Collator('en-US', { sensitivity: 'base' });
  */
 function ownWorkbookNameContext (name: string, wb?: ConversionContextSubset | null): string[] {
   const wbName = wb?.filename ? [ wb.filename ] : [];
-  const names = wb?.workbook?.names;
-  if (!names) {
-    return wbName;
-  }
   const lcName = name.toLowerCase();
-  const matching = names.filter(d => d.name.toLowerCase() === lcName);
-  if (matching.some(d => d.scope == null)) {
-    return wbName;
+  const scopes: string[] = [];
+  for (const d of wb?.workbook?.names ?? []) {
+    if (d.name.toLowerCase() !== lcName) {
+      continue;
+    }
+    if (d.scope == null) {
+      return wbName;
+    }
+    scopes.push(d.scope);
   }
-  const scopes = matching
-    .flatMap(d => (d.scope == null ? [] : [ d.scope ]))
-    .sort(sheetNameCollator.compare);
-  return scopes.length ? [ scopes[0] ] : wbName;
+  return scopes.length ? [ scopes.sort(sheetNameCollator.compare)[0] ] : wbName;
 }
 
 /**
