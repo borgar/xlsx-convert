@@ -29,8 +29,8 @@ type ConversionContextSubset = {
 };
 type TrimTypes = 'both' | 'head' | 'tail';
 
-// Excel's order for sheet names: case-insensitive, accented letters beside their base letter, and
-// digits compared one at a time (Sheet10 before Sheet9).
+// Excel's order for sheet names: case-insensitive and by collation rather than code unit (éa before
+// fa, _a before B), with digits compared one at a time (Sheet10 before Sheet9).
 const sheetNameCollator = new Intl.Collator('en-US', { sensitivity: 'base' });
 
 /**
