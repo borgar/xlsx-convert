@@ -163,11 +163,17 @@ describe('normalizeFormula', () => {
         { name: 'q', scope: 'éa' },
         { name: 's', scope: 'Sheet9' },
         { name: 's', scope: 'Sheet10' },
+        { name: 'u', scope: 'éa' },
+        { name: 'u', scope: 'ea' },
+        { name: 'v', scope: 'Éa' },
+        { name: 'v', scope: 'ea' },
       ];
       const wb = { externalLinks: [], filename: 'Book.xlsx', workbook: { names } };
       expect(normalizeFormula('[0]!p', wb)).toBe('_a!p');
       expect(normalizeFormula('[0]!q', wb)).toBe('éa!q');
       expect(normalizeFormula('[0]!s', wb)).toBe('Sheet10!s');
+      expect(normalizeFormula('[0]!u', wb)).toBe('ea!u');
+      expect(normalizeFormula('[0]!v', wb)).toBe('ea!v');
     });
 
     it('should handle formulas without external links when wb has no externalLinks', () => {

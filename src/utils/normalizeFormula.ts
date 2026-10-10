@@ -30,9 +30,9 @@ type ConversionContextSubset = {
 type TrimTypes = 'both' | 'head' | 'tail';
 
 // Excel's order for sheet names: case-insensitive and by collation rather than code unit (éa before
-// fa, _a before B), with digits compared one at a time (Sheet10 before Sheet9). Base sensitivity
-// also ties names that differ only by accent (ea and éa); that order was not checked in Excel.
-const sheetNameCollator = new Intl.Collator('en-US', { sensitivity: 'base' });
+// fa, _a before B), with digits compared one at a time (Sheet10 before Sheet9), and an unaccented
+// letter before its accented form (ea before éa and Éa).
+const sheetNameCollator = new Intl.Collator('en-US', { sensitivity: 'accent' });
 
 /**
  * The context for [0]!name, which Excel writes for a name in the workbook itself. Excel reads it as
