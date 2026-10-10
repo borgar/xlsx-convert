@@ -133,10 +133,10 @@ describe('normalizeFormula', () => {
       expect(normalizeFormula('[2]Sheet1!A1', wb)).toBe('[Data.xlsx]Sheet1!A1');
     });
 
-    it('should read [0]! before a name as the workbook-scoped name', () => {
-      const wb = { externalLinks: [ { name: 'External.xlsx' } ] };
-      expect(normalizeFormula('[0]!MyName', wb)).toBe('MyName');
-      expect(normalizeFormula('SUM([0]!MyName,A1)', wb)).toBe('SUM(MyName,A1)');
+    it('should read [0]! before a name as the workbook-scoped name in this workbook', () => {
+      const wb = { externalLinks: [ { name: 'External.xlsx' } ], filename: 'Book 1.xlsx' };
+      expect(normalizeFormula('[0]!MyName', wb)).toBe("'Book 1.xlsx'!MyName");
+      expect(normalizeFormula('SUM([0]!MyName,A1)', wb)).toBe("SUM('Book 1.xlsx'!MyName,A1)");
       expect(normalizeFormula('[0]!MyName', { externalLinks: [] })).toBe('MyName');
     });
 
