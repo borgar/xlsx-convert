@@ -47,9 +47,8 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
     });
 
   // FIXME: discard names that appear twice
-  // In a workbook-scoped defined name, [0]!name means the workbook-scoped name only (sheet-scoped
-  // defined names are treated the same, unchecked), so context.definedNames, which lets [0]!name
-  // in a cell fall back to a sheet-scoped name, is set after this loop.
+  // In a defined name, [0]!name means the workbook-scoped name only, so context.definedNames,
+  // which lets [0]!name in a cell fall back to a sheet-scoped name, is set after this loop.
   const definedNames: ConversionContext['definedNames'] = [];
   dom.getElementsByTagName('definedName')
     .forEach(d => {
