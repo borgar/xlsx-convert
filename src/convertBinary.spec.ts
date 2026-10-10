@@ -273,4 +273,34 @@ describe('convertBinary', () => {
       expect(wb.sheets[0].cells.B1).toBeUndefined();
     });
   });
+
+  describe('[0]! before a name', () => {
+    async function withNamesAndFormula (names: string, formula: string): Promise<ArrayBuffer> {
+      const bin = await readFileAsArrayBuffer('./tests/excel/numbers.xlsx');
+      const zip = new ZipArchive(bin);
+      const wbXml = await zip.readText('xl/workbook.xml');
+      await zip.write('xl/workbook.xml', wbXml!.replace('</sheets>', `</sheets><definedNames>${names}</definedNames>`));
+      const sheetXml = await zip.readText('xl/worksheets/sheet1.xml');
+      await zip.write('xl/worksheets/sheet1.xml', sheetXml!.replace(
+        '<c r="A1"><v>0</v></c></row>',
+        `<c r="A1"><v>0</v></c><c r="B1"><f>${formula}</f><v>0</v></c></row>`,
+      ));
+      return zip.toArrayBuffer();
+    }
+
+    test('a hidden workbook-scoped name wins over a sheet-scoped one', async () => {
+      const names = '<definedName name="x" hidden="1">7</definedName>' +
+        '<definedName name="x" localSheetId="0">5</definedName>';
+      const wb = await convertBinary(await withNamesAndFormula(names, '[0]!x'), 'numbers.xlsx');
+      expect(wb.formulas?.[wb.sheets[0].cells.B1.f as number]).toBe('numbers.xlsx!x');
+    });
+
+    test('in a defined name, it reads as the workbook-scoped name only', async () => {
+      const names = '<definedName name="n">[0]!x</definedName>' +
+        '<definedName name="x" localSheetId="0">5</definedName>';
+      const wb = await convertBinary(await withNamesAndFormula(names, '[0]!x'), 'numbers.xlsx');
+      expect(wb.names?.find(d => d.name === 'n')?.value).toBe('numbers.xlsx!x');
+      expect(wb.formulas?.[wb.sheets[0].cells.B1.f as number]).toBe('Sheet1!x');
+    });
+  });
 });

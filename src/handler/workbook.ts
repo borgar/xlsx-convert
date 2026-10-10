@@ -47,23 +47,27 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
     });
 
   // FIXME: discard names that appear twice
+  // In a defined name, [0]!name means the workbook-scoped name only, so context.definedNames,
+  // which lets [0]!name in a cell fall back to a sheet-scoped name, is set after this loop.
+  const definedNames: ConversionContext['definedNames'] = [];
   dom.getElementsByTagName('definedName')
     .forEach(d => {
       const name: DefinedName = {
         name: attr(d, 'name'),
         value: normalizeFormula(d.textContent, context),
       };
-      const hidden = boolAttr(d, 'hidden');
-      context.nameDefs.set(name.name, name);
-      if (hidden) {
-        return;
-      }
       const localSheetId = attr(d, 'localSheetId');
       if (localSheetId) {
         name.scope = context.sheetLinks[+localSheetId].name;
       }
+      definedNames.push({ name: name.name, scope: name.scope });
+      context.nameDefs.set(name.name, name);
+      if (boolAttr(d, 'hidden')) {
+        return;
+      }
       wb.names!.push(name);
     });
+  context.definedNames = definedNames;
 
   const pr = dom.querySelectorAll('workbook > workbookPr')[0];
   const epoch = (pr && numAttr(pr, 'date1904')) ? 1904 : 1900;

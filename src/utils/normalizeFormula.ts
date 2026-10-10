@@ -25,7 +25,7 @@ type NameSubset = { name: string, scope?: string };
 type ConversionContextSubset = {
   externalLinks: ExternalSubset[],
   filename?: string,
-  workbook?: { names?: NameSubset[] } | null,
+  definedNames?: NameSubset[],
 };
 type TrimTypes = 'both' | 'head' | 'tail';
 
@@ -43,7 +43,7 @@ function ownWorkbookNameContext (name: string, wb?: ConversionContextSubset | nu
   const wbName = wb?.filename ? [ wb.filename ] : [];
   const lcName = name.toLowerCase();
   const scopes: string[] = [];
-  for (const d of wb?.workbook?.names ?? []) {
+  for (const d of wb?.definedNames ?? []) {
     if (d.name.toLowerCase() !== lcName) {
       continue;
     }

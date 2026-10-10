@@ -148,7 +148,7 @@ describe('normalizeFormula', () => {
         { name: 'z' },
         { name: 'z', scope: 'Alpha' },
       ];
-      const wb = { externalLinks: [], filename: 'Book.xlsx', workbook: { names } };
+      const wb = { externalLinks: [], filename: 'Book.xlsx', definedNames: names };
       expect(normalizeFormula('[0]!x', wb)).toBe('alpha!x');
       expect(normalizeFormula('[0]!y', wb)).toBe('Beta!y');
       expect(normalizeFormula('[0]!z', wb)).toBe('Book.xlsx!z');
@@ -168,7 +168,7 @@ describe('normalizeFormula', () => {
         { name: 'v', scope: 'Éa' },
         { name: 'v', scope: 'ea' },
       ];
-      const wb = { externalLinks: [], filename: 'Book.xlsx', workbook: { names } };
+      const wb = { externalLinks: [], filename: 'Book.xlsx', definedNames: names };
       expect(normalizeFormula('[0]!p', wb)).toBe('_a!p');
       expect(normalizeFormula('[0]!q', wb)).toBe('éa!q');
       expect(normalizeFormula('[0]!s', wb)).toBe('Sheet10!s');
