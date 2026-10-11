@@ -297,7 +297,7 @@ describe('convertBinary', () => {
       }
     });
 
-    test('in a defined name, it refers to a workbook-scoped name even when only a sheet-scoped one exists', async () => {
+    test('in a defined name, it refers to a workbook-scoped name that need not exist', async () => {
       const names = '<definedName name="n">[0]!x</definedName>' +
         '<definedName name="x" localSheetId="0">5</definedName>';
       const wb = await convertBinary(await withNamesAndFormula(names, '[0]!x'), 'numbers.xlsx');
@@ -306,7 +306,7 @@ describe('convertBinary', () => {
       expect(wb.formulas?.[wb.sheets[0].cells.B1.f as number]).toBe('Sheet1!x');
     });
 
-    test('in a sheet-scoped defined name too, it refers to a workbook-scoped name even when only a sheet-scoped one exists', async () => {
+    test('in a sheet-scoped defined name, it refers to a workbook-scoped name that need not exist', async () => {
       const names = '<definedName name="n" localSheetId="0">[0]!x</definedName>' +
         '<definedName name="x" localSheetId="0">5</definedName>';
       const wb = await convertBinary(await withNamesAndFormula(names, '[0]!x'), 'numbers.xlsx');
