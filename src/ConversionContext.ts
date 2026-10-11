@@ -52,7 +52,6 @@ export class ConversionContext {
   theme: Theme;
   indexedColors: string[];
   nameDefs: Map<string, DefinedName>;
-  /** Every defined name in the workbook, hidden ones included, with its sheet scope if any. */
   definedNames: { name: string, scope?: string }[];
   richStruct: RDStruct[];
   richValues: RDValue[];

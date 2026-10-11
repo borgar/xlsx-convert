@@ -29,16 +29,8 @@ type ConversionContextSubset = {
 };
 type TrimTypes = 'both' | 'head' | 'tail';
 
-// Excel's order for sheet names: case-insensitive and by collation rather than code unit (éa before
-// fa, _a before B), with digits compared one at a time (Sheet10 before Sheet9), and an unaccented
-// letter before its accented form (ea before éa and Éa).
 const sheetNameCollator = new Intl.Collator('en-US', { sensitivity: 'accent' });
 
-/**
- * The context for [0]!name, which Excel writes for a name in the workbook itself. Excel reads it as
- * the workbook-scoped name; failing that, as the sheet-scoped name on the sheet whose name sorts
- * first in Excel's order (see `sheetNameCollator`); failing that, as a missing workbook-scoped name.
- */
 function ownWorkbookNameContext (name: string, wb?: ConversionContextSubset | null): string[] {
   const wbName = wb?.filename ? [ wb.filename ] : [];
   const lcName = name.toLowerCase();
@@ -59,7 +51,6 @@ function ownWorkbookNameContext (name: string, wb?: ConversionContextSubset | nu
  * Updates a reference:
  * - Translates from xlsx reference notation to context notation: [wb1]!A1 => wb!A1
  * - Handles rewriting external ref numbers to names: [1]!A1 => [wb.xlsx]!A1
- * - Resolves [0], this workbook, on a name: see ownWorkbookNameContext
  */
 function updateContext (
   ref: ReferenceStructXlsx | ReferenceR1C1Xlsx | ReferenceA1Xlsx | ReferenceNameXlsx,
@@ -67,9 +58,6 @@ function updateContext (
 ): ReferenceStruct | ReferenceR1C1 | ReferenceA1 | ReferenceName {
   const externalLinks = wb?.externalLinks;
   const context: string[] = [];
-  // Excel writes [0]!name for a name in this workbook, e.g. when the sheet in =Sheet1!name is
-  // deleted. Naming the workbook keeps a sheet-scoped name of the same name from shadowing it;
-  // without a filename, the plain name is the closest form.
   if (ref.workbookName === '0' && 'name' in ref && !ref.sheetName) {
     context.push(...ownWorkbookNameContext(ref.name, wb));
   }
