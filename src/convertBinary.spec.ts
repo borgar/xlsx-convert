@@ -288,22 +288,25 @@ describe('convertBinary', () => {
       return zip.toArrayBuffer();
     }
 
-    test('a hidden workbook-scoped name wins over a sheet-scoped one', async () => {
-      const names = '<definedName name="x" hidden="1">7</definedName>' +
-        '<definedName name="x" localSheetId="0">5</definedName>';
-      const wb = await convertBinary(await withNamesAndFormula(names, '[0]!x'), 'numbers.xlsx');
-      expect(wb.formulas?.[wb.sheets[0].cells.B1.f as number]).toBe('numbers.xlsx!x');
+    test('a workbook-scoped name wins over a sheet-scoped one, hidden or not', async () => {
+      for (const hidden of [ '', ' hidden="1"' ]) {
+        const names = `<definedName name="x"${hidden}>7</definedName>` +
+          '<definedName name="x" localSheetId="0">5</definedName>';
+        const wb = await convertBinary(await withNamesAndFormula(names, '[0]!x'), 'numbers.xlsx');
+        expect(wb.formulas?.[wb.sheets[0].cells.B1.f as number]).toBe('numbers.xlsx!x');
+      }
     });
 
-    test('in a defined name, it reads as the workbook-scoped name only', async () => {
+    test('in a defined name, it refers to a workbook-scoped name even when only a sheet-scoped one exists', async () => {
       const names = '<definedName name="n">[0]!x</definedName>' +
         '<definedName name="x" localSheetId="0">5</definedName>';
       const wb = await convertBinary(await withNamesAndFormula(names, '[0]!x'), 'numbers.xlsx');
       expect(wb.names?.find(d => d.name === 'n')?.value).toBe('numbers.xlsx!x');
+      // The same reference in a cell falls back to the sheet-scoped name
       expect(wb.formulas?.[wb.sheets[0].cells.B1.f as number]).toBe('Sheet1!x');
     });
 
-    test('in a sheet-scoped defined name, it reads as the workbook-scoped name only', async () => {
+    test('in a sheet-scoped defined name too, it refers to a workbook-scoped name even when only a sheet-scoped one exists', async () => {
       const names = '<definedName name="n" localSheetId="0">[0]!x</definedName>' +
         '<definedName name="x" localSheetId="0">5</definedName>';
       const wb = await convertBinary(await withNamesAndFormula(names, '[0]!x'), 'numbers.xlsx');
