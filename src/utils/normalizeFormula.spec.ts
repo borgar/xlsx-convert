@@ -133,14 +133,14 @@ describe('normalizeFormula', () => {
       expect(normalizeFormula('[2]Sheet1!A1', wb)).toBe('[Data.xlsx]Sheet1!A1');
     });
 
-    it('should read [0]! before a name as the workbook-scoped name in this workbook', () => {
+    it('should resolve [0]!name to this workbook', () => {
       const wb = { externalLinks: [ { name: 'External.xlsx' } ], filename: 'Book 1.xlsx' };
       expect(normalizeFormula('[0]!MyName', wb)).toBe("'Book 1.xlsx'!MyName");
       expect(normalizeFormula('SUM([0]!MyName,A1)', wb)).toBe("SUM('Book 1.xlsx'!MyName,A1)");
       expect(normalizeFormula('[0]!MyName', { externalLinks: [] })).toBe('MyName');
     });
 
-    it('should read [0]! before a name as a sheet-scoped name when no workbook-scoped one exists', () => {
+    it('should resolve [0]!name to a sheet-scoped name if no workbook-scoped one exists', () => {
       const names = [
         { name: 'x', scope: 'Beta' },
         { name: 'X', scope: 'alpha' },
@@ -155,7 +155,7 @@ describe('normalizeFormula', () => {
       expect(normalizeFormula('[0]!w', wb)).toBe('Book.xlsx!w');
     });
 
-    it('should order sheet names for [0]! as Excel does', () => {
+    it('should pick the sheet for [0]!name in Excel\'s sheet name order', () => {
       const names = [
         { name: 'p', scope: 'B' },
         { name: 'p', scope: '_a' },
