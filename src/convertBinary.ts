@@ -36,7 +36,7 @@ import { getFirstChild } from './utils/getFirstChild.ts';
 import { handlerCustomdata } from './handler/customdata.ts';
 import {
   MISSING_ASSET_EXT, MISSING_ASSET_PQ, MISSING_ASSET_PY, MISSING_ASSET_VBA, MISSING_CHART,
-  MISSING_CHART_CHARTEX, MISSING_CHART_PIVOT, MISSING_VIEW_TABSELECTED,
+  MISSING_CHART_CHARTEX, MISSING_CHART_PIVOT, MISSING_VIEW_TABSELECTED, type UnsupportedTag,
 } from './constants.ts';
 
 let CHARTS_ENABLED = false;
@@ -115,7 +115,7 @@ export type Workbook = JSFWorkbook & {
    * A list of tags idenifying xlsx features that the converter encountered in a workbook
    * but did not handle.
    */
-  unsupported?: string[]
+  unsupported?: UnsupportedTag[]
 };
 
 /**
@@ -497,7 +497,7 @@ export async function convertBinary (
     if (context.selectedTabs.size > 1) {
       context.unsupported.add(MISSING_VIEW_TABSELECTED);
     }
-    const taglist: string[] = Array.from(context.unsupported).sort();
+    const taglist: UnsupportedTag[] = Array.from(context.unsupported).sort();
     if (taglist.length) { wb.unsupported = taglist; }
   }
 

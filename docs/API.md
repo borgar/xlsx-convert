@@ -15,7 +15,12 @@
 - [ConversionOptions](#type-aliasesconversionoptionsmd)
 - [CSVConversionOptions](#type-aliasescsvconversionoptionsmd)
 - [MdwResolver](#type-aliasesmdwresolvermd)
+- [UnsupportedTag](#type-aliasesunsupportedtagmd)
 - [Workbook](#type-aliasesworkbookmd)
+
+## Variables
+
+- [UNSUPPORTED\_TAGS](#variablesunsupported_tagsmd)
 
 ## Functions
 
@@ -295,7 +300,8 @@ A JSON spreadsheet object.
 function convertBinary(
    buffer: ArrayBuffer | Buffer<ArrayBufferLike>, 
    filename: string, 
-options?: ConversionOptions): Promise<Workbook>;
+   options?: ConversionOptions
+): Promise<Workbook>;
 ```
 
 Convert an XLSX binary into a JSON format.
@@ -326,7 +332,8 @@ A JSON spreadsheet formatted object.
 function convertCSV(
    csvStream: string, 
    name: string, 
-   options?: CSVConversionOptions): Workbook;
+   options?: CSVConversionOptions
+): Workbook;
 ```
 
 Convert a CSV/TSV into JSF format.
@@ -431,13 +438,24 @@ Resolve an MDW for an arbitrary font. Returning null/undefined defers to the bui
 `number` \| `null` \| `undefined`
 
 
+<a name="type-aliasesunsupportedtagmd"></a>
+
+# UnsupportedTag
+
+```ts
+type UnsupportedTag = typeof UNSUPPORTED_TAGS[number];
+```
+
+A tag for a feature that the converter found in a workbook but did not convert.
+
+
 <a name="type-aliasesworkbookmd"></a>
 
 # Workbook
 
 ```ts
 type Workbook = JSFWorkbook & {
-  unsupported?: string[];
+  unsupported?: UnsupportedTag[];
 };
 ```
 
@@ -512,8 +530,19 @@ As the capabilities of xlsx-convert grow, this list is expected to get smaller a
 ### unsupported?
 
 ```ts
-optional unsupported?: string[];
+optional unsupported?: UnsupportedTag[];
 ```
 
 A list of tags idenifying xlsx features that the converter encountered in a workbook
 but did not handle.
+
+
+<a name="variablesunsupported_tagsmd"></a>
+
+# UNSUPPORTED\_TAGS
+
+```ts
+const UNSUPPORTED_TAGS: readonly ["asset-3d", "asset-ext", "asset-oo", "asset-pq", "asset-py", "asset-svg", "asset-vba", "asset-vml", "border-diagonal", "calc-precision", "cell-checkbox", "cell-hide", "cell-indent", "cell-lock", "cell-mdx", "cell-rtf", "chart", "chart-chartex", "chart-pivot", "col-group", "data-validation", "dynamic-style", "note-rtf", "print-gridlines", "print-headings", "print-setup", "row-group", "scenario", "shape-diagram", "shape-effect", "shape-math", "shape-texteffect", "sheet-autofilter", "sheet-background", "sheet-lock", "sheet-rtl", "sheet-tabcolor", "sparkline", "table-filter-button", "table-insertrow", "table-slicer", "table-sortstate", "table-style-custom", "time-slicer", "view-custom", "view-formulas", "view-gridlines-color", "view-headings", "view-outline-symbols", "view-pane-split", "view-tabselected", "view-zeros", "workbook-lock", "workbook-meta", "workbook-meta-custom"];
+```
+
+Every tag the converter can report in a workbook's `unsupported` list.
