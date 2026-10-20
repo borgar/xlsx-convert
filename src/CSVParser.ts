@@ -33,7 +33,8 @@ export class CSVParser {
   formats: string[];
   table: Record<string, Cell> | undefined;
   columns: ColumnData[] | undefined;
-  numfmtOptions: { locale: string; };
+  numfmtOptions: { locale: string; mode: 0 | 1 };
+  parseMode: 0 | 1;
 
   constructor () {
     this.escapeChar = '"';
@@ -43,7 +44,11 @@ export class CSVParser {
     this.column = 0;
     this.width = 0;
     this.height = 0;
-    this.numfmtOptions = { locale: this.locale ?? 'en-US' };
+    this.parseMode = 1;
+    this.numfmtOptions = {
+      locale: this.locale ?? 'en-US',
+      mode: this.parseMode,
+    };
   }
 
   countType (type: DataType) {
@@ -137,7 +142,7 @@ export class CSVParser {
     this.width = 0;
     this.formats = [ '' ];
     this.columns = [];
-    this.numfmtOptions = { locale: this.locale ?? 'en-US' };
+    this.numfmtOptions = { locale: this.locale ?? 'en-US', mode: this.parseMode };
 
     if (!delimiter && this.delimiter) {
       delimiter = this.delimiter;

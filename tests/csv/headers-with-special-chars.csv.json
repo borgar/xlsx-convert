@@ -56,7 +56,7 @@
   "styles": [
     {},
     { "numberFormat": "m/d/yyyy" },
-    { "numberFormat": "$#,##0_);[Red]($#,##0)" },
+    { "numberFormat": "$#,##0_);($#,##0)" },
     { "numberFormat": "0.00%" }
   ],
   "tables": [

@@ -290,7 +290,7 @@ describe('CSVParser', () => {
       const csv = '999999999999999999';
       const result = parser.parse(csv);
 
-      expect(result.A1).toEqual({ v: 999999999999999000 });
+      expect(result.A1).toEqual({ v: 1000000000000000000 });
     });
 
     it('should handle scientific notation', () => {

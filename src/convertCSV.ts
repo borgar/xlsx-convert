@@ -35,7 +35,18 @@ export type CSVConversionOptions = {
    * Create a table descriptor object for the data in the sheet.
    * @defaultValue false
    */
-  table?: boolean
+  table?: boolean;
+  /**
+   * The mode numfmt uses to parse dates and numbers in cell values.
+   *
+   * - `0`: Excel mode. Accepts the same strings as Excel's `Range.Value` assignments.
+   * - `1`: Numfmt mode. Accepts a curated set of strings. This mode accepts some common
+   *   formats that Excel rejects, such as dates that include weekdays, and rejects
+   *   unusual formats such as undelimited (`sep10`) or mixed-delimiter (`1984/07-4`) dates.
+   *
+   * @defaultValue 1
+   */
+  parseMode?: 0 | 1;
 };
 
 const EMPTY_COLUMN = { t: 0, b: 0, n: 0, d: 0, total: 0 };
@@ -66,6 +77,9 @@ export function convertCSV (
   }
   if (options.locale) {
     parser.locale = options.locale;
+  }
+  if (options.parseMode != null) {
+    parser.parseMode = options.parseMode;
   }
   const cells = parser.parse(csvStream, options.delimiter);
 
