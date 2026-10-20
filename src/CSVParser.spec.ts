@@ -224,7 +224,7 @@ describe('CSVParser', () => {
       expect(result.B2).toEqual({ v: 123 });
       expect(result.C2).toEqual({ v: true });
       expect(result.D2).toEqual({ v: 45285, t: 'd', s: 1 }); // Serial date
-      expect(parser.formats).toEqual([ '', 'yyyy-mm-dd' ]);
+      expect(parser.formats).toEqual([ '', 'm/d/yyyy' ]);
     });
 
     it('should reset state between parses', () => {
@@ -286,12 +286,11 @@ describe('CSVParser', () => {
   });
 
   describe('edge cases', () => {
-    it('should handle large numbers', () => {
+    it('should handle large numbers like Excel does', () => {
       const csv = '999999999999999999';
       const result = parser.parse(csv);
 
-      // eslint-disable-next-line no-loss-of-precision
-      expect(result.A1).toEqual({ v: 999999999999999999 });
+      expect(result.A1).toEqual({ v: 999999999999999000 });
     });
 
     it('should handle scientific notation', () => {
@@ -475,7 +474,7 @@ describe('CSVParser', () => {
       expect(parser.table!.A1.v).toBe(45285); // Serial date number
       expect(parser.table!.A1.t).toBe('d');
       expect(parser.columns![0].d).toBe(1);
-      expect(parser.formats[parser.table!.A1.s!]).toBe('yyyy-mm-dd');
+      expect(parser.formats[parser.table!.A1.s!]).toBe('m/d/yyyy');
     });
 
     it('should parse time values', () => {
@@ -484,7 +483,7 @@ describe('CSVParser', () => {
       expect(parser.table!.A1.v).toBe(0.6041666666666666); // Fractional day
       expect(parser.table!.A1.t).toBe('d');
       expect(parser.table!.A1.s).toBe(1); // Format index
-      expect(parser.formats[parser.table!.A1.s!]).toBe('hh:mm:ss');
+      expect(parser.formats[parser.table!.A1.s!]).toBe('h:mm:ss');
     });
 
     it('should handle empty values', () => {

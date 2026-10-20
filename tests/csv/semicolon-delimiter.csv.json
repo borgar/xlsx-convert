@@ -39,7 +39,7 @@
   "names": [],
   "styles": [
     {},
-    { "numberFormat": "$#,##0.00" }
+    { "numberFormat": "$#,##0.00_);[Red]($#,##0.00)" }
   ],
   "tables": [
     {
