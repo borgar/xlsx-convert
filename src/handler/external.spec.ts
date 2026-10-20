@@ -60,6 +60,30 @@ describe('handlerExternal', () => {
     });
   });
 
+  describe('value metadata', () => {
+    it('resolves a cached cell vm against the host workbook metadata', () => {
+      // Arrange
+      const xml = `<externalLink ${EXTERNAL_NS}>
+        <externalBook ${R_NS} r:id="rId1">
+          <sheetNames><sheetName val="Data"/></sheetNames>
+          <sheetDataSet>
+            <sheetData sheetId="0">
+              <row r="1"><cell r="A1" t="e" vm="1"><v>#VALUE!</v></cell></row>
+            </sheetData>
+          </sheetDataSet>
+        </externalBook>
+      </externalLink>`;
+      const metadata = { cells: [], values: [ { _type: '_error', errorType: 8 } ] };
+      const expected = { A1: { t: 'e', v: '#SPILL!' } };
+
+      // Act
+      const ext = handlerExternal(parseExternal(xml), 'Book.xlsx', [], metadata);
+
+      // Assert
+      expect(ext.sheets[0].cells).toEqual(expected);
+    });
+  });
+
   describe('noSheetData marker', () => {
     it('marks sheets named in sheetNames but absent from sheetDataSet', () => {
       // Input has 3 sheetNames but only 2 sheetData entries (skipping sheetId=1).

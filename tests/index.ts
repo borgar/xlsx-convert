@@ -58,6 +58,7 @@ const tests = [
   'tests/excel/errors-excel.xlsx',
   'tests/excel/errors-gsheets.xlsx',
   'tests/excel/external-refs.xlsx',
+  'tests/excel/external-value-metadata.xlsx',
   'tests/excel/fonts.xlsx',
   'tests/excel/freeze-panes.xlsx',
   'tests/excel/grouped-grouped-charts.xlsx',
