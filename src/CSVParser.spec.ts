@@ -286,7 +286,7 @@ describe('CSVParser', () => {
   });
 
   describe('edge cases', () => {
-    it('should handle large numbers like Excel does', () => {
+    it('should handle large numbers', () => {
       const csv = '999999999999999999';
       const result = parser.parse(csv);
 
