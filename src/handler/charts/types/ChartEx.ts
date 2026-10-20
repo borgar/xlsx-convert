@@ -1,11 +1,20 @@
-import type { Legend } from './legend/Legend.ts';
+import type { Shape } from '@jsfkit/types';
+import type { Text } from './Text.ts';
+import type { TextProps } from './TextProps.ts';
 import type { PlotAreaEx } from './PlotAreaEx.ts';
-import type { Title } from './Title.ts';
+import type { LegendEx } from './legend/LegendEx.ts';
+
+export type TitleEx = {
+  text?: Text;
+  shape?: Shape;
+  textProps?: TextProps;
+  pos?: 't' | 'l' | 'b' | 'r';
+  align?: 'min' | 'ctr' | 'max';
+  overlay?: boolean;
+};
 
 export type ChartEx = {
-  type: 'ex';
-  title?: Title;
+  title?: TitleEx;
   plotArea?: PlotAreaEx;
-  // Legends seem like they can be mostly merged?
-  legend?: Legend;
+  legend?: LegendEx;
 };

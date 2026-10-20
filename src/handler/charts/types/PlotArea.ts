@@ -8,8 +8,6 @@ export type PlotArea = {
   dTable?: DTable;
   layout?: ManualLayout;
   shape?: Shape;
-  // at least one:
   plots: Plot[];
-  // any number of:
   axes: Axis[];
 };

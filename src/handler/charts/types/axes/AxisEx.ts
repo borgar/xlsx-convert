@@ -7,19 +7,16 @@ import type { BuiltInUnit } from './BuiltInUnit.ts';
 
 export type AxisEx = {
   id: integer;
-  // As catScaling & valScaling in the
   scaling: CategoryAxisScaling | ValueAxisScaling;
-  /**
-   * @default false
-   */
-  hidden: boolean;
+  hidden?: boolean;
   title?: AxisTitle;
   units?: AxisUnits;
-  majorGridlines?: Shape; // CT_Gridlines = { shape?: Shape }
-  minorGridlines?: Shape; // CT_Gridlines = { shape?: Shape }
+  majorGridlines?: Shape;
+  minorGridlines?: Shape;
   majorTickMarks?: TickMark;
   minorTickMarks?: TickMark;
-  // tickLabels?: CT_TickLabels; // Empty type !?!
+  // `cx:tickLabels` is an empty element that turns tick labels on
+  tickLabels?: boolean;
   numFmt?: NumFmt;
   shape?: Shape;
   textProps?: TextProps;
@@ -27,29 +24,15 @@ export type AxisEx = {
 
 export type CategoryAxisScaling = {
   type: 'cat';
-  /**
-   * Min is exclusive :(
-   * @min 0
-   * @default "auto"
-   */
   gapWidth?: 'auto' | number;
 };
 
 export type ValueAxisScaling = {
-  max: 'auto' | number;
-  min: 'auto' | number;
-  /**
-   * Min is exclusive :(
-   * @min 0
-   * @default "auto"
-   */
-  majorUnit: 'auto' | number;
-  /**
-   * Min is exclusive :(
-   * @min 0
-   * @default "auto"
-   */
-  minorUnit: 'auto' | number;
+  type: 'val';
+  max?: 'auto' | number;
+  min?: 'auto' | number;
+  majorUnit?: 'auto' | number;
+  minorUnit?: 'auto' | number;
 };
 
 export type AxisTitle = {

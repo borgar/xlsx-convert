@@ -19,6 +19,11 @@ describe('readLineProps', () => {
     expect(parse('<ln/>')?.width).toBeUndefined();
   });
 
+  it('keeps an explicit "no line", and nothing else', () => {
+    // <a:noFill/> differs from an absent <a:ln>: a chart axis without an outline may draw one.
+    expect(parse('<ln w="9525" cap="flat"><noFill/><round/></ln>')).toEqual({ fill: { type: 'none' } });
+  });
+
   it('maps every ST_LineCap token', () => {
     // 'butt' is the JSF default and is elided; 'rnd' and 'sq' must survive the conversion.
     expect(parse('<ln cap="flat"/>')?.cap).toBeUndefined();

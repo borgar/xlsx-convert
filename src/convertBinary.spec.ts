@@ -159,6 +159,18 @@ describe('convertBinary', () => {
       spy.mockRestore();
     });
 
+    test('leaves out a chart that can\'t be read, and converts the rest of the workbook', async () => {
+      const bin = await readFileAsArrayBuffer('./tests/excel/charts/chart-pie.xlsx');
+      const zip = new ZipArchive(bin);
+      await zip.write('xl/charts/chart1.xml', '<c:chartSpace xmlns:c="x"><c:chart><broken');
+      const warn = vi.fn();
+      const wb = await convertBinary(zip.toArrayBuffer(), 'chart-pie.xlsx', { warn });
+      expect(wb.sheets).toHaveLength(1);
+      expect(wb.charts).toBeUndefined();
+      expect(warn).toHaveBeenCalledOnce();
+      expect(warn.mock.calls[0][0]).toMatch(/Chart .*chart1\.xml could not be converted/);
+    });
+
     test('warns when pivot table cache definition is missing', async () => {
       const bin = await readFileAsArrayBuffer('./tests/excel/pivot-table.xlsx');
       const zip = new ZipArchive(bin);

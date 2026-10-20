@@ -8,7 +8,6 @@ import type { integer } from '@jsfkit/types';
 
 export type BarChartShared = {
   barDir: BarDir;
-  /** @default "clustered" */
   grouping?: BarGrouping;
   varyColors?: boolean;
   ser?: Series[];
@@ -17,17 +16,7 @@ export type BarChartShared = {
 
 export type BarChart = BarChartShared & {
   type: 'bar';
-  /**
-   * @min 0
-   * @max 500
-   * @default "150%"
-   */
   gapWidth?: integer;
-  /**
-   * @min -100
-   * @max 100
-   * @default "0%"
-   */
   overlap?: integer;
   serLines?: ChartLines[];
   axId: [ integer, integer ];
@@ -35,19 +24,9 @@ export type BarChart = BarChartShared & {
 
 export type BarChart3d = BarChartShared & {
   type: 'bar3d';
-  /**
-   * @min 0
-   * @max 500
-   * @default "150%"
-   */
   gapWidth?: integer;
-  /**
-   * @min 0
-   * @max 500
-   * @default "150%"
-   */
   gapDepth?: integer;
-  // XXX: conflicts with DML shape prop
+  // the shape of the bars (`c:shape`), not a DrawingML shape
   shape?: BarShape;
   axId: [ integer, integer ] | [ integer, integer, integer ];
 };

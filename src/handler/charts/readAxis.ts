@@ -24,6 +24,7 @@ import type { DispUnits } from './types/axes/DispUnits.ts';
 import { readTextProps } from './readTextProps.ts';
 import { readText } from './readText.ts';
 import { readNumFmt } from './readNumFmt.ts';
+import { readLayout } from './readLayout.ts';
 
 function readScaling (element: Element): Scaling | undefined {
   const out: Scaling = {};
@@ -63,7 +64,7 @@ function readDispUnits (element: Element, context: ConversionContext): DispUnits
       dispUnitsLbl = {};
       for (const grandchild of child.children) {
         if (grandchild.tagName === 'layout') {
-          // TODO: readLayout -- see Legend
+          addProp(dispUnitsLbl, 'layout', readLayout(grandchild));
         }
         else if (grandchild.tagName === 'spPr') {
           addProp(dispUnitsLbl, 'shape', readShapeProperties(grandchild, context));
@@ -77,12 +78,12 @@ function readDispUnits (element: Element, context: ConversionContext): DispUnits
       }
     }
   }
-  let out: DispUnits | undefined = undefined;
-  if (custUnit) {
-    out = { custUnit };
-  }
+  let out: DispUnits | undefined;
   if (builtInUnit) {
-    return { builtInUnit };
+    out = { builtInUnit };
+  }
+  else if (custUnit != null) {
+    out = { custUnit };
   }
   if (out && dispUnitsLbl) {
     out.dispUnitsLbl = dispUnitsLbl;
@@ -117,8 +118,6 @@ export function readAxis (element: Element, context: ConversionContext): ValAx |
 
     // specific to CatAx
     if (out.type === 'catAx') {
-      // XXX: extends SerAx?
-
       if (tag === 'auto') {
         addProp(out, 'auto', boolValElm(child), false);
       }
@@ -212,7 +211,6 @@ export function readAxis (element: Element, context: ConversionContext): ValAx |
       addProp(out, 'shape', readShapeProperties(child, context));
     }
     else if (tag === 'txPr') {
-      // XXX: need a reader for TextProps
       addProp(out, 'textProps', readTextProps(child, context));
     }
     else if (tag === 'title') {
@@ -240,7 +238,7 @@ export function readAxis (element: Element, context: ConversionContext): ValAx |
   }
 
   // ensure required props are there
-  if (out.axId && out.type && out.axPos && out.crossAx) {
+  if (out.axId != null && out.type && out.axPos && out.crossAx != null) {
     return out as (ValAx | DateAx | SerAx | CatAx);
   }
 }

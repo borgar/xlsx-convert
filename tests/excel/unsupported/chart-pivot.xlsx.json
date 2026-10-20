@@ -128,6 +128,59 @@
       "builtinId": 0
     }
   },
+  "charts": {
+    "xl/charts/chart1.xml": {
+      "data": [ { "id": "data" } ],
+      "scales": [
+        { "id": "category", "type": "band", "auto": true },
+        { "id": "value", "type": "linear" }
+      ],
+      "plots": [
+        {
+          "id": "plot1",
+          "mark": "bar",
+          "data": "data",
+          "encoding": {
+            "series": { "field": "series" },
+            "x": { "field": "category", "scale": "category" },
+            "y": { "field": "value", "scale": "value" }
+          },
+          "series": [
+            {
+              "id": "s0",
+              "name": { "formula": "Sheet2!$B$3" },
+              "bindings": {
+                "category": { "formula": "Sheet2!$A$4:$A$6", "role": "category" },
+                "value": { "formula": "Sheet2!$B$4:$B$6", "role": "value" }
+              }
+            }
+          ],
+          "grouping": "clustered",
+          "layout": { "type": "bar", "gapWidth": 219, "overlap": -27 }
+        }
+      ],
+      "title": { "text": "Pivot Chart" },
+      "axes": [
+        {
+          "id": "categoryAxis",
+          "scale": "category",
+          "orient": "bottom",
+          "tickMarks": { "major": "none" }
+        },
+        {
+          "id": "valueAxis",
+          "scale": "value",
+          "orient": "left",
+          "tickMarks": { "major": "none" },
+          "gridlines": {
+            "major": {}
+          }
+        }
+      ],
+      "showNaAsBlank": true,
+      "styleId": 2
+    }
+  },
   "pivotTables": [
     {
       "name": "PivotTable1",
@@ -255,5 +308,5 @@
       "version": "16.0300"
     }
   },
-  "unsupported": [ "chart" ]
+  "unsupported": [ "chart-pivot", "shape-effect" ]
 }

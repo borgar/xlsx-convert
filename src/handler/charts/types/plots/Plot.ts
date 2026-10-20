@@ -7,7 +7,6 @@ import type { RadarChart } from './RadarChart.ts';
 import type { ScatterChart } from './ScatterChart.ts';
 import type { StockChart } from './StockChart.ts';
 import type { SurfaceChart3d, SurfaceChart } from './SurfaceChart.ts';
-import type { WaterfallChart } from './WaterfallChart.ts';
 
 export type Plot = (
   AreaChart |
@@ -25,15 +24,5 @@ export type Plot = (
   BarChart3d |
   SurfaceChart |
   SurfaceChart3d |
-  BubbleChart |
-  WaterfallChart
+  BubbleChart
 );
-
-// Sunburst	TRUE	boxWhisker
-// Funnel	TRUE	funnel
-// Histogram	TRUE	clusteredColumn
-// Histogram with line	TRUE	paretoLine
-// Sunburst	TRUE	sunburst
-// Treemap	TRUE	treemap
-// Waterfall	TRUE	waterfall
-// Map	TRUE	regionMap

@@ -49,6 +49,12 @@ function readDLblShared (element: Element, context: ConversionContext): DLblShar
     else if (child.tagName === 'separator') {
       label.separator = child.textContent;
     }
+    else if (child.tagName === 'extLst') {
+      const showRange = child.querySelector('showDataLabelsRange');
+      if (showRange) {
+        addProp(label, 'showDataLabelsRange', boolValElm(showRange), false);
+      }
+    }
   }
   return label;
 }
@@ -96,7 +102,7 @@ export function readDLbls (element: Element, context: ConversionContext): DLbls 
     else if (child.tagName === 'showLeaderLines') {
       addProp(labels, 'showLeaderLines', boolValElm(child));
     }
-    else if (child.tagName === 'leaderLines') { // TODO: ChartLines
+    else if (child.tagName === 'leaderLines') {
       const spPr = getFirstChild(child, 'spPr');
       const shape = spPr && readShapeProperties(spPr, context);
       if (shape) {

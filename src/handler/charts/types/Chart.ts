@@ -7,9 +7,7 @@ import type { PlotArea } from './PlotArea.ts';
 import type { Title } from './Title.ts';
 
 export type Chart = {
-  type: 'bc';
   plotArea: PlotArea;
-  autoTitleDeleted?: boolean;
   plotVisOnly?: boolean;
   showDLblsOverMax?: boolean;
   title?: Title;
@@ -19,8 +17,7 @@ export type Chart = {
   sideWall?: Surface;
   backWall?: Surface;
   legend?: Legend;
-  /**
-   * @default "zero"
-   */
   dispBlanksAs?: DispBlanksAs;
+  // "Show #N/A as an empty cell" (`c16r3:dispNaAsBlank`)
+  dispNaAsBlank?: boolean;
 };

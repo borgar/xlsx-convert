@@ -7,10 +7,7 @@ export type Title = {
   text?: Text;
   textProps?: TextProps;
   layout?: ManualLayout;
-  /**
-   * A true means that the title may overlap the chart
-   * @default false
-   */
+  // set by the reader when absent: Excel treats a missing `c:overlay` as true
   overlay?: boolean;
   shape?: Shape;
 };

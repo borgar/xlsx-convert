@@ -1,7 +1,7 @@
 import type { Element } from '@borgar/simple-xml';
 import { attr, boolAttr, numAttr } from '../../utils/attr.ts';
 import { addProp } from '../../utils/addProp.ts';
-import type { TextAnchoring } from '@jsfkit/types';
+import type { TextAnchoring, TextVerticalType, Underline } from '@jsfkit/types';
 import { hasKeys } from '../../utils/hasKeys.ts';
 import type { TextProps } from './types/TextProps.ts';
 import type { ConversionContext } from '../../ConversionContext.ts';
@@ -10,13 +10,27 @@ import { getFirstChild } from '../../utils/getFirstChild.ts';
 
 // Excel uses this value on an axis's bodyPr (and elsewhere?) to mean "rotation is unset, auto-fit
 // labels at render time". This isn't part of the OOXML spec, naturally. We discard it so it's
-// treated as an absent rot attribute (i.e. no rotation).
-//
-// XXX: Preserve this signal in JSF so a renderer can distinguish "author chose 0" from "Excel chose
-// auto-fit".
+// treated as an absent rot attribute (i.e. no rotation). JSF has no way to keep this yet (see
+// jsfchart/outstanding.md).
 const DML_ROT_UNSET = -60000000;
 
-// XXX: add more props
+/** Whether a run properties element has any attributes, apart from namespaces and language. */
+function hasRunAttrs (elm: Element): boolean {
+  return Object.keys(elm.attr ?? {}).some(k => !k.startsWith('xmlns') && k !== 'lang' && k !== 'altLang');
+}
+
+/**
+ * A DrawingML underline type (`ST_TextUnderlineType`) as a JSF underline. JSF has single and double
+ * underlines, so the other DrawingML styles (dotted, wavy, heavy, and so on) map to the nearest.
+ * `none`, which Excel writes on nearly every text element, is left out.
+ */
+function readUnderline (u: string | null): Underline | undefined {
+  if (!u || u === 'none') {
+    return undefined;
+  }
+  return /dbl/i.test(u) ? 'double' : 'single';
+}
+
 export function readTextProps (elm: Element | null, context: ConversionContext): TextProps | undefined {
   // A rich text block (c:tx/c:rich) shares txPr's internal shape (bodyPr + a:p/a:pPr/defRPr) and
   // is where titles usually carry their font styling.
@@ -31,23 +45,25 @@ export function readTextProps (elm: Element | null, context: ConversionContext):
         if (rot != null && rot !== DML_ROT_UNSET) {
           addProp(text, 'rot', rot, 0);
         }
+        addProp(text, 'vert', attr(child, 'vert') as TextVerticalType | undefined, 'horz');
       }
-      // Extract the default text colour from <a:p><a:pPr><a:defRPr><a:solidFill>.
+      // Extract the default text properties from <a:p><a:pPr><a:defRPr>. Excel sometimes leaves
+      // defRPr empty and puts them on the paragraph's end run properties (<a:endParaRPr>) instead,
+      // for example on ChartEx legends. A ChartEx title keeps them on its first run (<a:r><a:rPr>).
       else if (child.tagName === 'p') {
         const pPr = child.children.find(c => c.tagName === 'pPr');
-        // Default Text Run Properties
-        const defRPr = pPr?.children.find(c => c.tagName === 'defRPr');
+        const hasProps = (e?: Element) => !!e && (hasRunAttrs(e) || e.children.length > 0);
+        const defRPrElm = pPr?.children.find(c => c.tagName === 'defRPr');
+        const endParaRPr = child.children.find(c => c.tagName === 'endParaRPr');
+        const runRPr = child.children.find(c => c.tagName === 'r')?.children.find(c => c.tagName === 'rPr');
+        const defRPr = [ defRPrElm, endParaRPr, runRPr ].find(hasProps) ?? defRPrElm;
         if (defRPr) {
-          // const s: Style;
-          // const u: Underline;
-          addProp(text, 'bold', boolAttr(defRPr, 'b'), false);
-          addProp(text, 'italic', boolAttr(defRPr, 'i'), false);
-          // addProp(text, 'underline', attr(defRPr, 'u'), false); // ST_TextUnderlineType
-          // addProp(text, 'spacing', boolAttr(defRPr, 'spc'), 0); // in points * 100
+          // An explicit b="0" or i="0" is kept: it overrides what the element would inherit.
+          addProp(text, 'bold', boolAttr(defRPr, 'b'));
+          addProp(text, 'italic', boolAttr(defRPr, 'i'));
+          addProp(text, 'underline', readUnderline(attr(defRPr, 'u')));
           addProp(text, 'size', (numAttr(defRPr, 'sz') ?? 0) / 100, 0);
-          // addProp(text, 'strike', attr(defRPr, 'strike')); // ST_TextStrikeType
           addProp(text, 'caps', attr(defRPr, 'cap') as 'all' | 'none' | null);
-          // fam | scheme
 
           for (const c of defRPr.children) {
             if (c.tagName === 'solidFill') {

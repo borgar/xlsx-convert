@@ -21,7 +21,7 @@ import { handlerTable } from './handler/table.ts';
 import { handlerPivotCacheDefinition } from './handler/pivotTables/pivotCacheDefinition.ts';
 import { handlerPivotCacheRecords } from './handler/pivotTables/pivotCacheRecords.ts';
 import { handlerPivotTable } from './handler/pivotTable.ts';
-import type { Workbook as JSFWorkbook, PivotTable, PivotCache } from '@jsfkit/types';
+import type { Chart, Workbook as JSFWorkbook, PivotTable, PivotCache } from '@jsfkit/types';
 import type { ConversionOptions } from './index.ts';
 import { InvalidFileError, MissingSheetError } from './errors.ts';
 import { handlerDrawing } from './handler/drawing.ts';
@@ -29,8 +29,9 @@ import { arrayBufferToDataUri } from './utils/arrayBufferToDataUri.ts';
 import { getMimeType } from './utils/getMimeType.ts';
 import { isLikelyGSExport } from './utils/isLikelyGSExport.ts';
 import { handlerChart } from './handler/chart.ts';
-import { hasKeys } from './utils/hasKeys.ts';
-import type { ChartSpace } from './handler/charts/types/ChartSpace.ts';
+import { dropMissingCharts } from './handler/drawings/dropMissingCharts.ts';
+import { convertChartSpace } from './handler/charts/convertChartSpace.ts';
+import { convertChartSpaceEx } from './handler/charts/convertChartSpaceEx.ts';
 import { XlsxArchive } from './XlsxArchive.ts';
 import { getFirstChild } from './utils/getFirstChild.ts';
 import { handlerCustomdata } from './handler/customdata.ts';
@@ -38,10 +39,6 @@ import {
   MISSING_ASSET_EXT, MISSING_ASSET_PQ, MISSING_ASSET_PY, MISSING_ASSET_VBA, MISSING_CHART,
   MISSING_CHART_CHARTEX, MISSING_CHART_PIVOT, MISSING_VIEW_TABSELECTED, type UnsupportedTag,
 } from './constants.ts';
-
-let CHARTS_ENABLED = false;
-/** @ignore */
-export type ExtendedWorkbook = Workbook & { charts?: Record<string, ChartSpace> };
 
 /**
  * This is the same structure as a {@link https://jsfkit.github.io/types/Workbook/ JSF Workbook} but
@@ -68,8 +65,8 @@ export type ExtendedWorkbook = Workbook & { charts?: Record<string, ChartSpace> 
  * | `cell-lock` | Protected cells
  * | `cell-mdx` | OLAP cube (MDX) metadata on cell values
  * | `cell-rtf` | Rich text in cells
- * | `chart` | Basic charts
- * | `chart-chartex` | Extended charts
+ * | `chart` | Charts that can't be converted, such as a stock chart without three or four series
+ * | `chart-chartex` | Extended (ChartEx) charts that aren't converted yet, such as region maps
  * | `chart-pivot` | Pivot charts
  * | `col-group` | Grouped columns
  * | `data-validation` | Data validation
@@ -328,6 +325,7 @@ export async function convertBinary (
       }
 
       context.images = [];
+      context.charts = [];
       const sh = handlerWorksheet(sheetFile, context, sheetRels, sheetName);
 
       // Notes (old school, 90s, sticky notes).
@@ -354,36 +352,43 @@ export async function convertBinary (
           }
         }
         // process charts
-        if (CHARTS_ENABLED) {
-          const charts: Record<string, ChartSpace> = {};
-          for (const img of context.charts) {
-            if (img.type === 'chart' || img.type === 'chartEx') {
-              // const chartRels = await archive.readRels(img.rel.target);
-              const chartDom = await xlsx.readXML(img.rel.target);
-              if (chartDom) {
-                if (getFirstChild(chartDom.root, 'pivotSource')) {
-                  context.unsupported.add(MISSING_CHART_PIVOT);
-                }
-                // read rel type: chartColorStyle
-                // read rel type: chartStyle
-                const chart = handlerChart(chartDom, context);
-                charts[img.rel.target] = chart;
+        for (const part of context.charts) {
+          if (part.type !== 'chart' && part.type !== 'chartEx') { continue; }
+          const isChartEx = part.type === 'chartEx';
+          const tagsBefore = new Set(context.unsupported);
+          const keep = isChartEx ? MISSING_CHART_CHARTEX : MISSING_CHART;
+          let chart: Chart | undefined;
+          try {
+            const chartDom = await xlsx.readXML(part.rel.target);
+            if (!chartDom) { continue; }
+            if (!isChartEx && getFirstChild(chartDom.root, 'pivotSource')) {
+              context.unsupported.add(MISSING_CHART_PIVOT);
+              tagsBefore.add(MISSING_CHART_PIVOT);
+            }
+            chart = isChartEx
+              ? convertChartSpaceEx(handlerChart(chartDom, context, true), context)
+              : convertChartSpace(handlerChart(chartDom, context), context);
+          }
+          catch (err) {
+            // A chart that can't be read is left out, rather than failing the whole workbook.
+            context.unsupported.add(keep);
+            context.warn(`Chart ${part.rel.target} could not be converted: ${(err as Error).message}`);
+          }
+          if (!chart) {
+            // A chart that isn't converted only reports that, not the details the parser met.
+            for (const tag of context.unsupported) {
+              if (!tagsBefore.has(tag) && tag !== keep) {
+                context.unsupported.delete(tag);
               }
             }
           }
-          if (hasKeys(charts)) {
-            (wb as ExtendedWorkbook).charts = charts;
+          else {
+            wb.charts ??= {};
+            wb.charts[part.rel.target] = chart;
           }
         }
-        else {
-          for (const img of context.charts) {
-            if (img.type === 'chart') {
-              context.unsupported.add(MISSING_CHART);
-            }
-            else if (img.type === 'chartEx') {
-              context.unsupported.add(MISSING_CHART_CHARTEX);
-            }
-          }
+        if (sh.drawings) {
+          sh.drawings = dropMissingCharts(sh.drawings, wb.charts ?? {});
         }
 
         // process images
@@ -501,24 +506,5 @@ export async function convertBinary (
     if (taglist.length) { wb.unsupported = taglist; }
   }
 
-  CHARTS_ENABLED = false;
   return wb;
-}
-
-/**
- * An experimental version of convertBinary that includes charts the workbook payload.
- *
- * @param buffer Buffer containing the file to convert
- * @param filename Name of the file being converted
- * @param [options] Conversion options
- * @return A JSON spreadsheet formatted object.
- * @ignore
- */
-export async function convertBinaryFuture (
-  buffer: Buffer | ArrayBuffer,
-  filename: string,
-  options?: ConversionOptions,
-): Promise<ExtendedWorkbook> {
-  CHARTS_ENABLED = true;
-  return convertBinary(buffer, filename, options);
 }

@@ -8,8 +8,5 @@ export type DispUnits =
   } |
   {
     dispUnitsLbl?: DispUnitsLbl;
-    /**
-     * @default "thousands"
-     */
     builtInUnit: BuiltInUnit;
   };

@@ -4,9 +4,6 @@ import type { Text } from '../Text.ts';
 import type { NumFmt } from '../NumFmt.ts';
 import type { TextProps } from '../TextProps.ts';
 
-/**
- *
- */
 export type TrendlineLbl = {
   layout?: ManualLayout;
   numFmt?: NumFmt;

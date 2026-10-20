@@ -136,6 +136,132 @@
       "builtinId": 0
     }
   },
+  "charts": {
+    "xl/charts/chartEx1.xml": {
+      "data": [ { "id": "data" } ],
+      "scales": [],
+      "plots": [
+        {
+          "id": "plot1",
+          "mark": "treemap",
+          "data": "hierarchy1",
+          "encoding": {
+            "series": { "field": "series" }
+          },
+          "series": [
+            {
+              "id": "s0",
+              "bindings": {
+                "category": { "formula": "Sheet1!$A$1:$A$3", "role": "category" },
+                "size": { "formula": "Sheet1!$B$1:$B$3", "role": "size" }
+              }
+            }
+          ]
+        }
+      ],
+      "title": { "text": "Treemap" },
+      "transforms": [
+        {
+          "id": "hierarchy1",
+          "type": "hierarchy",
+          "source": "data",
+          "levels": [ "category" ],
+          "valueField": "size"
+        }
+      ]
+    },
+    "xl/charts/chart1.xml": {
+      "data": [ { "id": "data" } ],
+      "scales": [],
+      "plots": [
+        {
+          "id": "plot1",
+          "mark": "arc",
+          "data": "data",
+          "encoding": {
+            "series": { "field": "series" },
+            "x": { "field": "category" },
+            "angle": { "field": "value" }
+          },
+          "series": [
+            {
+              "id": "s0",
+              "bindings": {
+                "category": { "formula": "Sheet1!$A$1:$A$3", "role": "category" },
+                "value": { "formula": "Sheet1!$B$1:$B$3", "role": "value" }
+              }
+            }
+          ],
+          "coordinates": "polar",
+          "varyColors": true,
+          "labels": {
+            "show": [],
+            "showLeaderLines": true,
+            "textStyle": {
+              "fontSize": 10,
+              "color": { "type": "theme", "value": "tx1" }
+            }
+          }
+        }
+      ],
+      "title": { "text": "Pie Chart" },
+      "showNaAsBlank": true,
+      "styleId": 2
+    },
+    "xl/charts/chart2.xml": {
+      "data": [ { "id": "data" } ],
+      "scales": [
+        { "id": "category", "type": "band", "auto": true },
+        { "id": "value", "type": "linear" }
+      ],
+      "plots": [
+        {
+          "id": "plot1",
+          "mark": "area",
+          "data": "data",
+          "encoding": {
+            "series": { "field": "series" },
+            "x": { "field": "category", "scale": "category" },
+            "y": { "field": "value", "scale": "value" }
+          },
+          "series": [
+            {
+              "id": "s0",
+              "bindings": {
+                "category": { "formula": "Sheet1!$A$1:$A$3", "role": "category" },
+                "value": { "formula": "Sheet1!$B$1:$B$3", "role": "value" }
+              }
+            }
+          ],
+          "coordinates": "polar",
+          "layout": { "type": "radar", "style": "filled" }
+        }
+      ],
+      "title": { "text": "Scatter plot" },
+      "axes": [
+        {
+          "id": "categoryAxis",
+          "scale": "category",
+          "orient": "bottom",
+          "tickMarks": { "major": "none" },
+          "gridlines": {
+            "major": {}
+          }
+        },
+        {
+          "id": "valueAxis",
+          "scale": "value",
+          "orient": "left",
+          "tickMarks": { "major": "none" },
+          "gridlines": {
+            "major": {}
+          }
+        }
+      ],
+      "showNaAsBlank": true,
+      "styleId": 2
+    }
+  },
   "formulas": [],
   "meta": {
     "app": {
@@ -144,5 +270,5 @@
       "version": "16.0300"
     }
   },
-  "unsupported": [ "chart", "chart-chartex" ]
+  "unsupported": [ "shape-effect" ]
 }

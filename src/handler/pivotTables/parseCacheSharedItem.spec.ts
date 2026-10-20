@@ -29,6 +29,10 @@ describe('parseCacheSharedItem', () => {
     expect(parse('<e v="#REF!"/>')).toEqual({ t: 'e', v: '#REF!' });
   });
 
+  it('reads an error it doesn\'t know as #UNKNOWN!', () => {
+    expect(parse('<e v="#NEW!"/>')).toEqual({ t: 'e', v: '#UNKNOWN!' });
+  });
+
   it('parses nil item', () => {
     expect(parse('<m/>')).toEqual({ t: 'z' });
   });
