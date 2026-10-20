@@ -29,9 +29,9 @@ describe('normalizeFormula', () => {
       expect(normalizeFormula('SUM(_xlfn.IFERROR(A1,0))')).toBe('SUM(IFERROR(A1,0))');
     });
 
-    it('should remove _xludf namespace from functions', () => {
-      expect(normalizeFormula('_xludf.CUSTOMFUNC(A1)')).toBe('CUSTOMFUNC(A1)');
-      expect(normalizeFormula('_xludf.MYFUNC(A1,B1)')).toBe('MYFUNC(A1,B1)');
+    it('should not remove _xludf namespace from functions', () => {
+      expect(normalizeFormula('_xludf.CUSTOMFUNC(A1)')).toBe('_xludf.CUSTOMFUNC(A1)');
+      expect(normalizeFormula('_xludf.MYFUNC(A1,B1)')).toBe('_xludf.MYFUNC(A1,B1)');
     });
 
     it('should remove _xlws namespace from functions', () => {

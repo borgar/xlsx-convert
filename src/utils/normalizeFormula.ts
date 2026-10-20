@@ -156,7 +156,8 @@ export function normalizeFormulaTokens (tokens: Token[], wb?: ConversionContextS
       }
       // Remove Excel internal namespaces from functions.
       else {
-        t.value = t.value.replace(/^(?:_xlfn\.|_xludf\.|_xlws\.)+/i, '');
+        // We cannot not remove "_xludf." because this would remove the distinction of overridden functions
+        t.value = t.value.replace(/^(?:_xlfn\.|_xlws\.)+/i, '');
         outTokens.push(t);
       }
     }
