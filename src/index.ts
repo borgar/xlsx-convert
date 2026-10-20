@@ -80,3 +80,4 @@ export async function convert (
 export { convertCSV, type CSVConversionOptions } from './convertCSV.ts';
 export { convertBinary } from './convertBinary.ts';
 export type { Workbook };
+export { UNSUPPORTED_TAGS, type UnsupportedTag } from './constants.ts';
