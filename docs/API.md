@@ -24,7 +24,7 @@
 
 ## Functions
 
-- [convert](#functionsconvertmd)
+- [~~convert~~](#functionsconvertmd)
 - [convertBinary](#functionsconvertbinarymd)
 - [convertCSV](#functionsconvertcsvmd)
 
@@ -60,9 +60,7 @@ new EncryptionError(message?: string): EncryptionError;
 
 #### Inherited from
 
-```ts
-Error.constructor
-```
+`Error.constructor`
 
 ### Constructor
 
@@ -83,9 +81,7 @@ new EncryptionError(message?: string, options?: ErrorOptions): EncryptionError;
 
 #### Inherited from
 
-```ts
-Error.constructor
-```
+`Error.constructor`
 
 
 <a name="classesinvalidfileerrormd"></a>
@@ -119,9 +115,7 @@ new InvalidFileError(message?: string): InvalidFileError;
 
 #### Inherited from
 
-```ts
-Error.constructor
-```
+`Error.constructor`
 
 ### Constructor
 
@@ -142,9 +136,7 @@ new InvalidFileError(message?: string, options?: ErrorOptions): InvalidFileError
 
 #### Inherited from
 
-```ts
-Error.constructor
-```
+`Error.constructor`
 
 
 <a name="classesmissingsheeterrormd"></a>
@@ -178,9 +170,7 @@ new MissingSheetError(message?: string): MissingSheetError;
 
 #### Inherited from
 
-```ts
-Error.constructor
-```
+`Error.constructor`
 
 ### Constructor
 
@@ -201,9 +191,7 @@ new MissingSheetError(message?: string, options?: ErrorOptions): MissingSheetErr
 
 #### Inherited from
 
-```ts
-Error.constructor
-```
+`Error.constructor`
 
 
 <a name="classesunsupportederrormd"></a>
@@ -237,9 +225,7 @@ new UnsupportedError(message?: string): UnsupportedError;
 
 #### Inherited from
 
-```ts
-Error.constructor
-```
+`Error.constructor`
 
 ### Constructor
 
@@ -260,14 +246,12 @@ new UnsupportedError(message?: string, options?: ErrorOptions): UnsupportedError
 
 #### Inherited from
 
-```ts
-Error.constructor
-```
+`Error.constructor`
 
 
 <a name="functionsconvertmd"></a>
 
-# convert()
+# ~~convert()~~
 
 ```ts
 function convert(filename: string, options?: ConversionOptions): Promise<Workbook>;
@@ -290,6 +274,8 @@ may be lost in the conversion process.
 `Promise`\<[`Workbook`](#type-aliasesworkbookmd)\>
 
 A JSON spreadsheet object.
+
+## Deprecated
 
 
 <a name="functionsconvertbinarymd"></a>
@@ -363,8 +349,9 @@ A JSON spreadsheet formatted object.
 ```ts
 type CSVConversionOptions = {
   delimiter?: null | "," | ";" | "\t";
-  escapeChar?: null | "\" | "\"";
+  escapeChar?: null | "\\" | "\"";
   locale?: string;
+  parseMode?: 0 | 1;
   sheetName?: string;
   skipEmptyLines?: boolean;
   table?: boolean;
@@ -377,9 +364,10 @@ CSV convertion options.
 
 | Property | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
-| <a id="delimiter"></a> `delimiter?` | `null` \| `","` \| `";"` \| "\t" | `null` | The delimiter to use to parse the CSV. Normally this is auto-detected. |
-| <a id="escapechar"></a> `escapeChar?` | `null` \| "\\" \| "\"" | `'"'` | The character used to escape quotation marks in strings. |
+| <a id="delimiter"></a> `delimiter?` | `null` \| `","` \| `";"` \| "\\t" | `null` | The delimiter to use to parse the CSV. Normally this is auto-detected. |
+| <a id="escapechar"></a> `escapeChar?` | `null` \| "\\\\" \| "\\"" | `'"'` | The character used to escape quotation marks in strings. |
 | <a id="locale"></a> `locale?` | `string` | `'en-US'` | The locale (as a BCP 47 string) to use when parsing dates and numbers. **See** |
+| <a id="parsemode"></a> `parseMode?` | `0` \| `1` | `1` | The mode numfmt uses to parse dates and numbers in cell values. - `0`: Excel mode. Accepts the same strings as Excel's `Range.Value` assignments. - `1`: Numfmt mode. Accepts a curated set of strings. This mode accepts some common formats that Excel rejects, such as dates that include weekdays, and rejects unusual formats such as undelimited (`sep10`) or mixed-delimiter (`1984/07-4`) dates. |
 | <a id="sheetname"></a> `sheetName?` | `string` | `'Sheet1'` | The name of the sheet to create in the resulting workbook. |
 | <a id="skipemptylines"></a> `skipEmptyLines?` | `boolean` | `true` | Skip empty lines instead of creating empty rows. |
 | <a id="table"></a> `table?` | `boolean` | `false` | Create a table descriptor object for the data in the sheet. |
@@ -483,8 +471,8 @@ The tags emitted are as follows:
 | `cell-lock` | Protected cells
 | `cell-mdx` | OLAP cube (MDX) metadata on cell values
 | `cell-rtf` | Rich text in cells
-| `chart` | Basic charts
-| `chart-chartex` | Extended charts
+| `chart` | Charts that can't be converted, such as a stock chart without three or four series
+| `chart-chartex` | Extended (ChartEx) charts that aren't converted yet, such as region maps
 | `chart-pivot` | Pivot charts
 | `col-group` | Grouped columns
 | `data-validation` | Data validation
@@ -530,7 +518,7 @@ As the capabilities of xlsx-convert grow, this list is expected to get smaller a
 ### unsupported?
 
 ```ts
-optional unsupported?: UnsupportedTag[];
+unsupported?: UnsupportedTag[];
 ```
 
 A list of tags idenifying xlsx features that the converter encountered in a workbook
