@@ -54,6 +54,7 @@ export type { MdwResolver } from './utils/mdw.ts';
  * The returned JSF structure contains most of the data from the original file, although some details
  * may be lost in the conversion process.
  *
+ * @deprecated
  * @param filename Target filename to convert
  * @param options Conversion options
  * @param [options.skipMerged] Skip any redundant cells that are a part of merges.
@@ -67,7 +68,7 @@ export async function convert (
 ): Promise<Workbook> {
   let fs;
   try {
-    fs = await import('fs/promises');
+    fs = await import(/* webpackIgnore: true *//* @vite-ignore */'fs/promises');
   }
   // eslint-disable-next-line no-empty
   catch (_err) {}
