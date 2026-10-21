@@ -38,6 +38,28 @@ describe('readDataSource', () => {
     expect(data).toEqual({ type: 'mlStrRef', f: 'Before!$A$2:$B$14' });
   });
 
+  it('ignores caches, because chart data is evaluated from the formula', () => {
+    const data = parse(
+      '<val><numRef><f>Sheet1!$B$2:$B$3</f><numCache><formatCode>General</formatCode>' +
+      '<ptCount val="2"/><pt idx="0"><v>1.5</v></pt></numCache></numRef></val>',
+    );
+    expect(data).toEqual({ type: 'numRef', f: 'Sheet1!$B$2:$B$3' });
+  });
+
+  it('reads literal data, including per-point format codes', () => {
+    expect(parse(
+      '<val><numLit><formatCode>General</formatCode><ptCount val="2"/>' +
+      '<pt idx="0"><v>7</v></pt><pt idx="1" formatCode="0%"><v>0.5</v></pt></numLit></val>',
+    )).toEqual({
+      type: 'numData',
+      formatCode: 'General',
+      ptCount: 2,
+      pt: [ { idx: 0, v: '7' }, { idx: 1, v: '0.5', formatCode: '0%' } ],
+    });
+    expect(parse('<cat><strLit><ptCount val="1"/><pt idx="0"><v>A</v></pt></strLit></cat>'))
+      .toEqual({ type: 'strData', ptCount: 1, pt: [ { idx: 0, v: 'A' } ] });
+  });
+
   // XLSX writes an external workbook as a 1-based index into the workbook's external links
   // (`[1]Sheet1!A1`). JSF carries the filename instead, so a consumer can resolve the reference
   // without also holding on to the link table.

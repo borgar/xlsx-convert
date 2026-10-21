@@ -6,7 +6,7 @@ import type { DataLabelVisibilities } from './DataLabelVisibilities.ts';
 
 export type DataLabel = {
   idx: integer;
-  pos: DataLabelPos;
+  pos?: DataLabelPos;
   numFmt?: NumFmt;
   shape?: Shape;
   textProps?: TextProps;

@@ -1,0 +1,506 @@
+{
+  "name": "chart-legend-hidden-entries.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "B1": { "v": "foo" },
+        "C1": { "v": "bar" },
+        "D1": { "v": "baz" },
+        "E1": { "v": "quux" },
+        "A2": { "v": "aa" },
+        "B2": { "v": 48 },
+        "C2": { "v": 16 },
+        "D2": { "v": 98 },
+        "E2": { "v": 43 },
+        "A3": { "v": "bb" },
+        "B3": { "v": 95 },
+        "C3": { "v": 22 },
+        "D3": { "v": 40 },
+        "E3": { "v": 66 },
+        "A4": { "v": "cc" },
+        "B4": { "v": 78 },
+        "C4": { "v": 33 },
+        "D4": { "v": 24 },
+        "E4": { "v": 52 },
+        "A5": { "v": "dd" },
+        "B5": { "v": 72 },
+        "C5": { "v": 25 },
+        "D5": { "v": 22 },
+        "E5": { "v": 88 },
+        "A6": { "v": "ee" },
+        "B6": { "v": 34 },
+        "C6": { "v": 22 },
+        "D6": { "v": 85 },
+        "E6": { "v": 56 },
+        "A7": { "v": "ff" },
+        "B7": { "v": 42 },
+        "C7": { "v": 46 },
+        "D7": { "v": 84 },
+        "E7": { "v": 90 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [ { "workbookView": 0, "activeCell": "E9" } ],
+      "drawings": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 127000, "col": 5, "colOff": 374650 },
+            "to": { "row": 19, "rowOff": 0, "col": 12, "colOff": 393700 }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "2",
+              "name": "Chart 1",
+              "chartId": "xl/charts/chart1.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 19, "rowOff": 88900, "col": 5, "colOff": 368300 },
+            "to": {
+              "row": 37,
+              "rowOff": 12700,
+              "col": 12,
+              "colOff": 330200
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "3",
+              "name": "Chart 2",
+              "chartId": "xl/charts/chart2.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": {
+              "row": 0,
+              "rowOff": 127000,
+              "col": 12,
+              "colOff": 425450
+            },
+            "to": { "row": 19, "rowOff": 0, "col": 19, "colOff": 38100 }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "4",
+              "name": "Chart 3",
+              "chartId": "xl/charts/chart3.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
+  "tables": [],
+  "views": [ {} ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt1": { "type": "system", "value": "window" },
+      "dk2": { "type": "srgb", "value": "0E2841" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "accent1": { "type": "srgb", "value": "156082" },
+      "accent2": { "type": "srgb", "value": "E97132" },
+      "accent3": { "type": "srgb", "value": "196B24" },
+      "accent4": { "type": "srgb", "value": "0F9ED5" },
+      "accent5": { "type": "srgb", "value": "A02B93" },
+      "accent6": { "type": "srgb", "value": "4EA72E" },
+      "hlink": { "type": "srgb", "value": "467886" },
+      "folHlink": { "type": "srgb", "value": "96607D" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Aptos Display" }
+      },
+      "minor": {
+        "latin": { "typeface": "Aptos Narrow" }
+      }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "charts": {
+    "xl/charts/chart1.xml": {
+      "data": [
+        {
+          "id": "data",
+          "bindings": {
+            "category": { "formula": "Sheet1!$A$2:$A$7", "role": "category" }
+          }
+        }
+      ],
+      "scales": [
+        { "id": "category", "type": "band", "auto": true },
+        { "id": "value", "type": "linear" }
+      ],
+      "plots": [
+        {
+          "id": "plot1",
+          "mark": "bar",
+          "data": "data",
+          "encoding": {
+            "series": { "field": "series" },
+            "x": { "field": "category", "scale": "category" },
+            "y": { "field": "value", "scale": "value" }
+          },
+          "series": [
+            {
+              "id": "s0",
+              "name": { "formula": "Sheet1!$B$1" },
+              "order": 0,
+              "bindings": {
+                "value": { "formula": "Sheet1!$B$2:$B$7", "role": "value" }
+              }
+            },
+            {
+              "id": "s3",
+              "name": { "formula": "Sheet1!$E$1" },
+              "order": 3,
+              "bindings": {
+                "value": { "formula": "Sheet1!$E$2:$E$7", "role": "value" }
+              }
+            }
+          ],
+          "grouping": "clustered"
+        },
+        {
+          "id": "plot2",
+          "mark": "line",
+          "data": "data",
+          "encoding": {
+            "series": { "field": "series" },
+            "x": { "field": "category", "scale": "category" },
+            "y": { "field": "value", "scale": "value" }
+          },
+          "series": [
+            {
+              "id": "s1",
+              "name": { "formula": "Sheet1!$C$1" },
+              "order": 1,
+              "bindings": {
+                "value": { "formula": "Sheet1!$C$2:$C$7", "role": "value" }
+              },
+              "marker": { "symbol": "none" },
+              "trendlines": [ { "type": "linear" } ]
+            },
+            {
+              "id": "s2",
+              "name": { "formula": "Sheet1!$D$1" },
+              "order": 2,
+              "bindings": {
+                "value": { "formula": "Sheet1!$D$2:$D$7", "role": "value" }
+              },
+              "marker": { "symbol": "none" }
+            }
+          ],
+          "layout": { "type": "line", "showMarkers": true }
+        }
+      ],
+      "title": {},
+      "axes": [
+        {
+          "id": "categoryAxis",
+          "scale": "category",
+          "orient": "bottom",
+          "tickMarks": { "major": "none" }
+        },
+        {
+          "id": "valueAxis",
+          "scale": "value",
+          "orient": "left",
+          "tickMarks": { "major": "none" },
+          "gridlines": {
+            "major": {}
+          }
+        }
+      ],
+      "legend": {
+        "position": "bottom",
+        "hiddenEntries": [
+          { "series": "s2" },
+          { "series": "s1", "trendline": 0 }
+        ]
+      },
+      "showNaAsBlank": true,
+      "styleId": 2
+    },
+    "xl/charts/chart2.xml": {
+      "data": [ { "id": "data" } ],
+      "scales": [],
+      "plots": [
+        {
+          "id": "plot1",
+          "mark": "arc",
+          "data": "data",
+          "encoding": {
+            "series": { "field": "series" },
+            "x": { "field": "category" },
+            "angle": { "field": "value" }
+          },
+          "series": [
+            {
+              "id": "s0",
+              "name": { "formula": "Sheet1!$B$1" },
+              "bindings": {
+                "category": { "formula": "Sheet1!$A$2:$A$7", "role": "category" },
+                "value": { "formula": "Sheet1!$B$2:$B$7", "role": "value" }
+              },
+              "points": [
+                {
+                  "index": 0,
+                  "shape": {
+                    "line": {
+                      "width": 19050,
+                      "cap": "square",
+                      "fill": {
+                        "type": "solid",
+                        "bg": { "type": "theme", "value": "lt1" }
+                      }
+                    }
+                  }
+                },
+                {
+                  "index": 1,
+                  "shape": {
+                    "line": {
+                      "width": 19050,
+                      "cap": "square",
+                      "fill": {
+                        "type": "solid",
+                        "bg": { "type": "theme", "value": "lt1" }
+                      }
+                    }
+                  }
+                },
+                {
+                  "index": 2,
+                  "shape": {
+                    "line": {
+                      "width": 19050,
+                      "cap": "square",
+                      "fill": {
+                        "type": "solid",
+                        "bg": { "type": "theme", "value": "lt1" }
+                      }
+                    }
+                  }
+                },
+                {
+                  "index": 3,
+                  "shape": {
+                    "line": {
+                      "width": 19050,
+                      "cap": "square",
+                      "fill": {
+                        "type": "solid",
+                        "bg": { "type": "theme", "value": "lt1" }
+                      }
+                    }
+                  }
+                },
+                {
+                  "index": 4,
+                  "shape": {
+                    "line": {
+                      "width": 19050,
+                      "cap": "square",
+                      "fill": {
+                        "type": "solid",
+                        "bg": { "type": "theme", "value": "lt1" }
+                      }
+                    }
+                  }
+                },
+                {
+                  "index": 5,
+                  "shape": {
+                    "line": {
+                      "width": 19050,
+                      "cap": "square",
+                      "fill": {
+                        "type": "solid",
+                        "bg": { "type": "theme", "value": "lt1" }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "coordinates": "polar",
+          "varyColors": true,
+          "labels": {
+            "show": [],
+            "showLeaderLines": true,
+            "textStyle": {
+              "fontSize": 10,
+              "color": { "type": "theme", "value": "tx1" }
+            }
+          }
+        }
+      ],
+      "title": {},
+      "legend": {
+        "position": "bottom",
+        "hiddenEntries": [ { "series": "s0", "point": 2 } ]
+      },
+      "showNaAsBlank": true,
+      "styleId": 2
+    },
+    "xl/charts/chart3.xml": {
+      "data": [
+        {
+          "id": "data",
+          "bindings": {
+            "category": { "formula": "Sheet1!$A$2:$A$7", "role": "category" }
+          }
+        }
+      ],
+      "scales": [
+        { "id": "category", "type": "band", "auto": true },
+        { "id": "value", "type": "linear" }
+      ],
+      "plots": [
+        {
+          "id": "plot1",
+          "mark": "bar",
+          "data": "data",
+          "encoding": {
+            "series": { "field": "series" },
+            "x": { "field": "category", "scale": "category" },
+            "y": { "field": "value", "scale": "value" }
+          },
+          "series": [
+            {
+              "id": "s0",
+              "name": { "formula": "Sheet1!$B$1" },
+              "order": 0,
+              "bindings": {
+                "value": { "formula": "Sheet1!$B$2:$B$7", "role": "value" }
+              }
+            },
+            {
+              "id": "s1",
+              "name": { "formula": "Sheet1!$C$1" },
+              "colorIndex": 1,
+              "order": 3,
+              "bindings": {
+                "value": { "formula": "Sheet1!$C$2:$C$7", "role": "value" }
+              }
+            }
+          ],
+          "grouping": "clustered"
+        },
+        {
+          "id": "plot2",
+          "mark": "line",
+          "data": "data",
+          "encoding": {
+            "series": { "field": "series" },
+            "x": { "field": "category", "scale": "category" },
+            "y": { "field": "value", "scale": "value" }
+          },
+          "series": [
+            {
+              "id": "s2",
+              "name": { "formula": "Sheet1!$D$1" },
+              "colorIndex": 2,
+              "order": 1,
+              "bindings": {
+                "value": { "formula": "Sheet1!$D$2:$D$7", "role": "value" }
+              },
+              "marker": { "symbol": "none" },
+              "trendlines": [ { "type": "linear" } ]
+            },
+            {
+              "id": "s3",
+              "name": { "formula": "Sheet1!$E$1" },
+              "colorIndex": 3,
+              "order": 2,
+              "bindings": {
+                "value": { "formula": "Sheet1!$E$2:$E$7", "role": "value" }
+              },
+              "marker": { "symbol": "none" }
+            }
+          ],
+          "layout": { "type": "line", "showMarkers": true }
+        }
+      ],
+      "title": {},
+      "axes": [
+        {
+          "id": "categoryAxis",
+          "scale": "category",
+          "orient": "bottom",
+          "tickMarks": { "major": "none" }
+        },
+        {
+          "id": "valueAxis",
+          "scale": "value",
+          "orient": "left",
+          "tickMarks": { "major": "none" },
+          "gridlines": {
+            "major": {}
+          }
+        }
+      ],
+      "legend": {
+        "position": "bottom",
+        "hiddenEntries": [
+          { "series": "s3" },
+          { "series": "s2", "trendline": 0 }
+        ]
+      },
+      "showNaAsBlank": true,
+      "styleId": 2
+    }
+  },
+  "formulas": [],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  },
+  "unsupported": [ "shape-effect" ]
+}

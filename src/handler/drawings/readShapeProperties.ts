@@ -60,6 +60,8 @@ export function readShapeProperties (elm: Element | null | undefined, context: C
       tagName === 'solidFill' ||
       tagName === 'pattFill'
     ) {
+      // An explicit <a:noFill/> is kept: it differs from an absent fill, which leaves the fill to
+      // the context's default.
       addProp(props, 'fill', readFill(d, context));
     }
 

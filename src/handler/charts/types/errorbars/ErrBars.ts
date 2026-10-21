@@ -4,9 +4,6 @@ import type { ErrDir } from './ErrDir.ts';
 import type { ErrValType } from './ErrValType.ts';
 import type { NumDataSource } from '../data/NumDataSource.ts';
 
-/**
- *
- */
 export type ErrBars = {
   errDir?: ErrDir;
   errBarType: ErrBarType;

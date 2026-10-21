@@ -4,6 +4,7 @@ import { getFirstChild } from '../../utils/getFirstChild.ts';
 import { readDataSource } from './readDataSource.ts';
 import type { ConversionContext } from '../../ConversionContext.ts';
 import { RichText } from '../../utils/RichText.ts';
+import { resolveNamedRange } from './readChartData.ts';
 
 export function readText (elm: Element | null, context: ConversionContext): Text | undefined {
   if (elm?.tagName === 'tx') {
@@ -19,8 +20,14 @@ export function readText (elm: Element | null, context: ConversionContext): Text
       }
     }
     else if (child?.tagName === 'txData') {
-      // ChartEx title/series text: <cx:txData><cx:v>Title text</cx:v></cx:txData>
-      const v = child.querySelector('v')?.textContent;
+      // ChartEx text: <cx:txData><cx:f>…</cx:f><cx:v>cached text</cx:v></cx:txData>, or
+      // <cx:txData><cx:v>literal text</cx:v></cx:txData>. The formula is a defined name. The cached
+      // text next to a formula isn't read: the text is evaluated from the formula.
+      const f = getFirstChild(child, 'f')?.textContent?.trim();
+      if (f) {
+        return { type: 'strRef', f: resolveNamedRange(f, context) };
+      }
+      const v = getFirstChild(child, 'v')?.textContent;
       if (v != null) {
         return { p: [ { text: v } ] };
       }

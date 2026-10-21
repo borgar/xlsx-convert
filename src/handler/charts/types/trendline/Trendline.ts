@@ -2,29 +2,16 @@ import type { integer, Shape } from '@jsfkit/types';
 import type { TrendlineType } from './TrendlineType.ts';
 import type { TrendlineLbl } from './TrendlineLbl.ts';
 
-/**
- *
- */
 export type Trendline = {
   name?: string;
   shape?: Shape;
-  type: TrendlineType; // org: trendlineType
-  /**
-   * @min 2
-   * @max 6
-   * @default 2
-   */
+  type: TrendlineType;
   order?: integer;
-  /**
-   * @min 2
-   * @default 2
-   */
   period?: integer;
   forward?: number;
   backward?: number;
   intercept?: number;
   dispRSqr?: boolean;
   dispEq?: boolean;
-  // trendlineLbl?: TrendlineLbl;
   label?: TrendlineLbl;
 };

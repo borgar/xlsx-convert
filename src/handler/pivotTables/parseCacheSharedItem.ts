@@ -1,5 +1,6 @@
 import type { Element } from '@borgar/simple-xml';
-import type { PivotCacheSharedItem } from '@jsfkit/types';
+import type { ErrorName, PivotCacheSharedItem } from '@jsfkit/types';
+import { ERROR_NAMES } from '../../constants.ts';
 import { attr, boolAttr, numAttr } from '../../utils/attr.ts';
 
 /** Parse a single `<s>`, `<n>`, `<b>`, `<d>`, `<e>`, or `<m>` element into a shared item. */
@@ -22,7 +23,9 @@ export function parseCacheSharedItem (elm: Element): PivotCacheSharedItem | unde
     result = { t: 'd', v: attr(elm, 'v') ?? '' };
   }
   else if (tag === 'e') {
-    result = { t: 'e', v: attr(elm, 'v') ?? '' };
+    // an error this converter doesn't know is kept as Excel's error for an unknown value
+    const v = attr(elm, 'v') ?? '';
+    result = { t: 'e', v: (ERROR_NAMES.includes(v) ? v : '#UNKNOWN!') as ErrorName };
   }
   if (result && boolAttr(elm, 'u') === true) {
     result.u = true;

@@ -12,8 +12,7 @@ const LINECMPD: Record<string, LineCompoundType> = { dbl: 'dbl', sng: 'sng', thi
 const LINEJOIN: Record<string, LineJoinType> = { bevel: 'bevel', round: 'round', square: 'miter' };
 
 export function readLineProps (elm: Element, context: ConversionContext): Line | undefined {
-  // If we're here, that means a line should be drawn.
-  // - When <a:ln> is absent → no line is rendered
+  // When <a:ln> is absent, the line is left unset, and the context's default applies.
   // When w is omitted the width is left UNSET: the effective default depends on where the
   // line is used (drawing shapes render at 0.75pt, chart SERIES lines resolve through the
   // chart style to 2.25pt), so consumers apply their own context's default.
@@ -77,8 +76,10 @@ export function readLineProps (elm: Element, context: ConversionContext): Line |
     }
   });
 
+  // An explicit <a:noFill/> means "no line". It's kept, because it differs from an absent <a:ln>,
+  // which leaves the line to the context's default (a chart axis, for example, may draw one).
   if (line.fill?.type === 'none') {
-    return undefined;
+    return { fill: line.fill };
   }
 
   return line;

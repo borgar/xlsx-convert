@@ -1,17 +1,14 @@
 import type { Shape } from '@jsfkit/types';
 import type { TextProps } from './TextProps.ts';
 import type { ChartEx } from './ChartEx.ts';
-import type { ChartData } from './dataEx/ChartData.ts';
+import type { ChartDataMap } from '../readChartData.ts';
 
 export type ChartSpaceEx = {
-  version: string;
-  featureList: string;
-  fallbackImg: string;
-  chartData: ChartData;
+  data: ChartDataMap;
   chart: ChartEx;
   shape?: Shape;
   textProps?: TextProps;
-  // clrMapOvr?: ColorMapping;
-  // fmtOvrs?: FormatOverrides;
-  // printSettings?: PrintSettings;
+  // format overrides (`cx:fmtOvrs`), by slot: colors for parts that aren't elements of their own,
+  // such as a waterfall's Increase, Decrease, and Total columns
+  fmtOvrs?: { idx: number, shape: Shape }[];
 };

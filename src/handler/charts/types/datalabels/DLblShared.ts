@@ -3,9 +3,6 @@ import type { DLblPos } from './DLblPos.ts';
 import type { NumFmt } from '../NumFmt.ts';
 import type { TextProps } from '../TextProps.ts';
 
-/**
- *
- */
 export type DLblShared = {
   numFmt?: NumFmt;
   shape?: Shape;
@@ -18,4 +15,6 @@ export type DLblShared = {
   showPercent?: boolean;
   showBubbleSize?: boolean;
   separator?: string;
+  // `c15:showDataLabelsRange`
+  showDataLabelsRange?: boolean;
 };
