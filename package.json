@@ -81,7 +81,7 @@
     "@borgar/zip": "~1.0.0",
     "@jsfkit/types": "~2.7.0",
     "@jsfkit/utils": "~1.3.0",
-    "numfmt": "~3.2.6"
+    "numfmt": "~4.0.1"
   },
   "devDependencies": {
     "@borgar/eslint-config": "~4.1.0",
