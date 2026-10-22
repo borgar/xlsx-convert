@@ -1,7 +1,7 @@
 import type { Element } from '@borgar/simple-xml';
 import type { PivotDataField, PivotDataFieldAggregation, PivotShowDataAs } from '@jsfkit/types';
 import { addProp } from '../../utils/addProp.ts';
-import { attr, numAttr } from '../../utils/attr.ts';
+import { attr, numAttr, xstringAttr } from '../../utils/attr.ts';
 import { parseEnum } from '../../utils/parseEnum.ts';
 import type { NumFmtLookup } from './NumFmtLookup.ts';
 import { resolveNumFmt } from './resolveNumFmt.ts';
@@ -50,7 +50,7 @@ export function parseDataFields (root: Element, numFmts?: NumFmtLookup): PivotDa
     const dataField: PivotDataField = {
       fieldIndex: numAttr(df, 'fld', 0),
     };
-    addProp(dataField, 'name', attr(df, 'name'));
+    addProp(dataField, 'name', xstringAttr(df, 'name'));
     addProp(dataField, 'subtotal', parseEnum(attr(df, 'subtotal'), DATA_FIELD_AGGREGATIONS));
     addProp(dataField, 'showDataAs', parseEnum(attr(df, 'showDataAs'), SHOW_DATA_AS_VALUES));
     // JSF stores non-default values; defaults are implicit. `baseField`
