@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { attr, numAttr, boolAttr } from './attr.js';
+import { attr, numAttr, boolAttr, xstringAttr } from './attr.js';
 
 // Mock Element interface for testing
 type MockElement = {
@@ -341,5 +341,20 @@ describe('integration tests', () => {
     attr(element as any, 'missing');
     expect(element.hasAttribute).toHaveBeenCalledWith('missing');
     expect(element.getAttribute).not.toHaveBeenCalledWith('missing');
+  });
+});
+
+describe('xstringAttr', () => {
+  it('should decode _xHHHH_ escapes in the attribute value', () => {
+    const element = createMockElement({ name: 'My_x005f_x0041_Table_x000a_' });
+
+    expect(xstringAttr(element as any, 'name')).toBe('My_x0041_Table\n');
+  });
+
+  it('should return fallback when attribute does not exist', () => {
+    const element = createMockElement({});
+
+    expect(xstringAttr(element as any, 'name')).toBe(null);
+    expect(xstringAttr(element as any, 'name', '')).toBe('');
   });
 });

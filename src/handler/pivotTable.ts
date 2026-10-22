@@ -1,7 +1,7 @@
 import type { Document } from '@borgar/simple-xml';
 import type { PivotTable } from '@jsfkit/types';
 import { addProp } from '../utils/addProp.ts';
-import { attr, boolAttr, numAttr } from '../utils/attr.ts';
+import { attr, boolAttr, numAttr, xstringAttr } from '../utils/attr.ts';
 import type { NumFmtLookup } from './pivotTables/NumFmtLookup.ts';
 import type { PivotTableWithOptionalCache } from './pivotTables/PivotTableWithOptionalCache.ts';
 import { parseDataFields } from './pivotTables/parseDataFields.ts';
@@ -19,7 +19,7 @@ export function handlerPivotTable (dom: Document, numFmts?: NumFmtLookup): Pivot
     return;
   }
 
-  const name = attr(root, 'name');
+  const name = xstringAttr(root, 'name');
   if (!name) {
     return;
   }
@@ -147,12 +147,12 @@ export function handlerPivotTable (dom: Document, numFmts?: NumFmtLookup): Pivot
 
   addProp(pt, 'indent', numAttr(root, 'indent'), 1);
   addProp(pt, 'dataPosition', numAttr(root, 'dataPosition'));
-  addProp(pt, 'dataCaption', attr(root, 'dataCaption'));
-  addProp(pt, 'grandTotalCaption', attr(root, 'grandTotalCaption'));
-  addProp(pt, 'errorCaption', attr(root, 'errorCaption'));
-  addProp(pt, 'missingCaption', attr(root, 'missingCaption'));
-  addProp(pt, 'rowHeaderCaption', attr(root, 'rowHeaderCaption'));
-  addProp(pt, 'colHeaderCaption', attr(root, 'colHeaderCaption'));
+  addProp(pt, 'dataCaption', xstringAttr(root, 'dataCaption'));
+  addProp(pt, 'grandTotalCaption', xstringAttr(root, 'grandTotalCaption'));
+  addProp(pt, 'errorCaption', xstringAttr(root, 'errorCaption'));
+  addProp(pt, 'missingCaption', xstringAttr(root, 'missingCaption'));
+  addProp(pt, 'rowHeaderCaption', xstringAttr(root, 'rowHeaderCaption'));
+  addProp(pt, 'colHeaderCaption', xstringAttr(root, 'colHeaderCaption'));
   addProp(pt, 'pageWrap', numAttr(root, 'pageWrap'), 0);
   addProp(pt, 'uid', attr(root, 'xr:uid'));
 

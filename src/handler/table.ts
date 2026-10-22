@@ -1,6 +1,7 @@
 import type { Document } from '@borgar/simple-xml';
 import type { ConversionContext } from '../ConversionContext.ts';
-import { attr, boolAttr, numAttr } from '../utils/attr.ts';
+import { attr, boolAttr, numAttr, xstringAttr } from '../utils/attr.ts';
+import { unescape } from '../utils/unescape.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import type { Table, TableColumn, TableStyle, TableStyleName } from '@jsfkit/types';
 import { getFirstChild } from '../utils/getFirstChild.ts';
@@ -16,7 +17,7 @@ export function handlerTable (dom: Document | null | undefined, context: Convers
   if (!tableElm) { return; }
 
   const table: Table = {
-    name: attr(tableElm, 'displayName') || attr(tableElm, 'name'),
+    name: xstringAttr(tableElm, 'displayName') || xstringAttr(tableElm, 'name'),
     sheet: '',
     ref: attr(tableElm, 'ref'),
     headerRowCount: numAttr(tableElm, 'headerRowCount', 1),
@@ -86,7 +87,7 @@ export function handlerTable (dom: Document | null | undefined, context: Convers
     .querySelectorAll('tableColumns > tableColumn')
     .forEach(node => {
       const column: TableColumn = {
-        name: attr(node, 'name'),
+        name: xstringAttr(node, 'name'),
         // TODO: totalsRowLabel
         // totalsRowLabel: attr(node, 'totalsRowLabel'),
       };
@@ -108,7 +109,7 @@ export function handlerTable (dom: Document | null | undefined, context: Convers
 
       const f = node.getElementsByTagName('calculatedColumnFormula')[0];
       if (f) {
-        column.formula = normalizeFormula(f.textContent, context);
+        column.formula = normalizeFormula(unescape(f.textContent), context);
         if (attr(f, 'array') === '1') {
           column.formulaIsArray = true;
         }

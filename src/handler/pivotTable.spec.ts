@@ -842,3 +842,49 @@ describe('handlerPivotTable', () => {
     expect(pt.calculatedFields).toBeUndefined();
   });
 });
+
+describe('handlerPivotTable _xHHHH_ escapes', () => {
+  it('decodes escapes in names, captions and filter strings', () => {
+    const pt = parse(`<pivotTableDefinition name="P_x0041_" cacheId="0" dataCaption="V_x0041_"
+        grandTotalCaption="G_x0041_" errorCaption="E_x0041_" missingCaption="M_x0041_"
+        rowHeaderCaption="R_x0041_" colHeaderCaption="C_x0041_">
+      <location ref="A3:B5" firstHeaderRow="1" firstDataRow="1" firstDataCol="1"/>
+      <pivotFields count="2">
+        <pivotField axis="axisRow" name="F_x0041_" subtotalCaption="S_x0041_" uniqueMemberProperty="U_x0041_">
+          <items count="1"><item x="0" n="I_x0041_"/></items>
+        </pivotField>
+        <pivotField dataField="1"/>
+      </pivotFields>
+      <pageFields count="1"><pageField fld="0" name="N_x0041_" cap="K_x0041_"/></pageFields>
+      <dataFields count="1"><dataField name="Sum of H_x005F_x0041_" fld="1"/></dataFields>
+      <filters count="1">
+        <filter fld="0" type="captionEqual" id="1" name="L_x0041_" description="D_x0041_"
+            stringValue1="X_x0041_" stringValue2="Y_x0041_">
+          <autoFilter ref="A1">
+            <filterColumn colId="0">
+              <customFilters><customFilter val="Z_x0041_"/></customFilters>
+            </filterColumn>
+          </autoFilter>
+        </filter>
+      </filters>
+    </pivotTableDefinition>`)!;
+    expect(pt.name).toBe('PA');
+    expect([
+      pt.dataCaption,
+      pt.grandTotalCaption,
+      pt.errorCaption,
+      pt.missingCaption,
+      pt.rowHeaderCaption,
+      pt.colHeaderCaption,
+    ]).toEqual([ 'VA', 'GA', 'EA', 'MA', 'RA', 'CA' ]);
+    const field = pt.fields[0];
+    expect([ field.name, field.subtotalCaption, field.uniqueMemberProperty ]).toEqual([ 'FA', 'SA', 'UA' ]);
+    expect(field.items?.[0].name).toBe('IA');
+    expect(pt.pageFields?.[0]).toMatchObject({ name: 'NA', caption: 'KA' });
+    expect(pt.dataFields?.[0].name).toBe('Sum of H_x0041_');
+    const filter = pt.filters![0];
+    expect([ filter.name, filter.description, filter.stringValue1, filter.stringValue2 ])
+      .toEqual([ 'LA', 'DA', 'XA', 'YA' ]);
+    expect(filter.autoFilter?.filterColumns?.[0].customFilters?.filters[0].val).toBe('ZA');
+  });
+});

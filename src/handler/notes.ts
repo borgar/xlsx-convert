@@ -1,6 +1,7 @@
 import type { Document } from '@borgar/simple-xml';
 import type { Note } from '@jsfkit/types';
 import { attr, numAttr } from '../utils/attr.ts';
+import { unescape } from '../utils/unescape.ts';
 import { getFirstChild } from '../utils/getFirstChild.ts';
 import { RichText } from '../utils/RichText.ts';
 import type { ConversionContext } from '../ConversionContext.ts';
@@ -21,7 +22,7 @@ export function handlerNotes (dom: Document, context: ConversionContext): Note[]
   const authors: string[] = [];
   dom.querySelectorAll('authors > author')
     .forEach(author => {
-      authors.push(author.textContent || '');
+      authors.push(unescape(author.textContent || ''));
     });
 
   dom.querySelectorAll('commentList > comment')
@@ -42,7 +43,7 @@ export function handlerNotes (dom: Document, context: ConversionContext): Note[]
       if (rt.isRich) {
         context.unsupported.add(MISSING_NOTE_RTF);
       }
-      notes.push({ ref, author, ...rt.toJSF() });
+      notes.push({ ref, author, text: unescape(rt.text) });
     });
 
   return notes;
