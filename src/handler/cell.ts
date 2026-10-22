@@ -160,7 +160,7 @@ export function handlerCell (node: Element, address: string, context: Conversion
   }
 
   if (fNode) {
-    // formula text is an ST_Formula, an ST_Xstring, so it may hold _xHHHH_ escapes
+    // formula text is an ST_Formula, a kind of ST_Xstring, so it may contain _xHHHH_ escapes
     const formula = unescape(fNode.textContent);
     // .t (Formula Type): [ array | dataTable | normal | shared ]
     const formulaType = attr(fNode, 't', 'normal');
@@ -231,8 +231,8 @@ export function handlerCell (node: Element, address: string, context: Conversion
     }
   }
 
-  // unescape the strange OOXML character escaping
-  // (seems only used for <32 ASCII codes?)
+  // decode the _xHHHH_ escapes of ST_Xstring, used for control characters and for an
+  // underscore that would otherwise start an escape
   if (typeof cell.v === 'string') {
     cell.v = unescape(cell.v);
   }
