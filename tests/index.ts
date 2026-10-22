@@ -66,6 +66,7 @@ const tests = [
   'tests/excel/error-string-formula-ref.xlsx',
   'tests/excel/errors-excel.xlsx',
   'tests/excel/errors-gsheets.xlsx',
+  'tests/excel/escaped-table-name.xlsx',
   'tests/excel/external-refs.xlsx',
   'tests/excel/fonts.xlsx',
   'tests/excel/freeze-panes.xlsx',
