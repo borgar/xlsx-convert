@@ -160,7 +160,6 @@ export function handlerCell (node: Element, address: string, context: Conversion
   }
 
   if (fNode) {
-    // formula text is an ST_Formula, a kind of ST_Xstring, so it may contain _xHHHH_ escapes
     const formula = unescape(fNode.textContent);
     // .t (Formula Type): [ array | dataTable | normal | shared ]
     const formulaType = attr(fNode, 't', 'normal');
