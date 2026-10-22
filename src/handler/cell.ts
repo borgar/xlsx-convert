@@ -160,6 +160,8 @@ export function handlerCell (node: Element, address: string, context: Conversion
   }
 
   if (fNode) {
+    // formula text is an ST_Formula, an ST_Xstring, so it may hold _xHHHH_ escapes
+    const formula = unescape(fNode.textContent);
     // .t (Formula Type): [ array | dataTable | normal | shared ]
     const formulaType = attr(fNode, 't', 'normal');
     // array for array-formula
@@ -182,7 +184,7 @@ export function handlerCell (node: Element, address: string, context: Conversion
       if (!numAttr(node, 'cm')) {
         cell.cse = true;
       }
-      cell.f = prepFormula(fNode.textContent, address, context);
+      cell.f = prepFormula(formula, address, context);
     }
     // shared for shared formula
     else if (formulaType === 'shared') {
@@ -194,7 +196,7 @@ export function handlerCell (node: Element, address: string, context: Conversion
       const shareGroupIndex = numAttr(fNode, 'si');
       if (shareGroupIndex != null) {
         if (!sharedF.has(shareGroupIndex)) {
-          const relF = new RelativeFormula(fNode.textContent, address);
+          const relF = new RelativeFormula(formula, address);
           sharedF.set(shareGroupIndex, relF);
           cell.f = prepFormula(relF, address, context);
         }
@@ -225,7 +227,7 @@ export function handlerCell (node: Element, address: string, context: Conversion
       }
     }
     else {
-      cell.f = prepFormula(fNode.textContent, address, context);
+      cell.f = prepFormula(formula, address, context);
     }
   }
 
