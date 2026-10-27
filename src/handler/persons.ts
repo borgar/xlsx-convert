@@ -1,6 +1,6 @@
 import type { Document } from '@borgar/simple-xml';
 import type { Person } from '@jsfkit/types';
-import { attr } from '../utils/attr.ts';
+import { attr, xstringAttr } from '../utils/attr.ts';
 
 export function handlerPersons (dom: Document): Person[] {
   const persons: Person[] = [];
@@ -8,7 +8,7 @@ export function handlerPersons (dom: Document): Person[] {
   dom.querySelectorAll('personList > person')
     .forEach(person => {
       const id = attr(person, 'id');
-      const displayName = attr(person, 'displayName');
+      const displayName = xstringAttr(person, 'displayName');
 
       if (id && displayName) {
         const p: Person = { id, displayName };

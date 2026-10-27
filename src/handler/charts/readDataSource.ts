@@ -10,6 +10,7 @@ import type { StrVal } from './types/data/StrVal.ts';
 import { attr, numAttr } from '../../utils/attr.ts';
 import { addProp } from '../../utils/addProp.ts';
 import { numValElm } from './utils/valElm.ts';
+import { unescape } from '../../utils/unescape.ts';
 
 function readNumData (elm: Element): NumData {
   const data: NumData = { type: 'numData' };
@@ -40,7 +41,7 @@ function readStrPoints (elm: Element): StrVal[] {
     if (child.tagName === 'pt') {
       const idx = numAttr(child, 'idx');
       if (idx != null) {
-        pt.push({ idx, v: getFirstChild(child, 'v')?.textContent ?? '' });
+        pt.push({ idx, v: unescape(getFirstChild(child, 'v')?.textContent ?? '') });
       }
     }
   }
