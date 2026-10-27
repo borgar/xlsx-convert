@@ -15,6 +15,7 @@ import { readDLbls } from './readDLbls.ts';
 import { readTrendline } from './readTrendline.ts';
 import { getFirstChild } from '../../utils/getFirstChild.ts';
 import { normalizeFormula } from '../../utils/normalizeFormula.ts';
+import { unescape } from '../../utils/unescape.ts';
 
 export function readSeries (element: Element, context: ConversionContext): Series | undefined {
   const out: Partial<Series> = {};
@@ -37,7 +38,7 @@ export function readSeries (element: Element, context: ConversionContext): Serie
       else {
         const v = getFirstChild(child, 'v');
         if (v) {
-          out.text = v.textContent;
+          out.text = unescape(v.textContent);
         }
       }
     }

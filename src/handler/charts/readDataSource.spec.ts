@@ -46,6 +46,11 @@ describe('readDataSource', () => {
     expect(data).toEqual({ type: 'numRef', f: 'Sheet1!$B$2:$B$3' });
   });
 
+  it('decodes _xHHHH_ escapes in literal string points', () => {
+    expect(parse('<cat><strLit><ptCount val="1"/><pt idx="0"><v>C_x0041__x005F_x0042_</v></pt></strLit></cat>'))
+      .toEqual({ type: 'strData', ptCount: 1, pt: [ { idx: 0, v: 'CA_x0042_' } ] });
+  });
+
   it('reads literal data, including per-point format codes', () => {
     expect(parse(
       '<val><numLit><formatCode>General</formatCode><ptCount val="2"/>' +
