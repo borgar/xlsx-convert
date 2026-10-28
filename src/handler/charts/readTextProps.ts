@@ -16,7 +16,12 @@ const DML_ROT_UNSET = -60000000;
 
 /** Whether a run properties element has any attributes, apart from namespaces and language. */
 function hasRunAttrs (elm: Element): boolean {
-  return Object.keys(elm.attr ?? {}).some(k => !k.startsWith('xmlns') && k !== 'lang' && k !== 'altLang');
+  for (const { name } of elm.attributes) {
+    if (name !== 'lang' && name !== 'altLang' && !name.startsWith('xmlns')) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**
