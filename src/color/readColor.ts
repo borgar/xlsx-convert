@@ -28,7 +28,13 @@ export function readColor (elm: Element | undefined | null, theme: Theme): Color
   // §3.8.3 - bgColor
   // §3.8.18 - fgColor
   // §3.3.1.14 - color
-  if (tagName === 'color' || tagName === 'fgColor' || tagName === 'bgColor') {
+  // Data bar colours from the x14 extension to conditional formatting - borderColor,
+  // negativeFillColor, negativeBorderColor, axisColor
+  if (
+    tagName === 'color' || tagName === 'fgColor' || tagName === 'bgColor' ||
+    tagName === 'borderColor' || tagName === 'negativeFillColor' ||
+    tagName === 'negativeBorderColor' || tagName === 'axisColor'
+  ) {
     // Element may have any of the following attributes:
     // - [auto]    - A boolean value indicating the color is automatic and system color dependent.
     // - [indexed] - References a color in indexedColors.

@@ -476,7 +476,6 @@ The tags emitted are as follows:
 | `chart-pivot` | Pivot charts
 | `col-group` | Grouped columns
 | `data-validation` | Data validation
-| `dynamic-style` | Conditional formatting of cells
 | `note-rtf` | Rich text in notes
 | `print-gridlines` | Print sheet gridlines
 | `print-headings` | Print sheet headings
@@ -530,7 +529,7 @@ but did not handle.
 # UNSUPPORTED\_TAGS
 
 ```ts
-const UNSUPPORTED_TAGS: readonly ["asset-3d", "asset-ext", "asset-oo", "asset-pq", "asset-py", "asset-svg", "asset-vba", "asset-vml", "border-diagonal", "calc-precision", "cell-checkbox", "cell-hide", "cell-indent", "cell-lock", "cell-mdx", "cell-rtf", "chart", "chart-chartex", "chart-pivot", "col-group", "data-validation", "dynamic-style", "note-rtf", "print-gridlines", "print-headings", "print-setup", "row-group", "scenario", "shape-diagram", "shape-effect", "shape-math", "shape-texteffect", "sheet-autofilter", "sheet-background", "sheet-lock", "sheet-rtl", "sheet-tabcolor", "sparkline", "table-filter-button", "table-insertrow", "table-slicer", "table-sortstate", "table-style-custom", "time-slicer", "view-custom", "view-formulas", "view-gridlines-color", "view-headings", "view-outline-symbols", "view-pane-split", "view-tabselected", "view-zeros", "workbook-lock", "workbook-meta", "workbook-meta-custom"];
+const UNSUPPORTED_TAGS: readonly ["asset-3d", "asset-ext", "asset-oo", "asset-pq", "asset-py", "asset-svg", "asset-vba", "asset-vml", "border-diagonal", "calc-precision", "cell-checkbox", "cell-hide", "cell-indent", "cell-lock", "cell-mdx", "cell-rtf", "chart", "chart-chartex", "chart-pivot", "col-group", "data-validation", "note-rtf", "print-gridlines", "print-headings", "print-setup", "row-group", "scenario", "shape-diagram", "shape-effect", "shape-math", "shape-texteffect", "sheet-autofilter", "sheet-background", "sheet-lock", "sheet-rtl", "sheet-tabcolor", "sparkline", "table-filter-button", "table-insertrow", "table-slicer", "table-sortstate", "table-style-custom", "time-slicer", "view-custom", "view-formulas", "view-gridlines-color", "view-headings", "view-outline-symbols", "view-pane-split", "view-tabselected", "view-zeros", "workbook-lock", "workbook-meta", "workbook-meta-custom"];
 ```
 
 Every tag the converter can report in a workbook's `unsupported` list.
