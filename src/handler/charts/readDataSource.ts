@@ -56,6 +56,22 @@ function readStrData (elm: Element): StrData {
   return data;
 }
 
+/**
+ * Read the whole source range of a reference whose cells are filtered out with Excel's chart filter,
+ * from the reference's extensions:
+ *
+ * - `c15:fullRef` when categories are filtered out. `c:f` then refers to the visible cells only.
+ * - `c15:formulaRef` in a series that is filtered out of the chart. Excel then writes no `c:f`,
+ *   because no cells are visible.
+ */
+function readFullRef (ref: Element, context: ConversionContext): string | undefined {
+  const sqref = (
+    ref.querySelector('extLst > ext > fullRef > sqref') ??
+    ref.querySelector('extLst > ext > formulaRef > sqref')
+  )?.textContent;
+  return sqref ? normalizeFormula(sqref, context) : undefined;
+}
+
 export function readDataSource (element: Element, context: ConversionContext): AxDataSource | undefined {
   let data: AxDataSource | undefined = undefined;
   // One of:
@@ -68,11 +84,13 @@ export function readDataSource (element: Element, context: ConversionContext): A
   if (ch?.tagName === 'numRef') {
     data = { type: 'numRef', f: '' };
     data.f = normalizeFormula(getFirstChild(ch, 'f')?.textContent ?? '', context);
+    addProp(data, 'fullRef', readFullRef(ch, context));
     // The cache (`c:numCache`) isn't read: chart data is evaluated from the formula.
   }
   else if (ch?.tagName === 'strRef') {
     data = { type: 'strRef', f: '' };
     data.f = normalizeFormula(getFirstChild(ch, 'f')?.textContent ?? '', context);
+    addProp(data, 'fullRef', readFullRef(ch, context));
     // The cache (`c:strCache`) isn't read: chart data is evaluated from the formula.
   }
   else if (ch?.tagName === 'multiLvlStrRef') {
@@ -83,6 +101,7 @@ export function readDataSource (element: Element, context: ConversionContext): A
       type: 'mlStrRef',
       f: normalizeFormula(getFirstChild(ch, 'f')?.textContent ?? '', context),
     };
+    addProp(data, 'fullRef', readFullRef(ch, context));
     // The cache (`c:multiLvlStrCache`) isn't read: chart data is evaluated from the formula.
   }
   else if (ch?.tagName === 'numLit') {
