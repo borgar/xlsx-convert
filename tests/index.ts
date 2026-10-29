@@ -53,6 +53,8 @@ const tests = [
   'tests/excel/charts/chart-chartex-literal-data.xlsx',
   'tests/excel/multi-level-category.xlsx',
   'tests/excel/charts/chart-text-inheritance.xlsx',
+  'tests/excel/charts/filter-points.xlsx',
+  'tests/excel/charts/chart-hidden-series.xlsx',
   'tests/excel/charts-and-images.xlsx',
   'tests/excel/comments.xlsx',
   'tests/excel/cse.xlsx',

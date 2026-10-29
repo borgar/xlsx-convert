@@ -7,6 +7,7 @@ import { addProp } from '../../utils/addProp.ts';
 import { readShapeProperties } from '../drawings/readShapeProperties.ts';
 import { readDataSource } from './readDataSource.ts';
 import type { Series } from './types/series/Series.ts';
+import type { CategoryFilterException } from './types/series/CategoryFilterException.ts';
 import { readDataPoint } from './readDataPoint.ts';
 import { readMarker } from './readMarker.ts';
 import { readErrBars } from './readErrBars.ts';
@@ -15,6 +16,29 @@ import { readDLbls } from './readDLbls.ts';
 import { readTrendline } from './readTrendline.ts';
 import { getFirstChild } from '../../utils/getFirstChild.ts';
 import { normalizeFormula } from '../../utils/normalizeFormula.ts';
+
+/**
+ * Read the formatting of points in categories filtered out with Excel's chart filter
+ * (`c15:categoryFilterExceptions`). Each point is keyed by its value cell (`c15:sqref`), because a
+ * filtered-out point has no index in the series' data.
+ */
+function readCategoryFilterExceptions (
+  extLst: Element,
+  context: ConversionContext,
+): CategoryFilterException[] | undefined {
+  const out: CategoryFilterException[] = [];
+  for (const exception of extLst.querySelectorAll('categoryFilterExceptions > categoryFilterException')) {
+    const sqref = getFirstChild(exception, 'sqref')?.textContent;
+    if (!sqref) { continue; }
+    const point: CategoryFilterException = { ref: normalizeFormula(sqref, context) };
+    const spPr = getFirstChild(exception, 'spPr');
+    if (spPr) {
+      addProp(point, 'shape', readShapeProperties(spPr, context));
+    }
+    out.push(point);
+  }
+  return out.length ? out : undefined;
+}
 
 export function readSeries (element: Element, context: ConversionContext): Series | undefined {
   const out: Partial<Series> = {};
@@ -32,7 +56,8 @@ export function readSeries (element: Element, context: ConversionContext): Serie
     else if (child.tagName === 'tx') {
       const ds = readDataSource(child, context);
       if (ds?.type === 'strRef') {
-        addProp(out, 'text', ds);
+        // a series filtered out of the chart names its cell in c15:formulaRef, with no c:f
+        addProp(out, 'text', !ds.f && ds.fullRef ? { type: 'strRef', f: ds.fullRef } : ds);
       }
       else {
         const v = getFirstChild(child, 'v');
@@ -75,6 +100,7 @@ export function readSeries (element: Element, context: ConversionContext): Serie
       if (f) {
         out.labelsRange = normalizeFormula(f, context);
       }
+      addProp(out, 'filteredPoints', readCategoryFilterExceptions(child, context));
     }
 
     // Scatter series use xVal/yVal instead of cat/val.

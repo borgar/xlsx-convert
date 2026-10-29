@@ -14,6 +14,7 @@ import type {
   ChartEncoding,
   ChartErrorBars,
   ChartFieldBinding,
+  ChartFilteredPoint,
   ChartLegend,
   ChartMarker,
   ChartPictureOptions,
@@ -157,6 +158,8 @@ function convertWall (wall: Surface | undefined): ChartWall | undefined {
  */
 type SourceValues = {
   formula?: string;
+  /** The whole source range, when categories are filtered out. `formula` has the visible cells. */
+  fullFormula?: string;
   numberFormat?: string;
   /** Literal values, by point index. */
   values?: ChartValue[];
@@ -173,7 +176,7 @@ type CategoryValues = SourceValues & {
 function readNumSource (ds: NumDataSource | undefined): SourceValues | undefined {
   if (!ds) { return; }
   if (ds.type === 'numRef') {
-    return { formula: ds.f, pointFormats: new Map() };
+    return { formula: ds.f || undefined, fullFormula: ds.fullRef, pointFormats: new Map() };
   }
   const out: SourceValues = { numberFormat: ds.formatCode, values: [], pointFormats: new Map() };
   const count = Math.max(ds.ptCount ?? 0, ...(ds.pt ?? []).map(pt => pt.idx + 1));
@@ -199,9 +202,16 @@ function readAxSource (ds: AxDataSource | undefined): CategoryValues | undefined
     return { values, pointFormats: new Map() };
   }
   if (ds.type === 'mlStrRef') {
-    return { formula: ds.f, pointFormats: new Map(), ...inferLevels(ds.f) };
+    // a filtered formula can be a list of ranges, so the levels come from the whole range
+    return {
+      formula: ds.f || undefined,
+      fullFormula: ds.fullRef,
+      pointFormats: new Map(),
+      ...inferLevels(ds.fullRef ?? ds.f),
+    };
   }
-  return { formula: ds.f, pointFormats: new Map() };
+  // A series filtered out of the chart has no visible cells, so no formula, only the full range.
+  return { formula: ds.f || undefined, fullFormula: ds.fullRef, pointFormats: new Map() };
 }
 
 // ---------------------------------------------------------------------------
@@ -633,6 +643,7 @@ class ChartBuilder {
   makeBinding (src: SourceValues, role: ChartFieldBinding['role']): ChartFieldBinding | undefined {
     const binding: ChartFieldBinding = {};
     addProp(binding, 'formula', src.formula);
+    addProp(binding, 'fullFormula', src.fullFormula);
     addProp(binding, 'values', src.values);
     addProp(binding, 'role', role);
     addProp(binding, 'numberFormat', src.numberFormat, 'General');
@@ -703,6 +714,11 @@ class ChartBuilder {
     addProp(out, 'marker', convertMarker(ser.marker));
     addProp(out, 'labels', convertLabels(ser.dLbls));
     addProp(out, 'points', this.buildPoints(ser, cat, val, categoryField, valueField));
+    addProp(out, 'filteredPoints', ser.filteredPoints?.map(p => {
+      const point: ChartFilteredPoint = { ref: p.ref };
+      addProp(point, 'shape', convertShape(p.shape));
+      return point;
+    }));
     addProp(out, 'trendlines', ser.trendline?.length ? ser.trendline.map(convertTrendline) : undefined);
     addProp(out, 'errorBars', errorBars.length ? errorBars : undefined);
     addProp(out, 'smooth', ser.smooth, false);

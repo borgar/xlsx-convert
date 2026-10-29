@@ -26,6 +26,28 @@ describe('readDataSource', () => {
     expect(data).toEqual({ type: 'strRef', f: 'Sheet1!$A$2:$A$14' });
   });
 
+  it('reads the whole range of a reference with filtered categories (c15:fullRef)', () => {
+    // Excel writes the extension before c:f, out of schema order
+    const fullRef = (range: string) => (
+      '<extLst><ext uri="{02D57815-91ED-43cb-92C2-25804820EDAC}">' +
+      `<fullRef><sqref>${range}</sqref></fullRef></ext></extLst>`
+    );
+    expect(parse(`<val><numRef>${fullRef('Sheet1!$B$2:$B$4')}<f>(Sheet1!$B$2,Sheet1!$B$4)</f></numRef></val>`))
+      .toEqual({ type: 'numRef', f: '(Sheet1!$B$2,Sheet1!$B$4)', fullRef: 'Sheet1!$B$2:$B$4' });
+    expect(parse(`<cat><strRef><f>(Sheet1!$A$2,Sheet1!$A$4)</f>${fullRef('Sheet1!$A$2:$A$4')}</strRef></cat>`))
+      .toEqual({ type: 'strRef', f: '(Sheet1!$A$2,Sheet1!$A$4)', fullRef: 'Sheet1!$A$2:$A$4' });
+    expect(parse(`<cat><multiLvlStrRef>${fullRef('Sheet1!$A$2:$B$4')}<f>(Sheet1!$A$2:$B$2,Sheet1!$A$4:$B$4)</f></multiLvlStrRef></cat>`))
+      .toEqual({ type: 'mlStrRef', f: '(Sheet1!$A$2:$B$2,Sheet1!$A$4:$B$4)', fullRef: 'Sheet1!$A$2:$B$4' });
+  });
+
+  it('reads the range of a series filtered out of the chart (c15:formulaRef), which has no c:f', () => {
+    const data = parse(
+      '<val><numRef><extLst><ext uri="{02D57815-91ED-43cb-92C2-25804820EDAC}">' +
+      '<formulaRef><sqref>Sheet1!$C$2:$C$4</sqref></formulaRef></ext></extLst></numRef></val>',
+    );
+    expect(data).toEqual({ type: 'numRef', f: '', fullRef: 'Sheet1!$C$2:$C$4' });
+  });
+
   it('reads a multiLvlStrRef', () => {
     // Multi-level (grouped) category references span several columns; dropping them loses the
     // series' category/x data entirely (a scatter xVal that reads as undefined renders an empty
