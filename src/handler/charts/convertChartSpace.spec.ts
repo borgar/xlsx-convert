@@ -239,6 +239,30 @@ describe('convertChartSpace', () => {
     ]);
   });
 
+  it('drops markers that are what Excel draws automatically for the series\' c:idx', () => {
+    const color = '<a:schemeClr val="accent2"><a:lumMod val="60000"/></a:schemeClr>';
+    const auto = '<c:marker><c:symbol val="dot"/><c:size val="5"/><c:spPr>' +
+      `<a:solidFill>${color}</a:solidFill><a:ln w="9525" cap="sq"><a:solidFill>${color}</a:solidFill></a:ln>` +
+      '</c:spPr></c:marker>';
+    const chart = convert(
+      series(7, 'B', auto) +
+      series(0, 'C', '<c:marker><c:symbol val="circle"/></c:marker>') +
+      '<c:marker val="1"/>',
+    );
+    const byId = (id: string) => chart.plots[0].series!.find(s => s.id === id)!;
+    expect(byId('s7').marker).toBeUndefined();
+    // circle is the automatic symbol for c:idx 5, not 0
+    expect(byId('s0').marker).toEqual({ symbol: 'circle' });
+  });
+
+  it('drops an automatic x marker, which has no fill', () => {
+    const color = '<a:schemeClr val="accent4"/>';
+    const marker = '<c:marker><c:symbol val="x"/><c:spPr><a:noFill/>' +
+      `<a:ln w="9525" cap="sq"><a:solidFill>${color}</a:solidFill></a:ln></c:spPr></c:marker>`;
+    const chart = convert(series(3, 'B', marker) + '<c:marker val="1"/>');
+    expect(chart.plots[0].series![0].marker).toBeUndefined();
+  });
+
   it('reads labels taken from cells ("Value From Cells")', () => {
     const chart = convert(series(0, 'B',
       '<c:dLbls><c:showLegendKey val="0"/><c:showVal val="1"/><c:showCatName val="0"/>' +

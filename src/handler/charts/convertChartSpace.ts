@@ -1,5 +1,5 @@
 import { reduceOverrides } from './overrides.ts';
-import { applyShapeFallbacks, LEGACY_SHAPE_FALLBACKS, reduceShapes } from './shapeDefaults.ts';
+import { applyShapeFallbacks, dropAutomaticMarkers, LEGACY_SHAPE_FALLBACKS, reduceShapes } from './shapeDefaults.ts';
 import { legendEntryList, legendEntryRef } from './legendEntries.ts';
 import { applyTextCascade, LEGACY_TEXT_FALLBACKS } from './textCascade.ts';
 import type {
@@ -950,6 +950,7 @@ export function convertChartSpace (cs: ChartSpace, context: ConversionContext): 
   applyShapeFallbacks(chart, LEGACY_SHAPE_FALLBACKS);
   reduceOverrides(chart);
   reduceShapes(chart);
+  dropAutomaticMarkers(chart);
   dropDefaultColorIndex(chart.plots);
   dropDefaultSeriesOrder(chart.plots);
   return chart;
