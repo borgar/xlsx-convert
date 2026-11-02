@@ -8,6 +8,7 @@ import {
 import type { ConversionContext } from '../ConversionContext.ts';
 import { readColor } from '../color/readColor.ts';
 import { addProp } from '../utils/addProp.ts';
+import { getFirstChild } from '../utils/getFirstChild.ts';
 
 function valOfSubNode (node: Element, subNodeName: string): string | undefined {
   const subNode = node.querySelectorAll(subNodeName)[0];
@@ -242,7 +243,11 @@ export function readDxf (node: Element, theme: Theme): DifferentialStyle {
     if (type === 'solid') {
       addProp(s, 'fillColor', bg ?? fg);
     }
-    else if (type !== 'none') {
+    else if (type === 'none') {
+      // An explicit "none" clears the cell's fill.
+      s.patternStyle = 'none';
+    }
+    else {
       addProp(s, 'fillColor', bg);
       addProp(s, 'patternColor', fg);
       s.patternStyle = type as Style['patternStyle'];
@@ -260,12 +265,18 @@ export function readDxf (node: Element, theme: Theme): DifferentialStyle {
 
   const borderNode = node.querySelector('border');
   if (borderNode) {
-    const { top, bottom, left, right } = readBorders(borderNode, theme);
-    const sides = { Top: top, Bottom: bottom, Left: left, Right: right };
-    for (const [ side, def ] of Object.entries(sides)) {
-      if (def) {
-        s[`border${side}Style` as 'borderTopStyle'] = def.style as Style['borderTopStyle'];
-        addProp(s, `border${side}Color` as 'borderTopColor', def.color);
+    // Unlike cell borders, a dxf side element without a style means "remove the border", while
+    // an absent side element means "leave the border alone".
+    const sides = {
+      Top: getFirstChild(borderNode, 'top'),
+      Bottom: getFirstChild(borderNode, 'bottom'),
+      Left: getFirstChild(borderNode, [ 'left', 'start' ]),
+      Right: getFirstChild(borderNode, [ 'right', 'end' ]),
+    };
+    for (const [ side, elm ] of Object.entries(sides)) {
+      if (elm) {
+        s[`border${side}Style` as 'borderTopStyle'] = attr(elm, 'style', 'none') as Style['borderTopStyle'];
+        addProp(s, `border${side}Color` as 'borderTopColor', readColor(getFirstChild(elm, 'color'), theme));
       }
     }
   }

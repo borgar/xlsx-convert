@@ -17,6 +17,8 @@ function readSqRef (sqref: string | null): string[] {
 
 /**
  * Stores an inline `<x14:dxf>` on the workbook and returns its index.
+ *
+ * If a structurally equal differential style already exists its index is returned instead.
  */
 function addDxf (node: Element | undefined, context: ConversionContext): number | null {
   if (!node) {
@@ -24,8 +26,31 @@ function addDxf (node: Element | undefined, context: ConversionContext): number 
   }
   const wb = context.workbook!;
   wb.diffStyles ??= [];
-  wb.diffStyles.push(readDxf(node, context.theme));
-  return wb.diffStyles.length - 1;
+  // x14 conditional formatting rules store their differential styles inline. In JSF these go in
+  // the workbook's diffStyles property, same as all differential styles. A writer then has to put
+  // every entry into <dxfs> and inline it again for x14 rules, so each round trip would add one
+  // entry per x14 rule. To avoid this, inline dxfs are deduped against existing entries here.
+  //
+  // Serialisation is safe as a key because readDxf (and readColor) emit keys in a fixed order.
+  if (!context._dxfIndex) {
+    context._dxfIndex = new Map();
+    wb.diffStyles.forEach((dxf, i) => {
+      const key = JSON.stringify(dxf);
+      if (!context._dxfIndex!.has(key)) {
+        context._dxfIndex!.set(key, i);
+      }
+    });
+  }
+  const dxf = readDxf(node, context.theme);
+  const key = JSON.stringify(dxf);
+  const existing = context._dxfIndex.get(key);
+  if (existing != null) {
+    return existing;
+  }
+  wb.diffStyles.push(dxf);
+  const index = wb.diffStyles.length - 1;
+  context._dxfIndex.set(key, index);
+  return index;
 }
 
 /**

@@ -384,6 +384,125 @@ describe('handlerConditionalFormatting', () => {
     ]);
   });
 
+  it('reuses an existing differential style for an equal inline x14 dxf', () => {
+    const dom = parseXML(
+      '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData/>' +
+      `<extLst><ext uri="{78C0D931-6437-407d-A8EE-F0AAD7539E65}" ${X14}><x14:conditionalFormattings>` +
+        `<x14:conditionalFormatting ${XM}>` +
+          '<x14:cfRule type="expression" priority="1" id="{ID-12}"><xm:f>TRUE</xm:f>' +
+            '<x14:dxf><font><color rgb="FF9C0006"/></font><fill><patternFill><bgColor rgb="FFFFC7CE"/></patternFill></fill></x14:dxf>' +
+          '</x14:cfRule>' +
+          '<xm:sqref>A1</xm:sqref>' +
+        '</x14:conditionalFormatting>' +
+      '</x14:conditionalFormattings></ext></extLst>' +
+      '</worksheet>',
+    );
+    const ctx = new ConversionContext();
+    ctx.workbook = {
+      name: '',
+      sheets: [],
+      diffStyles: [
+        { bold: true },
+        { color: { type: 'srgb', value: '9C0006' }, fillColor: { type: 'srgb', value: 'FFC7CE' } },
+      ],
+    };
+    const rules = handlerConditionalFormatting(dom, ctx);
+    expect(rules.map(r => 'dxf' in r && r.dxf)).toEqual([ 1 ]);
+    expect(ctx.workbook.diffStyles).toHaveLength(2);
+  });
+
+  it('shares one differential style between equal inline x14 dxfs', () => {
+    const sheet = (id: string) => (
+      '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData/>' +
+      `<extLst><ext uri="{78C0D931-6437-407d-A8EE-F0AAD7539E65}" ${X14}><x14:conditionalFormattings>` +
+        `<x14:conditionalFormatting ${XM}>` +
+          `<x14:cfRule type="expression" priority="1" id="{${id}-A}"><xm:f>TRUE</xm:f><x14:dxf><font><b/></font></x14:dxf></x14:cfRule>` +
+          `<x14:cfRule type="expression" priority="2" id="{${id}-B}"><xm:f>FALSE</xm:f><x14:dxf><font><b/></font></x14:dxf></x14:cfRule>` +
+          '<xm:sqref>A1</xm:sqref>' +
+        '</x14:conditionalFormatting>' +
+      '</x14:conditionalFormattings></ext></extLst>' +
+      '</worksheet>'
+    );
+    const ctx = new ConversionContext();
+    ctx.workbook = { name: '', sheets: [] };
+    // Two rules on the same sheet...
+    const rules1 = handlerConditionalFormatting(parseXML(sheet('ID-13')), ctx);
+    expect(rules1.map(r => 'dxf' in r && r.dxf)).toEqual([ 0, 0 ]);
+    // ...and two more on a second sheet all share one entry
+    const rules2 = handlerConditionalFormatting(parseXML(sheet('ID-14')), ctx);
+    expect(rules2.map(r => 'dxf' in r && r.dxf)).toEqual([ 0, 0 ]);
+    expect(ctx.workbook.diffStyles).toEqual([ { bold: true } ]);
+  });
+
+  it('reads a standalone x14 data bar', () => {
+    const { rules } = parse(
+      `<extLst><ext uri="{78C0D931-6437-407d-A8EE-F0AAD7539E65}" ${X14}><x14:conditionalFormattings>` +
+        `<x14:conditionalFormatting ${XM}>` +
+          '<x14:cfRule type="dataBar" priority="1" id="{ID-15}">' +
+            '<x14:dataBar minLength="0" maxLength="100" gradient="0">' +
+              '<x14:cfvo type="autoMin"/>' +
+              '<x14:cfvo type="autoMax"/>' +
+              '<x14:fillColor rgb="FF638EC6"/>' +
+              '<x14:negativeFillColor rgb="FFFF0000"/>' +
+            '</x14:dataBar>' +
+          '</x14:cfRule>' +
+          '<xm:sqref>A1:A5</xm:sqref>' +
+        '</x14:conditionalFormatting>' +
+      '</x14:conditionalFormattings></ext></extLst>',
+    );
+    expect(rules).toEqual([
+      {
+        type: 'dataBar',
+        ref: [ 'A1:A5' ],
+        priority: 1,
+        dataBar: {
+          min: { type: 'autoMin' },
+          max: { type: 'autoMax' },
+          minLength: 0,
+          maxLength: 100,
+          fillColor: { type: 'srgb', value: '638EC6' },
+          negativeFillColor: { type: 'srgb', value: 'FF0000' },
+          gradient: false,
+        },
+      },
+    ]);
+  });
+
+  it('skips a standalone x14 data bar with no fill colour', () => {
+    const { rules } = parse(
+      `<extLst><ext uri="{78C0D931-6437-407d-A8EE-F0AAD7539E65}" ${X14}><x14:conditionalFormattings>` +
+        `<x14:conditionalFormatting ${XM}>` +
+          '<x14:cfRule type="dataBar" priority="1" id="{ID-16}">' +
+            '<x14:dataBar><x14:cfvo type="autoMin"/><x14:cfvo type="autoMax"/></x14:dataBar>' +
+          '</x14:cfRule>' +
+          '<xm:sqref>A1:A5</xm:sqref>' +
+        '</x14:conditionalFormatting>' +
+      '</x14:conditionalFormattings></ext></extLst>',
+    );
+    expect(rules).toEqual([]);
+  });
+
+  it('lets an x14 fillColor override the main part data bar colour', () => {
+    const { rules } = parse(
+      '<conditionalFormatting sqref="A1:A5">' +
+        '<cfRule type="dataBar" priority="1">' +
+        '<dataBar><cfvo type="min"/><cfvo type="max"/><color rgb="FF638EC6"/></dataBar>' +
+        `<extLst><ext uri="{B025F937-C7B1-47D3-B67F-A62EFF666E3E}" ${X14}><x14:id>{ID-17}</x14:id></ext></extLst>` +
+        '</cfRule>' +
+        '</conditionalFormatting>' +
+        `<extLst><ext uri="{78C0D931-6437-407d-A8EE-F0AAD7539E65}" ${X14}><x14:conditionalFormattings>` +
+        `<x14:conditionalFormatting ${XM}>` +
+        '<x14:cfRule type="dataBar" id="{ID-17}">' +
+        '<x14:dataBar><x14:cfvo type="autoMin"/><x14:cfvo type="autoMax"/><x14:fillColor rgb="FF00FF00"/></x14:dataBar>' +
+        '</x14:cfRule>' +
+        '<xm:sqref>A1:A5</xm:sqref>' +
+        '</x14:conditionalFormatting>' +
+        '</x14:conditionalFormattings></ext></extLst>',
+    );
+    expect(rules).toHaveLength(1);
+    expect(rules[0].type === 'dataBar' && rules[0].dataBar.fillColor).toEqual({ type: 'srgb', value: '00FF00' });
+  });
+
   it('ignores equalAverage when stdDev is set', () => {
     const { rules } = parse(
       '<conditionalFormatting sqref="A1">' +

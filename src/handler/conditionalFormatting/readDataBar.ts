@@ -21,7 +21,8 @@ export function readDataBar (node: Element, context: ConversionContext): Partial
   addProp(bar, 'minLength', numAttr(node, 'minLength'), 10);
   addProp(bar, 'maxLength', numAttr(node, 'maxLength'), 90);
   addProp(bar, 'showValue', boolAttr(node, 'showValue'), true);
-  addProp(bar, 'fillColor', readColor(getFirstChild(node, 'color'), context.theme));
+  // Original OOXML CF uses <color> for the bar fill, but x14 extension uses <x14:fillColor>
+  addProp(bar, 'fillColor', readColor(getFirstChild(node, [ 'color', 'fillColor' ]), context.theme));
   const border = boolAttr(node, 'border', false);
   if (border) {
     addProp(bar, 'borderColor', readColor(getFirstChild(node, 'borderColor'), context.theme));
