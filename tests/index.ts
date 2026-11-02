@@ -55,6 +55,7 @@ const tests = [
   'tests/excel/charts/chart-text-inheritance.xlsx',
   'tests/excel/charts/filter-points.xlsx',
   'tests/excel/charts/chart-hidden-series.xlsx',
+  'tests/excel/charts/chart-hierarchy-level-ranges.xlsx',
   'tests/excel/charts-and-images.xlsx',
   'tests/excel/comments.xlsx',
   'tests/excel/cse.xlsx',
