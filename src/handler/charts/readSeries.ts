@@ -16,6 +16,7 @@ import { readDLbls } from './readDLbls.ts';
 import { readTrendline } from './readTrendline.ts';
 import { getFirstChild } from '../../utils/getFirstChild.ts';
 import { normalizeFormula } from '../../utils/normalizeFormula.ts';
+import { unescape } from '../../utils/unescape.ts';
 
 /**
  * Read the formatting of points in categories filtered out with Excel's chart filter
@@ -62,7 +63,7 @@ export function readSeries (element: Element, context: ConversionContext): Serie
       else {
         const v = getFirstChild(child, 'v');
         if (v) {
-          out.text = v.textContent;
+          out.text = unescape(v.textContent);
         }
       }
     }

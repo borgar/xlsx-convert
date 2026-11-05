@@ -1,6 +1,7 @@
 import { Document } from '@borgar/simple-xml';
 import { ConversionContext } from '../ConversionContext.ts';
-import { attr, boolAttr, numAttr } from '../utils/attr.ts';
+import { attr, boolAttr, numAttr, xstringAttr } from '../utils/attr.ts';
+import { unescape } from '../utils/unescape.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { toInt } from '../utils/typecast.ts';
 import type { DefinedName, Workbook, WorkbookView } from '@jsfkit/types';
@@ -39,7 +40,7 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
   dom.querySelectorAll('sheets > sheet')
     .forEach(d => {
       context.sheetLinks.push({
-        name: attr(d, 'name'),
+        name: xstringAttr(d, 'name'),
         index: numAttr(d, 'sheetId'),
         rId: attr(d, 'r:id'),
         hidden: HIDDEN[attr(d, 'state', 'visible')] ?? 0,
@@ -51,8 +52,8 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
   dom.getElementsByTagName('definedName')
     .forEach(d => {
       const name: DefinedName = {
-        name: attr(d, 'name'),
-        value: normalizeFormula(d.textContent, context),
+        name: xstringAttr(d, 'name'),
+        value: normalizeFormula(unescape(d.textContent), context),
       };
       const localSheetId = attr(d, 'localSheetId');
       if (localSheetId) {

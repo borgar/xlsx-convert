@@ -1,7 +1,7 @@
 import type { Element } from '@borgar/simple-xml';
 import type { PivotAutoFilterColumn, PivotCustomFilterCriterion, PivotFilter, PivotFilterType } from '@jsfkit/types';
 import { addProp } from '../../utils/addProp.ts';
-import { attr, boolAttr, numAttr } from '../../utils/attr.ts';
+import { attr, boolAttr, numAttr, xstringAttr } from '../../utils/attr.ts';
 import { parseEnum } from '../../utils/parseEnum.ts';
 
 type CustomFilterOp = NonNullable<PivotCustomFilterCriterion['operator']>;
@@ -93,10 +93,10 @@ export function parseFilters (root: Element): PivotFilter[] {
     addProp(filter, 'mpFld', numAttr(fEl, 'mpFld'));
     addProp(filter, 'iMeasureHier', numAttr(fEl, 'iMeasureHier'));
     addProp(filter, 'iMeasureFld', numAttr(fEl, 'iMeasureFld'));
-    addProp(filter, 'name', attr(fEl, 'name'));
-    addProp(filter, 'description', attr(fEl, 'description'));
-    addProp(filter, 'stringValue1', attr(fEl, 'stringValue1'));
-    addProp(filter, 'stringValue2', attr(fEl, 'stringValue2'));
+    addProp(filter, 'name', xstringAttr(fEl, 'name'));
+    addProp(filter, 'description', xstringAttr(fEl, 'description'));
+    addProp(filter, 'stringValue1', xstringAttr(fEl, 'stringValue1'));
+    addProp(filter, 'stringValue2', xstringAttr(fEl, 'stringValue2'));
 
     const afEl = fEl.querySelector('autoFilter');
     if (afEl) {
@@ -120,7 +120,7 @@ export function parseFilters (root: Element): PivotFilter[] {
           for (const cfItemEl of customFiltersEl.getElementsByTagName('customFilter')) {
             const f: (typeof cfItems)[number] = {};
             addProp(f, 'operator', parseEnum(attr(cfItemEl, 'operator'), CUSTOM_FILTER_OPS));
-            addProp(f, 'val', attr(cfItemEl, 'val'));
+            addProp(f, 'val', xstringAttr(cfItemEl, 'val'));
             cfItems.push(f);
           }
           const cf: NonNullable<PivotAutoFilterColumn['customFilters']> = { filters: cfItems };

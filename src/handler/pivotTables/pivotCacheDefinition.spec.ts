@@ -558,3 +558,49 @@ describe('handlerPivotCacheDefinition', () => {
     expect(cache.fields[0].name).toBe('Scenario');
   });
 });
+
+describe('handlerPivotCacheDefinition _xHHHH_ escapes', () => {
+  it('decodes escapes in field names, formulas, string items and source sheet', () => {
+    const cache = parse(`<pivotCacheDefinition refreshedBy="B_x0041_">
+      <cacheSource type="worksheet"><worksheetSource ref="A1:B3" sheet="S_x0041_"/></cacheSource>
+      <cacheFields count="2">
+        <cacheField name="H_x005f_x0041_">
+          <sharedItems><s v="V_x0041_"/></sharedItems>
+        </cacheField>
+        <cacheField name="C" formula="'H_x005f_x0041_'*2" databaseField="0"/>
+      </cacheFields>
+    </pivotCacheDefinition>`)!;
+    expect(cache.refreshedBy).toBe('BA');
+    expect(cache.fields.map(f => f.name)).toEqual([ 'H_x0041_', 'C' ]);
+    expect(cache.fields[0].sharedItems).toEqual([ { t: 's', v: 'VA' } ]);
+    expect(cache.fields[1].formula).toBe("'H_x0041_'*2");
+    if (cache.sourceType !== 'worksheet') {
+      throw new Error('expected worksheet');
+    }
+    expect(cache.worksheetSource).toEqual({ type: 'range', ref: 'A1:B3', sheet: 'SA' });
+  });
+
+  it('decodes escapes in a named worksheet source and consolidation sources', () => {
+    const named = parse(`<pivotCacheDefinition>
+      <cacheSource type="worksheet"><worksheetSource name="N_x0041_" sheet="S_x0041_"/></cacheSource>
+      <cacheFields count="0"/>
+    </pivotCacheDefinition>`)!;
+    if (named.sourceType !== 'worksheet') {
+      throw new Error('expected worksheet');
+    }
+    expect(named.worksheetSource).toEqual({ type: 'name', name: 'NA', sheet: 'SA' });
+
+    const consolidated = parse(`<pivotCacheDefinition>
+      <cacheSource type="consolidation"><consolidation>
+        <pages count="1"><page count="1"><pageItem name="P_x0041_"/></page></pages>
+        <rangeSets count="1"><rangeSet i1="0" ref="A1:B2" sheet="S_x0041_"/></rangeSets>
+      </consolidation></cacheSource>
+      <cacheFields count="0"/>
+    </pivotCacheDefinition>`)!;
+    if (consolidated.sourceType !== 'consolidation') {
+      throw new Error('expected consolidation');
+    }
+    expect(consolidated.consolidation.pages).toEqual([ [ 'PA' ] ]);
+    expect(consolidated.consolidation.rangeSets[0].sheet).toBe('SA');
+  });
+});

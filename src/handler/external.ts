@@ -1,5 +1,5 @@
 import { Element, type Document } from '@borgar/simple-xml';
-import { attr, boolAttr, numAttr } from '../utils/attr.ts';
+import { attr, boolAttr, numAttr, xstringAttr } from '../utils/attr.ts';
 import { handlerCell } from './cell.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { ConversionContext } from '../ConversionContext.ts';
@@ -21,7 +21,7 @@ export function handlerExternal (dom: Document, fileName: string = '', rels: Rel
   dom.querySelectorAll('sheetNames > sheetName')
     .forEach(sheetName => {
       external.sheets.push({
-        name: attr(sheetName, 'val'),
+        name: xstringAttr(sheetName, 'val'),
         cells: {},
       });
     });
@@ -121,9 +121,9 @@ export function handlerExternal (dom: Document, fileName: string = '', rels: Rel
   dom.querySelectorAll('definedNames > definedName')
     .forEach(definedName => {
       const nameDef: ExternalDefinedName = {
-        name: attr(definedName, 'name'),
+        name: xstringAttr(definedName, 'name'),
       };
-      const expr = attr(definedName, 'refersTo');
+      const expr = xstringAttr(definedName, 'refersTo');
       if (expr) {
         nameDef.value = normalizeFormula(expr, NO_EXTERNALS);
       }

@@ -1,7 +1,7 @@
 import type { Element } from '@borgar/simple-xml';
 import type { ErrorName, PivotCacheSharedItem } from '@jsfkit/types';
 import { ERROR_NAMES } from '../../constants.ts';
-import { attr, boolAttr, numAttr } from '../../utils/attr.ts';
+import { attr, boolAttr, numAttr, xstringAttr } from '../../utils/attr.ts';
 
 /** Parse a single `<s>`, `<n>`, `<b>`, `<d>`, `<e>`, or `<m>` element into a shared item. */
 export function parseCacheSharedItem (elm: Element): PivotCacheSharedItem | undefined {
@@ -11,7 +11,7 @@ export function parseCacheSharedItem (elm: Element): PivotCacheSharedItem | unde
     result = { t: 'z' };
   }
   else if (tag === 's') {
-    result = { t: 's', v: attr(elm, 'v') ?? '' };
+    result = { t: 's', v: xstringAttr(elm, 'v') ?? '' };
   }
   else if (tag === 'n') {
     result = { t: 'n', v: numAttr(elm, 'v', 0) };
