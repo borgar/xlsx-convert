@@ -38,6 +38,7 @@ import {
   fieldEncoding,
   hoistSharedBindings,
   inferLevels,
+  splitUnion,
   plotLayout,
   pointMap,
   toValue,
@@ -176,7 +177,8 @@ class ChartExBuilder {
   /** The number of category levels in the chart's first series. */
   categoryLevels (series: SeriesEx[]): number {
     const dim = series[0]?.dataId != null ? this.cs.data.get(series[0].dataId)?.cat : undefined;
-    return dim?.levels ?? (dim?.f ? inferLevels(dim.f).levels : undefined) ?? 1;
+    const f = dim?.f;
+    return dim?.levels ?? (f ? (splitUnion(f)?.length ?? inferLevels(f).levels) : undefined) ?? 1;
   }
 
   buildSeries (ser: SeriesEx, position: number): ChartSeries {
@@ -191,17 +193,30 @@ class ChartExBuilder {
     if (data?.cat) {
       const binding = this.makeBinding(data.cat, 'category');
       if (binding) {
-        const inferred = data.cat.f ? inferLevels(data.cat.f) : {};
-        const levels = data.cat.levels ?? inferred.levels ?? 1;
+        // levels with ranges of their own come as a union, one range per level, outer level first
+        const union = data.cat.f ? splitUnion(data.cat.f) : undefined;
+        const inferred = data.cat.f && !union ? inferLevels(data.cat.f) : {};
+        const levels = data.cat.levels ?? union?.length ?? inferred.levels ?? 1;
+        const levelRanges = union?.length === levels ? [ ...union ].reverse() : undefined;
         if (levels > 1) {
           binding.level = 0;
-          if (data.cat.f) {
+          if (levelRanges) {
+            // each level is one column (or row), so the values run along it
+            binding.formula = levelRanges[0];
+            addProp(binding, 'direction', inferLevels(levelRanges[0]).direction, 'column');
+          }
+          else if (data.cat.f) {
             // The levels share one range, with a column (or row) per level.
             const direction = data.cat.dir === 'row' ? 'row' : data.cat.dir === 'col' ? 'column' : inferred.direction;
             addProp(binding, 'direction', direction, 'column');
           }
           for (let level = 1; level < levels; level++) {
             const levelBinding: ChartFieldBinding = { ...binding, level };
+            if (levelRanges) {
+              levelBinding.formula = levelRanges[level];
+              delete levelBinding.direction;
+              addProp(levelBinding, 'direction', inferLevels(levelRanges[level]).direction, 'column');
+            }
             const literal = data.cat.levelValues?.[level];
             if (literal) {
               // Literal data has its own values for each level.

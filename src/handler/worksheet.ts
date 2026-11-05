@@ -429,7 +429,7 @@ export function handlerWorksheet (
     if (pageSetup.getAttribute('orientation') === 'portrait') { ignoreProps++; }
     if (pageSetup.getAttribute('horizontalDpi') === '0') { ignoreProps++; }
     if (pageSetup.getAttribute('verticalDpi') === '0') { ignoreProps++; }
-    if (Object.keys(pageSetup.attr).length > ignoreProps) {
+    if (pageSetup.attributes.length > ignoreProps) {
       context.unsupported.add(MISSING_PRINT_SETUP);
     }
   }

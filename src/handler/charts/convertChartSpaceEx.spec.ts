@@ -124,6 +124,18 @@ describe('convertChartSpaceEx', () => {
     expect(chart.plots[0].layout).toEqual({ type: 'treemap', parentLabelLayout: 'banner' });
   });
 
+  it('gives each category level its own range when the levels come as a union', () => {
+    const data = '<cx:chartData><cx:data id="0">' +
+      '<cx:strDim type="cat"><cx:f>(Sheet1!$E$2:$E$9,Sheet1!$A$2:$A$9)</cx:f></cx:strDim>' +
+      '<cx:numDim type="size"><cx:f>Sheet1!$C$2:$C$9</cx:f></cx:numDim></cx:data></cx:chartData>';
+    const { chart } = convert(series('sunburst', 0), { axes: '', data });
+    expect(chart.transforms?.[0]).toMatchObject({ levels: [ 'category1', 'category' ] });
+    const bindings = chart.plots[0].series![0].bindings ?? chart.data[0].bindings;
+    const all = { ...chart.data[0].bindings, ...bindings };
+    expect(all.category1).toEqual({ formula: 'Sheet1!$E$2:$E$9', role: 'category', level: 1 });
+    expect(all.category).toEqual({ formula: 'Sheet1!$A$2:$A$9', role: 'category', level: 0 });
+  });
+
   it('keeps each level of literal multi-level categories', () => {
     const data = '<cx:chartData><cx:data id="0"><cx:strDim type="cat">' +
       '<cx:lvl ptCount="2"><cx:pt idx="0">Apples</cx:pt><cx:pt idx="1">Pears</cx:pt></cx:lvl>' +

@@ -189,6 +189,80 @@ describe('convertChartSpace', () => {
     expect(list[1].bindings?.value?.formula).toBe('Sheet1!$C$2:$C$4');
   });
 
+  it('reads a filtered series as Excel saves it: a name cell, and bindings with only a full range', () => {
+    const formulaRef = (range: string) => (
+      '<c:extLst><c:ext uri="{02D57815-91ED-43cb-92C2-25804820EDAC}">' +
+      `<c15:formulaRef><c15:sqref>${range}</c15:sqref></c15:formulaRef></c:ext></c:extLst>`
+    );
+    const chart = convert(
+      series(0, 'B') +
+      '<c:extLst><c:ext uri="{02D57815-91ED-43cb-92C2-25804820EDAC}"><c15:filteredLineSeries>' +
+      '<c15:ser><c:idx val="1"/><c:order val="1"/>' +
+      `<c:tx><c:strRef>${formulaRef('Sheet1!$C$1')}</c:strRef></c:tx>` +
+      `<c:cat><c:strRef>${formulaRef('Sheet1!$A$2:$A$4')}</c:strRef></c:cat>` +
+      `<c:val><c:numRef>${formulaRef('Sheet1!$C$2:$C$4')}</c:numRef></c:val>` +
+      '</c15:ser></c15:filteredLineSeries></c:ext></c:extLst>',
+    );
+    const hidden = chart.plots[0].series[1];
+    expect(hidden.hidden).toBe(true);
+    expect(hidden.name).toEqual({ formula: 'Sheet1!$C$1' });
+    expect(hidden.bindings).toEqual({
+      category: { fullFormula: 'Sheet1!$A$2:$A$4', role: 'category' },
+      value: { fullFormula: 'Sheet1!$C$2:$C$4', role: 'value' },
+    });
+  });
+
+  it('reads filtered categories: the whole ranges, and the formatting of filtered-out points', () => {
+    const fullRef = (range: string) => (
+      '<c:extLst><c:ext uri="{02D57815-91ED-43cb-92C2-25804820EDAC}">' +
+      `<c15:fullRef><c15:sqref>${range}</c15:sqref></c15:fullRef></c:ext></c:extLst>`
+    );
+    const ser = '<c:ser><c:idx val="0"/><c:order val="0"/>' +
+      `<c:cat><c:strRef>${fullRef('Sheet1!$A$2:$A$4')}<c:f>(Sheet1!$A$2,Sheet1!$A$4)</c:f></c:strRef></c:cat>` +
+      `<c:val><c:numRef>${fullRef('Sheet1!$B$2:$B$4')}<c:f>(Sheet1!$B$2,Sheet1!$B$4)</c:f></c:numRef></c:val>` +
+      '<c:extLst><c:ext uri="{02D57815-91ED-43cb-92C2-25804820EDAC}"><c15:categoryFilterExceptions>' +
+      '<c15:categoryFilterException><c15:sqref>Sheet1!$B$3</c15:sqref>' +
+      '<c15:spPr><a:solidFill><a:srgbClr val="FF0000"/></a:solidFill></c15:spPr>' +
+      '</c15:categoryFilterException></c15:categoryFilterExceptions></c:ext></c:extLst></c:ser>';
+    const chart = convert(ser);
+    const [ converted ] = chart.plots[0].series;
+    expect(chart.data[0].bindings?.category ?? converted.bindings?.category).toMatchObject({
+      formula: '(Sheet1!$A$2,Sheet1!$A$4)',
+      fullFormula: 'Sheet1!$A$2:$A$4',
+    });
+    expect(converted.bindings?.value).toMatchObject({
+      formula: '(Sheet1!$B$2,Sheet1!$B$4)',
+      fullFormula: 'Sheet1!$B$2:$B$4',
+    });
+    expect(converted.filteredPoints).toEqual([
+      { ref: 'Sheet1!$B$3', shape: { fill: { type: 'solid', bg: { type: 'srgb', value: 'FF0000' } } } },
+    ]);
+  });
+
+  it('drops markers that are what Excel draws automatically for the series\' c:idx', () => {
+    const color = '<a:schemeClr val="accent2"><a:lumMod val="60000"/></a:schemeClr>';
+    const auto = '<c:marker><c:symbol val="dot"/><c:size val="5"/><c:spPr>' +
+      `<a:solidFill>${color}</a:solidFill><a:ln w="9525" cap="sq"><a:solidFill>${color}</a:solidFill></a:ln>` +
+      '</c:spPr></c:marker>';
+    const chart = convert(
+      series(7, 'B', auto) +
+      series(0, 'C', '<c:marker><c:symbol val="circle"/></c:marker>') +
+      '<c:marker val="1"/>',
+    );
+    const byId = (id: string) => chart.plots[0].series!.find(s => s.id === id)!;
+    expect(byId('s7').marker).toBeUndefined();
+    // circle is the automatic symbol for c:idx 5, not 0
+    expect(byId('s0').marker).toEqual({ symbol: 'circle' });
+  });
+
+  it('drops an automatic x marker, which has no fill', () => {
+    const color = '<a:schemeClr val="accent4"/>';
+    const marker = '<c:marker><c:symbol val="x"/><c:spPr><a:noFill/>' +
+      `<a:ln w="9525" cap="sq"><a:solidFill>${color}</a:solidFill></a:ln></c:spPr></c:marker>`;
+    const chart = convert(series(3, 'B', marker) + '<c:marker val="1"/>');
+    expect(chart.plots[0].series![0].marker).toBeUndefined();
+  });
+
   it('reads labels taken from cells ("Value From Cells")', () => {
     const chart = convert(series(0, 'B',
       '<c:dLbls><c:showLegendKey val="0"/><c:showVal val="1"/><c:showCatName val="0"/>' +

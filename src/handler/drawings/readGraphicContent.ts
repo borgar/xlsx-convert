@@ -180,7 +180,7 @@ export function readGraphicContent (parent: Element, context: ConversionContext)
     else if (d.tagName === 'AlternateContent') {
       for (const x of d.children) {
         if (x.tagName === 'Choice') {
-          const req = x.attr.Requires.trim().split(/\s+/);
+          const req = (x.getAttribute('Requires') ?? '').trim().split(/\s+/);
           if (req.length) {
             for (const prefix of req) {
               const ns = seekXmlNs(x, prefix);

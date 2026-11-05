@@ -1,4 +1,4 @@
-import type { Chart, ChartAxis, ChartDataLabels, ChartPlot, ChartSeries, Color, Fill, Line, NoFill, SchemeColor, Shape } from '@jsfkit/types';
+import type { Chart, ChartAxis, ChartDataLabels, ChartMarker, ChartPlot, ChartSeries, Color, Fill, Line, NoFill, SchemeColor, Shape } from '@jsfkit/types';
 
 /**
  * The kinds of chart element that have a default fill and line (spec section 2.7, "Shape
@@ -19,6 +19,7 @@ export type ShapeElement =
   'lineSeries' |
   'filledSeries' |
   'marker' |
+  'strokeMarker' |
   'trendline' |
   'errorBars' |
   'connectorLines' |
@@ -99,6 +100,8 @@ export const JSF_SHAPE_DEFAULTS: ShapeDefaultsTable = (element, color) => {
     lineSeries: { fill: noFill(), line: { width: 28575, cap: 'round', fill: solid(color), join: 'round' } },
     filledSeries: { fill: solid(color), line: noLine() },
     marker: { fill: solid(color), line: { width: 9525, cap: 'square', fill: solid(color) } },
+    // x, star, and plus markers are drawn with their outline alone (confirmed in Excel)
+    strokeMarker: { fill: noFill(), line: { width: 9525, cap: 'square', fill: solid(color) } },
     trendline: { line: { width: 19050, cap: 'round', fill: solid(color), style: 'sysDot' } },
     errorBars: { line: tx1(65, 35) },
     connectorLines: { line: tx1(35, 65) },
@@ -175,6 +178,13 @@ function colorsByPoint (chart: Chart, plot: ChartPlot): boolean {
 }
 
 /** Each series' color index: its `colorIndex`, or its position in series order. */
+// Symbols that Excel draws as lines, so their markers have no fill by default.
+const STROKE_SYMBOLS = new Set([ 'x', 'star', 'plus' ]);
+
+function markerElement (marker: ChartMarker | undefined): ShapeElement {
+  return STROKE_SYMBOLS.has(marker?.symbol ?? '') ? 'strokeMarker' : 'marker';
+}
+
 function colorIndexes (chart: Chart): Map<ChartSeries, number> {
   const all = chart.plots.flatMap(p => p.series);
   const byOrder = [ ...all ].sort((a, b) => (a.order ?? all.indexOf(a)) - (b.order ?? all.indexOf(b)));
@@ -332,7 +342,7 @@ function slots (chart: Chart): { shapes: ShapeSlot[], lines: LineSlot[] } {
         const [ slot ] = holder(seriesElement(chart, plot), series, color, true);
         slot.noFillDefault = byPoint;
         shapes.push(slot);
-        shapes.push(...holder('marker', series.marker, color));
+        shapes.push(...holder(markerElement(series.marker), series.marker, color));
       }
       shapes.push(...holder('label', series.labels));
       lines.push(...leaderLines(series.labels));
@@ -482,6 +492,48 @@ export function reduceShapes (chart: Chart) {
     for (const series of plot.series) {
       if (series.labels && !Object.keys(series.labels).length) {
         delete series.labels;
+      }
+    }
+  }
+}
+
+// The symbols that Excel gives automatic markers, in turn by the series' color index (`c:idx`).
+const AUTO_SYMBOLS = [ 'diamond', 'square', 'triangle', 'x', 'star', 'circle', 'plus', 'dot', 'dash' ] as const;
+
+/** Whether a plot's series show markers when they have no marker of their own. */
+function plotShowsMarkers (chart: Chart, plot: ChartPlot): boolean {
+  const layout = plot.layout;
+  if (plot.mark === 'line' && !chart.view3D) {
+    return layout?.type === 'radar' ? layout.style === 'marker' : (layout?.type === 'line' && !!layout.showMarkers);
+  }
+  if (plot.mark === 'point' && !plot.encoding.size) {
+    const style = (layout?.type === 'scatter' ? layout.style : undefined) ?? 'marker';
+    return style === 'marker' || style === 'lineMarker' || style === 'smoothMarker';
+  }
+  return false;
+}
+
+/**
+ * Leave out a series marker's symbol where it's the one Excel picks automatically for the series'
+ * color index, and then a marker left empty where the plot shows markers anyway. Run this after
+ * the shapes are reduced, and before the color index is: Excel colors and picks automatic markers
+ * by the series' `c:idx`.
+ */
+export function dropAutomaticMarkers (chart: Chart) {
+  const indexes = colorIndexes(chart);
+  for (const plot of chart.plots) {
+    if ((plot.mark !== 'line' || chart.view3D) && (plot.mark !== 'point' || plot.encoding.size)) {
+      continue;
+    }
+    const byDefault = plotShowsMarkers(chart, plot);
+    for (const series of plot.series) {
+      const marker = series.marker;
+      if (!marker) { continue; }
+      if (marker.symbol === AUTO_SYMBOLS[(indexes.get(series) ?? 0) % AUTO_SYMBOLS.length]) {
+        delete marker.symbol;
+      }
+      if (byDefault && !Object.keys(marker).length) {
+        delete series.marker;
       }
     }
   }

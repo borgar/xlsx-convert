@@ -9,6 +9,7 @@ import type { integer, Shape } from '@jsfkit/types';
 import type { BarShape } from '../plots/BarShape.ts';
 import type { Marker } from '../marker/Marker.ts';
 import type { StrRef } from '../data/StrRef.ts';
+import type { CategoryFilterException } from './CategoryFilterException.ts';
 
 export type Series = {
   idx: integer;
@@ -33,4 +34,6 @@ export type Series = {
   hidden?: boolean;
   // the range data labels take their text from (`c15:datalabelsRange`), normalized
   labelsRange?: string;
+  // points in categories filtered out with Excel's chart filter (`c15:categoryFilterExceptions`)
+  filteredPoints?: CategoryFilterException[];
 };

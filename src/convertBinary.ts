@@ -358,6 +358,8 @@ export async function convertBinary (
           const tagsBefore = new Set(context.unsupported);
           const keep = isChartEx ? MISSING_CHART_CHARTEX : MISSING_CHART;
           let chart: Chart | undefined;
+          const drawingRels = context.drawingRels;
+          const imagesBefore = context.images.length;
           try {
             const chartDom = await xlsx.readXML(part.rel.target);
             if (!chartDom) { continue; }
@@ -365,6 +367,8 @@ export async function convertBinary (
               context.unsupported.add(MISSING_CHART_PIVOT);
               tagsBefore.add(MISSING_CHART_PIVOT);
             }
+            // A picture fill in a chart refers to the chart part's own relationships.
+            context.drawingRels = await xlsx.readRels(part.rel.target);
             chart = isChartEx
               ? convertChartSpaceEx(handlerChart(chartDom, context, true), context)
               : convertChartSpace(handlerChart(chartDom, context), context);
@@ -374,7 +378,12 @@ export async function convertBinary (
             context.unsupported.add(keep);
             context.warn(`Chart ${part.rel.target} could not be converted: ${(err as Error).message}`);
           }
+          finally {
+            context.drawingRels = drawingRels;
+          }
           if (!chart) {
+            // so are the pictures it uses
+            context.images.length = imagesBefore;
             // A chart that isn't converted only reports that, not the details the parser met.
             for (const tag of context.unsupported) {
               if (!tagsBefore.has(tag) && tag !== keep) {

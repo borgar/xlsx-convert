@@ -171,6 +171,32 @@ describe('convertBinary', () => {
       expect(warn.mock.calls[0][0]).toMatch(/Chart .*chart1\.xml could not be converted/);
     });
 
+    test('reads a picture fill in a chart from the chart part\'s relationships', async () => {
+      const bin = await readFileAsArrayBuffer('./tests/excel/charts/chart-bar.xlsx');
+      const zip = new ZipArchive(bin);
+      // a 1x1 PNG
+      const png = Uint8Array.from(atob(
+        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
+      ), c => c.charCodeAt(0));
+      await zip.write('xl/media/chartFill.png', png);
+      const rels = (await zip.readText('xl/charts/_rels/chart1.xml.rels'))!;
+      await zip.write('xl/charts/_rels/chart1.xml.rels', rels.replace('</Relationships>',
+        '<Relationship Id="rId9" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image"' +
+        ' Target="../media/chartFill.png"/></Relationships>'));
+      const types = (await zip.readText('[Content_Types].xml'))!;
+      if (!types.includes('Extension="png"')) {
+        await zip.write('[Content_Types].xml', types.replace('<Default ', '<Default Extension="png" ContentType="image/png"/><Default '));
+      }
+      const chartXml = (await zip.readText('xl/charts/chart1.xml'))!;
+      await zip.write('xl/charts/chart1.xml', chartXml.replace('<a:solidFill><a:schemeClr val="accent1"/></a:solidFill>',
+        '<a:blipFill><a:blip r:embed="rId9"/><a:stretch><a:fillRect/></a:stretch></a:blipFill>'));
+      const wb = await convertBinary(zip.toArrayBuffer(), 'chart-bar.xlsx');
+      const chart = Object.values(wb.charts!)[0];
+      const fill = chart.plots[0].series[0].shape?.fill;
+      expect(fill).toMatchObject({ type: 'blip', mediaId: 'xl/media/chartFill.png' });
+      expect(Object.keys(wb.images ?? {})).toContain('xl/media/chartFill.png');
+    });
+
     test('warns when pivot table cache definition is missing', async () => {
       const bin = await readFileAsArrayBuffer('./tests/excel/pivot-table.xlsx');
       const zip = new ZipArchive(bin);

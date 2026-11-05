@@ -185,6 +185,37 @@ export function inferLevels (formula: string): { levels?: number, direction?: 'c
 }
 
 /**
+ * The ranges of a union reference, such as `(Sheet1!$E$2:$E$6,Sheet1!$A$2:$A$6)`, or undefined
+ * when the formula isn't a union of two or more ranges. A multi-level category whose levels each
+ * have their own range is written this way, one range per level, outer level first.
+ */
+export function splitUnion (formula: string): string[] | undefined {
+  const f = formula.trim();
+  if (!f.startsWith('(') || !f.endsWith(')')) {
+    return;
+  }
+  const parts: string[] = [];
+  let start = 1;
+  let quoted = false;
+  for (let i = 1; i < f.length - 1; i++) {
+    const c = f[i];
+    if (c === "'") {
+      // a doubled quote inside a quoted sheet name stays quoted
+      quoted = !quoted;
+    }
+    else if (c === ',' && !quoted) {
+      parts.push(f.slice(start, i));
+      start = i + 1;
+    }
+    else if ((c === '(' || c === ')') && !quoted) {
+      return;
+    }
+  }
+  parts.push(f.slice(start, -1));
+  return parts.length > 1 && parts.every(part => inferLevels(part).levels != null) ? parts : undefined;
+}
+
+/**
  * Move bindings that every series shares to the dataset, so a shared category range is written
  * once.
  */
