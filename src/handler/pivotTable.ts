@@ -161,8 +161,8 @@ export function handlerPivotTable (dom: Document, numFmts?: NumFmtLookup): Pivot
 
   const calculatedFields: PivotTable['calculatedFields'] = [];
   for (const cfEl of root.querySelectorAll('calculatedFields > calculatedField')) {
-    const cfName = attr(cfEl, 'name');
-    const cfFormula = attr(cfEl, 'formula');
+    const cfName = xstringAttr(cfEl, 'name');
+    const cfFormula = xstringAttr(cfEl, 'formula');
     if (cfName != null && cfFormula != null) {
       calculatedFields.push({ name: cfName, formula: cfFormula });
     }

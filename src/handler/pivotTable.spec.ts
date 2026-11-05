@@ -844,6 +844,19 @@ describe('handlerPivotTable', () => {
 });
 
 describe('handlerPivotTable _xHHHH_ escapes', () => {
+  it('decodes escapes in calculated field names and formulas', () => {
+    const pt = parse(`<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="0"/>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="0"/>
+      <calculatedFields count="1">
+        <calculatedField name="M_x0041_" formula="LEN(&quot;Q_x005F_x0041_&quot;)"/>
+      </calculatedFields>
+    </pivotTableDefinition>`)!;
+    expect(pt.calculatedFields).toEqual([ { name: 'MA', formula: 'LEN("Q_x0041_")' } ]);
+  });
+
   it('decodes escapes in names, captions and filter strings', () => {
     const pt = parse(`<pivotTableDefinition name="P_x0041_" cacheId="0" dataCaption="V_x0041_"
         grandTotalCaption="G_x0041_" errorCaption="E_x0041_" missingCaption="M_x0041_"
