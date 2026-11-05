@@ -230,8 +230,7 @@ export function handlerCell (node: Element, address: string, context: Conversion
     }
   }
 
-  // decode the _xHHHH_ escapes of ST_Xstring, used for control characters and for an
-  // underscore that would otherwise start an escape
+  // decode the _xHHHH_ escapes of ST_Xstring
   if (typeof cell.v === 'string') {
     cell.v = unescape(cell.v);
   }
