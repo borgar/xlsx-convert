@@ -1,0 +1,1622 @@
+{
+  "name": "conditional-formatting.xlsx",
+  "sheets": [
+    {
+      "name": "Classic",
+      "cells": {
+        "A1": { "s": 4, "v": "cell value" },
+        "A2": { "v": 1 },
+        "A3": { "v": 2 },
+        "A4": { "v": 3 },
+        "A5": { "v": 4 },
+        "A6": { "v": 5 },
+        "A7": { "v": 6 },
+        "A8": { "v": 7 },
+        "A9": { "v": 8 },
+        "A10": { "s": 3, "v": 9 },
+        "B10": { "v": "with fill" },
+        "A11": { "s": 4, "v": "text" },
+        "A12": { "v": "text" },
+        "B12": { "v": "has" },
+        "A13": { "v": "foo bar" },
+        "B13": { "v": "not has" },
+        "A14": { "v": "foo bar" },
+        "B14": { "v": "starts" },
+        "A15": { "v": 1234321 },
+        "B15": { "v": "start (is num)" },
+        "A16": { "v": 1234321 },
+        "B16": { "v": "end (is num)" },
+        "A17": { "s": 4, "v": "dates" },
+        "A18": { "s": 5, "v": 46327, "f": 0 },
+        "B18": { "v": "yesterday" },
+        "A19": { "s": 5, "v": 46328, "f": 1 },
+        "B19": { "v": "today" },
+        "A20": { "s": 6, "v": 46328.665470949076, "f": 2 },
+        "B20": { "v": "now" },
+        "A21": { "s": 5, "v": 46329.5, "f": 3 },
+        "B21": { "v": "tomorrow" },
+        "A22": { "s": 5, "v": 46324, "f": 4 },
+        "B22": { "v": "last seven days" },
+        "A23": { "s": 5, "v": 46321, "f": 5 },
+        "B23": { "v": "last week" },
+        "A24": { "s": 5, "v": 46328, "f": 1 },
+        "B24": { "v": "this week" },
+        "A25": { "s": 5, "v": 46338, "f": 6 },
+        "B25": { "v": "next week" },
+        "A26": { "s": 5, "v": 46298, "f": 7 },
+        "B26": { "v": "last month" },
+        "A27": { "s": 5, "v": 46328, "f": 1 },
+        "B27": { "v": "this month" },
+        "A28": { "s": 5, "v": 46348, "f": 8 },
+        "B28": { "v": "next month" },
+        "A29": { "s": 4, "v": "other" },
+        "B30": { "v": "blanks" },
+        "A31": { "v": "value!" },
+        "B31": { "v": "non-blanks" },
+        "A32": { "v": "#DIV/0!", "t": "e", "f": 9 },
+        "B32": { "v": "errors" },
+        "A33": { "v": "foo bar" },
+        "B33": { "v": "non-errors" },
+        "A34": {
+          "s": 4,
+          "v": "format only top or bottom ranked values"
+        },
+        "A35": { "v": 12 },
+        "B35": { "v": "top 10" },
+        "A36": { "v": 12 },
+        "B36": { "v": "top 10 percent" },
+        "A37": { "v": 12 },
+        "B37": { "v": "bottom 10" },
+        "A38": { "v": 12 },
+        "B38": { "v": "bottom 10 percent" },
+        "A39": {
+          "s": 4,
+          "v": "format only values that are above or below average"
+        },
+        "A40": { "v": 0 },
+        "B40": { "v": "above the average" },
+        "A41": { "v": 1 },
+        "B41": { "v": "below" },
+        "A42": { "v": 2 },
+        "B42": { "v": "equal or above" },
+        "A43": { "v": 3 },
+        "B43": { "v": "equal or below" },
+        "A44": { "v": 4 },
+        "B44": { "v": "1 std dev above" },
+        "A45": { "v": 5 },
+        "B45": { "v": "1 std dev below" },
+        "B46": { "v": "..." },
+        "A47": {
+          "s": 4,
+          "v": "format only unique or duplicate values"
+        },
+        "B47": { "s": 4 },
+        "C47": { "s": 4 },
+        "A48": { "v": "aba" },
+        "B48": { "v": "duplicate" },
+        "A49": { "v": 111 },
+        "B49": { "v": "unique" },
+        "A50": {
+          "s": 4,
+          "v": "use a formula to determine which cells to format"
+        },
+        "A51": { "v": "bab" },
+        "A52": { "v": "I say *hi* to you" },
+        "B52": { "v": "contains text with escaped wildcards" },
+        "A53": { "v": "a \"b\" c" },
+        "B53": { "v": "contains text with quotes" },
+        "A55": { "s": 4, "v": "Removes background colour" },
+        "A56": { "s": 7, "v": 1 },
+        "A57": { "s": 7, "v": 2 },
+        "A58": { "s": 7, "v": 3 },
+        "A59": { "s": 7, "v": 4 },
+        "A60": { "s": 7, "v": 5 }
+      },
+      "columns": [ { "start": 1, "end": 1, "size": 85 } ],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "conditionalFormatting": [
+        {
+          "type": "compare",
+          "ref": [ "A56:A60" ],
+          "priority": 1,
+          "operator": "greaterThan",
+          "formulas": [ "2" ],
+          "dxf": 0
+        },
+        {
+          "type": "formula",
+          "ref": [ "A51" ],
+          "priority": 2,
+          "formula": "$A$51<>\"foo\"",
+          "dxf": 3
+        },
+        {
+          "type": "duplicate",
+          "ref": [ "A49" ],
+          "priority": 3,
+          "negate": true,
+          "dxf": 6
+        },
+        {
+          "type": "duplicate",
+          "ref": [ "A48" ],
+          "priority": 4,
+          "dxf": 7
+        },
+        {
+          "type": "average",
+          "ref": [ "A45" ],
+          "priority": 5,
+          "direction": "below",
+          "standardDeviations": 1,
+          "dxf": 9
+        },
+        {
+          "type": "average",
+          "ref": [ "A44" ],
+          "priority": 6,
+          "standardDeviations": 1,
+          "dxf": 11
+        },
+        {
+          "type": "average",
+          "ref": [ "A43" ],
+          "priority": 7,
+          "direction": "below",
+          "inclusive": true,
+          "dxf": 12
+        },
+        {
+          "type": "average",
+          "ref": [ "A42" ],
+          "priority": 8,
+          "inclusive": true,
+          "dxf": 13
+        },
+        {
+          "type": "average",
+          "ref": [ "A41" ],
+          "priority": 9,
+          "direction": "below",
+          "dxf": 14
+        },
+        {
+          "type": "average",
+          "ref": [ "A40" ],
+          "priority": 10,
+          "dxf": 16
+        },
+        {
+          "type": "average",
+          "ref": [ "A41" ],
+          "priority": 11,
+          "dxf": 15
+        },
+        {
+          "type": "rank",
+          "ref": [ "A38" ],
+          "priority": 12,
+          "count": 10,
+          "unit": "percent",
+          "direction": "bottom",
+          "dxf": 17
+        },
+        {
+          "type": "rank",
+          "ref": [ "A37" ],
+          "priority": 13,
+          "count": 10,
+          "direction": "bottom",
+          "dxf": 18
+        },
+        {
+          "type": "rank",
+          "ref": [ "A36" ],
+          "priority": 14,
+          "count": 10,
+          "unit": "percent",
+          "dxf": 19
+        },
+        {
+          "type": "rank",
+          "ref": [ "A35" ],
+          "priority": 15,
+          "count": 10,
+          "dxf": 20
+        },
+        {
+          "type": "error",
+          "ref": [ "A33" ],
+          "priority": 16,
+          "negate": true,
+          "dxf": 21
+        },
+        {
+          "type": "error",
+          "ref": [ "A32" ],
+          "priority": 17,
+          "dxf": 22
+        },
+        {
+          "type": "blank",
+          "ref": [ "A31" ],
+          "priority": 18,
+          "negate": true,
+          "dxf": 23
+        },
+        {
+          "type": "blank",
+          "ref": [ "A30" ],
+          "priority": 19,
+          "dxf": 24
+        },
+        {
+          "type": "date",
+          "ref": [ "A28" ],
+          "priority": 20,
+          "period": "nextMonth",
+          "dxf": 25
+        },
+        {
+          "type": "date",
+          "ref": [ "A27" ],
+          "priority": 21,
+          "period": "thisMonth",
+          "dxf": 26
+        },
+        {
+          "type": "date",
+          "ref": [ "A26" ],
+          "priority": 22,
+          "period": "lastMonth",
+          "dxf": 27
+        },
+        {
+          "type": "date",
+          "ref": [ "A25" ],
+          "priority": 23,
+          "period": "nextWeek",
+          "dxf": 28
+        },
+        {
+          "type": "date",
+          "ref": [ "A24" ],
+          "priority": 24,
+          "period": "thisWeek",
+          "dxf": 29
+        },
+        {
+          "type": "date",
+          "ref": [ "A23" ],
+          "priority": 25,
+          "period": "lastWeek",
+          "dxf": 30
+        },
+        {
+          "type": "date",
+          "ref": [ "A22" ],
+          "priority": 27,
+          "period": "last7Days",
+          "dxf": 31
+        },
+        {
+          "type": "date",
+          "ref": [ "A21" ],
+          "priority": 28,
+          "period": "tomorrow",
+          "dxf": 32
+        },
+        {
+          "type": "date",
+          "ref": [ "A19:A20" ],
+          "priority": 29,
+          "period": "today",
+          "dxf": 33
+        },
+        {
+          "type": "date",
+          "ref": [ "A18" ],
+          "priority": 31,
+          "period": "yesterday",
+          "dxf": 34
+        },
+        {
+          "type": "text",
+          "ref": [ "A15:A16" ],
+          "priority": 32,
+          "operator": "endsWith",
+          "match": "321",
+          "dxf": 35
+        },
+        {
+          "type": "text",
+          "ref": [ "A14" ],
+          "priority": 33,
+          "operator": "beginsWith",
+          "match": "FOO",
+          "dxf": 36
+        },
+        {
+          "type": "text",
+          "ref": [ "A13" ],
+          "priority": 34,
+          "operator": "notContains",
+          "match": "ex",
+          "dxf": 38
+        },
+        {
+          "type": "text",
+          "ref": [ "A12" ],
+          "priority": 35,
+          "operator": "contains",
+          "match": "ex",
+          "dxf": 39
+        },
+        {
+          "type": "compare",
+          "ref": [ "A10" ],
+          "priority": 36,
+          "operator": "lessThanOrEqual",
+          "formulas": [ "1000" ],
+          "dxf": 42
+        },
+        {
+          "type": "compare",
+          "ref": [ "A9" ],
+          "priority": 37,
+          "operator": "greaterThanOrEqual",
+          "formulas": [ "4" ],
+          "dxf": 43
+        },
+        {
+          "type": "compare",
+          "ref": [ "A8" ],
+          "priority": 39,
+          "operator": "greaterThanOrEqual",
+          "formulas": [ "7" ],
+          "dxf": 44
+        },
+        {
+          "type": "compare",
+          "ref": [ "A7" ],
+          "priority": 40,
+          "operator": "lessThan",
+          "formulas": [ "100" ],
+          "dxf": 45
+        },
+        {
+          "type": "compare",
+          "ref": [ "A6" ],
+          "priority": 41,
+          "operator": "greaterThan",
+          "formulas": [ "1" ],
+          "dxf": 46
+        },
+        {
+          "type": "compare",
+          "ref": [ "A5" ],
+          "priority": 42,
+          "operator": "notEqual",
+          "formulas": [ "3" ],
+          "dxf": 47
+        },
+        {
+          "type": "compare",
+          "ref": [ "A4" ],
+          "priority": 43,
+          "operator": "equal",
+          "formulas": [ "3" ],
+          "dxf": 48
+        },
+        {
+          "type": "compare",
+          "ref": [ "A2" ],
+          "priority": 44,
+          "operator": "between",
+          "formulas": [ "1", "2" ],
+          "dxf": 50
+        },
+        {
+          "type": "compare",
+          "ref": [ "A4", "A6:A8" ],
+          "priority": 45,
+          "operator": "greaterThan",
+          "formulas": [ "5" ],
+          "dxf": 49,
+          "stopIfTrue": true
+        },
+        {
+          "type": "text",
+          "ref": [ "A12" ],
+          "priority": 46,
+          "operator": "contains",
+          "match": "$B$12",
+          "matchIsFormula": true,
+          "dxf": 40
+        },
+        {
+          "type": "text",
+          "ref": [ "A14" ],
+          "priority": 47,
+          "operator": "beginsWith",
+          "match": "$B$14",
+          "matchIsFormula": true,
+          "dxf": 1
+        },
+        {
+          "type": "average",
+          "ref": [ "A44" ],
+          "priority": 48,
+          "standardDeviations": 2,
+          "dxf": 10
+        },
+        {
+          "type": "average",
+          "ref": [ "A45" ],
+          "priority": 49,
+          "direction": "below",
+          "standardDeviations": 3,
+          "dxf": 8
+        },
+        {
+          "type": "formula",
+          "ref": [ "A51" ],
+          "priority": 50,
+          "formula": "$A$51=IconSet!$A$1",
+          "dxf": 4
+        },
+        {
+          "type": "compare",
+          "ref": [ "A49" ],
+          "priority": 51,
+          "operator": "greaterThan",
+          "formulas": [ "IconSet!$A$1" ],
+          "stopIfTrue": true,
+          "dxf": 5
+        },
+        {
+          "type": "text",
+          "ref": [ "A12" ],
+          "priority": 52,
+          "operator": "contains",
+          "match": "IconSet!$B$1",
+          "matchIsFormula": true,
+          "dxf": 41
+        },
+        {
+          "type": "text",
+          "ref": [ "A52" ],
+          "priority": 53,
+          "operator": "contains",
+          "match": "say ~*hi~*",
+          "dxf": 2
+        },
+        {
+          "type": "text",
+          "ref": [ "A53" ],
+          "priority": 54,
+          "operator": "beginsWith",
+          "match": "a \"b\"",
+          "dxf": 1
+        }
+      ],
+      "views": [ { "workbookView": 0, "activeCell": "E59" } ]
+    },
+    {
+      "name": "IconSet",
+      "cells": {
+        "A1": { "v": 1 },
+        "B1": { "v": "defaults" },
+        "A2": { "v": 2 },
+        "B2": { "v": "different set" },
+        "A3": { "v": 3 },
+        "B3": { "v": "number" },
+        "A4": { "v": 4 },
+        "B4": { "v": "formula" },
+        "A5": { "v": 5 },
+        "B5": { "v": "two rules" },
+        "A6": { "s": 2, "v": 6 },
+        "B6": { "v": "with fill" },
+        "A7": { "v": 7 },
+        "A8": { "v": 8 },
+        "B8": { "v": "x14 icon set (3Triangles)" },
+        "A9": { "v": 9 },
+        "B9": { "v": "custom icons" },
+        "A10": { "v": 10 },
+        "B10": { "v": "x14 icon set (5Boxes), reversed" }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "conditionalFormatting": [
+        {
+          "type": "iconSet",
+          "ref": [ "A7" ],
+          "priority": 1,
+          "iconSet": {
+            "set": "3Arrows",
+            "thresholds": [
+              { "type": "percent", "value": 0 },
+              {
+                "type": "percentile",
+                "value": 33,
+                "inclusive": false
+              },
+              {
+                "type": "percentile",
+                "value": 67,
+                "inclusive": false
+              }
+            ]
+          }
+        },
+        {
+          "type": "iconSet",
+          "ref": [ "A6" ],
+          "priority": 2,
+          "iconSet": {
+            "set": "5Arrows",
+            "thresholds": [
+              { "type": "percent", "value": 0 },
+              { "type": "percent", "value": 20 },
+              { "type": "percent", "value": 40 },
+              { "type": "percent", "value": 60 },
+              { "type": "percent", "value": 80 }
+            ]
+          }
+        },
+        {
+          "type": "iconSet",
+          "ref": [ "A5" ],
+          "priority": 3,
+          "iconSet": {
+            "set": "3ArrowsGray",
+            "thresholds": [
+              { "type": "percent", "value": 0 },
+              { "type": "percent", "value": 33 },
+              { "type": "percent", "value": 67 }
+            ]
+          }
+        },
+        {
+          "type": "iconSet",
+          "ref": [ "A5" ],
+          "priority": 4,
+          "iconSet": {
+            "set": "3Flags",
+            "thresholds": [
+              { "type": "percent", "value": 0 },
+              { "type": "percent", "value": 33 },
+              { "type": "percent", "value": 67 }
+            ]
+          }
+        },
+        {
+          "type": "iconSet",
+          "ref": [ "A4" ],
+          "priority": 6,
+          "iconSet": {
+            "set": "3Arrows",
+            "thresholds": [
+              { "type": "percent", "value": 0 },
+              { "type": "formula", "value": "$A$1" },
+              { "type": "formula", "value": "$A$4" }
+            ]
+          }
+        },
+        {
+          "type": "iconSet",
+          "ref": [ "A3" ],
+          "priority": 7,
+          "iconSet": {
+            "set": "3Arrows",
+            "thresholds": [
+              { "type": "percent", "value": 0 },
+              { "type": "number", "value": 6 },
+              { "type": "number", "value": 8 }
+            ],
+            "showValue": false,
+            "reverse": true
+          }
+        },
+        {
+          "type": "iconSet",
+          "ref": [ "A2" ],
+          "priority": 9,
+          "iconSet": {
+            "set": "3Symbols",
+            "thresholds": [
+              { "type": "percent", "value": 0 },
+              { "type": "percent", "value": 33 },
+              { "type": "percent", "value": 67 }
+            ]
+          }
+        },
+        {
+          "type": "iconSet",
+          "ref": [ "A1" ],
+          "priority": 10,
+          "iconSet": {
+            "set": "3TrafficLights1",
+            "thresholds": [
+              { "type": "percent", "value": 0 },
+              { "type": "percent", "value": 33 },
+              { "type": "percent", "value": 67 }
+            ]
+          }
+        },
+        {
+          "type": "iconSet",
+          "ref": [ "A8" ],
+          "priority": 11,
+          "iconSet": {
+            "set": "3Arrows",
+            "thresholds": [
+              { "type": "percent", "value": 0 },
+              { "type": "percent", "value": 33 },
+              { "type": "percent", "value": 67 }
+            ]
+          }
+        },
+        {
+          "type": "iconSet",
+          "ref": [ "A9" ],
+          "priority": 12,
+          "iconSet": {
+            "set": "3TrafficLights1",
+            "thresholds": [
+              { "type": "percent", "value": 0 },
+              { "type": "percent", "value": 33 },
+              { "type": "percent", "value": 67 }
+            ]
+          }
+        },
+        {
+          "type": "iconSet",
+          "ref": [ "A10" ],
+          "priority": 13,
+          "iconSet": {
+            "set": "5Quarters",
+            "thresholds": [
+              { "type": "percent", "value": 0 },
+              { "type": "percent", "value": 20 },
+              { "type": "percent", "value": 40 },
+              { "type": "percent", "value": 60 },
+              { "type": "percent", "value": 80 }
+            ],
+            "reverse": true
+          }
+        },
+        {
+          "type": "iconSet",
+          "ref": [ "A8" ],
+          "priority": 14,
+          "iconSet": {
+            "set": "3Triangles",
+            "thresholds": [
+              { "type": "percent", "value": 0 },
+              { "type": "percent", "value": 33 },
+              { "type": "percent", "value": 67 }
+            ]
+          }
+        },
+        {
+          "type": "iconSet",
+          "ref": [ "A9" ],
+          "priority": 15,
+          "iconSet": {
+            "set": [
+              { "setName": "3Arrows", "index": 0 },
+              { "setName": "NoIcons", "index": 0 },
+              { "setName": "3Stars", "index": 2 }
+            ],
+            "thresholds": [
+              { "type": "percent", "value": 0 },
+              { "type": "percent", "value": 33 },
+              { "type": "percent", "value": 67 }
+            ]
+          }
+        },
+        {
+          "type": "iconSet",
+          "ref": [ "A10" ],
+          "priority": 16,
+          "iconSet": {
+            "set": "5Boxes",
+            "thresholds": [
+              { "type": "percent", "value": 0 },
+              { "type": "percent", "value": 20 },
+              { "type": "percent", "value": 40 },
+              { "type": "percent", "value": 60 },
+              { "type": "percent", "value": 80 }
+            ],
+            "showValue": false,
+            "reverse": true
+          }
+        }
+      ],
+      "views": [ { "workbookView": 0, "activeCell": "D7" } ]
+    },
+    {
+      "name": "2ColorScale",
+      "cells": {
+        "A1": { "v": 1 },
+        "B1": { "v": "defaults" },
+        "A2": { "v": 2 },
+        "B2": { "v": "percent" },
+        "A3": { "v": 3 },
+        "B3": { "v": "formula" },
+        "A4": { "v": 4 },
+        "B4": { "v": "number" },
+        "A5": { "v": 5 },
+        "B5": { "v": "two rules" },
+        "C5": { "v": "unable to \"stop if true?\"" }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "conditionalFormatting": [
+        {
+          "type": "colorScale",
+          "ref": [ "A5" ],
+          "priority": 1,
+          "colorScale": [
+            {
+              "type": "min",
+              "color": { "type": "srgb", "value": "FF7128" }
+            },
+            {
+              "type": "max",
+              "color": { "type": "srgb", "value": "FFEF9C" }
+            }
+          ]
+        },
+        {
+          "type": "colorScale",
+          "ref": [ "A5" ],
+          "priority": 2,
+          "colorScale": [
+            {
+              "type": "percentile",
+              "value": 10,
+              "color": { "type": "theme", "value": "accent4" }
+            },
+            {
+              "type": "percentile",
+              "value": 90,
+              "color": { "type": "srgb", "value": "7030A0" }
+            }
+          ]
+        },
+        {
+          "type": "colorScale",
+          "ref": [ "A4" ],
+          "priority": 3,
+          "colorScale": [
+            {
+              "type": "number",
+              "value": 0,
+              "color": { "type": "theme", "value": "accent1" }
+            },
+            {
+              "type": "number",
+              "value": 10,
+              "color": {
+                "type": "theme",
+                "value": "accent5",
+                "transforms": [ { "type": "tint", "value": 20.001831110568556 } ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "colorScale",
+          "ref": [ "A3" ],
+          "priority": 4,
+          "colorScale": [
+            {
+              "type": "min",
+              "color": { "type": "theme", "value": "accent6" }
+            },
+            {
+              "type": "formula",
+              "value": "$A$1*2",
+              "color": { "type": "srgb", "value": "C00000" }
+            }
+          ]
+        },
+        {
+          "type": "colorScale",
+          "ref": [ "A2" ],
+          "priority": 5,
+          "colorScale": [
+            {
+              "type": "percent",
+              "value": 0,
+              "color": { "type": "srgb", "value": "FF7128" }
+            },
+            {
+              "type": "percent",
+              "value": 100,
+              "color": { "type": "srgb", "value": "FFEF9C" }
+            }
+          ]
+        },
+        {
+          "type": "colorScale",
+          "ref": [ "A1" ],
+          "priority": 6,
+          "colorScale": [
+            {
+              "type": "min",
+              "color": { "type": "srgb", "value": "FF7128" }
+            },
+            {
+              "type": "max",
+              "color": { "type": "srgb", "value": "FFEF9C" }
+            }
+          ]
+        }
+      ],
+      "views": [
+        {
+          "workbookView": 0,
+          "activeCell": "B1",
+          "activeRanges": [ "B1:B5" ]
+        }
+      ]
+    },
+    {
+      "name": "3ColorScale",
+      "cells": {
+        "A1": { "v": 1 },
+        "B1": { "v": "defaults" },
+        "A2": { "v": 2 },
+        "B2": { "v": "percent" },
+        "A3": { "v": 3 },
+        "B3": { "v": "formula" },
+        "A4": { "v": 4 },
+        "B4": { "v": "number" },
+        "A5": { "v": 5 },
+        "B5": { "v": "two rules" },
+        "C5": { "v": "unable to \"stop if true?\"" }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "conditionalFormatting": [
+        {
+          "type": "colorScale",
+          "ref": [ "A5" ],
+          "priority": 1,
+          "colorScale": [
+            {
+              "type": "min",
+              "color": { "type": "srgb", "value": "C00000" }
+            },
+            {
+              "type": "percentile",
+              "value": 50,
+              "color": {
+                "type": "theme",
+                "value": "accent4",
+                "transforms": [ { "type": "tint", "value": 60.00244148075809 } ]
+              }
+            },
+            {
+              "type": "max",
+              "color": { "type": "theme", "value": "accent6" }
+            }
+          ]
+        },
+        {
+          "type": "colorScale",
+          "ref": [ "A5" ],
+          "priority": 2,
+          "colorScale": [
+            {
+              "type": "min",
+              "color": { "type": "srgb", "value": "C00000" }
+            },
+            {
+              "type": "percentile",
+              "value": 50,
+              "color": {
+                "type": "theme",
+                "value": "accent4",
+                "transforms": [ { "type": "shade", "value": 75.0022888882107 } ]
+              }
+            },
+            {
+              "type": "max",
+              "color": { "type": "theme", "value": "accent6" }
+            }
+          ]
+        },
+        {
+          "type": "colorScale",
+          "ref": [ "A4" ],
+          "priority": 3,
+          "colorScale": [
+            {
+              "type": "number",
+              "value": 0,
+              "color": { "type": "theme", "value": "accent6" }
+            },
+            {
+              "type": "number",
+              "value": 5,
+              "color": { "type": "theme", "value": "accent5" }
+            },
+            {
+              "type": "number",
+              "value": 10,
+              "color": { "type": "theme", "value": "accent4" }
+            }
+          ]
+        },
+        {
+          "type": "colorScale",
+          "ref": [ "A3" ],
+          "priority": 4,
+          "colorScale": [
+            {
+              "type": "formula",
+              "value": "$A$3*1",
+              "color": { "type": "theme", "value": "accent2" }
+            },
+            {
+              "type": "formula",
+              "value": "$A$3*2",
+              "color": {
+                "type": "theme",
+                "value": "accent1",
+                "transforms": [ { "type": "tint", "value": 60.00244148075809 } ]
+              }
+            },
+            {
+              "type": "formula",
+              "value": "$A$3*3",
+              "color": {
+                "type": "theme",
+                "value": "accent4",
+                "transforms": [ { "type": "tint", "value": 40.00061037018951 } ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "colorScale",
+          "ref": [ "A2" ],
+          "priority": 6,
+          "colorScale": [
+            {
+              "type": "percent",
+              "value": 0,
+              "color": { "type": "srgb", "value": "FF0000" }
+            },
+            {
+              "type": "percent",
+              "value": 50,
+              "color": { "type": "theme", "value": "lt1" }
+            },
+            {
+              "type": "percent",
+              "value": 100,
+              "color": { "type": "srgb", "value": "00B050" }
+            }
+          ]
+        },
+        {
+          "type": "colorScale",
+          "ref": [ "A1" ],
+          "priority": 7,
+          "colorScale": [
+            {
+              "type": "min",
+              "color": { "type": "srgb", "value": "FF7128" }
+            },
+            {
+              "type": "percentile",
+              "value": 50,
+              "color": { "type": "srgb", "value": "FFEB84" }
+            },
+            {
+              "type": "max",
+              "color": { "type": "srgb", "value": "FFEF9C" }
+            }
+          ]
+        }
+      ],
+      "views": [ { "workbookView": 0, "activeCell": "A14" } ]
+    },
+    {
+      "name": "DataBar",
+      "cells": {
+        "A1": { "v": 1 },
+        "B1": { "v": "defaults" },
+        "A2": { "v": 2 },
+        "B2": { "v": "percent" },
+        "A3": { "v": 3 },
+        "B3": { "v": "formula" },
+        "A4": { "v": 4 },
+        "B4": { "v": "number" },
+        "A5": { "s": 1, "v": 5 },
+        "B5": { "v": "with fill" },
+        "A6": { "v": 6 },
+        "B6": { "v": "two rules" },
+        "A7": { "v": 7 },
+        "A8": { "v": 8 },
+        "B8": { "v": "main part only (no x14 extension)" },
+        "A9": { "v": -9 },
+        "B9": { "v": "negative bar same colour as positive" },
+        "A11": { "s": 4, "v": "x14 extension" },
+        "A12": { "v": 1 },
+        "B12": { "v": "Requires cross-sheet reference" },
+        "A13": { "v": 2 },
+        "A14": { "v": 3 },
+        "A15": { "v": 4 },
+        "A16": { "v": 5 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "conditionalFormatting": [
+        {
+          "type": "dataBar",
+          "ref": [ "A12:A16" ],
+          "priority": 1,
+          "dataBar": {
+            "min": { "type": "formula", "value": "Classic!$A$56" },
+            "max": { "type": "formula", "value": "Classic!$A$60" },
+            "minLength": 0,
+            "maxLength": 100,
+            "fillColor": { "type": "srgb", "value": "638EC6" },
+            "negativeFillColor": { "type": "srgb", "value": "FF0000" },
+            "axisColor": { "type": "srgb", "value": "000000" },
+            "gradient": false
+          }
+        },
+        {
+          "type": "dataBar",
+          "ref": [ "A7" ],
+          "priority": 2,
+          "dataBar": {
+            "min": { "type": "autoMin" },
+            "max": { "type": "autoMax" },
+            "fillColor": { "type": "srgb", "value": "008AEF" },
+            "minLength": 0,
+            "maxLength": 100,
+            "borderColor": { "type": "srgb", "value": "008AEF" },
+            "negativeFillColor": { "type": "srgb", "value": "FF0000" },
+            "negativeBorderColor": { "type": "srgb", "value": "FF0000" },
+            "axisColor": { "type": "srgb", "value": "000000" }
+          }
+        },
+        {
+          "type": "dataBar",
+          "ref": [ "A6" ],
+          "priority": 3,
+          "dataBar": {
+            "min": { "type": "number", "value": 0 },
+            "max": { "type": "number", "value": 10 },
+            "fillColor": { "type": "theme", "value": "accent6" },
+            "minLength": 0,
+            "maxLength": 100,
+            "negativeFillColor": { "type": "theme", "value": "accent4" },
+            "axisColor": { "type": "srgb", "value": "FF0000" },
+            "gradient": false,
+            "direction": "leftToRight",
+            "axisPosition": "middle"
+          }
+        },
+        {
+          "type": "dataBar",
+          "ref": [ "A6" ],
+          "priority": 4,
+          "dataBar": {
+            "min": { "type": "number", "value": 0 },
+            "max": { "type": "number", "value": 10 },
+            "fillColor": { "type": "theme", "value": "accent5" },
+            "minLength": 0,
+            "maxLength": 100,
+            "negativeFillColor": { "type": "theme", "value": "accent2" },
+            "axisColor": { "type": "srgb", "value": "7030A0" },
+            "gradient": false,
+            "direction": "rightToLeft",
+            "axisPosition": "middle"
+          }
+        },
+        {
+          "type": "dataBar",
+          "ref": [ "A5" ],
+          "priority": 5,
+          "dataBar": {
+            "min": { "type": "number", "value": 0 },
+            "max": { "type": "number", "value": 10 },
+            "fillColor": { "type": "srgb", "value": "C00000" },
+            "minLength": 0,
+            "maxLength": 100,
+            "negativeFillColor": {
+              "type": "theme",
+              "value": "accent1",
+              "transforms": [ { "type": "shade", "value": 75.0022888882107 } ]
+            },
+            "axisPosition": "none"
+          }
+        },
+        {
+          "type": "dataBar",
+          "ref": [ "A4" ],
+          "priority": 6,
+          "dataBar": {
+            "min": { "type": "number", "value": 0 },
+            "max": { "type": "number", "value": 10 },
+            "fillColor": { "type": "srgb", "value": "638EC6" },
+            "minLength": 0,
+            "maxLength": 100,
+            "negativeFillColor": { "type": "srgb", "value": "FF0000" },
+            "axisColor": { "type": "srgb", "value": "000000" },
+            "gradient": false,
+            "axisPosition": "middle"
+          }
+        },
+        {
+          "type": "dataBar",
+          "ref": [ "A3" ],
+          "priority": 7,
+          "dataBar": {
+            "min": { "type": "formula", "value": "$A$3*0.5" },
+            "max": { "type": "formula", "value": "$A$3*1.5" },
+            "showValue": false,
+            "fillColor": { "type": "theme", "value": "accent4" },
+            "minLength": 0,
+            "maxLength": 100,
+            "negativeFillColor": {
+              "type": "theme",
+              "value": "accent1",
+              "transforms": [ { "type": "shade", "value": 75.0022888882107 } ]
+            },
+            "axisColor": { "type": "srgb", "value": "000000" }
+          }
+        },
+        {
+          "type": "dataBar",
+          "ref": [ "A2" ],
+          "priority": 8,
+          "dataBar": {
+            "min": { "type": "percent", "value": 0 },
+            "max": { "type": "percent", "value": 100 },
+            "fillColor": { "type": "theme", "value": "accent6" },
+            "minLength": 0,
+            "maxLength": 100,
+            "borderColor": {
+              "type": "theme",
+              "value": "accent6",
+              "transforms": [ { "type": "shade", "value": 50.0015259254738 } ]
+            },
+            "negativeFillColor": {
+              "type": "theme",
+              "value": "accent2",
+              "transforms": [ { "type": "shade", "value": 75.0022888882107 } ]
+            },
+            "negativeBorderColor": {
+              "type": "theme",
+              "value": "accent2",
+              "transforms": [ { "type": "shade", "value": 50.0015259254738 } ]
+            },
+            "axisColor": { "type": "srgb", "value": "000000" },
+            "gradient": false
+          }
+        },
+        {
+          "type": "dataBar",
+          "ref": [ "A1" ],
+          "priority": 9,
+          "dataBar": {
+            "min": { "type": "autoMin" },
+            "max": { "type": "autoMax" },
+            "fillColor": { "type": "srgb", "value": "638EC6" },
+            "minLength": 0,
+            "maxLength": 100,
+            "negativeFillColor": { "type": "srgb", "value": "FF0000" },
+            "axisColor": { "type": "srgb", "value": "000000" },
+            "gradient": false
+          }
+        },
+        {
+          "type": "dataBar",
+          "ref": [ "A8" ],
+          "priority": 10,
+          "dataBar": {
+            "min": { "type": "percentile", "value": 10 },
+            "max": { "type": "percentile", "value": 90 },
+            "minLength": 20,
+            "maxLength": 80,
+            "showValue": false,
+            "fillColor": { "type": "srgb", "value": "63C384" }
+          }
+        },
+        {
+          "type": "dataBar",
+          "ref": [ "A9" ],
+          "priority": 11,
+          "dataBar": {
+            "min": { "type": "autoMin" },
+            "max": { "type": "autoMax" },
+            "fillColor": { "type": "srgb", "value": "FF555A" },
+            "minLength": 0,
+            "maxLength": 100,
+            "axisPosition": "none"
+          }
+        }
+      ],
+      "views": [ { "workbookView": 0, "activeCell": "C14" } ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontScheme": "minor", "fontSize": 12 },
+    {
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "fillColor": { "type": "srgb", "value": "002060" }
+    },
+    {
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "fillColor": {
+        "type": "theme",
+        "value": "accent4",
+        "transforms": [ { "type": "shade", "value": 75.0022888882107 } ]
+      }
+    },
+    {
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "fillColor": {
+        "type": "theme",
+        "value": "lt1",
+        "transforms": [ { "type": "shade", "value": 75.0022888882107 } ]
+      }
+    },
+    { "fontScheme": "minor", "fontSize": 12, "bold": true },
+    {
+      "numberFormat": "m/d/yy",
+      "fontScheme": "minor",
+      "fontSize": 12
+    },
+    {
+      "numberFormat": "m/d/yy h:mm",
+      "fontScheme": "minor",
+      "fontSize": 12
+    },
+    {
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "fillColor": { "type": "srgb", "value": "FFFF00" }
+    }
+  ],
+  "tables": [],
+  "views": [ { "activeSheet": 4 } ],
+  "theme": {
+    "name": "Office 2013 - 2022 Theme",
+    "colorScheme": {
+      "name": "Office 2013 - 2022",
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt1": { "type": "system", "value": "window" },
+      "dk2": { "type": "srgb", "value": "44546A" },
+      "lt2": { "type": "srgb", "value": "E7E6E6" },
+      "accent1": { "type": "srgb", "value": "4472C4" },
+      "accent2": { "type": "srgb", "value": "ED7D31" },
+      "accent3": { "type": "srgb", "value": "A5A5A5" },
+      "accent4": { "type": "srgb", "value": "FFC000" },
+      "accent5": { "type": "srgb", "value": "5B9BD5" },
+      "accent6": { "type": "srgb", "value": "70AD47" },
+      "hlink": { "type": "srgb", "value": "0563C1" },
+      "folHlink": { "type": "srgb", "value": "954F72" }
+    },
+    "fontScheme": {
+      "name": "Office 2013 - 2022",
+      "major": {
+        "latin": { "typeface": "Calibri Light" }
+      },
+      "minor": {
+        "latin": { "typeface": "Calibri" }
+      }
+    }
+  },
+  "diffStyles": [
+    { "patternStyle": "none" },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "bold": false,
+      "italic": true,
+      "numberFormat": "\\-\\-@\\-\\-",
+      "fillColor": {
+        "type": "theme",
+        "value": "accent4",
+        "transforms": [ { "type": "tint", "value": 20.001831110568556 } ]
+      },
+      "patternColor": {
+        "type": "theme",
+        "value": "accent1",
+        "transforms": [ { "type": "shade", "value": 75.0053407391583 } ]
+      },
+      "patternStyle": "mediumGray",
+      "borderTopStyle": "hair",
+      "borderTopColor": { "type": "srgb", "value": "FF0000" },
+      "borderBottomStyle": "hair",
+      "borderBottomColor": { "type": "srgb", "value": "FF0000" },
+      "borderLeftStyle": "hair",
+      "borderLeftColor": { "type": "srgb", "value": "FF0000" },
+      "borderRightStyle": "hair",
+      "borderRightColor": { "type": "srgb", "value": "FF0000" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "FF0000" },
+      "bold": true,
+      "italic": false,
+      "fillColor": { "type": "srgb", "value": "FFFF00" }
+    },
+    {
+      "numberFormat": "0.00",
+      "borderTopStyle": "double",
+      "borderTopColor": { "type": "theme", "value": "accent1" },
+      "borderLeftStyle": "thin",
+      "borderLeftColor": { "type": "srgb", "value": "000000" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "bold": false,
+      "italic": true,
+      "numberFormat": "\\-\\-@\\-\\-",
+      "fillColor": {
+        "type": "theme",
+        "value": "accent4",
+        "transforms": [ { "type": "tint", "value": 20.001831110568556 } ]
+      },
+      "patternColor": {
+        "type": "theme",
+        "value": "accent1",
+        "transforms": [ { "type": "shade", "value": 75.0053407391583 } ]
+      },
+      "patternStyle": "mediumGray",
+      "borderTopStyle": "hair",
+      "borderTopColor": { "type": "srgb", "value": "FF0000" },
+      "borderBottomStyle": "hair",
+      "borderBottomColor": { "type": "srgb", "value": "FF0000" },
+      "borderLeftStyle": "hair",
+      "borderLeftColor": { "type": "srgb", "value": "FF0000" },
+      "borderRightStyle": "hair",
+      "borderRightColor": { "type": "srgb", "value": "FF0000" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C5700" },
+      "fillColor": { "type": "srgb", "value": "FFEB9C" }
+    },
+    { "underline": "single" },
+    {
+      "borderTopStyle": "thin",
+      "borderTopColor": { "type": "srgb", "value": "9C0006" },
+      "borderBottomStyle": "thin",
+      "borderBottomColor": { "type": "srgb", "value": "9C0006" },
+      "borderLeftStyle": "thin",
+      "borderLeftColor": { "type": "srgb", "value": "9C0006" },
+      "borderRightStyle": "thin",
+      "borderRightColor": { "type": "srgb", "value": "9C0006" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" }
+    },
+    {
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "006100" },
+      "fillColor": { "type": "srgb", "value": "C6EFCE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C5700" },
+      "fillColor": { "type": "srgb", "value": "FFEB9C" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C5700" },
+      "fillColor": { "type": "srgb", "value": "FFEB9C" }
+    },
+    {
+      "color": { "type": "srgb", "value": "9C0006" },
+      "fillColor": { "type": "srgb", "value": "FFC7CE" }
+    }
+  ],
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "formulas": [
+    "TODAY()-1",
+    "TODAY()",
+    "NOW()",
+    "TODAY()+1.5",
+    "TODAY()-RANDBETWEEN(0,6)",
+    "TODAY()-7",
+    "TODAY()+10",
+    "TODAY()-30",
+    "TODAY()+20",
+    "0/0"
+  ],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  }
+}

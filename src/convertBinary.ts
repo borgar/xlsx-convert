@@ -70,7 +70,6 @@ import {
  * | `chart-pivot` | Pivot charts
  * | `col-group` | Grouped columns
  * | `data-validation` | Data validation
- * | `dynamic-style` | Conditional formatting of cells
  * | `note-rtf` | Rich text in notes
  * | `print-gridlines` | Print sheet gridlines
  * | `print-headings` | Print sheet headings
@@ -255,6 +254,9 @@ export async function convertBinary (
   // convert styles to JSF format (styleDefs was read earlier for pivot numFmtId resolution)
   const { styles, namedStyles } = convertStyles(styleDefs);
   wb.styles = styles;
+  if (styleDefs?.diffStyles.length) {
+    wb.diffStyles = styleDefs.diffStyles;
+  }
   if (Object.keys(namedStyles).length > 0) {
     wb.namedStyles = namedStyles;
   }

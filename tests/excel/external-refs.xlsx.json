@@ -133,6 +133,7 @@
       }
     }
   },
+  "diffStyles": [ { "numberFormat": "General" } ],
   "namedStyles": {
     "Normal": {
       "name": "Normal",

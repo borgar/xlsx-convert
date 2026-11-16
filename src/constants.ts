@@ -357,7 +357,6 @@ export const MISSING_CHART_CHARTEX = 'chart-chartex';
 export const MISSING_CHART_PIVOT = 'chart-pivot';
 export const MISSING_COL_GROUP = 'col-group';
 export const MISSING_DATA_VALIDATION = 'data-validation';
-export const MISSING_DYNAMIC_STYLE = 'dynamic-style';
 export const MISSING_NOTE_RTF = 'note-rtf';
 export const MISSING_PRINT_GRIDLINES = 'print-gridlines';
 export const MISSING_PRINT_HEADINGS = 'print-headings';
@@ -415,7 +414,6 @@ export const UNSUPPORTED_TAGS = [
   MISSING_CHART_PIVOT,
   MISSING_COL_GROUP,
   MISSING_DATA_VALIDATION,
-  MISSING_DYNAMIC_STYLE,
   MISSING_NOTE_RTF,
   MISSING_PRINT_GRIDLINES,
   MISSING_PRINT_HEADINGS,

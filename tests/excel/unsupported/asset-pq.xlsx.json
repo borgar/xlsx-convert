@@ -95,6 +95,10 @@
       }
     }
   },
+  "diffStyles": [
+    { "numberFormat": "General" },
+    { "numberFormat": "General" }
+  ],
   "namedStyles": {
     "Normal": {
       "name": "Normal",

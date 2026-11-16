@@ -11,9 +11,10 @@ import { toA1 } from '../utils/toA1.ts';
 import { getFirstChild } from '../utils/getFirstChild.ts';
 import { toInt } from '../utils/typecast.ts';
 import { addProp } from '../utils/addProp.ts';
+import { handlerConditionalFormatting } from './conditionalFormatting/handlerConditionalFormatting.ts';
 import {
   DEFAULT_PAGE_MARGINS, MISSING_ASSET_OO, MISSING_ASSET_VML, MISSING_COL_GROUP,
-  MISSING_DATA_VALIDATION, MISSING_DYNAMIC_STYLE, MISSING_PRINT_GRIDLINES,
+  MISSING_DATA_VALIDATION, MISSING_PRINT_GRIDLINES,
   MISSING_PRINT_HEADINGS, MISSING_PRINT_SETUP, MISSING_ROW_GROUP, MISSING_SCENARIO,
   MISSING_SHEET_AUTOFILTER, MISSING_SHEET_BACKGROUND, MISSING_SHEET_LOCK, MISSING_SHEET_RTL,
   MISSING_SHEET_TABCOLOR, MISSING_SPARKLINE, MISSING_VIEW_FORMULAS,
@@ -80,6 +81,12 @@ export function handlerWorksheet (
   };
   let groupedCols = false;
   let groupedRows = false;
+
+  // Store any conditional formatting rules that the sheet has.
+  const conditionalFormatting = handlerConditionalFormatting(dom, context);
+  if (conditionalFormatting.length) {
+    sheet.conditionalFormatting = conditionalFormatting;
+  }
 
   // Store the sheet's views (layout, zoom level, selected cell/range, frozen panes).
   const views: WorksheetView[] = [];
@@ -381,9 +388,6 @@ export function handlerWorksheet (
   }
 
   // flag unsupported features
-  const conditionalFormatting = getFirstChild(dom.root, 'conditionalFormatting');
-  if (conditionalFormatting) { context.unsupported.add(MISSING_DYNAMIC_STYLE); }
-
   const oleObjects = getFirstChild(dom.root, 'oleObjects');
   if (oleObjects) { context.unsupported.add(MISSING_ASSET_OO); }
 

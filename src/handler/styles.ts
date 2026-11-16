@@ -1,5 +1,5 @@
 import type { Document, Element } from '@borgar/simple-xml';
-import type { Color, Theme } from '@jsfkit/types';
+import type { Color, DifferentialStyle, Style, Theme } from '@jsfkit/types';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import {
   BUILTIN_FORMATS, MISSING_BORDER_DIAGONAL, MISSING_CELL_CHECKBOX, MISSING_CELL_HIDE,
@@ -8,6 +8,7 @@ import {
 import type { ConversionContext } from '../ConversionContext.ts';
 import { readColor } from '../color/readColor.ts';
 import { addProp } from '../utils/addProp.ts';
+import { getFirstChild } from '../utils/getFirstChild.ts';
 
 function valOfSubNode (node: Element, subNodeName: string): string | undefined {
   const subNode = node.querySelectorAll(subNodeName)[0];
@@ -29,8 +30,8 @@ type Font = {
   name?: string,
   scheme?: 'major' | 'minor',
   underline?: string,
-  bold: boolean,
-  italic: boolean,
+  bold?: boolean,
+  italic?: boolean,
   color?: Color,
 };
 
@@ -48,6 +49,7 @@ export type StyleDefs = {
   font: Font[];
   numFmts: Record<number, string>;
   border: Borders[];
+  diffStyles: DifferentialStyle[];
 };
 
 type Xf = {
@@ -179,10 +181,94 @@ function readFont (node: Element, theme: Theme): Font {
     name: name === 'Calibri (Body)' ? 'Calibri' : name,
     scheme: (scheme === 'major' || scheme === 'minor') ? scheme : undefined,
     underline: u ? attr(u, 'val', 'single') : undefined,
-    bold: !!b,
-    italic: !!i,
+    bold: b ? boolAttr(b, 'val', true) : undefined,
+    italic: i ? boolAttr(i, 'val', true) : undefined,
     color: readColor(node.querySelectorAll('color')[0], theme),
   };
+}
+
+/**
+ * Reads differential formatting from a `<dxf>` element.
+ *
+ * A dxf lists only the properties it changes, so unlike cell styles it has no defaults. For
+ * example, a child <b/> sets bold while <b val="0"/> clears it, but the absence of a <b> element
+ * means it has no opinion on the boldness of the text.
+ */
+export function readDxf (node: Element, theme: Theme): DifferentialStyle {
+  const s: DifferentialStyle = {};
+
+  const fontNode = node.querySelector('font');
+  if (fontNode) {
+    const font = readFont(fontNode, theme);
+    if (font.scheme) {
+      s.fontScheme = font.scheme;
+    }
+    else {
+      addProp(s, 'fontFamily', font.name);
+    }
+    addProp(s, 'fontSize', font.size);
+    addProp(s, 'color', font.color);
+    addProp(s, 'underline', font.underline as Style['underline']);
+    addProp(s, 'bold', font.bold);
+    addProp(s, 'italic', font.italic);
+  }
+
+  const numFmt = node.querySelector('numFmt');
+  if (numFmt) {
+    const code = attr(numFmt, 'formatCode') ?? BUILTIN_FORMATS[numAttr(numFmt, 'numFmtId', -1)];
+    if (code) {
+      s.numberFormat = code;
+    }
+  }
+
+  const fill = node.querySelector('fill > patternFill');
+  if (fill) {
+    const type = attr(fill, 'patternType', 'solid');
+    const fg = readColor(fill.querySelector('fgColor'), theme);
+    const bg = readColor(fill.querySelector('bgColor'), theme);
+    // Note: dxf uses bgColor for solid fill (cell styles use fgColor)
+    if (type === 'solid') {
+      addProp(s, 'fillColor', bg ?? fg);
+    }
+    else if (type === 'none') {
+      // An explicit "none" clears the cell's fill.
+      s.patternStyle = 'none';
+    }
+    else {
+      addProp(s, 'fillColor', bg);
+      addProp(s, 'patternColor', fg);
+      s.patternStyle = type as Style['patternStyle'];
+    }
+  }
+
+  const align = node.querySelector('alignment');
+  if (align) {
+    addProp(s, 'horizontalAlignment', attr(align, 'horizontal') as Style['horizontalAlignment']);
+    addProp(s, 'verticalAlignment', attr(align, 'vertical') as Style['verticalAlignment']);
+    addProp(s, 'wrapText', boolAttr(align, 'wrapText'));
+    addProp(s, 'shrinkToFit', boolAttr(align, 'shrinkToFit'));
+    addProp(s, 'textRotation', numAttr(align, 'textRotation'));
+  }
+
+  const borderNode = node.querySelector('border');
+  if (borderNode) {
+    // Unlike cell borders, a dxf side element without a style means "remove the border", while
+    // an absent side element means "leave the border alone".
+    const sides = {
+      Top: getFirstChild(borderNode, 'top'),
+      Bottom: getFirstChild(borderNode, 'bottom'),
+      Left: getFirstChild(borderNode, [ 'left', 'start' ]),
+      Right: getFirstChild(borderNode, [ 'right', 'end' ]),
+    };
+    for (const [ side, elm ] of Object.entries(sides)) {
+      if (elm) {
+        s[`border${side}Style` as 'borderTopStyle'] = attr(elm, 'style', 'none') as Style['borderTopStyle'];
+        addProp(s, `border${side}Color` as 'borderTopColor', readColor(getFirstChild(elm, 'color'), theme));
+      }
+    }
+  }
+
+  return s;
 }
 
 export function handlerStyles (dom: Document, context: ConversionContext): StyleDefs {
@@ -194,6 +280,7 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
     font: [],
     numFmts: Object.assign({}, BUILTIN_FORMATS),
     border: [],
+    diffStyles: [],
   };
 
   // update indexed colors for this conversion
@@ -278,6 +365,10 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
         styles.cellStyles.push(entry);
       }
     });
+
+  // Differential styles (used by conditional formatting, tables, and pivot tables)
+  dom.querySelectorAll('dxfs > dxf')
+    .forEach(d => styles.diffStyles.push(readDxf(d, context.theme)));
 
   if (styles.border.find(d => d.diagonalDown || d.diagonalUp)) {
     context.unsupported.add(MISSING_BORDER_DIAGONAL);
