@@ -14,6 +14,7 @@ const tests = [
   'tests/excel/arial-normal.xlsx',
   'tests/excel/ascii.xlsx',
   'tests/excel/background-color.xlsx',
+  'tests/excel/bgColor-fgColor.xlsx',
   'tests/excel/blank.xlsx',
   'tests/excel/blipfill.xlsx',
   'tests/excel/borders.xlsx',
