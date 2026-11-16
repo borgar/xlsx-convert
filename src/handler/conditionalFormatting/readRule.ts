@@ -9,7 +9,6 @@ import type {
   CFIconSetRule,
   CFRankRule,
   CFRule,
-  CFStyleRule,
   CFTextRule,
 } from '@jsfkit/types';
 
@@ -77,7 +76,7 @@ export function readRule (node: Element, rc: RuleContext, dxf: number | null): C
   }
 
   // Style rules
-  let rule: CFStyleRule;
+  let rule: Exclude<CFRule, CFColorScaleRule | CFDataBarRule | CFIconSetRule>;
   if (type === 'cellIs') {
     const operator = attr(node, 'operator') as CFCompareRule['operator'];
     const formulasNeeded = operator === 'between' || operator === 'notBetween' ? 2 : 1;
