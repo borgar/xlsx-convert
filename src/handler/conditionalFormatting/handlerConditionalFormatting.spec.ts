@@ -253,14 +253,13 @@ describe('handlerConditionalFormatting', () => {
             { type: 'percent', value: 33 },
             { type: 'percent', value: 67, inclusive: false },
           ],
-          name: '3Triangles',
+          set: [
+            { setName: '3Arrows', index: 0 },
+            { setName: 'NoIcons', index: 0 },
+            { setName: '3Stars', index: 2 },
+          ],
           showValue: false,
           reverse: true,
-          customIcons: [
-            { iconSet: '3Arrows', index: 0 },
-            { iconSet: 'NoIcons', index: 0 },
-            { iconSet: '3Stars', index: 2 },
-          ],
         },
       },
       {
@@ -273,7 +272,7 @@ describe('handlerConditionalFormatting', () => {
             { type: 'percent', value: 33 },
             { type: 'percent', value: 67, inclusive: false },
           ],
-          name: '5Boxes',
+          set: '5Boxes',
         },
       },
     ]);

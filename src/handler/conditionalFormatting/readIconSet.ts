@@ -1,5 +1,5 @@
 import type { Element } from '@borgar/simple-xml';
-import type { CFIcon, CFIconSet, CFIconThreshold } from '@jsfkit/types';
+import type { CFIcon, CFIconSet, CFIconSetName, CFIconThreshold } from '@jsfkit/types';
 
 import type { ConversionContext } from '../../ConversionContext.ts';
 import { addProp } from '../../utils/addProp.ts';
@@ -25,23 +25,22 @@ export function readIconSet (node: Element, context: ConversionContext): CFIconS
       }
     }
     else if (child.tagName === 'cfIcon') {
-      const iconSet = attr(child, 'iconSet') as CFIcon['iconSet'];
+      const setName = attr(child, 'iconSet') as CFIcon['setName'];
       const index = numAttr(child, 'iconId');
-      if (iconSet && index != null) {
-        customIcons.push({ iconSet, index });
+      if (setName && index != null) {
+        customIcons.push({ setName, index });
       }
     }
   }
   if (!thresholds.length) {
     return null;
   }
-  const iconSet: CFIconSet = { thresholds };
-  const name = attr(node, 'iconSet', '3TrafficLights1') as Required<CFIconSet>['name'];
-  addProp(iconSet, 'name', name, '3TrafficLights1');
+  // Custom icons replace the named set, but only if there is one icon per threshold.
+  const set = customIcons.length && customIcons.length === thresholds.length
+    ? customIcons
+    : attr(node, 'iconSet', '3TrafficLights1') as CFIconSetName;
+  const iconSet: CFIconSet = { set, thresholds };
   addProp(iconSet, 'showValue', boolAttr(node, 'showValue'), true);
   addProp(iconSet, 'reverse', boolAttr(node, 'reverse'), false);
-  if (customIcons.length && customIcons.length === thresholds.length) {
-    iconSet.customIcons = customIcons;
-  }
   return iconSet;
 }

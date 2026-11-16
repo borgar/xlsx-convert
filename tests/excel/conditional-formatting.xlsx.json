@@ -539,6 +539,7 @@
           "ref": [ "A7" ],
           "priority": 1,
           "iconSet": {
+            "set": "3Arrows",
             "thresholds": [
               { "type": "percent", "value": 0 },
               {
@@ -551,8 +552,7 @@
                 "value": 67,
                 "inclusive": false
               }
-            ],
-            "name": "3Arrows"
+            ]
           }
         },
         {
@@ -560,14 +560,14 @@
           "ref": [ "A6" ],
           "priority": 2,
           "iconSet": {
+            "set": "5Arrows",
             "thresholds": [
               { "type": "percent", "value": 0 },
               { "type": "percent", "value": 20 },
               { "type": "percent", "value": 40 },
               { "type": "percent", "value": 60 },
               { "type": "percent", "value": 80 }
-            ],
-            "name": "5Arrows"
+            ]
           }
         },
         {
@@ -575,12 +575,12 @@
           "ref": [ "A5" ],
           "priority": 3,
           "iconSet": {
+            "set": "3ArrowsGray",
             "thresholds": [
               { "type": "percent", "value": 0 },
               { "type": "percent", "value": 33 },
               { "type": "percent", "value": 67 }
-            ],
-            "name": "3ArrowsGray"
+            ]
           }
         },
         {
@@ -588,12 +588,12 @@
           "ref": [ "A5" ],
           "priority": 4,
           "iconSet": {
+            "set": "3Flags",
             "thresholds": [
               { "type": "percent", "value": 0 },
               { "type": "percent", "value": 33 },
               { "type": "percent", "value": 67 }
-            ],
-            "name": "3Flags"
+            ]
           }
         },
         {
@@ -601,12 +601,12 @@
           "ref": [ "A4" ],
           "priority": 6,
           "iconSet": {
+            "set": "3Arrows",
             "thresholds": [
               { "type": "percent", "value": 0 },
               { "type": "formula", "value": "$A$1" },
               { "type": "formula", "value": "$A$4" }
-            ],
-            "name": "3Arrows"
+            ]
           }
         },
         {
@@ -614,12 +614,12 @@
           "ref": [ "A3" ],
           "priority": 7,
           "iconSet": {
+            "set": "3Arrows",
             "thresholds": [
               { "type": "percent", "value": 0 },
               { "type": "number", "value": 6 },
               { "type": "number", "value": 8 }
             ],
-            "name": "3Arrows",
             "showValue": false,
             "reverse": true
           }
@@ -629,12 +629,12 @@
           "ref": [ "A2" ],
           "priority": 9,
           "iconSet": {
+            "set": "3Symbols",
             "thresholds": [
               { "type": "percent", "value": 0 },
               { "type": "percent", "value": 33 },
               { "type": "percent", "value": 67 }
-            ],
-            "name": "3Symbols"
+            ]
           }
         },
         {
@@ -642,6 +642,7 @@
           "ref": [ "A1" ],
           "priority": 10,
           "iconSet": {
+            "set": "3TrafficLights1",
             "thresholds": [
               { "type": "percent", "value": 0 },
               { "type": "percent", "value": 33 },
@@ -654,12 +655,12 @@
           "ref": [ "A8" ],
           "priority": 11,
           "iconSet": {
+            "set": "3Arrows",
             "thresholds": [
               { "type": "percent", "value": 0 },
               { "type": "percent", "value": 33 },
               { "type": "percent", "value": 67 }
-            ],
-            "name": "3Arrows"
+            ]
           }
         },
         {
@@ -667,6 +668,7 @@
           "ref": [ "A9" ],
           "priority": 12,
           "iconSet": {
+            "set": "3TrafficLights1",
             "thresholds": [
               { "type": "percent", "value": 0 },
               { "type": "percent", "value": 33 },
@@ -679,6 +681,7 @@
           "ref": [ "A10" ],
           "priority": 13,
           "iconSet": {
+            "set": "5Quarters",
             "thresholds": [
               { "type": "percent", "value": 0 },
               { "type": "percent", "value": 20 },
@@ -686,7 +689,6 @@
               { "type": "percent", "value": 60 },
               { "type": "percent", "value": 80 }
             ],
-            "name": "5Quarters",
             "reverse": true
           }
         },
@@ -695,12 +697,12 @@
           "ref": [ "A8" ],
           "priority": 14,
           "iconSet": {
+            "set": "3Triangles",
             "thresholds": [
               { "type": "percent", "value": 0 },
               { "type": "percent", "value": 33 },
               { "type": "percent", "value": 67 }
-            ],
-            "name": "3Triangles"
+            ]
           }
         },
         {
@@ -708,15 +710,15 @@
           "ref": [ "A9" ],
           "priority": 15,
           "iconSet": {
+            "set": [
+              { "setName": "3Arrows", "index": 0 },
+              { "setName": "NoIcons", "index": 0 },
+              { "setName": "3Stars", "index": 2 }
+            ],
             "thresholds": [
               { "type": "percent", "value": 0 },
               { "type": "percent", "value": 33 },
               { "type": "percent", "value": 67 }
-            ],
-            "customIcons": [
-              { "iconSet": "3Arrows", "index": 0 },
-              { "iconSet": "NoIcons", "index": 0 },
-              { "iconSet": "3Stars", "index": 2 }
             ]
           }
         },
@@ -725,6 +727,7 @@
           "ref": [ "A10" ],
           "priority": 16,
           "iconSet": {
+            "set": "5Boxes",
             "thresholds": [
               { "type": "percent", "value": 0 },
               { "type": "percent", "value": 20 },
@@ -732,7 +735,6 @@
               { "type": "percent", "value": 60 },
               { "type": "percent", "value": 80 }
             ],
-            "name": "5Boxes",
             "showValue": false,
             "reverse": true
           }
