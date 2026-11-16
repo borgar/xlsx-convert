@@ -7,7 +7,7 @@ import { readIconSet } from './readIconSet.ts';
 import type { RuleContext } from './RuleContext.ts';
 
 /**
- * Applies an x14 extension rule to the stanndard OOXML rule that it extends.
+ * Applies an x14 extension rule to the standard OOXML rule that it extends.
  *
  * Only data bars and icon sets have x14 forms. The extended data bar adds properties to the main
  * one, while the extended icon set replaces it (the main part holds only a fallback for older
