@@ -169,19 +169,6 @@ function readBorder (
   }
 }
 
-function readBorders (node: Element, theme: Theme): Borders {
-  const diagonalUp = boolAttr(node, 'diagonalUp');
-  const diagonalDown = boolAttr(node, 'diagonalDown');
-  return {
-    left: readBorder(node, 'left', theme) || readBorder(node, 'start', theme),
-    right: readBorder(node, 'right', theme) || readBorder(node, 'end', theme),
-    top: readBorder(node, 'top', theme),
-    bottom: readBorder(node, 'bottom', theme),
-    diagonalUp: diagonalUp ? readBorder(node, 'diagonal', theme) : undefined,
-    diagonalDown: diagonalDown ? readBorder(node, 'diagonal', theme) : undefined,
-  };
-}
-
 function readFont (node: Element, theme: Theme): Font {
   const u = node.querySelectorAll('u')[0];
   const b = node.querySelectorAll('b')[0];
@@ -331,7 +318,19 @@ export function handlerStyles (dom: Document, context: ConversionContext): Style
     });
 
   dom.querySelectorAll('borders > border')
-    .forEach(d => styles.border.push(readBorders(d, context.theme)));
+    .forEach(d => {
+      const diagonalUp = boolAttr(d, 'diagonalUp');
+      const diagonalDown = boolAttr(d, 'diagonalDown');
+      const borderDefs: Borders = {
+        left: readBorder(d, 'left', context.theme) || readBorder(d, 'start', context.theme),
+        right: readBorder(d, 'right', context.theme) || readBorder(d, 'end', context.theme),
+        top: readBorder(d, 'top', context.theme),
+        bottom: readBorder(d, 'bottom', context.theme),
+        diagonalUp: diagonalUp ? readBorder(d, 'diagonal', context.theme) : undefined,
+        diagonalDown: diagonalDown ? readBorder(d, 'diagonal', context.theme) : undefined,
+      };
+      styles.border.push(borderDefs);
+    });
 
   // level 1 (named cell styles)
   dom.querySelectorAll('cellStyleXfs > xf')
