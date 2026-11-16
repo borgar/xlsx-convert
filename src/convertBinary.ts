@@ -202,11 +202,11 @@ export async function convertBinary (
   const people = await xlsx.readRel(context, 'person', handlerPersons, []);
 
   // richData
-  context.richStruct = await xlsx.readRel(context, 'rdRichValueStructure', handlerRDStruct);
-  context.richValues = await xlsx.readRel(context, 'rdRichValue', handlerRDValue);
+  context.richStruct = await xlsx.readRel(context, 'rdRichValueStructure', handlerRDStruct, []);
+  context.richValues = await xlsx.readRel(context, 'rdRichValue', handlerRDValue, []);
 
   // metadata
-  context.metadata = await xlsx.readRel(context, 'sheetMetadata', handlerMetaData);
+  context.metadata = await xlsx.readRel(context, 'sheetMetadata', handlerMetaData, { cells: [], values: [] });
 
   // styles — read early so numFmts are available for pivot cache/table parsing
   const styleDefs = await xlsx.readRel(context, 'styles', handlerStyles);
@@ -248,8 +248,11 @@ export async function convertBinary (
   }
 
   // theme
-  context.theme = await xlsx.readRel(context, 'theme', handlerTheme);
-  wb.theme = context.theme;
+  const theme = await xlsx.readRel(context, 'theme', handlerTheme);
+  if (theme) {
+    context.theme = theme;
+    wb.theme = theme;
+  }
 
   // convert styles to JSF format (styleDefs was read earlier for pivot numFmtId resolution)
   const { styles, namedStyles } = convertStyles(styleDefs);

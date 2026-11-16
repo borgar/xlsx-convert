@@ -55,7 +55,6 @@
   },
   "styles": [ { "fontFamily": "Aptos Narrow", "fontSize": 12 } ],
   "tables": [],
-  "theme": null,
   "namedStyles": {
     "Normal": {
       "name": "Normal",

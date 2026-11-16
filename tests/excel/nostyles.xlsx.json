@@ -1,0 +1,29 @@
+{
+  "name": "nostyles.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "v": 1 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 53, "rowHeight": 16 },
+      "hidden": 0
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [],
+  "tables": [],
+  "formulas": [],
+  "meta": {
+    "app": { "name": "Google Sheets", "confidence": 0.8 }
+  }
+}

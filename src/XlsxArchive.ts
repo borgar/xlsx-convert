@@ -103,13 +103,13 @@ export class XlsxArchive {
    * @param [rels] Relationships to search. Defaults to `context.rels`.
    * @return The handler's return value, or the fallback
    */
-  async readRel<T extends (dom: Document, context: ConversionContext) => any> (
+  async readRel<T extends (dom: Document, context: ConversionContext) => any, F = null> (
     context: ConversionContext,
     type: string,
     handler: T,
-    fallback: any = null,
+    fallback: F = null as F,
     rels: Rel[] | null = null,
-  ): Promise<ReturnType<T>> {
+  ): Promise<ReturnType<T> | F> {
     const rel = (rels || context.rels).find(d => d.type === type);
     if (rel) {
       const dom = await this.readXML(rel.target);

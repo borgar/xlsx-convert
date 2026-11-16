@@ -88,6 +88,7 @@ const tests = [
   'tests/excel/nameless-font.xlsx',
   'tests/excel/names.xlsx',
   'tests/excel/non-spilling-array-formula.xlsx',
+  'tests/excel/nostyles.xlsx',
   'tests/excel/numbers.xlsx',
   'tests/excel/page-margins.xlsx',
   'tests/excel/patterns.xlsx',
