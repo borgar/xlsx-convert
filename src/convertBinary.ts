@@ -29,6 +29,7 @@ import { arrayBufferToDataUri } from './utils/arrayBufferToDataUri.ts';
 import { getMimeType } from './utils/getMimeType.ts';
 import { isLikelyGSExport } from './utils/isLikelyGSExport.ts';
 import { handlerChart } from './handler/chart.ts';
+import { CHARTEX_MIME, rewriteChartExFormulas } from './handler/charts/keepChartExPart.ts';
 import { dropMissingCharts } from './handler/drawings/dropMissingCharts.ts';
 import { convertChartSpace } from './handler/charts/convertChartSpace.ts';
 import { convertChartSpaceEx } from './handler/charts/convertChartSpaceEx.ts';
@@ -66,7 +67,7 @@ import {
  * | `cell-mdx` | OLAP cube (MDX) metadata on cell values
  * | `cell-rtf` | Rich text in cells
  * | `chart` | Charts that can't be converted, such as a stock chart without three or four series
- * | `chart-chartex` | Extended (ChartEx) charts that aren't converted yet, such as region maps
+ * | `chart-chartex` | Extended (ChartEx) charts that aren't converted yet, such as region maps (see below)
  * | `chart-pivot` | Pivot charts
  * | `col-group` | Grouped columns
  * | `data-validation` | Data validation
@@ -103,6 +104,11 @@ import {
  * | `workbook-lock` | Protected workbook
  * | `workbook-meta` | Workbook properties
  * | `workbook-meta-custom` | Workbook custom properties
+ *
+ * A region map isn't converted, but its ChartEx part is kept as it is: it's stored as a data URI in
+ * `Workbook.images`, under its part path (for example `xl/charts/chartEx1.xml`), and its drawing
+ * frame's `chartId` refers to it. Renderers find no chart under that ID, and writers can write the
+ * part back.
  *
  * As the capabilities of xlsx-convert grow, this list is expected to get smaller and eventually disappear.
  */
@@ -357,12 +363,15 @@ export async function convertBinary (
           }
         }
         // process charts
+        const keptChartParts: Record<string, string> = {};
         for (const part of context.charts) {
           if (part.type !== 'chart' && part.type !== 'chartEx') { continue; }
           const isChartEx = part.type === 'chartEx';
           const tagsBefore = new Set(context.unsupported);
           const keep = isChartEx ? MISSING_CHART_CHARTEX : MISSING_CHART;
           let chart: Chart | undefined;
+          // whether this is a region map, whose part is kept as it is (see below)
+          let isRegionMap = false;
           const drawingRels = context.drawingRels;
           const imagesBefore = context.images.length;
           try {
@@ -374,9 +383,14 @@ export async function convertBinary (
             }
             // A picture fill in a chart refers to the chart part's own relationships.
             context.drawingRels = await xlsx.readRels(part.rel.target);
-            chart = isChartEx
-              ? convertChartSpaceEx(handlerChart(chartDom, context, true), context)
-              : convertChartSpace(handlerChart(chartDom, context), context);
+            if (isChartEx) {
+              const chartSpace = handlerChart(chartDom, context, true);
+              isRegionMap = !!chartSpace.chart.plotArea?.series.some(s => s.layoutId === 'regionMap');
+              chart = convertChartSpaceEx(chartSpace, context);
+            }
+            else {
+              chart = convertChartSpace(handlerChart(chartDom, context), context);
+            }
           }
           catch (err) {
             // A chart that can't be read is left out, rather than failing the whole workbook.
@@ -385,6 +399,17 @@ export async function convertBinary (
           }
           finally {
             context.drawingRels = drawingRels;
+          }
+          if (!chart && isRegionMap) {
+            // JSF can't express a region map, so its part is kept as it is, in `Workbook.images`
+            // under its part path, and its drawing frame refers to it. Its data references are
+            // rewritten from Excel's hidden names to ranges, so it doesn't depend on them.
+            const xml = await xlsx.readText(part.rel.target);
+            if (xml) {
+              const bytes = new TextEncoder().encode(rewriteChartExFormulas(xml, context));
+              const partData = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer;
+              keptChartParts[part.rel.target] = await arrayBufferToDataUri(partData, CHARTEX_MIME);
+            }
           }
           if (!chart) {
             // so are the pictures it uses
@@ -402,7 +427,7 @@ export async function convertBinary (
           }
         }
         if (sh.drawings) {
-          sh.drawings = dropMissingCharts(sh.drawings, wb.charts ?? {});
+          sh.drawings = dropMissingCharts(sh.drawings, { ...wb.charts, ...keptChartParts });
         }
 
         // process images
@@ -435,6 +460,10 @@ export async function convertBinary (
         if (imageCount) {
           wb.images ??= {};
           Object.assign(wb.images, images);
+        }
+        if (Object.keys(keptChartParts).length) {
+          wb.images ??= {};
+          Object.assign(wb.images, keptChartParts);
         }
       }
     }

@@ -18,4 +18,10 @@ describe('dropMissingCharts', () => {
       { anchor, content: [ { type: 'group', id: 'g', name: 'g', content: [ chart('a') ] } ] },
     ]);
   });
+
+  it('keeps charts whose ID names a kept chart part', () => {
+    const drawings: Drawing[] = [ { anchor, content: [ chart('xl/charts/chartEx1.xml') ] } ];
+    const kept = { 'xl/charts/chartEx1.xml': 'data:application/vnd.ms-office.chartex+xml;base64,' };
+    expect(dropMissingCharts(drawings, { ...kept })).toEqual(drawings);
+  });
 });
