@@ -1,13 +1,14 @@
 import type { Element } from '@borgar/simple-xml';
 import type { PivotTable } from '@jsfkit/types';
 import { boolAttr } from '../../utils/attr.ts';
+import { getFirstChild } from '../../utils/getFirstChild.ts';
 
 // URI of the x14 pivotTableDefinition extension (the 2009/9 SpreadsheetML
 // extension that carries post-2007 pivot attributes such as `hideValuesRow`).
 const X14_PIVOT_TABLE_DEFINITION_URI = '{962EF5D1-5CA2-4c93-8EF4-DBF5C05439D2}';
 
 /**
- * Parse the `x14:pivotTableDefinition` extension from a pivot table's `<extLst>` into the
+ * Parse the `x14:pivotTableDefinition` extension from the pivot table's own `<extLst>` into the
  * JSF model. The extension lives in an `<ext>` keyed by {@link X14_PIVOT_TABLE_DEFINITION_URI}
  * and carries pivot attributes that postdate the original CT_pivotTableDefinition schema.
  *
@@ -21,8 +22,7 @@ const X14_PIVOT_TABLE_DEFINITION_URI = '{962EF5D1-5CA2-4c93-8EF4-DBF5C05439D2}';
 export function parseExtensions (root: Element): Partial<PivotTable> | undefined {
   // The element name `pivotTableDefinition` collides with the root, so scope to the ext URI
   // first and read the (single) child rather than searching by tag name.
-  const ext = root
-    .getElementsByTagName('extLst')[0]
+  const ext = getFirstChild(root, 'extLst')
     ?.children.find(e => e.getAttribute('uri') === X14_PIVOT_TABLE_DEFINITION_URI);
   const x14 = ext?.children[0];
 
