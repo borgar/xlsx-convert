@@ -47,26 +47,33 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
       });
     });
 
-  // FIXME: discard names that appear twice
-  const definedNames: ConversionContext['definedNames'] = [];
+  // Collect every name before normalizing any formulas, so formulas in defined names can refer to
+  // other names. Names are unique per scope and case-insensitive: keep the first of any duplicates.
+  const seen = new Set<string>();
+  const formulas = new Map<DefinedName, string>();
   dom.getElementsByTagName('definedName')
     .forEach(d => {
       const name: DefinedName = {
         name: xstringAttr(d, 'name'),
-        value: normalizeFormula(unescape(d.textContent), context),
+        value: '',
       };
       const localSheetId = attr(d, 'localSheetId');
       if (localSheetId) {
         name.scope = context.sheetLinks[+localSheetId].name;
       }
-      definedNames.push({ name: name.name, scope: name.scope });
-      context.nameDefs.set(name.name, name);
-      if (boolAttr(d, 'hidden')) {
-        return;
+      const key = ((name.scope ?? '') + '\0' + name.name).toLowerCase();
+      if (!seen.has(key)) {
+        seen.add(key);
+        context.definedNames.push(name);
+        formulas.set(name, unescape(d.textContent));
+        if (!(boolAttr(d, 'hidden') && /^(_xlnm|_xlchart)\./.test(name.name))) {
+          wb.names!.push(name);
+        }
       }
-      wb.names!.push(name);
     });
-  context.definedNames = definedNames;
+  for (const [ name, formula ] of formulas) {
+    name.value = normalizeFormula(formula, context);
+  }
 
   const pr = dom.querySelectorAll('workbook > workbookPr')[0];
   const epoch = (pr && numAttr(pr, 'date1904')) ? 1904 : 1900;

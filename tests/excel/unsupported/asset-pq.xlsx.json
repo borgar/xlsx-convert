@@ -34,7 +34,13 @@
       "hidden": 0
     }
   ],
-  "names": [],
+  "names": [
+    {
+      "name": "ExternalData_1",
+      "value": "Table!$A$1:$C$3",
+      "scope": "Table"
+    }
+  ],
   "calculationProperties": {
     "iterate": false,
     "iterateCount": 100,

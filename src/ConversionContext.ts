@@ -51,8 +51,8 @@ export class ConversionContext {
   drawingRels: Rel[];
   theme: Theme;
   indexedColors: string[];
-  nameDefs: Map<string, DefinedName>;
-  definedNames: { name: string, scope?: string }[];
+  /** Every defined name in the workbook, including hidden ones, with normalized formulas. */
+  definedNames: DefinedName[];
   richStruct: RDStruct[];
   richValues: RDValue[];
   metadata: MetaData;
@@ -94,7 +94,6 @@ export class ConversionContext {
     this.workbook = null;
     this.defaultThemeVersion = '202300';
     this.theme = THEMES.default;
-    this.nameDefs = new Map();
     this.definedNames = [];
     this.indexedColors = [ ...INDEXED_COLORS ];
     this.richStruct = [];

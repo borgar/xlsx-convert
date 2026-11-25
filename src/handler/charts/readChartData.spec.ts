@@ -8,7 +8,7 @@ const NS = 'xmlns:cx="http://schemas.microsoft.com/office/drawing/2014/chartex"'
 function parse (dataXml: string, names: Record<string, string> = {}) {
   const context = new ConversionContext();
   for (const [ name, value ] of Object.entries(names)) {
-    context.nameDefs.set(name, { name, value });
+    context.definedNames.push({ name, value });
   }
   return readChartData(parseXML(`<cx:chartData ${NS}>${dataXml}</cx:chartData>`).root!, context);
 }
@@ -24,6 +24,18 @@ describe('readChartData', () => {
       cat: { numeric: false, f: 'Sheet1!$A$2:$A$6' },
       val: { numeric: true, f: 'Sheet1!$B$2:$B$6' },
     });
+  });
+
+  it('looks names up ignoring case and ignores sheet-scoped names', () => {
+    const context = new ConversionContext();
+    context.definedNames.push(
+      { name: '_xlchart.v1.0', value: 'Sheet1!$A$1:$A$3', scope: 'Sheet1' },
+      { name: '_xlchart.v1.0', value: 'Sheet1!$B$1:$B$3' },
+    );
+    const map = readChartData(parseXML(
+      `<cx:chartData ${NS}><cx:data id="0"><cx:numDim type="val"><cx:f>_XLCHART.V1.0</cx:f></cx:numDim></cx:data></cx:chartData>`,
+    ).root!, context);
+    expect(map.get(0)?.val?.f).toBe('Sheet1!$B$1:$B$3');
   });
 
   it('keeps every dimension type, and the formula direction', () => {

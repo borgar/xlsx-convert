@@ -45,7 +45,10 @@ export type ChartDataMap = Map<number, ChartExData>;
  * the cell range formula it stands for (e.g. "Sheet1!$A$2:$A$6"), normalized.
  */
 export function resolveNamedRange (formula: string, context: ConversionContext): string {
-  return normalizeFormula(context.nameDefs.get(formula)?.value ?? formula, context);
+  const lcName = formula.toLowerCase();
+  const name = context.definedNames.find(d => d.scope == null && d.name.toLowerCase() === lcName);
+  // A name's value is already normalized.
+  return name ? name.value : normalizeFormula(formula, context);
 }
 
 function readDim (element: Element, context: ConversionContext): ChartExDim {
