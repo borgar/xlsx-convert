@@ -61,7 +61,6 @@ export class ConversionContext {
   filename: string;
   _formulasR1C1: FormulaList;
   _shared?: Map<number, RelativeFormula>;
-  _merged?: Record<string, string>;
   _arrayFormula?: string[];
   /** Serialised `workbook.diffStyles` entries mapped to their index. Used to deduplicate dxfs. */
   _dxfIndex?: Map<string, number>;

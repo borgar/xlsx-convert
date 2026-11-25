@@ -1,5 +1,6 @@
 import type { GridSize, PageMargins, Worksheet, WorksheetLayoutScales, WorksheetView, WorksheetViewFrozenPanes } from '@jsfkit/types';
 import { Document, Element } from '@borgar/simple-xml';
+import { addA1RangeBounds, parseA1Ref } from '@borgar/fx';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { rle } from '../utils/rle.ts';
 import { handlerCell, relevantStyle } from './cell.ts';
@@ -223,27 +224,21 @@ export function handlerWorksheet (
 
   context._shared = new Map();
   context._arrayFormula = [];
-  context._merged = {};
 
   // list merged cells
+  const merges: { top: number, left: number, bottom: number, right: number }[] = [];
   getFirstChild(dom.root, 'mergeCells')?.children.forEach(d => {
-    if (d.tagName !== 'mergeCell') { return; }
-    const ref = attr(d, 'ref');
-    if (ref) {
-      const pRef = fromA1(ref);
-      if (pRef) {
-        const top = pRef.top ?? 0;
-        const left = pRef.left ?? 0;
-        const bottom = pRef.bottom ?? top;
-        const right = pRef.right ?? left;
-        const anchor = toA1(left, top);
-        for (let c = left; c <= right; c++) {
-          for (let r = top; r <= bottom; r++) {
-            context._merged![toA1(c, r)] = anchor;
-          }
-        }
-        sheet.merges!.push(ref);
-      }
+    const ref = d.tagName === 'mergeCell' && attr(d, 'ref');
+    // Excel only writes full A1 ranges, but tolerates whole columns and rows (D:E, 4:5)
+    const parsed = ref && parseA1Ref(ref, { allowNamed: false, allowTernary: false });
+    if (!parsed || !('range' in parsed) || parsed.context?.length) { return; }
+    const { top, left, bottom, right } = addA1RangeBounds(parsed.range);
+    const m = { top: top!, left: left!, bottom: bottom!, right: right! };
+    merges.push(m);
+    const topLeft = toA1(m.left, m.top);
+    const bottomRight = toA1(m.right, m.bottom);
+    if (topLeft !== bottomRight) {
+      sheet.merges!.push(`${topLeft}:${bottomRight}`);
     }
   });
 
@@ -297,8 +292,16 @@ export function handlerWorksheet (
         id = toA1((cellPos.left || 0) + 1, cellPos.top || 0);
       }
       const c = handlerCell(d, id, context);
-      if (context.options.skipMerged && id) {
-        if (context._merged![id] && context._merged![id] !== id) {
+      if (context.options.skipMerged && merges.length) {
+        const pos = fromA1(id);
+        const cellRow = pos?.top ?? -1;
+        const cellCol = pos?.left ?? -1;
+        // the cell is covered by a merge, but isn't its top-left cell
+        const isMergedAway = merges.some(m => (
+          cellRow >= m.top && cellRow <= m.bottom && cellCol >= m.left && cellCol <= m.right &&
+          (cellRow !== m.top || cellCol !== m.left)
+        ));
+        if (isMergedAway) {
           // check if there are needed styles
           if (!c || !('s' in c) || (typeof c.s === 'number' && !relevantStyle(context.workbook!.styles![c.s]))) {
             // this cell is part of a merged range and has no required styles
@@ -443,6 +446,5 @@ export function handlerWorksheet (
 
   delete context._shared;
   delete context._arrayFormula;
-  delete context._merged;
   return sheet;
 }
