@@ -27,6 +27,7 @@ import type {
   ChartTrendline,
   ChartValue,
   ChartWall,
+  Line,
   Shape,
 } from '@jsfkit/types';
 import type { ConversionContext } from '../../ConversionContext.ts';
@@ -103,6 +104,15 @@ const SPLIT_TYPES = {
  * Whether a plot can be converted. A stock plot needs high, low, and close series, and optionally
  * open, so it must have three or four series.
  */
+/**
+ * The line of a chart line element (drop lines, high-low lines, or series lines). An element
+ * that's present without a style of its own, as Excel writes one that keeps its automatic style
+ * (`<c:dropLines/>`), is an empty line, which shows the element; the shape defaults complete it.
+ */
+function presentLine (element: { shape?: { line?: Line } } | undefined): Line | undefined {
+  return element ? (element.shape?.line ?? {}) : undefined;
+}
+
 function isConvertiblePlot (plot: Plot): boolean {
   return plot.type !== 'stock' || plot.ser?.length === 3 || plot.ser?.length === 4;
 }
@@ -538,7 +548,7 @@ class ChartBuilder {
       addProp(bar, 'gapWidth', plot.gapWidth, 150);
       if (plot.type === 'bar') {
         addProp(bar, 'overlap', plot.overlap, 0);
-        addProp(bar, 'connectorLines', plot.serLines?.[0]?.shape?.line);
+        addProp(bar, 'connectorLines', presentLine(plot.serLines?.[0]));
       }
       else {
         addProp(bar, 'shape', plot.shape, 'box');
@@ -548,7 +558,7 @@ class ChartBuilder {
     }
     if (plot.type === 'area' || plot.type === 'area3d') {
       const area: LayoutSettings<'area'> = {};
-      addProp(area, 'dropLines', plot.dropLines?.shape?.line);
+      addProp(area, 'dropLines', presentLine(plot.dropLines));
       if (plot.type === 'area3d') {
         addProp(area, 'gapDepth', plot.gapDepth, 150);
       }
@@ -559,9 +569,9 @@ class ChartBuilder {
       if (plot.type === 'line') {
         addProp(line, 'showMarkers', plot.marker);
       }
-      addProp(line, 'dropLines', plot.dropLines?.shape?.line);
+      addProp(line, 'dropLines', presentLine(plot.dropLines));
       if (plot.type === 'line' || plot.type === 'stock') {
-        addProp(line, 'highLowLines', plot.hiLowLines?.shape?.line);
+        addProp(line, 'highLowLines', presentLine(plot.hiLowLines));
         if (plot.upDownBars) {
           const bars: ChartUpDownBars = {};
           addProp(bars, 'gapWidth', plot.upDownBars.gapWidth, 150);
@@ -597,7 +607,7 @@ class ChartBuilder {
       addProp(ofPie, 'customPoints', plot.custSplit?.secondPiePt);
       addProp(ofPie, 'secondPlotSize', plot.secondPieSize, 75);
       addProp(ofPie, 'gapWidth', plot.gapWidth, 150);
-      addProp(ofPie, 'connectorLines', plot.serLines?.[0]?.shape?.line);
+      addProp(ofPie, 'connectorLines', presentLine(plot.serLines?.[0]));
       const arc: LayoutSettings<'arc'> = { variant: plot.ofPieType === 'bar' ? 'barOfPie' : 'pieOfPie' };
       addProp(arc, 'ofPie', hasKeys(ofPie) ? ofPie : undefined);
       return plotLayout('arc', arc);
