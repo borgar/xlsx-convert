@@ -51,8 +51,8 @@ export class ConversionContext {
   drawingRels: Rel[];
   theme: Theme;
   indexedColors: string[];
-  nameDefs: Map<string, DefinedName>;
-  definedNames: { name: string, scope?: string }[];
+  /** Every defined name in the workbook, including hidden ones, with normalized formulas. */
+  definedNames: DefinedName[];
   richStruct: RDStruct[];
   richValues: RDValue[];
   metadata: MetaData;
@@ -61,7 +61,6 @@ export class ConversionContext {
   filename: string;
   _formulasR1C1: FormulaList;
   _shared?: Map<number, RelativeFormula>;
-  _merged?: Record<string, string>;
   _arrayFormula?: string[];
   /** Serialised `workbook.diffStyles` entries mapped to their index. Used to deduplicate dxfs. */
   _dxfIndex?: Map<string, number>;
@@ -94,7 +93,6 @@ export class ConversionContext {
     this.workbook = null;
     this.defaultThemeVersion = '202300';
     this.theme = THEMES.default;
-    this.nameDefs = new Map();
     this.definedNames = [];
     this.indexedColors = [ ...INDEXED_COLORS ];
     this.richStruct = [];

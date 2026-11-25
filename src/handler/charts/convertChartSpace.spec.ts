@@ -368,3 +368,26 @@ describe('convertChartSpace', () => {
     expect(convert(series(0, 'B')).plots[0].series![0].name).toEqual({ formula: 'Sheet1!$B$1' });
   });
 });
+
+describe('convertChartSpace chart lines', () => {
+  const solid = (value: string) => ({ type: 'solid', bg: { type: 'theme', value } });
+
+  it('keeps drop lines and high-low lines that have no style of their own, as Excel draws them', () => {
+    const chart = convert(series(0, 'B') + '<c:dropLines/><c:hiLowLines/><c:marker val="1"/>');
+    expect(chart.plots[0].layout).toMatchObject({
+      type: 'line',
+      dropLines: { fill: solid('tx1') },
+      highLowLines: { fill: solid('tx1') },
+    });
+  });
+
+  it('keeps a drop lines style, and has none when the element is absent', () => {
+    const styled = convert(series(0, 'B') +
+      '<c:dropLines><c:spPr><a:ln w="12700"><a:solidFill><a:srgbClr val="FF0000"/></a:solidFill></a:ln></c:spPr></c:dropLines>');
+    expect(styled.plots[0].layout).toMatchObject({
+      dropLines: { width: 12700, fill: { type: 'solid', bg: { type: 'srgb', value: 'FF0000' } } },
+    });
+    const none = convert(series(0, 'B'));
+    expect(none.plots[0].layout?.type === 'line' ? none.plots[0].layout.dropLines : undefined).toBeUndefined();
+  });
+});
