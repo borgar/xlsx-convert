@@ -28,6 +28,7 @@ import { arrayBufferToDataUri } from './utils/arrayBufferToDataUri.ts';
 import { getMimeType } from './utils/getMimeType.ts';
 import { isLikelyGSExport } from './utils/isLikelyGSExport.ts';
 import { handlerChart } from './handler/chart.ts';
+import { emptyGeoCache } from './handler/charts/emptyGeoCache.ts';
 import { dropMissingCharts } from './handler/drawings/dropMissingCharts.ts';
 import { convertChartSpace } from './handler/charts/convertChartSpace.ts';
 import { convertChartSpaceEx } from './handler/charts/convertChartSpaceEx.ts';
@@ -410,11 +411,14 @@ export async function convertBinary (
             context.drawingRels = drawingRels;
           }
           if (!chart && isRegionMap) {
-            // JSF can't express a region map, so its part is kept as it is, in `Workbook.images`
-            // under its part path, and its drawing frame refers to it. Its data references are
-            // Excel's hidden names, which are kept in `Workbook.names` so engines can update them.
-            const partData = await xlsx.readBinary(part.rel.target);
-            if (partData) {
+            // JSF can't express a region map, so its part is kept, in `Workbook.images` under its
+            // part path, and its drawing frame refers to it. Its data references are Excel's hidden
+            // names, which are kept in `Workbook.names` so engines can update them. Its geocache is
+            // emptied, because Excel rebuilds it.
+            const partText = await xlsx.readText(part.rel.target);
+            if (partText) {
+              const bytes = new TextEncoder().encode(emptyGeoCache(partText));
+              const partData = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer;
               keptChartParts[part.rel.target] = await arrayBufferToDataUri(partData, CHARTEX_MIME);
               regionMapNames.forEach(name => keptChartNames.add(name));
             }
@@ -481,7 +485,7 @@ export async function convertBinary (
   }
 
   // Kept region map parts refer to their data through Excel's hidden names, which the workbook
-  // handler leaves out. Add the ones they use, in document order.
+  // handler leaves out. Add back the ones they use.
   if (keptChartNames.size) {
     const names = new Set(wb.names);
     wb.names = context.definedNames.filter(d => (

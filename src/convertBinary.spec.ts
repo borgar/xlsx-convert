@@ -366,14 +366,18 @@ describe('convertBinary', () => {
       ]);
     });
 
-    test('keep their part as it is', async () => {
+    test('keep their part, with an empty geocache', async () => {
       const bin = await readFileAsArrayBuffer(file);
-      const original = await new ZipArchive(bin).read(part);
+      const original = await new ZipArchive(bin).readText(part);
       const wb = await convertBinary(bin, 'chart-map.xlsx');
       const dataUri = wb.images?.[part] ?? '';
-      expect(dataUri.startsWith('data:application/vnd.ms-office.chartex+xml;base64,')).toBe(true);
-      const kept = Buffer.from(dataUri.slice(dataUri.indexOf(',') + 1), 'base64');
-      expect(kept.equals(Buffer.from(original!))).toBe(true);
+      const prefix = 'data:application/vnd.ms-office.chartex+xml;base64,';
+      expect(dataUri.startsWith(prefix)).toBe(true);
+      const kept = Buffer.from(dataUri.slice(prefix.length), 'base64').toString('utf8');
+      expect(kept.match(/<cx:binary><\/cx:binary>/g)).toHaveLength(2);
+      // apart from the geocache data, the part is unchanged
+      const withoutCache = (xml: string) => xml.replace(/<cx:binary>[^<]*<\/cx:binary>/g, '');
+      expect(withoutCache(kept)).toBe(withoutCache(original!));
     });
   });
 });
