@@ -1,5 +1,4 @@
 import { attr } from './utils/attr.ts';
-import { pathBasename } from './utils/path.ts';
 import { convertStyles } from './utils/convertStyles.ts';
 import { resolveColumnMdw } from './utils/mdw.ts';
 import { ConversionContext } from './ConversionContext.ts';
@@ -33,6 +32,7 @@ import { dropMissingCharts } from './handler/drawings/dropMissingCharts.ts';
 import { convertChartSpace } from './handler/charts/convertChartSpace.ts';
 import { convertChartSpaceEx } from './handler/charts/convertChartSpaceEx.ts';
 import { XlsxArchive } from './XlsxArchive.ts';
+import { cleanWorkbookName } from './utils/cleanWorkbookName.ts';
 import { getFirstChild } from './utils/getFirstChild.ts';
 import { handlerCustomdata } from './handler/customdata.ts';
 import {
@@ -153,7 +153,7 @@ export async function convertBinary (
   const context = new ConversionContext();
   context.rels = await xlsx.readRels(wbRel.target);
   context.options = options;
-  context.filename = pathBasename(filename);
+  context.filename = cleanWorkbookName(filename, false) || 'Untitled.xlsx';
   context.isLikelyGSExport = isLikelyGSExport(xlsx.zip);
 
   // workbook - read DOM first to get externalReferences order
@@ -170,7 +170,7 @@ export async function convertBinary (
     if (rel) {
       const extRels = await xlsx.readRels(rel.target);
       const targetRel = extRels.find(d => d.id === 'rId1');
-      const target = targetRel?.target;
+      const target = targetRel?.target && cleanWorkbookName(targetRel?.target);
       if (target) {
         const exDoc = await xlsx.readXML(rel.target);
         if (exDoc) {
