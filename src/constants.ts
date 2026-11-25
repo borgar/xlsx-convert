@@ -451,3 +451,6 @@ export const UNSUPPORTED_TAGS = [
 
 /** A tag for a feature that the converter found in a workbook but did not convert. */
 export type UnsupportedTag = (typeof UNSUPPORTED_TAGS)[number];
+
+/** The content type of a ChartEx part, which a kept part's data URI is labeled with. */
+export const CHARTEX_MIME = 'application/vnd.ms-office.chartex+xml';

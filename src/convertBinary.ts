@@ -28,7 +28,6 @@ import { arrayBufferToDataUri } from './utils/arrayBufferToDataUri.ts';
 import { getMimeType } from './utils/getMimeType.ts';
 import { isLikelyGSExport } from './utils/isLikelyGSExport.ts';
 import { handlerChart } from './handler/chart.ts';
-import { CHARTEX_MIME, rewriteChartExFormulas } from './handler/charts/keepChartExPart.ts';
 import { dropMissingCharts } from './handler/drawings/dropMissingCharts.ts';
 import { convertChartSpace } from './handler/charts/convertChartSpace.ts';
 import { convertChartSpaceEx } from './handler/charts/convertChartSpaceEx.ts';
@@ -37,7 +36,7 @@ import { cleanWorkbookName } from './utils/cleanWorkbookName.ts';
 import { getFirstChild } from './utils/getFirstChild.ts';
 import { handlerCustomdata } from './handler/customdata.ts';
 import {
-  MISSING_ASSET_EXT, MISSING_ASSET_PQ, MISSING_ASSET_PY, MISSING_ASSET_VBA, MISSING_CHART,
+  CHARTEX_MIME, MISSING_ASSET_EXT, MISSING_ASSET_PQ, MISSING_ASSET_PY, MISSING_ASSET_VBA, MISSING_CHART,
   MISSING_CHART_CHARTEX, MISSING_CHART_PIVOT, MISSING_VIEW_TABSELECTED, type UnsupportedTag,
 } from './constants.ts';
 
@@ -283,6 +282,9 @@ export async function convertBinary (
 
   const pivotTables: PivotTable[] = [];
 
+  // the hidden names that kept region map parts use, in lower case
+  const keptChartNames = new Set<string>();
+
   // worksheets — processed sequentially to avoid shared-state races
   for (const [ index, sheetLink ] of context.sheetLinks.entries()) {
     const sheetRel = context.rels.find(d => d.id === sheetLink.rId);
@@ -372,6 +374,8 @@ export async function convertBinary (
           let chart: Chart | undefined;
           // whether this is a region map, whose part is kept as it is (see below)
           let isRegionMap = false;
+          // the hidden names that a region map's data references use
+          let regionMapNames: string[] = [];
           const drawingRels = context.drawingRels;
           const imagesBefore = context.images.length;
           try {
@@ -386,6 +390,11 @@ export async function convertBinary (
             if (isChartEx) {
               const chartSpace = handlerChart(chartDom, context, true);
               isRegionMap = !!chartSpace.chart.plotArea?.series.some(s => s.layoutId === 'regionMap');
+              if (isRegionMap) {
+                regionMapNames = chartDom.getElementsByTagName('f')
+                  .map(f => f.textContent.trim().toLowerCase())
+                  .filter(name => name.startsWith('_xlchart.'));
+              }
               chart = convertChartSpaceEx(chartSpace, context);
             }
             else {
@@ -403,12 +412,11 @@ export async function convertBinary (
           if (!chart && isRegionMap) {
             // JSF can't express a region map, so its part is kept as it is, in `Workbook.images`
             // under its part path, and its drawing frame refers to it. Its data references are
-            // rewritten from Excel's hidden names to ranges, so it doesn't depend on them.
-            const xml = await xlsx.readText(part.rel.target);
-            if (xml) {
-              const bytes = new TextEncoder().encode(rewriteChartExFormulas(xml, context));
-              const partData = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer;
+            // Excel's hidden names, which are kept in `Workbook.names` so engines can update them.
+            const partData = await xlsx.readBinary(part.rel.target);
+            if (partData) {
               keptChartParts[part.rel.target] = await arrayBufferToDataUri(partData, CHARTEX_MIME);
+              regionMapNames.forEach(name => keptChartNames.add(name));
             }
           }
           if (!chart) {
@@ -470,6 +478,15 @@ export async function convertBinary (
     else {
       // TODO: add strict mode that: throw new Error('No rel found for sheet ' + sheetLink.rId);
     }
+  }
+
+  // Kept region map parts refer to their data through Excel's hidden names, which the workbook
+  // handler leaves out. Add the ones they use, in document order.
+  if (keptChartNames.size) {
+    const names = new Set(wb.names);
+    wb.names = context.definedNames.filter(d => (
+      names.has(d) || (d.scope == null && keptChartNames.has(d.name.toLowerCase()))
+    ));
   }
 
   // Sort pivot tables by sheet position, then by name within each sheet.
