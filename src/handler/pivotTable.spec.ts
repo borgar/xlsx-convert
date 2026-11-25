@@ -816,6 +816,30 @@ describe('handlerPivotTable', () => {
     expect(pt.hideValuesRow).toBe(true);
   });
 
+  it('parses hideValuesRow when a pivotField has its own extLst', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="1">
+        <pivotField showAll="0">
+          <extLst>
+            <ext uri="{2946ED86-A175-432a-8AC1-64E0C546D7DE}" xmlns:x14="http://schemas.microsoft.com/office/spreadsheetml/2009/9/main">
+              <x14:pivotField fillDownLabels="1"/>
+            </ext>
+          </extLst>
+        </pivotField>
+      </pivotFields>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="0"/>
+      <extLst>
+        <ext uri="{962EF5D1-5CA2-4c93-8EF4-DBF5C05439D2}" xmlns:x14="http://schemas.microsoft.com/office/spreadsheetml/2009/9/main">
+          <x14:pivotTableDefinition hideValuesRow="1"/>
+        </ext>
+      </extLst>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.hideValuesRow).toBe(true);
+  });
+
   it('omits hideValuesRow when the x14 extension is absent', () => {
     const pt = parse(MINIMAL_PT)!;
     expect(pt.hideValuesRow).toBeUndefined();
