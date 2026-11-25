@@ -5,7 +5,7 @@ import { rewriteChartExFormulas } from './keepChartExPart.ts';
 function contextWithNames (names: Record<string, string>) {
   const context = new ConversionContext();
   for (const [ name, value ] of Object.entries(names)) {
-    context.nameDefs.set(name, { name, value });
+    context.definedNames.push({ name, value });
   }
   return context;
 }
