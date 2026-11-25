@@ -76,7 +76,7 @@ describe('handlerWorkbook', () => {
     );
     expect(wb.names).toEqual([ { name: 'shown', value: '1' } ]);
     expect(context.definedNames).toEqual([
-      { name: '_xlchart.v1.0', value: 'Alpha!$A$1:$A$5' },
+      { name: '_xlchart.v1.0', value: 'Alpha!$A$1:$A$5', hidden: true },
       { name: 'shown', value: '1' },
     ]);
   });

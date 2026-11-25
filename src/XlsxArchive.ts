@@ -73,6 +73,16 @@ export class XlsxArchive {
   }
 
   /**
+   * Read a text file from the archive, without parsing it.
+   *
+   * @param path Path of the file within the archive
+   * @return The file's text, or null if the file is missing
+   */
+  async readText (path: string): Promise<string | null> {
+    return (await this.#read(path, f => this.zip.readText(f))) ?? null;
+  }
+
+  /**
    * Read a binary file from the archive.
    *
    * @param path Path of the file within the archive

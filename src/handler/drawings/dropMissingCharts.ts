@@ -13,10 +13,11 @@ function keepGraphic (graphic: Graphic, charts: Record<string, unknown>): Graphi
 
 /**
  * Remove the charts that weren't converted from a sheet's drawings, so that every
- * `GraphicChart.chartId` is a key of `Workbook.charts`. A group or drawing left empty is removed too.
+ * `GraphicChart.chartId` is a key of `Workbook.charts`, or of `Workbook.images` for a ChartEx part
+ * that's kept as it is (a region map). A group or drawing left empty is removed too.
  *
  * @param drawings The sheet's drawings
- * @param charts The workbook's converted charts, keyed by chart ID
+ * @param charts The workbook's converted charts and kept chart parts, keyed by chart ID
  */
 export function dropMissingCharts (drawings: Drawing[], charts: Record<string, unknown>): Drawing[] {
   return drawings.flatMap(drawing => {

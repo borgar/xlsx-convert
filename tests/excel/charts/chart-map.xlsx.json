@@ -28,10 +28,60 @@
       "defaults": { "colWidth": 65, "rowHeight": 16 },
       "hidden": 0,
       "views": [ { "workbookView": 0, "activeCell": "B9" } ],
-      "drawings": []
+      "drawings": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 76200, "col": 3, "colOff": 177800 },
+            "to": {
+              "row": 13,
+              "rowOff": 177800,
+              "col": 8,
+              "colOff": 622300
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "2",
+              "name": "Chart 1",
+              "chartId": "xl/charts/chartEx1.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
     }
   ],
-  "names": [],
+  "names": [
+    {
+      "name": "_xlchart.v5.1",
+      "value": "Map!$A$2:$A$6",
+      "hidden": true
+    },
+    {
+      "name": "_xlchart.v5.2",
+      "value": "Map!$B$1",
+      "hidden": true
+    },
+    {
+      "name": "_xlchart.v5.3",
+      "value": "Map!$B$2:$B$6",
+      "hidden": true
+    },
+    {
+      "name": "_xlchart.v5.4",
+      "value": "Map!$C$1",
+      "hidden": true
+    },
+    {
+      "name": "_xlchart.v5.5",
+      "value": "Map!$C$2:$C$6",
+      "hidden": true
+    }
+  ],
   "calculationProperties": {
     "iterate": false,
     "iterateCount": 100,
@@ -75,6 +125,9 @@
       "fontSize": 12,
       "builtinId": 0
     }
+  },
+  "images": {
+    "xl/charts/chartEx1.xml": "data:application/vnd.ms-office.chartex+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxjeDpjaGFydFNwYWNlIHhtbG5zOmE9Imh0dHA6Ly9zY2hlbWFzLm9wZW54bWxmb3JtYXRzLm9yZy9kcmF3aW5nbWwvMjAwNi9tYWluIiB4bWxuczpyPSJodHRwOi8vc2NoZW1hcy5vcGVueG1sZm9ybWF0cy5vcmcvb2ZmaWNlRG9jdW1lbnQvMjAwNi9yZWxhdGlvbnNoaXBzIiB4bWxuczpjeD0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9vZmZpY2UvZHJhd2luZy8yMDE0L2NoYXJ0ZXgiPjxjeDpjaGFydERhdGE+PGN4OmRhdGEgaWQ9IjAiPjxjeDpzdHJEaW0gdHlwZT0iY2F0Ij48Y3g6Zj5feGxjaGFydC52NS4xPC9jeDpmPjxjeDpuZj5feGxjaGFydC52NS4wPC9jeDpuZj48L2N4OnN0ckRpbT48Y3g6bnVtRGltIHR5cGU9ImNvbG9yVmFsIj48Y3g6Zj5feGxjaGFydC52NS4zPC9jeDpmPjxjeDpuZj5feGxjaGFydC52NS4yPC9jeDpuZj48L2N4Om51bURpbT48L2N4OmRhdGE+PGN4OmRhdGEgaWQ9IjEiPjxjeDpzdHJEaW0gdHlwZT0iY2F0Ij48Y3g6Zj5feGxjaGFydC52NS4xPC9jeDpmPjxjeDpuZj5feGxjaGFydC52NS4wPC9jeDpuZj48L2N4OnN0ckRpbT48Y3g6bnVtRGltIHR5cGU9ImNvbG9yVmFsIj48Y3g6Zj5feGxjaGFydC52NS41PC9jeDpmPjxjeDpuZj5feGxjaGFydC52NS40PC9jeDpuZj48L2N4Om51bURpbT48L2N4OmRhdGE+PC9jeDpjaGFydERhdGE+PGN4OmNoYXJ0PjxjeDp0aXRsZSBwb3M9InQiIGFsaWduPSJjdHIiIG92ZXJsYXk9IjAiPjxjeDp0eD48Y3g6dHhEYXRhPjxjeDp2Pk1hcDwvY3g6dj48L2N4OnR4RGF0YT48L2N4OnR4PjxjeDp0eFByPjxhOmJvZHlQciBzcGNGaXJzdExhc3RQYXJhPSIxIiB2ZXJ0T3ZlcmZsb3c9ImVsbGlwc2lzIiBob3J6T3ZlcmZsb3c9Im92ZXJmbG93IiB3cmFwPSJzcXVhcmUiIGxJbnM9IjAiIHRJbnM9IjAiIHJJbnM9IjAiIGJJbnM9IjAiIGFuY2hvcj0iY3RyIiBhbmNob3JDdHI9IjEiIC8+PGE6bHN0U3R5bGUgLz48YTpwPjxhOnBQciBhbGduPSJjdHIiIHJ0bD0iMCI+PGE6ZGVmUlByIC8+PC9hOnBQcj48YTpyPjxhOnJQciBsYW5nPSJlbi1VUyIgc3o9IjE0MDAiIGI9IjAiIGk9IjAiIHU9Im5vbmUiIHN0cmlrZT0ibm9TdHJpa2UiIGJhc2VsaW5lPSIwIj48YTpzb2xpZEZpbGw+PGE6c3lzQ2xyIHZhbD0id2luZG93VGV4dCIgbGFzdENscj0iMDAwMDAwIj48YTpsdW1Nb2QgdmFsPSI2NTAwMCIgLz48YTpsdW1PZmYgdmFsPSIzNTAwMCIgLz48L2E6c3lzQ2xyPjwvYTpzb2xpZEZpbGw+PGE6bGF0aW4gdHlwZWZhY2U9IkFwdG9zIE5hcnJvdyIgcGFub3NlPSIwMjExMDAwNDAyMDIwMjAyMDIwNCIgLz48L2E6clByPjxhOnQ+TWFwPC9hOnQ+PC9hOnI+PC9hOnA+PC9jeDp0eFByPjwvY3g6dGl0bGU+PGN4OnBsb3RBcmVhPjxjeDpwbG90QXJlYVJlZ2lvbj48Y3g6c2VyaWVzIGxheW91dElkPSJyZWdpb25NYXAiIHVuaXF1ZUlkPSJ7NDhGRTgzMEItQjI4Qy1BMjQ5LUIyNEMtMjE4MUE0RjhEOUNEfSIgZm9ybWF0SWR4PSIwIj48Y3g6dHg+PGN4OnR4RGF0YT48Y3g6Zj5feGxjaGFydC52NS4yPC9jeDpmPjxjeDp2PkZvbzwvY3g6dj48L2N4OnR4RGF0YT48L2N4OnR4PjxjeDpkYXRhSWQgdmFsPSIwIiAvPjxjeDpsYXlvdXRQcj48Y3g6Z2VvZ3JhcGh5IGN1bHR1cmVMYW5ndWFnZT0iZW4tVVMiIGN1bHR1cmVSZWdpb249IklTIiBhdHRyaWJ1dGlvbj0iUG93ZXJlZCBieSBCaW5nIj48Y3g6Z2VvQ2FjaGUgcHJvdmlkZXI9IntFOTMzN0E0NC1CRUJFLTREOUYtQjcwQy01QzVFN0RBRkMxNjd9Ij48Y3g6YmluYXJ5PjwvY3g6YmluYXJ5PjwvY3g6Z2VvQ2FjaGU+PC9jeDpnZW9ncmFwaHk+PC9jeDpsYXlvdXRQcj48L2N4OnNlcmllcz48Y3g6c2VyaWVzIGxheW91dElkPSJyZWdpb25NYXAiIGhpZGRlbj0iMSIgdW5pcXVlSWQ9Ins4MDUxOTMxOS0wOEFELTJENDQtOTI5OC1EM0ZEOTVCRkJFODB9IiBmb3JtYXRJZHg9IjEiPjxjeDp0eD48Y3g6dHhEYXRhPjxjeDpmPl94bGNoYXJ0LnY1LjQ8L2N4OmY+PGN4OnY+QmFyPC9jeDp2PjwvY3g6dHhEYXRhPjwvY3g6dHg+PGN4OmRhdGFJZCB2YWw9IjEiIC8+PGN4OmxheW91dFByPjxjeDpnZW9ncmFwaHkgY3VsdHVyZUxhbmd1YWdlPSJlbi1VUyIgY3VsdHVyZVJlZ2lvbj0iSVMiIGF0dHJpYnV0aW9uPSJQb3dlcmVkIGJ5IEJpbmciPjxjeDpnZW9DYWNoZSBwcm92aWRlcj0ie0U5MzM3QTQ0LUJFQkUtNEQ5Ri1CNzBDLTVDNUU3REFGQzE2N30iPjxjeDpiaW5hcnk+PC9jeDpiaW5hcnk+PC9jeDpnZW9DYWNoZT48L2N4Omdlb2dyYXBoeT48L2N4OmxheW91dFByPjwvY3g6c2VyaWVzPjwvY3g6cGxvdEFyZWFSZWdpb24+PC9jeDpwbG90QXJlYT48Y3g6bGVnZW5kIHBvcz0iciIgYWxpZ249Im1pbiIgb3ZlcmxheT0iMCIgLz48L2N4OmNoYXJ0PjwvY3g6Y2hhcnRTcGFjZT4="
   },
   "formulas": [ "RANDBETWEEN(1,100)" ],
   "meta": {

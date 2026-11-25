@@ -38,6 +38,7 @@
     {
       "name": "ExternalData_1",
       "value": "Table!$A$1:$C$3",
+      "hidden": true,
       "scope": "Table"
     }
   ],

@@ -57,6 +57,9 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
         name: xstringAttr(d, 'name'),
         value: '',
       };
+      if (boolAttr(d, 'hidden')) {
+        name.hidden = true;
+      }
       const localSheetId = attr(d, 'localSheetId');
       if (localSheetId) {
         name.scope = context.sheetLinks[+localSheetId].name;
@@ -66,7 +69,7 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
         seen.add(key);
         context.definedNames.push(name);
         formulas.set(name, unescape(d.textContent));
-        if (!(boolAttr(d, 'hidden') && /^(_xlnm|_xlchart)\./.test(name.name))) {
+        if (!(name.hidden && /^(_xlnm|_xlchart)\./.test(name.name))) {
           wb.names!.push(name);
         }
       }

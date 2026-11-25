@@ -350,4 +350,34 @@ describe('convertBinary', () => {
       expect(wb.names?.find(d => d.name === 'n')?.value).toBe('Sheet1!x');
     });
   });
+
+  describe('region maps', () => {
+    const file = './tests/excel/charts/chart-map.xlsx';
+    const part = 'xl/charts/chartEx1.xml';
+
+    test('keep the hidden names their data references use', async () => {
+      const wb = await convertBinary(await readFileAsArrayBuffer(file), 'chart-map.xlsx');
+      expect(wb.names).toEqual([
+        { name: '_xlchart.v5.1', value: 'Map!$A$2:$A$6', hidden: true },
+        { name: '_xlchart.v5.2', value: 'Map!$B$1', hidden: true },
+        { name: '_xlchart.v5.3', value: 'Map!$B$2:$B$6', hidden: true },
+        { name: '_xlchart.v5.4', value: 'Map!$C$1', hidden: true },
+        { name: '_xlchart.v5.5', value: 'Map!$C$2:$C$6', hidden: true },
+      ]);
+    });
+
+    test('keep their part, with an empty geocache', async () => {
+      const bin = await readFileAsArrayBuffer(file);
+      const original = await new ZipArchive(bin).readText(part);
+      const wb = await convertBinary(bin, 'chart-map.xlsx');
+      const dataUri = wb.images?.[part] ?? '';
+      const prefix = 'data:application/vnd.ms-office.chartex+xml;base64,';
+      expect(dataUri.startsWith(prefix)).toBe(true);
+      const kept = Buffer.from(dataUri.slice(prefix.length), 'base64').toString('utf8');
+      expect(kept.match(/<cx:binary><\/cx:binary>/g)).toHaveLength(2);
+      // apart from the geocache data, the part is unchanged
+      const withoutCache = (xml: string) => xml.replace(/<cx:binary>[^<]*<\/cx:binary>/g, '');
+      expect(withoutCache(kept)).toBe(withoutCache(original!));
+    });
+  });
 });
