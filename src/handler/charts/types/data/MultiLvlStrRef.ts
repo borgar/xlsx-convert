@@ -1,7 +1,6 @@
-import type { MultiLvlStrData } from './MultiLvlStrData.ts';
-
 export type MultiLvlStrRef = {
   type: 'mlStrRef',
   f: string;
-  multiLvlStrCache?: MultiLvlStrData;
+  // the whole source range, when categories are filtered out (`c15:fullRef`), normalized
+  fullRef?: string;
 };

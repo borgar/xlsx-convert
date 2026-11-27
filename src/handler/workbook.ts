@@ -1,9 +1,14 @@
 import { Document } from '@borgar/simple-xml';
 import { ConversionContext } from '../ConversionContext.ts';
-import { attr, boolAttr, numAttr } from '../utils/attr.ts';
+import { attr, boolAttr, numAttr, xstringAttr } from '../utils/attr.ts';
+import { unescape } from '../utils/unescape.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import { toInt } from '../utils/typecast.ts';
 import type { DefinedName, Workbook, WorkbookView } from '@jsfkit/types';
+import { getFirstChild } from '../utils/getFirstChild.ts';
+import {
+  MISSING_CALC_PRECISION, MISSING_VIEW_CUSTOM, MISSING_WORKBOOK_LOCK,
+} from '../constants.ts';
 
 function isSafeInt (n: number | null | undefined): n is number {
   return Number.isSafeInteger(n);
@@ -35,31 +40,43 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
   dom.querySelectorAll('sheets > sheet')
     .forEach(d => {
       context.sheetLinks.push({
-        name: attr(d, 'name'),
+        name: xstringAttr(d, 'name'),
         index: numAttr(d, 'sheetId'),
         rId: attr(d, 'r:id'),
         hidden: HIDDEN[attr(d, 'state', 'visible')] ?? 0,
       });
     });
 
-  // FIXME: discard names that appear twice
+  // Collect every name before normalizing any formulas, so formulas in defined names can refer to
+  // other names. Names are unique per scope and case-insensitive: keep the first of any duplicates.
+  const seen = new Set<string>();
+  const formulas = new Map<DefinedName, string>();
   dom.getElementsByTagName('definedName')
     .forEach(d => {
       const name: DefinedName = {
-        name: attr(d, 'name'),
-        value: normalizeFormula(d.textContent, context),
+        name: xstringAttr(d, 'name'),
+        value: '',
       };
-      const hidden = boolAttr(d, 'hidden');
-      context.nameDefs.set(name.name, name);
-      if (hidden) {
-        return;
+      if (boolAttr(d, 'hidden')) {
+        name.hidden = true;
       }
       const localSheetId = attr(d, 'localSheetId');
       if (localSheetId) {
         name.scope = context.sheetLinks[+localSheetId].name;
       }
-      wb.names!.push(name);
+      const key = ((name.scope ?? '') + '\0' + name.name).toLowerCase();
+      if (!seen.has(key)) {
+        seen.add(key);
+        context.definedNames.push(name);
+        formulas.set(name, unescape(d.textContent));
+        if (!(name.hidden && /^(_xlnm|_xlchart)\./.test(name.name))) {
+          wb.names!.push(name);
+        }
+      }
     });
+  for (const [ name, formula ] of formulas) {
+    name.value = normalizeFormula(formula, context);
+  }
 
   const pr = dom.querySelectorAll('workbook > workbookPr')[0];
   const epoch = (pr && numAttr(pr, 'date1904')) ? 1904 : 1900;
@@ -88,9 +105,22 @@ export function handlerWorkbook (dom: Document, context: ConversionContext): Wor
     if (boolAttr(calcPr, 'fullCalcOnLoad') || boolAttr(calcPr, 'forceFullCalc')) {
       wb.calculationProperties!.fullCalcOnLoad = true;
     }
+    // precision as displayed is still unsupported
+    if (!boolAttr(calcPr, 'fullPrecision', true)) {
+      context.unsupported.add(MISSING_CALC_PRECISION);
+    }
   }
 
   wb.calculationProperties!.epoch = epoch;
+
+  const workbookProtection = getFirstChild(dom.root, 'workbookProtection');
+  if (workbookProtection) {
+    context.unsupported.add(MISSING_WORKBOOK_LOCK);
+  }
+  const customWorkbookViews = getFirstChild(dom.root, 'customWorkbookViews');
+  if (customWorkbookViews) {
+    context.unsupported.add(MISSING_VIEW_CUSTOM);
+  }
 
   // Store "active sheet" (the last-used sheet at save) for each workbook view. Excel supports
   // multiple workbook views (window arrangements), though most files only have one.

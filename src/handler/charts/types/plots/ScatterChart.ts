@@ -3,9 +3,6 @@ import type { DLbls } from '../datalabels/DLbls.ts';
 import type { Series } from '../series/Series.ts';
 import type { ScatterStyle } from './ScatterStyle.ts';
 
-/**
- *
- */
 export type ScatterChart = {
   type: 'scatter';
   scatterStyle: ScatterStyle;

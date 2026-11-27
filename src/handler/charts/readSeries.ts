@@ -1,10 +1,13 @@
 import { Element } from '@borgar/simple-xml';
+import { readPictureOptions } from './read3d.ts';
 import type { ConversionContext } from '../../ConversionContext.ts';
-import { boolValElm, numValElm } from './utils/valElm.ts';
+import { boolValElm, numValElm, strValElm } from './utils/valElm.ts';
+import type { BarShape } from './types/plots/BarShape.ts';
 import { addProp } from '../../utils/addProp.ts';
 import { readShapeProperties } from '../drawings/readShapeProperties.ts';
 import { readDataSource } from './readDataSource.ts';
 import type { Series } from './types/series/Series.ts';
+import type { CategoryFilterException } from './types/series/CategoryFilterException.ts';
 import { readDataPoint } from './readDataPoint.ts';
 import { readMarker } from './readMarker.ts';
 import { readErrBars } from './readErrBars.ts';
@@ -12,6 +15,31 @@ import { isNumDataSource } from './utils/isNumDataSource.ts';
 import { readDLbls } from './readDLbls.ts';
 import { readTrendline } from './readTrendline.ts';
 import { getFirstChild } from '../../utils/getFirstChild.ts';
+import { normalizeFormula } from '../../utils/normalizeFormula.ts';
+import { unescape } from '../../utils/unescape.ts';
+
+/**
+ * Read the formatting of points in categories filtered out with Excel's chart filter
+ * (`c15:categoryFilterExceptions`). Each point is keyed by its value cell (`c15:sqref`), because a
+ * filtered-out point has no index in the series' data.
+ */
+function readCategoryFilterExceptions (
+  extLst: Element,
+  context: ConversionContext,
+): CategoryFilterException[] | undefined {
+  const out: CategoryFilterException[] = [];
+  for (const exception of extLst.querySelectorAll('categoryFilterExceptions > categoryFilterException')) {
+    const sqref = getFirstChild(exception, 'sqref')?.textContent;
+    if (!sqref) { continue; }
+    const point: CategoryFilterException = { ref: normalizeFormula(sqref, context) };
+    const spPr = getFirstChild(exception, 'spPr');
+    if (spPr) {
+      addProp(point, 'shape', readShapeProperties(spPr, context));
+    }
+    out.push(point);
+  }
+  return out.length ? out : undefined;
+}
 
 export function readSeries (element: Element, context: ConversionContext): Series | undefined {
   const out: Partial<Series> = {};
@@ -29,12 +57,13 @@ export function readSeries (element: Element, context: ConversionContext): Serie
     else if (child.tagName === 'tx') {
       const ds = readDataSource(child, context);
       if (ds?.type === 'strRef') {
-        addProp(out, 'text', ds);
+        // a series filtered out of the chart names its cell in c15:formulaRef, with no c:f
+        addProp(out, 'text', !ds.f && ds.fullRef ? { type: 'strRef', f: ds.fullRef } : ds);
       }
       else {
         const v = getFirstChild(child, 'v');
-        if (v?.tagName === 'v') {
-          out.text = v.textContent;
+        if (v) {
+          out.text = unescape(v.textContent);
         }
       }
     }
@@ -48,32 +77,31 @@ export function readSeries (element: Element, context: ConversionContext): Serie
       addProp(out, 'invertIfNegative', boolValElm(child), false);
     }
     else if (child.tagName === 'pictureOptions') {
-      // console.log(child.toString());
+      addProp(out, 'pictureOptions', readPictureOptions(child));
     }
     else if (child.tagName === 'dPt') {
-      const dPts = element.querySelectorAll('>dPt');
-      if (dPts.length) {
-        const dPt = [];
-        for (const dpElm of dPts) {
-          const d = readDataPoint(dpElm, context);
-          if (d) { dPt.push(d); }
-        }
-        if (dPt.length) {
-          out.dPt = dPt;
-        }
-      }
+      const d = readDataPoint(child, context);
+      if (d) { (out.dPt ??= []).push(d); }
     }
     else if (child.tagName === 'dLbls') {
       addProp(out, 'dLbls', readDLbls(child, context));
     }
     else if (child.tagName === 'trendline') {
-      const trendlines = element.querySelectorAll('>trendline');
-      if (trendlines.length) {
-        out.trendline = trendlines.map(d => readTrendline(d, context));
-      }
+      (out.trendline ??= []).push(readTrendline(child, context));
     }
     else if (child.tagName === 'errBars') {
-      addProp(out, 'errBars', readErrBars(child, context));
+      // scatter, bubble, and area series can have a set for each direction
+      const errBars = readErrBars(child, context);
+      if (errBars) { (out.errBars ??= []).push(errBars); }
+    }
+    else if (child.tagName === 'extLst') {
+      // Excel 2013+ "Value From Cells" label range: <c15:datalabelsRange><c15:f>. Its cache
+      // (c15:dlblRangeCache) isn't read: chart data is evaluated from the formula.
+      const f = child.querySelector('datalabelsRange > f')?.textContent;
+      if (f) {
+        out.labelsRange = normalizeFormula(f, context);
+      }
+      addProp(out, 'filteredPoints', readCategoryFilterExceptions(child, context));
     }
 
     // Scatter series use xVal/yVal instead of cat/val.
@@ -104,10 +132,9 @@ export function readSeries (element: Element, context: ConversionContext): Serie
     else if (child.tagName === 'bubble3D') {
       addProp(out, 'bubble3D', boolValElm(child), false);
     }
-
-    // barShape
     else if (child.tagName === 'shape') {
-      // addProp(out, 'barShape', strValElm(child, 'shape))
+      // the shape of a 3D bar series' bars, which overrides the plot's
+      addProp(out, 'barShape', strValElm<BarShape>(child));
     }
   }
 

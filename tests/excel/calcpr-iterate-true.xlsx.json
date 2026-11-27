@@ -23,7 +23,6 @@
   },
   "styles": [ { "fontFamily": "Calibri", "fontSize": 11 } ],
   "tables": [],
-  "theme": null,
   "namedStyles": {
     "Normal": {
       "name": "Normal",

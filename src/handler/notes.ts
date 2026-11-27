@@ -1,6 +1,11 @@
 import type { Document } from '@borgar/simple-xml';
 import type { Note } from '@jsfkit/types';
 import { attr, numAttr } from '../utils/attr.ts';
+import { unescape } from '../utils/unescape.ts';
+import { getFirstChild } from '../utils/getFirstChild.ts';
+import { RichText } from '../utils/RichText.ts';
+import type { ConversionContext } from '../ConversionContext.ts';
+import { MISSING_NOTE_RTF } from '../constants.ts';
 
 /**
  * Parse notes from xl/comments{n}.xml.
@@ -11,13 +16,13 @@ import { attr, numAttr } from '../utils/attr.ts';
  *
  * @param dom Parsed XML document from xl/comments{n}.xml
  */
-export function handlerNotes (dom: Document): Note[] {
+export function handlerNotes (dom: Document, context: ConversionContext): Note[] {
   const notes: Note[] = [];
 
   const authors: string[] = [];
   dom.querySelectorAll('authors > author')
     .forEach(author => {
-      authors.push(author.textContent || '');
+      authors.push(unescape(author.textContent || ''));
     });
 
   dom.querySelectorAll('commentList > comment')
@@ -34,12 +39,11 @@ export function handlerNotes (dom: Document): Note[] {
 
       // Extract text content from <text> element. Text may be in <text><t> or <text><r><t> (rich
       // text runs). All the rich text is discarded, only the plain text is stored.
-      const textNodes = commentNode.querySelectorAll('text t');
-      const text = Array.from(textNodes)
-        .map(t => t.textContent || '')
-        .join('');
-
-      notes.push({ ref, author, text });
+      const rt = RichText.from(getFirstChild(commentNode, 'text'));
+      if (rt.isRich) {
+        context.unsupported.add(MISSING_NOTE_RTF);
+      }
+      notes.push({ ref, author, text: unescape(rt.text) });
     });
 
   return notes;

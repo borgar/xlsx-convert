@@ -123,7 +123,14 @@ function convertNamedStyles (styleDefs: StyleDefs): NamedStyleResult {
   return { namedStyles, xfIdToName };
 }
 
-export function convertStyles (styleDefs: StyleDefs): { styles: Style[], namedStyles: Record<string, NamedStyle> } {
+export function convertStyles (styleDefs: StyleDefs | null): {
+  styles: Style[],
+  namedStyles: Record<string, NamedStyle>
+} {
+  if (!styleDefs) {
+    return { styles: [], namedStyles: {} };
+  }
+
   const { namedStyles, xfIdToName } = convertNamedStyles(styleDefs);
 
   const styles: Style[] = [];

@@ -59,3 +59,34 @@ describe('handlerCell style-only cells', () => {
     expect(cell).toEqual({ s: 1, v: 44197 });
   });
 });
+
+describe('handlerCell formula escapes', () => {
+  function formulaContext (): ConversionContext {
+    const ctx = contextWithStyles([ {} ]);
+    ctx.options.cellFormulas = true;
+    ctx._shared = new Map();
+    ctx._arrayFormula = [];
+    return ctx;
+  }
+
+  it('decodes _xHHHH_ escapes in a formula', () => {
+    const cell = parseCell(
+      '<c r="C1"><f>SUM(My_x005F_x0041_Table[Col])&amp;"_x0041_"</f><v>3</v></c>',
+      'C1', formulaContext(),
+    );
+    expect(cell?.f).toBe('SUM(My_x0041_Table[Col])&"A"');
+  });
+
+  it('decodes _xHHHH_ escapes in an array formula', () => {
+    const cell = parseCell('<c r="C1"><f t="array" ref="C1">LEN("_x0041_")</f><v>1</v></c>', 'C1', formulaContext());
+    expect(cell?.f).toBe('LEN("A")');
+  });
+
+  it('decodes _xHHHH_ escapes in a shared formula and the cells that share it', () => {
+    const ctx = formulaContext();
+    const first = parseCell('<c r="C1"><f t="shared" ref="C1:C2" si="0">A1&amp;"_x0041_"</f></c>', 'C1', ctx);
+    const second = parseCell('<c r="C2"><f t="shared" si="0"/></c>', 'C2', ctx);
+    expect(first?.f).toBe('A1&"A"');
+    expect(second?.f).toBe('A2&"A"');
+  });
+});

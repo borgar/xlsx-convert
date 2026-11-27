@@ -4,9 +4,6 @@ import type { Series } from '../series/Series.ts';
 import type { ChartLines } from './ChartLines.ts';
 import type { UpDownBars } from './UpDownBars.ts';
 
-/**
- *
- */
 export type StockChart = {
   type: 'stock';
   ser: [ Series, Series, Series ] | [ Series, Series, Series, Series ];

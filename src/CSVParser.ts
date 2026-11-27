@@ -1,4 +1,4 @@
-import { parseBool, parseDate, parseNumber, parseTime, type ParseData } from 'numfmt';
+import { getFormatFromId, parseBool, parseDate, parseNumber, parseTime, type ParseDataBool, type ParseDataNum } from 'numfmt';
 import type { Cell } from '@jsfkit/types';
 import { toA1 } from './utils/toA1.ts';
 
@@ -33,7 +33,8 @@ export class CSVParser {
   formats: string[];
   table: Record<string, Cell> | undefined;
   columns: ColumnData[] | undefined;
-  numfmtOptions: { locale: string; };
+  numfmtOptions: { locale: string; mode: 0 | 1 };
+  parseMode: 0 | 1;
 
   constructor () {
     this.escapeChar = '"';
@@ -43,7 +44,11 @@ export class CSVParser {
     this.column = 0;
     this.width = 0;
     this.height = 0;
-    this.numfmtOptions = { locale: this.locale ?? 'en-US' };
+    this.parseMode = 1;
+    this.numfmtOptions = {
+      locale: this.locale ?? 'en-US',
+      mode: this.parseMode,
+    };
   }
 
   countType (type: DataType) {
@@ -64,8 +69,9 @@ export class CSVParser {
     this.columns[c].total++;
   }
 
-  setFormatIndex (cell: Cell, formatPattern?: string): number {
-    if (formatPattern) {
+  setFormatIndex (cell: Cell, formatId: number | undefined): number {
+    const formatPattern: string = getFormatFromId(formatId ?? 0, this.locale ?? 'en-US');
+    if (formatId && formatPattern) {
       let fmtIdx = this.formats.indexOf(formatPattern);
       if (fmtIdx === -1) {
         fmtIdx = this.formats.length;
@@ -84,30 +90,30 @@ export class CSVParser {
     if (!this.table) {
       throw new Error('table has not been inititialized');
     }
-    let cell: ParseData | null;
+    let parsed: ParseDataBool | ParseDataNum | undefined;
     const cellID = toA1(this.column, this.row);
     if (knownString) {
       this.table[cellID] = { v: valueString };
       this.countType(STRING);
     }
     else if (valueString) {
-      if ((cell = parseNumber(valueString, this.numfmtOptions))) {
-        const outCell: Cell = { v: cell.v };
-        this.setFormatIndex(outCell, cell.z);
+      if ((parsed = parseNumber(valueString, this.numfmtOptions))) {
+        const outCell: Cell = { v: parsed.value };
+        this.setFormatIndex(outCell, parsed.formatId);
         this.table[cellID] = outCell;
         this.countType(NUMBER);
       }
       else if (
-        (cell = parseDate(valueString, this.numfmtOptions)) ||
-        (cell = parseTime(valueString, this.numfmtOptions))
+        (parsed = parseDate(valueString, this.numfmtOptions)) ||
+        (parsed = parseTime(valueString, this.numfmtOptions))
       ) {
-        const outCell: Cell = { v: cell.v, t: 'd' };
-        this.setFormatIndex(outCell, cell.z);
+        const outCell: Cell = { v: parsed.value, t: 'd' };
+        this.setFormatIndex(outCell, parsed.formatId);
         this.countType(DATE);
         this.table[cellID] = outCell;
       }
-      else if ((cell = parseBool(valueString, this.numfmtOptions))) {
-        this.table[cellID] = cell;
+      else if ((parsed = parseBool(valueString, this.numfmtOptions))) {
+        this.table[cellID] = { v: parsed.value };
         this.countType(BOOL);
       }
       else {
@@ -136,7 +142,7 @@ export class CSVParser {
     this.width = 0;
     this.formats = [ '' ];
     this.columns = [];
-    this.numfmtOptions = { locale: this.locale ?? 'en-US' };
+    this.numfmtOptions = { locale: this.locale ?? 'en-US', mode: this.parseMode };
 
     if (!delimiter && this.delimiter) {
       delimiter = this.delimiter;

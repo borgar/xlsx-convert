@@ -6,7 +6,7 @@ import type { integer } from '@jsfkit/types';
 
 export type AreaChartShared = {
   axId: [ integer, integer ];
-  grouping?: Grouping; // default is "standard"
+  grouping?: Grouping;
   varyColors?: boolean;
   ser?: Series[];
   dLbls?: DLbls;
@@ -19,11 +19,6 @@ export type AreaChart = AreaChartShared & {
 
 export type AreaChart3d = AreaChartShared & {
   type: 'area3d';
-  // when read we should parse string "100%" to number ... default when read is "150%"
-  /**
-   * @min 0
-   * @max 500
-   */
   gapDepth?: integer;
   axId: [ integer, integer ] | [ integer, integer, integer ];
 };

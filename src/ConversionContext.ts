@@ -7,6 +7,7 @@ import type { Rel } from './handler/rels.ts';
 import { DEFAULT_MDW } from './utils/mdw.ts';
 import type { RelativeFormula } from './RelativeFormula.ts';
 import type { ConversionOptions } from './index.ts';
+import type { UnsupportedTag } from './constants.ts';
 
 type SheetLink = {
   name: string;
@@ -50,7 +51,8 @@ export class ConversionContext {
   drawingRels: Rel[];
   theme: Theme;
   indexedColors: string[];
-  nameDefs: Map<string, DefinedName>;
+  /** Every defined name in the workbook, including hidden ones, with normalized formulas. */
+  definedNames: DefinedName[];
   richStruct: RDStruct[];
   richValues: RDValue[];
   metadata: MetaData;
@@ -59,8 +61,9 @@ export class ConversionContext {
   filename: string;
   _formulasR1C1: FormulaList;
   _shared?: Map<number, RelativeFormula>;
-  _merged?: Record<string, string>;
   _arrayFormula?: string[];
+  /** Serialised `workbook.diffStyles` entries mapped to their index. Used to deduplicate dxfs. */
+  _dxfIndex?: Map<string, number>;
   images: RefLink[];
   isLikelyGSExport: boolean;
   /**
@@ -77,6 +80,8 @@ export class ConversionContext {
   charts: RefLink[];
   /** Max Digit Width of the workbook Normal font, used to convert column widths to pixels. */
   normalMdw: number;
+  unsupported: Set<UnsupportedTag>;
+  selectedTabs: Set<string>;
 
   // Delegate the formula-normalization options so code receiving a
   // ConversionContext as a ConversionContextSubset sees the actual option
@@ -95,7 +100,7 @@ export class ConversionContext {
     this.workbook = null;
     this.defaultThemeVersion = '202300';
     this.theme = THEMES.default;
-    this.nameDefs = new Map();
+    this.definedNames = [];
     this.indexedColors = [ ...INDEXED_COLORS ];
     this.richStruct = [];
     this.richValues = [];
@@ -110,5 +115,7 @@ export class ConversionContext {
     this.isLikelyGSExport = false;
     this.charts = [];
     this.normalMdw = DEFAULT_MDW;
+    this.unsupported = new Set();
+    this.selectedTabs = new Set();
   }
 }

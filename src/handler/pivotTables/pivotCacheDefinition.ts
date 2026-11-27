@@ -1,7 +1,7 @@
 import type { Document, Element } from '@borgar/simple-xml';
 import type { PivotCache, PivotCacheBase, PivotCacheConsolidationRangeSet, PivotCacheConsolidationSource, PivotCacheField, PivotCacheFieldGroup, PivotCacheRangePr, PivotCacheSharedItem, PivotCacheSharedItemsMeta, PivotCacheWorksheetSourceName, PivotCacheWorksheetSourceRange, PivotGroupBy } from '@jsfkit/types';
 import { addProp } from '../../utils/addProp.ts';
-import { attr, boolAttr, numAttr } from '../../utils/attr.ts';
+import { attr, boolAttr, numAttr, xstringAttr } from '../../utils/attr.ts';
 import { parseEnum } from '../../utils/parseEnum.ts';
 import type { NumFmtLookup } from './NumFmtLookup.ts';
 import { parseCacheSharedItem } from './parseCacheSharedItem.ts';
@@ -105,11 +105,11 @@ function parseSharedItemsMeta (elm: Element): PivotCacheSharedItemsMeta | undefi
 function parseFields (root: Element, numFmts?: NumFmtLookup): PivotCacheField[] {
   const fields: PivotCacheField[] = [];
   for (const cf of root.querySelectorAll('cacheFields > cacheField')) {
-    const name = attr(cf, 'name');
+    const name = xstringAttr(cf, 'name');
 
     const field: PivotCacheField = { name: name ?? '' };
     addProp(field, 'numFmt', resolveNumFmt(cf, numFmts));
-    addProp(field, 'formula', attr(cf, 'formula'));
+    addProp(field, 'formula', xstringAttr(cf, 'formula'));
     const databaseField = boolAttr(cf, 'databaseField');
     if (databaseField === false) {
       field.databaseField = false;
@@ -145,7 +145,7 @@ function parseFields (root: Element, numFmts?: NumFmtLookup): PivotCacheField[] 
 
 function parseCacheMetadata (root: Element): CacheMetadata {
   const result: CacheMetadata = {};
-  addProp(result, 'refreshedBy', attr(root, 'refreshedBy'));
+  addProp(result, 'refreshedBy', xstringAttr(root, 'refreshedBy'));
   addProp(result, 'refreshedDate', numAttr(root, 'refreshedDate'));
   addProp(result, 'refreshOnLoad', boolAttr(root, 'refreshOnLoad'));
   addProp(result, 'enableRefresh', boolAttr(root, 'enableRefresh'));
@@ -173,8 +173,8 @@ export function handlerPivotCacheDefinition (dom: Document, numFmts?: NumFmtLook
     const wsSource = cacheSource.querySelector('worksheetSource');
     if (!wsSource) { return; }
     const ref = attr(wsSource, 'ref');
-    const sheet = attr(wsSource, 'sheet');
-    const name = attr(wsSource, 'name');
+    const sheet = xstringAttr(wsSource, 'sheet');
+    const name = xstringAttr(wsSource, 'name');
     if (ref) {
       // When both ref and name are present (e.g. a table-backed range), ref takes
       // precedence and name is dropped. PivotCacheWorksheetSourceRange doesn't have
@@ -203,7 +203,7 @@ export function handlerPivotCacheDefinition (dom: Document, numFmts?: NumFmtLook
     for (const pageEl of consolidationEl.querySelectorAll('pages > page')) {
       const items: string[] = [];
       for (const itemEl of pageEl.getElementsByTagName('pageItem')) {
-        items.push(attr(itemEl, 'name') ?? '');
+        items.push(xstringAttr(itemEl, 'name') ?? '');
       }
       pages.push(items);
     }
@@ -211,7 +211,7 @@ export function handlerPivotCacheDefinition (dom: Document, numFmts?: NumFmtLook
     for (const rsEl of consolidationEl.querySelectorAll('rangeSets > rangeSet')) {
       const rs: PivotCacheConsolidationRangeSet = {};
       addProp(rs, 'ref', attr(rsEl, 'ref'));
-      addProp(rs, 'sheet', attr(rsEl, 'sheet'));
+      addProp(rs, 'sheet', xstringAttr(rsEl, 'sheet'));
       addProp(rs, 'i1', numAttr(rsEl, 'i1'));
       addProp(rs, 'i2', numAttr(rsEl, 'i2'));
       addProp(rs, 'i3', numAttr(rsEl, 'i3'));

@@ -1,5 +1,6 @@
 import type { GridSize, PageMargins, Worksheet, WorksheetLayoutScales, WorksheetView, WorksheetViewFrozenPanes } from '@jsfkit/types';
 import { Document, Element } from '@borgar/simple-xml';
+import { addA1RangeBounds, parseA1Ref } from '@borgar/fx';
 import { attr, boolAttr, numAttr } from '../utils/attr.ts';
 import { rle } from '../utils/rle.ts';
 import { handlerCell, relevantStyle } from './cell.ts';
@@ -11,7 +12,16 @@ import { toA1 } from '../utils/toA1.ts';
 import { getFirstChild } from '../utils/getFirstChild.ts';
 import { toInt } from '../utils/typecast.ts';
 import { addProp } from '../utils/addProp.ts';
-import { DEFAULT_PAGE_MARGINS } from '../constants.ts';
+import { handlerConditionalFormatting } from './conditionalFormatting/handlerConditionalFormatting.ts';
+import {
+  DEFAULT_PAGE_MARGINS, MISSING_ASSET_OO, MISSING_ASSET_VML, MISSING_COL_GROUP,
+  MISSING_DATA_VALIDATION, MISSING_PRINT_GRIDLINES,
+  MISSING_PRINT_HEADINGS, MISSING_PRINT_SETUP, MISSING_ROW_GROUP, MISSING_SCENARIO,
+  MISSING_SHEET_AUTOFILTER, MISSING_SHEET_BACKGROUND, MISSING_SHEET_LOCK, MISSING_SHEET_RTL,
+  MISSING_SHEET_TABCOLOR, MISSING_SPARKLINE, MISSING_VIEW_FORMULAS,
+  MISSING_VIEW_GRIDLINES_COLOR, MISSING_VIEW_HEADINGS, MISSING_VIEW_OUTLINE_SYMBOLS,
+  MISSING_VIEW_PANE_SPLIT, MISSING_VIEW_ZEROS,
+} from '../constants.ts';
 
 type ExcelFrozenPaneLocation = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
 type JSFFrozenPaneLocation = NonNullable<WorksheetViewFrozenPanes['activePane']>;
@@ -70,6 +80,14 @@ export function handlerWorksheet (
     // showGridLines: true,
     hidden: context.sheetLinks.find(link => link.name === sheetName)?.hidden ?? 0,
   };
+  let groupedCols = false;
+  let groupedRows = false;
+
+  // Store any conditional formatting rules that the sheet has.
+  const conditionalFormatting = handlerConditionalFormatting(dom, context);
+  if (conditionalFormatting.length) {
+    sheet.conditionalFormatting = conditionalFormatting;
+  }
 
   // Store the sheet's views (layout, zoom level, selected cell/range, frozen panes).
   const views: WorksheetView[] = [];
@@ -81,28 +99,58 @@ export function handlerWorksheet (
       view.activeLayout = activeLayout;
     }
 
+    if (!boolAttr(sheetView, 'showZeros', true)) {
+      context.unsupported.add(MISSING_VIEW_ZEROS);
+    }
+    if (!boolAttr(sheetView, 'showRowColHeaders', true)) {
+      context.unsupported.add(MISSING_VIEW_HEADINGS);
+    }
+    if (boolAttr(sheetView, 'tabSelected')) {
+      context.selectedTabs.add(sheetName);
+    }
+    if (boolAttr(sheetView, 'rightToLeft')) {
+      context.unsupported.add(MISSING_SHEET_RTL);
+    }
+    if (boolAttr(sheetView, 'showFormulas')) {
+      context.unsupported.add(MISSING_VIEW_FORMULAS);
+    }
+    if (attr(sheetView, 'colorId') || attr(sheetView, 'defaultGridColor')) {
+      context.unsupported.add(MISSING_VIEW_GRIDLINES_COLOR);
+    }
+    if (
+      !boolAttr(sheetView, 'showOutlineSymbols', true) ||
+      numAttr(sheetView, 'outlineLevelRow', 0) > 0 ||
+      numAttr(sheetView, 'outlineLevelCol', 0) > 0
+    ) {
+      context.unsupported.add(MISSING_VIEW_OUTLINE_SYMBOLS);
+    }
+
     // Sheet views can be split into two panes (horizontally or vertically), or four panes
     // (quadrants). When they're split, they can be "split panes" (four different views of the full
     // sheet) or "frozen panes" (one view of the sheet but with fixed header rows and/or columns).
     // Split panes have been around forever, but frozen panes are more common. Only frozen panes are
     // supported here.
     const pane = getFirstChild(sheetView, 'pane');
-    const activePane = (
-      pane ? attr(pane, 'activePane', 'topLeft') : 'topLeft'
-    ) as ExcelFrozenPaneLocation;
-    if (pane && (attr(pane, 'state') === 'frozen' || attr(pane, 'state') === 'frozenSplit')) {
-      const columnSplit = numAttr(pane, 'xSplit', 0);
-      const rowSplit = numAttr(pane, 'ySplit', 0);
-      const firstVisibleCell = attr(pane, 'topLeftCell');
+    const activePane = (pane ? attr(pane, 'activePane', 'topLeft') : 'topLeft') as ExcelFrozenPaneLocation;
+    if (pane) {
+      const state = attr(pane, 'state');
+      if (state === 'frozen' || state === 'frozenSplit') {
+        const columnSplit = numAttr(pane, 'xSplit', 0);
+        const rowSplit = numAttr(pane, 'ySplit', 0);
+        const firstVisibleCell = attr(pane, 'topLeftCell');
 
-      // If a view contains frozen panes, find which row and column they're split on, where the
-      // non-frozen pane is scrolled to, and which pane is active.
-      if (columnSplit !== 0 || rowSplit !== 0) {
-        view.panes = { type: 'frozen' };
-        addProp(view.panes, 'columns', columnSplit, 0);
-        addProp(view.panes, 'rows', rowSplit, 0);
-        addProp(view.panes, 'firstVisibleCell', firstVisibleCell, '');
-        addProp(view.panes, 'activePane', FROZEN_PANE_LOCATIONS[activePane], 'topStart');
+        // If a view contains frozen panes, find which row and column they're split on, where the
+        // non-frozen pane is scrolled to, and which pane is active.
+        if (columnSplit !== 0 || rowSplit !== 0) {
+          view.panes = { type: 'frozen' };
+          addProp(view.panes, 'columns', columnSplit, 0);
+          addProp(view.panes, 'rows', rowSplit, 0);
+          addProp(view.panes, 'firstVisibleCell', firstVisibleCell, '');
+          addProp(view.panes, 'activePane', FROZEN_PANE_LOCATIONS[activePane], 'topStart');
+        }
+      }
+      else {
+        context.unsupported.add(MISSING_VIEW_PANE_SPLIT);
       }
     }
 
@@ -162,6 +210,9 @@ export function handlerWorksheet (
   // decode column widths (3.3.1.12)
   getFirstChild(dom.root, 'cols')?.children.forEach(d => {
     if (d.tagName !== 'col') { return; }
+    if (!groupedCols && numAttr(d, 'outlineLevel', 0) > 0) {
+      groupedCols = true;
+    }
     const min = numAttr(d, 'min');
     const max = numAttr(d, 'max');
     if (min == null || max == null) { return; }
@@ -173,27 +224,21 @@ export function handlerWorksheet (
 
   context._shared = new Map();
   context._arrayFormula = [];
-  context._merged = {};
 
   // list merged cells
+  const merges: { top: number, left: number, bottom: number, right: number }[] = [];
   getFirstChild(dom.root, 'mergeCells')?.children.forEach(d => {
-    if (d.tagName !== 'mergeCell') { return; }
-    const ref = attr(d, 'ref');
-    if (ref) {
-      const pRef = fromA1(ref);
-      if (pRef) {
-        const top = pRef.top ?? 0;
-        const left = pRef.left ?? 0;
-        const bottom = pRef.bottom ?? top;
-        const right = pRef.right ?? left;
-        const anchor = toA1(left, top);
-        for (let c = left; c <= right; c++) {
-          for (let r = top; r <= bottom; r++) {
-            context._merged![toA1(c, r)] = anchor;
-          }
-        }
-        sheet.merges!.push(ref);
-      }
+    const ref = d.tagName === 'mergeCell' && attr(d, 'ref');
+    // Excel only writes full A1 ranges, but tolerates whole columns and rows (D:E, 4:5)
+    const parsed = ref && parseA1Ref(ref, { allowNamed: false, allowTernary: false });
+    if (!parsed || !('range' in parsed) || parsed.context?.length) { return; }
+    const { top, left, bottom, right } = addA1RangeBounds(parsed.range);
+    const m = { top: top!, left: left!, bottom: bottom!, right: right! };
+    merges.push(m);
+    const topLeft = toA1(m.left, m.top);
+    const bottomRight = toA1(m.right, m.bottom);
+    if (topLeft !== bottomRight) {
+      sheet.merges!.push(`${topLeft}:${bottomRight}`);
     }
   });
 
@@ -228,6 +273,10 @@ export function handlerWorksheet (
       }
     }
 
+    if (!groupedRows && numAttr(row, 'outlineLevel', 0) > 0) {
+      groupedRows = true;
+    }
+
     // cells: 3.3.1.3
     let lastId = '';
     row.childNodes.forEach(d => {
@@ -243,8 +292,16 @@ export function handlerWorksheet (
         id = toA1((cellPos.left || 0) + 1, cellPos.top || 0);
       }
       const c = handlerCell(d, id, context);
-      if (context.options.skipMerged && id) {
-        if (context._merged![id] && context._merged![id] !== id) {
+      if (context.options.skipMerged && merges.length) {
+        const pos = fromA1(id);
+        const cellRow = pos?.top ?? -1;
+        const cellCol = pos?.left ?? -1;
+        // the cell is covered by a merge, but isn't its top-left cell
+        const isMergedAway = merges.some(m => (
+          cellRow >= m.top && cellRow <= m.bottom && cellCol >= m.left && cellCol <= m.right &&
+          (cellRow !== m.top || cellCol !== m.left)
+        ));
+        if (isMergedAway) {
           // check if there are needed styles
           if (!c || !('s' in c) || (typeof c.s === 'number' && !relevantStyle(context.workbook!.styles![c.s]))) {
             // this cell is part of a merged range and has no required styles
@@ -329,11 +386,65 @@ export function handlerWorksheet (
     if (rel) {
       context.images.push({ sheetName, rel, type: 'picture' });
     }
+    context.unsupported.add(MISSING_SHEET_BACKGROUND);
     // TODO: set a property on the sheet to link to this image
   }
 
+  // flag unsupported features
+  const oleObjects = getFirstChild(dom.root, 'oleObjects');
+  if (oleObjects) { context.unsupported.add(MISSING_ASSET_OO); }
+
+  const legacyDrawing = getFirstChild(dom.root, 'legacyDrawing');
+  if (legacyDrawing) { context.unsupported.add(MISSING_ASSET_VML); }
+
+  const scenarios = getFirstChild(dom.root, 'scenarios');
+  if (scenarios) { context.unsupported.add(MISSING_SCENARIO); }
+
+  const dataValidations = getFirstChild(dom.root, 'dataValidations');
+  if (dataValidations) { context.unsupported.add(MISSING_DATA_VALIDATION); }
+
+  const extLst = getFirstChild(dom.root, 'extLst');
+  if (extLst?.querySelector('sparkline')) {
+    context.unsupported.add(MISSING_SPARKLINE);
+  }
+
+  const sheetProtection = getFirstChild(dom.root, 'sheetProtection');
+  if (sheetProtection) { context.unsupported.add(MISSING_SHEET_LOCK); }
+
+  const sheetPr = getFirstChild(dom.root, 'sheetPr');
+  if (sheetPr) {
+    if (getFirstChild(sheetPr, 'tabColor')) {
+      context.unsupported.add(MISSING_SHEET_TABCOLOR);
+    }
+  }
+
+  const autoFilter = getFirstChild(dom.root, 'autoFilter');
+  if (autoFilter) { context.unsupported.add(MISSING_SHEET_AUTOFILTER); }
+
+  const printOptions = getFirstChild(dom.root, 'printOptions');
+  if (printOptions) {
+    if (boolAttr(printOptions, 'gridLines')) { context.unsupported.add(MISSING_PRINT_GRIDLINES); }
+    if (boolAttr(printOptions, 'gridLinesSet')) { context.unsupported.add(MISSING_PRINT_GRIDLINES); }
+    if (boolAttr(printOptions, 'headings')) { context.unsupported.add(MISSING_PRINT_HEADINGS); }
+    if (boolAttr(printOptions, 'verticalCentered')) { context.unsupported.add(MISSING_PRINT_SETUP); }
+    if (boolAttr(printOptions, 'horizontalCentered')) { context.unsupported.add(MISSING_PRINT_SETUP); }
+  }
+  const pageSetup = getFirstChild(dom.root, 'pageSetup');
+  if (pageSetup) {
+    let ignoreProps = 0;
+    if (pageSetup.getAttribute('paperSize') === '9') { ignoreProps++; }
+    if (pageSetup.getAttribute('orientation') === 'portrait') { ignoreProps++; }
+    if (pageSetup.getAttribute('horizontalDpi') === '0') { ignoreProps++; }
+    if (pageSetup.getAttribute('verticalDpi') === '0') { ignoreProps++; }
+    if (pageSetup.attributes.length > ignoreProps) {
+      context.unsupported.add(MISSING_PRINT_SETUP);
+    }
+  }
+
+  if (groupedCols) { context.unsupported.add(MISSING_COL_GROUP); }
+  if (groupedRows) { context.unsupported.add(MISSING_ROW_GROUP); }
+
   delete context._shared;
   delete context._arrayFormula;
-  delete context._merged;
   return sheet;
 }

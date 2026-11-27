@@ -1,0 +1,183 @@
+{
+  "name": "filter-points.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A2": { "v": "a" },
+        "B2": { "v": 1 },
+        "A3": { "v": "b" },
+        "B3": { "v": 2 },
+        "A4": { "v": "c" },
+        "B4": { "v": 3 },
+        "A5": { "v": "d" },
+        "B5": { "v": 4 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 53, "rowHeight": 15 },
+      "hidden": 0,
+      "views": [ { "workbookView": 0, "activeCell": "R15" } ],
+      "drawings": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 171450, "col": 2, "colOff": 338137 },
+            "to": { "row": 15, "rowOff": 57150, "col": 10, "colOff": 33337 }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "2",
+              "name": "Chart 1",
+              "chartId": "xl/charts/chart1.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [ { "fontScheme": "minor", "fontSize": 11 } ],
+  "tables": [],
+  "views": [ {} ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt1": { "type": "system", "value": "window" },
+      "dk2": { "type": "srgb", "value": "0E2841" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "accent1": { "type": "srgb", "value": "156082" },
+      "accent2": { "type": "srgb", "value": "E97132" },
+      "accent3": { "type": "srgb", "value": "196B24" },
+      "accent4": { "type": "srgb", "value": "0F9ED5" },
+      "accent5": { "type": "srgb", "value": "A02B93" },
+      "accent6": { "type": "srgb", "value": "4EA72E" },
+      "hlink": { "type": "srgb", "value": "467886" },
+      "folHlink": { "type": "srgb", "value": "96607D" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Aptos Display" }
+      },
+      "minor": {
+        "latin": { "typeface": "Aptos Narrow" }
+      }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 11,
+      "builtinId": 0
+    }
+  },
+  "charts": {
+    "xl/charts/chart1.xml": {
+      "data": [ { "id": "data" } ],
+      "scales": [
+        { "id": "category", "type": "band", "auto": true },
+        { "id": "value", "type": "linear" }
+      ],
+      "plots": [
+        {
+          "id": "plot1",
+          "mark": "bar",
+          "data": "data",
+          "encoding": {
+            "series": { "field": "series" },
+            "x": { "field": "category", "scale": "category" },
+            "y": { "field": "value", "scale": "value" }
+          },
+          "series": [
+            {
+              "id": "s0",
+              "bindings": {
+                "category": {
+                  "formula": "(Sheet1!$A$2,Sheet1!$A$4)",
+                  "fullFormula": "Sheet1!$A$2:$A$5",
+                  "role": "category"
+                },
+                "value": {
+                  "formula": "(Sheet1!$B$2,Sheet1!$B$4)",
+                  "fullFormula": "Sheet1!$B$2:$B$5",
+                  "role": "value"
+                }
+              },
+              "filteredPoints": [
+                {
+                  "ref": "Sheet1!$B$3",
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "srgb", "value": "FF0000" }
+                    },
+                    "line": {
+                      "fill": { "type": "none" }
+                    }
+                  }
+                },
+                {
+                  "ref": "Sheet1!$B$5",
+                  "shape": {
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "srgb", "value": "00B050" }
+                    },
+                    "line": {
+                      "fill": { "type": "none" }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "grouping": "clustered"
+        }
+      ],
+      "title": {},
+      "axes": [
+        {
+          "id": "categoryAxis",
+          "scale": "category",
+          "orient": "bottom",
+          "tickMarks": { "major": "none" }
+        },
+        {
+          "id": "valueAxis",
+          "scale": "value",
+          "orient": "left",
+          "tickMarks": { "major": "none" },
+          "gridlines": {
+            "major": {}
+          }
+        }
+      ],
+      "showNaAsBlank": true,
+      "styleId": 2
+    }
+  },
+  "formulas": [],
+  "meta": {
+    "app": { "name": "Microsoft Excel", "version": "16.0300" }
+  },
+  "unsupported": [
+    "asset-ext",
+    "shape-effect",
+    "workbook-meta-custom"
+  ]
+}

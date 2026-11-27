@@ -5,6 +5,34 @@ import { addProp } from '../../utils/addProp.ts';
 import { boolValElm, numValElm, strValElm } from './utils/valElm.ts';
 import type { TrendlineType } from './types/trendline/TrendlineType.ts';
 import { readShapeProperties } from '../drawings/readShapeProperties.ts';
+import type { TrendlineLbl } from './types/trendline/TrendlineLbl.ts';
+import { readLayout } from './readLayout.ts';
+import { readText } from './readText.ts';
+import { readNumFmt } from './readNumFmt.ts';
+import { readTextProps } from './readTextProps.ts';
+import { hasKeys } from '../../utils/hasKeys.ts';
+
+function readTrendlineLabel (elm: Element, context: ConversionContext): TrendlineLbl | undefined {
+  const label: TrendlineLbl = {};
+  for (const child of elm.children) {
+    if (child.tagName === 'layout') {
+      addProp(label, 'layout', readLayout(child));
+    }
+    else if (child.tagName === 'tx') {
+      addProp(label, 'text', readText(child, context));
+    }
+    else if (child.tagName === 'numFmt') {
+      addProp(label, 'numFmt', readNumFmt(child));
+    }
+    else if (child.tagName === 'spPr') {
+      addProp(label, 'shape', readShapeProperties(child, context));
+    }
+    else if (child.tagName === 'txPr') {
+      addProp(label, 'textProps', readTextProps(child, context));
+    }
+  }
+  return hasKeys(label) ? label : undefined;
+}
 
 export function readTrendline (elm: Element, context: ConversionContext): Trendline {
   const tl: Trendline = { type: 'linear' };
@@ -42,11 +70,8 @@ export function readTrendline (elm: Element, context: ConversionContext): Trendl
     else if (child.tagName === 'spPr') {
       addProp(tl, 'shape', readShapeProperties(child, context));
     }
-    else if (child.tagName === 'label') { // TODO: TrendlineLbl
-      // console.log(String(child));
-    }
-    else {
-      // console.log(child.tagName);
+    else if (child.tagName === 'trendlineLbl') {
+      addProp(tl, 'label', readTrendlineLabel(child, context));
     }
   }
 

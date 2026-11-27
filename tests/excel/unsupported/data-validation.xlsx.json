@@ -1,0 +1,115 @@
+{
+  "name": "data-validation.xlsx",
+  "sheets": [
+    {
+      "name": "Sheet1",
+      "cells": {
+        "A1": { "s": 1, "v": "foo" },
+        "B1": { "s": 2, "v": 123, "f": 0 },
+        "E1": { "s": 1, "v": "foo" },
+        "F1": { "s": 2 },
+        "H1": { "v": 123 },
+        "A2": { "s": 1, "v": "bar" },
+        "B2": { "s": 2 },
+        "E2": { "s": 1, "v": "bar" },
+        "F2": { "s": 2 },
+        "A3": { "s": 1, "v": "bar" },
+        "B3": { "s": 2 },
+        "A4": { "s": 1, "v": "foo" },
+        "B4": { "s": 2 },
+        "A5": { "s": 1 },
+        "B5": { "s": 2 },
+        "A6": { "s": 1 },
+        "B6": { "s": 2 },
+        "A7": { "s": 1 },
+        "B7": { "s": 2 },
+        "A8": { "s": 1 },
+        "B8": { "s": 2 },
+        "A9": { "s": 1 },
+        "B9": { "s": 2 },
+        "A10": { "s": 1 },
+        "B10": { "s": 2 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [ { "workbookView": 0, "activeCell": "H1" } ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [
+    { "fontScheme": "minor", "fontSize": 12 },
+    {
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "fillColor": {
+        "type": "theme",
+        "value": "accent2",
+        "transforms": [ { "type": "tint", "value": 20.001831110568556 } ]
+      }
+    },
+    {
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "fillColor": {
+        "type": "theme",
+        "value": "accent6",
+        "transforms": [ { "type": "tint", "value": 20.001831110568556 } ]
+      }
+    }
+  ],
+  "tables": [],
+  "views": [ {} ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt1": { "type": "system", "value": "window" },
+      "dk2": { "type": "srgb", "value": "0E2841" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "accent1": { "type": "srgb", "value": "156082" },
+      "accent2": { "type": "srgb", "value": "E97132" },
+      "accent3": { "type": "srgb", "value": "196B24" },
+      "accent4": { "type": "srgb", "value": "0F9ED5" },
+      "accent5": { "type": "srgb", "value": "A02B93" },
+      "accent6": { "type": "srgb", "value": "4EA72E" },
+      "hlink": { "type": "srgb", "value": "467886" },
+      "folHlink": { "type": "srgb", "value": "96607D" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Aptos Display" }
+      },
+      "minor": {
+        "latin": { "typeface": "Aptos Narrow" }
+      }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "formulas": [ "RC[6]" ],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  },
+  "unsupported": [ "data-validation" ]
+}

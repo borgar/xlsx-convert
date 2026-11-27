@@ -1,6 +1,7 @@
 import type { Document } from '@borgar/simple-xml';
 import type { HyperlinkTextRun, MentionTextRun, ThreadedComment } from '@jsfkit/types';
 import { attr, numAttr } from '../utils/attr.ts';
+import { unescape } from '../utils/unescape.ts';
 
 function isInt (v: unknown): v is number {
   return Number.isInteger(v);
@@ -25,7 +26,7 @@ export function handlerComments (dom: Document): ThreadedComment[] {
       if (!id || !ref || !personId) return;
 
       const textNode = node.getElementsByTagName('text')[0];
-      const text = textNode?.textContent || '';
+      const text = unescape(textNode?.textContent || '');
 
       const comment: ThreadedComment = {
         id,

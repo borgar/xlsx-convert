@@ -283,4 +283,26 @@ describe('handlerExternal', () => {
       expect(ext.alternateUrls).toBeUndefined();
     });
   });
+
+  describe('_xHHHH_ escapes', () => {
+    it('decodes escapes in sheet names, defined names and cached strings', () => {
+      const xml = `<externalLink ${EXTERNAL_NS}>
+        <externalBook ${R_NS} r:id="rId1">
+          <sheetNames><sheetName val="S_x0041_"/></sheetNames>
+          <definedNames><definedName name="N_x0041_" refersTo="'S_x0041_'!$A$1"/></definedNames>
+          <sheetDataSet>
+            <sheetData sheetId="0">
+              <row r="1"><cell r="A1" t="str"><v>V_x0041_</v></cell></row>
+            </sheetData>
+          </sheetDataSet>
+        </externalBook>
+      </externalLink>`;
+
+      const ext = handlerExternal(parseExternal(xml), 'Book.xlsx');
+
+      expect(ext.sheets[0].name).toBe('SA');
+      expect(ext.sheets[0].cells).toEqual({ A1: { v: 'VA' } });
+      expect(ext.names).toEqual([ { name: 'NA', value: "'SA'!$A$1" } ]);
+    });
+  });
 });

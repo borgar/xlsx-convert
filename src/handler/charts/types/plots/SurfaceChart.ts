@@ -5,7 +5,6 @@ import type { Series } from '../series/Series.ts';
 export type SurfaceChartShared = {
   wireframe?: boolean;
   ser?: Series[];
-  // XXX: unroll?
   bandFmts?: BandFmts;
 };
 

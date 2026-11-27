@@ -1,5 +1,4 @@
-import type { Workbook } from '@jsfkit/types';
-import { convertBinary } from './convertBinary.ts';
+import { convertBinary, type Workbook } from './convertBinary.ts';
 import type { MdwResolver } from './utils/mdw.ts';
 
 export { InvalidFileError, EncryptionError, MissingSheetError, UnsupportedError } from './errors.ts';
@@ -35,7 +34,12 @@ export type ConversionOptions = {
    * If the return value is a string, the value will be used in the images record on
    * the workbook instead of the standard data-URI conversion.
    */
-  imageCallback?: (data?: ArrayBuffer, filename?: string) => Promise<string | void> | string | void
+  imageCallback?: (data?: ArrayBuffer, filename?: string) => Promise<string | void> | string | void;
+  /**
+   * Include a list of features found on the workbook that the application did not convert to JSF
+   * @defaultValue true
+   */
+  reportUnsupported?: boolean;
   /**
    * Warning callback. If provided, warnings are passed to this function; otherwise they are silently discarded.
    */
@@ -57,6 +61,7 @@ export type { MdwResolver } from './utils/mdw.ts';
  * The returned JSF structure contains most of the data from the original file, although some details
  * may be lost in the conversion process.
  *
+ * @deprecated
  * @param filename Target filename to convert
  * @param options Conversion options
  * @param [options.skipMerged] Skip any redundant cells that are a part of merges.
@@ -70,7 +75,7 @@ export async function convert (
 ): Promise<Workbook> {
   let fs;
   try {
-    fs = await import('fs/promises');
+    fs = await import(/* webpackIgnore: true *//* @vite-ignore */'fs/promises');
   }
   // eslint-disable-next-line no-empty
   catch (_err) {}
@@ -82,3 +87,5 @@ export async function convert (
 
 export { convertCSV, type CSVConversionOptions } from './convertCSV.ts';
 export { convertBinary } from './convertBinary.ts';
+export type { Workbook };
+export { UNSUPPORTED_TAGS, type UnsupportedTag } from './constants.ts';

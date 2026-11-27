@@ -159,6 +159,44 @@ describe('convertBinary', () => {
       spy.mockRestore();
     });
 
+    test('leaves out a chart that can\'t be read, and converts the rest of the workbook', async () => {
+      const bin = await readFileAsArrayBuffer('./tests/excel/charts/chart-pie.xlsx');
+      const zip = new ZipArchive(bin);
+      await zip.write('xl/charts/chart1.xml', '<c:chartSpace xmlns:c="x"><c:chart><broken');
+      const warn = vi.fn();
+      const wb = await convertBinary(zip.toArrayBuffer(), 'chart-pie.xlsx', { warn });
+      expect(wb.sheets).toHaveLength(1);
+      expect(wb.charts).toBeUndefined();
+      expect(warn).toHaveBeenCalledOnce();
+      expect(warn.mock.calls[0][0]).toMatch(/Chart .*chart1\.xml could not be converted/);
+    });
+
+    test('reads a picture fill in a chart from the chart part\'s relationships', async () => {
+      const bin = await readFileAsArrayBuffer('./tests/excel/charts/chart-bar.xlsx');
+      const zip = new ZipArchive(bin);
+      // a 1x1 PNG
+      const png = Uint8Array.from(atob(
+        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
+      ), c => c.charCodeAt(0));
+      await zip.write('xl/media/chartFill.png', png);
+      const rels = (await zip.readText('xl/charts/_rels/chart1.xml.rels'))!;
+      await zip.write('xl/charts/_rels/chart1.xml.rels', rels.replace('</Relationships>',
+        '<Relationship Id="rId9" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image"' +
+        ' Target="../media/chartFill.png"/></Relationships>'));
+      const types = (await zip.readText('[Content_Types].xml'))!;
+      if (!types.includes('Extension="png"')) {
+        await zip.write('[Content_Types].xml', types.replace('<Default ', '<Default Extension="png" ContentType="image/png"/><Default '));
+      }
+      const chartXml = (await zip.readText('xl/charts/chart1.xml'))!;
+      await zip.write('xl/charts/chart1.xml', chartXml.replace('<a:solidFill><a:schemeClr val="accent1"/></a:solidFill>',
+        '<a:blipFill><a:blip r:embed="rId9"/><a:stretch><a:fillRect/></a:stretch></a:blipFill>'));
+      const wb = await convertBinary(zip.toArrayBuffer(), 'chart-bar.xlsx');
+      const chart = Object.values(wb.charts!)[0];
+      const fill = chart.plots[0].series[0].shape?.fill;
+      expect(fill).toMatchObject({ type: 'blip', mediaId: 'xl/media/chartFill.png' });
+      expect(Object.keys(wb.images ?? {})).toContain('xl/media/chartFill.png');
+    });
+
     test('warns when pivot table cache definition is missing', async () => {
       const bin = await readFileAsArrayBuffer('./tests/excel/pivot-table.xlsx');
       const zip = new ZipArchive(bin);
@@ -299,6 +337,75 @@ describe('convertBinary', () => {
     test('style-only cell is dropped with skipStyledEmptyCells: true', async () => {
       const wb = await convertBinary(await withStyleOnlyCell(), 'numbers.xlsx', { skipStyledEmptyCells: true });
       expect(wb.sheets[0].cells.B1).toBeUndefined();
+    });
+  });
+
+  describe('[0]! before a name', () => {
+    async function withNamesAndFormula (names: string, formula: string): Promise<ArrayBuffer> {
+      const bin = await readFileAsArrayBuffer('./tests/excel/numbers.xlsx');
+      const zip = new ZipArchive(bin);
+      const wbXml = await zip.readText('xl/workbook.xml');
+      await zip.write('xl/workbook.xml', wbXml!.replace('</sheets>', `</sheets><definedNames>${names}</definedNames>`));
+      const sheetXml = await zip.readText('xl/worksheets/sheet1.xml');
+      await zip.write('xl/worksheets/sheet1.xml', sheetXml!.replace(
+        '<c r="A1"><v>0</v></c></row>',
+        `<c r="A1"><v>0</v></c><c r="B1"><f>${formula}</f><v>0</v></c></row>`,
+      ));
+      return zip.toArrayBuffer();
+    }
+
+    test('prefers a workbook-scoped name, even a hidden one', async () => {
+      for (const hidden of [ '', ' hidden="1"' ]) {
+        const names = `<definedName name="x"${hidden}>7</definedName>` +
+          '<definedName name="x" localSheetId="0">5</definedName>';
+        const wb = await convertBinary(await withNamesAndFormula(names, '[0]!x'), 'numbers.xlsx');
+        expect(wb.formulas?.[wb.sheets[0].cells.B1.f as number]).toBe('numbers.xlsx!x');
+      }
+    });
+
+    test('in a defined name, falls back to a sheet-scoped name like a cell does', async () => {
+      const names = '<definedName name="n">[0]!x</definedName>' +
+        '<definedName name="x" localSheetId="0">5</definedName>';
+      const wb = await convertBinary(await withNamesAndFormula(names, '[0]!x'), 'numbers.xlsx');
+      expect(wb.names?.find(d => d.name === 'n')?.value).toBe('Sheet1!x');
+      expect(wb.formulas?.[wb.sheets[0].cells.B1.f as number]).toBe('Sheet1!x');
+    });
+
+    test('in a sheet-scoped defined name, falls back too', async () => {
+      const names = '<definedName name="n" localSheetId="0">[0]!x</definedName>' +
+        '<definedName name="x" localSheetId="0">5</definedName>';
+      const wb = await convertBinary(await withNamesAndFormula(names, '[0]!x'), 'numbers.xlsx');
+      expect(wb.names?.find(d => d.name === 'n')?.value).toBe('Sheet1!x');
+    });
+  });
+
+  describe('region maps', () => {
+    const file = './tests/excel/charts/chart-map.xlsx';
+    const part = 'xl/charts/chartEx1.xml';
+
+    test('keep the hidden names their data references use', async () => {
+      const wb = await convertBinary(await readFileAsArrayBuffer(file), 'chart-map.xlsx');
+      expect(wb.names).toEqual([
+        { name: '_xlchart.v5.1', value: 'Map!$A$2:$A$6', hidden: true },
+        { name: '_xlchart.v5.2', value: 'Map!$B$1', hidden: true },
+        { name: '_xlchart.v5.3', value: 'Map!$B$2:$B$6', hidden: true },
+        { name: '_xlchart.v5.4', value: 'Map!$C$1', hidden: true },
+        { name: '_xlchart.v5.5', value: 'Map!$C$2:$C$6', hidden: true },
+      ]);
+    });
+
+    test('keep their part, with an empty geocache', async () => {
+      const bin = await readFileAsArrayBuffer(file);
+      const original = await new ZipArchive(bin).readText(part);
+      const wb = await convertBinary(bin, 'chart-map.xlsx');
+      const dataUri = wb.images?.[part] ?? '';
+      const prefix = 'data:application/vnd.ms-office.chartex+xml;base64,';
+      expect(dataUri.startsWith(prefix)).toBe(true);
+      const kept = Buffer.from(dataUri.slice(prefix.length), 'base64').toString('utf8');
+      expect(kept.match(/<cx:binary><\/cx:binary>/g)).toHaveLength(2);
+      // apart from the geocache data, the part is unchanged
+      const withoutCache = (xml: string) => xml.replace(/<cx:binary>[^<]*<\/cx:binary>/g, '');
+      expect(withoutCache(kept)).toBe(withoutCache(original!));
     });
   });
 });

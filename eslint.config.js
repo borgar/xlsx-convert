@@ -1,9 +1,10 @@
+import { defineConfig } from 'eslint/config';
 import borgarLint from '@borgar/eslint-config';
 import eslint from '@eslint/js';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
-export default tseslint.config(
+export default defineConfig(
   {
     files: [
       '**/*.js',
@@ -15,7 +16,10 @@ export default tseslint.config(
     ],
     languageOptions: {
       globals: { ...globals.browser },
-      parserOptions: { projectService: { allowDefaultProject: [ 'eslint.config.js' ] } },
+      parserOptions: {
+        tsconfigRootDir: import.meta.dirname,
+        projectService: { allowDefaultProject: [ 'eslint.config.js' ] },
+      },
     },
   },
   eslint.configs.recommended,

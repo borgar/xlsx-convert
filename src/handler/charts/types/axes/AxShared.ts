@@ -9,7 +9,7 @@ import type { Crosses } from './Crosses.ts';
 import type { TextProps } from '../TextProps.ts';
 
 export type AxShared = {
-  axId: integer; // string?
+  axId: integer;
   scaling?: Scaling;
   delete?: boolean;
   axPos: AxPos;
@@ -17,19 +17,11 @@ export type AxShared = {
   minorGridlines?: Shape;
   title?: Title;
   numFmt?: NumFmt;
-  majorTickMark?: TickMark; /* default: "cross" if set */
-  minorTickMark?: TickMark; /* default: "cross" if set */
-  tickLblPos?: TickLblPos; /* default: "nextTo" if set */
+  majorTickMark?: TickMark;
+  minorTickMark?: TickMark;
+  tickLblPos?: TickLblPos;
   shape?: Shape;
   textProps?: TextProps;
-
-  // This element specifies the ID of axis that this axis crosses.
-  // For instance, a category axis might cross a value axis, and the
-  // category axis'scrossAx would contain the ID of the value axis.
   crossAx: integer;
-
-  // --- oneOf:
   crosses: Crosses | number;
-  // crossesAt: number;
-  // --- /oneOf
 };

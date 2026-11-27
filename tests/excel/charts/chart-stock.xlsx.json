@@ -1,0 +1,832 @@
+{
+  "name": "chart-stock.xlsx",
+  "sheets": [
+    {
+      "name": "Stock",
+      "cells": {
+        "A1": { "v": "Date" },
+        "B1": { "v": "2015-01-01" },
+        "C1": { "v": "2015-01-02" },
+        "D1": { "v": "2015-01-03" },
+        "E1": { "v": "2015-01-04" },
+        "F1": { "v": "2015-01-05" },
+        "A2": { "v": "High" },
+        "B2": { "v": 27.2 },
+        "C2": { "v": 25.03 },
+        "D2": { "v": 24.46 },
+        "E2": { "v": 23.97 },
+        "F2": { "v": 23.65 },
+        "A3": { "v": "Low" },
+        "B3": { "v": 23.49 },
+        "C3": { "v": 19.55 },
+        "D3": { "v": 20.03 },
+        "E3": { "v": 20.07 },
+        "F3": { "v": 19.5 },
+        "A4": { "v": "Close" },
+        "B4": { "v": 25.45 },
+        "C4": { "v": 23.05 },
+        "D4": { "v": 22.42 },
+        "E4": { "v": 21.9 },
+        "F4": { "v": 21.51 },
+        "A16": { "v": "Date" },
+        "B16": { "v": "2015-01-01" },
+        "C16": { "v": "2015-01-02" },
+        "D16": { "v": "2015-01-03" },
+        "E16": { "v": "2015-01-04" },
+        "F16": { "v": "2015-01-05" },
+        "A17": { "v": "Open" },
+        "B17": { "v": 26.2 },
+        "C17": { "v": 25.45 },
+        "D17": { "v": 23.05 },
+        "E17": { "v": 22.42 },
+        "F17": { "v": 21.9 },
+        "A18": { "v": "High" },
+        "B18": { "v": 27.2 },
+        "C18": { "v": 25.03 },
+        "D18": { "v": 24.46 },
+        "E18": { "v": 23.97 },
+        "F18": { "v": 23.65 },
+        "A19": { "v": "Low" },
+        "B19": { "v": 23.49 },
+        "C19": { "v": 19.55 },
+        "D19": { "v": 20.03 },
+        "E19": { "v": 20.07 },
+        "F19": { "v": 19.5 },
+        "A20": { "v": "Close" },
+        "B20": { "v": 25.45 },
+        "C20": { "v": 23.05 },
+        "D20": { "v": 22.42 },
+        "E20": { "v": 21.9 },
+        "F20": { "v": 21.51 },
+        "A31": { "v": "Date" },
+        "B31": { "v": "2015-01-01" },
+        "C31": { "v": "2015-01-02" },
+        "D31": { "v": "2015-01-03" },
+        "E31": { "v": "2015-01-04" },
+        "F31": { "v": "2015-01-05" },
+        "A32": { "v": "Volume" },
+        "B32": { "v": 20000 },
+        "C32": { "v": 10000 },
+        "D32": { "v": 15000 },
+        "E32": { "v": 2000 },
+        "F32": { "v": 12000 },
+        "A33": { "v": "High" },
+        "B33": { "v": 27.2 },
+        "C33": { "v": 25.03 },
+        "D33": { "v": 24.46 },
+        "E33": { "v": 23.97 },
+        "F33": { "v": 23.65 },
+        "A34": { "v": "Low" },
+        "B34": { "v": 23.49 },
+        "C34": { "v": 19.55 },
+        "D34": { "v": 20.03 },
+        "E34": { "v": 20.07 },
+        "F34": { "v": 19.5 },
+        "A35": { "v": "Close" },
+        "B35": { "v": 25.45 },
+        "C35": { "v": 23.05 },
+        "D35": { "v": 22.42 },
+        "E35": { "v": 21.9 },
+        "F35": { "v": 21.51 },
+        "A46": { "v": "Date" },
+        "B46": { "v": "2015-01-01" },
+        "C46": { "v": "2015-01-02" },
+        "D46": { "v": "2015-01-03" },
+        "E46": { "v": "2015-01-04" },
+        "F46": { "v": "2015-01-05" },
+        "A47": { "v": "Volume" },
+        "B47": { "v": 20000 },
+        "C47": { "v": 10000 },
+        "D47": { "v": 15000 },
+        "E47": { "v": 2000 },
+        "F47": { "v": 12000 },
+        "A48": { "v": "Open" },
+        "B48": { "v": 26.2 },
+        "C48": { "v": 25.45 },
+        "D48": { "v": 23.05 },
+        "E48": { "v": 22.42 },
+        "F48": { "v": 21.9 },
+        "A49": { "v": "High" },
+        "B49": { "v": 27.2 },
+        "C49": { "v": 25.03 },
+        "D49": { "v": 24.46 },
+        "E49": { "v": 23.97 },
+        "F49": { "v": 23.65 },
+        "A50": { "v": "Low" },
+        "B50": { "v": 23.49 },
+        "C50": { "v": 19.55 },
+        "D50": { "v": 20.03 },
+        "E50": { "v": 20.07 },
+        "F50": { "v": 19.5 },
+        "A51": { "v": "Close" },
+        "B51": { "v": 25.45 },
+        "C51": { "v": 23.05 },
+        "D51": { "v": 22.42 },
+        "E51": { "v": 21.9 },
+        "F51": { "v": 21.51 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [ { "workbookView": 0, "activeCell": "C15" } ],
+      "drawings": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 7, "colOff": 0 },
+            "to": {
+              "row": 13,
+              "rowOff": 101600,
+              "col": 12,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "2",
+              "name": "Chart 1",
+              "chartId": "xl/charts/chart1.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 15, "rowOff": 0, "col": 7, "colOff": 0 },
+            "to": {
+              "row": 28,
+              "rowOff": 101600,
+              "col": 12,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "3",
+              "name": "Chart 2",
+              "chartId": "xl/charts/chart2.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 30, "rowOff": 0, "col": 7, "colOff": 0 },
+            "to": {
+              "row": 43,
+              "rowOff": 101600,
+              "col": 12,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "4",
+              "name": "Chart 3",
+              "chartId": "xl/charts/chart3.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 45, "rowOff": 0, "col": 7, "colOff": 0 },
+            "to": {
+              "row": 58,
+              "rowOff": 101600,
+              "col": 12,
+              "colOff": 444500
+            }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "5",
+              "name": "Chart 4",
+              "chartId": "xl/charts/chart4.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
+  "tables": [],
+  "views": [ {} ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt1": { "type": "system", "value": "window" },
+      "dk2": { "type": "srgb", "value": "0E2841" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "accent1": { "type": "srgb", "value": "156082" },
+      "accent2": { "type": "srgb", "value": "E97132" },
+      "accent3": { "type": "srgb", "value": "196B24" },
+      "accent4": { "type": "srgb", "value": "0F9ED5" },
+      "accent5": { "type": "srgb", "value": "A02B93" },
+      "accent6": { "type": "srgb", "value": "4EA72E" },
+      "hlink": { "type": "srgb", "value": "467886" },
+      "folHlink": { "type": "srgb", "value": "96607D" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Aptos Display" }
+      },
+      "minor": {
+        "latin": { "typeface": "Aptos Narrow" }
+      }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "charts": {
+    "xl/charts/chart1.xml": {
+      "data": [
+        {
+          "id": "data",
+          "bindings": {
+            "category": { "formula": "Stock!$B$1:$F$1", "role": "category" }
+          }
+        }
+      ],
+      "scales": [
+        { "id": "category", "type": "band", "auto": true },
+        { "id": "value", "type": "linear" }
+      ],
+      "plots": [
+        {
+          "id": "plot1",
+          "mark": "candlestick",
+          "data": "data",
+          "encoding": {
+            "series": { "field": "series" },
+            "x": { "field": "category", "scale": "category" }
+          },
+          "series": [
+            {
+              "id": "s0",
+              "name": { "formula": "Stock!$A$2" },
+              "encoding": {
+                "high": { "field": "value", "scale": "value" }
+              },
+              "bindings": {
+                "value": { "formula": "Stock!$B$2:$F$2", "role": "high" }
+              },
+              "shape": {
+                "line": {
+                  "fill": { "type": "none" }
+                }
+              },
+              "marker": { "symbol": "none" }
+            },
+            {
+              "id": "s1",
+              "name": { "formula": "Stock!$A$3" },
+              "encoding": {
+                "low": { "field": "value", "scale": "value" }
+              },
+              "bindings": {
+                "value": { "formula": "Stock!$B$3:$F$3", "role": "low" }
+              },
+              "shape": {
+                "line": {
+                  "fill": { "type": "none" }
+                }
+              },
+              "marker": { "symbol": "none" }
+            },
+            {
+              "id": "s2",
+              "name": { "formula": "Stock!$A$4" },
+              "encoding": {
+                "close": { "field": "value", "scale": "value" }
+              },
+              "bindings": {
+                "value": { "formula": "Stock!$B$4:$F$4", "role": "close" }
+              },
+              "shape": {
+                "line": {
+                  "fill": { "type": "none" }
+                }
+              },
+              "marker": { "symbol": "dot", "size": 3 }
+            }
+          ],
+          "layout": {
+            "type": "candlestick",
+            "highLowLines": {}
+          }
+        }
+      ],
+      "title": { "text": "Stock with HLC" },
+      "axes": [
+        {
+          "id": "categoryAxis",
+          "scale": "category",
+          "orient": "bottom",
+          "tickMarks": { "major": "none" }
+        },
+        {
+          "id": "valueAxis",
+          "scale": "value",
+          "orient": "left",
+          "tickMarks": { "major": "none" },
+          "gridlines": {
+            "major": {}
+          }
+        }
+      ],
+      "legend": { "position": "bottom" },
+      "showNaAsBlank": true,
+      "styleId": 2
+    },
+    "xl/charts/chart2.xml": {
+      "data": [
+        {
+          "id": "data",
+          "bindings": {
+            "category": { "formula": "Stock!$B$16:$F$16", "role": "category" }
+          }
+        }
+      ],
+      "scales": [
+        { "id": "category", "type": "band", "auto": true },
+        { "id": "value", "type": "linear" }
+      ],
+      "plots": [
+        {
+          "id": "plot1",
+          "mark": "candlestick",
+          "data": "data",
+          "encoding": {
+            "series": { "field": "series" },
+            "x": { "field": "category", "scale": "category" }
+          },
+          "series": [
+            {
+              "id": "s0",
+              "name": { "formula": "Stock!$A$17" },
+              "encoding": {
+                "open": { "field": "value", "scale": "value" }
+              },
+              "bindings": {
+                "value": { "formula": "Stock!$B$17:$F$17", "role": "open" }
+              },
+              "shape": {
+                "line": {
+                  "fill": { "type": "none" }
+                }
+              },
+              "marker": { "symbol": "none" }
+            },
+            {
+              "id": "s1",
+              "name": { "formula": "Stock!$A$18" },
+              "encoding": {
+                "high": { "field": "value", "scale": "value" }
+              },
+              "bindings": {
+                "value": { "formula": "Stock!$B$18:$F$18", "role": "high" }
+              },
+              "shape": {
+                "line": {
+                  "fill": { "type": "none" }
+                }
+              },
+              "marker": { "symbol": "none" }
+            },
+            {
+              "id": "s2",
+              "name": { "formula": "Stock!$A$19" },
+              "encoding": {
+                "low": { "field": "value", "scale": "value" }
+              },
+              "bindings": {
+                "value": { "formula": "Stock!$B$19:$F$19", "role": "low" }
+              },
+              "shape": {
+                "line": {
+                  "fill": { "type": "none" }
+                }
+              },
+              "marker": { "symbol": "none" }
+            },
+            {
+              "id": "s3",
+              "name": { "formula": "Stock!$A$20" },
+              "encoding": {
+                "close": { "field": "value", "scale": "value" }
+              },
+              "bindings": {
+                "value": { "formula": "Stock!$B$20:$F$20", "role": "close" }
+              },
+              "shape": {
+                "line": {
+                  "fill": { "type": "none" }
+                }
+              },
+              "marker": { "symbol": "none" }
+            }
+          ],
+          "layout": {
+            "type": "candlestick",
+            "highLowLines": {},
+            "upDownBars": {}
+          }
+        }
+      ],
+      "title": { "text": "Stock with OHLC" },
+      "axes": [
+        {
+          "id": "categoryAxis",
+          "scale": "category",
+          "orient": "bottom",
+          "tickMarks": { "major": "none" }
+        },
+        {
+          "id": "valueAxis",
+          "scale": "value",
+          "orient": "left",
+          "tickMarks": { "major": "none" },
+          "gridlines": {
+            "major": {}
+          }
+        }
+      ],
+      "legend": { "position": "bottom" },
+      "showNaAsBlank": true,
+      "styleId": 2
+    },
+    "xl/charts/chart3.xml": {
+      "data": [
+        {
+          "id": "data",
+          "bindings": {
+            "category": { "formula": "Stock!$B$31:$F$31", "role": "category" }
+          }
+        }
+      ],
+      "scales": [
+        { "id": "category", "type": "band", "auto": true },
+        { "id": "value", "type": "linear" },
+        { "id": "value2", "type": "linear" },
+        { "id": "category2", "type": "band", "auto": true }
+      ],
+      "plots": [
+        {
+          "id": "plot1",
+          "mark": "bar",
+          "data": "data",
+          "encoding": {
+            "series": { "field": "series" },
+            "x": { "field": "category", "scale": "category" },
+            "y": { "field": "value", "scale": "value" }
+          },
+          "series": [
+            {
+              "id": "s0",
+              "name": { "formula": "Stock!$A$32" },
+              "bindings": {
+                "value": { "formula": "Stock!$B$32:$F$32", "role": "value" }
+              }
+            }
+          ],
+          "grouping": "clustered"
+        },
+        {
+          "id": "plot2",
+          "mark": "candlestick",
+          "data": "data",
+          "encoding": {
+            "series": { "field": "series" },
+            "x": { "field": "category", "scale": "category2" }
+          },
+          "series": [
+            {
+              "id": "s1",
+              "name": { "formula": "Stock!$A$33" },
+              "encoding": {
+                "high": { "field": "value", "scale": "value2" }
+              },
+              "bindings": {
+                "value": { "formula": "Stock!$B$33:$F$33", "role": "high" }
+              },
+              "shape": {
+                "line": {
+                  "fill": { "type": "none" }
+                }
+              },
+              "marker": { "symbol": "none" }
+            },
+            {
+              "id": "s2",
+              "name": { "formula": "Stock!$A$34" },
+              "encoding": {
+                "low": { "field": "value", "scale": "value2" }
+              },
+              "bindings": {
+                "value": { "formula": "Stock!$B$34:$F$34", "role": "low" }
+              },
+              "shape": {
+                "line": {
+                  "fill": { "type": "none" }
+                }
+              },
+              "marker": { "symbol": "none" }
+            },
+            {
+              "id": "s3",
+              "name": { "formula": "Stock!$A$35" },
+              "encoding": {
+                "close": { "field": "value", "scale": "value2" }
+              },
+              "bindings": {
+                "value": { "formula": "Stock!$B$35:$F$35", "role": "close" }
+              },
+              "shape": {
+                "line": {
+                  "fill": { "type": "none" }
+                }
+              },
+              "marker": { "symbol": "dot" }
+            }
+          ],
+          "axisGroup": "secondary",
+          "layout": {
+            "type": "candlestick",
+            "highLowLines": {}
+          }
+        }
+      ],
+      "title": { "text": "Stock with VHLC" },
+      "axes": [
+        {
+          "id": "categoryAxis",
+          "scale": "category",
+          "orient": "bottom",
+          "tickMarks": { "major": "none" }
+        },
+        {
+          "id": "valueAxis",
+          "scale": "value",
+          "orient": "left",
+          "tickMarks": { "major": "none" },
+          "gridlines": {
+            "major": {}
+          }
+        },
+        {
+          "id": "value2Axis",
+          "scale": "value2",
+          "orient": "right",
+          "crosses": { "type": "max" },
+          "tickMarks": { "major": "none" },
+          "gridlines": {
+            "major": {}
+          }
+        },
+        {
+          "id": "category2Axis",
+          "scale": "category2",
+          "orient": "bottom",
+          "hidden": true,
+          "tickMarks": { "major": "none" },
+          "textStyle": {
+            "fontSize": 10,
+            "color": { "type": "theme", "value": "tx1" }
+          },
+          "shape": {
+            "line": {
+              "fill": {
+                "type": "solid",
+                "bg": {
+                  "type": "theme",
+                  "value": "tx1",
+                  "transforms": [ { "type": "tint", "value": 75 } ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "legend": { "position": "bottom" },
+      "showNaAsBlank": true,
+      "styleId": 2
+    },
+    "xl/charts/chart4.xml": {
+      "data": [
+        {
+          "id": "data",
+          "bindings": {
+            "category": { "formula": "Stock!$B$46:$F$46", "role": "category" }
+          }
+        }
+      ],
+      "scales": [
+        { "id": "category", "type": "band", "auto": true },
+        { "id": "value", "type": "linear" },
+        { "id": "value2", "type": "linear" },
+        { "id": "category2", "type": "band", "auto": true }
+      ],
+      "plots": [
+        {
+          "id": "plot1",
+          "mark": "bar",
+          "data": "data",
+          "encoding": {
+            "series": { "field": "series" },
+            "x": { "field": "category", "scale": "category" },
+            "y": { "field": "value", "scale": "value" }
+          },
+          "series": [
+            {
+              "id": "s0",
+              "name": { "formula": "Stock!$A$47" },
+              "bindings": {
+                "value": { "formula": "Stock!$B$47:$F$47", "role": "value" }
+              }
+            }
+          ],
+          "grouping": "clustered"
+        },
+        {
+          "id": "plot2",
+          "mark": "candlestick",
+          "data": "data",
+          "encoding": {
+            "series": { "field": "series" },
+            "x": { "field": "category", "scale": "category2" }
+          },
+          "series": [
+            {
+              "id": "s1",
+              "name": { "formula": "Stock!$A$48" },
+              "encoding": {
+                "open": { "field": "value", "scale": "value2" }
+              },
+              "bindings": {
+                "value": { "formula": "Stock!$B$48:$F$48", "role": "open" }
+              },
+              "shape": {
+                "line": {
+                  "fill": { "type": "none" }
+                }
+              },
+              "marker": { "symbol": "none" }
+            },
+            {
+              "id": "s2",
+              "name": { "formula": "Stock!$A$49" },
+              "encoding": {
+                "high": { "field": "value", "scale": "value2" }
+              },
+              "bindings": {
+                "value": { "formula": "Stock!$B$49:$F$49", "role": "high" }
+              },
+              "shape": {
+                "line": {
+                  "fill": { "type": "none" }
+                }
+              },
+              "marker": { "symbol": "none" }
+            },
+            {
+              "id": "s3",
+              "name": { "formula": "Stock!$A$50" },
+              "encoding": {
+                "low": { "field": "value", "scale": "value2" }
+              },
+              "bindings": {
+                "value": { "formula": "Stock!$B$50:$F$50", "role": "low" }
+              },
+              "shape": {
+                "line": {
+                  "fill": { "type": "none" }
+                }
+              },
+              "marker": { "symbol": "none" }
+            },
+            {
+              "id": "s4",
+              "name": { "formula": "Stock!$A$51" },
+              "encoding": {
+                "close": { "field": "value", "scale": "value2" }
+              },
+              "bindings": {
+                "value": { "formula": "Stock!$B$51:$F$51", "role": "close" }
+              },
+              "shape": {
+                "line": {
+                  "fill": { "type": "none" }
+                }
+              },
+              "marker": { "symbol": "none" }
+            }
+          ],
+          "axisGroup": "secondary",
+          "layout": {
+            "type": "candlestick",
+            "highLowLines": {},
+            "upDownBars": {}
+          }
+        }
+      ],
+      "title": { "text": "Stock with VOHLC" },
+      "axes": [
+        {
+          "id": "categoryAxis",
+          "scale": "category",
+          "orient": "bottom",
+          "tickMarks": { "major": "none" }
+        },
+        {
+          "id": "valueAxis",
+          "scale": "value",
+          "orient": "left",
+          "tickMarks": { "major": "none" },
+          "gridlines": {
+            "major": {}
+          }
+        },
+        {
+          "id": "value2Axis",
+          "scale": "value2",
+          "orient": "right",
+          "crosses": { "type": "max" },
+          "tickMarks": { "major": "none" },
+          "gridlines": {
+            "major": {}
+          }
+        },
+        {
+          "id": "category2Axis",
+          "scale": "category2",
+          "orient": "bottom",
+          "hidden": true,
+          "tickMarks": { "major": "none" },
+          "textStyle": {
+            "fontSize": 10,
+            "color": { "type": "theme", "value": "tx1" }
+          },
+          "shape": {
+            "line": {
+              "fill": {
+                "type": "solid",
+                "bg": {
+                  "type": "theme",
+                  "value": "tx1",
+                  "transforms": [ { "type": "tint", "value": 75 } ]
+                }
+              }
+            }
+          }
+        }
+      ],
+      "legend": { "position": "bottom" },
+      "showNaAsBlank": true,
+      "styleId": 2
+    }
+  },
+  "formulas": [],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  },
+  "unsupported": [ "shape-effect" ]
+}

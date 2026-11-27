@@ -304,3 +304,80 @@ describe('handlerWorksheet sheetViews', () => {
     });
   });
 });
+
+describe('handlerWorksheet merges', () => {
+  function parseMerges (mergeRefs: string[], cells = '', skipMerged = false) {
+    const ctx = new ConversionContext();
+    ctx.options.skipMerged = skipMerged;
+    ctx.workbook = { name: '', sheets: [], styles: [ {} ] };
+    const merges = mergeRefs.map(ref => `<mergeCell ref="${ref}"/>`).join('');
+    return handlerWorksheet(parseXML(
+      '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">' +
+        '<sheetData>' + cells + '</sheetData>' +
+        `<mergeCells count="${mergeRefs.length}">${merges}</mergeCells>` +
+      '</worksheet>',
+    ), ctx, [], 'Sheet1');
+  }
+
+  it('normalizes merges to full A1 ranges', () => {
+    expect(parseMerges([ 'A1:B2', '$C$3:$D$4', 'e5:f6', 'H8:G7', 'J10' ]).merges).toEqual([
+      'A1:B2',
+      'C3:D4',
+      'E5:F6',
+      'G7:H8',
+    ]);
+  });
+
+  it('keeps whole-column and whole-row merges as full A1 ranges', () => {
+    expect(parseMerges([ 'D:E', '$A:B', 'a:B', '4:5', '$1:2' ]).merges).toEqual([
+      'D1:E1048576',
+      'A1:B1048576',
+      'A1:B1048576',
+      'A4:XFD5',
+      'A1:XFD2',
+    ]);
+  });
+
+  it('drops invalid merges', () => {
+    expect(parseMerges([
+      'A1:A',
+      'A1:1',
+      'A$:B',
+      'Sheet1!A1:B2',
+      'foo',
+      'A1:B2:C3',
+      ' A1:B2',
+      'XFE1:XFE2',
+      'A1048577:B1048577',
+      'A0:B1',
+      '',
+      'C1:D2',
+    ]).merges).toEqual([ 'C1:D2' ]);
+  });
+
+  describe('with skipMerged', () => {
+    const cells =
+      '<row r="1"><c r="A1"><v>1</v></c><c r="B1"><v>2</v></c><c r="C1"><v>3</v></c></row>' +
+      '<row r="2"><c r="A2"><v>4</v></c><c r="B2"><v>5</v></c><c r="C2"><v>6</v></c></row>';
+
+    it('drops cells covered by a merge, except its top-left cell', () => {
+      const sheet = parseMerges([ 'A1:B2' ], cells, true);
+      expect(Object.keys(sheet.cells)).toEqual([ 'A1', 'C1', 'C2' ]);
+    });
+
+    it('drops cells covered by a whole-column merge', () => {
+      const sheet = parseMerges([ 'A:B' ], cells, true);
+      expect(Object.keys(sheet.cells)).toEqual([ 'A1', 'C1', 'C2' ]);
+    });
+
+    it('drops cells covered by a whole-row merge', () => {
+      const sheet = parseMerges([ '1:2' ], cells, true);
+      expect(Object.keys(sheet.cells)).toEqual([ 'A1' ]);
+    });
+
+    it('keeps every cell without skipMerged', () => {
+      const sheet = parseMerges([ 'A:B' ], cells, false);
+      expect(Object.keys(sheet.cells)).toEqual([ 'A1', 'B1', 'C1', 'A2', 'B2', 'C2' ]);
+    });
+  });
+});

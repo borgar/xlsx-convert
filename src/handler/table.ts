@@ -1,8 +1,14 @@
 import type { Document } from '@borgar/simple-xml';
 import type { ConversionContext } from '../ConversionContext.ts';
-import { attr, boolAttr, numAttr } from '../utils/attr.ts';
+import { attr, boolAttr, numAttr, xstringAttr } from '../utils/attr.ts';
+import { unescape } from '../utils/unescape.ts';
 import { normalizeFormula } from '../utils/normalizeFormula.ts';
 import type { Table, TableColumn, TableStyle, TableStyleName } from '@jsfkit/types';
+import { getFirstChild } from '../utils/getFirstChild.ts';
+import {
+  MISSING_TABLE_FILTER_BUTTON, MISSING_TABLE_INSERTROW, MISSING_TABLE_SORTSTATE,
+  MISSING_TABLE_STYLE_CUSTOM,
+} from '../constants.ts';
 
 const reTableStyleName = /^TableStyle(Dark(\d|10|11)|Light(1?\d|20|21)|Medium(1?\d|2[0-8]))$/;
 
@@ -11,7 +17,7 @@ export function handlerTable (dom: Document | null | undefined, context: Convers
   if (!tableElm) { return; }
 
   const table: Table = {
-    name: attr(tableElm, 'displayName') || attr(tableElm, 'name'),
+    name: xstringAttr(tableElm, 'displayName') || xstringAttr(tableElm, 'name'),
     sheet: '',
     ref: attr(tableElm, 'ref'),
     headerRowCount: numAttr(tableElm, 'headerRowCount', 1),
@@ -21,9 +27,24 @@ export function handlerTable (dom: Document | null | undefined, context: Convers
     // alt text: extLst>ext>table[altTextSummary]
   };
 
-  // todo: table can have a sortState
+  if (boolAttr(tableElm, 'insertRow', false)) {
+    context.unsupported.add(MISSING_TABLE_INSERTROW);
+  }
 
-  const tableStyleInfo = tableElm.getElementsByTagName('tableStyleInfo')[0];
+  // todo: table can have a sortState
+  const sortState = getFirstChild(tableElm, 'sortState');
+  if (sortState) { context.unsupported.add(MISSING_TABLE_SORTSTATE); }
+
+  const autoFilter = getFirstChild(tableElm, 'autoFilter');
+  if (autoFilter) {
+    for (const child of autoFilter.children) {
+      if (boolAttr(child, 'hiddenButton')) {
+        context.unsupported.add(MISSING_TABLE_FILTER_BUTTON);
+      }
+    }
+  }
+
+  const tableStyleInfo = getFirstChild(tableElm, 'tableStyleInfo');
   if (tableStyleInfo) {
     // This may be a bit confusing, but here is is:
     // 1. When there is no <tableStyleInfo /> in the file, the table should be rendered using "TableStyleMedium2"
@@ -37,8 +58,13 @@ export function handlerTable (dom: Document | null | undefined, context: Convers
       showLastColumn: false,
     };
     const name = attr(tableStyleInfo, 'name');
-    if (name && reTableStyleName.test(name)) {
-      tableStyle.name = name as TableStyleName;
+    if (name) {
+      if (reTableStyleName.test(name)) {
+        tableStyle.name = name as TableStyleName;
+      }
+      else {
+        context.unsupported.add(MISSING_TABLE_STYLE_CUSTOM);
+      }
     }
     tableStyle.showRowStripes = boolAttr(tableStyleInfo, 'showRowStripes', true);
     tableStyle.showColumnStripes = boolAttr(tableStyleInfo, 'showColumnStripes', false);
@@ -61,7 +87,7 @@ export function handlerTable (dom: Document | null | undefined, context: Convers
     .querySelectorAll('tableColumns > tableColumn')
     .forEach(node => {
       const column: TableColumn = {
-        name: attr(node, 'name'),
+        name: xstringAttr(node, 'name'),
         // TODO: totalsRowLabel
         // totalsRowLabel: attr(node, 'totalsRowLabel'),
       };
@@ -83,7 +109,7 @@ export function handlerTable (dom: Document | null | undefined, context: Convers
 
       const f = node.getElementsByTagName('calculatedColumnFormula')[0];
       if (f) {
-        column.formula = normalizeFormula(f.textContent, context);
+        column.formula = normalizeFormula(unescape(f.textContent), context);
         if (attr(f, 'array') === '1') {
           column.formulaIsArray = true;
         }

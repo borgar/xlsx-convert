@@ -1,0 +1,488 @@
+{
+  "name": "chart-error-bars-xy.xlsx",
+  "sheets": [
+    {
+      "name": "XY",
+      "cells": {
+        "A1": { "v": "Category" },
+        "B1": { "v": "X" },
+        "C1": { "v": "Y" },
+        "A2": { "v": "a" },
+        "B2": { "v": 1 },
+        "C2": { "v": 10 },
+        "A3": { "v": "b" },
+        "B3": { "v": 2 },
+        "C3": { "v": 14 },
+        "A4": { "v": "c" },
+        "B4": { "v": 3 },
+        "C4": { "v": 9 },
+        "A5": { "v": "d" },
+        "B5": { "v": 4 },
+        "C5": { "v": 16 },
+        "A6": { "v": "e" },
+        "B6": { "v": 5 },
+        "C6": { "v": 12 }
+      },
+      "columns": [],
+      "rows": [],
+      "merges": [],
+      "defaults": { "colWidth": 65, "rowHeight": 16 },
+      "hidden": 0,
+      "views": [ { "workbookView": 0, "activeCell": "F16" } ],
+      "drawings": [
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": { "row": 19, "rowOff": 0, "col": 12, "colOff": 400000 }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "2",
+              "name": "Chart A",
+              "chartId": "xl/charts/chart1.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 0, "rowOff": 0, "col": 13, "colOff": 0 },
+            "to": { "row": 19, "rowOff": 0, "col": 21, "colOff": 400000 }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "3",
+              "name": "Chart B",
+              "chartId": "xl/charts/chart2.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 20, "rowOff": 0, "col": 4, "colOff": 0 },
+            "to": { "row": 39, "rowOff": 0, "col": 12, "colOff": 400000 }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "4",
+              "name": "Chart C",
+              "chartId": "xl/charts/chart3.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        },
+        {
+          "anchor": {
+            "type": "twoCell",
+            "from": { "row": 20, "rowOff": 0, "col": 13, "colOff": 0 },
+            "to": { "row": 39, "rowOff": 0, "col": 21, "colOff": 400000 }
+          },
+          "content": [
+            {
+              "type": "chart",
+              "id": "5",
+              "name": "Chart D",
+              "chartId": "xl/charts/chart4.xml",
+              "xfrm": {
+                "ext": { "cx": 0, "cy": 0 }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "names": [],
+  "calculationProperties": {
+    "iterate": false,
+    "iterateCount": 100,
+    "iterateDelta": 0.001,
+    "epoch": 1900
+  },
+  "styles": [ { "fontScheme": "minor", "fontSize": 12 } ],
+  "tables": [],
+  "views": [ {} ],
+  "theme": {
+    "name": "Office Theme",
+    "colorScheme": {
+      "name": "Office",
+      "dk1": { "type": "system", "value": "windowText" },
+      "lt1": { "type": "system", "value": "window" },
+      "dk2": { "type": "srgb", "value": "0E2841" },
+      "lt2": { "type": "srgb", "value": "E8E8E8" },
+      "accent1": { "type": "srgb", "value": "156082" },
+      "accent2": { "type": "srgb", "value": "E97132" },
+      "accent3": { "type": "srgb", "value": "196B24" },
+      "accent4": { "type": "srgb", "value": "0F9ED5" },
+      "accent5": { "type": "srgb", "value": "A02B93" },
+      "accent6": { "type": "srgb", "value": "4EA72E" },
+      "hlink": { "type": "srgb", "value": "467886" },
+      "folHlink": { "type": "srgb", "value": "96607D" }
+    },
+    "fontScheme": {
+      "name": "Office",
+      "major": {
+        "latin": { "typeface": "Aptos Display" }
+      },
+      "minor": {
+        "latin": { "typeface": "Aptos Narrow" }
+      }
+    }
+  },
+  "namedStyles": {
+    "Normal": {
+      "name": "Normal",
+      "fontScheme": "minor",
+      "fontSize": 12,
+      "builtinId": 0
+    }
+  },
+  "charts": {
+    "xl/charts/chart1.xml": {
+      "data": [ { "id": "data" } ],
+      "scales": [
+        { "id": "x", "type": "linear" },
+        { "id": "y", "type": "linear" }
+      ],
+      "plots": [
+        {
+          "id": "plot1",
+          "mark": "point",
+          "data": "data",
+          "encoding": {
+            "series": { "field": "series" },
+            "x": { "field": "x", "scale": "x" },
+            "y": { "field": "y", "scale": "y" }
+          },
+          "series": [
+            {
+              "id": "s0",
+              "name": { "formula": "XY!$C$1" },
+              "bindings": {
+                "x": { "formula": "XY!$B$2:$B$6", "role": "x" },
+                "y": { "formula": "XY!$C$2:$C$6", "role": "y" }
+              },
+              "shape": {
+                "line": {
+                  "fill": { "type": "none" }
+                }
+              },
+              "marker": { "symbol": "circle" },
+              "errorBars": [
+                {
+                  "valueType": "fixed",
+                  "direction": "x",
+                  "value": 0.5,
+                  "line": {
+                    "width": 19050,
+                    "cap": "square",
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "srgb", "value": "FF0000" }
+                    }
+                  }
+                },
+                {
+                  "valueType": "fixed",
+                  "value": 2,
+                  "line": {
+                    "width": 19050,
+                    "cap": "square",
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "srgb", "value": "0000FF" }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "layout": { "type": "scatter", "style": "lineMarker" }
+        }
+      ],
+      "title": {
+        "text": "A: Scatter, X (red) and Y (blue) error bars",
+        "textStyle": {
+          "fontFamily": "Arial",
+          "fontSize": 18,
+          "color": { "type": "srgb", "value": "000000" }
+        }
+      },
+      "axes": [
+        {
+          "id": "xAxis",
+          "scale": "x",
+          "orient": "bottom",
+          "tickMarks": { "major": "none" }
+        },
+        {
+          "id": "yAxis",
+          "scale": "y",
+          "orient": "left",
+          "tickMarks": { "major": "none" },
+          "gridlines": {
+            "major": {}
+          }
+        }
+      ],
+      "legend": { "position": "bottom" },
+      "showNaAsBlank": true,
+      "styleId": 2
+    },
+    "xl/charts/chart2.xml": {
+      "data": [ { "id": "data" } ],
+      "scales": [
+        { "id": "x", "type": "linear" },
+        { "id": "y", "type": "linear" }
+      ],
+      "plots": [
+        {
+          "id": "plot1",
+          "mark": "point",
+          "data": "data",
+          "encoding": {
+            "series": { "field": "series" },
+            "x": { "field": "x", "scale": "x" },
+            "y": { "field": "y", "scale": "y" }
+          },
+          "series": [
+            {
+              "id": "s0",
+              "name": { "formula": "XY!$C$1" },
+              "bindings": {
+                "x": { "formula": "XY!$B$2:$B$6", "role": "x" },
+                "y": { "formula": "XY!$C$2:$C$6", "role": "y" }
+              },
+              "shape": {
+                "line": {
+                  "fill": { "type": "none" }
+                }
+              },
+              "marker": { "symbol": "circle" },
+              "errorBars": [
+                {
+                  "valueType": "fixed",
+                  "value": 2,
+                  "line": {
+                    "width": 19050,
+                    "cap": "square",
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "srgb", "value": "0000FF" }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "layout": { "type": "scatter", "style": "lineMarker" }
+        }
+      ],
+      "title": {
+        "text": "B: Scatter, Y error bars only",
+        "textStyle": {
+          "fontFamily": "Arial",
+          "fontSize": 18,
+          "color": { "type": "srgb", "value": "000000" }
+        }
+      },
+      "axes": [
+        {
+          "id": "xAxis",
+          "scale": "x",
+          "orient": "bottom",
+          "tickMarks": { "major": "none" }
+        },
+        {
+          "id": "yAxis",
+          "scale": "y",
+          "orient": "left",
+          "tickMarks": { "major": "none" },
+          "gridlines": {
+            "major": {}
+          }
+        }
+      ],
+      "legend": { "position": "bottom" },
+      "showNaAsBlank": true,
+      "styleId": 2
+    },
+    "xl/charts/chart3.xml": {
+      "data": [ { "id": "data" } ],
+      "scales": [
+        { "id": "category", "type": "point", "auto": true },
+        { "id": "value", "type": "linear" }
+      ],
+      "plots": [
+        {
+          "id": "plot1",
+          "mark": "area",
+          "data": "data",
+          "encoding": {
+            "series": { "field": "series" },
+            "x": { "field": "category", "scale": "category" },
+            "y": { "field": "value", "scale": "value" }
+          },
+          "series": [
+            {
+              "id": "s0",
+              "name": { "formula": "XY!$C$1" },
+              "bindings": {
+                "category": { "formula": "XY!$A$2:$A$6", "role": "category" },
+                "value": { "formula": "XY!$C$2:$C$6", "role": "value" }
+              },
+              "errorBars": [
+                {
+                  "valueType": "fixed",
+                  "direction": "x",
+                  "value": 0.5,
+                  "line": {
+                    "width": 19050,
+                    "cap": "square",
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "srgb", "value": "FF0000" }
+                    }
+                  }
+                },
+                {
+                  "valueType": "fixed",
+                  "value": 2,
+                  "line": {
+                    "width": 19050,
+                    "cap": "square",
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "srgb", "value": "0000FF" }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "title": {
+        "text": "C: Area, X (red) and Y (blue) error bars",
+        "textStyle": {
+          "fontFamily": "Arial",
+          "fontSize": 18,
+          "color": { "type": "srgb", "value": "000000" }
+        }
+      },
+      "axes": [
+        {
+          "id": "categoryAxis",
+          "scale": "category",
+          "orient": "bottom",
+          "tickMarks": { "major": "none" }
+        },
+        {
+          "id": "valueAxis",
+          "scale": "value",
+          "orient": "left",
+          "tickMarks": { "major": "none" },
+          "gridlines": {
+            "major": {}
+          }
+        }
+      ],
+      "legend": { "position": "bottom" },
+      "showNaAsBlank": true,
+      "styleId": 2
+    },
+    "xl/charts/chart4.xml": {
+      "data": [ { "id": "data" } ],
+      "scales": [
+        { "id": "category", "type": "point", "auto": true },
+        { "id": "value", "type": "linear" }
+      ],
+      "plots": [
+        {
+          "id": "plot1",
+          "mark": "area",
+          "data": "data",
+          "encoding": {
+            "series": { "field": "series" },
+            "x": { "field": "category", "scale": "category" },
+            "y": { "field": "value", "scale": "value" }
+          },
+          "series": [
+            {
+              "id": "s0",
+              "name": { "formula": "XY!$C$1" },
+              "bindings": {
+                "category": { "formula": "XY!$A$2:$A$6", "role": "category" },
+                "value": { "formula": "XY!$C$2:$C$6", "role": "value" }
+              },
+              "errorBars": [
+                {
+                  "valueType": "fixed",
+                  "value": 2,
+                  "line": {
+                    "width": 19050,
+                    "cap": "square",
+                    "fill": {
+                      "type": "solid",
+                      "bg": { "type": "srgb", "value": "0000FF" }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "title": {
+        "text": "D: Area, Y error bars only",
+        "textStyle": {
+          "fontFamily": "Arial",
+          "fontSize": 18,
+          "color": { "type": "srgb", "value": "000000" }
+        }
+      },
+      "axes": [
+        {
+          "id": "categoryAxis",
+          "scale": "category",
+          "orient": "bottom",
+          "tickMarks": { "major": "none" }
+        },
+        {
+          "id": "valueAxis",
+          "scale": "value",
+          "orient": "left",
+          "tickMarks": { "major": "none" },
+          "gridlines": {
+            "major": {}
+          }
+        }
+      ],
+      "legend": { "position": "bottom" },
+      "showNaAsBlank": true,
+      "styleId": 2
+    }
+  },
+  "formulas": [],
+  "meta": {
+    "app": {
+      "name": "Microsoft Excel",
+      "variant": "Macintosh",
+      "version": "16.0300"
+    }
+  },
+  "unsupported": [ "shape-effect" ]
+}

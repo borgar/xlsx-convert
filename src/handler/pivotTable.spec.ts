@@ -816,6 +816,30 @@ describe('handlerPivotTable', () => {
     expect(pt.hideValuesRow).toBe(true);
   });
 
+  it('parses hideValuesRow when a pivotField has its own extLst', () => {
+    const xml = `<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="1">
+        <pivotField showAll="0">
+          <extLst>
+            <ext uri="{2946ED86-A175-432a-8AC1-64E0C546D7DE}" xmlns:x14="http://schemas.microsoft.com/office/spreadsheetml/2009/9/main">
+              <x14:pivotField fillDownLabels="1"/>
+            </ext>
+          </extLst>
+        </pivotField>
+      </pivotFields>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="0"/>
+      <extLst>
+        <ext uri="{962EF5D1-5CA2-4c93-8EF4-DBF5C05439D2}" xmlns:x14="http://schemas.microsoft.com/office/spreadsheetml/2009/9/main">
+          <x14:pivotTableDefinition hideValuesRow="1"/>
+        </ext>
+      </extLst>
+    </pivotTableDefinition>`;
+    const pt = parse(xml)!;
+    expect(pt.hideValuesRow).toBe(true);
+  });
+
   it('omits hideValuesRow when the x14 extension is absent', () => {
     const pt = parse(MINIMAL_PT)!;
     expect(pt.hideValuesRow).toBeUndefined();
@@ -840,5 +864,64 @@ describe('handlerPivotTable', () => {
   it('should omit calculatedFields when absent', () => {
     const pt = parse(MINIMAL_PT)!;
     expect(pt.calculatedFields).toBeUndefined();
+  });
+});
+
+describe('handlerPivotTable _xHHHH_ escapes', () => {
+  it('decodes escapes in calculated field names and formulas', () => {
+    const pt = parse(`<pivotTableDefinition name="PT1" cacheId="0">
+      <location ref="A1" firstHeaderRow="1" firstDataRow="1" firstDataCol="0"/>
+      <pivotFields count="0"/>
+      <rowFields count="0"/><colFields count="0"/>
+      <dataFields count="0"/>
+      <calculatedFields count="1">
+        <calculatedField name="M_x0041_" formula="LEN(&quot;Q_x005F_x0041_&quot;)"/>
+      </calculatedFields>
+    </pivotTableDefinition>`)!;
+    expect(pt.calculatedFields).toEqual([ { name: 'MA', formula: 'LEN("Q_x0041_")' } ]);
+  });
+
+  it('decodes escapes in names, captions and filter strings', () => {
+    const pt = parse(`<pivotTableDefinition name="P_x0041_" cacheId="0" dataCaption="V_x0041_"
+        grandTotalCaption="G_x0041_" errorCaption="E_x0041_" missingCaption="M_x0041_"
+        rowHeaderCaption="R_x0041_" colHeaderCaption="C_x0041_">
+      <location ref="A3:B5" firstHeaderRow="1" firstDataRow="1" firstDataCol="1"/>
+      <pivotFields count="2">
+        <pivotField axis="axisRow" name="F_x0041_" subtotalCaption="S_x0041_" uniqueMemberProperty="U_x0041_">
+          <items count="1"><item x="0" n="I_x0041_"/></items>
+        </pivotField>
+        <pivotField dataField="1"/>
+      </pivotFields>
+      <pageFields count="1"><pageField fld="0" name="N_x0041_" cap="K_x0041_"/></pageFields>
+      <dataFields count="1"><dataField name="Sum of H_x005F_x0041_" fld="1"/></dataFields>
+      <filters count="1">
+        <filter fld="0" type="captionEqual" id="1" name="L_x0041_" description="D_x0041_"
+            stringValue1="X_x0041_" stringValue2="Y_x0041_">
+          <autoFilter ref="A1">
+            <filterColumn colId="0">
+              <customFilters><customFilter val="Z_x0041_"/></customFilters>
+            </filterColumn>
+          </autoFilter>
+        </filter>
+      </filters>
+    </pivotTableDefinition>`)!;
+    expect(pt.name).toBe('PA');
+    expect([
+      pt.dataCaption,
+      pt.grandTotalCaption,
+      pt.errorCaption,
+      pt.missingCaption,
+      pt.rowHeaderCaption,
+      pt.colHeaderCaption,
+    ]).toEqual([ 'VA', 'GA', 'EA', 'MA', 'RA', 'CA' ]);
+    const field = pt.fields[0];
+    expect([ field.name, field.subtotalCaption, field.uniqueMemberProperty ]).toEqual([ 'FA', 'SA', 'UA' ]);
+    expect(field.items?.[0].name).toBe('IA');
+    expect(pt.pageFields?.[0]).toMatchObject({ name: 'NA', caption: 'KA' });
+    expect(pt.dataFields?.[0].name).toBe('Sum of H_x0041_');
+    const filter = pt.filters![0];
+    expect([ filter.name, filter.description, filter.stringValue1, filter.stringValue2 ])
+      .toEqual([ 'LA', 'DA', 'XA', 'YA' ]);
+    expect(filter.autoFilter?.filterColumns?.[0].customFilters?.filters[0].val).toBe('ZA');
   });
 });

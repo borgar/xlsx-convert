@@ -5,17 +5,7 @@ export type LegendEx = {
   shape?: Shape;
   textProps?: TextProps;
   offset?: { top: number, left: number };
-  /**
-   * @default "r"
-   */
-  // LegendPos?
-  pos: 't' | 'l' | 'b' | 'r'; // XXX: Excel UI allows setting "top right" !?!
-  /**
-   * @default "ctr"
-   */
-  align: 'min' | 'ctr' | 'max';
-  /**
-   * @default false
-   */
+  pos?: 't' | 'l' | 'b' | 'r';
+  align?: 'min' | 'ctr' | 'max';
   overlay?: boolean;
 };

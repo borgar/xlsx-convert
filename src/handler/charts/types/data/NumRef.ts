@@ -1,10 +1,6 @@
-import type { NumData } from './NumData.ts';
-
-/**
- *
- */
 export type NumRef = {
   type: 'numRef',
   f: string;
-  numCache?: NumData;
+  // the whole source range, when categories are filtered out (`c15:fullRef`), normalized
+  fullRef?: string;
 };

@@ -45,7 +45,7 @@
   "names": [],
   "styles": [
     {},
-    { "numberFormat": "yyyy-mm-dd" }
+    { "numberFormat": "m/d/yyyy" }
   ],
   "tables": [
     {

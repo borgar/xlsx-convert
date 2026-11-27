@@ -1,7 +1,7 @@
 import type { Element } from '@borgar/simple-xml';
 import type { PivotField, PivotFieldItem, PivotSubtotalFunction } from '@jsfkit/types';
 import { addProp } from '../../utils/addProp.ts';
-import { attr, boolAttr, numAttr } from '../../utils/attr.ts';
+import { attr, boolAttr, numAttr, xstringAttr } from '../../utils/attr.ts';
 import { parseEnum } from '../../utils/parseEnum.ts';
 import type { NumFmtLookup } from './NumFmtLookup.ts';
 import { ITEM_TYPES, SUBTOTAL_FUNCTIONS } from './constants.ts';
@@ -13,7 +13,7 @@ export function parsePivotFields (root: Element, numFmts?: NumFmtLookup): PivotF
   const fields: PivotField[] = [];
   for (const pf of root.querySelectorAll('pivotFields > pivotField')) {
     const field: PivotField = {};
-    addProp(field, 'name', attr(pf, 'name'));
+    addProp(field, 'name', xstringAttr(pf, 'name'));
     const axis = attr(pf, 'axis');
     if (axis === 'axisRow') {
       field.axis = 'row';
@@ -52,7 +52,7 @@ export function parsePivotFields (root: Element, numFmts?: NumFmtLookup): PivotF
         if (h === true) {
           fi.hidden = true;
         }
-        addProp(fi, 'name', attr(item, 'n'));
+        addProp(fi, 'name', xstringAttr(item, 'n'));
         if (boolAttr(item, 'sd') === false) {
           fi.expanded = false;
         }
@@ -104,12 +104,12 @@ export function parsePivotFields (root: Element, numFmts?: NumFmtLookup): PivotF
       [ 'defaultAttributeDrillState', true ],
     ]);
 
-    addProp(field, 'subtotalCaption', attr(pf, 'subtotalCaption'));
+    addProp(field, 'subtotalCaption', xstringAttr(pf, 'subtotalCaption'));
     addProp(field, 'numFmt', resolveNumFmt(pf, numFmts));
     addProp(field, 'itemPageCount', numAttr(pf, 'itemPageCount'), 10);
     addProp(field, 'dataSourceSort', boolAttr(pf, 'dataSourceSort'));
     addProp(field, 'rankBy', numAttr(pf, 'rankBy'));
-    addProp(field, 'uniqueMemberProperty', attr(pf, 'uniqueMemberProperty'));
+    addProp(field, 'uniqueMemberProperty', xstringAttr(pf, 'uniqueMemberProperty'));
 
     // autoSortScope: pivot area defining the sort key
     const autoSortScopeEl = pf.querySelector('autoSortScope');

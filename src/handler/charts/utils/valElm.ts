@@ -1,12 +1,13 @@
 import type { Element } from '@borgar/simple-xml';
 import type { Percentage } from '@jsfkit/types';
 
-export function boolValElm (elm: Element, fallback = false): boolean {
-  const v = elm?.getAttribute('val');
-  if (v != null) {
-    return v === '1' || v === 'true';
-  }
-  return fallback;
+/**
+ * Read a boolean element (`CT_Boolean`). Its `val` defaults to true, so an element without one, such
+ * as `<c:delete/>`, is true.
+ */
+export function boolValElm (elm: Element): boolean {
+  const v = elm.getAttribute('val');
+  return v == null || v === '1' || v === 'true';
 }
 
 export function strValElm<T = string> (elm: Element, fallback: T | null = null): T | null {
@@ -33,7 +34,7 @@ export function xperValElm (
 ): Percentage | null {
   let s = elm?.getAttribute('val');
   if (s != null) {
-    if (/^\d+%$/.test(s)) {
+    if (/^-?\d+%$/.test(s)) {
       s = s.slice(0, -1);
     }
     const v = +s;

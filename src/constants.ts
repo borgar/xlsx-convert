@@ -11,6 +11,7 @@ export const REL_PREFIXES = [
   'http://schemas.microsoft.com/office/2017/10/relationships/',
   'http://schemas.openxmlformats.org/officeDocument/2006/relationships/',
   'http://schemas.openxmlformats.org/package/2006/relationships/',
+  'http://schemas.microsoft.com/office/2023/09/relationships/',
   // strict
   'http://purl.oclc.org/ooxml/officeDocument/relationships/',
 ];
@@ -333,3 +334,123 @@ export const DEFAULT_PAGE_MARGINS: PageMargins = {
   header: 0.3,
   footer: 0.3,
 };
+
+// Tags for features that the converter recognizes but does not convert.
+export const MISSING_ASSET_3D = 'asset-3d';
+export const MISSING_ASSET_EXT = 'asset-ext';
+export const MISSING_ASSET_OO = 'asset-oo';
+export const MISSING_ASSET_PQ = 'asset-pq';
+export const MISSING_ASSET_PY = 'asset-py';
+export const MISSING_ASSET_SVG = 'asset-svg';
+export const MISSING_ASSET_VBA = 'asset-vba';
+export const MISSING_ASSET_VML = 'asset-vml';
+export const MISSING_BORDER_DIAGONAL = 'border-diagonal';
+export const MISSING_CALC_PRECISION = 'calc-precision';
+export const MISSING_CELL_CHECKBOX = 'cell-checkbox';
+export const MISSING_CELL_HIDE = 'cell-hide';
+export const MISSING_CELL_INDENT = 'cell-indent';
+export const MISSING_CELL_LOCK = 'cell-lock';
+export const MISSING_CELL_MDX = 'cell-mdx';
+export const MISSING_CELL_RTF = 'cell-rtf';
+export const MISSING_CHART = 'chart';
+export const MISSING_CHART_CHARTEX = 'chart-chartex';
+export const MISSING_CHART_PIVOT = 'chart-pivot';
+export const MISSING_COL_GROUP = 'col-group';
+export const MISSING_DATA_VALIDATION = 'data-validation';
+export const MISSING_NOTE_RTF = 'note-rtf';
+export const MISSING_PRINT_GRIDLINES = 'print-gridlines';
+export const MISSING_PRINT_HEADINGS = 'print-headings';
+export const MISSING_PRINT_SETUP = 'print-setup';
+export const MISSING_ROW_GROUP = 'row-group';
+export const MISSING_SCENARIO = 'scenario';
+export const MISSING_SHAPE_DIAGRAM = 'shape-diagram';
+export const MISSING_SHAPE_EFFECT = 'shape-effect';
+export const MISSING_SHAPE_MATH = 'shape-math';
+export const MISSING_SHAPE_TEXTEFFECT = 'shape-texteffect';
+export const MISSING_SHEET_AUTOFILTER = 'sheet-autofilter';
+export const MISSING_SHEET_BACKGROUND = 'sheet-background';
+export const MISSING_SHEET_LOCK = 'sheet-lock';
+export const MISSING_SHEET_RTL = 'sheet-rtl';
+export const MISSING_SHEET_TABCOLOR = 'sheet-tabcolor';
+export const MISSING_SPARKLINE = 'sparkline';
+export const MISSING_TABLE_FILTER_BUTTON = 'table-filter-button';
+export const MISSING_TABLE_INSERTROW = 'table-insertrow';
+export const MISSING_TABLE_SLICER = 'table-slicer';
+export const MISSING_TABLE_SORTSTATE = 'table-sortstate';
+export const MISSING_TABLE_STYLE_CUSTOM = 'table-style-custom';
+export const MISSING_TIME_SLICER = 'time-slicer';
+export const MISSING_VIEW_CUSTOM = 'view-custom';
+export const MISSING_VIEW_FORMULAS = 'view-formulas';
+export const MISSING_VIEW_GRIDLINES_COLOR = 'view-gridlines-color';
+export const MISSING_VIEW_HEADINGS = 'view-headings';
+export const MISSING_VIEW_OUTLINE_SYMBOLS = 'view-outline-symbols';
+export const MISSING_VIEW_PANE_SPLIT = 'view-pane-split';
+export const MISSING_VIEW_TABSELECTED = 'view-tabselected';
+export const MISSING_VIEW_ZEROS = 'view-zeros';
+export const MISSING_WORKBOOK_LOCK = 'workbook-lock';
+export const MISSING_WORKBOOK_META = 'workbook-meta';
+export const MISSING_WORKBOOK_META_CUSTOM = 'workbook-meta-custom';
+
+/** Every tag the converter can report in a workbook's `unsupported` list. */
+export const UNSUPPORTED_TAGS = [
+  MISSING_ASSET_3D,
+  MISSING_ASSET_EXT,
+  MISSING_ASSET_OO,
+  MISSING_ASSET_PQ,
+  MISSING_ASSET_PY,
+  MISSING_ASSET_SVG,
+  MISSING_ASSET_VBA,
+  MISSING_ASSET_VML,
+  MISSING_BORDER_DIAGONAL,
+  MISSING_CALC_PRECISION,
+  MISSING_CELL_CHECKBOX,
+  MISSING_CELL_HIDE,
+  MISSING_CELL_INDENT,
+  MISSING_CELL_LOCK,
+  MISSING_CELL_MDX,
+  MISSING_CELL_RTF,
+  MISSING_CHART,
+  MISSING_CHART_CHARTEX,
+  MISSING_CHART_PIVOT,
+  MISSING_COL_GROUP,
+  MISSING_DATA_VALIDATION,
+  MISSING_NOTE_RTF,
+  MISSING_PRINT_GRIDLINES,
+  MISSING_PRINT_HEADINGS,
+  MISSING_PRINT_SETUP,
+  MISSING_ROW_GROUP,
+  MISSING_SCENARIO,
+  MISSING_SHAPE_DIAGRAM,
+  MISSING_SHAPE_EFFECT,
+  MISSING_SHAPE_MATH,
+  MISSING_SHAPE_TEXTEFFECT,
+  MISSING_SHEET_AUTOFILTER,
+  MISSING_SHEET_BACKGROUND,
+  MISSING_SHEET_LOCK,
+  MISSING_SHEET_RTL,
+  MISSING_SHEET_TABCOLOR,
+  MISSING_SPARKLINE,
+  MISSING_TABLE_FILTER_BUTTON,
+  MISSING_TABLE_INSERTROW,
+  MISSING_TABLE_SLICER,
+  MISSING_TABLE_SORTSTATE,
+  MISSING_TABLE_STYLE_CUSTOM,
+  MISSING_TIME_SLICER,
+  MISSING_VIEW_CUSTOM,
+  MISSING_VIEW_FORMULAS,
+  MISSING_VIEW_GRIDLINES_COLOR,
+  MISSING_VIEW_HEADINGS,
+  MISSING_VIEW_OUTLINE_SYMBOLS,
+  MISSING_VIEW_PANE_SPLIT,
+  MISSING_VIEW_TABSELECTED,
+  MISSING_VIEW_ZEROS,
+  MISSING_WORKBOOK_LOCK,
+  MISSING_WORKBOOK_META,
+  MISSING_WORKBOOK_META_CUSTOM,
+] as const;
+
+/** A tag for a feature that the converter found in a workbook but did not convert. */
+export type UnsupportedTag = (typeof UNSUPPORTED_TAGS)[number];
+
+/** The content type of a ChartEx part, which a kept part's data URI is labeled with. */
+export const CHARTEX_MIME = 'application/vnd.ms-office.chartex+xml';
